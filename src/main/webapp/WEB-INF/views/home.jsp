@@ -11,8 +11,7 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 <h1>test branch 테스트중입니다.</h1>
-<h2>master로 merge한 후 branch 다시 테스트중입니다.</h2>
-<h3>branch 3차 test</h3>
+<h3>branch 4차 test</h3>
 <c:forEach var="member" items="${list }">
 	<p>${member.id}</p>
 	<p>${member.password}</p>
