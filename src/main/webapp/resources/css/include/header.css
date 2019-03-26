@@ -1,0 +1,25 @@
+#menu-right {
+	float: right;
+}
+
+#nav-mainMenu {
+	width: 90%;
+}
+
+@media ( min-width :768px) {
+	#access, #myPage {
+		display: none !important;
+	}
+}
+
+@media ( max-width :768px) {
+	#access, #myPage {
+		visibility: visible;
+	}
+	#menu-right {
+		float: inherit;
+	}
+	#nav-mainMenu {
+		width: 100%;
+	}
+}
