@@ -29,5 +29,5 @@
         </div>
     </div>
 </div>
-
+<h1>배수휘입니다.</h1>
 <%@include file="include/footer.jsp" %>
