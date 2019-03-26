@@ -10,6 +10,7 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+<h1>test branch 테스트중입니다.</h1>
 <c:forEach var="member" items="${list }">
 	<p>${member.id}</p>
 	<p>${member.password}</p>
