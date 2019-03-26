@@ -20,5 +20,6 @@
 	<p>${member.tel}</p>
 	<p>${member.address}</p><br/>
 </c:forEach>
+<h1>test</h1>
 </body>
 </html>
