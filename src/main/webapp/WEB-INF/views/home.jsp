@@ -29,5 +29,4 @@
         </div>
     </div>
 </div>
-<h1>이상혁 테스트입니다.</h1>
 <%@include file="include/footer.jsp" %>
