@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -102,7 +103,12 @@
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<!-- 접속하기 드랍다운 메뉴 시작  -->
-						<li><a href="loginMain">로그인</a></li>
+						<c:if test="${session.user == null }">
+							<li><a href="loginMain">로그인</a></li>
+						</c:if>
+						<c:if test="${session.user }">
+							<li><a href="logout">로그아웃</a></li>
+						</c:if>
 						<li><a href="joinMain">회원가입</a></li>
 						<!-- 접속하기 드랍다운 메뉴 끝  -->
 					</ul></li>

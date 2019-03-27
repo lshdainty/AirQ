@@ -5,4 +5,7 @@
 	<select id="getMemberList" resultType="com.yjc.airq.domain.MemberVO">
 		select * from member
 	</select>
+	<select id="login" resultType="com.yjc.airq.domain.MemberVO">
+		select * from member where id = #{id} and password = #{password}
+	</select>
 </mapper>
