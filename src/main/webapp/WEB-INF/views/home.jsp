@@ -29,5 +29,5 @@
         </div>
     </div>
 </div>
-
+	<h1>김대근 test</h1>
 <%@include file="include/footer.jsp" %>
