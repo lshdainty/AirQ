@@ -15,13 +15,13 @@ import lombok.AllArgsConstructor;
 public class ConnectController {
 
 	//업체 분석/비교 메인페이지로 가기
-	@RequestMapping(value = "/compareMain", method = RequestMethod.GET)
+	@RequestMapping(value = "compareMain", method = RequestMethod.GET)
 	public String compareMain(Model model) {
 		return "connect/compareMain";
 	}
 	
 	//입찰 서비스 메인페이지로 가기
-	@RequestMapping(value = "/tenderMain", method = RequestMethod.GET)
+	@RequestMapping(value = "tenderMain", method = RequestMethod.GET)
 	public String tenderMain(Model model) {
 		return "connect/tenderMain";
 	}

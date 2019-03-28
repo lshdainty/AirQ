@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 public class MypageController {
 	
 	//mypage 메인페이지로 가기
-	@RequestMapping(value = "/mypageMain", method = RequestMethod.GET)
+	@RequestMapping(value = "mypageMain", method = RequestMethod.GET)
 	public String mypageMain(Model model) {
 		return "mypage/mypageMain";
 	}
