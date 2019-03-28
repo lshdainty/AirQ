@@ -15,31 +15,31 @@ import lombok.AllArgsConstructor;
 public class CommunityController {
 	
 	//상품추천 메인페이지로 가기
-	@RequestMapping(value = "/recommendMain", method = RequestMethod.GET)
+	@RequestMapping(value = "recommendMain", method = RequestMethod.GET)
 	public String recommendMain(Model model) {
 		return "community/recommendMain";
 	}
 	
 	//자유게시판 메인페이지로 가기
-	@RequestMapping(value = "/libertyMain", method = RequestMethod.GET)
+	@RequestMapping(value = "libertyMain", method = RequestMethod.GET)
 	public String libertyMain(Model model) {
 		return "community/libertyMain";
 	}
 	
 	//대기오염물질 메인페이지로 가기
-	@RequestMapping(value = "/metterMain", method = RequestMethod.GET)
+	@RequestMapping(value = "metterMain", method = RequestMethod.GET)
 	public String metterMain(Model model) {
 		return "community/metterMain";
 	}
 	
 	//공기질 향상방법 메인페이지로 가기
-	@RequestMapping(value = "/improveMain", method = RequestMethod.GET)
+	@RequestMapping(value = "improveMain", method = RequestMethod.GET)
 	public String improveMain(Model model) {
 		return "community/improveMain";
 	}
 	
 	//건강지킴이 메인페이지로 가기
-	@RequestMapping(value = "/healthMain", method = RequestMethod.GET)
+	@RequestMapping(value = "healthMain", method = RequestMethod.GET)
 	public String healthMain(Model model) {
 		return "community/healthMain";
 	}

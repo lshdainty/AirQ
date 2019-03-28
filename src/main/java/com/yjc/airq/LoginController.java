@@ -21,13 +21,13 @@ public class LoginController {
 	MemberService memberService;
 	
 	//로그인 메인페이지로 가기
-	@RequestMapping(value = "/loginMain", method = RequestMethod.GET)
+	@RequestMapping(value = "loginMain", method = RequestMethod.GET)
 	public String loginMain(Model model) {
 		return "login/loginMain";
 	}
 	
 	//로그인 기능
-	@RequestMapping(value="/login", method = RequestMethod.POST)
+	@RequestMapping(value="login", method = RequestMethod.POST)
 	public String login(MemberVO member, HttpSession session, Model model) {
 		MemberVO result = memberService.login(member.getId(),member.getPassword());
 		if(result!=null) {
@@ -42,7 +42,7 @@ public class LoginController {
 	}
 	
 	//로그아웃
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		session.invalidate();
 		System.out.println("로그아웃 했다.");
