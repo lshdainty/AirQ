@@ -1,0 +1,9 @@
+#chartdiv {
+	display:inline-block;
+	width: 50%;
+	height: 400px;
+}
+
+#chartContentdiv{
+	display:inline-block;
+}

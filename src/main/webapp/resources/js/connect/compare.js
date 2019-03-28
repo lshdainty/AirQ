@@ -100,28 +100,3 @@ $("#check").click(function(){
 	location.href="info/"+sido+"/"+sigoon+"/"+datetest;
 });
 //선택된 값 info페이지로 넘어가게 하는 코드 끝
-
-//로그인 관련 부분 시작
-$("#submit").click(function(){
-	  var query = {
-	     id : $("#id").val(),
-	     password : $("#password").val()
-	  }
-	  $.ajax({
-	     type : "GET",
-	     data : query,
-	     url : "login", //  로그인 페이지 경로
-	     success : function(query){
-	    	 alert("여기까지 왔음");
-	        if(query=="success"){
-	        	location.href="info";
-	        }
-	        else{
-	        	alert("fail");
-	        	$("#nopw").css("display", "block");
-	            $("#nopw").show();
-	        }
-	     }
-	  });// ajax
-});
-//로그인 관련 부분 끝

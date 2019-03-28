@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
+	<link rel="stylesheet" href="/resources/css/connect/compare.css">
 	<%-- 각 도의 시목록 api 키값 시작 --%>
 		<input type="hidden" id="sigoon_key" value="b0888bae39fbd0463a9252" />
 		<%-- <input type="hidden" name="apiKey" value="E4A59B05-0CF4-3654-BD0C-A169F70CCB34" /> --%>
