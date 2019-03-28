@@ -61,7 +61,8 @@ polygonTemplate.events.on("hit", function(ev) {
 	});
     //alert(ev.target.dataItem.dataContext.name);  //클릭시 광역시,도 이름 나오도록 하는 코드
     //alert(ev.target.dataItem.dataContext.id);	//클릭시 광역시,도에 맞는 코드값 나오는 코드
-   lastCity = ev.target.dataItem.dataContext.name;
+  	lastCity = ev.target.dataItem.dataContext.name;
+  	$("#sido_code").val(lastCity);
   }
 })
 
@@ -93,10 +94,10 @@ homeButton.insertBefore(chart.zoomControl.plusButton);
 //지도 관련 js 끝
 
 //선택된 값 info페이지로 넘어가게 하는 코드 시작
-$("#check").click(function(){
+/*$("#check").click(function(){
 	var sido = lastCity;
 	var sigoon = $("#sigoon_code option:selected").val();
 	var datetest = $("#datetest").val();
 	location.href="info/"+sido+"/"+sigoon+"/"+datetest;
-});
+});*/
 //선택된 값 info페이지로 넘어가게 하는 코드 끝
