@@ -28,6 +28,10 @@
 			<exclude-mapping path="/"/>
 			<exclude-mapping path="/loginMain"/>
 			<exclude-mapping path="/login"/>
+			<exclude-mapping path="/findid"/>
+			<exclude-mapping path="/findpw"/>
+			<exclude-mapping path="/findidajax"/>
+			<exclude-mapping path="/findpwajax"/>
 			<exclude-mapping path="/logout"/>
 			<exclude-mapping path="/joinMain"/>
 			<beans:bean id="commonInterceptor" class="com.yjc.airq.interceptor.CommonInterceptor"/>

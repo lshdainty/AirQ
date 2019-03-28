@@ -18,8 +18,8 @@
                     	</svg>
 						<div class="container">
 							<div class="carousel-caption" style="height: 80%">
-								<div style="width: 100%; height: 50%">
-									<img src="resources/images/test.jpg" style="height: 100%" alt="">
+								<div style="width: 100%; height: 50%;overflow:hidden">
+									<img src="resources/images/test.jpg" style="width: 100%" alt="">
 								</div>
 								<h1>Another example headline.</h1>
 								<p>Cras justo odio, dapibus ac facilisis in, egestas eget
@@ -38,8 +38,8 @@
                     	</svg>
 						<div class="container">
 							<div class="carousel-caption" style="height: 80%">
-								<div style="width: 100%; height: 50%">
-									<img src="resources/images/test.jpg" style="height: 100%" alt="">
+								<div style="width: 100%; height: 50%;overflow:hidden">
+									<img src="resources/images/test.jpg" style="width:100%" alt="">
 								</div>
 								<h1>Another example headline.</h1>
 								<p>Cras justo odio, dapibus ac facilisis in, egestas eget
@@ -58,8 +58,8 @@
                     	</svg>
 						<div class="container">
 							<div class="carousel-caption" style="height: 80%">
-								<div style="width: 100%; height: 50%">
-									<img src="resources/images/test.jpg" style="height: 100%" alt="">
+								<div style="width: 100%; height: 50%;overflow:hidden">
+									<img src="resources/images/test.jpg" style="width: 100%" alt="">
 								</div>
 								<h1>Another example headline.</h1>
 								<p>Cras justo odio, dapibus ac facilisis in, egestas eget
@@ -110,7 +110,7 @@
                             <title>Placeholder</title>
                             <rect width="100%" height="100%"
 									fill="#55595c"></rect>
-								<text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+								<text x="40%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
                         </svg>
 							<div class="card-body">
 								<p class="card-text">This is a wider card with supporting
@@ -135,7 +135,7 @@
                             <title>Placeholder</title>
                             <rect width="100%" height="100%"
 									fill="#55595c"></rect>
-								<text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+								<text x="40%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
                         </svg>
 							<div class="card-body">
 								<p class="card-text">This is a wider card with supporting
@@ -161,7 +161,7 @@
                             <title>Placeholder</title>
                             <rect width="100%" height="100%"
 									fill="#55595c"></rect>
-								<text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+								<text x="40%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
                         </svg>
 							<div class="card-body">
 								<p class="card-text">This is a wider card with supporting
@@ -186,7 +186,7 @@
                             <title>Placeholder</title>
                             <rect width="100%" height="100%"
 									fill="#55595c"></rect>
-								<text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+								<text x="40%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
                         </svg>
 							<div class="card-body">
 								<p class="card-text">This is a wider card with supporting
@@ -211,7 +211,7 @@
                             <title>Placeholder</title>
                             <rect width="100%" height="100%"
 									fill="#55595c"></rect>
-								<text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+								<text x="40%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
                         </svg>
 							<div class="card-body">
 								<p class="card-text">This is a wider card with supporting
