@@ -18,4 +18,9 @@ public class MemberServiceImplement implements MemberService{
 	public ArrayList<MemberVO> getMemberList(){
 		return mapper.getMemberList();
 	}
+	
+	@Override
+	public MemberVO login(String id, String password) {
+		return mapper.login(id,password);
+	}
 }

@@ -15,13 +15,13 @@ import lombok.AllArgsConstructor;
 public class ManageController {
 	
 	//공기질 모니터링 메인페이지로 가기
-	@RequestMapping(value = "/monitoringMain", method = RequestMethod.GET)
+	@RequestMapping(value = "monitoringMain", method = RequestMethod.GET)
 	public String monitoringMain(Model model) {
 		return "manage/monitoringMain";
 	}
 	
 	//IOT 원격제어 메인페이지로 가기
-	@RequestMapping(value = "/remoteMain", method = RequestMethod.GET)
+	@RequestMapping(value = "remoteMain", method = RequestMethod.GET)
 	public String remoteMain(Model model) {
 		return "manage/remoteMain";
 	}

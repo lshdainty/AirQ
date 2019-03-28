@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 public class ServiceController {
 	
 	//서비스 소개 메인페이지로 가기
-	@RequestMapping(value = "/introMain", method = RequestMethod.GET)
+	@RequestMapping(value = "introMain", method = RequestMethod.GET)
 	public String introMain(Model model) {
 		return "service/introMain";
 	}

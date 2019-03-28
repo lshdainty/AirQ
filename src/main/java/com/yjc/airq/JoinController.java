@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 public class JoinController {
 	
 	//회원가입 메인페이지로 가기
-	@RequestMapping(value = "/joinMain", method = RequestMethod.GET)
+	@RequestMapping(value = "joinMain", method = RequestMethod.GET)
 	public String joinMain(Model model) {
 		return "join/joinMain";
 	}
