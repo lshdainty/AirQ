@@ -33,8 +33,6 @@ public class LoginController {
 	@RequestMapping(value="login", method = RequestMethod.POST)
 	@ResponseBody
 	public String loginMain(MemberVO member, HttpSession session, Model model,@RequestParam String id, @RequestParam String password) {
-		System.out.println("id"+member.getId());
-		System.out.println("password"+member.getPassword());
 		MemberVO result = memberService.login(id);
 		if(result!=null) {
 			if(password.equals(result.getPassword())) {
@@ -59,10 +57,6 @@ public class LoginController {
 	@RequestMapping(value = "/findidajax", method = RequestMethod.POST) // value 값이 들어오면 method에 적혀있는 것을 불러주세요
 	@ResponseBody
 	public String findid(Model model, MemberVO LVOI,@RequestParam String name, @RequestParam String tel, @RequestParam String email) {
-		System.out.println(" name :" +LVOI.getName());
-		System.out.println(" tel :" + LVOI.getTel());
-		System.out.println(" email :" + LVOI.getEmail());
-		
 		MemberVO A = memberService.findId(LVOI);
 		
 		if(A != null) {
