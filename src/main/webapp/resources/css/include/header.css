@@ -1,8 +1,5 @@
 /* Carousel base class */
-#content{
-	max-width:80%;
-	margin:56px auto auto auto;
-}
+
 
 .carousel {
    margin-bottom: 4rem;
@@ -75,4 +72,15 @@
    .featurette-heading {
       margin-top: 7rem;
    }
+}
+@media (min-width: 768px){
+	#content{
+	max-width:80%;
+	margin:56px auto auto auto;
+	}
+}
+@media (max-width : 768px){
+	#content{
+		margin:56px 0 0 0;
+	}
 }
