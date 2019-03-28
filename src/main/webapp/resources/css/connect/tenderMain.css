@@ -36,7 +36,6 @@ ul {
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 10px;
-	vertical-align: middle;
 }
 
 #tenderLiHeader {
@@ -91,7 +90,6 @@ ul {
 }
 #tenderWrite {
 	float: right;
-	border-style: none;
 	height: 40px;
 	width: 90px;
 }

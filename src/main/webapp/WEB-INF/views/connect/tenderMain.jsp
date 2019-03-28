@@ -1,11 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="/resources/css/connect/tenderMain.css" rel="stylesheet" />
-
 <%@include file="../include/header.jsp"%>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="/resources/css/connect/tenderMain.css" rel="stylesheet" />
 <%--입찰 공고 테이블 시작 --%>
 <form action="/tenderboardWrite" method="post">
 	<div id="tenderBoardContainer">
@@ -22,11 +21,11 @@
 		</div>
 		<ul id="tenderBoardUl">
 			<li id="tenderLiHeader">
-				<div class="col col-10-1">번호</div>
+				<div class="col col-10-1">번호d</div>
 				<div class="col col-30">제목</div>
 				<div class="col col-15">글쓴이</div>
 				<div class="col col-15">등록일</div>
-				<div class="col col-10-1-1">조회수</div>
+				<div class="col col-10-1">조회수</div>
 				<div class="col col-15">참여업체수</div>
 				<div class="col col-10-1">마감기한</div>
 			</li>
@@ -50,15 +49,15 @@
 			</li>
 		</ul>
 		<div id="tenderWriteDiv">
-		<input type="submit" id="tenderWrite" name="tenderWrite" value="작성하기">
-	</div>
+			<input type="submit" id="tenderWrite" name="tenderWrite" value="작성하기">
+		</div>
 	</div>
 </form>
 <%--입찰 공고 테이블 끝 --%>
-
-<%@include file="../include/footer.jsp"%>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 <script src="/resources/js/connect/tenderMain.js"></script>
+
+<%@include file="../include/footer.jsp"%>

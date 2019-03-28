@@ -39,7 +39,7 @@ public class ConnectController {
 	}
 	
 	// 입찰 서비스 - 리스트에서 게시물 내용으로 가기
-	@RequestMapping(value="tender",method=RequestMethod.POST)
+	@RequestMapping(value="tender",method=RequestMethod.GET)
 	public String tenderBoard() {
 		return "connect/tender";
 	}
