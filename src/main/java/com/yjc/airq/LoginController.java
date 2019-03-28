@@ -38,18 +38,14 @@ public class LoginController {
 		MemberVO result = memberService.login(id);
 		if(result!=null) {
 			if(password.equals(result.getPassword())) {
-			System.out.println("성공은 했다");
-			System.out.println(result);
 			session.setAttribute("user",result);
 			return "success";
 			}
 			else {
-				System.out.println("비번틀림");
 				return "failpw";
 			}
 		}
 		else
-		System.out.println("아이디 없음");
 		return "failid";
 		
 }
@@ -62,7 +58,7 @@ public class LoginController {
 	// 아이디 찾기 작성후 확인 버튼 클릭
 	@RequestMapping(value = "/findidajax", method = RequestMethod.POST) // value 값이 들어오면 method에 적혀있는 것을 불러주세요
 	@ResponseBody
-	public String findid(Model model, MemberVO LVOI,@RequestParam String name, @RequestParam int tel, @RequestParam String email) {
+	public String findid(Model model, MemberVO LVOI,@RequestParam String name, @RequestParam String tel, @RequestParam String email) {
 		System.out.println(" name :" +LVOI.getName());
 		System.out.println(" tel :" + LVOI.getTel());
 		System.out.println(" email :" + LVOI.getEmail());
@@ -70,17 +66,14 @@ public class LoginController {
 		MemberVO A = memberService.findId(LVOI);
 		
 		if(A != null) {
-			if(name.equals(LVOI.getName()) && (email.equals(LVOI.getEmail()) || tel == (LVOI.getTel())) ) {
-				System.out.println("성공");
+			if(name.equals(LVOI.getName()) && email.equals(LVOI.getEmail()) || tel.equals(LVOI.getTel())) {
 				
 				return A.getId();
 			}
 		 else {
-            System.out.println("실패1");
             return "fail";
          }
       }
-		System.out.println("실패2");
 		return "fail";
 		
 	}
@@ -94,26 +87,18 @@ public class LoginController {
 	// 비밀번호 찾기 작성후 확인 버튼 클릭
 	@RequestMapping(value = "/findpwajax", method = RequestMethod.POST) // value 값이 들어오면 method에 적혀있는 것을 불러주세요
 	@ResponseBody
-	public String findpw(Model model, MemberVO LVOP,@RequestParam String name, @RequestParam int tel, @RequestParam String email, @RequestParam String id) {
-		System.out.println(" name :" +LVOP.getName());
-		System.out.println(" tel :" + LVOP.getTel());
-		System.out.println(" email :" + LVOP.getEmail());
-		System.out.println(" id :"+ LVOP.getId());
-		
+	public String findpw(Model model, MemberVO LVOP,@RequestParam String name, @RequestParam String tel, @RequestParam String email, @RequestParam String id) {
+
 		MemberVO A = memberService.findPw(LVOP);
-		
 		if(A != null) {
-			if(name.equals(LVOP.getName()) && id.equals(LVOP.getId()) && (email.equals(LVOP.getEmail()) || tel == (LVOP.getTel())))  {
-				System.out.println("성공");
-				
+			if((name.equals(LVOP.getName()) && id.equals(LVOP.getId())) && (email.equals(LVOP.getEmail()) || tel.equals(LVOP.getTel())))  {
+
 				return A.getPassword();
 			}
 		 else {
-            System.out.println("실패1");
             return "fail";
          }
       }
-		System.out.println("실패2");
 		return "fail";
 		
 	}
@@ -122,7 +107,6 @@ public class LoginController {
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		session.invalidate();
-		System.out.println("로그아웃 했다.");
 		return "home";
 	}
 }

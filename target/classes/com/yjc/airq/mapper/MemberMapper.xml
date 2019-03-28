@@ -10,10 +10,10 @@
 	</select>
 	
 	<select id="findId" resultType="com.yjc.airq.domain.MemberVO"> 
-		select id from member where name=#{name} and (email=#{email} or tel=#{tel})
+		select * from member where name=#{name} and (email=#{email} or tel=#{tel})
 	</select>
 	
 	<select id="findPw" resultType="com.yjc.airq.domain.MemberVO"> 
-		select password from member where name=#{name} and id=#{id} and (email=#{email} or tel=#{tel})
+		select * from member where name=#{name} and id=#{id} and (email=#{email} or tel=#{tel})
 	</select>
 </mapper>

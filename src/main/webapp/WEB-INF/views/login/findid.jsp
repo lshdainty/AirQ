@@ -12,10 +12,25 @@
 			<div class="form-group">
  
 					<input type="text" id="name"class="form-control-1" placeholder="User Name"> <br> 
-									<label>등록된 전화번호로 찾기</label><br>
-					<input type="text" id="tel"class="form-control-1" placeholder="Phone Number"><br> 
-					<label>등록된 이메일로 찾기</label><br> 
-					<input type="text" id="email"class="form-control-1" placeholder="e-mail"> <br>
+					<label>전화번호 또는 이메일을 선택해 입력해주세요.</label><br>
+					<ul class = "tree">
+					<li>
+					<input type="checkbox" id="root">
+					<label for="root">등록된 전화번호로 찾기</label><br>
+					<ul>
+					<li><input type="text" id="tel"class="form-control-1" placeholder="Phone Number"><br></li> 
+					</ul>
+					</li>
+					</ul>
+					<ul class = "tree2">
+					<li>
+					<input type="checkbox" id="root2">
+					<label for="root2">등록된 이메일로 찾기</label><br> 
+					<ul>
+					<li><input type="text" id="email"class="form-control-1" placeholder="e-mail"> <br></li>
+					</ul>
+					</li>
+					</ul>
 			</div>
 		
 			<button type="submit" id="findidtest"class="btn btn-login">확인</button>

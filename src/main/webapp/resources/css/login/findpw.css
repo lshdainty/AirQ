@@ -117,3 +117,35 @@
 	height: 30px;
 	margin-bottom: 7px;
 }
+        .tree{
+            color: gray;
+        }
+        .tree, .tree ul{
+            list-style: none;
+            padding-left: 0px;
+        }
+        .tree *:before{
+            width:19px;
+            height:18px;
+            display:inline-block;
+        }
+        .tree input[type="text"]{
+            display: none;
+        }
+
+                .tree2{
+            color: gray;
+        }
+        .tree2, .tree2 ul{
+            list-style: none;
+            padding-left: 3px;
+        }
+        .tree2 *:before{
+            width:19px;
+            height:18px;
+            display:inline-block;
+        }
+
+        .tree2 input[type="text"]{
+            display: none;
+        }

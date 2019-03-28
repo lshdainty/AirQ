@@ -31,12 +31,6 @@
 			<aside></aside>
 			
 			<footer>
-
-			</footer>
-		</section>
-	</div>
-	
-	</c:if>
 				<%-- 아아디찾기,비밀번호찾기,회원가입 링크 시작부분 --%>
 				<div class="submit-wrap">
 
@@ -45,6 +39,12 @@
 					<a href="register" class="btn btn-register">회원가입</a>
 				</div>
 			<%-- 아아디찾기,비밀번호찾기,회원가입 링크 끝부분 --%>
+			</footer>
+		</section>
+	</div>
+	
+	</c:if>
+
 	<c:if test="${sessionScope.user != null}">
 		<a href="logout">logout</a>
 	</c:if>
