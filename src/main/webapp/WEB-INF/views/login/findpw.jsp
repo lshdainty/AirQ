@@ -26,7 +26,7 @@
                                 <br>
                                                                 <label>등록된 전화번호로 찾기</label><br>
                                 
-                                <input type="text" id="tel"class="form-control-1" placeholder="Pone Number">
+                                <input type="text" id="tel"class="form-control-1" placeholder="Phone Number">
                                 <br>
                                 
                                 <label>등록된 이메일로 찾기</label><br>
