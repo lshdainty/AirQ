@@ -8,5 +8,7 @@ import com.yjc.airq.domain.MemberVO;
 
 public interface MemberMapper {
 	public ArrayList<MemberVO> getMemberList();
-	public MemberVO login(@Param("id") String id, @Param("password") String password);
+	public MemberVO login(String id);
+	public MemberVO findId(MemberVO LVOI);
+	public MemberVO findPw(MemberVO LVOP);
 }
