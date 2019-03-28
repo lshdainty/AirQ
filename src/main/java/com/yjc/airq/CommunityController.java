@@ -20,11 +20,23 @@ public class CommunityController {
 		return "community/recommendMain";
 	}
 	
+	// 상품추천 글쓰기로 가기
+	@RequestMapping(value = "recommendWrite", method = RequestMethod.GET)
+	public String recommandWrite(Model model) {
+		return "community/recommendWriteForm";
+	}
+	
 	//자유게시판 메인페이지로 가기
 	@RequestMapping(value = "libertyMain", method = RequestMethod.GET)
 	public String libertyMain(Model model) {
 		return "community/libertyMain";
 	}
+	
+	// 자유게시판 글쓰기로 가기
+		@RequestMapping(value = "libertyWrite", method = RequestMethod.GET)
+		public String libertyWrite(Model model) {
+			return "community/libertyWriteForm";
+		}
 	
 	//대기오염물질 메인페이지로 가기
 	@RequestMapping(value = "metterMain", method = RequestMethod.GET)
