@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="include/header.jsp"%>
 	<div style="text-align: center">
+	<h1>test</h1>
 		<div class="container-intro">
 			<div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top:1%">
 				<ol class="carousel-indicators">
