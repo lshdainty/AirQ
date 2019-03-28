@@ -60,21 +60,19 @@
 			<%-- 왼쪽 메뉴 끝  --%>
 
 			<%-- 오른쪽 메뉴 시작  --%>
-			 	<ul class="nav justify-content-end navbar-nav">
-			 		<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="dropdown09"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">로그인</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown09">
-							<c:if test="${sessionScope.user==null}">
-								<a class="dropdown-item" href="loginMain">Login</a>
-							</c:if>
-							<c:if test="${sessionScope.user!=null }">
-								<a class="dropdown-item" href="logout">Logout</a>
-							</c:if>
-							<a class="dropdown-item" href="joinMain">회원가입</a>
-						</div>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="mypageMain">마이페이지</a></li>
+			 	<ul class="navbar-nav justify-content-end navbar-nav">
+			 	
+			 	<%-- 로그인 전 --%>
+					<c:if test="${sessionScope.user==null}">
+						<li class="nav-item"><a class="nav-link" href="loginMain">LOGIN</a></li>
+						<li class="nav-item"><a class="nav-link" href="joinMain">회원가입</a></li>
+					</c:if>
+							
+				<%-- 로그인 후 --%>
+					<c:if test="${sessionScope.user!=null }">
+						<li class="nav-item"><a class="nav-link" href="logout">LOGOUT</a></li>
+						<li class="nav-item"><a class="nav-link" href="mypageMain">마이페이지</a></li>
+					</c:if>
             	</ul>
             <%-- 오른쪽 메뉴 끝  --%>
 			</div>
