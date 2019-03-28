@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="/resources/css/login/loginMain.css"/>
-	<h1>로그인 메인페이지입니다.</h1>
 	<c:if test="${sessionScope.user == null }">
 	<div class="container">
 		<section class="content">
@@ -31,12 +30,6 @@
 			<aside></aside>
 			
 			<footer>
-
-			</footer>
-		</section>
-	</div>
-	
-	</c:if>
 				<%-- 아아디찾기,비밀번호찾기,회원가입 링크 시작부분 --%>
 				<div class="submit-wrap">
 
@@ -45,6 +38,12 @@
 					<a href="register" class="btn btn-register">회원가입</a>
 				</div>
 			<%-- 아아디찾기,비밀번호찾기,회원가입 링크 끝부분 --%>
+			</footer>
+		</section>
+	</div>
+	
+	</c:if>
+
 	<c:if test="${sessionScope.user != null}">
 		<a href="logout">logout</a>
 	</c:if>
