@@ -21,7 +21,7 @@
 		</div>
 		<ul id="tenderBoardUl">
 			<li id="tenderLiHeader">
-				<div class="col col-10-1">번호d</div>
+				<div class="col col-10-1">번호</div>
 				<div class="col col-30">제목</div>
 				<div class="col col-15">글쓴이</div>
 				<div class="col col-15">등록일</div>
