@@ -1,6 +1,7 @@
 /* Carousel base class */
 #content{
-	margin-top: 56px;
+	max-width:80%;
+	margin:56px auto auto auto;
 }
 
 .carousel {
