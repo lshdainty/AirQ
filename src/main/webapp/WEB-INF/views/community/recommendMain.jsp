@@ -2,10 +2,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
+<link rel="stylesheet" href="resources/css/comunity/comunity-header.css">
+
+<div class="page-header">
+        <h3>커뮤니티 - 상품추천</h3>
+        <p>Product Recommand</p>
+    </div>
 <div class="album py-5 bg-light">
 	<div class="container">
 
-		<div class="d-flex p-2 bd-highlight bg-blue">커뮤니티 - 상품추천</div>
+		
 
 
 
