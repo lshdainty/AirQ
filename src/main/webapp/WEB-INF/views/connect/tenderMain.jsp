@@ -49,13 +49,13 @@
 			</li>
 			<c:forEach var="tenderList" items="${tenderList}">
 				<li class="tenderLiContent">
-				
-					<div class="col col-10-1" data-label="번호">${tenderList.rownum}</div>
-					
-					<div class="col col-15" data-label="글쓴이"></div>
-					<div class="col col-10-1" data-label="조회수">0</div>
-					<div class="col col-15" data-label="참여업체수">0</div>
-					<div class="col col-15" data-label="마감기한">D-11</div>
+					<div class="col col-10-1" data-label="번호">${tenderList.rownum }</div>
+					<div class="col col-30" data-label="제목">${tenderList.ttitle }</div>
+					<div class="col col-15" data-label="글쓴이">${tenderList.tname }</div>
+					<div class="col col-15" data-label="등록일">${tenderList.tcreated }</div>
+					<div class="col col-10-1" data-label="조회수"></div>
+					<div class="col col-15" data-label="참여업체수"></div>
+					<div class="col col-15" data-label="마감기한">${tenderList.tdeadline }</div>
 				</li>
 			</c:forEach>
 		</ul>

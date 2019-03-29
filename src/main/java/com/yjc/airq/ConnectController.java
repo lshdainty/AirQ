@@ -1,10 +1,13 @@
 package com.yjc.airq;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.yjc.airq.domain.TenderboardVO;
 import com.yjc.airq.service.ConnectService;
 
 import lombok.AllArgsConstructor;
@@ -26,8 +29,12 @@ public class ConnectController {
 	// 입찰 서비스 메인페이지로 가기
 	@RequestMapping(value = "tenderMain", method = RequestMethod.GET)
 	public String tenderMain(Model model) {
-		model.addAttribute("tenderList",connectService.tenderList());
-		System.out.println(connectService.tenderList());
+		ArrayList<TenderboardVO> a=connectService.tenderList();
+		for(TenderboardVO b:a) {
+			System.out.println(b);
+		}
+		model.addAttribute("tenderList",a);
+//		System.out.println(connectService.tenderList());
 		return "connect/tenderMain";
 	}
 
