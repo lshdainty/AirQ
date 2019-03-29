@@ -38,4 +38,30 @@ $(document).ready(function(){
 			$("#email").css("display","none");
 		}
 	});
+	
+	   //이름에 커서를 두고 엔터키를 누르면 로그인 함
+	   $("#name").keydown(function(key) {
+	      if (key.keyCode == 13) {
+	         $("#findpwtest").click();
+	      }
+	   });
+	   
+	   //아이디에 커서를 두고 엔터키를 누르면 로그인 함
+	   $("#id").keydown(function(key) {
+	      if (key.keyCode == 13) {
+		     $("#findpwtest").click();
+	      }
+	   });
+	   //전화번호에 커서를 두고 엔터키를 누르면 로그인 함
+	   $("#tel").keydown(function(key) {
+	      if (key.keyCode == 13) {
+		     $("#findpwtest").click();
+	      }
+	   });
+	   //이메일에 커서를 두고 엔터키를 누르면 로그인 함
+	   $("#email").keydown(function(key) {
+	      if (key.keyCode == 13) {
+		     $("#findpwtest").click();
+	      }
+	   });
 });
