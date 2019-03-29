@@ -37,7 +37,7 @@ public class JoinController {
 
 		model.addAttribute("memberlist", joinService.memberList());
 
-		return "nRegister";
+		return "join/nRegister";
 	}
 
 	// 판매자 회원가입 이동
@@ -46,7 +46,7 @@ public class JoinController {
 
 		model.addAttribute("sellerlist", joinService.memberList());
 
-		return "sRegister";
+		return "join/sRegister";
 	}
 
 	// 회원 가입
@@ -62,7 +62,7 @@ public class JoinController {
 
 		joinService.signup(mb);
 
-		return "nRegister";
+		return "join/nRegister";
 	}
 
 	// (회원가입)사업자 등록번호 DB insert
@@ -73,7 +73,7 @@ public class JoinController {
 
 		joinService.sellerList(sl);
 
-		return "nRegister";
+		return "join/nRegister";
 	}
 
 	// 아이디 중복 체크

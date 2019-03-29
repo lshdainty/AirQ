@@ -34,6 +34,12 @@
 			<exclude-mapping path="/findpwajax"/>
 			<exclude-mapping path="/logout"/>
 			<exclude-mapping path="/joinMain"/>
+			<exclude-mapping path="/nRegister"/>
+			<exclude-mapping path="/sRegister"/>
+			<exclude-mapping path="/signup"/>
+			<exclude-mapping path="/Bsignup"/>
+			<exclude-mapping path="/idCheck"/>
+			<exclude-mapping path="/ButtonTest"/>
 			<beans:bean id="commonInterceptor" class="com.yjc.airq.interceptor.CommonInterceptor"/>
 		</interceptor>
 	</interceptors>
