@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.yjc.airq.service.ConnectService;
+
 import lombok.AllArgsConstructor;
 
 /**
@@ -13,7 +15,8 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class ConnectController {
-
+	private ConnectService connectService;
+	
 	// 업체 분석/비교 메인페이지로 가기
 	@RequestMapping(value = "compareMain", method = RequestMethod.GET)
 	public String compareMain(Model model) {
@@ -23,6 +26,8 @@ public class ConnectController {
 	// 입찰 서비스 메인페이지로 가기
 	@RequestMapping(value = "tenderMain", method = RequestMethod.GET)
 	public String tenderMain(Model model) {
+		model.addAttribute("tenderList",connectService.tenderList());
+		System.out.println(connectService.tenderList());
 		return "connect/tenderMain";
 	}
 

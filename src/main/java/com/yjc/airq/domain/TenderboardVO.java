@@ -7,10 +7,11 @@ import lombok.Data;
 
 @Data
 public class TenderboardVO {
+	private int rownum;
 	private String tCode;
 	private String tTitle;
 	private String tName;
-	private Timestamp tCreate;
+	private Timestamp tCreated;
 	private Date tDeadline;
 	private String tAddress;
 	private int tFloorspace;

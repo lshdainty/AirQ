@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="/resources/css/connect/tender.css" rel="stylesheet" />
 
-<%--사용자 입장 --%>
+
 <%--입찰 공고 세부 내용 시작 --%>
 
 <h1 id="tenderTitle">Hello World!</h1>
