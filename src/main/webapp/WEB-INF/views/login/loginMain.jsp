@@ -48,5 +48,5 @@
 		<a href="logout">logout</a>
 	</c:if>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src='${pageContext.request.contextPath}/resources/js/login/loginMain.js'></script>
+<script src='/resources/js/login/loginMain.js'></script>
 <%@include file="../include/footer.jsp" %>

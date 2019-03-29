@@ -34,7 +34,49 @@
         </div>
     </div>
 </div>
+<div class="container">
+<form action="/board/write" method="post" name="w_form">
+  <div class="form-group">
+    <input type="text" name="bTitle" class="form-control" placeholder="Enter Title">
+  </div>
+  <div class="form-group">
+    <textarea name="bContent" id="textAreaContent" style="width: 100%" rows="15" cols="80"></textarea>
+  </div>
+  <button type="button" class="btn btn-primary" onClick="submitContents(this)">글쓰기</button>
+</form>
+</div>
 
+<!-- Naver Smart Editor 2 -->
+<script>
+  var form = document.w_form;
+  var oEditors = [];
+  nhn.husky.EZCreator.createInIFrame({
+      oAppRef: oEditors,
+      elPlaceHolder: "textAreaContent",
+      sSkinURI: "/resources/smartEditor/SmartEditor2Skin.html",
+      fCreator: "createSEditor2"
+  });
+   
+  // submit
+  function submitContents(elClickedObj) {
+      // 에디터의 내용이 textarea에 적용된다.
+      oEditors.getById["textAreaContent"].exec("UPDATE_CONTENTS_FIELD", [ ]);
+      var con = document.w_form.bContent;
+      con.value = document.getElementById("textAreaContent").value;
+      try {
+          elClickedObj.form.submit(this);
+      } catch(e) {
+       
+      }
+  }
+   
+  // textArea에 이미지 첨부
+  function pasteHTML(filepath){
+      var sHTML = '<img src="/resources/smartEditor/upload/'+ filepath + '">';
+	  oEditors.getById["textAreaContent"].exec("PASTE_HTML", [ sHTML ]);
+  }
+</script>
+<!-- Naver Smart Editor 2 END-->
 <%-- 스크립트 링크 시작 --%>
 
 <script src="resources/js/community/community.js"></script>

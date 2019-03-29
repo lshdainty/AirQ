@@ -36,37 +36,45 @@
 				</div>
 			</div>
 			<div id="compareTable">
-				<form  action="#" method="GET">
+				<form action="#" method="post">
 					<div id="tenderBoardContainer">
-   						<ul id="tenderBoardUl">
-    						<li id="tenderLiHeader">
-      							<div class="col col-10">번호</div>
-      							<div class="col col-30">제목</div>
-     							<div class="col col-15">글쓴이</div>
-     							<div class="col col-15">등록일</div>
-     							<div class="col col-10">조회수</div>
-      							<div class="col col-15">참여업체수</div>
-      							<div class="col col-10">마감기한</div>
-    						</li>
-    						<li class="tenderLiContent">
-      							<div class="col col-10" data-label="번호">1</div>
-      							<div class="col col-30" data-label="제목">hello</div>
-      							<div class="col col-15" data-label="글쓴이">goeun</div>
-      							<div class="col col-15" data-label="등록일">2019-03-28</div>
-      							<div class="col col-10" data-label="조회수">100</div>
-     							<div class="col col-15" data-label="참여업체수">6</div>
-      							<div class="col col-10" data-label="마감기한">D-7</div>
-    						</li> 
-    						<li class="tenderLiContent">
-      							<div class="col col-10" data-label="번호">2</div>
-     							<div class="col col-30" data-label="제목">world</div>
-      							<div class="col col-15" data-label="글쓴이">kim</div>
-      							<div class="col col-15" data-label="등록일">2019-03-27</div>
-      							<div class="col col-10" data-label="조회수">6</div>
-      							<div class="col col-15" data-label="참여업체수">5</div>
-      							<div class="col col-10" data-label="마감기한">D-11</div>
-    						</li>
-  						</ul>
+						<div id="tenderSelectDiv">
+							<select class="tenderSelect">
+								<option>판매순</option>
+								<option>가격 높은순</option>
+								<option>가격 낮은순</option>
+								<option>별점 평균순</option>
+							</select> 
+						</div>
+						<ul id="tenderBoardUl">
+							<li id="tenderLiHeader">
+								<div class="col col-10-1">번호</div>
+								<div class="col col-10-1">상품이름</div>
+								<div class="col col-10-1">서비스 업체 이름</div>
+								<div class="col col-30">측정 물질</div>
+								<div class="col col-10-1">평수</div>
+								<div class="col col-10-1">가격</div>
+								<div class="col col-10-1">별점 평균</div>
+							</li>
+							<li class="tenderLiContent">
+								<div class="col col-10-1" data-label="번호">1</div>
+								<div class="col col-10-1" data-label="제목"></div>
+								<div class="col col-10-1" data-label="글쓴이">goeun</div>
+								<div class="col col-30" data-label="등록일">2019-03-28</div>
+								<div class="col col-10-1" data-label="조회수">100</div>
+								<div class="col col-10-1" data-label="참여업체수">6</div>
+								<div class="col col-10-1" data-label="마감기한">D-7</div>
+							</li>
+							<li class="tenderLiContent">
+								<div class="col col-10-1" data-label="번호">2</div>
+								<div class="col col-10-1" data-label="제목">world</div>
+								<div class="col col-10-1" data-label="글쓴이">kim</div>
+								<div class="col col-30" data-label="등록일">2019-03-27</div>
+								<div class="col col-10-1" data-label="조회수">6</div>
+								<div class="col col-10-1" data-label="참여업체수">5</div>
+								<div class="col col-10-1" data-label="마감기한">D-11</div>
+							</li>
+						</ul>
 					</div>
 				</form>
 			</div>
@@ -77,5 +85,5 @@
 	<script src="resources/js/connect/maps.js"></script>
 	<script src="resources/js/connect/southKoreaHigh.js"></script>
 	<script src="resources/js/connect/animated.js"></script>
-	<script src="resources/js/connect/compare.js"></script>
+	<script src="resources/js/connect/compareMain.js"></script>
 <%@include file="../include/footer.jsp" %>

@@ -46,7 +46,6 @@
 		<div class="p-2 bd-highlight">
 			<button class="btn btn-primary" type="submit" id="liberty-write">글작성</button>
 		</div>
-
 	</div>
 
 	<%-- 페이지네이션 시작 --%>
