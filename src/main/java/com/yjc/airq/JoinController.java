@@ -4,12 +4,14 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.yjc.airq.JoinController;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.SellerVO;
 import com.yjc.airq.service.JoinService;
@@ -22,8 +24,8 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class JoinController {
-	
-	JoinService joinService;
+	private static final Logger logger = LoggerFactory.getLogger(JoinController.class);
+	private JoinService joinService;
 	
 	//회원가입 메인페이지로 가기
 	@RequestMapping(value = "joinMain", method = RequestMethod.GET)
@@ -79,20 +81,19 @@ public class JoinController {
 	// 아이디 중복 체크
 	@ResponseBody
 	@RequestMapping(value = "/idCheck", method = RequestMethod.GET)
-	public int postIdCheck(Model model, HttpServletRequest req) {
+	public String postIdCheck(Model model, HttpServletRequest req) {
 
 		String id = req.getParameter("id");
 		System.out.println("(중복)회원가입 id: " + id);
 
 		MemberVO idCheck = joinService.idCheck(id);
-
-		int result = 0;
-
+		
+		System.out.println("idCheck: " + idCheck);
+		
 		if (idCheck != null) {
-			result = 1;
+			return "No";
 		}
-
-		return result;
+		return "Yes";
 	}
 
 	// 버튼 테스트

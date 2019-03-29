@@ -47,4 +47,4 @@
 </div>
 <%--일반 사용자 회원가입 끝 --%>
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-<script src='${pageContext.request.contextPath}/resources/js/join/register1.js'></script>
+<script src='resources/js/join/register1.js'></script>

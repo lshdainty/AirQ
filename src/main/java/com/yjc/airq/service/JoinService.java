@@ -20,4 +20,6 @@ public interface JoinService {
 
 	// 파일 업로드
 	public String fileDB(FileTestVO fDB);
+
+	
 }

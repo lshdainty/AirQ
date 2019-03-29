@@ -14,8 +14,17 @@ public interface MemberMapper {
 	public MemberVO findId(MemberVO LVOI);
 	public MemberVO findPw(MemberVO LVOP);
 	public ArrayList<MemberVO> memberList();
+	
+	// 판매자 회원 목록 조회
 	public String sellerList(SellerVO sl);
+	
+	// 일반 회원가입
 	public int signup(MemberVO mb);
+	
+	// 중복 체크
 	public MemberVO idCheck(String id);
+	
+	// 파일 업로드
 	public String fileDB(FileTestVO fileUp);
+	
 }
