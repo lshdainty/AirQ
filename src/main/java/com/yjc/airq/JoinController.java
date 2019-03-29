@@ -40,8 +40,6 @@ public class JoinController {
 	@RequestMapping(value = "/nRegister", method = RequestMethod.GET)
 	public String nRegister(Locale locale, Model model) {
 
-		model.addAttribute("memberlist", joinService.memberList());
-
 		return "join/nRegister";
 	}
 
@@ -49,36 +47,30 @@ public class JoinController {
 	@RequestMapping(value = "/sRegister", method = RequestMethod.GET)
 	public String sRegister(Locale locale, Model model) {
 
-		model.addAttribute("sellerlist", joinService.memberList());
-
 		return "join/sRegister";
 	}
 
 	// 회원 가입
-	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	@ResponseBody
+	@RequestMapping(value = "signup", method = RequestMethod.GET)
 	public String signup(Model model, MemberVO mb) {
 
 		System.out.println("회원가입 id: " + mb.getId());
 		System.out.println("회원가입 pw: " + mb.getPassword());
-		System.out.println("name: " + mb.getName());
-		System.out.println("email: " + mb.getEmail());
-		System.out.println("tel: " + mb.getTel());
-		System.out.println("address: " + mb.getAddress());
-
+		
 		joinService.signup(mb);
 
-		return "join/nRegister";
+		return "login/loginMain";
 	}
 
 	// (회원가입)사업자 등록번호 DB insert
-	@RequestMapping(value = "/Bsignup", method = RequestMethod.GET)
+	@RequestMapping(value = "Bsignup", method = RequestMethod.GET)
 	public String Bsignup(Model model, SellerVO sl) {
 
 		System.out.println("사업자 등록 번호: " + sl.getBnumber());
-
 		joinService.sellerList(sl);
 
-		return "join/nRegister";
+		return "login/loginMain";
 	}
 
 	// 아이디 중복 체크
@@ -87,11 +79,7 @@ public class JoinController {
 	public String postIdCheck(Model model, HttpServletRequest req) {
 
 		String id = req.getParameter("id");
-		System.out.println("(중복)회원가입 id: " + id);
-
 		MemberVO idCheck = joinService.idCheck(id);
-
-		System.out.println("idCheck: " + idCheck);
 
 		if (idCheck != null) {
 			return "No";
@@ -106,6 +94,8 @@ public class JoinController {
 		return "ButtonTest";
 	}
 
+	// 파일 업로드
+	
 	// xml에 설정된 리소스 참조
 	// bean의 id가 uploadPath인 태그를 참조
 	@Resource(name = "uploadPath")
@@ -120,11 +110,6 @@ public class JoinController {
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public ModelAndView uploadForm(MultipartFile file, ModelAndView mav) throws Exception {
 
-		System.out.println("파일이름 : " + file.getOriginalFilename());
-		System.out.println("파일크기 : " + file.getSize());
-		System.out.println("컨텐트 타입 : " + file.getContentType());
-		System.out.println("inputstream : " + file.getInputStream());
-
 		String saveName = file.getOriginalFilename();
 
 		File target = new File(uploadPath, saveName);
@@ -135,15 +120,10 @@ public class JoinController {
 
 		// 고유ID 랜덤 생성
 		String uuid = UUID.randomUUID().toString().replace("-", "");
-		System.out.println("   " + uuid);
 
 		String filename = file.getOriginalFilename() + uuid;
 		String oriname = file.getOriginalFilename();
 		String path = "\\resources\\images";
-
-		System.out.println("filename : " + filename);
-		System.out.println("oriname : " + oriname);
-		System.out.println("path : " + path);
 
 		FileTestVO fDB = new FileTestVO();
 		fDB.setFilename(filename);
