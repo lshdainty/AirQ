@@ -5,7 +5,7 @@ import com.yjc.airq.domain.FileTestVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.SellerVO;
 
-public class JoinService {
+public interface JoinService {
 	// 회원 목록
 	public ArrayList<MemberVO> memberList();
 

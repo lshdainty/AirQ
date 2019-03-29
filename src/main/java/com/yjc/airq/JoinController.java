@@ -1,9 +1,18 @@
 package com.yjc.airq;
 
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.yjc.airq.domain.MemberVO;
+import com.yjc.airq.domain.SellerVO;
+import com.yjc.airq.service.JoinService;
 
 import lombok.AllArgsConstructor;
 
@@ -13,6 +22,8 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class JoinController {
+	
+	JoinService joinService;
 	
 	//회원가입 메인페이지로 가기
 	@RequestMapping(value = "joinMain", method = RequestMethod.GET)
