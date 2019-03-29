@@ -7,7 +7,7 @@
 <link href="resources/css/connect/tenderWrite.css" rel="stylesheet" />
 
 <%--입찰 공고 작성 테이블 시작 --%>
-<h1>입찰 작성</h1>
+<h1 id="tenderWriteTitle">입찰 작성</h1>
 <form action="/tenderList" method="post">
 	<table id="tenderWriteTbl">
 		<tr>
