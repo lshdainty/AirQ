@@ -28,7 +28,7 @@
 						<a id="btn-check">ID중복 확인</a><br>
 						<!-- enctype="multipart/form-data" 파일업로드 필수 옵션 -->
 						<!-- application/x-www-form-urlencoded 기본옵션 -->
-						<form action="${Path }/upload/uploadForm" method="post" enctype="multipart/form-data">
+						<form action="/upload" method="post" enctype="multipart/form-data">
 							<input type="file" name="file">
 							<button type="submit" id="btn-join" disabled="disabled">JOIN</button>
 						</form>
@@ -50,4 +50,4 @@
 	</div>
 <%-- 판매자 회원가입 페이지 끝 --%>
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-<script src='${pageContext.request.contextPath}/resources/js/join/register1.js'></script>
+<script src='resources/js/join/register1.js'></script>
