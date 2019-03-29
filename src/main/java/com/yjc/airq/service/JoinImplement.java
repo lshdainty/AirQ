@@ -42,7 +42,7 @@ public class JoinImplement implements JoinService{
 
 	// 파일 업로드
 	@Override
-	public String fileDB(FileTestVO fileUp) {
-		return mapper.fileDB(fileUp);
+	public String fileDB(FileTestVO fDB) {
+		return mapper.fileDB(fDB);
 	}
 }

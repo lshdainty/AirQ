@@ -1,9 +1,8 @@
 $(document).ready(function(){
-	$("#findpwtest").click(function(){
+	$("#findidtest").click(function(){
 		
 		var query = {
 				name : $("#name").val(),
-				id : $("#id").val(),
 				tel : $("#tel").val(),
 				email : $("#email").val()
 				
@@ -12,18 +11,19 @@ $(document).ready(function(){
 		$.ajax({
 			type : "POST",
 			data : query,
-			url : "findpwajax",
+			url : "findidajax",
 			success : function(data){
 				if(data != "fail" ){
-					alert("당신의 비밀번호는 :"+ data);
+					alert("당신의 아이디는 :"+ data);
 					location.href = "loginMain";
 				}else if(data == "fail"){
-					alert("비밀번호 찾기 실패");
+					alert("아이디 찾기 실패");
 					
 				}
 			}
 		})
 	});
+	
 	$("#root").click(function(){
 		if($("#root").prop("checked")){
 		$("#tel").css("display","inline-block");

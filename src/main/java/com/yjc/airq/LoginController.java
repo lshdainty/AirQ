@@ -48,15 +48,15 @@ public class LoginController {
 		
 }
 	// 아이디찾기 페이지
-	@RequestMapping(value = "findid", method = RequestMethod.GET)
-	public String findid(Model model) {
-		return "login/findid";
+	@RequestMapping(value = "findId", method = RequestMethod.GET)
+	public String findId(Model model) {
+		return "login/findId";
 	}
 	
 	// 아이디 찾기 작성후 확인 버튼 클릭
 	@RequestMapping(value = "/findidajax", method = RequestMethod.POST) // value 값이 들어오면 method에 적혀있는 것을 불러주세요
 	@ResponseBody
-	public String findid(Model model, MemberVO LVOI,@RequestParam String name, @RequestParam String tel, @RequestParam String email) {
+	public String findId(Model model, MemberVO LVOI,@RequestParam String name, @RequestParam String tel, @RequestParam String email) {
 		MemberVO A = memberService.findId(LVOI);
 		
 		if(A != null) {
@@ -73,15 +73,15 @@ public class LoginController {
 	}
 	
 	// 비밀번호찾기 페이지
-	@RequestMapping(value = "findpw", method = RequestMethod.GET)
-	public String findpw(Model model) {
-		return "login/findpw";
+	@RequestMapping(value = "findPw", method = RequestMethod.GET)
+	public String findPw(Model model) {
+		return "login/findPw";
 	}
 	
 	// 비밀번호 찾기 작성후 확인 버튼 클릭
 	@RequestMapping(value = "/findpwajax", method = RequestMethod.POST) // value 값이 들어오면 method에 적혀있는 것을 불러주세요
 	@ResponseBody
-	public String findpw(Model model, MemberVO LVOP,@RequestParam String name, @RequestParam String tel, @RequestParam String email, @RequestParam String id) {
+	public String findPw(Model model, MemberVO LVOP,@RequestParam String name, @RequestParam String tel, @RequestParam String email, @RequestParam String id) {
 
 		MemberVO A = memberService.findPw(LVOP);
 		if(A != null) {

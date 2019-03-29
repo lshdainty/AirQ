@@ -33,9 +33,9 @@
 				<%-- 아아디찾기,비밀번호찾기,회원가입 링크 시작부분 --%>
 				<div class="submit-wrap">
 
-					<a href="findid" class="btn btn-id">아이디 찾기</a> 
-					<a href="findpw" class="btn btn-pw">비밀번호 찾기</a> 
-					<a href="register" class="btn btn-register">회원가입</a>
+					<a href="findId" class="btn btn-id">아이디 찾기</a> 
+					<a href="findPw" class="btn btn-pw">비밀번호 찾기</a> 
+					<a href="joinMain" class="btn btn-register">회원가입</a>
 				</div>
 			<%-- 아아디찾기,비밀번호찾기,회원가입 링크 끝부분 --%>
 			</footer>
@@ -48,5 +48,5 @@
 		<a href="logout">logout</a>
 	</c:if>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src='${pageContext.request.contextPath}/resources/js/login/loginMain.js'></script>
+<script src='/resources/js/login/loginMain.js'></script>
 <%@include file="../include/footer.jsp" %>
