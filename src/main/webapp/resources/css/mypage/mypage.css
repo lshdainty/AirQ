@@ -5,16 +5,16 @@
         *{
             box-sizing: border-box;
         }
-        .container{
-            border:5px solid black;
-        }
+/*         .container{ */
+/*             border:5px solid black; */
+/*         } */
         /*컨테이너 바로 밑에 있는 것들의 스타일    >=직계자손  *=모든것 */
-        .container>*{
-            border: 5px solid blue;
-        }
-        .container>.content>*{
-            border:5px solid red;
-        }
+/*         .container>*{ */
+/*             border: 5px solid blue; */
+/*         } */
+/*         .container>.content>*{ */
+/*             border:5px solid red; */
+/*         } */
         .container .content{
             padding-left: 200px;
             padding-right: 150px;
@@ -45,7 +45,7 @@
         /*599px보다 웹페이지를 줄이면 일렬로 나타나게*/
                 @media (max-width:1000px){
              .container>.content>*{
-            border:5px solid red;
+             background-color : #f8f9fa;
         }
         .container .content{
             padding-left: 0px;
