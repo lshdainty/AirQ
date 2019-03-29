@@ -28,8 +28,8 @@
 			<exclude-mapping path="/"/>
 			<exclude-mapping path="/loginMain"/>
 			<exclude-mapping path="/login"/>
-			<exclude-mapping path="/findid"/>
-			<exclude-mapping path="/findpw"/>
+			<exclude-mapping path="/findId"/>
+			<exclude-mapping path="/findPw"/>
 			<exclude-mapping path="/findidajax"/>
 			<exclude-mapping path="/findpwajax"/>
 			<exclude-mapping path="/logout"/>
