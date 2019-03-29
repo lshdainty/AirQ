@@ -20,7 +20,18 @@ public class MemberServiceImplement implements MemberService{
 	}
 	
 	@Override
-	public MemberVO login(String id, String password) {
-		return mapper.login(id,password);
+	public MemberVO findId(MemberVO LVOI) {
+		return mapper.findId(LVOI);
+	}
+
+	@Override
+	public MemberVO findPw(MemberVO LVOP) {
+		return mapper.findPw(LVOP);
+	}
+
+	@Override
+	public MemberVO login(String id) {
+		// TODO Auto-generated method stub
+		return mapper.login(id);
 	}
 }

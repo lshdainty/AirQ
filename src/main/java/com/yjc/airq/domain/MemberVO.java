@@ -8,6 +8,6 @@ public class MemberVO {
 	private String password;
 	private String name;
 	private String email;
-	private int tel;
+	private String tel;
 	private String address;
 }

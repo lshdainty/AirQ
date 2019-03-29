@@ -26,6 +26,7 @@ public class JoinController {
 
 		model.addAttribute("memberlist", joinService.memberList());
 
+		return "nRegister";
 	}
 
 	// 판매자 회원가입 이동
@@ -35,7 +36,11 @@ public class JoinController {
 		model.addAttribute("sellerlist", joinService.memberList());
 
 		return "sRegister";
+	}
+
 	// 회원 가입
+	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	public String signup(Model model, MemberVO mb) {
 
 		System.out.println("회원가입 id: " + mb.getId());
 		System.out.println("회원가입 pw: " + mb.getPassword());
