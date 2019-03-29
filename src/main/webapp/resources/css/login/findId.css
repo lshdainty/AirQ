@@ -54,10 +54,10 @@
 }
 
 /*680px보다 웹페이지를 줄이면 일렬로 나타나게*/
-@media ( max-width :680px) {
+@media ( max-width :1000px) {
 	.container>.content>* {
 		/*  border:5px solid red; */
-		
+			background-color : #f8f9fa;
 	}
 	.container .content {
 		padding-left: 0px;
