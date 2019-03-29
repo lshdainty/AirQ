@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.upload {
+	margin-left: 40%;
+	border-style: double;
+	border-color: red;
+	width: 280px;
+}
+
+.login-main-text {
+	text-align: center;
+}
+
+.form {
+	text-align: center;
+}

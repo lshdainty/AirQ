@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+.register {
+	text-align: center;
+}
+
+#nregister {
+	margin-left: 50%;
+	margin-top: 400px;
+	border-style: double;
+	border-color: red;
+	width: 150px;
+}
+
+#sregister {
+	margin-left: 50%;
+	border-style: double;
+	border-color: red;
+	width: 150px;
+}
