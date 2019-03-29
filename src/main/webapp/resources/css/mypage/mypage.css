@@ -43,7 +43,7 @@
             clear: both;
         }
         /*599px보다 웹페이지를 줄이면 일렬로 나타나게*/
-                @media (max-width:599px){
+                @media (max-width:1000px){
              .container>.content>*{
             border:5px solid red;
         }
