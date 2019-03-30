@@ -20,7 +20,6 @@ $(document).ready(function() {
 			url : "signup", // 회원 추가
 			success : function(data) {
 				alert("회원가입 성공");
-				location.href = "loginTest" // 로그인 경로 로 이동
 			}
 		});// ajax
 

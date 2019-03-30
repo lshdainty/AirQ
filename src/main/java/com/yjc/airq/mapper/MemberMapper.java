@@ -16,7 +16,7 @@ public interface MemberMapper {
 	public String sellerList(SellerVO sl);
 	
 	// 일반 회원가입
-	public int signup(MemberVO mb);
+	public String signup(MemberVO mb);
 	
 	// 중복 체크
 	public MemberVO idCheck(String id);

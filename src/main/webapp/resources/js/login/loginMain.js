@@ -26,5 +26,18 @@ $(document).ready(function() {
 			}
 		}) // ajax 로그인 버튼 끝
 	});
+	   //패스워드에 커서를 두고 엔터키를 누르면 로그인 함
+	   $("#pw").keydown(function(key) {
+	      if (key.keyCode == 13) {
+	         $("#logintest").click();
+	      }
+	   });
+	   
+	   //아이디에 커서를 두고 엔터키를 누르면 로그인 함
+	   $("#id").keydown(function(key) {
+	      if (key.keyCode == 13) {
+		     $("#logintest").click();
+	      }
+	   });
 	
 });

@@ -30,7 +30,7 @@ public class JoinImplement implements JoinService{
 
 	// 일반 회원가입
 	@Override
-	public int signup(MemberVO mb) {
+	public String signup(MemberVO mb) {
 		return mapper.signup(mb);
 	}
 

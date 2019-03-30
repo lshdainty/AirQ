@@ -13,7 +13,7 @@ public interface JoinService {
 	public String sellerList(SellerVO sl);
 
 	// 판매자 회원 목록
-	public int signup(MemberVO mb);
+	public String signup(MemberVO mb);
 
 	// 아이디 중복 체크
 	public MemberVO idCheck(String id);

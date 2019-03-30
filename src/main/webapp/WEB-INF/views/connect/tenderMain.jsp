@@ -47,6 +47,17 @@
 				<div class="col col-15" data-label="참여업체수">5</div>
 				<div class="col col-15" data-label="마감기한">D-11</div>
 			</li>
+			<c:forEach var="tenderList" items="${tenderList}">
+				<li class="tenderLiContent">
+					<div class="col col-10-1" data-label="번호">${tenderList.rownum }</div>
+					<div class="col col-30" data-label="제목">${tenderList.ttitle }</div>
+					<div class="col col-15" data-label="글쓴이">${tenderList.tname }</div>
+					<div class="col col-15" data-label="등록일">${tenderList.tcreated }</div>
+					<div class="col col-10-1" data-label="조회수"></div>
+					<div class="col col-15" data-label="참여업체수"></div>
+					<div class="col col-15" data-label="마감기한">${tenderList.tdeadline }</div>
+				</li>
+			</c:forEach>
 		</ul>
 		<div id="tenderWriteDiv">
 			<input type="submit" id="tenderWrite" name="tenderWrite" value="작성하기">
@@ -55,9 +66,6 @@
 </form>
 <%--입찰 공고 테이블 끝 --%>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	crossorigin="anonymous"></script>
 <script src="/resources/js/connect/tenderMain.js"></script>
 
 <%@include file="../include/footer.jsp"%>

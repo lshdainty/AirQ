@@ -33,7 +33,7 @@
 					</ul>
 			</div>
 		
-			<button type="submit" id="findidtest"class="btn btn-login">확인</button>
+			<button type="submit" id="findidtest" class="btn btn-login">확인</button>
 		</div>
 		<%-- 등록된 전화번호, 이메일로 id 찾기 끝 --%>
 		</main>

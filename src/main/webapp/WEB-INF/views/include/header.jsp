@@ -73,7 +73,16 @@
 				<%-- 로그인 후 --%>
 					<c:if test="${sessionScope.user!=null }">
 						<li class="nav-item"><a class="nav-link" href="logout">LOGOUT</a></li>
-						<li class="nav-item"><a class="nav-link" href="mypageMain">마이페이지</a></li>
+						<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="dropdown09"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
+						<div class="dropdown-menu" aria-labelledby="dropdown09">
+							<a class="dropdown-item" href="mypageMain">mypage</a>
+							<a class="dropdown-item" href="mypageMain">mypage</a>
+							<a class="dropdown-item" href="mypageMain">mypage</a>
+							<a class="dropdown-item" href="mypageMain">mypage</a>
+							<a class="dropdown-item" href="mypageMain">mypage</a>
+						</div>
+						 </li>
 					</c:if>
             	</ul>
             <%-- 오른쪽 메뉴 끝  --%>

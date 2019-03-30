@@ -31,14 +31,8 @@ public class ConnectController {
 	// 입찰 서비스 메인페이지로 가기
 	@RequestMapping(value = "tenderMain", method = RequestMethod.GET)
 	public String tenderMain(Model model) {
-		model.addAttribute("tenderList",connectService.tenderList());
-		System.out.println(connectService.tenderList());
-		ArrayList<TenderboardVO> a=connectService.tenderList();
-		for(TenderboardVO b:a) {
-			System.out.println(b);
-		}
+		ArrayList<TenderboardVO> a = connectService.tenderList();
 		model.addAttribute("tenderList",a);
-//		System.out.println(connectService.tenderList());
 		return "connect/tenderMain";
 	}
 

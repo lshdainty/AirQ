@@ -5,8 +5,8 @@
 
 	    <div class="container">
     <div class="login-main-text">
-        <h2>Application<br> Login Page</h2>
-        <p>Login or register from here to access.</p>
+        <h2>mypage</h2>
+        
     </div>
 
         <section class="content">
@@ -15,44 +15,65 @@
         <div class="login-form">
             <form>
                 <div class="form-group">
-                    <label>User Name</label>
-                    <input type="text" class="form-control" placeholder="User Name">
+                    <label>방문자 수</label>
+                    
                 </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Password">
-                </div>
-                <button type="submit" class="btn btn-black">로그인</button>
-                <button type="submit" class="btn btn-secondary">회원가입</button>
+
+
             </form>
         </div>
     </div>
             </main>
             <nav>
                 <ul>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item1</li>
-                    <li>item2</li>
-                    <li>item3</li>
-                    <li>item4</li>
-                    <li>item5</li>
-                    <li>item6</li>
-                    <li>item7</li>
-                    <li>item8</li>
-                    <li>item9</li>
-                    <li>item10</li>
+
+
                 </ul>
             </nav>
             <aside>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae recusandae itaque commodi, error veritatis ipsam ex maxime, dicta quis ducimus?
+                
             </aside>
 
         </section>
         <footer>
-            <a href="C:\Users\bon300-18\Desktop/cat.jpg">FOOTER</a>
+            <a href="C:\Users\bon300-18\Desktop/cat.jpg">최신글 목록</a>
+            <div class="row">
+		<div class="col-md-4">
+			<div class="card mb-4">
+				<img src="resources/images/test2.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">Some quick example text to build on the
+						card title and make up the bulk of the card's content.</p>
+					<a href="#" class="btn btn-primary">Go somewhere</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="card mb-4">
+				<img src="resources/images/test.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">Some quick example text to build on the
+						card title and make up the bulk of the card's content.</p>
+					<a href="#" class="btn btn-primary">Go somewhere</a>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-md-4">
+			<div class="card mb-4">
+				<img src="resources/images/test.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">Some quick example text to build on the
+						card title and make up the bulk of the card's content.</p>
+					<a href="#" class="btn btn-primary">Go somewhere</a>
+				</div>
+			</div>
+		</div>
+		</div>
         </footer>
 <%@include file="../include/footer.jsp" %>
