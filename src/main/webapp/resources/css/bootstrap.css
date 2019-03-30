@@ -246,6 +246,7 @@ textarea {
   line-height: inherit;
 }
 
+
 button,
 input {
   overflow: visible;
@@ -593,8 +594,8 @@ pre code {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
+/*   margin-right: -15px;
+  margin-left: -15px; */
 }
 
 .no-gutters {
@@ -1811,6 +1812,13 @@ pre code {
 }
 
 @media (max-width: 767.98px) {
+
+  .carousel-caption h1{
+  	font-size:1.2em;
+  }
+  .carousel-caption>p{
+  	font-size:0.5em;
+  }
   .table-responsive-md {
     display: block;
     width: 100%;
@@ -3040,6 +3048,9 @@ input[type="button"].btn-block {
 
 .dropdown-toggle {
   white-space: nowrap;
+}
+.dropdown :hover{
+	cursor:pointer;
 }
 
 .dropdown-toggle::after {

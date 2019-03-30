@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+#tenderTitle {
+	color: #747474;
+	font-weight: 300;
+	margin-bottom: 10px;
+}
+
+#tenderDeadline {
+	float: right;
+}
+
+hr {
+	color: gray;
+}
+
+#tenderTbl {
+	width: 100%;
+}
+
+#tenderTbl td {
+	padding: 1% 1%;
+}
+
+#tenderTbl tr td:first-child {
+	border-right: 1px #D5D5D5 solid;
+	width: 15%;
+	text-align: center;
+}
+
+#tenderModifyBtnnDiv {
+	height: 50px;
+	width: 100%;
+}
+
+#tenderModifyBtn, #tenderDeleteBtn {
+	float: right;
+	height: 40px;
+	width: 90px;
+	margin-left: 10px;
+}
+
+#tenderParticipationList {
+	color: #747474;
+	text-transform: uppercase;
+	font-weight: 300;
+	margin-bottom: 15px;
+}
+
+@media all and (max-width:493px) {
+	#tenderTbl tr td:first-child {
+		width: 20%;
+	}
+}
+
+#tenderParticipationTbl {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#tenderParticipationTbl th {
+	background-color: #1d96b2;
+	color: white;
+}
+
+#tenderParticipationTbl tr {
+	background-color: #f8f8f8;
+	border: 1px solid #ddd;
+}
+
+#tenderParticipationTbl th, #tenderParticipationTbl td {
+	padding: .625em;
+	text-align: center;
+}
+
+@media all and (max-width: 768px) {
+	#tenderParticipationTbl thead {
+		display: none;
+	}
+	#tenderParticipationTbl tr {
+		display: block;
+		margin-bottom: .625em;
+	}
+	#tenderParticipationTbl td {
+		border-bottom: 1px solid #ddd;
+		display: block;
+		font-size: .8em;
+		text-align: right;
+	}
+	#tenderParticipationTbl td:before {
+		content: attr(data-label);
+		float: left;
+		color: #5e5d52;
+	}
+	#tenderParticipationTbl td:last-child {
+		border-bottom: 0;
+	}
+	#tenderParticipationTbl tbody td[scope="row"] {
+		background-color: #1d96b2;
+		color: white;
+		display: flex;
+	}
+}
+
+#tenderApplicationBtn {
+	float: right;
+	height: 40px;
+	width: 90px;
+}

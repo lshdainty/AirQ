@@ -4,11 +4,14 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>AirQ</title>
 	<link rel="stylesheet" href="/resources/css/bootstrap.css">
 	<link rel="stylesheet" href="/resources/css/include/header.css">
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.js"></script>
+	<script src="/resources/smartEditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+	<script src="/resources/smartEditor/photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js" charset="utf-8"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #e3f2fd;">
@@ -59,21 +62,28 @@
 			<%-- 왼쪽 메뉴 끝  --%>
 
 			<%-- 오른쪽 메뉴 시작  --%>
-			 	<ul class="nav justify-content-end navbar-nav">
-			 		<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="dropdown09"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">로그인</a>
+			 	<ul class="navbar-nav justify-content-end navbar-nav">
+			 	
+			 	<%-- 로그인 전 --%>
+					<c:if test="${sessionScope.user==null}">
+						<li class="nav-item"><a class="nav-link" href="loginMain">LOGIN</a></li>
+						<li class="nav-item"><a class="nav-link" href="joinMain">회원가입</a></li>
+					</c:if>
+							
+				<%-- 로그인 후 --%>
+					<c:if test="${sessionScope.user!=null }">
+						<li class="nav-item"><a class="nav-link" href="logout">LOGOUT</a></li>
+						<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="dropdown09"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown09">
-							<c:if test="${sessionScope.user==null}">
-								<a class="dropdown-item" href="loginMain">Login</a>
-							</c:if>
-							<c:if test="${sessionScope.user!=null }">
-								<a class="dropdown-item" href="logout">Logout</a>
-							</c:if>
-							<a class="dropdown-item" href="joinMain">회원가입</a>
+							<a class="dropdown-item" href="mypageMain">mypage</a>
+							<a class="dropdown-item" href="mypageMain">mypage</a>
+							<a class="dropdown-item" href="mypageMain">mypage</a>
+							<a class="dropdown-item" href="mypageMain">mypage</a>
+							<a class="dropdown-item" href="mypageMain">mypage</a>
 						</div>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="mypageMain">마이페이지</a></li>
+						 </li>
+					</c:if>
             	</ul>
             <%-- 오른쪽 메뉴 끝  --%>
 			</div>

@@ -28,11 +28,32 @@
 			<exclude-mapping path="/"/>
 			<exclude-mapping path="/loginMain"/>
 			<exclude-mapping path="/login"/>
+			<exclude-mapping path="/findId"/>
+			<exclude-mapping path="/findPw"/>
+			<exclude-mapping path="/findidajax"/>
+			<exclude-mapping path="/findpwajax"/>
 			<exclude-mapping path="/logout"/>
 			<exclude-mapping path="/joinMain"/>
+			<exclude-mapping path="/nRegister"/>
+			<exclude-mapping path="/sRegister"/>
+			<exclude-mapping path="/signup"/>
+			<exclude-mapping path="/Bsignup"/>
+			<exclude-mapping path="/idCheck"/>
+			<exclude-mapping path="/ButtonTest"/>
+			<exclude-mapping path="/upload"/>
 			<beans:bean id="commonInterceptor" class="com.yjc.airq.interceptor.CommonInterceptor"/>
 		</interceptor>
 	</interceptors>
+	
+	<!-- 파일 업로드로 들어오는 데이터를 처리하는 객체 -->
+ 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10485760" />	<!-- 10mb 제한 -->
+	</beans:bean>
+	
+	<!-- 업로드된 파일의 저장 위치 지정 -->
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="D:\\SpringUploadRepo"></beans:constructor-arg>
+	</beans:bean>
 	
 	<context:component-scan base-package="com.yjc.airq" />
 </beans:beans>
