@@ -3,13 +3,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjc.airq.mapper.ProductMapper">
 	<select id="productList" resultType="com.yjc.airq.domain.ProductVO">
-		select x.rnum, x.product_code, x.product_name, x.detail, x.price, x.area, x.branch, x.service_area, x.star_average, x.sell_num
-		from (
-				select rownum as rnum, a.product_code, a.product_name, a.detail, a.price, a.area, a.branch, a.service_area, a.star_average, a.sell_num 
-				from (
-						select product_code, product_name, detail, price, area, branch, service_area, star_average, sell_num 
-						from product) a 
-				where rownum <= 30) x 
-		where x.rnum >= 21
+		select * from product
 	</select>
 </mapper>
