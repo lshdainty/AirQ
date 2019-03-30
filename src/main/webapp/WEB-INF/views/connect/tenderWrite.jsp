@@ -8,47 +8,48 @@
 
 <%--입찰 공고 작성 테이블 시작 --%>
 <h1 id="tenderWriteTitle">입찰 작성</h1>
-<form action="/tenderList" method="post">
+
 	<table id="tenderWriteTbl">
 		<tr>
 			<td class="tr">제목</td>
-			<td class="tr"><input type="text" id="tTitle" name="tTitle"></td>
+			<td class="tr"><input type="text" id="ttitle" name="ttitle"></td>
 		</tr>
 		<tr>
 			<td>입찰자 명</td>
-			<td><input type="text" id="tName" name="tName"></td>
+			<td><input type="text" id="tname" name="tname"></td>
 		</tr>
 		<tr>
 			<td>주소</td>
-			<td><input type="text" id="address" name="address"></td>
+			<td><input type="text" id="taddress" name="taddress"></td>
 		</tr>
 		<tr>
-			<td>측정 날짜</td>
-			<td><input type="date" id="measurementDate" name="measureDate"></td>
+			<td>측정 일자</td>
+			<td><input type="date" id="tmeasurementdate" name="tmeasurementdate"></td>
 		</tr>
 		<tr>
 			<td>마감 기한</td>
-			<td><input type="date" id="deadline" name="deadline"></td>
+			<td><input type="date" id="tdeadline" name="tdeadline"></td>
 		</tr>
 		<tr>
 			<td>평수</td>
-			<td><input type="text" id="floorspace" name="floorspace"></td>
+			<td><input type="text" id="tfloorspace" name="tfloorspace"></td>
 		</tr>
 		<tr>
 			<td>층수</td>
-			<td><input type="text" id="layers" name="layers"></td>
+			<td><input type="text" id="tlayers" name="tlayers"></td>
 		</tr>
 		<tr>
 			<td>요구사항</td>
-			<td><textarea rows="5" cols="30" id="requirement"
-					name="requirement"></textarea></td>
+			<td><textarea rows="5" cols="30" id="trequirement"
+					name="trequirement"></textarea></td>
 		</tr>
 	</table>
 	<div id="tenderWriteBtnDiv">
 	<input type="submit" id="tenderWriteBtn" name="tenderWriteBtn" value="작성완료">
 </div>
-</form>
+
 
 <%--입찰 공고 작성 테이블 끝 --%>
 
+<script src="/resources/js/connect/tenderWrite.js"></script>
 <%@include file="../include/footer.jsp"%>

@@ -29,24 +29,7 @@
 				<div class="col col-15">참여업체수</div>
 				<div class="col col-15">마감기한</div>
 			</li>
-			<li class="tenderLiContent">
-				<div class="col col-10-1" data-label="번호">1</div>
-				<div class="col col-30" data-label="제목">hello</div>
-				<div class="col col-15" data-label="글쓴이">goeun</div>
-				<div class="col col-15" data-label="등록일">2019-03-28</div>
-				<div class="col col-10-1" data-label="조회수">100</div>
-				<div class="col col-15" data-label="참여업체수">6</div>
-				<div class="col col-15" data-label="마감기한">D-7</div>
-			</li>
-			<li class="tenderLiContent">
-				<div class="col col-10-1" data-label="번호">2</div>
-				<div class="col col-30" data-label="제목">world</div>
-				<div class="col col-15" data-label="글쓴이">kim</div>
-				<div class="col col-15" data-label="등록일">2019-03-27</div>
-				<div class="col col-10-1" data-label="조회수">6</div>
-				<div class="col col-15" data-label="참여업체수">5</div>
-				<div class="col col-15" data-label="마감기한">D-11</div>
-			</li>
+			
 			<c:forEach var="tenderList" items="${tenderList}">
 				<li class="tenderLiContent">
 					<div class="col col-10-1" data-label="번호">${tenderList.rownum }</div>

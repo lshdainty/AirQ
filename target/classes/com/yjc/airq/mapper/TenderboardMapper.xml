@@ -2,7 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjc.airq.mapper.TenderboardMapper">
+	<!-- 입찰출력 리스트 -->
 	<select id="tenderList" resultType="com.yjc.airq.domain.TenderboardVO">
-		select rownum,tCode,tTitle,tName,tCreated,tDeadline,tAddress,tFloorspace,tLayers,tRequirement,tMeasurementdate from tenderboard order by tCreated desc
+		select rownum,t.* from tenderboard t order by tCreated desc
 	</select>
+	<!-- 입찰공고 작성 -->
+	<insert id="addTenderboard" parameterType="com.yjc.airq.domain.TenderboardVO">
+		insert into tenderboard values('${tcode}','${ttitle}','${tname}',sysdate,'${tdeadline}','${taddress}',${tfloorspace},${tlayers},'${trequirement}','${tmeasurementdate}')
+	</insert>
+	
 </mapper>

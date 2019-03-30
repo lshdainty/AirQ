@@ -1,11 +1,14 @@
 package com.yjc.airq;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.TenderboardVO;
 import com.yjc.airq.service.ConnectService;
@@ -29,12 +32,7 @@ public class ConnectController {
 	// 입찰 서비스 메인페이지로 가기
 	@RequestMapping(value = "tenderMain", method = RequestMethod.GET)
 	public String tenderMain(Model model) {
-		ArrayList<TenderboardVO> a=connectService.tenderList();
-		for(TenderboardVO b:a) {
-			System.out.println(b);
-		}
-		model.addAttribute("tenderList",a);
-//		System.out.println(connectService.tenderList());
+		model.addAttribute("tenderList",connectService.tenderList());
 		return "connect/tenderMain";
 	}
 
@@ -45,9 +43,28 @@ public class ConnectController {
 	}
 
 	// 입찰 서비스 - 글쓰기에서 리스트로 가기
-	@RequestMapping(value = "tenderList", method = RequestMethod.POST)
-	public String tenderList() {
-		return "connect/tenderMain";
+	@RequestMapping(value = "tenderWriteComplete", method = RequestMethod.POST)
+	@ResponseBody
+	public String tenderList(TenderboardVO tenderboardVo) {
+		//코드 앞에 날짜 6자리
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
+		
+		//코드 뒤에 랜덤 4자리
+		int random=(int)(Math.random()*10000);
+		String tcode=day+random;
+		
+		//VO에 생성한 코드 set하기
+		tenderboardVo.setTcode(tcode);
+		
+		//insert에 영향을 받은 행의 갯수
+		int s=connectService.addTenderboard(tenderboardVo);
+		
+		if(s==0) {
+			return "f";
+		}
+		return "s";
 	}
 	
 	// 입찰 서비스 - 리스트에서 게시물 내용으로 가기
