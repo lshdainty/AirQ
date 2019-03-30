@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,13 +52,17 @@ public class JoinController {
 	}
 
 	// 회원 가입
-	@ResponseBody
-	@RequestMapping(value = "signup", method = RequestMethod.GET)
+	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	public String signup(Model model, MemberVO mb) {
 
 		System.out.println("회원가입 id: " + mb.getId());
 		System.out.println("회원가입 pw: " + mb.getPassword());
+		System.out.println("Name: " + mb.getName());
+		System.out.println("E-mail: " + mb.getEmail());
+		System.out.println("Tel: " + mb.getTel());
+		System.out.println("Address: " + mb.getAddress());
 		
+		// nRegister.jsp로 부터 받은 회원정보 들을 DB저장
 		joinService.signup(mb);
 
 		return "login/loginMain";
@@ -108,7 +113,7 @@ public class JoinController {
 	}
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public ModelAndView uploadForm(MultipartFile file, ModelAndView mav) throws Exception {
+	public ModelAndView uploadForm(MultipartFile file, ModelAndView mav, MemberVO mb) throws Exception {
 
 		String saveName = file.getOriginalFilename();
 
@@ -130,6 +135,10 @@ public class JoinController {
 		fDB.setOriname(oriname);
 		fDB.setPath(path);
 		joinService.fileDB(fDB);
+		
+
+		// sRegister.jsp로 부터 받은 회원정보 들을 DB저장
+		joinService.signup(mb);
 
 		return mav; // login/loginMain.jsp(결과화면)로 포워딩
 	}
