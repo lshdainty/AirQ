@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
+import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderboardVO;
+import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.TenderboardMapper;
 
 import lombok.AllArgsConstructor;
@@ -13,6 +15,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ConnectServiceImplement implements ConnectService {
 	private TenderboardMapper tenderMapper;
+	private ProductMapper productMapper;
 	
 	// 입찰 리스트 출력
 	@Override
@@ -26,4 +29,10 @@ public class ConnectServiceImplement implements ConnectService {
 		// TODO Auto-generated method stub
 		return tenderMapper.addTenderboard(tenderboardVo);
 	}
+	
+	// 상품 리스트 출력
+	@Override
+	public ArrayList<ProductVO> productList(){
+		return productMapper.productList();
+	};
 }
