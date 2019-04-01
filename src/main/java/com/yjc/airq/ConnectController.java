@@ -4,11 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.ProductVO;
@@ -60,6 +61,7 @@ public class ConnectController {
 		//VO에 생성한 코드 set하기
 		tenderboardVo.setTcode(tcode);
 		
+		
 		//insert에 영향을 받은 행의 갯수
 		int s=connectService.addTenderboard(tenderboardVo);
 		
@@ -69,9 +71,18 @@ public class ConnectController {
 		return "s";
 	}
 	
-	// 입찰 서비스 - 리스트에서 게시물 내용으로 가기
+	
+	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
 	@RequestMapping(value="tender",method=RequestMethod.GET)
-	public String tenderBoard() {
+	public String tenderBoard(HttpServletRequest httpServletRequest,TenderboardVO t,Model model) {
+		String tcode = httpServletRequest.getParameter("tcode");
+		TenderboardVO tvo= new TenderboardVO();
+		tvo.setTcode(tcode);
+	
+		System.out.println(tcode+"," + tvo.getTcode());
+		
+		model.addAttribute("tenderContent",connectService.tenderContent(tvo));
+		
 		return "connect/tender";
 	}
 }

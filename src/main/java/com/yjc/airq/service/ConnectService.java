@@ -12,4 +12,6 @@ public interface ConnectService {
 	public ArrayList<TenderboardVO> tenderList();
 	//입찰 공고 작성
 	public int addTenderboard(TenderboardVO tenderboardVo);
+	//입찰 세부내용 보기
+	public TenderboardVO tenderContent(TenderboardVO tenderboardVo);
 }

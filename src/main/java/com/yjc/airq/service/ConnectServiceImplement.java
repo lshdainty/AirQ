@@ -30,9 +30,18 @@ public class ConnectServiceImplement implements ConnectService {
 		return tenderMapper.addTenderboard(tenderboardVo);
 	}
 	
+	//입찰 세부 내용 보기
+	@Override
+	public TenderboardVO tenderContent(TenderboardVO tenderboardVo) {
+		// TODO Auto-generated method stub
+		return tenderMapper.tenderContent(tenderboardVo);
+	}
+	
 	// 상품 리스트 출력
 	@Override
 	public ArrayList<ProductVO> productList(){
 		return productMapper.productList();
 	};
+	
+	
 }

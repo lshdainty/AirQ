@@ -31,7 +31,7 @@
 			</li>
 			
 			<c:forEach var="tenderList" items="${tenderList}">
-				<li class="tenderLiContent">
+				<li class="tenderLiContent" id="${tenderList.tcode }">
 					<div class="col col-10-1" data-label="번호">${tenderList.rownum }</div>
 					<div class="col col-30" data-label="제목">${tenderList.ttitle }</div>
 					<div class="col col-15" data-label="글쓴이">${tenderList.tname }</div>

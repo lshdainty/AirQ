@@ -11,7 +11,7 @@
 		insert into tenderboard values('${tcode}','${ttitle}','${tname}',sysdate,'${tdeadline}','${taddress}',${tfloorspace},${tlayers},'${trequirement}','${tmeasurementdate}')
 	</insert>
 	<!-- 입찰 리스트 세부내용 -->
-	<select id="viewTender" resultType="com.yjc.airq.domain.TenderboardVO">
-		select * from tenderboard where tcode=${tcode}
+	<select id="tenderContent" parameterType="com.yjc.airq.domain.TenderboardVO" resultType="com.yjc.airq.domain.TenderboardVO">
+		select * from tenderboard where TCODE='${tcode}'
 	</select>
 </mapper>

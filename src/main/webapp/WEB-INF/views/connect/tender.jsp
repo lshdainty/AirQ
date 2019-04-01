@@ -8,36 +8,32 @@
 
 <%--입찰 공고 세부 내용 시작 --%>
 
-<h1 id="tenderTitle">Hello World!</h1>
+<h1 id="tenderTitle">${tenderContent.ttitle }</h1>
 <div id="d">
-	<span id="tenderWriter">goeun</span> | <span id="tenderDate">2019.01.25
-		11:01</span> <span id="tenderDeadline">마감 일자 : 2019.04.03</span>
+	<span id="tenderWriter">${tenderContent.tname }</span> | <span id="tenderDate">${tenderContent.tcreated }</span> <span id="tenderDeadline">마감 일자 : ${tenderContent.tdeadline }</span>
 </div>
 <hr />
 
 <table id="tenderTbl">
 	<tr>
 		<td>주소</td>
-		<td>대구광역시 북구 복현로 35</td>
+		<td>${tenderContent.taddress }</td>
 	</tr>
 	<tr>
 		<td>평수</td>
-		<td>45</td>
+		<td>${tenderContent.tfloorspace }</td>
 	</tr>
 	<tr>
 		<td>층수</td>
-		<td>4</td>
+		<td>${tenderContent.tlayers }</td>
+	</tr>
+	<tr>
+		<td>측정일자</td>
+		<td>${tenderContent.tmeasurementdate }</td>
 	</tr>
 	<tr>
 		<td>요구사항</td>
-		<td>Lorem Ipsum is simply dummy text of the printing and
-			typesetting industry. Lorem Ipsum has been the industry's standard
-			dummy text ever since the 1500s, when an unknown printer took a
-			galley of type and scrambled it to make a type specimen book. It has
-			survived not only five centuries, but also the leap into electronic
-			typesetting, remaining essentially unchanged. It was popularised in
-			the 1960s with the release of Letraset sheets containing Lorem Ipsum
-			passages, and more recently with desktop .</td>
+		<td>${tenderContent.trequirement }</td>
 	</tr>
 </table>
 <div id="tenderModifyBtnnDiv">
