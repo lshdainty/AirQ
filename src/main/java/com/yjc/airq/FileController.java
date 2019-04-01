@@ -45,7 +45,8 @@ public class FileController {
  
             String fileName = upload.getOriginalFilename();
             byte[] bytes = upload.getBytes();
-            String uploadPath = request.getServletContext().getRealPath("/img");
+            String uploadPath = request.getServletContext().getRealPath("/resources/uploadFile/images");
+            System.out.println(uploadPath);
             File uploadFile = new File(uploadPath);
             System.out.println("UploadFile:"+uploadFile);
             
@@ -55,29 +56,22 @@ public class FileController {
             
             uploadPath=uploadPath+"/"+fileName;
             
-            
-            System.out.println("UploadPath:"+uploadPath);
-            
-            
             out = new FileOutputStream(new File(uploadPath));
             out.write(bytes);
             
             
             
             printWriter = response.getWriter();
-            
-            String fileUrl = request.getContextPath()+"/resources/uploadFile/images/"+fileName;
-            System.out.println("ContextPath:"+request.getContextPath());
+            String fileUrl = "resources/uploadFile/images/"+fileName;
             
             json.addProperty("uploaded",1);
             json.addProperty("fileName",fileName);
             json.addProperty("url",fileUrl);
             
-            
             System.out.println("JSON:"+json);
             System.out.println("FileURL:"+fileUrl);
             printWriter.println(json);
-            printWriter.flush();
+            
         }catch(IOException e){
             e.printStackTrace();
         } finally {
