@@ -76,10 +76,10 @@
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown09">
 							<a class="dropdown-item" href="mypageMain">mypage</a>
-							<a class="dropdown-item" href="mypageMain">mypage</a>
-							<a class="dropdown-item" href="mypageMain">mypage</a>
-							<a class="dropdown-item" href="mypageMain">mypage</a>
-							<a class="dropdown-item" href="mypageMain">mypage</a>
+							<a class="dropdown-item" href="mypageMainCategory">카테고리관리</a>
+							<a class="dropdown-item" href="mypageMainPosts">글 관리</a>
+							<a class="dropdown-item" href="mypageMainComment">댓글 관리</a>
+							<a class="dropdown-item" href="mypageMainMember">회원 관리</a>
 						</div>
 						 </li>
 					</c:if>
