@@ -26,15 +26,20 @@ public class ConnectServiceImplement implements ConnectService {
 	// 입찰 공고 작성
 	@Override
 	public int addTenderboard(TenderboardVO tenderboardVo) {
-		// TODO Auto-generated method stub
 		return tenderMapper.addTenderboard(tenderboardVo);
 	}
 	
 	//입찰 세부 내용 보기
 	@Override
 	public TenderboardVO tenderContent(TenderboardVO tenderboardVo) {
-		// TODO Auto-generated method stub
 		return tenderMapper.tenderContent(tenderboardVo);
+	}
+	
+	//입찰 공고 삭제
+	@Override
+	public int tenderDelete(String tcode) {
+		System.out.println("serviceImplement");
+		return tenderMapper.tenderDelete(tcode);
 	}
 	
 	// 상품 리스트 출력
