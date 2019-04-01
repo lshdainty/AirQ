@@ -3,6 +3,11 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjc.airq.mapper.ProductMapper">
 	<select id="productList" resultType="com.yjc.airq.domain.ProductVO">
-		select * from product
+		<![CDATA[ 
+			select X.rnum, X.* from(select rownum as rnum, A.* from (select * from product order by sell_num desc) A where rownum <= #{endnum}) X where X.rnum >= #{startnum}
+		]]> 
+	</select>
+	<select id="productCount" resultType="int">
+		select count(*) from product
 	</select>
 </mapper>

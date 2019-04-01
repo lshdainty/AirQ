@@ -49,7 +49,11 @@
 								<option>가격 높은순</option>
 								<option>가격 낮은순</option>
 								<option>별점 평균순</option>
-							</select> 
+							</select>
+							<select class="compareSelect" id="contentnum">
+								<option value="5">5</option>
+								<option value="10">10</option>
+							</select>
 						</div>
 						<ul id="compareBoardUl">
 							<li id="compareLiHeader">
@@ -80,7 +84,18 @@
 					</div>
 				</form>
 			</div>
-		<%-- 상품목록 시작 --%>
+			<div>
+				<c:if test="${criteria.prev}">
+					<a href="javascript:page(${criteria.getStartPage()-1});">&laquo;</a>
+				</c:if>
+				<c:forEach begin="${criteria.getStartPage() }" end="${criteria.getEndPage() }" var="idx">
+					<a href="javascript:page(${idx });">${idx}</a>
+				</c:forEach>
+				<c:if test="${criteria.next}">
+					<a href="javascript:page(${criteria.getEndPage()+1});">&raquo;</a>
+				</c:if>
+			</div>
+		<%-- 상품목록 끝 --%>
 		</div>
 	<%-- 페이지 끝 --%>
 

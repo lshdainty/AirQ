@@ -101,3 +101,11 @@ homeButton.insertBefore(chart.zoomControl.plusButton);
 	location.href="info/"+sido+"/"+sigoon+"/"+datetest;
 });*/
 //선택된 값 info페이지로 넘어가게 하는 코드 끝
+
+//paging 시작
+function page(idx){
+	var pagenum = idx;
+	var contentnum = $("#contentnum option:selected").val();
+	location.href="/compareList?pagenum="+pagenum+"&contentnum="+contentnum;
+}
+//paging 끝

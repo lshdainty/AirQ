@@ -2,6 +2,7 @@ package com.yjc.airq.service;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.yjc.airq.domain.ProductVO;
@@ -39,9 +40,7 @@ public class ConnectServiceImplement implements ConnectService {
 	
 	// 상품 리스트 출력
 	@Override
-	public ArrayList<ProductVO> productList(){
-		return productMapper.productList();
+	public ArrayList<ProductVO> productList(@Param("startnum") int startnum,  @Param("endnum") int endnum){
+		return productMapper.productList(startnum,endnum);
 	};
-	
-	
 }
