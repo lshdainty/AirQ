@@ -10,8 +10,6 @@
 	<link rel="stylesheet" href="/resources/css/include/header.css">
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.js"></script>
-	<script src="/resources/smartEditor/js/HuskyEZCreator.js" charset="utf-8"></script>
-	<script src="/resources/smartEditor/photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js" charset="utf-8"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #e3f2fd;">
@@ -60,6 +58,7 @@
 					</li>
 				</ul>
 			<%-- 왼쪽 메뉴 끝  --%>
+
 
 			<%-- 오른쪽 메뉴 시작  --%>
 			 	<ul class="navbar-nav justify-content-end navbar-nav">
