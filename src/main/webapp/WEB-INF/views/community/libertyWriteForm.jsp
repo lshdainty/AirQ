@@ -20,7 +20,7 @@
                 <div class="mb-3">
                     <label for="username">board content</label>
                     <div class="input-group">
-                        <textarea rows="20" cols="100" class="form-control" id="username" placeholder="Board content"
+                        <textarea rows="20" cols="100" class="form-control" id="username" placeholder="Board content" name="ckeditor"
                             required></textarea>
                         <div class="invalid-feedback" style="width: 100%;">Your
                             username is required.</div>
@@ -38,7 +38,50 @@
 <%-- 스크립트 링크 시작 --%>
 
 <script src="resources/js/community/community.js"></script>
+<script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
+<script>
+	var editorConfig = {
+		filebrowserUploadUrl : "imageUpload", //이미지 업로드
+	};
+	$(function() {
 
+		CKEDITOR.replace('ckeditor', {//해당 이름으로 된 textarea에 에디터를 적용
+			width : '100%',
+			height : '400px',
+			filebrowserImageUploadUrl : 'imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
+		});
+
+		CKEDITOR.on('dialogDefinition', function(ev) {
+			var dialogName = ev.data.name;
+			var dialogDefinition = ev.data.definition;
+
+			switch (dialogName) {
+			case 'image': //Image Properties dialog
+				//dialogDefinition.removeContents('info');
+				dialogDefinition.removeContents('Link');
+				dialogDefinition.removeContents('advanced');
+				break;
+			}
+		});
+
+	});
+
+	function getUrlParam(paramName) {
+		var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
+		var match = window.location.search.match(reParam);
+		return (match && match.length > 1) ? match[1] : null;
+	}
+
+	var funcNum = getUrlParam('CKEditorFuncNum');
+
+	var par = window.parent, op = window.opener, o = (par && par.CKEDITOR) ? par
+			: ((op && op.CKEDITOR) ? op : false);
+
+	if (op)
+		window.close();
+	if (o !== false)
+		o.CKEDITOR.tools.callFunction(funcNum, '$file');
+</script>
 <%-- 스크립트 링크 끝 --%>
 
 <%@include file="../include/footer.jsp"%>

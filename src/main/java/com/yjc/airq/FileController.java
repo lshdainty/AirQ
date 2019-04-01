@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.JsonObject;
+
 import lombok.AllArgsConstructor;
 
 /**
@@ -33,6 +35,7 @@ public class FileController {
     @RequestMapping(value = "imageUpload", method = RequestMethod.POST)
     public void communityImageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) {
  
+    	JsonObject json = new JsonObject();
         OutputStream out = null;
         PrintWriter printWriter = null;
         response.setCharacterEncoding("utf-8");
@@ -42,24 +45,39 @@ public class FileController {
  
             String fileName = upload.getOriginalFilename();
             byte[] bytes = upload.getBytes();
-            String uploadPath = "D://git/AirQ/src/main/webapp/resources/uploadFile/images/"+fileName;
-            System.out.println(uploadPath);
-            System.out.println("1");
+            String uploadPath = request.getServletContext().getRealPath("/img");
+            File uploadFile = new File(uploadPath);
+            System.out.println("UploadFile:"+uploadFile);
+            
+            
+            if(!uploadFile.exists())
+            	uploadFile.mkdirs();
+            
+            uploadPath=uploadPath+"/"+fileName;
+            
+            
+            System.out.println("UploadPath:"+uploadPath);
+            
+            
             out = new FileOutputStream(new File(uploadPath));
             out.write(bytes);
-            String callback = request.getParameter("CKEditorFuncNum");
- 
+            
+            
             
             printWriter = response.getWriter();
-            System.out.println("2");
-            String fileUrl = "/resources/uploadFile/images/"+fileName;
-            System.out.println("3");
-            System.out.println(fileUrl);
-            System.out.println("4");
-            printWriter.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
-            System.out.println("5");
+            
+            String fileUrl = request.getContextPath()+"/resources/uploadFile/images/"+fileName;
+            System.out.println("ContextPath:"+request.getContextPath());
+            
+            json.addProperty("uploaded",1);
+            json.addProperty("fileName",fileName);
+            json.addProperty("url",fileUrl);
+            
+            
+            System.out.println("JSON:"+json);
+            System.out.println("FileURL:"+fileUrl);
+            printWriter.println(json);
             printWriter.flush();
-            System.out.println("6");
         }catch(IOException e){
             e.printStackTrace();
         } finally {

@@ -3,13 +3,42 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 
-<script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
-<form>
-	<textarea name="ckeditor" id="editor" rows="10" cols="80">
-            This is my textarea to be replaced with CKEditor.
-        </textarea>
-</form>
+<div class="container" style="margin-top:112px">
+    <div class="row">
+        <div class="col-md-12 order-md-1">
+            <h4 class="mb-5">Board</h4>
+            <form class="needs-validation" novalidate>
+                <div class="row">
+                    <div style="width:100%">
+                        <label for="firstName">board name</label> <input type="text" class="form-control" id="recommend-name"
+                            placeholder="Board name" value="" required>
+                        <div class="invalid-feedback">Valid first name is required.
+                        </div>
+                    </div>
+                </div>
 
+                <div class="mb-3">
+                    <label for="username">board content</label>
+                    <div class="input-group">
+                        <textarea rows="20" cols="100" class="form-control" id="username" placeholder="Board content" name="ckeditor"
+                            required></textarea>
+                        <div class="invalid-feedback" style="width: 100%;">Your
+                            username is required.</div>
+                    </div>
+                </div>
+
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit" id="recommend-write-done">Write</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%-- 스크립트 링크 시작 --%>
+
+<script src="resources/js/community/community.js"></script>
+<script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
 <script>
 	var editorConfig = {
 		filebrowserUploadUrl : "imageUpload", //이미지 업로드
@@ -19,9 +48,9 @@
 		CKEDITOR.replace('ckeditor', {//해당 이름으로 된 textarea에 에디터를 적용
 			width : '100%',
 			height : '400px',
-			filebrowserImageUploadUrl : 'imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
+			filebrowserImageUploadUrl :"${pageContext.request.contextPath}/imageUpload" //여기 경로로 파일을 전달하여 업로드 시킨다.
 		});
-
+		console.log('pageContext.request.contextPath :${pageContext.request.contextPath}');
 		CKEDITOR.on('dialogDefinition', function(ev) {
 			var dialogName = ev.data.name;
 			var dialogDefinition = ev.data.definition;
@@ -53,5 +82,6 @@
 	if (o !== false)
 		o.CKEDITOR.tools.callFunction(funcNum, '$file');
 </script>
+<%-- 스크립트 링크 끝 --%>
 
 <%@include file="../include/footer.jsp"%>
