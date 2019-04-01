@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="/resources/css/manage/remoteMain.css" />
-	<h1>IOT원격제어 서비스 페이지입니다.</h1>
+	<h1>IoT원격제어 서비스 페이지입니다.</h1>
 	<div class="container2">
        <div class="switch">
         <div class="local">
@@ -62,4 +62,6 @@
         </div><br/>
         <button id="btn-reg">IoT 제품 제어 등록</button>
     </div>
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<script src='resources/js/manage/remoteMain.js'></script>
 <%@include file="../include/footer.jsp" %>
