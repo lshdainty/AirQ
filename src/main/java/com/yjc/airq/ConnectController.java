@@ -88,7 +88,8 @@ public class ConnectController {
 	public String tenderWrite() {
 		return "connect/tenderWrite";
 	}
-	// 입찰 서비스 - 글쓰기에서 리스트로 가기
+	
+	// 입찰 서비스 - 글쓰기 작성 후 리스트로 가기
 	@RequestMapping(value = "tenderWriteComplete", method = RequestMethod.POST)
 	@ResponseBody
 	public String tenderList(TenderboardVO tenderboardVo) {
@@ -114,18 +115,23 @@ public class ConnectController {
 		return "s";
 	}
 	
-	
 	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
 	@RequestMapping(value="tender",method=RequestMethod.GET)
-	public String tenderBoard(HttpServletRequest httpServletRequest,TenderboardVO t,Model model) {
+	public String tenderBoard(HttpServletRequest httpServletRequest,TenderboardVO tenderboardVo,Model model) {
+		//주소에 있는 파라미터 값 받아오기
 		String tcode = httpServletRequest.getParameter("tcode");
-		TenderboardVO tvo= new TenderboardVO();
-		tvo.setTcode(tcode);
-	
-		System.out.println(tcode+"," + tvo.getTcode());
-		
-		model.addAttribute("tenderContent",connectService.tenderContent(tvo));
+		tenderboardVo.setTcode(tcode);
+		model.addAttribute("tenderContent",connectService.tenderContent(tenderboardVo));
 		
 		return "connect/tender";
+	}
+	
+	// 입찰 서비스 - 입찰 공고 삭제 후 리스트로 가기
+	@RequestMapping(value="tenderDelete",method=RequestMethod.GET)
+	public String tenderDelete(HttpServletRequest httpServletRequest,Model model) {
+		String tcode = httpServletRequest.getParameter("tcode");
+		int s=connectService.tenderDelete(tcode);
+		
+		return "redirect: /tenderMain";
 	}
 }

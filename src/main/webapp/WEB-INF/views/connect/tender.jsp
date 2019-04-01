@@ -15,7 +15,7 @@
 <hr />
 
 <table id="tenderTbl">
-	<tr>
+	<tr id="${tenderContent.tcode}">
 		<td>주소</td>
 		<td>${tenderContent.taddress }</td>
 	</tr>
@@ -36,7 +36,7 @@
 		<td>${tenderContent.trequirement }</td>
 	</tr>
 </table>
-<div id="tenderModifyBtnnDiv">
+<div id="tenderBtnDiv">
 	<button id="tenderModifyBtn">수정</button>
 	<button id="tenderDeleteBtn">삭제</button>
 </div>
@@ -93,4 +93,5 @@
 </div>
 <%-- 참여 업체 리스트 테이블 끝 --%>
 
+<script src="/resources/js/connect/tender.js"></script>
 <%@include file="../include/footer.jsp"%>

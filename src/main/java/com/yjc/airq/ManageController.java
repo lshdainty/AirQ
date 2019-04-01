@@ -13,17 +13,22 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class ManageController {
-	
-	//공기질 모니터링 메인페이지로 가기
+
+	// 공기질 모니터링 메인페이지로 가기
 	@RequestMapping(value = "monitoringMain", method = RequestMethod.GET)
 	public String monitoringMain(Model model) {
 		return "manage/monitoringMain";
 	}
-	
-	//IOT 원격제어 메인페이지로 가기
+
+	// IoT 원격제어 메인페이지로 가기
 	@RequestMapping(value = "remoteMain", method = RequestMethod.GET)
 	public String remoteMain(Model model) {
 		return "manage/remoteMain";
 	}
-	
+
+	// IoT 원격제어 제품 등록 페이지로 가기
+	@RequestMapping(value = "remoteRegist", method = RequestMethod.GET)
+	public String remoteRegist(Model model) {
+		return "manage/remoteRegist";
+	}
 }
