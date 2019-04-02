@@ -105,7 +105,6 @@ homeButton.insertBefore(chart.zoomControl.plusButton);
 //paging 시작
 function page(idx){
 	var pagenum = idx;
-	var contentnum = $("#contentnum option:selected").val();
-	location.href="/compareList?pagenum="+pagenum+"&contentnum="+contentnum;
+	location.href="/compareMain?pagenum="+pagenum;
 }
 //paging 끝

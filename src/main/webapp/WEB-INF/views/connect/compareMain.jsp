@@ -22,17 +22,17 @@
 						</select>
 						<select id="space">
 							<option>평수 선택</option>
-							<option>1~10</option>
-							<option>11~20</option>
-							<option>21~30</option>
-							<option>31~40</option>
-							<option>41~50</option>
-							<option>51~60</option>
-							<option>61~70</option>
-							<option>71~80</option>
-							<option>81~90</option>
-							<option>91~100</option>
-							<option>100~</option>
+							<option value="1">1~10</option>
+							<option value="2">11~20</option>
+							<option value="3">21~30</option>
+							<option value="4">31~40</option>
+							<option value="5">41~50</option>
+							<option value="6">51~60</option>
+							<option value="7">61~70</option>
+							<option value="8">71~80</option>
+							<option value="9">81~90</option>
+							<option value="10">91~100</option>
+							<option value="11">100~</option>
 						</select>
 						<button id="check">선택확인</button>
 					</form>
@@ -49,10 +49,6 @@
 								<option>가격 높은순</option>
 								<option>가격 낮은순</option>
 								<option>별점 평균순</option>
-							</select>
-							<select class="compareSelect" id="contentnum">
-								<option value="5">5</option>
-								<option value="10">10</option>
 							</select>
 						</div>
 						<ul id="compareBoardUl">

@@ -41,16 +41,16 @@ public class Criteria {
 	public int getStartnum() {
 		return startnum;
 	}
-	public void setStartnum(int pagenum, int contentnum) {
-		this.startnum = (pagenum-1)*contentnum+1;
+	public void setStartnum(int pagenum) {
+		this.startnum = (pagenum-1)*this.contentnum+1;
 	}
 	
 	//컨텐츠 끝번호 설정 -> 현재페이지 * 보여줄 컨텐츠 수
 	public int getEndnum() {
 		return endnum;
 	}
-	public void setEndnum(int pagenum, int contentnum) {
-		this.endnum = pagenum*contentnum;
+	public void setEndnum(int pagenum) {
+		this.endnum = pagenum*this.contentnum;
 	}
 	
 	//전체 게시물 수를 구하는 함수 : 사용하는 이유 -> 전체 게시물 수를 구하여 전체 페이지 수를 구하고 페이지블록을 계산하기 위해
