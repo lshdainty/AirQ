@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yjc.airq.mapper.BoardMapper">
+	<select id="getBoards" resultType="com.yjc.airq.domain.BoardVO">
+		SELECT * FROM BOARD_TEST
+	</select>
+	
+	<select id="detailBoard"  parameterType="int" resultType="com.yjc.airq.domain.BoardVO">
+		SELECT * FROM BOARD_TEST WHERE BOARD_ID= #{board_id}
+	</select>
+	
+	<insert id="insertBoard" parameterType="com.yjc.airq.domain.BoardVO">
+		INSERT INTO BOARD_TEST(BOARD_ID,BOARD_NAME,BOARD_CONTENT,BOARD_AUTHOR) VALUES
+		(#{board_id},#{board_name},#{board_content},#{board_author})
+	</insert>
+
+</mapper>

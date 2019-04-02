@@ -91,6 +91,19 @@
 				</div>
 			</div>
 		</div>
+		
+		<c:forEach var="board" items="${boards}">
+			<div class="col-md-4">
+				<div class="card mb-4">
+					<img src="resources/images/test.jpg" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">${board.board_name }</h5>
+						<p class="card-text">${board.board_content}</p>
+						<a href="recommendDetail?board_id=${board.board_id}" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
 	</div>
 
 

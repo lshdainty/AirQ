@@ -26,6 +26,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class FileController {
 
+
 	/**
      * 이미지 업로드
      * @param request
@@ -35,6 +36,8 @@ public class FileController {
     @RequestMapping(value = "imageUpload", method = RequestMethod.POST)
     public void communityImageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) {
  
+
+    	
     	JsonObject json = new JsonObject();
         OutputStream out = null;
         PrintWriter printWriter = null;

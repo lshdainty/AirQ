@@ -24,17 +24,16 @@ $(document).ready(function() {
 
 	// 상품추천 글쓰기 클릭시 실행
 	$('#recommend-write').click(function() {
-		alert("WRITE");
 		window.location.href = "recommendWrite";
 	});
 	
 	// 상품추천게시판 글쓰기폼에서 글쓰기 완료 클릭시 실행
 	$('#recommend-write-done').click(function() {
-		if($('#recommend-name').val()!=''&& $('#recommend-name')!=null){
-			alert("DONE")
+		if($('#board_name').val()!=''&& $('#borad_name')!=null){
+			alert($('#board_name').val());
+			alert($('#board_content').val());
 			window.location.href = "recommendMain";
 		}
-		else{alert("dasd")}
 			
 	});
 	
@@ -42,7 +41,6 @@ $(document).ready(function() {
 	// 자유게시판 글쓰기 클릭시 실행
 	$('#liberty-write').click(function() {
 		
-		window.location.href = "libertyWrite";
 	});
 
 	
