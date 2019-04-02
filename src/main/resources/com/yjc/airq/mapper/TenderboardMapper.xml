@@ -10,14 +10,20 @@
 	</select>
 	<!-- 입찰공고 작성 -->
 	<insert id="addTenderboard" parameterType="com.yjc.airq.domain.TenderboardVO">
-		insert into tenderboard values('${tcode}','${ttitle}','${tname}',sysdate,'${tdeadline}','${taddress}',${tfloorspace},${tlayers},'${trequirement}','${tmeasurementdate}')
+		insert into tenderboard values(#{tcode},#{ttitle},#{tname},sysdate,#{tdeadline},#{taddress},${tfloorspace},${tlayers},#{trequirement},#{tmeasurementdate})
 	</insert>
 	<!-- 입찰 리스트 세부내용 -->
-	<select id="tenderContent" parameterType="com.yjc.airq.domain.TenderboardVO" resultType="com.yjc.airq.domain.TenderboardVO">
-		select * from tenderboard where TCODE='${tcode}'
+	<select id="tenderContent" parameterType="String" resultType="com.yjc.airq.domain.TenderboardVO">
+		select * from tenderboard where TCODE=#{tcode}
 	</select>
 	<!-- 입찰 공고 삭제 -->
 	<delete id="tenderDelete" parameterType="String">
 		delete from tenderboard where TCODE=#{tcode}
 	</delete>
+	<!-- 입찰 공고 수정 -->
+	<update id="tenderModify" parameterType="com.yjc.airq.domain.TenderboardVO" >
+		update tenderboard 
+		set ttitle=#{ttitle},tdeadline=#{tdeadline},taddress=#{taddress},tfloorspace=${tfloorspace},tlayers=${tlayers},trequirement=#{trequirement},tmeasurementdate=#{tmeasurementdate} 
+		where tcode=#{tcode}
+	</update>
 </mapper>

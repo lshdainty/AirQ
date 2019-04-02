@@ -10,8 +10,9 @@ public interface TenderboardMapper {
 	// 입찰공고 작성
 	public int addTenderboard(TenderboardVO tenderboardVo);
 	// 입찰 세부내용 보기
-	public TenderboardVO tenderContent(TenderboardVO tenderboardVo);
+	public TenderboardVO tenderContent(String tcode);
 	// 입찰 공고 삭제
 	public int tenderDelete(String tcode);
-	
+	// 입찰 공고 수정
+	public int tenderModify(TenderboardVO tenderboardVo);
 }

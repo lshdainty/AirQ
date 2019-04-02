@@ -1,5 +1,6 @@
 package com.yjc.airq;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -65,7 +67,6 @@ public class ConnectController {
 	
 	// 입찰 서비스 - 글쓰기 작성 후 리스트로 가기
 	@RequestMapping(value = "tenderWriteComplete", method = RequestMethod.POST)
-	@ResponseBody
 	public String tenderList(TenderboardVO tenderboardVo) {
 		//코드 앞에 날짜 6자리
 		Date today = new Date();
@@ -79,23 +80,17 @@ public class ConnectController {
 		//VO에 생성한 코드 set하기
 		tenderboardVo.setTcode(tcode);
 		
-		
 		//insert에 영향을 받은 행의 갯수
 		int s=connectService.addTenderboard(tenderboardVo);
 		
-		if(s==0) {
-			return "f";
-		}
-		return "s";
+		return "redirect: /tenderMain";
 	}
 	
 	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
-	@RequestMapping(value="tender",method=RequestMethod.GET)
-	public String tenderBoard(HttpServletRequest httpServletRequest,TenderboardVO tenderboardVo,Model model) {
+	@RequestMapping(value="tender/"+"{tcode}",method=RequestMethod.GET)
+	public String ten(@PathVariable String tcode,Model model) {
 		//주소에 있는 파라미터 값 받아오기
-		String tcode = httpServletRequest.getParameter("tcode");
-		tenderboardVo.setTcode(tcode);
-		model.addAttribute("tenderContent",connectService.tenderContent(tenderboardVo));
+		model.addAttribute("tenderContent",connectService.tenderContent(tcode));
 		
 		return "connect/tender";
 	}
@@ -107,5 +102,22 @@ public class ConnectController {
 		int s=connectService.tenderDelete(tcode);
 		
 		return "redirect: /tenderMain";
+	}
+
+	// 입찰 서비스 - 입찰 공고 수정 페이지로 가기
+	@RequestMapping(value="tenderModify",method=RequestMethod.GET)
+	public String tenderModify(HttpServletRequest httpServletRequest,Model model) {
+		String tcode = httpServletRequest.getParameter("tcode");
+		model.addAttribute("tenderModify",connectService.tenderContent(tcode));
+		
+		return "connect/tenderModify";
+	}
+	
+	// 입찰 서비스- 입찰 공고 수정 완료
+	@RequestMapping(value="tenderModifyComplete",method=RequestMethod.POST)
+	public String tenderModifyComplete(TenderboardVO tenderboardVo,Model model) {
+		int s=connectService.tenderModify(tenderboardVo);
+		String tcode=tenderboardVo.getTcode();
+		return "redirect: /tender/"+tcode;
 	}
 }
