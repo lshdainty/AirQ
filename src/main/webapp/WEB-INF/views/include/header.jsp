@@ -10,6 +10,10 @@
 	<link rel="stylesheet" href="/resources/css/include/header.css">
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/resources/js/bootstrap.js"></script>
+	<%-- Chart.js cdn 시작 --%>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+	<%-- Chart.js cdn 끝 --%>
+	
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #e3f2fd;">

@@ -31,10 +31,11 @@
 	<div class="text">
 		<input type="text" id="s_id" placeholder="원격제어 종류"><br /> <input
 			type="text" id="s_id2" placeholder="위치"><br />
-	</div>
-
+			
 	<button id="btn-reg">등록하기</button>
 	<button id="btn-can">취소</button>
+	</div>
+
 </div>
 
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
