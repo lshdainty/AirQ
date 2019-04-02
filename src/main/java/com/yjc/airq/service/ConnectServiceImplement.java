@@ -32,15 +32,20 @@ public class ConnectServiceImplement implements ConnectService {
 	
 	//입찰 세부 내용 보기
 	@Override
-	public TenderboardVO tenderContent(TenderboardVO tenderboardVo) {
-		return tenderMapper.tenderContent(tenderboardVo);
+	public TenderboardVO tenderContent(String tcode) {
+		return tenderMapper.tenderContent(tcode);
 	}
 	
 	//입찰 공고 삭제
 	@Override
 	public int tenderDelete(String tcode) {
-		System.out.println("serviceImplement");
 		return tenderMapper.tenderDelete(tcode);
+	}
+	
+	//입찰 공고 수정
+	@Override
+	public int tenderModify(TenderboardVO tenderboardVo) {
+		return tenderMapper.tenderModify(tenderboardVo);
 	}
 	
 	// 상품 리스트 출력
@@ -48,4 +53,5 @@ public class ConnectServiceImplement implements ConnectService {
 	public ArrayList<ProductVO> productList(@Param("startnum") int startnum,  @Param("endnum") int endnum){
 		return productMapper.productList(startnum,endnum);
 	};
+	
 }

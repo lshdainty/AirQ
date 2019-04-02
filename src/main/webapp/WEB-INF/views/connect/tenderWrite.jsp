@@ -8,7 +8,7 @@
 
 <%--입찰 공고 작성 테이블 시작 --%>
 <h1 id="tenderWriteTitle">입찰 작성</h1>
-
+<form action="/tenderWriteComplete" method="POST">
 	<table id="tenderWriteTbl">
 		<tr>
 			<td class="tr">제목</td>
@@ -24,7 +24,8 @@
 		</tr>
 		<tr>
 			<td>측정 일자</td>
-			<td><input type="date" id="tmeasurementdate" name="tmeasurementdate"></td>
+			<td><input type="date" id="tmeasurementdate"
+				name="tmeasurementdate"></td>
 		</tr>
 		<tr>
 			<td>마감 기한</td>
@@ -40,13 +41,13 @@
 		</tr>
 		<tr>
 			<td>요구사항</td>
-			<td><textarea rows="5" cols="30" id="trequirement"
-					name="trequirement"></textarea></td>
+			<td><textarea rows="5" cols="30" id="trequirement" name="trequirement"></textarea></td>
 		</tr>
 	</table>
 	<div id="tenderWriteBtnDiv">
-	<input type="submit" id="tenderWriteBtn" name="tenderWriteBtn" value="작성완료">
-</div>
+		<input type="submit" id="tenderWriteBtn" name="tenderWriteBtn" value="작성완료">
+	</div>
+</form>
 
 
 <%--입찰 공고 작성 테이블 끝 --%>

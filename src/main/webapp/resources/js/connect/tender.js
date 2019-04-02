@@ -8,4 +8,14 @@ $(document).ready(function(){
 			return;
 		}
 	});
+	
+	$(document).on('click','#tenderModifyBtn',function(){
+		var result=confirm("수정하시겠습니까?");
+		if(result){
+			var tcode=$("#tenderTbl tr:eq(0)").attr('id');
+			window.location.href="/tenderModify?tcode="+tcode;
+		}else{
+			return;
+		}
+	});
 });

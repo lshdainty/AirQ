@@ -12,10 +12,12 @@ public interface ConnectService {
 	public ArrayList<ProductVO> productList(@Param("startnum") int startnum,  @Param("endnum") int endnum);
 	// 업체 리스트 출력
 	public ArrayList<TenderboardVO> tenderList();
-	//입찰 공고 작성
+	// 입찰 공고 작성
 	public int addTenderboard(TenderboardVO tenderboardVo);
-	//입찰 세부내용 보기
-	public TenderboardVO tenderContent(TenderboardVO tenderboardVo);
-	//입찰 공고 삭제
+	// 입찰 세부내용 보기
+	public TenderboardVO tenderContent(String tcode);
+	// 입찰 공고 삭제
 	public int tenderDelete(String tcode);
+	// 입찰 공고 수정
+	public int tenderModify(TenderboardVO tenderboardVo);
 }
