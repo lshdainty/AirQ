@@ -1,13 +1,19 @@
 @charset "UTF-8";
 
-#tenderTitle {
+#tenderTitle,#tenderParticipationList {
 	color: #747474;
 	font-weight: 300;
 	margin-bottom: 10px;
+	margin-left: 10px;
+}
+
+#tenderWriter {
+	margin-left:10px;
 }
 
 #tenderDeadline {
 	float: right;
+	margin-right:10px;
 }
 
 hr {
@@ -28,23 +34,17 @@ hr {
 	text-align: center;
 }
 
-#tenderBtnDiv {
+#tenderADiv {
 	height: 50px;
 	width: 100%;
 }
 
-#tenderModifyBtn, #tenderDeleteBtn {
+#tenderADiv a,#tenderADiv span {
 	float: right;
-	height: 40px;
-	width: 90px;
-	margin-left: 10px;
+	margin-right:10px;
 }
-
-#tenderParticipationList {
-	color: #747474;
-	text-transform: uppercase;
-	font-weight: 300;
-	margin-bottom: 15px;
+#tenderADiv span{
+	color:gray;
 }
 
 @media all and (max-width:493px) {

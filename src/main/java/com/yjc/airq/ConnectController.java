@@ -55,6 +55,16 @@ public class ConnectController {
 	// 입찰 서비스 메인페이지로 가기
 	@RequestMapping(value = "tenderMain", method = RequestMethod.GET)
 	public String tenderMain(Model model) {
+		/*
+		 * SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd일  HH:mm");
+		 * TenderboardVO tvo=new TenderboardVO(); String
+		 * t=format.format(tvo.getTcreated());
+		 * 
+		 * 
+		 * 
+		 * Timestamp tcreated=tvo.getTcreated();
+		 */
+		
 		model.addAttribute("tenderList",connectService.tenderList());
 		return "connect/tenderMain";
 	}
@@ -96,18 +106,16 @@ public class ConnectController {
 	}
 	
 	// 입찰 서비스 - 입찰 공고 삭제 후 리스트로 가기
-	@RequestMapping(value="tenderDelete",method=RequestMethod.GET)
-	public String tenderDelete(HttpServletRequest httpServletRequest,Model model) {
-		String tcode = httpServletRequest.getParameter("tcode");
-		int s=connectService.tenderDelete(tcode);
-		
-		return "redirect: /tenderMain";
-	}
+		@RequestMapping(value="tenderDelete/{tcode}",method=RequestMethod.GET)
+		public String tenderDelete(@PathVariable String tcode,Model model) {
+			int s=connectService.tenderDelete(tcode);
+			
+			return "redirect: /tenderMain";
+		}
 
 	// 입찰 서비스 - 입찰 공고 수정 페이지로 가기
-	@RequestMapping(value="tenderModify",method=RequestMethod.GET)
-	public String tenderModify(HttpServletRequest httpServletRequest,Model model) {
-		String tcode = httpServletRequest.getParameter("tcode");
+	@RequestMapping(value="tenderModify/{tcode}",method=RequestMethod.GET)
+	public String tenderModify(@PathVariable String tcode,Model model) {
 		model.addAttribute("tenderModify",connectService.tenderContent(tcode));
 		
 		return "connect/tenderModify";

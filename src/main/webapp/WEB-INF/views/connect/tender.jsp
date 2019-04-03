@@ -9,13 +9,14 @@
 <%--입찰 공고 세부 내용 시작 --%>
 
 <h1 id="tenderTitle">${tenderContent.ttitle }</h1>
-<div id="d">
+<div>
 	<span id="tenderWriter">${tenderContent.tname }</span> | <span id="tenderDate">${tenderContent.tcreated }</span> <span id="tenderDeadline">마감 일자 : ${tenderContent.tdeadline }</span>
+	<input type="hidden" id="tcode" name="tcode" value="${tenderContent.tcode }">
 </div>
 <hr />
 
 <table id="tenderTbl">
-	<tr id="${tenderContent.tcode}">
+	<tr>
 		<td>주소</td>
 		<td>${tenderContent.taddress }</td>
 	</tr>
@@ -36,9 +37,14 @@
 		<td>${tenderContent.trequirement }</td>
 	</tr>
 </table>
-<div id="tenderBtnDiv">
-	<button id="tenderModifyBtn">수정</button>
-	<button id="tenderDeleteBtn">삭제</button>
+<div id="tenderADiv">
+	<a href="/tenderDelete/${tenderContent.tcode}" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
+	<span>|</span>
+	<a href="/tenderModify/${tenderContent.tcode}" onclick="return confirm('수정하시겠습니까?');">수정</a>
+	<span>|</span>
+	<a href="/tenderMain">목록</a>
+	<!-- <button id="tenderModifyBtn">수정</button>
+	<button id="tenderDeleteBtn">삭제</button> -->
 </div>
 <%--입찰 공고 세부 내용 끝 --%>
 

@@ -1,4 +1,4 @@
-$(document).ready(function(){
+/*$(document).ready(function(){
 	$(document).on('click','#tenderDeleteBtn',function(){
 		var result=confirm("삭제하시겠습니까?");
 		if(result){
@@ -18,4 +18,4 @@ $(document).ready(function(){
 			return;
 		}
 	});
-});
+});*/
