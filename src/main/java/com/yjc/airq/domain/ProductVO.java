@@ -1,6 +1,5 @@
 package com.yjc.airq.domain;
 
-import com.yjc.airq.domain.ProductVO;
 import lombok.Data;
 
 @Data

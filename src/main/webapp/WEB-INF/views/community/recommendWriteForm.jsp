@@ -3,6 +3,8 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 
+
+<% application.getRealPath(""); %>
 <div class="container" style="margin-top: 112px">
 	<div class="row">
 		<div class="col-md-12 order-md-4">
@@ -19,8 +21,8 @@
 				
 				<%-- 파일 업로드 시작 --%>
 				<div class="custom-file">
-					<input type="file" class="custom-file-input" id="inputGroupFile01"
-						aria-describedby="inputGroupFileAddon01"> <label
+					<input type="file" class="custom-file-input" id="File1"
+						aria-describedby="inputGroupFileAddon01" name="file1"> <label
 						class="custom-file-label" for="inputGroupFile01">Choose
 						file</label>
 				</div>
@@ -31,7 +33,7 @@
 			<%-- 섬네일 등록 끝 --%>
 			
 			
-			<form class="needs-validation" action="recommendMain" method="get" novalidate>
+			<form class="needs-validation" action="recommendInsert" method="get" novalidate>
 			
 			
 				<%-- 게시글 이름 시작 --%>
@@ -39,7 +41,7 @@
 					<div style="width: 100%">
 						<label for="firstName">board name</label> 
 						
-						<input type="text" class="form-control" id="board_name" placeholder="Board name" required>
+						<input type="text" class="form-control" id="board_name" placeholder="Board name" required name="board_name">
 						<div class="invalid-feedback">BoardName is empty.</div>
 					</div>
 				</div>
@@ -52,7 +54,7 @@
 					<label for="username">board content</label>
 					<div class="input-group">
 						<textarea rows="20" cols="100" class="form-control" id="recommend-cotent"
-							placeholder="Board content" name="ckeditor" required></textarea>
+							placeholder="Board content" name="board_content" required></textarea>
 						<div class="invalid-feedback" style="width: 100%;">BoardName is empty.</div>
 					</div>
 				</div>
@@ -77,7 +79,7 @@
 
 		CKEDITOR
 				.replace(
-						'ckeditor',
+						'board_content',
 						{//해당 이름으로 된 textarea에 에디터를 적용
 							width : '100%',
 							height : '400px',
@@ -100,21 +102,6 @@
 
 	});
 
-	function getUrlParam(paramName) {
-		var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
-		var match = window.location.search.match(reParam);
-		return (match && match.length > 1) ? match[1] : null;
-	}
-
-	var funcNum = getUrlParam('CKEditorFuncNum');
-
-	var par = window.parent, op = window.opener, o = (par && par.CKEDITOR) ? par
-			: ((op && op.CKEDITOR) ? op : false);
-
-	if (op)
-		window.close();
-	if (o !== false)
-		o.CKEDITOR.tools.callFunction(funcNum, '$file');
 </script>
 <%-- 스크립트 링크 끝 --%>
 

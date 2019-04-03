@@ -12,8 +12,15 @@
 	</select>
 	
 	<insert id="insertBoard" parameterType="com.yjc.airq.domain.BoardVO">
-		INSERT INTO BOARD_TEST(BOARD_ID,BOARD_NAME,BOARD_CONTENT,BOARD_AUTHOR) VALUES
-		(#{board_id},#{board_name},#{board_content},#{board_author})
+		INSERT INTO BOARD_TEST (BOARD_ID,BOARD_NAME,BOARD_CONTENT,BOARD_AUTHOR)
+		VALUES (SEQ_BOARD.NEXTVAL,#{board_name},#{board_content},#{board_author})
 	</insert>
-
+	<update id="modifyBoard" parameterType="com.yjc.airq.domain.BoardVO" >
+		UPDATE BOARD_TEST 
+		SET BOARD_NAME=#{board_name},BOARD_CONTENT=#{board_content}
+		WHERE BOARD_ID=#{board_id}
+	</update>
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM BOARD_TEST WHERE BOARD_ID=#{board_id}
+	</delete>
 </mapper>
