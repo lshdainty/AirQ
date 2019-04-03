@@ -5,7 +5,6 @@
             box-sizing: border-box;
         }
         .container{
- 
         }
         /*컨테이너 바로 밑에 있는 것들의 스타일    >=직계자손  *=모든것 */
         .container>*{
@@ -16,8 +15,6 @@
 			
         }
         .container .content{
-            padding-left: 200px;
-            padding-right: 150px;
             overflow:hidden;
         }
         .container .content>*{
@@ -28,16 +25,7 @@
         .container .content main{
             width:100%;
         }
-        .container .content nav{
-            width: 200px;
-            margin-left: -100%;
-            left:-200px;
-            position: relative;
-        }
-        .container .content aside{
-            width: 150px;
-            margin-right: -150px;
-        }
+
         /*float 지정 해제 해줌*/
         .container footer{
             clear: both;
@@ -45,7 +33,7 @@
         /*599px보다 웹페이지를 줄이면 일렬로 나타나게*/
                 @media (max-width:1000px){
              .container>.content>*{
-
+		     background-color : #f8f9fa;   
         }
         .container .content{
             padding-left: 0px;
@@ -59,7 +47,6 @@
         }
         .container .content main{
             width:100%;
-            margin: 0 auto;
             
         }
         .container .content nav{

@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.yjc.airq.service.ConnectService;
+
 import lombok.AllArgsConstructor;
 
 /**
@@ -13,7 +15,7 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class MypageController {
-	
+	private ConnectService connectService;
 	//mypageMain  가기
 	@RequestMapping(value = "mypageMain", method = RequestMethod.GET)
 	public String mypageMain(Model model) {
@@ -37,6 +39,7 @@ public class MypageController {
 	//mypageMainPosts 가기
 	@RequestMapping(value = "mypageMainPosts", method = RequestMethod.GET)
 	public String mypageMainPosts(Model model) {
+		model.addAttribute("tenderList",connectService.tenderList());
 		return "mypage/mypageMainPosts";
 	}
 	
