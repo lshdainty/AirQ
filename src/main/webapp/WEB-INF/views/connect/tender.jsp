@@ -8,7 +8,7 @@
 
 <%--입찰 공고 세부 내용 시작 --%>
 
-<h1 id="tenderTitle">${tenderContent.ttitle }</h1>
+<h2 id="tenderTitle">${tenderContent.ttitle }</h2>
 <div>
 	<span id="tenderWriter">${tenderContent.tname }</span> | <span id="tenderDate">${tenderContent.tcreated }</span> <span id="tenderDeadline">마감 일자 : ${tenderContent.tdeadline }</span>
 	<input type="hidden" id="tcode" name="tcode" value="${tenderContent.tcode }">
@@ -50,7 +50,7 @@
 
 
 <%-- 참여 업체 리스트 테이블 시작 --%>
-<h2 id="tenderParticipationList">참여 업체 리스트</h2>
+<h3 id="tenderParticipationList">참여 업체 리스트</h3>
 
 <table id="tenderParticipationTbl">
 	<thead>

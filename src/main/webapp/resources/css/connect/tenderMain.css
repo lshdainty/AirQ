@@ -38,7 +38,7 @@ ul {
 }
 
 #tenderLiHeader {
-	background-color: #95A5A6;
+	background-color: rgba(213,213,213,0.5);
 	font-size: 14px;
 	letter-spacing: 0.03em;
 }

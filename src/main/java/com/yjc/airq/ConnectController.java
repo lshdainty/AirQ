@@ -55,17 +55,8 @@ public class ConnectController {
 	// 입찰 서비스 메인페이지로 가기
 	@RequestMapping(value = "tenderMain", method = RequestMethod.GET)
 	public String tenderMain(Model model) {
-		/*
-		 * SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd일  HH:mm");
-		 * TenderboardVO tvo=new TenderboardVO(); String
-		 * t=format.format(tvo.getTcreated());
-		 * 
-		 * 
-		 * 
-		 * Timestamp tcreated=tvo.getTcreated();
-		 */
-		
 		model.addAttribute("tenderList",connectService.tenderList());
+		
 		return "connect/tenderMain";
 	}
 
@@ -97,9 +88,8 @@ public class ConnectController {
 	}
 	
 	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
-	@RequestMapping(value="tender/"+"{tcode}",method=RequestMethod.GET)
+	@RequestMapping(value="tender/{tcode}",method=RequestMethod.GET)
 	public String ten(@PathVariable String tcode,Model model) {
-		//주소에 있는 파라미터 값 받아오기
 		model.addAttribute("tenderContent",connectService.tenderContent(tcode));
 		
 		return "connect/tender";
