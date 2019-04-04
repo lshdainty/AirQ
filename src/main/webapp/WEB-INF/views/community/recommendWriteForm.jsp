@@ -7,31 +7,7 @@
 <% application.getRealPath(""); %>
 <div class="container" style="margin-top: 112px">
 	<div class="row">
-		<div class="col-md-12 order-md-4">
-		
-		<%-- 섬네일 등록 시작 --%>
-		
-		<img src="resources/images/test2.jpg" class="rounded mx-auto d-block img-thumbnail" alt="...">
-		
-		
-			<div class="input-group mb-1">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="inputGroupFileAddon01">Tumbnail</span>
-				</div>
-				
-				<%-- 파일 업로드 시작 --%>
-				<div class="custom-file">
-					<input type="file" class="custom-file-input" id="File1"
-						aria-describedby="inputGroupFileAddon01" name="file1"> <label
-						class="custom-file-label" for="inputGroupFile01">Choose
-						file</label>
-				</div>
-				<%-- 파일 업로드 끝 --%>
-				
-			</div>
-			
-			<%-- 섬네일 등록 끝 --%>
-			
+		<div class="col-md-12 order-md-4">		
 			
 			<form class="needs-validation" action="recommendInsert" method="get" novalidate>
 			

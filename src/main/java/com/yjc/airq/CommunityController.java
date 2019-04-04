@@ -1,6 +1,13 @@
 package com.yjc.airq;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import javax.servlet.http.HttpServletRequest;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,8 +32,35 @@ public class CommunityController {
 	//상품추천 메인페이지로 가기
 	@RequestMapping(value = "recommendMain", method = RequestMethod.GET)
 	public String recommendMain(Model model) {
+		ArrayList<BoardVO> list=board.getBoards();
+		Iterator<BoardVO> it = list.iterator();
+		BoardVO boardVO;
+		String content;
+		String thumbnail;
+		Element imageElement;
+		Document doc;
+		while(it.hasNext()) {
+			boardVO=it.next();
+			System.out.println("boardVO:"+boardVO);
+			content=boardVO.getBoard_content();
+			System.out.println("Content:"+content);
+			doc=Jsoup.parse(content);
+			System.out.println("Doc:"+doc);
+			imageElement = doc.select("img").first();
+			if(imageElement!=null) {
+				System.out.println("ImageElement:"+imageElement);
+				thumbnail = imageElement.attr("src");
+				System.out.println("Thumbnail:"+thumbnail);
+			}
+			else {
+				thumbnail="resources/images/test2.jpg";
+			}
+			boardVO.setBoard_thumbnail(thumbnail);
+		}
+		System.out.println(list);
 		
-		model.addAttribute("boards",board.getBoards());
+		
+		model.addAttribute("boards",list);
 		return "community/recommendMain";
 	}
 	

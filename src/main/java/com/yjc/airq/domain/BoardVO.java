@@ -9,4 +9,5 @@ public class BoardVO {
 	private String board_name;
 	private String board_content;
 	private String board_author;
+	private String board_thumbnail;
 }
