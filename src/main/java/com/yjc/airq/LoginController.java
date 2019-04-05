@@ -35,7 +35,7 @@ public class LoginController {
 	public String loginMain(MemberVO member, HttpSession session, Model model,@RequestParam String id, @RequestParam String password) {
 		MemberVO result = memberService.login(id);
 		if(result!=null) {
-			if(password.equals(result.getMember_pw())) {
+			if(password.equals(result.getPassword())) {
 			session.setAttribute("user",result);
 			return "success";
 			}
@@ -56,13 +56,13 @@ public class LoginController {
 	// 아이디 찾기 작성후 확인 버튼 클릭
 	@RequestMapping(value = "/findidajax", method = RequestMethod.POST) // value 값이 들어오면 method에 적혀있는 것을 불러주세요
 	@ResponseBody
-	public String findId(Model model,@RequestParam String name, @RequestParam String tel, @RequestParam String email) {
-		MemberVO A = memberService.findId(name,tel,email);
+	public String findId(Model model, MemberVO LVOI,@RequestParam String name, @RequestParam String tel, @RequestParam String email) {
+		MemberVO A = memberService.findId(LVOI);
 		
 		if(A != null) {
-			if(name.equals(A.getMember_name()) && email.equals(A.getMember_email()) || tel.equals(A.getMember_tel())) {
+			if(name.equals(LVOI.getName()) && email.equals(LVOI.getEmail()) || tel.equals(LVOI.getTel())) {
 				
-				return A.getMember_id();
+				return A.getId();
 			}
 		 else {
             return "fail";
@@ -81,14 +81,13 @@ public class LoginController {
 	// 비밀번호 찾기 작성후 확인 버튼 클릭
 	@RequestMapping(value = "/findpwajax", method = RequestMethod.POST) // value 값이 들어오면 method에 적혀있는 것을 불러주세요
 	@ResponseBody
-	public String findPw(Model model,@RequestParam String name, @RequestParam String tel, @RequestParam String email, @RequestParam String id) {
+	public String findPw(Model model, MemberVO LVOP,@RequestParam String name, @RequestParam String tel, @RequestParam String email, @RequestParam String id) {
 
-		MemberVO A = memberService.findPw(name,id,tel,email);
-		
+		MemberVO A = memberService.findPw(LVOP);
 		if(A != null) {
-			if((name.equals(A.getMember_name()) && id.equals(A.getMember_id())) && (email.equals(A.getMember_email()) || tel.equals(A.getMember_tel())))  {
+			if((name.equals(LVOP.getName()) && id.equals(LVOP.getId())) && (email.equals(LVOP.getEmail()) || tel.equals(LVOP.getTel())))  {
 
-				return A.getMember_pw();
+				return A.getPassword();
 			}
 		 else {
             return "fail";

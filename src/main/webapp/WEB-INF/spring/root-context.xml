@@ -11,7 +11,7 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@39.127.7.94:1521:ORCL" />
-		<property name="username" value="airq" />
+		<property name="username" value="airqbackup" />
 		<property name="password" value="airq" />
 	</bean>
 	
