@@ -7,11 +7,11 @@
 	</select>
 	
 	<select id="findId" resultType="com.yjc.airq.domain.MemberVO"> 
-		select * from member where member_name=#{member_name} and (member_email=#{member_email} or member_tel=#{member_tel})
+		select * from member where member_name = #{member_name} and (member_email = #{member_email} or member_tel = #{member_tel})
 	</select>
 
 	<select id="findPw" resultType="com.yjc.airq.domain.MemberVO"> 
-		select * from member where member_name=#{member_name} and member_id=#{member_id} and (member_email=#{member_email} or member_tel=#{member_tel})
+		select * from member where member_name = #{member_name} and member_id = #{member_id} and (member_email = #{member_email} or member_tel = #{member_tel})
 	</select>
 
 	<!-- 회원 목록 -->
