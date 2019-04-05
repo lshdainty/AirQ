@@ -35,7 +35,7 @@ public class LoginController {
 	public String loginMain(MemberVO member, HttpSession session, Model model,@RequestParam String id, @RequestParam String password) {
 		MemberVO result = memberService.login(id);
 		if(result!=null) {
-			if(password.equals(result.getPassword())) {
+			if(password.equals(result.getMember_pw())) {
 			session.setAttribute("user",result);
 			return "success";
 			}
@@ -60,9 +60,9 @@ public class LoginController {
 		MemberVO A = memberService.findId(LVOI);
 		
 		if(A != null) {
-			if(name.equals(LVOI.getName()) && email.equals(LVOI.getEmail()) || tel.equals(LVOI.getTel())) {
+			if(name.equals(LVOI.getMember_name()) && email.equals(LVOI.getMember_email()) || tel.equals(LVOI.getMember_tel())) {
 				
-				return A.getId();
+				return A.getMember_id();
 			}
 		 else {
             return "fail";
@@ -85,9 +85,9 @@ public class LoginController {
 
 		MemberVO A = memberService.findPw(LVOP);
 		if(A != null) {
-			if((name.equals(LVOP.getName()) && id.equals(LVOP.getId())) && (email.equals(LVOP.getEmail()) || tel.equals(LVOP.getTel())))  {
+			if((name.equals(LVOP.getMember_name()) && id.equals(LVOP.getMember_id())) && (email.equals(LVOP.getMember_email()) || tel.equals(LVOP.getMember_tel())))  {
 
-				return A.getPassword();
+				return A.getMember_pw();
 			}
 		 else {
             return "fail";
