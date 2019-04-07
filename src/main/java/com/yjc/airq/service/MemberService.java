@@ -6,6 +6,6 @@ import com.yjc.airq.domain.MemberVO;
 public interface MemberService {
 	public ArrayList<MemberVO> getMemberList();
 	public MemberVO login(String id);
-	public MemberVO findId(MemberVO LVOI);
-	public MemberVO findPw(MemberVO LVOP);
+	public MemberVO findId(String name, String tel, String email);
+	public MemberVO findPw(String name, String id, String tel, String email);
 }
