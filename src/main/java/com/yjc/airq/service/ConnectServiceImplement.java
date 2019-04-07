@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
+import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderboardVO;
+import com.yjc.airq.mapper.AreaMapper;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.TenderboardMapper;
 
@@ -17,6 +19,7 @@ import lombok.AllArgsConstructor;
 public class ConnectServiceImplement implements ConnectService {
 	private TenderboardMapper tenderMapper;
 	private ProductMapper productMapper;
+	private AreaMapper areaMapper;
 	
 	// 입찰 리스트 출력
 	@Override
@@ -53,5 +56,11 @@ public class ConnectServiceImplement implements ConnectService {
 	public ArrayList<ProductVO> productList(@Param("startnum") int startnum,  @Param("endnum") int endnum){
 		return productMapper.productList(startnum,endnum);
 	};
+	
+	// 상품 리스트 출력
+	@Override
+	public ArrayList<AreaVO> productAreaList(){
+		return areaMapper.productAreaList();
+	}
 	
 }

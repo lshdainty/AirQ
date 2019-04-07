@@ -67,13 +67,33 @@
 								<li class="compareLiContent">
 									<div class="col col-10-1" data-label="상품코드">${pList.product_code}</div>
 									<div class="col col-15" data-label="상품이름">${pList.product_name}</div>
-									<div class="col col-30" data-label="상품 상세설명">${pList.detail}</div>
-									<div class="col col-10-1" data-label="가격">${pList.price}</div>
-									<div class="col col-15" data-label="측정 적절 평수">${pList.area}</div>
-									<div class="col col-10-1" data-label="측정 지점">${pList.branch}</div>
-									<div class="col col-15" data-label="서비스 가능지역">${pList.service_area}</div>
-									<div class="col col-10-1" data-label="별점 평균">${pList.star_average}</div>
-									<div class="col col-10-1" data-label="판매 건수">${pList.sell_num}</div>
+									<div class="col col-30" data-label="상품 상세설명">${pList.product_detail}</div>
+									<div class="col col-10-1" data-label="가격">${pList.product_price}</div>
+									<div class="col col-15" data-label="측정 적절 평수">
+										<c:choose>
+											<c:when test="${pList.p_space == '1'}">1~10평</c:when>
+											<c:when test="${pList.p_space == '2'}">11~20평</c:when>
+											<c:when test="${pList.p_space == '3'}">21~30평</c:when>
+											<c:when test="${pList.p_space == '4'}">31~40평</c:when>
+											<c:when test="${pList.p_space == '5'}">41~50평</c:when>
+											<c:when test="${pList.p_space == '6'}">51~60평</c:when>
+											<c:when test="${pList.p_space == '7'}">61~70평</c:when>
+											<c:when test="${pList.p_space == '8'}">71~80평</c:when>
+											<c:when test="${pList.p_space == '9'}">81~90평</c:when>
+											<c:when test="${pList.p_space == '10'}">91~100평</c:when>
+											<c:when test="${pList.p_space == '11'}">100~평</c:when>
+										</c:choose>
+									</div>
+									<div class="col col-10-1" data-label="측정 지점">${pList.measure_point}</div>
+									<div class="col col-15" data-label="서비스 가능지역">
+										<c:forEach var="aList" items="${aList }">
+											<c:if test="${pList.product_code==aList.product_code }">
+												${aList.area_do } ${aList.area_si }
+											</c:if>
+										</c:forEach>
+									</div>
+									<div class="col col-10-1" data-label="별점 평균"></div>
+									<div class="col col-10-1" data-label="판매 건수"></div>
 								</li>
 							</c:forEach>
 						</ul>

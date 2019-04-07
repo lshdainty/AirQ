@@ -60,7 +60,11 @@ public class LoginController {
 		MemberVO A = memberService.findId(LVOI);
 		
 		if(A != null) {
+<<<<<<< HEAD
 			if(name.equals(LVOI.getName()) && email.equals(LVOI.getEmail()) || tel.equals(LVOI.getTel())) {
+=======
+			if(name.equals(LVOI.getMember_name()) && email.equals(LVOI.getMember_email()) || tel.equals(LVOI.getMember_tel())) {
+>>>>>>> parent of bd2eba3... 2019/04/05 아이디 비번 찾기 수정
 				
 				return A.getId();
 			}
@@ -85,7 +89,11 @@ public class LoginController {
 
 		MemberVO A = memberService.findPw(LVOP);
 		if(A != null) {
+<<<<<<< HEAD
 			if((name.equals(LVOP.getName()) && id.equals(LVOP.getId())) && (email.equals(LVOP.getEmail()) || tel.equals(LVOP.getTel())))  {
+=======
+			if((name.equals(LVOP.getMember_name()) && id.equals(LVOP.getMember_id())) && (email.equals(LVOP.getMember_email()) || tel.equals(LVOP.getMember_tel())))  {
+>>>>>>> parent of bd2eba3... 2019/04/05 아이디 비번 찾기 수정
 
 				return A.getPassword();
 			}
