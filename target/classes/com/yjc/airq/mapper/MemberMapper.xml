@@ -35,7 +35,7 @@
 	</select>
 
 	<!-- 파일 업로드 -->
-	<select id="fileDB" resultType="com.yjc.airq.domain.FileTestVO">
+<!-- 	<select id="fileDB" resultType="com.yjc.airq.domain.FileTestVO">
 		insert into FILETEST(FILENAME, ORINAME, PATH) values(#{filename}, #{oriname}, #{path})
-	</select>
+	</select> -->
 </mapper>

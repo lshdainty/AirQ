@@ -1,6 +1,9 @@
 package com.yjc.airq;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,15 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.yjc.airq.domain.BoardVO;
 import com.yjc.airq.domain.MemberVO;
-import com.yjc.airq.service.BoardService;
+import com.yjc.airq.domain.PostVO;
+import com.yjc.airq.service.PostService;
 
 import lombok.AllArgsConstructor;
 
@@ -27,22 +29,22 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CommunityController {
 	
-	private BoardService board;
+	private PostService postService;
 	
 	//상품추천 메인페이지로 가기
 	@RequestMapping(value = "recommendMain", method = RequestMethod.GET)
 	public String recommendMain(Model model) {
-		ArrayList<BoardVO> list=board.getBoards();
-		Iterator<BoardVO> it = list.iterator();
-		BoardVO boardVO;
+		ArrayList<PostVO> posts=postService.getPosts();
+		Iterator<PostVO> it = posts.iterator();
+		PostVO postVO;
 		String content;
 		String thumbnail;
 		Element imageElement;
 		Document doc;
 		while(it.hasNext()) {
-			boardVO=it.next();
-			System.out.println("boardVO:"+boardVO);
-			content=boardVO.getBoard_content();
+			postVO=it.next();
+			System.out.println("postVO:"+postVO);
+			content=postVO.getPost_content();
 			System.out.println("Content:"+content);
 			doc=Jsoup.parse(content);
 			System.out.println("Doc:"+doc);
@@ -55,12 +57,12 @@ public class CommunityController {
 			else {
 				thumbnail="resources/images/test2.jpg";
 			}
-			boardVO.setBoard_thumbnail(thumbnail);
+			postVO.setPost_thumbnail(thumbnail);
 		}
-		System.out.println(list);
+		System.out.println(posts);
 		
 		
-		model.addAttribute("boards",list);
+		model.addAttribute("posts",posts);
 		return "community/recommendMain";
 	}
 	
@@ -69,22 +71,22 @@ public class CommunityController {
 	@RequestMapping(value = "recommendDetail", method = RequestMethod.GET)
 	public String recommandDetail(Model model,HttpServletRequest request) {
 		
-		int board_id = Integer.parseInt(request.getParameter("board_id"));
+		String post_code = (String)request.getParameter("post_code");
 		
 		
-		model.addAttribute("detailBoard",board.detailBoard(board_id));
-		System.out.println(board_id);
+		model.addAttribute("detailpost",postService.detailPost(post_code));
+		System.out.println(post_code);
 		return "community/recommendDetail";
 	}
 	
 	@RequestMapping(value = "recommendModify", method = RequestMethod.GET)
 	public String recommandModify(Model model,HttpServletRequest request) {
 		
-		int board_id = Integer.parseInt(request.getParameter("board_id"));
+		String post_code = (String)request.getParameter("post_code");
 		
 		
-		model.addAttribute("modifyBoard",board.detailBoard(board_id));
-		System.out.println(board_id);
+		model.addAttribute("modifyPost",postService.detailPost(post_code));
+		System.out.println(post_code);
 		return "community/recommendModify";
 	}
 	
@@ -98,17 +100,28 @@ public class CommunityController {
 	@RequestMapping(value = "recommendInsert", method = RequestMethod.GET)
 	public String recommandInsert(Model model,HttpServletRequest request) {
 		
-		BoardVO boardVO =new BoardVO();
+		PostVO postVO =new PostVO();
 		
-		String board_content = request.getParameter("board_content");
-		String board_name = request.getParameter("board_name");
+		String post_title = request.getParameter("post_title");
+		String post_content = request.getParameter("post_content");
 		
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
+		Timestamp current_date = new Timestamp(System.currentTimeMillis());
+		int random=(int)(Math.random()*10000);
+		String post_code="ps"+day+random;
 		
-		boardVO.setBoard_name(board_name);
-		boardVO.setBoard_content(board_content);
-		boardVO.setBoard_author( ((MemberVO) request.getSession().getAttribute("user")).getPassword());
+		postVO.setPost_code(post_code);
+		postVO.setPost_title(post_title);
+		postVO.setPost_content(post_content);
+		postVO.setP_creation_date(current_date);
+		postVO.setView_num(0);
+		postVO.setRecommend_num(0);
+		postVO.setMember_id(((MemberVO) request.getSession().getAttribute("user")).getMember_pw());
+		postVO.setBoard_code("test");
 		
-		board.insertBoard(boardVO);
+		postService.insertPost(postVO);
 		
 		
 		
@@ -118,8 +131,8 @@ public class CommunityController {
 	// 상품추천 글쓰기 삭제
 	@RequestMapping(value = "recommendDelete", method = RequestMethod.GET)
 	public String recommandDelete(Model model,HttpServletRequest request) {
-		int board_id = Integer.parseInt(request.getParameter("board_id"));
-		board.deleteBoard(board_id);
+		String post_code = (String)request.getParameter("post_code");
+		postService.deletePost(post_code);
 		return "redirect: /recommendMain";
 	}
 	
@@ -127,17 +140,14 @@ public class CommunityController {
 	// 상품추천 글 수정
 	@RequestMapping(value = "recommendUpdate", method = RequestMethod.GET)
 	public String recommandUpdate(Model model,HttpServletRequest request) {
-		BoardVO boardVO =new BoardVO();
-		String board_name = request.getParameter("board_name");
-		String board_content = request.getParameter("board_content");
-		int board_id=Integer.parseInt(request.getParameter("board_id"));
-		System.out.println("Name:"+board_name);
-		System.out.println("Content:"+board_content);
-		System.out.println("ID:"+board_id);
-		boardVO.setBoard_name(board_name);
-		boardVO.setBoard_content(board_content);
-		boardVO.setBoard_id(board_id);
-		board.modifyBoard(boardVO);
+		PostVO postVO =new PostVO();
+		String post_title = request.getParameter("post_title");
+		String post_content = request.getParameter("post_content");
+		String post_code = (String)request.getParameter("post_code");
+		postVO.setPost_title(post_title);
+		postVO.setPost_content(post_content);
+		postVO.setPost_code(post_code);
+		postService.modifyPost(postVO);
 		
 		return "redirect: /recommendMain";
 	}

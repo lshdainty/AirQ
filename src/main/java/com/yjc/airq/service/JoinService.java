@@ -1,7 +1,6 @@
 package com.yjc.airq.service;
 
 import java.util.ArrayList;
-import com.yjc.airq.domain.FileTestVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.SellerVO;
 
@@ -19,7 +18,7 @@ public interface JoinService {
 	public MemberVO idCheck(String id);
 
 	// 파일 업로드
-	public String fileDB(FileTestVO fDB);
+//	public String fileDB(UploadVO fDB);
 
 	
 }

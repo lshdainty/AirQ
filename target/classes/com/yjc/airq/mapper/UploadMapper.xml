@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjc.airq.mapper.UploadMapper">
+	<insert id="imgUpload" parameterType="com.yjc.airq.domain.UploadVO">
+		INSERT INTO UPLOAD(
+			UPLOAD_CODE,
+			ORIGINAL_NAME,
+			FILE_NAME,
+			UPLOAD_DATE,
+			PRODUCT_CODE,
+			POST_CODE
+		)
+		VALUES(
+		#{upload_code},
+		#{original_name},
+		#{file_name},
+		#{upload_date},
+		#{product_code},
+		#{post_code}
+		)
+	</insert>
+</mapper>

@@ -16,13 +16,13 @@
 <div class="album py-5 bg-light">
 
 	<div class="row">
-		<c:forEach var="board" items="${boards}">
+		<c:forEach var="post" items="${posts}">
 			<div class="col-md-4">
 				<div class="card mb-4 ">
-					<img src="${board.board_thumbnail}" class="card-img-top" style="height:200px;overflow:hidden" alt="...">
+					<img src="${post.post_thumbnail}" class="card-img-top" style="height:200px;overflow:hidden" alt="...">
 					<div class="card-body">
-						<h5 class="card-title">${board.board_name }</h5>
-						<a href="recommendDetail?board_id=${board.board_id}" class="btn btn-primary">자세히</a>
+						<h5 class="card-title">${post.post_title}</h5>
+						<a href="recommendDetail?post_id=${post.post_code}" class="btn btn-primary">자세히</a>
 					</div>
 				</div>
 			</div>
