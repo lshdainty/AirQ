@@ -11,39 +11,39 @@
 	<form action="/tenderModifyComplete" method="POST">
 	<table id="tenderModifyTbl">
 		<tr>
-			<td><input type="hidden" id="tcode" name="tcode" value="${tenderModify.tcode}"></td>
+			<td><input type="hidden" id="tender_code" name="tender_code" value="${tenderModify.tender_code}"></td>
 		</tr>
 		<tr>
 			<td class="tr">제목</td>
-			<td class="tr"><input type="text" id="ttitle" name="ttitle" value="${tenderModify.ttitle }"  required autocomplete="off"></td>
+			<td class="tr"><input type="text" id="tender_title" name="tender_title" value="${tenderModify.tender_title }"  required autocomplete="off"></td>
 		</tr>
 		<tr>
 			<td>입찰자 명</td>
-			<td><input type="text" id="tname" name="tname" value="${tenderModify.tname }"  required autocomplete="off"></td>
+			<td><input type="text" id="tender_name" name="tender_name" value="${tenderModify.tender_name }"  required autocomplete="off"></td>
 		</tr>
-		<tr id="${tenderModify.tcreated }">
+		<tr>
 			<td>주소</td>
 			<td><input type="text" id="taddress" name="taddress" value="${tenderModify.taddress }"  required autocomplete="off"></td>
 		</tr>
 		<tr>
 			<td>측정 일자</td>
-			<td><input type="date" id="tmeasurementdate" name="tmeasurementdate" value="${tenderModify.tmeasurementdate }"  required autocomplete="off"></td>
+			<td><input type="date" id="service_date" name="service_date" value="${tenderModify.service_date }"  required autocomplete="off"></td>
 		</tr>
 		<tr>
 			<td>마감 기한</td>
-			<td><input type="date" id="tdeadline" name="tdeadline" value="${tenderModify.tdeadline }"  required autocomplete="off"></td>
+			<td><input type="date" id="tender_deadline" name="tender_deadline" value="${tenderModify.tender_deadline }"  required autocomplete="off"></td>
 		</tr>
 		<tr>
 			<td>평수</td>
-			<td><input type="text" id="tfloorspace" name="tfloorspace" value="${tenderModify.tfloorspace }"  required autocomplete="off"></td>
+			<td><input type="text" id="t_space" name="t_space" value="${tenderModify.t_space }"  required autocomplete="off"></td>
 		</tr>
 		<tr>
 			<td>층수</td>
-			<td><input type="text" id="tlayers" name="tlayers" value="${tenderModify.tlayers }"  required autocomplete="off"></td>
+			<td><input type="text" id="floor_number" name="floor_number" value="${tenderModify.floor_number }"  required autocomplete="off"></td>
 		</tr>
 		<tr>
 			<td>요구사항</td>
-			<td><textarea rows="5" cols="30" id="trequirement" name="trequirement"  required autocomplete="off"> ${tenderModify.trequirement }</textarea></td>
+			<td><textarea rows="5" cols="30" id="requirement" name="requirement"  required autocomplete="off"> ${tenderModify.requirement }</textarea></td>
 		</tr>
 	</table>
 	<div id="tenderModifyBtnDiv">

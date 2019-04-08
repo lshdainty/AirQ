@@ -8,39 +8,39 @@
 
 <%--입찰 공고 세부 내용 시작 --%>
 
-<h2 id="tenderTitle">${tenderContent.ttitle }</h2>
+<h2 id="tenderTitle">${tenderContent.tender_title }</h2>
 <div>
-	<span id="tenderWriter">${tenderContent.tname }</span> | <span id="tenderDate">${tenderContent.tcreated }</span> <span id="tenderDeadline">마감 일자 : ${tenderContent.tdeadline }</span>
-	<input type="hidden" id="tcode" name="tcode" value="${tenderContent.tcode }">
+	<span id="tenderWriter">${tenderContent.tender_name }</span> | <span id="tenderDate">${tenderContent.t_creation_date }</span> <span id="tenderDeadline">입찰 마감 일자 : ${tenderContent.tender_deadline }</span>
+	<input type="hidden" id="tcode" name="tcode" value="${tenderContent.tender_code }">
 </div>
 <hr />
 
 <table id="tenderTbl">
 	<tr>
 		<td>주소</td>
-		<td>${tenderContent.taddress }</td>
+		<td>${tenderContent.t_addr_do }${tenderContent.t_addr_si }${tenderContent.t_addr_dong }${tenderContent.t_addr_detail }</td>
 	</tr>
 	<tr>
 		<td>평수</td>
-		<td>${tenderContent.tfloorspace }</td>
+		<td>${tenderContent.t_space }</td>
 	</tr>
 	<tr>
 		<td>층수</td>
-		<td>${tenderContent.tlayers }</td>
+		<td>${tenderContent.floor_number }</td>
 	</tr>
 	<tr>
-		<td>측정일자</td>
-		<td>${tenderContent.tmeasurementdate }</td>
+		<td>서비스 일자</td>
+		<td>${tenderContent.service_date }</td>
 	</tr>
 	<tr>
 		<td>요구사항</td>
-		<td>${tenderContent.trequirement }</td>
+		<td>${tenderContent.requirement }</td>
 	</tr>
 </table>
 <div id="tenderADiv">
-	<a href="/tenderDelete/${tenderContent.tcode}" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
+	<a href="/tenderDelete/${tenderContent.tender_code }" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
 	<span>|</span>
-	<a href="/tenderModify/${tenderContent.tcode}" onclick="return confirm('수정하시겠습니까?');">수정</a>
+	<a href="/tenderModify/${tenderContent.tender_code }" onclick="return confirm('수정하시겠습니까?');">수정</a>
 	<span>|</span>
 	<a href="/tenderMain">목록</a>
 	<!-- <button id="tenderModifyBtn">수정</button>
