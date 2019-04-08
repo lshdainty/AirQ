@@ -1,5 +1,5 @@
         .container{
-            
+            border: 1px solid red;
         }
         *{
             box-sizing: border-box;
@@ -13,6 +13,58 @@
         .container>.content>*{
 			border : 2px soild red;
 			
+        }
+        .container .form1{
+        	border: 1px solid green;
+        }
+        .container .form1 .A{
+        	width:15%;
+        }
+        .container .form1 .B{
+        	display:inline-block;
+        	margin-left:28%;
+        }
+        .container .form1 .C{
+        	float:right;
+        }
+        .container .form1 .check{
+        	display:inline-block;
+        	width:10%;
+        }
+        .container .form2 {
+        	border: 1px solid blue;
+        }
+        .container .form2 .tender_title{
+        	width:15%;
+			text-overflow:ellipsis;
+			overflow:hidden;
+			display:inline-block;
+        }
+        .container .form2 .requirement{
+        	width:40%;
+        	height:50px;
+        	text-overflow:ellipsis;
+        	overflow:hidden;
+        	display:inline-block;
+        }
+        .container .form2 .tender_name{
+        	width:15%;
+        	height:50px;
+        	display:inline-block;
+        }
+        .container .form2 .t_creation_date{
+        	width:10%;
+        	height:30px;
+        	display:inline-block;
+        	text-overflow:ellipsis;
+        	overflow:inherit;
+        }
+        .container .form2 .selection{
+        	display:inline-block;
+        }
+        .container .form2 .check{
+        	display:inline-block;
+        	width:10%;
         }
         .container .content{
             overflow:hidden;
@@ -31,7 +83,7 @@
             clear: both;
         }
         /*599px보다 웹페이지를 줄이면 일렬로 나타나게*/
-                @media (max-width:1000px){
+                @media (max-width:1400px){
              .container>.content>*{
 		     background-color : #f8f9fa;   
         }
