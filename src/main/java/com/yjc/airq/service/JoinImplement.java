@@ -1,12 +1,10 @@
 package com.yjc.airq.service;
 
-import java.util.ArrayList;
-
 import org.springframework.stereotype.Service;
-
+import com.yjc.airq.mapper.CompanyMapper;
 import com.yjc.airq.mapper.MemberMapper;
 import com.yjc.airq.domain.MemberVO;
-import com.yjc.airq.domain.SellerVO;
+import com.yjc.airq.domain.Company_InfoVO;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -14,23 +12,18 @@ import lombok.AllArgsConstructor;
 public class JoinImplement implements JoinService{
 
 	private MemberMapper mapper;
+	private CompanyMapper cMapper;
 
-	// 일반 회원 목록 조회
+	// 사업자 등록번호 insert
 	@Override
-	public ArrayList<MemberVO> memberList() {
-		return mapper.memberList();
-	}
-
-	// 판매자 회원 목록 조회
-	@Override
-	public String sellerList(SellerVO sl) {
-		return mapper.sellerList(sl);
+	public void sellerList(Company_InfoVO company) {
+		cMapper.sellerList(company);
 	}
 
 	// 일반 회원가입
 	@Override
-	public String signup(MemberVO mb) {
-		return mapper.signup(mb);
+	public void signup(MemberVO mb) {
+		mapper.signup(mb);
 	}
 
 	// 아이디 중복 체크
