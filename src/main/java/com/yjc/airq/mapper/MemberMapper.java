@@ -1,15 +1,19 @@
 package com.yjc.airq.mapper;
 
 import java.util.ArrayList;
-import com.yjc.airq.domain.FileTestVO;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.SellerVO;
 
 public interface MemberMapper {
 	public ArrayList<MemberVO> getMemberList();
 	public MemberVO login(String id);
-	public MemberVO findId(MemberVO LVOI);
-	public MemberVO findPw(MemberVO LVOP);
+	public MemberVO findPw(@Param("member_name") String name, @Param("member_id") String id, @Param("member_tel") String tel, @Param("member_email") String email);
+	public MemberVO findId(@Param("member_name") String name, @Param("member_tel")String tel, @Param("member_email")String email);
+
 	public ArrayList<MemberVO> memberList();
 	
 	// 판매자 회원 목록 조회
@@ -22,6 +26,6 @@ public interface MemberMapper {
 	public MemberVO idCheck(String id);
 	
 	// 파일 업로드
-	public String fileDB(FileTestVO fDB);
+	public String fileDB(UploadVO fDB);
 	
 }

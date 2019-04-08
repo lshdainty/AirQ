@@ -15,90 +15,14 @@
 <%-- 커뮤니티 - 상품추천 리스트 시작 --%>
 <div class="album py-5 bg-light">
 
-
-
-
 	<div class="row">
-		<div class="col-md-4">
-			<div class="card mb-4">
-				<img src="resources/images/test2.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the
-						card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-4">
-			<div class="card mb-4">
-				<img src="resources/images/test.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the
-						card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-
-
-		<div class="col-md-4">
-			<div class="card mb-4">
-				<img src="resources/images/test.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the
-						card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-4">
-			<div class="card mb-4">
-				<img src="resources/images/test.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the
-						card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-4">
-			<div class="card mb-4">
-				<img src="resources/images/test.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the
-						card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-4">
-			<div class="card mb-4">
-				<img src="resources/images/test.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the
-						card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		
-		<c:forEach var="board" items="${boards}">
+		<c:forEach var="post" items="${posts}">
 			<div class="col-md-4">
-				<div class="card mb-4">
-					<img src="resources/images/test.jpg" class="card-img-top" alt="...">
+				<div class="card mb-4 ">
+					<img src="${post.post_thumbnail}" class="card-img-top" style="height:200px;overflow:hidden" alt="...">
 					<div class="card-body">
-						<h5 class="card-title">${board.board_name }</h5>
-						<a href="recommendDetail?board_id=${board.board_id}" class="btn btn-primary">Go somewhere</a>
+						<h5 class="card-title">${post.post_title}</h5>
+						<a href="recommendDetail?post_id=${post.post_code}" class="btn btn-primary">자세히</a>
 					</div>
 				</div>
 			</div>

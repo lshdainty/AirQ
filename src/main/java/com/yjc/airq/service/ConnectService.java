@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 
@@ -20,4 +21,6 @@ public interface ConnectService {
 	public int tenderDelete(String tender_code);
 	// 입찰 공고 수정
 	public int tenderModify(TenderVO tenderVo);
+	//상품중 서비스 가능한 지역 리스트 찾기
+	public ArrayList<AreaVO> productAreaList();
 }

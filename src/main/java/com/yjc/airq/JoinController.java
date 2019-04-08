@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import com.yjc.airq.domain.FileTestVO;
+import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.JoinController;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.SellerVO;
@@ -129,7 +129,7 @@ public class JoinController {
 		String oriname = file.getOriginalFilename();
 		String path = "\\resources\\images";
 
-		FileTestVO fDB = new FileTestVO();
+		UploadVO fDB = new UploadVO();
 		fDB.setFilename(filename);
 		fDB.setOriname(oriname);
 		fDB.setPath(path);

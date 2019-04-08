@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 
 import com.yjc.airq.mapper.MemberMapper;
-import com.yjc.airq.domain.FileTestVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.SellerVO;
 import lombok.AllArgsConstructor;
@@ -41,8 +40,8 @@ public class JoinImplement implements JoinService{
 	}
 
 	// 파일 업로드
-	@Override
-	public String fileDB(FileTestVO fDB) {
-		return mapper.fileDB(fDB);
-	}
+//	@Override
+//	public String fileDB(UploadVO fDB) {
+//		return mapper.fileDB(fDB);
+//	}
 }
