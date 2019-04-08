@@ -118,7 +118,7 @@ public class CommunityController {
 		postVO.setP_creation_date(current_date);
 		postVO.setView_num(0);
 		postVO.setRecommend_num(0);
-		postVO.setMember_id(((MemberVO) request.getSession().getAttribute("user")).getMember_pw());
+		postVO.setMember_id(((MemberVO) request.getSession().getAttribute("user")).getMember_id());
 		postVO.setBoard_code("test");
 		
 		postService.insertPost(postVO);
