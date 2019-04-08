@@ -7,7 +7,7 @@
 		SELECT * FROM POST
 	</select>
 	
-	<select id="detailPost"  parameterType="int" resultType="com.yjc.airq.domain.PostVO">
+	<select id="detailPost"  parameterType="String" resultType="com.yjc.airq.domain.PostVO">
 		SELECT * FROM POST WHERE POST_CODE= #{post_code}
 	</select>
 	
@@ -39,7 +39,7 @@
 		UPDATE POST 
 		SET 
 		POST_TITLE=#{post_title},
-		POST_CONTENT=#{Post_content}
+		POST_CONTENT=#{post_content}
 		WHERE POST_CODE=#{post_code}
 	</update>
 	<delete id="deletePost" parameterType="String">

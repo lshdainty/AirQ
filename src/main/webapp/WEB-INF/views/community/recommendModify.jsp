@@ -8,21 +8,21 @@
         <div class="col-md-12 order-md-1">
             <h4 class="mb-5">Modify</h4>
             <form class="needs-validation" action="recommendUpdate" method="get" novalidate>
-            <input type="hidden" name="board_id" value="${modifyBoard.board_id }">
+            <input type="hidden" name="post_code" value="${modifyPost.post_code}">
                 <div class="row">
                     <div style="width:100%">
-                        <label for="firstName">board name</label> <input type="text" class="form-control" name="board_name" id="firstName"
-                            placeholder="Board name" value="${modifyBoard.board_name}" required>
+                        <label for="firstName">post name</label> <input type="text" class="form-control" name="post_title" id="firstName"
+                            placeholder="post name" value="${modifyPost.post_title}" required>
                         <div class="invalid-feedback">Valid first name is required.
                         </div>
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="username">board content</label>
+                    <label for="username">post content</label>
                     <div class="input-group">
-                        <textarea rows="20" cols="100" class="form-control" id="username" placeholder="Board content" name="board_content"
-                            required>${modifyBoard.board_content}</textarea>
+                        <textarea rows="20" cols="100" class="form-control" id="username" placeholder="post content" name="post_content"
+                            required>${modifyPost.post_content}</textarea>
                     </div>
                 </div>
 
@@ -44,7 +44,7 @@
 	};
 	$(function() {
 
-		CKEDITOR.replace('board_content', {//해당 이름으로 된 textarea에 에디터를 적용
+		CKEDITOR.replace('post_content', {//해당 이름으로 된 textarea에 에디터를 적용
 			width : '100%',
 			height : '400px',
 			filebrowserImageUploadUrl : 'imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.

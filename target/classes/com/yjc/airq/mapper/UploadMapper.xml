@@ -20,4 +20,8 @@
 		#{post_code}
 		)
 	</insert>
+	
+	<select id="uploadUpdate" parameterType="com.yjc.airq.domain.UploadVO" resultType="com.yjc.airq.domain.UploadVO">
+		SELECT * FROM UPLOAD WHERE UPLOAD_CODE=#{upload_code}
+	</select>
 </mapper>

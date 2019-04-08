@@ -16,5 +16,8 @@ public class UploadServiceImplement implements UploadService {
 	public void imgUpload(UploadVO uploadVO) {
 		mapper.imgUpload(uploadVO);
 	}
-
+	public void uploadUpdate(String upload_code) {
+		mapper.uploadUpdate(upload_code);
+	}
+	
 }

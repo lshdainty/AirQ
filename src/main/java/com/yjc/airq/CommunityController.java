@@ -30,11 +30,14 @@ import lombok.AllArgsConstructor;
 public class CommunityController {
 	
 	private PostService postService;
-	
 	//상품추천 메인페이지로 가기
 	@RequestMapping(value = "recommendMain", method = RequestMethod.GET)
 	public String recommendMain(Model model) {
+		
+		// 데이터베이스에서 모든 포스트를 불러옴
 		ArrayList<PostVO> posts=postService.getPosts();
+		
+		// 불러온 포스트 중의 컨텐츠에서 첫번째 img 태그에서 썸네일을 추출
 		Iterator<PostVO> it = posts.iterator();
 		PostVO postVO;
 		String content;
@@ -43,26 +46,21 @@ public class CommunityController {
 		Document doc;
 		while(it.hasNext()) {
 			postVO=it.next();
-			System.out.println("postVO:"+postVO);
 			content=postVO.getPost_content();
-			System.out.println("Content:"+content);
 			doc=Jsoup.parse(content);
-			System.out.println("Doc:"+doc);
 			imageElement = doc.select("img").first();
 			if(imageElement!=null) {
-				System.out.println("ImageElement:"+imageElement);
 				thumbnail = imageElement.attr("src");
-				System.out.println("Thumbnail:"+thumbnail);
 			}
 			else {
 				thumbnail="resources/images/test2.jpg";
 			}
 			postVO.setPost_thumbnail(thumbnail);
 		}
-		System.out.println(posts);
 		
-		
+		// 저장된 포스트를 posts 에 저장
 		model.addAttribute("posts",posts);
+		
 		return "community/recommendMain";
 	}
 	
@@ -73,9 +71,8 @@ public class CommunityController {
 		
 		String post_code = (String)request.getParameter("post_code");
 		
-		
-		model.addAttribute("detailpost",postService.detailPost(post_code));
-		System.out.println(post_code);
+		model.addAttribute("detailPost",postService.detailPost(post_code));
+				
 		return "community/recommendDetail";
 	}
 	
@@ -86,16 +83,18 @@ public class CommunityController {
 		
 		
 		model.addAttribute("modifyPost",postService.detailPost(post_code));
-		System.out.println(post_code);
+		
 		return "community/recommendModify";
 	}
 	
 	// 상품추천 글쓰기로 가기
 	@RequestMapping(value = "recommendWrite", method = RequestMethod.GET)
 	public String recommandWrite(Model model) {
-		return "community/recommendWriteForm";
+		
+		
+		return "redirect:/fileInitialization";
 	}
-	
+
 	// 상품추천 글 데이터베이스 삽입
 	@RequestMapping(value = "recommendInsert", method = RequestMethod.GET)
 	public String recommandInsert(Model model,HttpServletRequest request) {
@@ -104,14 +103,14 @@ public class CommunityController {
 		
 		String post_title = request.getParameter("post_title");
 		String post_content = request.getParameter("post_content");
-		
+		// 포스트 코드 생성
 		Date today = new Date();
 		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
 		String day = date.format(today);
 		Timestamp current_date = new Timestamp(System.currentTimeMillis());
 		int random=(int)(Math.random()*10000);
 		String post_code="ps"+day+random;
-		
+		// 포스트 코드 생성 완료
 		postVO.setPost_code(post_code);
 		postVO.setPost_title(post_title);
 		postVO.setPost_content(post_content);
@@ -125,13 +124,13 @@ public class CommunityController {
 		
 		
 		
-		return "redirect: /recommendMain";
+		return "redirect: /fileInsert?post_code="+post_code;
 	}
 	
 	// 상품추천 글쓰기 삭제
 	@RequestMapping(value = "recommendDelete", method = RequestMethod.GET)
 	public String recommandDelete(Model model,HttpServletRequest request) {
-		String post_code = (String)request.getParameter("post_code");
+		String post_code = request.getParameter("post_code");
 		postService.deletePost(post_code);
 		return "redirect: /recommendMain";
 	}
@@ -147,6 +146,7 @@ public class CommunityController {
 		postVO.setPost_title(post_title);
 		postVO.setPost_content(post_content);
 		postVO.setPost_code(post_code);
+		
 		postService.modifyPost(postVO);
 		
 		return "redirect: /recommendMain";
