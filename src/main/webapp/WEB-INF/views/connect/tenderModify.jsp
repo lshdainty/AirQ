@@ -4,7 +4,7 @@
 <%@include file="../include/header.jsp"%>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="resources/css/connect/tenderModify.css" rel="stylesheet" />
+<link href="/resources/css/connect/tenderModify.css" rel="stylesheet" />
 
 <%--입찰 공고 수정 테이블 시작 --%>
 <h1 id="tenderModifyTitle">입찰 작성</h1>
@@ -23,7 +23,7 @@
 		</tr>
 		<tr>
 			<td>주소</td>
-			<td><input type="text" id="taddress" name="taddress" value="${tenderModify.taddress }"  required autocomplete="off"></td>
+			<td></td>
 		</tr>
 		<tr>
 			<td>측정 일자</td>

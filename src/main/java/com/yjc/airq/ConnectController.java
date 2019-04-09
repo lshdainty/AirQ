@@ -1,6 +1,5 @@
 package com.yjc.airq;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,10 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.Criteria;
+import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.mapper.ProductMapper;
@@ -73,7 +72,12 @@ public class ConnectController {
 	
 	// 입찰 서비스 - 글쓰기 작성 후 리스트로 가기
 	@RequestMapping(value = "tenderWriteComplete", method = RequestMethod.POST)
-	public String tenderList(TenderVO tenderVo) {
+	public String tenderList(TenderVO tenderVo,HttpServletRequest request) {
+		System.out.println(tenderVo.getT_addr_do());
+		System.out.println(tenderVo.getT_addr_si());
+		System.out.println(tenderVo.getT_addr_dong());
+		tenderVo.setMember_id(((MemberVO) request.getSession().getAttribute("user")).getMember_id());
+		
 		//코드 앞에 날짜 6자리
 		Date today = new Date();
 		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");

@@ -7,7 +7,7 @@
 <link href="/resources/css/connect/tenderMain.css" rel="stylesheet" />
 <%--입찰 공고 테이블 시작 --%>
 <form action="/tenderboardWrite" method="post">
-	<div id="tenderBoardContainer">
+	<div id="tenderContainer">
 		<h1 id="tenderTitle">입찰 공고</h1>
 		<div id="tenderSelectDiv">
 			<select class="tenderSelect">
@@ -19,13 +19,12 @@
 				<option>마감기한</option>
 			</select>
 		</div>
-		<ul id="tenderBoardUl">
+		<ul id="tenderUl">
 			<li id="tenderLiHeader">
 				<div class="col col-10-1">번호</div>
 				<div class="col col-30">제목</div>
 				<div class="col col-15">글쓴이</div>
 				<div class="col col-15">등록일</div>
-				<div class="col col-10-1">조회수</div>
 				<div class="col col-15">참여업체수</div>
 				<div class="col col-15">마감기한</div>
 			</li>
@@ -36,7 +35,7 @@
 					<div class="col col-30" data-label="제목">${tenderList.tender_title }</div>
 					<div class="col col-15" data-label="글쓴이">${tenderList.tender_name }</div>
 					<div class="col col-15" data-label="등록일">${tenderList.t_creation_date }</div>
-					<div class="col col-15" data-label="참여업체수">${tenderList.company_count }</div>
+					<div class="col col-15" data-label="참여업체수"></div>
 					<div class="col col-15" data-label="마감기한">${tenderList.tender_deadline }</div>
 				</li>
 			</c:forEach>
