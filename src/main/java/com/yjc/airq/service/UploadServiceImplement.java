@@ -19,5 +19,7 @@ public class UploadServiceImplement implements UploadService {
 	public void uploadUpdate(String upload_code) {
 		mapper.uploadUpdate(upload_code);
 	}
-	
+	public void deletePostUpload(String post_code) {
+		mapper.deletePostUpload(post_code);
+	}
 }

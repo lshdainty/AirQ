@@ -115,9 +115,18 @@ public class FileController {
     
     
     @RequestMapping(value = "fileInitialization", method = RequestMethod.GET)
-    public String fileCount() {
+    public String fileCount(HttpServletRequest request) {
     	files.clear();
-    	return "community/recommendWriteForm";
+    	String board_code = request.getParameter("board_code");
+    	System.out.println(board_code);
+    	
+    	if(board_code.equals("bd_rec")) 
+    		return "community/recommendWriteForm";
+    	
+    	if(board_code.equals("bd_lib"))
+    		return "community/libertWrtieForm";
+    	else
+    		return null;
     }
     
     @RequestMapping(value = "fileInsert", method = RequestMethod.GET)

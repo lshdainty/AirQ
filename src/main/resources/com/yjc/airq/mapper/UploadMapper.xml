@@ -24,4 +24,7 @@
 	<select id="uploadUpdate" parameterType="com.yjc.airq.domain.UploadVO" resultType="com.yjc.airq.domain.UploadVO">
 		SELECT * FROM UPLOAD WHERE UPLOAD_CODE=#{upload_code}
 	</select>
+	<delete id="deletePostUpload" parameterType="String">
+		DELETE FROM UPLOAD WHERE POST_CODE=#{post_code}
+	</delete>
 </mapper>
