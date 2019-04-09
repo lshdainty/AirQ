@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.yjc.airq.service.ConnectService;
+import com.yjc.airq.service.MemberService;
 
 import lombok.AllArgsConstructor;
 
@@ -16,6 +17,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MypageController {
 	private ConnectService connectService;
+	private MemberService memberService;
 	//mypageMain  가기
 	@RequestMapping(value = "mypageMain", method = RequestMethod.GET)
 	public String mypageMain(Model model) {
@@ -34,6 +36,7 @@ public class MypageController {
 	//mypageMainMember 가기
 	@RequestMapping(value = "mypageMainMember", method = RequestMethod.GET)
 	public String mypageMainMember(Model model) {
+		model.addAttribute("getMemberList",memberService.getMemberList());
 		return "mypage/mypageMainMember";
 	}
 	//mypageMainPosts 가기
