@@ -50,6 +50,10 @@
 		WHERE POST_CODE=#{post_code}
 	</update>
 	
+	<update id="postVote" parameterType="String">
+		UPDATE POST SET RECOMMEND_NUM = RECOMMEND_NUM+1 WHERE POST_CODE = #{post_code}
+	</update>
+	
 	<delete id="deletePost" parameterType="String">
 		DELETE FROM POST WHERE POST_CODE=#{post_code}
 	</delete>

@@ -12,4 +12,5 @@ public interface PostService {
 	PostVO detailPost(String post_code);
 	String fileInfo(String post_code);
 	void viewCount(String post_code);
+	void postVote(String post_code);
 }

@@ -34,9 +34,9 @@
 	</div>
 	<div id="postVote">
 		<div data-v-55f6a8c1="" class="article-vote">
-			<button type="submit" class="article-vote__button button">
+			<button type="submit" class="article-vote__button button" id="post-vote">
 				<span class="article-vote__up-arrow">추천</span> <span
-					class="article-vote__count">${detailPost.recommend_num}</span>
+					class="article-vote__count" id="recommend_num">${detailPost.recommend_num}</span>
 			</button>
 		</div>
 	</div>
@@ -53,23 +53,18 @@
 		</div>
 
 		<div class="comment-write">
-			<form method="POST" action="addReply?post_code=${detailPost.post_code}">
-				<div class="comment-write-inner">
-					<div class="comment-write__name">${user.member_id}</div>
-					<div class="comment-write__content">
-						<textarea name="reply_content"
-							placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다."
-							style="overflow: hidden; overflow-wrap: break-word; height: 44px;">
-                            </textarea>
-					</div>
-					<div class="comment-write-footer">
-						<div class="comment-write-submit">
-							<button class="button button--blue" id="reply-insert">작성</button>
-						</div>
-
+			<div class="comment-write-inner">
+				<div class="comment-write__name" id="member_id">${user.member_id}</div>
+				<div class="comment-write__content">
+					<textarea name="reply_content" placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다."
+					style="overflow: hidden; overflow-wrap: break-word; height: 44px;" id="reply_content"></textarea>
+				</div>
+				<div class="comment-write-footer">
+					<div class="comment-write-submit">
+						<button class="button button--blue" id="reply-insert">작성</button>
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
 
 		<div>
@@ -81,46 +76,79 @@
 				</ul>
 			</div>
 
-
+			<div id="replys">
 			<c:forEach var="reply" items="${postReply}">
 				<div class="comment-list">
 					<div class="comment-l">
 						<!---->
 						<div class="comment">
-						<div class="comment-meta">
-							<span class="comment__name"><a href="#">${reply.member_id}</a></span>
-							<span class="comment__date">1분전</span>
-						</div>
-						<div class="comment-content">
-							<div>
-								<p>
-									<br> ${reply.reply_content}
-								</p>
+							<div class="comment-meta">
+								<span class="comment__name"><a href="#">${reply.member_id}</a></span>
+								<span class="comment__date">1분전</span>
+							</div>
+							<div class="comment-content">
+								<div>
+									<p>
+										<br> ${reply.reply_content}
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-		</div>
 		</c:forEach>
-
+		</div>
 	</div>
 </div>
 </div>
 
 
-<input type="hidden" value="${detailPost.post_code}" id="test2"
+<input type="hidden" value="${detailPost.post_code}" id="post_code"
 	name="post_id">
 <a href="recommendDelete?post_code=${detailPost.post_code}"
 	class="btn btn-primary" id="test">삭제</a>
 <a href="recommendModify?post_code=${detailPost.post_code}"
 	class="btn btn-primary" id="test">수정</a>
 <script>
-/* 	$(document).ready(function() {
+	$(document).ready(function() {
 		$('#reply-insert').click(function(){
+			
+			var reply_content = $('#reply_content').val();
+			var member_id = $('#member_id').text();
+			var post_code = $('#post_code').val();
+			var replyVO = new Object();
+			
+			replyVO.member_id = member_id;
+			replyVO.post_code = post_code;
+			replyVO.reply_content = reply_content;
+			
+			var content ='<div class="comment-list"><div class="comment-l"><div class="comment"><div class="comment-meta">'+
+			'<span class="comment__name"><a href="#">'+member_id+'</a></span><span class="comment__date">1분전</span>'+
+			'</div><div class="comment-content"><div><p><br>'+reply_content+'</p></div></div></div></div></div>';
 			$.ajax({
-				url:
+				type:'POST',
+				url:'addReply',
+				data:replyVO,
+				success:function(result){	
+					$('#replys').prepend(content);
+					$('#reply_content').val("");
+				}
+			}); 
+		});
+		
+		$('#post-vote').click(function(){
+			var post_code = $('#post_code').val();
+			$.ajax({
+				type:'post',
+				data:{'post_code':post_code},
+				url:'postVote',
+				success:function(result){
+					var recommend_num = parseInt($('#recommend_num').text());
+					recommend_num=recommend_num+1;
+					$('#recommend_num').text(recommend_num);
+				}
 			});
-		})
-	}); */
+		});
+	});
 </script>
 <%@include file="../include/footer.jsp"%>

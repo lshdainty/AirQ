@@ -59,5 +59,9 @@ public class PostServiceImplement implements PostService {
 	public void viewCount(String post_code) {
 		mapper.viewCount(post_code);
 	}
+	
+	public void postVote(String post_code) {
+		mapper.postVote(post_code);
+	}
 
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PostVO;
@@ -37,9 +38,9 @@ public class CommunityController {
 	private ReplyService replyService;
 	
 	@RequestMapping(value = "addReply", method = RequestMethod.POST)
-	public String addReply(Model model,HttpServletRequest request) {
-		ReplyVO replyVO = new ReplyVO();
-		
+	@ResponseBody
+	public String addReply(ReplyVO replyVO,Model model,HttpServletRequest request) {
+		System.out.println(replyVO);
 		// 댓글 코드 생성
 		Date today = new Date();
 		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
@@ -58,13 +59,6 @@ public class CommunityController {
 	    	if(post_code==null)
 	    		post_code="";
 	    	
-		System.out.println("ReplyCODE:"+reply_code);
-		System.out.println("ReplyCONTENT:"+reply_content);
-		System.out.println("R_Creation_DATE:"+r_creation_date);
-		System.out.println("MemberID:"+member_id);
-		System.out.println("Post_CODE:"+post_code);
-		System.out.println("Product_CODE:"+product_code);
-		
 		
 		replyVO.setReply_code(reply_code);
 		replyVO.setReply_content(reply_content);
@@ -74,9 +68,17 @@ public class CommunityController {
 		replyVO.setProduct_code(product_code);
 		
 		replyService.insertReply(replyVO);
-		return "redirect:/recommendDetail?post_code="+post_code;
+		return "success";
 	}
-	
+	@RequestMapping(value = "postVote", method = RequestMethod.POST)
+	@ResponseBody
+	public String postVote(Model model ,String post_code) {
+		
+		System.out.println(post_code);
+		postService.postVote(post_code);
+		
+		return "success";
+	}
 	
 	//상품추천 메인페이지로 가기
 	@RequestMapping(value = "recommendMain", method = RequestMethod.GET)

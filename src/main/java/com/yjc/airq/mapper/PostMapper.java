@@ -12,4 +12,5 @@ public interface PostMapper {
 	public void deletePost(String post_code);
 	public void modifyPost(PostVO post);
 	public void viewCount(String post_code);
+	public void postVote(String post_code);
 }
