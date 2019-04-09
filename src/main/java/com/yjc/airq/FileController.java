@@ -5,6 +5,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,9 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
+import com.yjc.airq.domain.UploadVO;
+import com.yjc.airq.service.UploadService;
 
 import lombok.AllArgsConstructor;
-
 /**
  * 파일을 관리하는 controller
  */
@@ -26,7 +33,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class FileController {
 
-
+	
+    UploadService uploadService;
+    public ArrayList<UploadVO> files;
 	/**
      * 이미지 업로드
      * @param request
@@ -36,44 +45,57 @@ public class FileController {
     @RequestMapping(value = "imageUpload", method = RequestMethod.POST)
     public void communityImageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) {
  
-
-    	
+    	String uuid=UUID.randomUUID().toString().replace("-", "");
     	JsonObject json = new JsonObject();
         OutputStream out = null;
         PrintWriter printWriter = null;
+        UploadVO uploadDB = new UploadVO();
+        
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
  
         try{
- 
-            String fileName = upload.getOriginalFilename();
-            byte[] bytes = upload.getBytes();
+        	String original_name = upload.getOriginalFilename();
+            String file_name = uuid;
             String uploadPath = request.getServletContext().getRealPath("/resources/uploadFile/images");
             System.out.println(uploadPath);
+            byte[] bytes = upload.getBytes();
             File uploadFile = new File(uploadPath);
-            System.out.println("UploadFile:"+uploadFile);
-            
-            
             if(!uploadFile.exists())
             	uploadFile.mkdirs();
             
-            uploadPath=uploadPath+"/"+fileName;
             
+            
+            uploadPath=uploadPath+"/"+file_name;
+            // 파일업로드
             out = new FileOutputStream(new File(uploadPath));
             out.write(bytes);
             
             
             
             printWriter = response.getWriter();
-            String fileUrl = "resources/uploadFile/images/"+fileName;
+            String fileUrl = "resources/uploadFile/images/"+file_name;
             
             json.addProperty("uploaded",1);
-            json.addProperty("fileName",fileName);
+            json.addProperty("fileName",file_name);
             json.addProperty("url",fileUrl);
             
-            System.out.println("JSON:"+json);
-            System.out.println("FileURL:"+fileUrl);
             printWriter.println(json);
+            
+    		/* 업로드 코드 생성 시작 */
+    		Date today = new Date();
+    		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+    		String day = date.format(today);
+    		Timestamp upload_date = new Timestamp(System.currentTimeMillis());
+    		int random=(int)(Math.random()*10000);
+    		String upload_code="ul"+day+random;
+    		/* 업로드 코드 생성 완료 */
+            
+    		uploadDB.setUpload_code(upload_code);
+    		uploadDB.setOriginal_name(original_name);
+    		uploadDB.setFile_name(file_name);
+            uploadDB.setUpload_date(upload_date);
+            files.add(uploadDB);
             
         }catch(IOException e){
             e.printStackTrace();
@@ -89,8 +111,47 @@ public class FileController {
                 e.printStackTrace();
             }
         }
- 
-        return ;
     }
-
+    
+    
+    @RequestMapping(value = "fileInitialization", method = RequestMethod.GET)
+    public String fileCount(HttpServletRequest request) {
+    	files.clear();
+    	String board_code = request.getParameter("board_code");
+    	System.out.println(board_code);
+    	
+    	if(board_code.equals("bd_rec")) 
+    		return "community/recommendWriteForm";
+    	
+    	if(board_code.equals("bd_lib"))
+    		return "community/libertWrtieForm";
+    	else
+    		return null;
+    }
+    
+    @RequestMapping(value = "fileInsert", method = RequestMethod.GET)
+    public String fileUpdate(HttpServletRequest request) {
+    	Iterator<UploadVO> it = files.iterator();
+    	String product_code=request.getParameter("product_code");
+    	String post_code=request.getParameter("post_code");
+    	
+    	if(product_code==null)
+    		product_code="";
+    	if(post_code==null)
+    		post_code="";
+    	
+    	UploadVO uploadVO;
+    	while(it.hasNext()) {
+    		uploadVO=it.next();
+    		
+    		uploadVO.setProduct_code(product_code);
+    		uploadVO.setPost_code(post_code);
+    		System.out.println(uploadVO);
+    		uploadService.imgUpload(uploadVO);
+    	}
+    	
+    	
+    	return "redirect:/recommendMain";
+    }
+   
 }

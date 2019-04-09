@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjc.airq.mapper.CompanyMapper">
+	<!-- 회원 가입 -->
+	<insert id="sellerList">
+		insert into COMPANY_INFO(COMPANY_CODE, COMPANY_NAME, COMPANY_TEL, C_ADDR_DO, C_ADDR_SI, C_ADDR_DONG, C_ADDR_DETAIL, MEMBER_ID)
+		values(#{company_code}, #{company_name}, #{company_tel}, '부산광역시', '자갈치', '시장', '336-33', #{member_id})
+	</insert>
+</mapper>

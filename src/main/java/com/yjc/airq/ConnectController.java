@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.Criteria;
 import com.yjc.airq.domain.ProductVO;
-import com.yjc.airq.domain.TenderboardVO;
+import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.service.ConnectService;
 
@@ -34,6 +34,7 @@ import net.sf.json.JSONObject;
 public class ConnectController {
 	private ConnectService connectService;
 	private ProductMapper productMapper;
+	HttpServletRequest request;
 	
 	// 업체 분석/비교 메인페이지로 가기
 	@RequestMapping(value = "compareMain", method = RequestMethod.GET)
@@ -75,7 +76,7 @@ public class ConnectController {
 	
 	// 입찰 서비스 - 글쓰기 작성 후 리스트로 가기
 	@RequestMapping(value = "tenderWriteComplete", method = RequestMethod.POST)
-	public String tenderList(TenderboardVO tenderboardVo) {
+	public String tenderList(TenderVO tenderVo) {
 		//코드 앞에 날짜 6자리
 		Date today = new Date();
 		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
@@ -83,23 +84,23 @@ public class ConnectController {
 		
 		//코드 뒤에 랜덤 4자리
 		int random=(int)(Math.random()*10000);
-		String tcode=day+random;
+		String tender_code="td"+day+random;
 		
 		//VO에 생성한 코드 set하기
-		tenderboardVo.setTcode(tcode);
+		tenderVo.setTender_code(tender_code);
 		
 		//insert에 영향을 받은 행의 갯수
-		int s=connectService.addTenderboard(tenderboardVo);
+		int s=connectService.addTenderboard(tenderVo);
 		
 		return "redirect: /tenderMain";
 	}
 	
 	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
-	@RequestMapping(value="tender/{tcode}",method=RequestMethod.GET)
-	public String ten(@PathVariable String tcode,Model model) {
-		model.addAttribute("tenderContent",connectService.tenderContent(tcode));
+	@RequestMapping(value="tender/{tender_code}",method=RequestMethod.GET)
+	public String ten(@PathVariable String tender_code,Model model) {
+		model.addAttribute("tenderContent",connectService.tenderContent(tender_code));
 		
-		return "connect/tender";
+		return "connect/tenderContent";
 	}
 	
 	// 입찰 서비스 - 입찰 공고 삭제 후 리스트로 가기
@@ -111,19 +112,19 @@ public class ConnectController {
 	}
 
 	// 입찰 서비스 - 입찰 공고 수정 페이지로 가기
-	@RequestMapping(value="tenderModify/{tcode}",method=RequestMethod.GET)
-	public String tenderModify(@PathVariable String tcode,Model model) {
-		model.addAttribute("tenderModify",connectService.tenderContent(tcode));
+	@RequestMapping(value="tenderModify/{tender_code}",method=RequestMethod.GET)
+	public String tenderModify(@PathVariable String tender_code,Model model) {
+		model.addAttribute("tenderModify",connectService.tenderContent(tender_code));
 		
 		return "connect/tenderModify";
 	}
 	
 	// 입찰 서비스- 입찰 공고 수정 완료
 	@RequestMapping(value="tenderModifyComplete",method=RequestMethod.POST)
-	public String tenderModifyComplete(TenderboardVO tenderboardVo,Model model) {
-		int s=connectService.tenderModify(tenderboardVo);
-		String tcode=tenderboardVo.getTcode();
-		return "redirect: /tender/"+tcode;
+	public String tenderModifyComplete(TenderVO tenderVo,Model model) {
+		int s=connectService.tenderModify(tenderVo);
+		String tender_code=tenderVo.getTender_code();
+		return "redirect: /tenderContent/"+tender_code;
 	}
 	
 	// 업체 분석/비교 도,시,평수 선택완료

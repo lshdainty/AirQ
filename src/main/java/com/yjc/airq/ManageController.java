@@ -68,7 +68,7 @@ public class ManageController {
 		
 		// 1번째 데이터
 		jsonSubObject = new HashMap<String, Object>();
-		jsonSubObject.put("idsx", mb.getId());
+		jsonSubObject.put("idsx", mb.getMember_id());
 		jsonSubObject.put("title", "제목1입니다.");
 		jsonSubObject.put("create_date", new Date());
 		jsonList.add(jsonSubObject);

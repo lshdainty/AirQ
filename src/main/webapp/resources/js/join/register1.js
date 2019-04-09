@@ -2,25 +2,26 @@
  * 
  */
 $(document).ready(function() {
-	// 사업자 번호 insert
+	/*// 사업자 번호 insert
 	$("#btn-join").click(function() {
-		alert($("#bnumber").val())	// 사업자 번호 알림창
 		var query = {
-			bnumber : $("#bnumber").val()
+			company_code : $("#company_code").val(),
+			company_name : $("#company_name").val(),
+			company_tel : $("#company_tel").val(),
+			member_id : $("#id").val()
 		}
 		$.ajax({
-			type : "GET",
+			type : "POST",
 			data : query,
 			url : "Bsignup", // 회원 추가
 			success : function(data) {
-				alert("사업자 등록 번호 성공");
+				alert("회원가입 성공");
 			}
 		});// ajax
 	}); // ajax
-
+*/
 	// 중복 확인 눌렀을 때
 	$("#btn-check").click(function() {
-		alert("중복 확인 체크");	// 중복확인 클릭 시 알림창
 		alert($("#id").val());
 		var query = {
 			id : $("#id").val()

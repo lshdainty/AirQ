@@ -7,41 +7,57 @@
 <link href="resources/css/connect/tenderWrite.css" rel="stylesheet" />
 
 <%--입찰 공고 작성 테이블 시작 --%>
+<input type="hidden" id="sigoon_key" value="b0888bae39fbd0463a9252" />
 <h1 id="tenderWriteTitle">입찰 작성</h1>
 <form action="/tenderWriteComplete" method="POST">
 	<table id="tenderWriteTbl">
 		<tr>
 			<td class="tr">제목</td>
-			<td class="tr"><input type="text" id="ttitle" name="ttitle" required autocomplete="off"></td>
+			<td class="tr"><input type="text" id="tender_title" name="tender_title" required autocomplete="off"></td>
 		</tr>
 		<tr>
 			<td>입찰자 명</td>
-			<td><input type="text" id="tname" name="tname" required autocomplete="off"></td>
+			<td><input type="text" id="tender_name" name="tender_name" required autocomplete="off"></td>
 		</tr>
 		<tr>
 			<td>주소</td>
-			<td><input type="text" id="taddress" name="taddress" required autocomplete="off"></td>
+			<td>
+				<select id="t_addr_do">
+					<option>선택</option>
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<td>측정 일자</td>
-			<td><input type="date" id="tmeasurementdate"
-				name="tmeasurementdate" required autocomplete="off"></td>
+			<td><input type="date" id="service_date" name="service_date" required autocomplete="off"></td>
 		</tr>
 		<tr>
 			<td>마감 기한</td>
-			<td><input type="date" id="tdeadline" name="tdeadline" required autocomplete="off"></td>
+			<td><input type="date" id="tender_deadline" name="tender_deadline" required autocomplete="off"></td>
 		</tr>
 		<tr>
 			<td>평수</td>
-			<td><input type="text" id="tfloorspace" name="tfloorspace" required autocomplete="off"></td>
+			<td><input type="text" id="t_space" name="t_space" required autocomplete="off"></td>
 		</tr>
 		<tr>
 			<td>층수</td>
-			<td><input type="text" id="tlayers" name="tlayers" required autocomplete="off"></td>
+			<td><input type="text" id="floor_number" name="floor_number" required autocomplete="off"></td>
+		</tr>
+		<tr>
+			<td>계산 기간</td>
+			<td>
+				<select id="calculate_period">
+					<option value="0" selected>전체</option>
+					<option value="3">3개월</option>
+					<option value="6">6개월</option>
+					<option value="9">9개월</option>
+					<option value="12">1년</option>
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<td>요구사항</td>
-			<td><textarea rows="5" cols="30" id="trequirement" name="trequirement" required autocomplete="off"></textarea></td>
+			<td><textarea rows="8" cols="50" id="requirement" name="requirement" required autocomplete="off"></textarea></td>
 		</tr>
 	</table>
 	<div id="tenderWriteBtnDiv">
