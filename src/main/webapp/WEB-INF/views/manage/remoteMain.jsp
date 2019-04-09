@@ -62,6 +62,7 @@
         </div><br/>
         <button id="btn-reg">IoT 제품 제어 등록</button>
     </div>
+    
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <script src='resources/js/manage/remoteMain.js'></script>
 <%@include file="../include/footer.jsp" %>
