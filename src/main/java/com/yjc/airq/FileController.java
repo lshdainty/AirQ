@@ -47,7 +47,6 @@ public class FileController {
  
     	String uuid=UUID.randomUUID().toString().replace("-", "");
     	JsonObject json = new JsonObject();
-    	JsonObject uploadVO=new JsonObject();
         OutputStream out = null;
         PrintWriter printWriter = null;
         UploadVO uploadDB = new UploadVO();
@@ -59,6 +58,7 @@ public class FileController {
         	String original_name = upload.getOriginalFilename();
             String file_name = uuid;
             String uploadPath = request.getServletContext().getRealPath("/resources/uploadFile/images");
+            System.out.println(uploadPath);
             byte[] bytes = upload.getBytes();
             File uploadFile = new File(uploadPath);
             if(!uploadFile.exists())

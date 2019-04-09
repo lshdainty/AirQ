@@ -16,7 +16,7 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #e3f2fd;">
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="    background-image: linear-gradient(94deg,#1ea1f7,#46cfa7);">
 		<div class="container">
 		<%--모바일 화면 버튼 시작 --%>
 			<a class="navbar-brand" href="#">AirQ</a>

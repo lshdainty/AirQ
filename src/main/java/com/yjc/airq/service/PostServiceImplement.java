@@ -14,10 +14,10 @@ import lombok.AllArgsConstructor;
 public class PostServiceImplement implements PostService {
 	private PostMapper mapper;
 	@Override
-	public ArrayList<PostVO> getPosts(String board_code) {
+	public ArrayList<PostVO> getPosts(String post_code) {
 		// TODO Auto-generated method stub
 		
-		return mapper.getPosts(board_code);
+		return mapper.getPosts(post_code);
 	}
 	
 	@Override
