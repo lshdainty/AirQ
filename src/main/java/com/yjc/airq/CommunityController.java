@@ -15,10 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PostVO;
+import com.yjc.airq.domain.ReplyVO;
 import com.yjc.airq.service.PostService;
+import com.yjc.airq.service.ReplyService;
+import com.yjc.airq.service.UploadService;
 
 import lombok.AllArgsConstructor;
 
@@ -30,12 +34,58 @@ import lombok.AllArgsConstructor;
 public class CommunityController {
 	
 	private PostService postService;
+	private UploadService uploadService;
+	private ReplyService replyService;
+	
+	@RequestMapping(value = "addReply", method = RequestMethod.POST)
+	@ResponseBody
+	public String addReply(ReplyVO replyVO,Model model,HttpServletRequest request) {
+		System.out.println(replyVO);
+		// 댓글 코드 생성
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
+		int random=(int)(Math.random()*10000);
+		String reply_code="rp"+day+random;
+		// 댓글 코드 생성 완료
+		String reply_content = request.getParameter("reply_content");
+		Timestamp r_creation_date = new Timestamp(System.currentTimeMillis());
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+    	String product_code=request.getParameter("product_code");
+    	String post_code=request.getParameter("post_code");
+    	
+	    	if(product_code==null)
+	    		product_code="";
+	    	if(post_code==null)
+	    		post_code="";
+	    	
+		
+		replyVO.setReply_code(reply_code);
+		replyVO.setReply_content(reply_content);
+		replyVO.setR_creation_date(r_creation_date);
+		replyVO.setMember_id(member_id);
+		replyVO.setPost_code(post_code);
+		replyVO.setProduct_code(product_code);
+		
+		replyService.insertReply(replyVO);
+		return "success";
+	}
+	@RequestMapping(value = "postVote", method = RequestMethod.POST)
+	@ResponseBody
+	public String postVote(Model model ,String post_code) {
+		
+		System.out.println(post_code);
+		postService.postVote(post_code);
+		
+		return "success";
+	}
+	
 	//상품추천 메인페이지로 가기
 	@RequestMapping(value = "recommendMain", method = RequestMethod.GET)
 	public String recommendMain(Model model) {
 		
 		// 데이터베이스에서 모든 포스트를 불러옴
-		ArrayList<PostVO> posts=postService.getPosts();
+		ArrayList<PostVO> posts=postService.getPosts("bd_rec");
 		
 		// 불러온 포스트 중의 컨텐츠에서 첫번째 img 태그에서 썸네일을 추출
 		Iterator<PostVO> it = posts.iterator();
@@ -70,8 +120,11 @@ public class CommunityController {
 	public String recommandDetail(Model model,HttpServletRequest request) {
 		
 		String post_code = (String)request.getParameter("post_code");
-		
-		model.addAttribute("detailPost",postService.detailPost(post_code));
+		PostVO postVO = postService.detailPost(post_code);
+		ArrayList<ReplyVO> replys = replyService.getReplys(post_code);
+		postVO.setReply_count(replys.size());
+		model.addAttribute("detailPost",postVO);
+		model.addAttribute("postReply",replys);
 				
 		return "community/recommendDetail";
 	}
@@ -92,7 +145,7 @@ public class CommunityController {
 	public String recommandWrite(Model model) {
 		
 		
-		return "redirect:/fileInitialization";
+		return "redirect:/fileInitialization?board_code=bd_rec";
 	}
 
 	// 상품추천 글 데이터베이스 삽입
@@ -118,7 +171,7 @@ public class CommunityController {
 		postVO.setView_num(0);
 		postVO.setRecommend_num(0);
 		postVO.setMember_id(((MemberVO) request.getSession().getAttribute("user")).getMember_id());
-		postVO.setBoard_code("test");
+		postVO.setBoard_code("bd_rec");
 		
 		postService.insertPost(postVO);
 		
@@ -131,6 +184,8 @@ public class CommunityController {
 	@RequestMapping(value = "recommendDelete", method = RequestMethod.GET)
 	public String recommandDelete(Model model,HttpServletRequest request) {
 		String post_code = request.getParameter("post_code");
+		replyService.deletePostReply(post_code);
+		uploadService.deletePostUpload(post_code);
 		postService.deletePost(post_code);
 		return "redirect: /recommendMain";
 	}
@@ -153,9 +208,19 @@ public class CommunityController {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
 	//자유게시판 메인페이지로 가기
 	@RequestMapping(value = "libertyMain", method = RequestMethod.GET)
 	public String libertyMain(Model model) {
+		
+		model.addAttribute("posts",postService.getPosts("bd_lib"));
 		return "community/libertyMain";
 	}
 	

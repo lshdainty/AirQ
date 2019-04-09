@@ -96,7 +96,8 @@
 										randomScalingFactor(),
 										randomScalingFactor(),
 										randomScalingFactor(),
-										randomScalingFactor() ],
+										randomScalingFactor() 
+										],
 								fill : false,
 							},
 							{
@@ -115,7 +116,8 @@
 										randomScalingFactor(),
 										randomScalingFactor(),
 										randomScalingFactor(),
-										randomScalingFactor() ],
+										randomScalingFactor() 
+										],
 							} ]
 				},
 				options : {

@@ -23,4 +23,6 @@ public interface ConnectService {
 	public int tenderModify(TenderVO tenderVo);
 	//상품중 서비스 가능한 지역 리스트 찾기
 	public ArrayList<AreaVO> productAreaList();
+	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
+	public ArrayList<ProductVO> selectList(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space);
 }

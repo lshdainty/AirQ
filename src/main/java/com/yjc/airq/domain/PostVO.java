@@ -16,4 +16,5 @@ public class PostVO {
 	private String member_id;
 	private String board_code;
 	private String post_thumbnail;
+	private int reply_count;
 }

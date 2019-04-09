@@ -14,18 +14,19 @@ import lombok.AllArgsConstructor;
 public class PostServiceImplement implements PostService {
 	private PostMapper mapper;
 	@Override
-	public ArrayList<PostVO> getPosts() {
+	public ArrayList<PostVO> getPosts(String post_code) {
 		// TODO Auto-generated method stub
 		
-		return mapper.getPosts();
+		return mapper.getPosts(post_code);
 	}
 	
 	@Override
 	public PostVO detailPost(String post_code) {
 		// TODO Auto-generated method stub
+		mapper.viewCount(post_code);
 		return mapper.detailPost(post_code);
 	}
-
+	
 	@Override
 	public String fileInfo(String post_code) {
 		// TODO Auto-generated method stub
@@ -53,6 +54,14 @@ public class PostServiceImplement implements PostService {
 		
 		mapper.modifyPost(post);
 		
+	}
+	
+	public void viewCount(String post_code) {
+		mapper.viewCount(post_code);
+	}
+	
+	public void postVote(String post_code) {
+		mapper.postVote(post_code);
 	}
 
 }

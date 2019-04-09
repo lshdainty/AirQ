@@ -57,10 +57,15 @@ public class ConnectServiceImplement implements ConnectService {
 		return productMapper.productList(startnum,endnum);
 	};
 	
-	// 상품 리스트 출력
+	// 상품중 서비스 가능한 지역 리스트 출력
 	@Override
 	public ArrayList<AreaVO> productAreaList(){
 		return areaMapper.productAreaList();
-	}
+	};
 	
+	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
+	@Override
+	public ArrayList<ProductVO> selectList(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space){
+		return productMapper.selectList(sido,sigoon,space);
+	};
 }

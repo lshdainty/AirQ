@@ -11,4 +11,6 @@ public interface ProductMapper {
 	public ArrayList<ProductVO> productList(@Param("startnum") int startnum,  @Param("endnum") int endnum);
 	// 상품 전체 개수 조회
 	public int productCount();
+	// 사용자가 선택한 옵션에 해당하는 리스트 조회
+	public ArrayList<ProductVO> selectList(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space);
 }

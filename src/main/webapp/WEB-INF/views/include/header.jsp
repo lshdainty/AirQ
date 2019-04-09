@@ -13,10 +13,10 @@
 	<%-- Chart.js cdn 시작 --%>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 	<%-- Chart.js cdn 끝 --%>
-	
+
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #e3f2fd;">
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="    background-image: linear-gradient(94deg,#1ea1f7,#46cfa7);">
 		<div class="container">
 		<%--모바일 화면 버튼 시작 --%>
 			<a class="navbar-brand" href="#">AirQ</a>
@@ -75,17 +75,61 @@
 							
 				<%-- 로그인 후 --%>
 					<c:if test="${sessionScope.user!=null }">
-						<li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li>
-						<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="dropdown09"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown09">
-							<a class="dropdown-item" href="/mypageMain">mypage</a>
-							<a class="dropdown-item" href="/mypageMainCategory">카테고리관리</a>
-							<a class="dropdown-item" href="/mypageMainPosts">글 관리</a>
-							<a class="dropdown-item" href="/mypageMainComment">댓글 관리</a>
-							<a class="dropdown-item" href="/mypageMainMember">회원 관리</a>
-						</div>
-						 </li>
+						<c:choose>
+						<%-- 일반 사용자 로그인 시작 --%>
+						<c:when test="${sessionScope.user.member_devision eq 'no' }">
+								<li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li>
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" id="dropdown09" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">마이페이지</a>
+							
+							<div class="dropdown-menu" aria-labelledby="dropdown09">
+								<a class="dropdown-item" href="/mypageNormal">MyPage</a>
+								<a class="dropdown-item" href="/mypageNormalPosts">글 관리</a>
+								<a class="dropdown-item" href="/mypageNormalComment">댓글 관리</a>
+								<a class="dropdown-item" href="/mypageNormalPay">결제 내역</a>
+								<a class="dropdown-item" href="/mypageNormalDelete">회원 탈퇴</a>
+							</div>
+							 </li>
+						</c:when>
+						<%-- 일반 사용자 로그인 끝 --%>
+						
+						<%-- 판매자 로그인 시작 --%>
+						<c:when test="${sessionScope.user.member_devision eq 'se' }">
+								<li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li>
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" id="dropdown09" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">마이페이지</a>
+							
+							<div class="dropdown-menu" aria-labelledby="dropdown09">
+								<a class="dropdown-item" href="/mypageSeller">MyPage</a>
+								<a class="dropdown-item" href="/mypageSellerPosts">글 관리</a>
+								<a class="dropdown-item" href="/mypageSellerComment">댓글 관리</a>
+								<a class="dropdown-item" href="/mypageSellerSales">매출 관리</a>
+								<a class="dropdown-item" href="/mypageSellerDelete">회원 탈퇴</a>
+							</div>
+							 </li>
+						</c:when>
+						<%-- 판매자 로그인 끝 --%>
+						
+						<%-- 관리자 로그인 시작 --%>
+						<c:when test="${sessionScope.user.member_devision eq 'ma' }">
+								<li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li>
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" id="dropdown09" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">마이페이지</a>
+							
+							<div class="dropdown-menu" aria-labelledby="dropdown09">
+								<a class="dropdown-item" href="/mypageMain">MyPage</a>
+								<a class="dropdown-item" href="/mypageMainPosts">글 관리</a>
+								<a class="dropdown-item" href="/mypageMainComment">댓글 관리</a>
+								<a class="dropdown-item" href="/mypageMainMember">회원 관리</a>
+								<a class="dropdown-item" href="/mypageMainCategory">카테고리 관리</a>
+							</div>
+							 </li>
+						</c:when>
+						<%-- 관리자 로그인 끝 --%>
+						</c:choose>
 					</c:if>
             	</ul>
             <%-- 오른쪽 메뉴 끝  --%>

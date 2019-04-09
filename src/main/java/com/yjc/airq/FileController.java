@@ -47,7 +47,6 @@ public class FileController {
  
     	String uuid=UUID.randomUUID().toString().replace("-", "");
     	JsonObject json = new JsonObject();
-    	JsonObject uploadVO=new JsonObject();
         OutputStream out = null;
         PrintWriter printWriter = null;
         UploadVO uploadDB = new UploadVO();
@@ -59,6 +58,7 @@ public class FileController {
         	String original_name = upload.getOriginalFilename();
             String file_name = uuid;
             String uploadPath = request.getServletContext().getRealPath("/resources/uploadFile/images");
+            System.out.println(uploadPath);
             byte[] bytes = upload.getBytes();
             File uploadFile = new File(uploadPath);
             if(!uploadFile.exists())
@@ -115,9 +115,18 @@ public class FileController {
     
     
     @RequestMapping(value = "fileInitialization", method = RequestMethod.GET)
-    public String fileCount() {
+    public String fileCount(HttpServletRequest request) {
     	files.clear();
-    	return "community/recommendWriteForm";
+    	String board_code = request.getParameter("board_code");
+    	System.out.println(board_code);
+    	
+    	if(board_code.equals("bd_rec")) 
+    		return "community/recommendWriteForm";
+    	
+    	if(board_code.equals("bd_lib"))
+    		return "community/libertWrtieForm";
+    	else
+    		return null;
     }
     
     @RequestMapping(value = "fileInsert", method = RequestMethod.GET)
