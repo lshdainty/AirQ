@@ -50,7 +50,7 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
 	background-color: #e8eeef;
 	color: #8a97a0;
 	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 }
 
 input[type="radio"], input[type="checkbox"] {
@@ -61,6 +61,22 @@ select {
 	padding: 6px;
 	height: 32px;
 	border-radius: 2px;
+}
+
+#btn-check{
+	padding: 4px 10px 4px 10px;
+	color: #FFF;
+	background-color: #4bc970;
+	font-size: 12px;
+	text-align: center;
+	font-style: normal;
+	border-radius: 5px;
+	width: 100%;
+	border: 1px solid #3ac162;
+	border-width: 1px 1px 3px;
+	box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+	margin-bottom: 20px;
+	cursor: pointer;
 }
 
 button {
@@ -85,17 +101,17 @@ fieldset {
 }
 
 .number {
-  background-color: #5fcf80;
-  color: #fff;
-  height: 30px;
-  width: 30px;
-  display: inline-block;
-  font-size: 0.8em;
-  margin-right: 4px;
-  line-height: 30px;
-  text-align: center;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.2);
-  border-radius: 100%;
+	background-color: #5fcf80;
+	color: #fff;
+	height: 30px;
+	width: 30px;
+	display: inline-block;
+	font-size: 0.8em;
+	margin-right: 4px;
+	line-height: 30px;
+	text-align: center;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+	border-radius: 100%;
 }
 
 legend {

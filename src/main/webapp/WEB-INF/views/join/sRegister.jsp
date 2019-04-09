@@ -14,8 +14,8 @@
 
 		<label for="id">ID</label>
 		<input type="text" id="id" name="Member_id" required autocomplete="off">
-		<a id="btn-check" style="border: 1px solid black">ID중복 확인</a><br/>
-		<p class="result"><span class="msg">테스트 중..</span><br/>
+		<a id="btn-check">ID중복 확인</a>
+		<a class="result"><span class="msg" style="display:none">테스트 중..</span><br/><br/>
 		
 		<label for="password">Password</label>
 		<input type="text" id="password" name="Member_pw" required autocomplete="off">
