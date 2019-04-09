@@ -27,7 +27,6 @@ polygonTemplate.nonScalingStroke = true;
 polygonTemplate.strokeOpacity = 0.5;
 polygonTemplate.fill = chart.colors.getIndex(0);
 var lastSelected;
-var lastCity;
 
 polygonTemplate.events.on("hit", function(ev) {
   if (lastSelected) {
@@ -61,8 +60,7 @@ polygonTemplate.events.on("hit", function(ev) {
 	});
     //alert(ev.target.dataItem.dataContext.name);  //클릭시 광역시,도 이름 나오도록 하는 코드
     //alert(ev.target.dataItem.dataContext.id);	//클릭시 광역시,도에 맞는 코드값 나오는 코드
-  	lastCity = ev.target.dataItem.dataContext.name;
-  	$("#sido_code").val(lastCity);
+  	$("#sido_code").val(ev.target.dataItem.dataContext.name);
   }
 })
 
@@ -94,12 +92,57 @@ homeButton.insertBefore(chart.zoomControl.plusButton);
 //지도 관련 js 끝
 
 //선택된 값 info페이지로 넘어가게 하는 코드 시작
-/*$("#check").click(function(){
-	var sido = lastCity;
-	var sigoon = $("#sigoon_code option:selected").val();
-	var datetest = $("#datetest").val();
-	location.href="info/"+sido+"/"+sigoon+"/"+datetest;
-});*/
+$("#check").click(function(){
+	var query = {
+		sido : $("#sido_code").val(),
+		sigoon : $("#sigoon_code option:selected").val(),
+		space : $("#space option:selected").val()
+	}
+	$.ajax({
+		type: "get",
+		url: "/selectCompare",
+		data : query,
+		async: false,
+		success: function(data) {
+			var result="";
+			var space="";
+			var area="";
+			for(var i=0; i<data.pList.length; i++){
+				result += '<li class="compareLiContent">'
+				result += '<div class="col col-10-1" data-label="상품코드">'+data.pList[i].product_code+'</div>'
+				result += '<div class="col col-15" data-label="상품이름">'+data.pList[i].product_name+'</div>'
+				result += '<div class="col col-30" data-label="상품 상세설명">'+data.pList[i].product_detail+'</div>'
+				result += '<div class="col col-10-1" data-label="가격">'+data.pList[i].product_price+'</div>'
+				switch(data.pList[i].p_space){
+					case 1: space="1~10평"; break;
+					case 2: space="11~20평"; break;
+					case 3: space="21~30평"; break;
+					case 4: space="31~40평"; break;
+					case 5: space="41~50평"; break;
+					case 6: space="51~60평"; break;
+					case 7: space="61~70평"; break;
+					case 8: space="71~80평"; break;
+					case 9: space="81~90평"; break;
+					case 10: space="91~100평"; break;
+					case 11: space="101평~"; break;
+				}
+				result += '<div class="col col-15" data-label="측정 적절 평수">'+space+'</div>'
+				result += '<div class="col col-10-1" data-label="측정 지점">'+data.pList[i].measure_point+'</div>'
+				for(var j=0; j<data.aList.length; j++){
+					if(data.pList[i].product_code==data.aList[j].product_code){
+						area += data.aList[j].area_si+" "
+					}
+				}
+				result += '<div class="col col-15" data-label="서비스 가능지역">'+area+'</div>'
+				result += '<div class="col col-10-1" data-label="별점 평균"></div>'
+				result += '<div class="col col-10-1" data-label="판매 건수"></div>'
+				space="";area="";
+			}
+			$("#compareLiHeader").nextAll().remove();
+			$("#compareLiHeader").after(result);
+		}
+	});
+});
 //선택된 값 info페이지로 넘어가게 하는 코드 끝
 
 //paging 시작

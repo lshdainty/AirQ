@@ -15,27 +15,25 @@
 			<%-- 지도 나오는 부분 끝 --%>
 			<%-- 데이터 값 선택 시작 --%>
 				<div id="chartContentDiv">
-					<form>
-						<input type="text" id="sido_code" value="광역시/도" readonly>
-						<select id="sigoon_code">
-							<option>지역선택</option>
-						</select>
-						<select id="space">
-							<option>평수 선택</option>
-							<option value="1">1~10</option>
-							<option value="2">11~20</option>
-							<option value="3">21~30</option>
-							<option value="4">31~40</option>
-							<option value="5">41~50</option>
-							<option value="6">51~60</option>
-							<option value="7">61~70</option>
-							<option value="8">71~80</option>
-							<option value="9">81~90</option>
-							<option value="10">91~100</option>
-							<option value="11">100~</option>
-						</select>
-						<button id="check">선택확인</button>
-					</form>
+					<input type="text" id="sido_code" value="광역시/도" readonly>
+					<select id="sigoon_code">
+						<option>지역선택</option>
+					</select>
+					<select id="space">
+						<option>평수 선택</option>
+						<option value="1">1~10</option>
+						<option value="2">11~20</option>
+						<option value="3">21~30</option>
+						<option value="4">31~40</option>
+						<option value="5">41~50</option>
+						<option value="6">51~60</option>
+						<option value="7">61~70</option>
+						<option value="8">71~80</option>
+						<option value="9">81~90</option>
+						<option value="10">91~100</option>
+						<option value="11">100~</option>
+					</select>
+					<button id="check">선택확인</button>
 				</div>
 			<%-- 데이터 값 선택 끝 --%>
 			</div>
@@ -88,7 +86,7 @@
 									<div class="col col-15" data-label="서비스 가능지역">
 										<c:forEach var="aList" items="${aList }">
 											<c:if test="${pList.product_code==aList.product_code }">
-												${aList.area_do } ${aList.area_si }
+												${aList.area_si }
 											</c:if>
 										</c:forEach>
 									</div>

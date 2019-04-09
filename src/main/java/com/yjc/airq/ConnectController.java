@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,6 +24,8 @@ import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.service.ConnectService;
 
 import lombok.AllArgsConstructor;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 /**
  * 업체연결 서비스를 관리하는 controller
  */
@@ -48,7 +52,6 @@ public class ConnectController {
 		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
 		ArrayList<ProductVO> pList = connectService.productList(criteria.getStartnum(),criteria.getEndnum());
 		ArrayList<AreaVO> aList= connectService.productAreaList();
-		System.out.println(aList);
 		model.addAttribute("pList",pList);
 		model.addAttribute("aList",aList);
 		model.addAttribute("criteria",criteria);
@@ -100,12 +103,12 @@ public class ConnectController {
 	}
 	
 	// 입찰 서비스 - 입찰 공고 삭제 후 리스트로 가기
-		@RequestMapping(value="tenderDelete/{tcode}",method=RequestMethod.GET)
-		public String tenderDelete(@PathVariable String tcode,Model model) {
-			int s=connectService.tenderDelete(tcode);
-			
-			return "redirect: /tenderMain";
-		}
+	@RequestMapping(value="tenderDelete/{tcode}",method=RequestMethod.GET)
+	public String tenderDelete(@PathVariable String tcode,Model model) {
+		int s=connectService.tenderDelete(tcode);
+		
+		return "redirect: /tenderMain";
+	}
 
 	// 입찰 서비스 - 입찰 공고 수정 페이지로 가기
 	@RequestMapping(value="tenderModify/{tcode}",method=RequestMethod.GET)
@@ -121,5 +124,24 @@ public class ConnectController {
 		int s=connectService.tenderModify(tenderboardVo);
 		String tcode=tenderboardVo.getTcode();
 		return "redirect: /tender/"+tcode;
+	}
+	
+	// 업체 분석/비교 도,시,평수 선택완료
+	@ResponseBody
+	@RequestMapping(value="selectCompare",method=RequestMethod.GET)
+	public JSONObject selectCompare(Model model,HttpServletRequest request) {
+		String sido = request.getParameter("sido");
+		String sigoon = request.getParameter("sigoon");
+		int space = Integer.parseInt(request.getParameter("space"));
+		ArrayList<ProductVO> pList = connectService.selectList(sido,sigoon,space);
+		ArrayList<AreaVO> aList= connectService.productAreaList();
+		JSONArray pJson = JSONArray.fromObject(pList);
+		JSONArray aJson = JSONArray.fromObject(aList);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("pList",pJson);
+		map.put("aList",aJson);
+		JSONObject json = JSONObject.fromObject(map);
+		
+		return json;
 	}
 }
