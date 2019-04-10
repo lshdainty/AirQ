@@ -31,4 +31,9 @@ public class ReplyServiceImplement implements ReplyService {
 		mapper.replyDelete(reply_code);
 	}
 
+	@Override
+	public ArrayList<ReplyVO> mypageReplys() {
+		return mapper.mypageReplys();
+	}
+
 }

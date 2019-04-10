@@ -1,6 +1,8 @@
 package com.yjc.airq.mapper;
 
 import java.util.ArrayList;
+
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import com.yjc.airq.domain.MemberVO;
 
@@ -15,6 +17,10 @@ public interface MemberMapper {
 	
 	// 중복 체크
 	public MemberVO idCheck(String id);
+	
+	//마이페이지 관리자 회원관리 - 회원삭제
+	@Delete("delete from member where member_id=#{member_id}")
+	public boolean delete(String member_id);
 	
 	// 파일 업로드
 	// public String fileDB(FileTestVO fDB);

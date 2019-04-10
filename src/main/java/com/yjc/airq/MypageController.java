@@ -1,10 +1,18 @@
 package com.yjc.airq;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yjc.airq.domain.MemberVO;
+import com.yjc.airq.mapper.MemberMapper;
+import com.yjc.airq.mapper.ReplyMapper;
 import com.yjc.airq.service.ConnectService;
 import com.yjc.airq.service.MemberService;
 
@@ -18,6 +26,8 @@ import lombok.AllArgsConstructor;
 public class MypageController {
 	private ConnectService connectService;
 	private MemberService memberService;
+	private MemberMapper memberMapper;
+	private ReplyMapper replyMapper;
 
 	// mypageMain 가기
 	@RequestMapping(value = "mypageMain", method = RequestMethod.GET)
@@ -34,6 +44,7 @@ public class MypageController {
 	// mypageMainComment 가기
 	@RequestMapping(value = "mypageMainComment", method = RequestMethod.GET)
 	public String mypageMainComment(Model model) {
+		model.addAttribute("Reply", replyMapper.mypageReplys());
 		return "mypage/mypageMainComment";
 	}
 
@@ -43,6 +54,15 @@ public class MypageController {
 		model.addAttribute("getMemberList", memberService.getMemberList());
 		return "mypage/mypageMainMember";
 	}
+	
+	// mypageMainMember 회원 삭제 버튼 클릭 이벤트
+	@RequestMapping(value = "/mypageMainMember/{member_id}", method = RequestMethod.GET)
+	public String delete(@PathVariable String member_id) {
+		memberMapper.delete(member_id);
+		System.out.println(member_id);
+		return "redirect:/mypageMainMember";
+	}
+
 
 	// mypageMainPosts 가기
 	@RequestMapping(value = "mypageMainPosts", method = RequestMethod.GET)
