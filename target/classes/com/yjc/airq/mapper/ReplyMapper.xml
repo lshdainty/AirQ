@@ -26,4 +26,7 @@
 	<delete id="deletePostReply" parameterType="String">
 		DELETE FROM REPLY WHERE POST_CODE=#{post_code}
 	</delete>
+	<delete id="replyDelete" parameterType="String">
+		DELETE FROM REPLY WHERE REPLY_CODE=#{reply_code}
+	</delete>
 </mapper>

@@ -27,5 +27,8 @@ public class ReplyServiceImplement implements ReplyService {
 	public void deletePostReply(String post_code) {
 		mapper.deletePostReply(post_code);
 	}
+	public void replyDelete(String reply_code) {
+		mapper.replyDelete(reply_code);
+	}
 
 }
