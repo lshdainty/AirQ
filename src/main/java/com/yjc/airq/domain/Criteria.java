@@ -14,7 +14,11 @@ public class Criteria {
 	private int lastblock;	//마지막 페이지 블록
 	
 	public void prevnext(int pagenum) {
-		if(pagenum>0&&pagenum<11) {
+		if(getLastblock()==1&&pagenum<11) {
+			setPrev(false);
+			setNext(false);
+		}
+		else if(getLastblock()>1&&pagenum<11) {
 			setPrev(false);
 			setNext(true);
 		}
@@ -125,7 +129,7 @@ public class Criteria {
 	public void setCurrentblock(int pagenum) {
 		//페이지 번호를 통해 구한다.
 		//현재 페이지 번호 1 -> 1/10 -> 0 페이지 블록 번호는 1이 된다. 
-		//현재 페이지 번호 11 -> 11/10 -> 1 페이비 블록 번호는 2가 된다.
+		//현재 페이지 번호 11 -> 11/10 -> 1 페이지 블록 번호는 2가 된다.
 		this.currentblock = pagenum/10;
 		if(pagenum%10>0) {
 			this.currentblock++;

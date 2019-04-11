@@ -23,7 +23,7 @@
 				<div class="article-meta__item">
 					<span id="post_ReplyCount">댓글  ${detailPost.reply_count}</span>
 				</div>
-				<div class="article-meta__item">
+				<div class="article-meta__item recommend_num">
 					<span>추천 ${detailPost.recommend_num}</span>
 				</div>
 			</div>
@@ -36,7 +36,7 @@
 		<div data-v-55f6a8c1="" class="article-vote">
 			<button type="submit" class="article-vote__button button" id="post-vote">
 				<span class="article-vote__up-arrow">추천</span> <span
-					class="article-vote__count" id="recommend_num">${detailPost.recommend_num}</span>
+					class="article-vote__count recommend_num">${detailPost.recommend_num}</span>
 			</button>
 		</div>
 	</div>
@@ -111,68 +111,9 @@
 
 <input type="hidden" value="${detailPost.post_code}" id="post_code"
 	name="post_id">
-<a href="recommendDelete?post_code=${detailPost.post_code}"
+<a href="postDelete?post_code=${detailPost.post_code}"
 	class="btn btn-primary" id="test">삭제</a>
-<a href="recommendModify?post_code=${detailPost.post_code}"
+<a href="postModify?post_code=${detailPost.post_code}"
 	class="btn btn-primary" id="test">수정</a>
-<script>
-	$(document).ready(function() {
-		$('#reply-insert').click(function(){
-			var reply_content = $('#reply_content').val();
-			var member_id = $('#member_id').text();
-			var post_code = $('#post_code').val();
-			var replyVO = new Object();
-			
-			replyVO.member_id = member_id;
-			replyVO.post_code = post_code;
-			replyVO.reply_content = reply_content;
-			$.ajax({
-				type:'POST',
-				url:'addReply',
-				data:replyVO,
-				success:function(result){	
-					var content ='<div class="comment-list"><div class="comment-l"><div class="comment"><div class="comment-meta">'+
-					'<span class="comment__name"><a href="#">'+member_id+'</a></span><span class="comment__date">${reply.r_creation_date}'+
-					'</span></div><div class="comment-content"><div><p><br>'+reply_content+'</p></div></div><div class="comment-button">'+
-					'<button class="comment__button comment__button--red reply-delete">삭제</button><input type="hidden"'+
-					'class="reply_code" value="'+result.reply_code+'"></div></div></div></div>';
- 					var reply_count =parseInt($('#reply_count').text());
-					$('#replys').prepend(content);
-					$('#reply_content').val("");
-					reply_count = reply_count+1;
-					$('#reply_count').text(reply_count);
-					$('#post_ReplyCount').html('댓글&nbsp'+reply_count);
-				}
-			}); 
-		});
-		
-		$('#post-vote').click(function(){
-			var post_code = $('#post_code').val();
-			$.ajax({
-				type:'post',
-				data:{'post_code':post_code},
-				url:'postVote',
-				success:function(result){
-					var recommend_num = parseInt($('#recommend_num').text());
-					recommend_num=recommend_num+1;
-					$('#recommend_num').text(recommend_num);
-				}
-			});
-		});
-		
-		$(document).on("click",".reply-delete",function(){
-			var post_code = $('#post_code').val();
-			var reply_code = $(this).next().val();
-			var data = {'reply_code':reply_code,'post_code':post_code};
-			$(this).parent().parent().parent().parent().remove();
-    			$.ajax({
-				type:'post',
-				data:data,
-				url:'replyDelete',
-				success:function(result){
-				}
-			});    
-		});
-	});
-</script>
+<script src="resources/js/community/community.js"></script>
 <%@include file="../include/footer.jsp"%>

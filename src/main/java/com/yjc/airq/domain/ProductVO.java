@@ -11,4 +11,6 @@ public class ProductVO {
 	private int p_space;	//평수
 	private int measure_point;	//측정지점
 	private String company_code;	//서비스 업체 코드
+	private String sellnum;	//판매건수
+	private String staravg;	//별점평균
 }

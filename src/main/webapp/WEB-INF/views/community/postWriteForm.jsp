@@ -9,7 +9,7 @@
 	<div class="row">
 		<div class="col-md-12 order-md-4">		
 			
-			<form class="needs-validation" enctype="multipart/form-data" action="recommendInsert" method="get" novalidate >
+			<form class="needs-validation" enctype="multipart/form-data" action="postInsert" method="get" novalidate >
 			
 			
 				<%-- 게시글 이름 시작 --%>
@@ -29,7 +29,7 @@
 				<div class="mb-3">
 					<label for="username">board content</label>
 					<div class="input-group">
-						<textarea rows="20" cols="100" class="form-control" id="recommend-cotent"
+						<textarea rows="20" cols="100" class="form-control" id="post-cotent"
 							placeholder="Board content" name="post_content" required></textarea>
 						<div class="invalid-feedback" style="width: 100%;">BoardName is empty.</div>
 					</div>

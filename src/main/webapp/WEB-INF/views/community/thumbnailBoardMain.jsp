@@ -2,49 +2,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
-<link rel="stylesheet" href="resources/css/comunity/comunity-header.css">
+<link rel="stylesheet" href="resources/css/comunity/comunity.css">
+
+
 <%-- 커뮤니티 - 상품추천 헤더 시작 --%>
 <div class="page-header">
-	<h3>커뮤니티 - 자유게시판</h3>
-	<p>Liberty Board</p>
+	<h3>커뮤니티 - 상품추천</h3>
+	<p>Product Recommand</p>
 </div>
 <%-- 커뮤니티 - 상품추천 헤더 끝 --%>
-<div class="bg-light py-5">
-	<table class="table">
-		<thead class="thead-dark">
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">First</th>
-				<th scope="col">Last</th>
-				<th scope="col">Handle</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<th scope="row">1</th>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr>
-			<tr>
-				<th scope="row">2</th>
-				<td>Jacob</td>
-				<td>Thornton</td>
-				<td>@fat</td>
-			</tr>
-			<tr>
-				<th scope="row">3</th>
-				<td>Larry</td>
-				<td>the Bird</td>
-				<td>@twitter</td>
-			</tr>
-		</tbody>
-	</table>
+
+<%-- 커뮤니티 - 상품추천 리스트 시작 --%>
+<div class="album py-5 bg-light">
+	<div class="row">
+		<c:forEach var="post" items="${posts}">
+			<div class="col-md-4">
+				<div class="card mb-4 ">
+					<img src="${post.post_thumbnail}" class="card-img-top" style="height:200px;overflow:hidden" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">${post.post_title}</h5>
+						<a href="postDetail?post_code=${post.post_code}" class="btn btn-primary">자세히</a>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+	</div>
 
 
 	<div class="d-flex flex-row-reverse bd-highlight">
 		<div class="p-2 bd-highlight">
-			<button class="btn btn-primary" type="submit" id="liberty-write">글작성</button>
+			<button class="btn btn-primary" type="submit" id="post-write">글작성</button>
 		</div>
 	</div>
 
@@ -64,12 +51,18 @@
 			</ul>
 		</div>
 	</nav>
+	<%-- 페이지네이션 끝 --%>
 </div>
-<%-- 페이지네이션 끝 --%>
+
+
+
+<%-- 커뮤니티 - 상품추천 리스트 끝 --%>
 
 <%-- 스크립트 링크 시작 --%>
 
 <script src="resources/js/community/community.js"></script>
 
 <%-- 스크립트 링크 끝 --%>
+
+
 <%@include file="../include/footer.jsp"%>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,14 +38,85 @@ public class CommunityController {
 	private UploadService uploadService;
 	private ReplyService replyService;
 	
+	
+	
+	
+	//테이블 형식 레이아웃 메인페이지
+	@RequestMapping(value = "tableBoardMain", method = RequestMethod.GET)
+	public String libertyMain(Model model,HttpServletRequest request) {
+		String board_code =request.getParameter("board_code");
+		
+		// 데이터베이스에서 모든 포스트를 불러옴
+		ArrayList<PostVO> posts=postService.getPosts(board_code);
+		
+		Iterator<PostVO> it = posts.iterator();
+		PostVO postVO;
+		String content;
+		Elements content_text;
+		Document doc;
+		while(it.hasNext()) {
+			postVO=it.next();
+			content=postVO.getPost_content();
+			doc=Jsoup.parse(content);
+			content_text = doc.select("p");
+			postVO.setPost_content(content_text.text());
+			System.out.println(postVO);
+		}
+		
+		
+		model.addAttribute("posts",posts);
+		request.getSession().setAttribute("board_code",board_code);
+		request.getSession().setAttribute("board_type","table");
+
+		
+		return "community/tableBoardMain";
+	}
+	//썸네일 게시판 메인
+		@RequestMapping(value = "thumbnailBoardMain", method = RequestMethod.GET)
+		public String tableBoardMain(Model model,HttpServletRequest request) {
+			
+			String board_code =request.getParameter("board_code");
+			
+			// 데이터베이스에서 모든 포스트를 불러옴
+			ArrayList<PostVO> posts=postService.getPosts(board_code);
+			
+			// 불러온 포스트 중의 컨텐츠에서 첫번째 img 태그에서 썸네일을 추출
+			Iterator<PostVO> it = posts.iterator();
+			PostVO postVO;
+			String content;
+			String thumbnail;
+			Element imageElement;
+			Document doc;
+			while(it.hasNext()) {
+				postVO=it.next();
+				content=postVO.getPost_content();
+				doc=Jsoup.parse(content);
+				imageElement = doc.select("img").first();
+				if(imageElement!=null) {
+					thumbnail = imageElement.attr("src");
+				}
+				else {
+					thumbnail="resources/images/test2.jpg";
+				}
+				postVO.setPost_thumbnail(thumbnail);
+			}
+			
+			// 저장된 포스트를 posts 에 저장
+			model.addAttribute("posts",posts);
+			request.getSession().setAttribute("board_code",board_code);
+			request.getSession().setAttribute("board_type","thumbnail");
+
+			return "community/thumbnailBoardMain";
+		}
 	@RequestMapping(value = "replyDelete", method = RequestMethod.POST)
+	@ResponseBody
 	public void replyDelete(String reply_code ,String post_code) {
 		
 		replyService.replyDelete(reply_code);
 		
 	}
 	
-	
+	// 댓글 추가
 	@RequestMapping(value = "addReply", method = RequestMethod.POST)
 	@ResponseBody
 	public ReplyVO addReply(ReplyVO replyVO,Model model,HttpServletRequest request) {
@@ -73,10 +145,12 @@ public class CommunityController {
 		replyVO.setMember_id(member_id);
 		replyVO.setPost_code(post_code);
 		replyVO.setProduct_code(product_code);
-		
+		System.out.println(replyVO);
 		replyService.insertReply(replyVO);
 		return replyVO;
 	}
+	
+	// 글 추천
 	@RequestMapping(value = "postVote", method = RequestMethod.POST)
 	@ResponseBody
 	public String postVote(Model model ,String post_code) {
@@ -86,43 +160,10 @@ public class CommunityController {
 		return "success";
 	}
 	
-	//상품추천 메인페이지로 가기
-	@RequestMapping(value = "recommendMain", method = RequestMethod.GET)
-	public String recommendMain(Model model) {
-		
-		// 데이터베이스에서 모든 포스트를 불러옴
-		ArrayList<PostVO> posts=postService.getPosts("bd_rec");
-		
-		// 불러온 포스트 중의 컨텐츠에서 첫번째 img 태그에서 썸네일을 추출
-		Iterator<PostVO> it = posts.iterator();
-		PostVO postVO;
-		String content;
-		String thumbnail;
-		Element imageElement;
-		Document doc;
-		while(it.hasNext()) {
-			postVO=it.next();
-			content=postVO.getPost_content();
-			doc=Jsoup.parse(content);
-			imageElement = doc.select("img").first();
-			if(imageElement!=null) {
-				thumbnail = imageElement.attr("src");
-			}
-			else {
-				thumbnail="resources/images/test2.jpg";
-			}
-			postVO.setPost_thumbnail(thumbnail);
-		}
-		
-		// 저장된 포스트를 posts 에 저장
-		model.addAttribute("posts",posts);
-		
-		return "community/recommendMain";
-	}
 	
 	
-	// 상품추천 글 상세페이지로 가기
-	@RequestMapping(value = "recommendDetail", method = RequestMethod.GET)
+	// 글 상세
+	@RequestMapping(value = "postDetail", method = RequestMethod.GET)
 	public String recommandDetail(Model model,HttpServletRequest request) {
 		
 		String post_code = (String)request.getParameter("post_code");
@@ -132,10 +173,11 @@ public class CommunityController {
 		model.addAttribute("detailPost",postVO);
 		model.addAttribute("postReply",replys);
 				
-		return "community/recommendDetail";
+		return "community/postDetail";
 	}
 	
-	@RequestMapping(value = "recommendModify", method = RequestMethod.GET)
+	// 글 수정
+	@RequestMapping(value = "postModify", method = RequestMethod.GET)
 	public String recommandModify(Model model,HttpServletRequest request) {
 		
 		String post_code = (String)request.getParameter("post_code");
@@ -143,19 +185,19 @@ public class CommunityController {
 		
 		model.addAttribute("modifyPost",postService.detailPost(post_code));
 		
-		return "community/recommendModify";
+		return "community/postModify";
 	}
 	
-	// 상품추천 글쓰기로 가기
-	@RequestMapping(value = "recommendWrite", method = RequestMethod.GET)
-	public String recommandWrite(Model model) {
+	//  글 쓰기
+	@RequestMapping(value = "postWrite", method = RequestMethod.GET)
+	public String recommandWrite(Model model,HttpServletRequest request) {
 		
 		
-		return "redirect:/fileInitialization?board_code=bd_rec";
+		return "redirect:/fileInitialization";
 	}
 
-	// 상품추천 글 데이터베이스 삽입
-	@RequestMapping(value = "recommendInsert", method = RequestMethod.GET)
+	// 글 추가
+	@RequestMapping(value = "postInsert", method = RequestMethod.GET)
 	public String recommandInsert(Model model,HttpServletRequest request) {
 		
 		PostVO postVO =new PostVO();
@@ -170,6 +212,7 @@ public class CommunityController {
 		int random=(int)(Math.random()*10000);
 		String post_code="ps"+day+random;
 		// 포스트 코드 생성 완료
+		String board_code = (String)request.getSession().getAttribute("board_code");
 		postVO.setPost_code(post_code);
 		postVO.setPost_title(post_title);
 		postVO.setPost_content(post_content);
@@ -177,28 +220,33 @@ public class CommunityController {
 		postVO.setView_num(0);
 		postVO.setRecommend_num(0);
 		postVO.setMember_id(((MemberVO) request.getSession().getAttribute("user")).getMember_id());
-		postVO.setBoard_code("bd_rec");
+		postVO.setBoard_code(board_code);
 		
 		postService.insertPost(postVO);
 		
 		
 		
-		return "redirect: /fileInsert?post_code="+post_code;
+		return "redirect: /fileInsert";
 	}
 	
-	// 상품추천 글쓰기 삭제
-	@RequestMapping(value = "recommendDelete", method = RequestMethod.GET)
+	//  글 삭제
+	@RequestMapping(value = "postDelete", method = RequestMethod.GET)
 	public String recommandDelete(Model model,HttpServletRequest request) {
 		String post_code = request.getParameter("post_code");
 		replyService.deletePostReply(post_code);
 		uploadService.deletePostUpload(post_code);
 		postService.deletePost(post_code);
-		return "redirect: /recommendMain";
+		String board_type = (String)request.getSession().getAttribute("board_type");
+		String board_code = (String)request.getSession().getAttribute("board_code");
+		if(board_type=="table")
+			return "redirect: /tableBoardMain?board_code="+board_code;
+		else
+			return "redirect: /thumbnailBoardMain?board_code="+board_code;
 	}
 	
 	
-	// 상품추천 글 수정
-	@RequestMapping(value = "recommendUpdate", method = RequestMethod.GET)
+	//  글 수정
+	@RequestMapping(value = "postUpdate", method = RequestMethod.GET)
 	public String recommandUpdate(Model model,HttpServletRequest request) {
 		PostVO postVO =new PostVO();
 		String post_title = request.getParameter("post_title");
@@ -210,48 +258,12 @@ public class CommunityController {
 		
 		postService.modifyPost(postVO);
 		
-		return "redirect: /recommendMain";
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//자유게시판 메인페이지로 가기
-	@RequestMapping(value = "libertyMain", method = RequestMethod.GET)
-	public String libertyMain(Model model) {
 		
-		model.addAttribute("posts",postService.getPosts("bd_lib"));
-		return "community/libertyMain";
+		String board_type = (String)request.getSession().getAttribute("board_type");
+		String board_code = (String)request.getSession().getAttribute("board_code");
+		if(board_type=="table")
+			return "redirect: /tableBoardMain?board_code="+board_code;
+		else
+			return "redirect: /thumbnailBoardMain?board_code="+board_code;
 	}
-	
-	// 자유게시판 글쓰기로 가기
-		@RequestMapping(value = "libertyWrite", method = RequestMethod.GET)
-		public String libertyWrite(Model model) {
-			return "community/libertyWriteForm";
-		}
-	
-	//대기오염물질 메인페이지로 가기
-	@RequestMapping(value = "metterMain", method = RequestMethod.GET)
-	public String metterMain(Model model) {
-		return "community/metterMain";
-	}
-	
-	//공기질 향상방법 메인페이지로 가기
-	@RequestMapping(value = "improveMain", method = RequestMethod.GET)
-	public String improveMain(Model model) {
-		return "community/improveMain";
-	}
-	
-	//건강지킴이 메인페이지로 가기
-	@RequestMapping(value = "healthMain", method = RequestMethod.GET)
-	public String healthMain(Model model) {
-		return "community/healthMain";
-	}
-	
 }

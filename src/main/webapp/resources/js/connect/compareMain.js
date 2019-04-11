@@ -100,13 +100,14 @@ $("#check").click(function(){
 	}
 	$.ajax({
 		type: "get",
-		url: "/selectCompare",
+		url: "/selectCompare?pagenum="+1,
 		data : query,
 		async: false,
 		success: function(data) {
 			var result="";
 			var space="";
 			var area="";
+			var page="";
 			for(var i=0; i<data.pList.length; i++){
 				result += '<li class="compareLiContent">'
 				result += '<div class="col col-10-1" data-label="상품코드">'+data.pList[i].product_code+'</div>'
@@ -134,12 +135,23 @@ $("#check").click(function(){
 					}
 				}
 				result += '<div class="col col-15" data-label="서비스 가능지역">'+area+'</div>'
-				result += '<div class="col col-10-1" data-label="별점 평균"></div>'
-				result += '<div class="col col-10-1" data-label="판매 건수"></div>'
+				result += '<div class="col col-10-1" data-label="별점 평균">'+data.pList[i].staravg+'</div>'
+				result += '<div class="col col-10-1" data-label="판매 건수">'+data.pList[i].sellnum+'</div>'
 				space="";area="";
 			}
 			$("#compareLiHeader").nextAll().remove();
 			$("#compareLiHeader").after(result);
+			if(data.criteria.prev){
+				page += '<button onclick="javascript:page('+(data.criteria.startPage-1)+');">&laquo;</button>'
+			}
+			for(var i=data.criteria.startPage; i<=data.criteria.endPage; i++){
+				page += '<button onclick="javascript:page('+i+');">'+i+'</button>'
+			}
+			if(data.criteria.next){
+				page += '<button onclick="javascript:page('+(data.criteria.endPage+1)+');">&raquo;</button>'
+			}
+			$("#paging").empty();
+			$("#paging").prepend(page)
 		}
 	});
 });
