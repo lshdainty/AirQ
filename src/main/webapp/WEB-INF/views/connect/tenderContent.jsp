@@ -10,12 +10,16 @@
 
 <h2 id="tenderTitle">${tenderContent.tender_title }</h2>
 <div>
-	<span id="tenderWriter">${tenderContent.tender_name }</span> | <span id="tenderDate">${tenderContent.t_creation_date }</span> <span id="tenderDeadline">입찰 마감 일자 : ${tenderContent.tender_deadline }</span>
+	<span id="tenderWriter">${tenderContent.member_id }</span> | <span id="tenderDate">${tenderContent.t_creation_date }</span> <span id="tenderDeadline">입찰 마감 일자 : ${tenderContent.tender_deadline }</span>
 	<input type="hidden" id="tcode" name="tcode" value="${tenderContent.tender_code }">
 </div>
 <hr />
 
 <table id="tenderTbl">
+	<tr>
+		<td>입찰자 명</td>
+		<td>${tenderContent.tender_name }</td>
+	</tr>
 	<tr>
 		<td>주소</td>
 		<td>${tenderContent.t_addr_do }${tenderContent.t_addr_si }${tenderContent.t_addr_dong }${tenderContent.t_addr_detail }</td>

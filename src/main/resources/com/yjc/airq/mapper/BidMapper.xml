@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjc.airq.mapper.BidMapper">
+	<!-- 입찰 공고 삭제 -->
+	<select id="findUploadCode" resultType="com.yjc.airq.domain.BidVO">
+		select upload_code from bid where tender_code=#{tender_code}
+	</select>
+	<delete id="deleteBid" parameterType="String">
+		delete from bid where tender_code=#{tender_code}
+	</delete>
+	
+</mapper>

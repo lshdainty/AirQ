@@ -2,6 +2,7 @@ package com.yjc.airq.service;
 
 import org.springframework.stereotype.Service;
 
+import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.mapper.UploadMapper;
 
@@ -21,5 +22,11 @@ public class UploadServiceImplement implements UploadService {
 	}
 	public void deletePostUpload(String post_code) {
 		mapper.deletePostUpload(post_code);
+	}
+	
+	//투찰에 있던 파일 삭제
+	@Override
+	public void deleteUpload(BidVO bidVo) {
+		mapper.deleteUpload(bidVo);
 	}
 }
