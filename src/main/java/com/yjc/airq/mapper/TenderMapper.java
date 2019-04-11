@@ -2,6 +2,8 @@ package com.yjc.airq.mapper;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Delete;
+
 import com.yjc.airq.domain.TenderVO;
 
 public interface TenderMapper {
@@ -16,4 +18,7 @@ public interface TenderMapper {
 	public int tenderDelete(String tcode);
 	// 입찰 공고 수정
 	public int tenderModify(TenderVO tenderVo);
+	//마이페이지 관리자 글관리 - 글삭제
+	@Delete("delete from tender where tender_code=#{tender_code}")
+	public boolean deletePosts(String tender_code);
 }

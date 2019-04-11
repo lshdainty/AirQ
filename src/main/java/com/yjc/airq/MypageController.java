@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.mapper.MemberMapper;
 import com.yjc.airq.mapper.ReplyMapper;
+import com.yjc.airq.mapper.TenderMapper;
 import com.yjc.airq.service.ConnectService;
 import com.yjc.airq.service.MemberService;
 
@@ -28,6 +29,7 @@ public class MypageController {
 	private MemberService memberService;
 	private MemberMapper memberMapper;
 	private ReplyMapper replyMapper;
+	private TenderMapper tenderMapper;
 
 	// mypageMain 가기
 	@RequestMapping(value = "mypageMain", method = RequestMethod.GET)
@@ -47,6 +49,13 @@ public class MypageController {
 		model.addAttribute("Reply", replyMapper.mypageReplys());
 		return "mypage/mypageMainComment";
 	}
+	
+	// mypageMainComment 댓글 삭제 버튼 클릭 이벤트
+	@RequestMapping(value = "/mypageMainComment/{reply_code}", method = RequestMethod.GET)
+	public String deleteComment(@PathVariable String reply_code) {
+		replyMapper.deleteComment(reply_code);
+		return "redirect:/mypageMainComment";
+	}
 
 	// mypageMainMember 가기
 	@RequestMapping(value = "mypageMainMember", method = RequestMethod.GET)
@@ -57,9 +66,8 @@ public class MypageController {
 	
 	// mypageMainMember 회원 삭제 버튼 클릭 이벤트
 	@RequestMapping(value = "/mypageMainMember/{member_id}", method = RequestMethod.GET)
-	public String delete(@PathVariable String member_id) {
-		memberMapper.delete(member_id);
-		System.out.println(member_id);
+	public String deleteMember(@PathVariable String member_id) {
+		memberMapper.deleteMember(member_id);
 		return "redirect:/mypageMainMember";
 	}
 
@@ -69,6 +77,13 @@ public class MypageController {
 	public String mypageMainPosts(Model model) {
 		model.addAttribute("tenderList", connectService.tenderList());
 		return "mypage/mypageMainPosts";
+	}
+	
+	// mypageMainPosts 글 삭제 버튼 클릭 이벤트
+	@RequestMapping(value = "/mypageMainPosts/{tender_code}", method = RequestMethod.GET)
+	public String deletePosts(@PathVariable String tender_code) {
+		tenderMapper.deletePosts(tender_code);
+		return "redirect:/mypageMainPosts";
 	}
 
 //////////////////////////////////일반 사용자//////////////////////////////////////////////////////////

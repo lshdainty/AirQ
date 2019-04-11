@@ -32,20 +32,14 @@
         <br>
         <%-- 하단부분 시작 --%>
         <c:forEach var="tenderList" items="${tenderList}"
-        varStatus="index" begin="0" end="4"> <%--인덱스를 주어 0번부터 4번까지 5개만 데이터를 뽑아낸다. --%>
+        varStatus="index" begin="0" end="15">
         <div class="form2">
 
             <div class="tender_title"><input type="checkbox" id="cb" name="cb">${tenderList.tender_title }</div> 
             <div class="requirement">${tenderList.requirement }</div> 
             <div class="tender_name">${tenderList.tender_name }</div>
-			<div class="selection"><select class="selectionIn"id="open">
-                <option value="1">선택</option>
-                <option value="1">공개</option>
-                <option value="1">비공개</option>
-                <option value="1">삭제</option>
-            </select></div>
-            <div class="check"><button type="submit" id="check2" class="btn btn-check">확인</button></div>
             <div class="t_creation_date">${tenderList.t_creation_date }</div>
+            <a href="<c:url value='/mypageMainPosts/${tenderList.tender_code }' />" class="btn btn-lg btn-danger">글 삭제</a>
         </div>
         </c:forEach>
         
