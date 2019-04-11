@@ -43,10 +43,10 @@
 					<div id="compareContainer">
 						<div id="compareSelectDiv">
 							<select class="compareSelect">
-								<option>판매순</option>
-								<option>가격 높은순</option>
-								<option>가격 낮은순</option>
-								<option>별점 평균순</option>
+								<option value="">판매순</option>
+								<option value="">가격 높은순</option>
+								<option value="">가격 낮은순</option>
+								<option value="">별점 평균순</option>
 							</select>
 						</div>
 						<ul id="compareBoardUl">
@@ -98,15 +98,15 @@
 					</div>
 				</form>
 			</div>
-			<div>
+			<div id="paging">
 				<c:if test="${criteria.prev}">
-					<a href="javascript:page(${criteria.getStartPage()-1});">&laquo;</a>
+					<button onclick="javascript:page(${criteria.getStartPage()-1});">&laquo;</button>
 				</c:if>
 				<c:forEach begin="${criteria.getStartPage() }" end="${criteria.getEndPage() }" var="idx">
-					<a href="javascript:page(${idx });">${idx}</a>
+					<button onclick="javascript:page(${idx });">${idx}</button>
 				</c:forEach>
 				<c:if test="${criteria.next}">
-					<a href="javascript:page(${criteria.getEndPage()+1});">&raquo;</a>
+					<button onclick="javascript:page(${criteria.getEndPage()+1});">&raquo;</button>
 				</c:if>
 			</div>
 		<%-- 상품목록 끝 --%>

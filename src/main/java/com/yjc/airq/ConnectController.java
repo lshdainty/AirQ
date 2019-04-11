@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.Criteria;
@@ -50,6 +51,7 @@ public class ConnectController {
 		criteria.prevnext(pagenum);	//현재 페이지 번호로 화살표를 나타낼지 정함
 		criteria.setStartPage(criteria.getCurrentblock());	//시작 페이지를 페이지 블록번호로 정함
 		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
+		
 		ArrayList<ProductVO> pList = connectService.productList(criteria.getStartnum(),criteria.getEndnum());
 		ArrayList<AreaVO> aList= connectService.productAreaList();
 		model.addAttribute("pList",pList);
