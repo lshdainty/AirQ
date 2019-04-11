@@ -98,17 +98,21 @@
 					</div>
 				</form>
 			</div>
-			<div id="paging">
-				<c:if test="${criteria.prev}">
-					<button onclick="javascript:page(${criteria.getStartPage()-1});">&laquo;</button>
-				</c:if>
-				<c:forEach begin="${criteria.getStartPage() }" end="${criteria.getEndPage() }" var="idx">
-					<button onclick="javascript:page(${idx });">${idx}</button>
-				</c:forEach>
-				<c:if test="${criteria.next}">
-					<button onclick="javascript:page(${criteria.getEndPage()+1});">&raquo;</button>
-				</c:if>
-			</div>
+			<nav aria-label="Page navigation example">
+				<div class="d-flex justify-content-center">
+					<ul class="pagination">
+						<c:if test="${criteria.prev}">
+							<li class="page-item"><a class="page-link" href="javascript:page(${criteria.getStartPage()-1});" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+						</c:if>
+						<c:forEach begin="${criteria.getStartPage() }" end="${criteria.getEndPage() }" var="idx">
+							<li class="page-item"><a class="page-link" href="javascript:page(${idx });">${idx}</a></li>
+						</c:forEach>
+						<c:if test="${criteria.next}">
+							<li class="page-item"><a class="page-link" href="javascript:page(${criteria.getEndPage()+1});" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+						</c:if>
+					</ul>
+				</div>
+			</nav>
 		<%-- 상품목록 끝 --%>
 		</div>
 	<%-- 페이지 끝 --%>
