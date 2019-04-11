@@ -23,65 +23,72 @@ public class ConnectServiceImplement implements ConnectService {
 	private BidMapper bidMapper;
 	private ProductMapper productMapper;
 	private AreaMapper areaMapper;
-	
+
 	// 입찰 리스트 출력
 	@Override
 	public ArrayList<TenderVO> tenderList() {
 		return tenderMapper.tenderList();
 	}
-	/*
-	 * @Override public ArrayList<TenderVO> companyCnt(String tender_code) { return
-	 * tenderMapper.companyCnt(tender_code); }
-	 */
-	
+
+	@Override
+	public ArrayList<TenderVO> companyCnt(String tender_code) {
+		return tenderMapper.companyCnt(tender_code);
+	}
+
 	// 입찰 공고 작성
 	@Override
 	public int addTenderboard(TenderVO tenderVo) {
 		return tenderMapper.addTenderboard(tenderVo);
 	}
-	
-	//입찰 세부 내용 보기
+
+	// 입찰 세부 내용 보기
 	@Override
 	public TenderVO tenderContent(String tender_code) {
 		return tenderMapper.tenderContent(tender_code);
 	}
-	
-	//입찰 공고 삭제
+	@Override
+	public ArrayList<BidVO> bidContent(String tender_code) {
+		return bidMapper.bidContent(tender_code);
+	}
+
+	// 입찰 공고 삭제
 	@Override
 	public ArrayList<BidVO> findUploadCode(String tender_code) {
 		return bidMapper.findUploadCode(tender_code);
 	}
-	
+
 	@Override
 	public void deleteBid(String tender_code) {
 		bidMapper.deleteBid(tender_code);
 	}
+
 	@Override
 	public int tenderDelete(String tender_code) {
 		return tenderMapper.tenderDelete(tender_code);
 	}
-	
-	//입찰 공고 수정
+
+	// 입찰 공고 수정
 	@Override
 	public int tenderModify(TenderVO tenderVo) {
 		return tenderMapper.tenderModify(tenderVo);
 	}
-	
+
 	// 상품 리스트 출력
 	@Override
-	public ArrayList<ProductVO> productList(@Param("startnum") int startnum,  @Param("endnum") int endnum){
-		return productMapper.productList(startnum,endnum);
+	public ArrayList<ProductVO> productList(@Param("startnum") int startnum, @Param("endnum") int endnum) {
+		return productMapper.productList(startnum, endnum);
 	};
-	
+
 	// 상품중 서비스 가능한 지역 리스트 출력
 	@Override
-	public ArrayList<AreaVO> productAreaList(){
+	public ArrayList<AreaVO> productAreaList() {
 		return areaMapper.productAreaList();
 	};
-	
+
 	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
 	@Override
-	public ArrayList<ProductVO> selectList(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space){
-		return productMapper.selectList(sido,sigoon,space);
+	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon,
+			@Param("space") int space) {
+		return productMapper.selectList(sido, sigoon, space);
 	};
 }

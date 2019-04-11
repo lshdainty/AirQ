@@ -8,6 +8,7 @@ public interface BidMapper {
 	// 입찰 공고 삭제
 	public ArrayList<BidVO> findUploadCode(String tender_code);
 	public void deleteBid(String tender_code);
-	//참여 업체 수
+	//입찰 공고 세부 내용
+	public ArrayList<BidVO> bidContent(String tender_code);
 	
 }

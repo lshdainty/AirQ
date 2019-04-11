@@ -72,6 +72,12 @@
 		</tr>
 	</thead>
 	<tbody>
+		<c:forEach var="bidContent" items="bidContent">
+			<tr>
+				<td scope="row"><input type="radio"></td>
+				<td class="listC" data-label="순위"></td>
+			</tr>
+		</c:forEach>
 		<tr>
 			<td scope="row"><input type="radio"></td>
 			<td class="listC" data-label="순위">1</td>

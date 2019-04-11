@@ -65,8 +65,7 @@ public class ConnectController {
 	
 	// 입찰 서비스 메인페이지로 가기
 	@RequestMapping(value = "tenderMain", method = RequestMethod.GET)
-	public String tenderMain(Model model) {
-		
+	public String tenderMain(Model model,TenderVO tenderVo) {
 		model.addAttribute("tenderList",connectService.tenderList());
 		
 		return "connect/tenderMain";
@@ -105,7 +104,8 @@ public class ConnectController {
 	@RequestMapping(value="tender/{tender_code}",method=RequestMethod.GET)
 	public String ten(@PathVariable String tender_code,Model model) {
 		model.addAttribute("tenderContent",connectService.tenderContent(tender_code));
-		
+		model.addAttribute("bidContent",connectService.bidContent(tender_code));
+		System.out.println(connectService.bidContent(tender_code));
 		return "connect/tenderContent";
 	}
 	

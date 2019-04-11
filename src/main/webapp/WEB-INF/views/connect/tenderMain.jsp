@@ -14,7 +14,6 @@
 				<option>전체 글 보기</option>
 				<option>내가 쓴 글 보기</option>
 			</select> <select class="tenderSelect">
-				<option>조회수</option>
 				<option>참여업체수</option>
 				<option>마감기한</option>
 			</select>
