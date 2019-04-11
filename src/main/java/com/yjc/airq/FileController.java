@@ -58,7 +58,6 @@ public class FileController {
         	String original_name = upload.getOriginalFilename();
             String file_name = uuid;
             String uploadPath = request.getServletContext().getRealPath("/resources/uploadFile/images");
-            System.out.println(uploadPath);
             byte[] bytes = upload.getBytes();
             File uploadFile = new File(uploadPath);
             if(!uploadFile.exists())
@@ -66,7 +65,7 @@ public class FileController {
             
             
             
-            uploadPath=uploadPath+"/"+file_name;
+            uploadPath=uploadPath+"/"+file_name+original_name;
             // 파일업로드
             out = new FileOutputStream(new File(uploadPath));
             out.write(bytes);
@@ -74,7 +73,7 @@ public class FileController {
             
             
             printWriter = response.getWriter();
-            String fileUrl = "resources/uploadFile/images/"+file_name;
+            String fileUrl = "resources/uploadFile/images/"+file_name+original_name;
             
             json.addProperty("uploaded",1);
             json.addProperty("fileName",file_name);
@@ -117,16 +116,7 @@ public class FileController {
     @RequestMapping(value = "fileInitialization", method = RequestMethod.GET)
     public String fileCount(HttpServletRequest request) {
     	files.clear();
-    	String board_code = request.getParameter("board_code");
-    	System.out.println(board_code);
-    	
-    	if(board_code.equals("bd_rec")) 
-    		return "community/recommendWriteForm";
-    	
-    	if(board_code.equals("bd_lib"))
-    		return "community/libertWrtieForm";
-    	else
-    		return null;
+    		return "community/postWriteForm";
     }
     
     @RequestMapping(value = "fileInsert", method = RequestMethod.GET)
@@ -146,12 +136,16 @@ public class FileController {
     		
     		uploadVO.setProduct_code(product_code);
     		uploadVO.setPost_code(post_code);
-    		System.out.println(uploadVO);
     		uploadService.imgUpload(uploadVO);
+    		
     	}
     	
-    	
-    	return "redirect:/recommendMain";
+		String board_type = (String)request.getSession().getAttribute("board_type");
+		String board_code = (String)request.getSession().getAttribute("board_code");
+		if(board_type=="table")
+			return "redirect: /tableBoardMain?board_code="+board_code;
+		else
+			return "redirect: /thumbnailBoardMain?board_code="+board_code;
     }
    
 }

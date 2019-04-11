@@ -286,7 +286,9 @@ ol, ul {
 		word-break: break-all;
 	}
 }
-
+.post-detail:hover{
+	cursor:pointer;
+}
 @media only screen and (min-width: 768px) {
 	.article-meta-list {
 		float: left;

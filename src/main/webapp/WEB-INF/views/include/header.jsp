@@ -16,7 +16,7 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="    background-image: linear-gradient(94deg,#1ea1f7,#46cfa7);">
+	<nav class="navbar navbar-expand-lg fixed-top text-white" style="background-image: linear-gradient(94deg,#1ea1f7,#46cfa7);">
 		<div class="container">
 		<%--모바일 화면 버튼 시작 --%>
 			<a class="navbar-brand" href="#">AirQ</a>
@@ -45,11 +45,11 @@
 						class="nav-link dropdown-toggle" id="dropdown07"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">커뮤니티</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown07">
-							<a class="dropdown-item" href="/recommendMain">상품추천</a> 
-							<a class="dropdown-item" href="/libertyMain">자유게시판</a> 
-							<a class="dropdown-item" href="/metterMain">대기오염 물질정보</a>
-							<a class="dropdown-item" href="/improveMain">공기질 향상방법</a>
-							<a class="dropdown-item" href="/healthMain">건강 지킴이</a>
+							<a class="dropdown-item" href="/thumbnailBoardMain?board_code=bd_rec">상품추천</a> 
+							<a class="dropdown-item" href="tableBoardMain?board_code=bd_lib">자유게시판</a> 
+							<a class="dropdown-item" href="/thumbnailBoardMain?board_code=bd_met">대기오염 물질정보</a>
+							<a class="dropdown-item" href="/thumbnailBoardMain?board_code=bd_imp">공기질 향상방법</a>
+							<a class="dropdown-item" href="/thumbnailBoardMain?board_code=bd_hea">건강 지킴이</a>
 						</div>
 					</li>
 					<li class="nav-item dropdown"><a
