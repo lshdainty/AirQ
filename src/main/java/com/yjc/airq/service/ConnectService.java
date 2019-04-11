@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import com.yjc.airq.domain.AreaVO;
+import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 
@@ -13,11 +14,14 @@ public interface ConnectService {
 	public ArrayList<ProductVO> productList(@Param("startnum") int startnum,  @Param("endnum") int endnum);
 	// 업체 리스트 출력
 	public ArrayList<TenderVO> tenderList();
+	//public ArrayList<TenderVO> companyCnt(String tender_code);
 	// 입찰 공고 작성
 	public int addTenderboard(TenderVO tenderVo);
 	// 입찰 세부내용 보기
 	public TenderVO tenderContent(String tender_code);
 	// 입찰 공고 삭제
+	public ArrayList<BidVO> findUploadCode(String tender_code);
+	public void deleteBid(String tender_code);
 	public int tenderDelete(String tender_code);
 	// 입찰 공고 수정
 	public int tenderModify(TenderVO tenderVo);

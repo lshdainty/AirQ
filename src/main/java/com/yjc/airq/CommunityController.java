@@ -37,10 +37,17 @@ public class CommunityController {
 	private UploadService uploadService;
 	private ReplyService replyService;
 	
+	@RequestMapping(value = "replyDelete", method = RequestMethod.POST)
+	public void replyDelete(String reply_code ,String post_code) {
+		
+		replyService.replyDelete(reply_code);
+		
+	}
+	
+	
 	@RequestMapping(value = "addReply", method = RequestMethod.POST)
 	@ResponseBody
-	public String addReply(ReplyVO replyVO,Model model,HttpServletRequest request) {
-		System.out.println(replyVO);
+	public ReplyVO addReply(ReplyVO replyVO,Model model,HttpServletRequest request) {
 		// 댓글 코드 생성
 		Date today = new Date();
 		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
@@ -68,13 +75,12 @@ public class CommunityController {
 		replyVO.setProduct_code(product_code);
 		
 		replyService.insertReply(replyVO);
-		return "success";
+		return replyVO;
 	}
 	@RequestMapping(value = "postVote", method = RequestMethod.POST)
 	@ResponseBody
 	public String postVote(Model model ,String post_code) {
 		
-		System.out.println(post_code);
 		postService.postVote(post_code);
 		
 		return "success";

@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.AreaVO;
+import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Criteria;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.service.ConnectService;
+import com.yjc.airq.service.UploadService;
 
 import lombok.AllArgsConstructor;
 import net.sf.json.JSONArray;
@@ -34,6 +36,7 @@ import net.sf.json.JSONObject;
 public class ConnectController {
 	private ConnectService connectService;
 	private ProductMapper productMapper;
+	private UploadService uploadService;
 	HttpServletRequest request;
 	
 	// 업체 분석/비교 메인페이지로 가기
@@ -64,6 +67,7 @@ public class ConnectController {
 	// 입찰 서비스 메인페이지로 가기
 	@RequestMapping(value = "tenderMain", method = RequestMethod.GET)
 	public String tenderMain(Model model) {
+		
 		model.addAttribute("tenderList",connectService.tenderList());
 		
 		return "connect/tenderMain";
@@ -78,9 +82,6 @@ public class ConnectController {
 	// 입찰 서비스 - 글쓰기 작성 후 리스트로 가기
 	@RequestMapping(value = "tenderWriteComplete", method = RequestMethod.POST)
 	public String tenderList(TenderVO tenderVo,HttpServletRequest request) {
-		System.out.println(tenderVo.getT_addr_do());
-		System.out.println(tenderVo.getT_addr_si());
-		System.out.println(tenderVo.getT_addr_dong());
 		tenderVo.setMember_id(((MemberVO) request.getSession().getAttribute("user")).getMember_id());
 		
 		//코드 앞에 날짜 6자리
@@ -110,9 +111,14 @@ public class ConnectController {
 	}
 	
 	// 입찰 서비스 - 입찰 공고 삭제 후 리스트로 가기
-	@RequestMapping(value="tenderDelete/{tcode}",method=RequestMethod.GET)
-	public String tenderDelete(@PathVariable String tcode,Model model) {
-		int s=connectService.tenderDelete(tcode);
+	@RequestMapping(value="tenderDelete/{tender_code}",method=RequestMethod.GET)
+	public String tenderDelete(@PathVariable String tender_code,Model model) {
+		ArrayList<BidVO> uploadArr=connectService.findUploadCode(tender_code);
+		for(int i=0; i<uploadArr.size();i++) {
+			uploadService.deleteUpload(uploadArr.get(i));
+		}
+		connectService.deleteBid(tender_code);
+		int s=connectService.tenderDelete(tender_code);
 		
 		return "redirect: /tenderMain";
 	}
@@ -134,8 +140,8 @@ public class ConnectController {
 	}
 	
 	// 업체 분석/비교 도,시,평수 선택완료
-	@ResponseBody
 	@RequestMapping(value="selectCompare",method=RequestMethod.GET)
+	@ResponseBody
 	public JSONObject selectCompare(Model model,HttpServletRequest request) {
 		String sido = request.getParameter("sido");
 		String sigoon = request.getParameter("sigoon");

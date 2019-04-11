@@ -27,4 +27,9 @@
 	<delete id="deletePostUpload" parameterType="String">
 		DELETE FROM UPLOAD WHERE POST_CODE=#{post_code}
 	</delete>
+	
+	<!-- 투찰에 있던 파일 삭제 -->
+	<delete id="deleteUpload" parameterType="com.yjc.airq.domain.UploadVO">
+		delete from upload where upload_code=#{upload_code}
+	</delete>
 </mapper>

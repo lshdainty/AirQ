@@ -6,30 +6,19 @@
 	box-sizing: border-box;
 }
 
-.container {
-	
-}
-/*컨테이너 바로 밑에 있는 것들의 스타일    >=직계자손  *=모든것 */
-.container>* {
-	
-}
-
 .container>.content>* {
 	border: 2px soild red;
 }
 
-.container .content {
-	overflow: hidden;
-}
-
 .container .content>* {
-	float: left;
-	padding-bottom: 2000px;
-	margin-bottom: -2000px;
+	border:2px soild red;
 }
 
-.container .content main {
-	width: 100%;
+.container .form1 .A{
+	display : inline-block;
+}
+.container .form1 .B{
+	display : inline-block;
 }
 
 /*float 지정 해제 해줌*/

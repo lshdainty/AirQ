@@ -6,9 +6,11 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.yjc.airq.domain.AreaVO;
+import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.mapper.AreaMapper;
+import com.yjc.airq.mapper.BidMapper;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.TenderMapper;
 
@@ -18,6 +20,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ConnectServiceImplement implements ConnectService {
 	private TenderMapper tenderMapper;
+	private BidMapper bidMapper;
 	private ProductMapper productMapper;
 	private AreaMapper areaMapper;
 	
@@ -26,6 +29,10 @@ public class ConnectServiceImplement implements ConnectService {
 	public ArrayList<TenderVO> tenderList() {
 		return tenderMapper.tenderList();
 	}
+	/*
+	 * @Override public ArrayList<TenderVO> companyCnt(String tender_code) { return
+	 * tenderMapper.companyCnt(tender_code); }
+	 */
 	
 	// 입찰 공고 작성
 	@Override
@@ -40,6 +47,15 @@ public class ConnectServiceImplement implements ConnectService {
 	}
 	
 	//입찰 공고 삭제
+	@Override
+	public ArrayList<BidVO> findUploadCode(String tender_code) {
+		return bidMapper.findUploadCode(tender_code);
+	}
+	
+	@Override
+	public void deleteBid(String tender_code) {
+		bidMapper.deleteBid(tender_code);
+	}
 	@Override
 	public int tenderDelete(String tender_code) {
 		return tenderMapper.tenderDelete(tender_code);

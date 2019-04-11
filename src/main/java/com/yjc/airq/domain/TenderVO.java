@@ -25,5 +25,7 @@ public class TenderVO {
 	
 	//조인 할 속성
 	private String member_id;
-	//private int company_count; 
+
+	// 참여 업체 수 
+	private int company_count;
 }
