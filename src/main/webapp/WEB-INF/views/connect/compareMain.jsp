@@ -58,7 +58,7 @@
 								<div class="col col-15">측정 적절 평수</div>
 								<div class="col col-10-1">측정 지점</div>
 								<div class="col col-15">서비스 가능지역</div>
-								<div class="col col-10-1">별점 평균</div>
+								<div class="col col-10-1">만족도 평균</div>
 								<div class="col col-10-1">판매 건수</div>
 							</li>
 							<c:forEach var="pList" items="${pList }">
@@ -90,8 +90,8 @@
 											</c:if>
 										</c:forEach>
 									</div>
-									<div class="col col-10-1" data-label="별점 평균"></div>
-									<div class="col col-10-1" data-label="판매 건수"></div>
+									<div class="col col-10-1" data-label="만족도 평균">${pList.staravg}</div>
+									<div class="col col-10-1" data-label="판매 건수">${pList.sellnum}</div>
 								</li>
 							</c:forEach>
 						</ul>

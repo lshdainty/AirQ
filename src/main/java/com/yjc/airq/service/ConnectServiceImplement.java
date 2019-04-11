@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
+import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.mapper.AreaMapper;
 import com.yjc.airq.mapper.BidMapper;
+import com.yjc.airq.mapper.PaymentMapper;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.TenderMapper;
 
@@ -23,6 +25,7 @@ public class ConnectServiceImplement implements ConnectService {
 	private BidMapper bidMapper;
 	private ProductMapper productMapper;
 	private AreaMapper areaMapper;
+	private PaymentMapper paymentMapper;
 	
 	// 입찰 리스트 출력
 	@Override
@@ -56,6 +59,7 @@ public class ConnectServiceImplement implements ConnectService {
 	public void deleteBid(String tender_code) {
 		bidMapper.deleteBid(tender_code);
 	}
+	
 	@Override
 	public int tenderDelete(String tender_code) {
 		return tenderMapper.tenderDelete(tender_code);
@@ -84,4 +88,10 @@ public class ConnectServiceImplement implements ConnectService {
 	public ArrayList<ProductVO> selectList(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space){
 		return productMapper.selectList(sido,sigoon,space);
 	};
+	
+	// 결제내역리스트
+	@Override
+	public ArrayList<PaymentVO> paymentList(){
+		return paymentMapper.paymentList();
+	}
 }

@@ -1,5 +1,6 @@
 package com.yjc.airq;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +20,7 @@ import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Criteria;
 import com.yjc.airq.domain.MemberVO;
+import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.mapper.ProductMapper;
@@ -37,7 +39,6 @@ public class ConnectController {
 	private ConnectService connectService;
 	private ProductMapper productMapper;
 	private UploadService uploadService;
-	HttpServletRequest request;
 	
 	// 업체 분석/비교 메인페이지로 가기
 	@RequestMapping(value = "compareMain", method = RequestMethod.GET)
@@ -57,6 +58,24 @@ public class ConnectController {
 		
 		ArrayList<ProductVO> pList = connectService.productList(criteria.getStartnum(),criteria.getEndnum());
 		ArrayList<AreaVO> aList= connectService.productAreaList();
+		ArrayList<PaymentVO> pmList = connectService.paymentList();
+		int sellnum=0;
+		float staravg=0;
+		for(ProductVO provo:pList) {
+			for(PaymentVO payvo:pmList) {
+				if(provo.getProduct_code().equals(payvo.getDemandVO().getProduct_code())&&payvo.getRefund_whether().equals("n")) {
+					sellnum = sellnum+1;
+					staravg = staravg + payvo.getStar_score();
+				}
+				provo.setSellnum(String.valueOf(sellnum));
+				if(staravg==0) {
+					provo.setStaravg("0");
+				}else {
+					provo.setStaravg(new DecimalFormat(".#").format(staravg/sellnum));
+				}
+			}
+			sellnum=0; staravg=0;
+		}
 		model.addAttribute("pList",pList);
 		model.addAttribute("aList",aList);
 		model.addAttribute("criteria",criteria);
@@ -148,6 +167,24 @@ public class ConnectController {
 		int space = Integer.parseInt(request.getParameter("space"));
 		ArrayList<ProductVO> pList = connectService.selectList(sido,sigoon,space);
 		ArrayList<AreaVO> aList= connectService.productAreaList();
+		ArrayList<PaymentVO> pmList = connectService.paymentList();
+		int sellnum=0;
+		float staravg=0;
+		for(ProductVO provo:pList) {
+			for(PaymentVO payvo:pmList) {
+				if(provo.getProduct_code().equals(payvo.getDemandVO().getProduct_code())&&payvo.getRefund_whether().equals("n")) {
+					sellnum = sellnum+1;
+					staravg = staravg + payvo.getStar_score();
+				}
+				provo.setSellnum(String.valueOf(sellnum));
+				if(staravg==0) {
+					provo.setStaravg("0");
+				}else {
+					provo.setStaravg(new DecimalFormat(".#").format(staravg/sellnum));
+				}
+			}
+			sellnum=0; staravg=0;
+		}
 		JSONArray pJson = JSONArray.fromObject(pList);
 		JSONArray aJson = JSONArray.fromObject(aList);
 		Map<String,Object> map = new HashMap<String,Object>();

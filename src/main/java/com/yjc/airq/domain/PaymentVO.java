@@ -10,4 +10,5 @@ public class PaymentVO {
 	private int star_score;
 	private String demand_code;
 	private String tender_code;
+	private DemandVO demandVO;
 }

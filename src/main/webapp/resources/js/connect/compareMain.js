@@ -134,8 +134,8 @@ $("#check").click(function(){
 					}
 				}
 				result += '<div class="col col-15" data-label="서비스 가능지역">'+area+'</div>'
-				result += '<div class="col col-10-1" data-label="별점 평균"></div>'
-				result += '<div class="col col-10-1" data-label="판매 건수"></div>'
+				result += '<div class="col col-10-1" data-label="별점 평균">'+data.pList[i].staravg+'</div>'
+				result += '<div class="col col-10-1" data-label="판매 건수">'+data.pList[i].sellnum+'</div>'
 				space="";area="";
 			}
 			$("#compareLiHeader").nextAll().remove();
