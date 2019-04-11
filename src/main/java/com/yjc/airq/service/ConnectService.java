@@ -29,7 +29,7 @@ public interface ConnectService {
 	// 상품중 서비스 가능한 지역 리스트 찾기
 	public ArrayList<AreaVO> productAreaList();
 	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
-	public ArrayList<ProductVO> selectList(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space);
+	public ArrayList<ProductVO> selectList(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space, @Param("startnum") int startnum,  @Param("endnum") int endnum);
 	// 결제내역리스트
 	public ArrayList<PaymentVO> paymentList();
 }

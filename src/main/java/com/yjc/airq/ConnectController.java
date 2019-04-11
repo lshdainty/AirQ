@@ -51,7 +51,6 @@ public class ConnectController {
 		criteria.setEndnum(pagenum);	//컨텐츠 끈 번호 지정 
 		criteria.setCurrentblock(pagenum);	//현재 페이지 블록이 몇번인지 현재 페이지 번호 통해 지정
 		criteria.setLastblock(criteria.getTotalcount());	//마지막 블록 번호를 전체 게시글 수를 통해 정함
-		
 		criteria.prevnext(pagenum);	//현재 페이지 번호로 화살표를 나타낼지 정함
 		criteria.setStartPage(criteria.getCurrentblock());	//시작 페이지를 페이지 블록번호로 정함
 		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
@@ -165,7 +164,20 @@ public class ConnectController {
 		String sido = request.getParameter("sido");
 		String sigoon = request.getParameter("sigoon");
 		int space = Integer.parseInt(request.getParameter("space"));
-		ArrayList<ProductVO> pList = connectService.selectList(sido,sigoon,space);
+		
+		Criteria criteria = new Criteria();
+		int pagenum = Integer.parseInt(request.getParameter("pagenum"));
+		criteria.setTotalcount(productMapper.selectCount(sido,sigoon,space));	//전체 게시글 개수를 지정
+		criteria.setPagenum(pagenum);	//현재 페이지를 페이지 객체에 지정
+		criteria.setStartnum(pagenum);	//컨텐츠 시작 번호 지정
+		criteria.setEndnum(pagenum);	//컨텐츠 끈 번호 지정 
+		criteria.setCurrentblock(pagenum);	//현재 페이지 블록이 몇번인지 현재 페이지 번호 통해 지정
+		criteria.setLastblock(criteria.getTotalcount());	//마지막 블록 번호를 전체 게시글 수를 통해 정함
+		criteria.prevnext(pagenum);	//현재 페이지 번호로 화살표를 나타낼지 정함
+		criteria.setStartPage(criteria.getCurrentblock());	//시작 페이지를 페이지 블록번호로 정함
+		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
+		
+		ArrayList<ProductVO> pList = connectService.selectList(sido,sigoon,space,criteria.getStartnum(),criteria.getEndnum());
 		ArrayList<AreaVO> aList= connectService.productAreaList();
 		ArrayList<PaymentVO> pmList = connectService.paymentList();
 		int sellnum=0;
@@ -190,6 +202,7 @@ public class ConnectController {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("pList",pJson);
 		map.put("aList",aJson);
+		map.put("criteria",criteria);
 		JSONObject json = JSONObject.fromObject(map);
 		
 		return json;
