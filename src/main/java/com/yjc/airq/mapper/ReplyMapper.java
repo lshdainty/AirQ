@@ -8,4 +8,6 @@ public interface ReplyMapper {
 	public ArrayList<ReplyVO> getReplys(String post_code);
 	public void insertReply(ReplyVO replyVO);
 	public void deletePostReply(String post_code);
+	public void replyDelete(String reply_code);
+	public ArrayList<ReplyVO> mypageReplys();
 }

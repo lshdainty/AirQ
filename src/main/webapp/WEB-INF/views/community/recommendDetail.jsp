@@ -13,7 +13,7 @@
 				</div>
 				<div class="article-meta__item">
 					<span data-tooltip="" data-date="2019-04-08T20:43:22+00:00"
-						title="2019년 4월 9일 화요일 오전 5:43">6 시간 전</span>
+						title="2019년 4월 9일 화요일 오전 5:43">${detailPost.p_creation_date}</span>
 				</div>
 			</div>
 			<div class="article-meta-list article-meta-list--right">
@@ -21,7 +21,7 @@
 					<span>조회 ${detailPost.view_num}</span>
 				</div>
 				<div class="article-meta__item">
-					<span>댓글  ${detailPost.reply_count}</span>
+					<span id="post_ReplyCount">댓글  ${detailPost.reply_count}</span>
 				</div>
 				<div class="article-meta__item">
 					<span>추천 ${detailPost.recommend_num}</span>
@@ -48,7 +48,7 @@
 
 		<div class="comment-header">
 			<h2 class="comment__title">댓글</h2>
-			<span class="comment__count">총 <em>${detailPost.reply_count}</em>개
+			<span class="comment__count">총 <em id="reply_count">${detailPost.reply_count}</em>개
 			</span>
 		</div>
 
@@ -84,7 +84,7 @@
 						<div class="comment">
 							<div class="comment-meta">
 								<span class="comment__name"><a href="#">${reply.member_id}</a></span>
-								<span class="comment__date">1분전</span>
+								<span class="comment__date">${reply.r_creation_date}</span>
 							</div>
 							<div class="comment-content">
 								<div>
@@ -93,6 +93,12 @@
 									</p>
 								</div>
 							</div>
+							<c:if test="${sessionScope.user.member_id==reply.member_id}" >
+							<div class="comment-button">
+								<button class="comment__button comment__button--red reply-delete">삭제</button>
+								<input type="hidden" class="reply_code" value="${reply.reply_code}">
+							</div>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -112,7 +118,6 @@
 <script>
 	$(document).ready(function() {
 		$('#reply-insert').click(function(){
-			
 			var reply_content = $('#reply_content').val();
 			var member_id = $('#member_id').text();
 			var post_code = $('#post_code').val();
@@ -121,17 +126,22 @@
 			replyVO.member_id = member_id;
 			replyVO.post_code = post_code;
 			replyVO.reply_content = reply_content;
-			
-			var content ='<div class="comment-list"><div class="comment-l"><div class="comment"><div class="comment-meta">'+
-			'<span class="comment__name"><a href="#">'+member_id+'</a></span><span class="comment__date">1분전</span>'+
-			'</div><div class="comment-content"><div><p><br>'+reply_content+'</p></div></div></div></div></div>';
 			$.ajax({
 				type:'POST',
 				url:'addReply',
 				data:replyVO,
 				success:function(result){	
+					var content ='<div class="comment-list"><div class="comment-l"><div class="comment"><div class="comment-meta">'+
+					'<span class="comment__name"><a href="#">'+member_id+'</a></span><span class="comment__date">${reply.r_creation_date}'+
+					'</span></div><div class="comment-content"><div><p><br>'+reply_content+'</p></div></div><div class="comment-button">'+
+					'<button class="comment__button comment__button--red reply-delete">삭제</button><input type="hidden"'+
+					'class="reply_code" value="'+result.reply_code+'"></div></div></div></div>';
+ 					var reply_count =parseInt($('#reply_count').text());
 					$('#replys').prepend(content);
 					$('#reply_content').val("");
+					reply_count = reply_count+1;
+					$('#reply_count').text(reply_count);
+					$('#post_ReplyCount').html('댓글&nbsp'+reply_count);
 				}
 			}); 
 		});
@@ -148,6 +158,20 @@
 					$('#recommend_num').text(recommend_num);
 				}
 			});
+		});
+		
+		$(document).on("click",".reply-delete",function(){
+			var post_code = $('#post_code').val();
+			var reply_code = $(this).next().val();
+			var data = {'reply_code':reply_code,'post_code':post_code};
+			$(this).parent().parent().parent().parent().remove();
+    			$.ajax({
+				type:'post',
+				data:data,
+				url:'replyDelete',
+				success:function(result){
+				}
+			});    
 		});
 	});
 </script>

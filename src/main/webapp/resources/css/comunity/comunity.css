@@ -255,6 +255,16 @@ ol, ul {
     border-top: 1px solid #dddfe4;
 }
 
+.comment__button {
+    line-height: 17px;
+    font-size: 14px;
+    color: #7b858e;
+}
+
+.comment__button--red {
+    color: #f95b54;
+}
+
 @media only screen and (min-width: 1024px) {
 	.article-header {
 		padding-left: 24px;
