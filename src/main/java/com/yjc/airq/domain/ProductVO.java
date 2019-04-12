@@ -1,5 +1,7 @@
 package com.yjc.airq.domain;
 
+import java.util.ArrayList;
+
 import lombok.Data;
 
 @Data
@@ -13,4 +15,5 @@ public class ProductVO {
 	private String company_code;	//서비스 업체 코드
 	private String sellnum;	//판매건수
 	private String staravg;	//별점평균
+	private ArrayList<AreaVO> areaVO;
 }

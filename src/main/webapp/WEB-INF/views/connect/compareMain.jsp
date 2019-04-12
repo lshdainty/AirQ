@@ -17,10 +17,10 @@
 				<div id="chartContentDiv">
 					<input type="text" id="sido_code" value="광역시/도" readonly>
 					<select id="sigoon_code">
-						<option>지역선택</option>
+						<option value="선택">선택</option>
 					</select>
 					<select id="space">
-						<option>평수 선택</option>
+						<option value="0">평수 선택</option>
 						<option value="1">1~10</option>
 						<option value="2">11~20</option>
 						<option value="3">21~30</option>
@@ -84,10 +84,8 @@
 									</div>
 									<div class="col col-10-1" data-label="측정 지점">${pList.measure_point}</div>
 									<div class="col col-15" data-label="서비스 가능지역">
-										<c:forEach var="aList" items="${aList }">
-											<c:if test="${pList.product_code==aList.product_code }">
-												${aList.area_si }
-											</c:if>
+										<c:forEach var="aList" items="${pList.areaVO }">
+											${aList.area_si }
 										</c:forEach>
 									</div>
 									<div class="col col-10-1" data-label="만족도 평균">${pList.staravg}</div>

@@ -44,7 +44,7 @@ public class ConnectController {
 	@RequestMapping(value = "compareMain", method = RequestMethod.GET)
 	public String compareMain(Model model,HttpServletRequest request) {
 		Criteria criteria = new Criteria();
-		int pagenum = Integer.parseInt(request.getParameter("pagenum"));
+		int pagenum = 1;
 		criteria.setTotalcount(productMapper.productCount());	//전체 게시글 개수를 지정
 		criteria.setPagenum(pagenum);	//현재 페이지를 페이지 객체에 지정
 		criteria.setStartnum(pagenum);	//컨텐츠 시작 번호 지정
@@ -56,7 +56,6 @@ public class ConnectController {
 		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
 		
 		ArrayList<ProductVO> pList = connectService.productList(criteria.getStartnum(),criteria.getEndnum());
-		ArrayList<AreaVO> aList= connectService.productAreaList();
 		ArrayList<PaymentVO> pmList = connectService.paymentList();
 		int sellnum=0;
 		float staravg=0;
@@ -76,7 +75,6 @@ public class ConnectController {
 			sellnum=0; staravg=0;
 		}
 		model.addAttribute("pList",pList);
-		model.addAttribute("aList",aList);
 		model.addAttribute("criteria",criteria);
 		
 		return "connect/compareMain";
@@ -167,7 +165,11 @@ public class ConnectController {
 		
 		Criteria criteria = new Criteria();
 		int pagenum = Integer.parseInt(request.getParameter("pagenum"));
-		criteria.setTotalcount(productMapper.selectCount(sido,sigoon,space));	//전체 게시글 개수를 지정
+		if(sido.equals("광역시/도")&&sigoon.equals("선택")&&space==0) {
+			criteria.setTotalcount(productMapper.productCount());	//전체 게시글 개수를 지정
+		}else {
+			criteria.setTotalcount(productMapper.selectCount(sido,sigoon,space));	//전체 게시글 개수를 지정
+		}
 		criteria.setPagenum(pagenum);	//현재 페이지를 페이지 객체에 지정
 		criteria.setStartnum(pagenum);	//컨텐츠 시작 번호 지정
 		criteria.setEndnum(pagenum);	//컨텐츠 끈 번호 지정 
@@ -177,8 +179,23 @@ public class ConnectController {
 		criteria.setStartPage(criteria.getCurrentblock());	//시작 페이지를 페이지 블록번호로 정함
 		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
 		
-		ArrayList<ProductVO> pList = connectService.selectList(sido,sigoon,space,criteria.getStartnum(),criteria.getEndnum());
-		ArrayList<AreaVO> aList= connectService.productAreaList();
+		System.out.println("Totalcount"+criteria.getTotalcount());
+		System.out.println("Pagenum"+criteria.getPagenum());
+		System.out.println("Startnum"+criteria.getStartnum());
+		System.out.println("Endnum"+criteria.getEndnum());
+		System.out.println("Currentblock"+criteria.getCurrentblock());
+		System.out.println("Lastblock"+criteria.getLastblock());
+		System.out.println("isPrev"+criteria.isPrev());
+		System.out.println("isNext"+criteria.isNext());
+		System.out.println("StartPage"+criteria.getStartPage());
+		System.out.println("EndPage"+criteria.getEndPage());
+		
+		ArrayList<ProductVO> pList;
+		if(sido.equals("광역시/도")&&sigoon.equals("선택")&&space==0) {
+			pList = connectService.productList(criteria.getStartnum(),criteria.getEndnum());
+		}else {
+			pList = connectService.selectList(sido,sigoon,space,criteria.getStartnum(),criteria.getEndnum());
+		}
 		ArrayList<PaymentVO> pmList = connectService.paymentList();
 		int sellnum=0;
 		float staravg=0;
@@ -198,10 +215,8 @@ public class ConnectController {
 			sellnum=0; staravg=0;
 		}
 		JSONArray pJson = JSONArray.fromObject(pList);
-		JSONArray aJson = JSONArray.fromObject(aList);
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("pList",pJson);
-		map.put("aList",aJson);
 		map.put("criteria",criteria);
 		JSONObject json = JSONObject.fromObject(map);
 		
