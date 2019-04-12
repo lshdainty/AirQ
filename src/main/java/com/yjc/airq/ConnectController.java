@@ -193,17 +193,6 @@ public class ConnectController {
 		criteria.setStartPage(criteria.getCurrentblock());	//시작 페이지를 페이지 블록번호로 정함
 		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
 		
-		System.out.println("Totalcount"+criteria.getTotalcount());
-		System.out.println("Pagenum"+criteria.getPagenum());
-		System.out.println("Startnum"+criteria.getStartnum());
-		System.out.println("Endnum"+criteria.getEndnum());
-		System.out.println("Currentblock"+criteria.getCurrentblock());
-		System.out.println("Lastblock"+criteria.getLastblock());
-		System.out.println("isPrev"+criteria.isPrev());
-		System.out.println("isNext"+criteria.isNext());
-		System.out.println("StartPage"+criteria.getStartPage());
-		System.out.println("EndPage"+criteria.getEndPage());
-		
 		ArrayList<ProductVO> pList;
 		if(sido.equals("광역시/도")&&sigoon.equals("선택")&&space==0) {
 			pList = connectService.productList(criteria.getStartnum(),criteria.getEndnum());
