@@ -30,6 +30,7 @@ import com.yjc.airq.service.UploadService;
 import lombok.AllArgsConstructor;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
 /**
  * 업체연결 서비스를 관리하는 controller
  */
@@ -39,10 +40,10 @@ public class ConnectController {
 	private ConnectService connectService;
 	private ProductMapper productMapper;
 	private UploadService uploadService;
-	
+
 	// 업체 분석/비교 메인페이지로 가기
 	@RequestMapping(value = "compareMain", method = RequestMethod.GET)
-	public String compareMain(Model model,HttpServletRequest request) {
+	public String compareMain(Model model, HttpServletRequest request) {
 		Criteria criteria = new Criteria();
 		int pagenum = 1;
 		criteria.setTotalcount(productMapper.productCount());	//전체 게시글 개수를 지정
@@ -57,34 +58,36 @@ public class ConnectController {
 		
 		ArrayList<ProductVO> pList = connectService.productList(criteria.getStartnum(),criteria.getEndnum());
 		ArrayList<PaymentVO> pmList = connectService.paymentList();
-		int sellnum=0;
-		float staravg=0;
-		for(ProductVO provo:pList) {
-			for(PaymentVO payvo:pmList) {
-				if(provo.getProduct_code().equals(payvo.getDemandVO().getProduct_code())&&payvo.getRefund_whether().equals("n")) {
-					sellnum = sellnum+1;
+		int sellnum = 0;
+		float staravg = 0;
+		for (ProductVO provo : pList) {
+			for (PaymentVO payvo : pmList) {
+				if (provo.getProduct_code().equals(payvo.getDemandVO().getProduct_code())
+						&& payvo.getRefund_whether().equals("n")) {
+					sellnum = sellnum + 1;
 					staravg = staravg + payvo.getStar_score();
 				}
 				provo.setSellnum(String.valueOf(sellnum));
-				if(staravg==0) {
+				if (staravg == 0) {
 					provo.setStaravg("0");
-				}else {
-					provo.setStaravg(new DecimalFormat(".#").format(staravg/sellnum));
+				} else {
+					provo.setStaravg(new DecimalFormat(".#").format(staravg / sellnum));
 				}
 			}
-			sellnum=0; staravg=0;
+			sellnum = 0;
+			staravg = 0;
 		}
 		model.addAttribute("pList",pList);
 		model.addAttribute("criteria",criteria);
-		
+
 		return "connect/compareMain";
 	}
-	
+
 	// 입찰 서비스 메인페이지로 가기
 	@RequestMapping(value = "tenderMain", method = RequestMethod.GET)
-	public String tenderMain(Model model,TenderVO tenderVo) {
-		model.addAttribute("tenderList",connectService.tenderList());
-		
+	public String tenderMain(Model model, TenderVO tenderVo) {
+		model.addAttribute("tenderList", connectService.tenderList());
+
 		return "connect/tenderMain";
 	}
 
@@ -93,76 +96,87 @@ public class ConnectController {
 	public String tenderWrite() {
 		return "connect/tenderWrite";
 	}
-	
+
 	// 입찰 서비스 - 글쓰기 작성 후 리스트로 가기
 	@RequestMapping(value = "tenderWriteComplete", method = RequestMethod.POST)
-	public String tenderList(TenderVO tenderVo,HttpServletRequest request) {
+	public String tenderList(TenderVO tenderVo, HttpServletRequest request) {
 		tenderVo.setMember_id(((MemberVO) request.getSession().getAttribute("user")).getMember_id());
-		
-		//코드 앞에 날짜 6자리
+
+		// 코드 앞에 날짜 6자리
 		Date today = new Date();
 		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
 		String day = date.format(today);
-		
-		//코드 뒤에 랜덤 4자리
-		int random=(int)(Math.random()*10000);
-		String tender_code="td"+day+random;
-		
-		//VO에 생성한 코드 set하기
+
+		// 코드 뒤에 랜덤 4자리
+		int random = (int) (Math.random() * 10000);
+		String tender_code = "td" + day + random;
+
+		// VO에 생성한 코드 set하기
 		tenderVo.setTender_code(tender_code);
-		
-		//insert에 영향을 받은 행의 갯수
-		int s=connectService.addTenderboard(tenderVo);
-		
+
+		// insert에 영향을 받은 행의 갯수
+		int s = connectService.addTenderboard(tenderVo);
+
 		return "redirect: /tenderMain";
 	}
-	
+
 	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
-	@RequestMapping(value="tender/{tender_code}",method=RequestMethod.GET)
-	public String ten(@PathVariable String tender_code,Model model) {
-		model.addAttribute("tenderContent",connectService.tenderContent(tender_code));
-		model.addAttribute("bidContent",connectService.bidContent(tender_code));
+	@RequestMapping(value = "tender/{tender_code}", method = RequestMethod.GET)
+	public String ten(@PathVariable String tender_code, Model model) {
+		model.addAttribute("tenderContent", connectService.tenderContent(tender_code));
+		model.addAttribute("bidContent", connectService.bidContent(tender_code));
 		System.out.println(connectService.bidContent(tender_code));
 		return "connect/tenderContent";
 	}
-	
+
 	// 입찰 서비스 - 입찰 공고 삭제 후 리스트로 가기
-	@RequestMapping(value="tenderDelete/{tender_code}",method=RequestMethod.GET)
-	public String tenderDelete(@PathVariable String tender_code,Model model) {
-		ArrayList<BidVO> uploadArr=connectService.findUploadCode(tender_code);
-		for(int i=0; i<uploadArr.size();i++) {
-			uploadService.deleteUpload(uploadArr.get(i));
+	@RequestMapping(value = "tenderDelete/{tender_code}", method = RequestMethod.GET)
+	public String tenderDelete(@PathVariable String tender_code, Model model) {
+
+		ArrayList<BidVO> arr = connectService.findUploadCode(tender_code); // 투찰에 있던 파일 찾기
+		ArrayList<String> uploadArr = new ArrayList<>();
+
+		for (int i = 0; i < arr.size(); i++) {
+			uploadArr.add(arr.get(i).getUpload_code());
+			System.out.println(uploadArr);
 		}
-		connectService.deleteBid(tender_code);
-		int s=connectService.tenderDelete(tender_code);
+		if(! uploadArr.isEmpty()) {
+		connectService.deleteBid(tender_code); // 투찰 업체 삭제
 		
+		System.out.println("1");
+		uploadService.deleteBidUpload(uploadArr); // 투찰에 있던 파일 삭제
+		System.out.println("2");
+		
+		}
+		int s = connectService.tenderDelete(tender_code); // 입찰 공고 삭제
+
 		return "redirect: /tenderMain";
 	}
 
 	// 입찰 서비스 - 입찰 공고 수정 페이지로 가기
-	@RequestMapping(value="tenderModify/{tender_code}",method=RequestMethod.GET)
-	public String tenderModify(@PathVariable String tender_code,Model model) {
-		model.addAttribute("tenderModify",connectService.tenderContent(tender_code));
-		
+	@RequestMapping(value = "tenderModify/{tender_code}", method = RequestMethod.GET)
+	public String tenderModify(@PathVariable String tender_code, Model model) {
+		model.addAttribute("tenderModify", connectService.tenderContent(tender_code));
+
 		return "connect/tenderModify";
 	}
-	
+
 	// 입찰 서비스- 입찰 공고 수정 완료
-	@RequestMapping(value="tenderModifyComplete",method=RequestMethod.POST)
-	public String tenderModifyComplete(TenderVO tenderVo,Model model) {
-		int s=connectService.tenderModify(tenderVo);
-		String tender_code=tenderVo.getTender_code();
-		return "redirect: /tenderContent/"+tender_code;
+	@RequestMapping(value = "tenderModifyComplete", method = RequestMethod.POST)
+	public String tenderModifyComplete(TenderVO tenderVo, Model model) {
+		int s = connectService.tenderModify(tenderVo);
+		String tender_code = tenderVo.getTender_code();
+		return "redirect: /tenderContent/" + tender_code;
 	}
-	
+
 	// 업체 분석/비교 도,시,평수 선택완료
-	@RequestMapping(value="selectCompare",method=RequestMethod.GET)
+	@RequestMapping(value = "selectCompare", method = RequestMethod.GET)
 	@ResponseBody
-	public JSONObject selectCompare(Model model,HttpServletRequest request) {
+	public JSONObject selectCompare(Model model, HttpServletRequest request) {
 		String sido = request.getParameter("sido");
 		String sigoon = request.getParameter("sigoon");
 		int space = Integer.parseInt(request.getParameter("space"));
-		
+
 		Criteria criteria = new Criteria();
 		int pagenum = Integer.parseInt(request.getParameter("pagenum"));
 		if(sido.equals("광역시/도")&&sigoon.equals("선택")&&space==0) {
@@ -197,29 +211,31 @@ public class ConnectController {
 			pList = connectService.selectList(sido,sigoon,space,criteria.getStartnum(),criteria.getEndnum());
 		}
 		ArrayList<PaymentVO> pmList = connectService.paymentList();
-		int sellnum=0;
-		float staravg=0;
-		for(ProductVO provo:pList) {
-			for(PaymentVO payvo:pmList) {
-				if(provo.getProduct_code().equals(payvo.getDemandVO().getProduct_code())&&payvo.getRefund_whether().equals("n")) {
-					sellnum = sellnum+1;
+		int sellnum = 0;
+		float staravg = 0;
+		for (ProductVO provo : pList) {
+			for (PaymentVO payvo : pmList) {
+				if (provo.getProduct_code().equals(payvo.getDemandVO().getProduct_code())
+						&& payvo.getRefund_whether().equals("n")) {
+					sellnum = sellnum + 1;
 					staravg = staravg + payvo.getStar_score();
 				}
 				provo.setSellnum(String.valueOf(sellnum));
-				if(staravg==0) {
+				if (staravg == 0) {
 					provo.setStaravg("0");
-				}else {
-					provo.setStaravg(new DecimalFormat(".#").format(staravg/sellnum));
+				} else {
+					provo.setStaravg(new DecimalFormat(".#").format(staravg / sellnum));
 				}
 			}
-			sellnum=0; staravg=0;
+			sellnum = 0;
+			staravg = 0;
 		}
 		JSONArray pJson = JSONArray.fromObject(pList);
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("pList",pJson);
 		map.put("criteria",criteria);
 		JSONObject json = JSONObject.fromObject(map);
-		
+
 		return json;
 	}
 }

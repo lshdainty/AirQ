@@ -1,5 +1,7 @@
 package com.yjc.airq.service;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Service;
 
 import com.yjc.airq.domain.BidVO;
@@ -26,7 +28,7 @@ public class UploadServiceImplement implements UploadService {
 	
 	//투찰에 있던 파일 삭제
 	@Override
-	public void deleteUpload(BidVO bidVo) {
-		mapper.deleteUpload(bidVo);
+	public void deleteBidUpload(ArrayList<String> uploadArr) {
+		mapper.deleteBidUpload(uploadArr);
 	}
 }

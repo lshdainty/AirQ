@@ -29,7 +29,10 @@
 	</delete>
 	
 	<!-- 투찰에 있던 파일 삭제 -->
-	<delete id="deleteUpload" parameterType="com.yjc.airq.domain.UploadVO">
-		delete from upload where upload_code=#{upload_code}
+	<delete id="deleteBidUpload" parameterType="map">
+		delete from upload where upload_code in
+		<foreach collection="list" item="upload" index="index" open="(" separator="," close=")">
+			#{upload}
+		</foreach>
 	</delete>
 </mapper>
