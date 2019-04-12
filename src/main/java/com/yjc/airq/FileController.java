@@ -124,7 +124,7 @@ public class FileController {
     	Iterator<UploadVO> it = files.iterator();
     	String product_code=request.getParameter("product_code");
     	String post_code=request.getParameter("post_code");
-    	
+    	System.out.println(post_code);
     	if(product_code==null)
     		product_code="";
     	if(post_code==null)
@@ -143,9 +143,9 @@ public class FileController {
 		String board_type = (String)request.getSession().getAttribute("board_type");
 		String board_code = (String)request.getSession().getAttribute("board_code");
 		if(board_type=="table")
-			return "redirect: /tableBoardMain?board_code="+board_code;
+			return "redirect: /tableBoardMain?board_code="+board_code+"&pagenum=1";
 		else
-			return "redirect: /thumbnailBoardMain?board_code="+board_code;
+			return "redirect: /thumbnailBoardMain?board_code="+board_code+"&pagenum=1";
     }
    
 }

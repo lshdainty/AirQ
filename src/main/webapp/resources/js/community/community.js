@@ -84,4 +84,9 @@ $(document).ready(function() {
 			}
 		});    
 	});
+	
+	$('.post-detail').click(function(){
+		var post_code = $(this).children('input').val();
+		window.location.href="postDetail?post_code="+post_code;
+	});
 });

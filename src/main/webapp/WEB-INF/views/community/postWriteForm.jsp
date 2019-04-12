@@ -53,8 +53,7 @@
 	};
 	$(function() {
 
-		CKEDITOR
-				.replace(
+		CKEDITOR.replace(
 						'post_content',
 						{//해당 이름으로 된 textarea에 에디터를 적용
 							width : '100%',

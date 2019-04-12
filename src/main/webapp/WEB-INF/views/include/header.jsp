@@ -45,11 +45,11 @@
 						class="nav-link dropdown-toggle" id="dropdown07"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">커뮤니티</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown07">
-							<a class="dropdown-item" href="/thumbnailBoardMain?board_code=bd_rec">상품추천</a> 
-							<a class="dropdown-item" href="tableBoardMain?board_code=bd_lib">자유게시판</a> 
-							<a class="dropdown-item" href="/thumbnailBoardMain?board_code=bd_met">대기오염 물질정보</a>
-							<a class="dropdown-item" href="/thumbnailBoardMain?board_code=bd_imp">공기질 향상방법</a>
-							<a class="dropdown-item" href="/thumbnailBoardMain?board_code=bd_hea">건강 지킴이</a>
+							<a class="dropdown-item" href="/thumbnailBoardMain?board_code=bd_rec&pagenum=1">상품추천</a> 
+							<a class="dropdown-item" href="tableBoardMain?board_code=bd_lib&pagenum=1">자유게시판</a> 
+							<a class="dropdown-item" href="/thumbnailBoardMain?board_code=bd_met&pagenum=1">대기오염 물질정보</a>
+							<a class="dropdown-item" href="/thumbnailBoardMain?board_code=bd_imp&pagenum=1">공기질 향상방법</a>
+							<a class="dropdown-item" href="/thumbnailBoardMain?board_code=bd_hea&pagenum=1">건강 지킴이</a>
 						</div>
 					</li>
 					<li class="nav-item dropdown"><a

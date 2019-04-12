@@ -71,8 +71,7 @@
 			<div class="comment-sort">
 				<ul class="comment-sort__list">
 					<li class="comment-sort__item comment-sort__item--active"><button
-							type="button">인기순</button></li>
-					<li class="comment-sort__item"><button type="button">최신순</button></li>
+							type="button">최신순</button></li>
 				</ul>
 			</div>
 
