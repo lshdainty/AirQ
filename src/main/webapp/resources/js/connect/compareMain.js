@@ -142,16 +142,16 @@ $("#check").click(function(){
 			$("#compareLiHeader").nextAll().remove();
 			$("#compareLiHeader").after(result);
 			if(data.criteria.prev){
-				page += '<button onclick="javascript:page('+(data.criteria.startPage-1)+');">&laquo;</button>'
+				page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.startPage-1)+');" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'
 			}
 			for(var i=data.criteria.startPage; i<=data.criteria.endPage; i++){
-				page += '<button onclick="javascript:page('+i+');">'+i+'</button>'
+				page += '<li class="page-item"><a class="page-link" href="javascript:page('+i+');">'+i+'</a></li>'
 			}
 			if(data.criteria.next){
-				page += '<button onclick="javascript:page('+(data.criteria.endPage+1)+');">&raquo;</button>'
+				page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.endPage+1)+');" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'
 			}
-			$("#paging").empty();
-			$("#paging").prepend(page)
+			$(".pagination").empty();
+			$(".pagination").prepend(page)
 		}
 	});
 });
