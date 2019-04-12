@@ -91,28 +91,56 @@ homeButton.parent = chart.zoomControl;
 homeButton.insertBefore(chart.zoomControl.plusButton);
 //지도 관련 js 끝
 
+//데이터 null값 체크 시작
+function data(){
+	if($("#sido_code").val()=="광역시/도"&&$("#sigoon_code option:selected").val()=="선택"&&$("#space option:selected").val()=="0"){
+		var query = {
+				sido : $("#sido_code").val(),
+				sigoon : $("#sigoon_code option:selected").val(),
+				space : $("#space option:selected").val()
+		}
+		return query;
+	}else if($("#sido_code").val()=="광역시/도"){
+		alert("광역시/도를 선택해주세요");
+		return false;
+	}else if($("#sigoon_code option:selected").val()=="선택"){
+		alert("시/구를 선택해주세요");
+		return false;
+	}else if($("#space option:selected").val()=="0"){
+		alert("평수를 선택해주세요");
+		return false;
+	}else{
+		var query = {
+				sido : $("#sido_code").val(),
+				sigoon : $("#sigoon_code option:selected").val(),
+				space : $("#space option:selected").val()
+		}
+		return query;
+	}
+}
+//데이터 null값 체크 끝
+
 //paging 시작
 function page(idx){
-	ajax(idx);
+	ajax(data(),idx);
 }
 //paging 끝
 
 //선택된 값 info페이지로 넘어가게 하는 코드 시작
 $("#check").click(function(){
-	ajax(1);
+	ajax(data(),1);
 });
 //선택된 값 info페이지로 넘어가게 하는 코드 끝
 
-function ajax(idx){
-	var query = {
-			sido : $("#sido_code").val(),
-			sigoon : $("#sigoon_code option:selected").val(),
-			space : $("#space option:selected").val()
+//ajax 함수 시작
+function ajax(data,idx){
+	if(!data){
+		return false;
 	}
 	$.ajax({
 		type: "get",
 		url: "/selectCompare?pagenum="+idx,
-		data : query,
+		data : data,
 		async: false,
 		success: function(data) {
 			var result="";
@@ -121,14 +149,17 @@ function ajax(idx){
 			var page="";
 			if(data.pList.length==0){
 				alert("검색결과가 없습니다.");
+				$("#sido_code").val("광역시/도");
+				$("#sigoon_code").val("선택").prop("selected", true);
+				$("#space").val("0").prop("selected", true);
 			}else{
 				for(var i=0; i<data.pList.length; i++){
 					result += '<li class="compareLiContent">'
-						result += '<div class="col col-10-1" data-label="상품코드">'+data.pList[i].product_code+'</div>'
-						result += '<div class="col col-15" data-label="상품이름">'+data.pList[i].product_name+'</div>'
-						result += '<div class="col col-30" data-label="상품 상세설명">'+data.pList[i].product_detail+'</div>'
-						result += '<div class="col col-10-1" data-label="가격">'+data.pList[i].product_price+'</div>'
-						switch(data.pList[i].p_space){
+					result += '<div class="col col-10-1" data-label="상품코드">'+data.pList[i].product_code+'</div>'
+					result += '<div class="col col-15" data-label="상품이름">'+data.pList[i].product_name+'</div>'
+					result += '<div class="col col-30" data-label="상품 상세설명">'+data.pList[i].product_detail+'</div>'
+					result += '<div class="col col-10-1" data-label="가격">'+data.pList[i].product_price+'</div>'
+					switch(data.pList[i].p_space){
 						case 1: space="1~10평"; break;
 						case 2: space="11~20평"; break;
 						case 3: space="21~30평"; break;
@@ -168,3 +199,4 @@ function ajax(idx){
 		}	//success
 	});	//ajax
 }	//function
+//ajax 함수 끝

@@ -32,31 +32,13 @@
             				from (
                     				select p.*,a.* 
                     				from product p, area a, p_possible_area pa
-                    				where p.product_code = pa.product_code and pa.area_code = a.area_code
-                    				<if test="sido!='광역시/도'">
-										and a.area_do=#{sido}
-									</if>
-									<if test="sigoon!='선택'">
-										and a.area_si=#{sigoon}
-									</if>
-									<if test="space!= 0">
-										and p.p_space=#{space}
-									</if>)) A
+                    				where p.product_code = pa.product_code and pa.area_code = a.area_code and a.area_do=#{sido} and a.area_si=#{sigoon} and p.p_space=#{space})) A
     				where <![CDATA[rownum <= #{endnum}]]>) X
 			where <![CDATA[X.rnum >= #{startnum}]]>
 	</select>
 	<select id="selectCount" resultType="int">
 		select count(*)
 		from product p, area a, p_possible_area pa
-		where p.product_code = pa.product_code and pa.area_code = a.area_code
-		<if test="sido!='광역시/도'">
-			and a.area_do=#{sido}
-		</if>
-		<if test="sigoon!='선택'">
-			and a.area_si=#{sigoon}
-		</if>
-		<if test="space!= 0">
-			and p.p_space=#{space}
-		</if>
+		where p.product_code = pa.product_code and pa.area_code = a.area_code and a.area_do=#{sido} and a.area_si=#{sigoon} and p.p_space=#{space}
 	</select>
 </mapper>

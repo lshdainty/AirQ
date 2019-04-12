@@ -37,7 +37,7 @@
 						class="nav-link dropdown-toggle" id="dropdown06"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">업체연결 서비스</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown06">
-							<a class="dropdown-item" href="/compareMain?pagenum=1&contentnum=10">업체 분석/비교</a> 
+							<a class="dropdown-item" href="/compareMain">업체 분석/비교</a> 
 							<a class="dropdown-item" href="/tenderMain">입찰 서비스</a> 
 						</div>
 					</li>
