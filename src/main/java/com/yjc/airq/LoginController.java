@@ -35,8 +35,6 @@ public class LoginController {
 	public String loginMain(MemberVO member, HttpSession session, Model model,@RequestParam String id, @RequestParam String password) {
 		MemberVO result = memberService.login(id);
 		
-		System.out.println("devision:" + result.getMember_devision());
-		
 		if(result!=null) {
 			if(password.equals(result.getMember_pw())) {
 			session.setAttribute("user",result);
