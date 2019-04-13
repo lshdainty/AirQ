@@ -2,8 +2,10 @@ package com.yjc.airq.service;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
+import com.yjc.airq.domain.Criteria;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.mapper.PostMapper;
 
@@ -14,10 +16,10 @@ import lombok.AllArgsConstructor;
 public class PostServiceImplement implements PostService {
 	private PostMapper mapper;
 	@Override
-	public ArrayList<PostVO> getPosts(String post_code) {
+	public ArrayList<PostVO> getPosts(@Param("startnum") int startnum, @Param("endnum") int endnum,@Param("board_code")String board_code) {
 		// TODO Auto-generated method stub
 		
-		return mapper.getPosts(post_code);
+		return mapper.getPosts(startnum,endnum,board_code);
 	}
 	
 	@Override
@@ -62,6 +64,9 @@ public class PostServiceImplement implements PostService {
 	
 	public void postVote(String post_code) {
 		mapper.postVote(post_code);
+	}
+	public int postCount(String board_code) {
+		return mapper.postCount(board_code);
 	}
 
 }

@@ -2,7 +2,4 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjc.airq.mapper.AreaMapper">
-	<select id="productAreaList" resultType="com.yjc.airq.domain.AreaVO">
-		select a.*,pa.product_code from area a, p_possible_area pa where a.area_code = pa.area_code
-	</select>
 </mapper>

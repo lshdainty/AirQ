@@ -91,75 +91,112 @@ homeButton.parent = chart.zoomControl;
 homeButton.insertBefore(chart.zoomControl.plusButton);
 //지도 관련 js 끝
 
+//데이터 null값 체크 시작
+function data(){
+	if($("#sido_code").val()=="광역시/도"&&$("#sigoon_code option:selected").val()=="선택"&&$("#space option:selected").val()=="0"){
+		var query = {
+				sido : $("#sido_code").val(),
+				sigoon : $("#sigoon_code option:selected").val(),
+				space : $("#space option:selected").val()
+		}
+		return query;
+	}else if($("#sido_code").val()=="광역시/도"){
+		alert("광역시/도를 선택해주세요");
+		return false;
+	}else if($("#sigoon_code option:selected").val()=="선택"){
+		alert("시/구를 선택해주세요");
+		return false;
+	}else if($("#space option:selected").val()=="0"){
+		alert("평수를 선택해주세요");
+		return false;
+	}else{
+		var query = {
+				sido : $("#sido_code").val(),
+				sigoon : $("#sigoon_code option:selected").val(),
+				space : $("#space option:selected").val()
+		}
+		return query;
+	}
+}
+//데이터 null값 체크 끝
+
+//paging 시작
+function page(idx){
+	ajax(data(),idx);
+}
+//paging 끝
+
 //선택된 값 info페이지로 넘어가게 하는 코드 시작
 $("#check").click(function(){
-	var query = {
-		sido : $("#sido_code").val(),
-		sigoon : $("#sigoon_code option:selected").val(),
-		space : $("#space option:selected").val()
+	ajax(data(),1);
+});
+//선택된 값 info페이지로 넘어가게 하는 코드 끝
+
+//ajax 함수 시작
+function ajax(data,idx){
+	if(!data){
+		return false;
 	}
 	$.ajax({
 		type: "get",
-		url: "/selectCompare?pagenum="+1,
-		data : query,
+		url: "/selectCompare?pagenum="+idx,
+		data : data,
 		async: false,
 		success: function(data) {
 			var result="";
 			var space="";
 			var area="";
 			var page="";
-			for(var i=0; i<data.pList.length; i++){
-				result += '<li class="compareLiContent">'
-				result += '<div class="col col-10-1" data-label="상품코드">'+data.pList[i].product_code+'</div>'
-				result += '<div class="col col-15" data-label="상품이름">'+data.pList[i].product_name+'</div>'
-				result += '<div class="col col-30" data-label="상품 상세설명">'+data.pList[i].product_detail+'</div>'
-				result += '<div class="col col-10-1" data-label="가격">'+data.pList[i].product_price+'</div>'
-				switch(data.pList[i].p_space){
-					case 1: space="1~10평"; break;
-					case 2: space="11~20평"; break;
-					case 3: space="21~30평"; break;
-					case 4: space="31~40평"; break;
-					case 5: space="41~50평"; break;
-					case 6: space="51~60평"; break;
-					case 7: space="61~70평"; break;
-					case 8: space="71~80평"; break;
-					case 9: space="81~90평"; break;
-					case 10: space="91~100평"; break;
-					case 11: space="101평~"; break;
-				}
-				result += '<div class="col col-15" data-label="측정 적절 평수">'+space+'</div>'
-				result += '<div class="col col-10-1" data-label="측정 지점">'+data.pList[i].measure_point+'</div>'
-				for(var j=0; j<data.aList.length; j++){
-					if(data.pList[i].product_code==data.aList[j].product_code){
-						area += data.aList[j].area_si+" "
+			if(data.pList.length==0){
+				alert("검색결과가 없습니다.");
+				$("#sido_code").val("광역시/도");
+				$("#sigoon_code").val("선택").prop("selected", true);
+				$("#space").val("0").prop("selected", true);
+			}else{
+				for(var i=0; i<data.pList.length; i++){
+					result += '<li class="compareLiContent">'
+					result += '<div class="col col-10-1" data-label="상품코드">'+data.pList[i].product_code+'</div>'
+					result += '<div class="col col-15" data-label="상품이름">'+data.pList[i].product_name+'</div>'
+					result += '<div class="col col-30" data-label="상품 상세설명">'+data.pList[i].product_detail+'</div>'
+					result += '<div class="col col-10-1" data-label="가격">'+data.pList[i].product_price+'</div>'
+					switch(data.pList[i].p_space){
+						case 1: space="1~10평"; break;
+						case 2: space="11~20평"; break;
+						case 3: space="21~30평"; break;
+						case 4: space="31~40평"; break;
+						case 5: space="41~50평"; break;
+						case 6: space="51~60평"; break;
+						case 7: space="61~70평"; break;
+						case 8: space="71~80평"; break;
+						case 9: space="81~90평"; break;
+						case 10: space="91~100평"; break;
+						case 11: space="101평~"; break;
+						}
+					result += '<div class="col col-15" data-label="측정 적절 평수">'+space+'</div>'
+					result += '<div class="col col-10-1" data-label="측정 지점">'+data.pList[i].measure_point+'</div>'
+					for(var j=0; j<data.pList[i].areaVO.length; j++){
+						area += data.pList[i].areaVO[j].area_si+" "
 					}
+					result += '<div class="col col-15" data-label="서비스 가능지역">'+area+'</div>'
+					result += '<div class="col col-10-1" data-label="별점 평균">'+data.pList[i].staravg+'</div>'
+					result += '<div class="col col-10-1" data-label="판매 건수">'+data.pList[i].sellnum+'</div>'
+					space="";area="";
 				}
-				result += '<div class="col col-15" data-label="서비스 가능지역">'+area+'</div>'
-				result += '<div class="col col-10-1" data-label="별점 평균">'+data.pList[i].staravg+'</div>'
-				result += '<div class="col col-10-1" data-label="판매 건수">'+data.pList[i].sellnum+'</div>'
-				space="";area="";
-			}
-			$("#compareLiHeader").nextAll().remove();
-			$("#compareLiHeader").after(result);
-			if(data.criteria.prev){
-				page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.startPage-1)+');" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'
-			}
-			for(var i=data.criteria.startPage; i<=data.criteria.endPage; i++){
-				page += '<li class="page-item"><a class="page-link" href="javascript:page('+i+');">'+i+'</a></li>'
-			}
-			if(data.criteria.next){
-				page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.endPage+1)+');" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'
-			}
-			$(".pagination").empty();
-			$(".pagination").prepend(page)
-		}
-	});
-});
-//선택된 값 info페이지로 넘어가게 하는 코드 끝
-
-//paging 시작
-function page(idx){
-	var pagenum = idx;
-	location.href="/compareMain?pagenum="+pagenum;
-}
-//paging 끝
+				$("#compareLiHeader").nextAll().remove();
+				$("#compareLiHeader").after(result);
+				if(data.criteria.prev){
+					page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.startPage-1)+');" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'
+				}
+				for(var i=data.criteria.startPage; i<=data.criteria.endPage; i++){
+					page += '<li class="page-item"><a class="page-link" href="javascript:page('+i+');">'+i+'</a></li>'
+				}
+				if(data.criteria.next){
+					page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.endPage+1)+');" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'
+				}
+				$(".pagination").empty();
+				$(".pagination").prepend(page)
+			}	//else
+		}	//success
+	});	//ajax
+}	//function
+//ajax 함수 끝

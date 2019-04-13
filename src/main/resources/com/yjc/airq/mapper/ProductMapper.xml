@@ -2,7 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjc.airq.mapper.ProductMapper">
-	<select id="productList" resultType="com.yjc.airq.domain.ProductVO">
+	<resultMap id="ProductVO" type="com.yjc.airq.domain.ProductVO">
+		<result property="product_code" column="product_code"></result>
+		<result property="product_name;" column="product_name;"></result>
+		<result property="product_detail" column="product_detail"></result>
+		<result property="product_price" column="product_price"></result>
+		<result property="p_space" column="p_space"></result>
+		<result property="measure_point" column="measure_point"></result>
+		<result property="product_code" column="product_code"></result>
+		<collection property="areaVO" column="product_code" javaType="java.util.ArrayList" ofType="com.yjc.airq.domain.AreaVO" select="getAreaByCode"/>
+	</resultMap>
+	<select id="productList" resultMap="ProductVO">
 		<![CDATA[ 
 			select X.rnum, X.* from(select rownum as rnum, A.* from (select * from product) A where rownum <= #{endnum}) X where X.rnum >= #{startnum}
 		]]> 
@@ -10,8 +20,10 @@
 	<select id="productCount" resultType="int">
 		select count(*) from product
 	</select>
-	<select id="selectList" resultType="com.yjc.airq.domain.ProductVO">
-		<![CDATA[ 
+	<select id="getAreaByCode" resultType="com.yjc.airq.domain.AreaVO">
+		select a.*,pa.product_code from area a, p_possible_area pa where a.area_code = pa.area_code and pa.product_code=#{product_code}
+	</select>
+	<select id="selectList" resultMap="ProductVO">
 			select X.rnum,X.* 
 			from(
     				select rownum as rnum, A.* 
@@ -21,9 +33,8 @@
                     				select p.*,a.* 
                     				from product p, area a, p_possible_area pa
                     				where p.product_code = pa.product_code and pa.area_code = a.area_code and a.area_do=#{sido} and a.area_si=#{sigoon} and p.p_space=#{space})) A
-    				where rownum <= #{endnum}) X
-			where X.rnum >= #{startnum}
-        ]]> 
+    				where <![CDATA[rownum <= #{endnum}]]>) X
+			where <![CDATA[X.rnum >= #{startnum}]]>
 	</select>
 	<select id="selectCount" resultType="int">
 		select count(*)

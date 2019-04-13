@@ -3,8 +3,14 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.yjc.airq.mapper.PostMapper">
-	<select id="getPosts" resultType="com.yjc.airq.domain.PostVO" parameterType="String">
-		SELECT * FROM POST WHERE BOARD_CODE=#{board_code}
+	<select id="getPosts" resultType="com.yjc.airq.domain.PostVO">
+		<![CDATA[ 
+			SELECT X.RNUM, X.* FROM(SELECT ROWNUM AS RNUM, A.* FROM (SELECT * FROM POST WHERE BOARD_CODE=#{board_code}) A WHERE ROWNUM <= #{endnum}) X WHERE X.RNUM >= #{startnum}
+		]]> 
+	</select>
+	
+	<select id="postCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM POST WHERE BOARD_CODE = #{board_code}
 	</select>
 	
 	<select id="detailPost"  parameterType="String" resultType="com.yjc.airq.domain.PostVO">
