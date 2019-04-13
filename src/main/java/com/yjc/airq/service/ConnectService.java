@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
+import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
@@ -24,6 +25,10 @@ public interface ConnectService {
 	// 입찰 세부내용 보기
 	public TenderVO tenderContent(String tender_code);
 	public ArrayList<BidVO> bidContent(String tender_code);
+	
+	// 투찰 작성
+	public Company_InfoVO company_info(String member_id);
+	public BidVO addBid(String company_code);
 	
 	// 입찰 공고 삭제
 	public ArrayList<BidVO> findUploadCode(String tender_code);

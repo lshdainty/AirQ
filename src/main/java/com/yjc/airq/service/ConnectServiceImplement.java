@@ -7,11 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
+import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.mapper.AreaMapper;
 import com.yjc.airq.mapper.BidMapper;
+import com.yjc.airq.mapper.CompanyMapper;
 import com.yjc.airq.mapper.PaymentMapper;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.TenderMapper;
@@ -23,6 +25,7 @@ import lombok.AllArgsConstructor;
 public class ConnectServiceImplement implements ConnectService {
 	private TenderMapper tenderMapper;
 	private BidMapper bidMapper;
+	private CompanyMapper companyMapper;
 	private ProductMapper productMapper;
 	private AreaMapper areaMapper;
 	private PaymentMapper paymentMapper;
@@ -75,6 +78,18 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public int tenderModify(TenderVO tenderVo) {
 		return tenderMapper.tenderModify(tenderVo);
+	}
+	
+	//투찰 작성
+	@Override
+	public Company_InfoVO company_info(String member_id) {
+		return companyMapper.company_info(member_id);
+	}
+	
+	@Override
+	public BidVO addBid(String company_code) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// 상품 리스트 출력

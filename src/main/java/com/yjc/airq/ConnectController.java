@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
+import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.Criteria;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
@@ -142,13 +143,10 @@ public class ConnectController {
 			uploadArr.add(arr.get(i).getUpload_code());
 			System.out.println(uploadArr);
 		}
-		if(! uploadArr.isEmpty()) {
-		connectService.deleteBid(tender_code); // 투찰 업체 삭제
-		
-		System.out.println("1");
-		uploadService.deleteBidUpload(uploadArr); // 투찰에 있던 파일 삭제
-		System.out.println("2");
-		
+		if (!uploadArr.isEmpty()) {
+			connectService.deleteBid(tender_code); // 투찰 업체 삭제
+
+			uploadService.deleteBidUpload(uploadArr); // 투찰에 있던 파일 삭제
 		}
 		int s = connectService.tenderDelete(tender_code); // 입찰 공고 삭제
 
@@ -169,6 +167,16 @@ public class ConnectController {
 		int s = connectService.tenderModify(tenderVo);
 		String tender_code = tenderVo.getTender_code();
 		return "redirect: /tenderContent/" + tender_code;
+	}
+	
+	// 입찰 서비스 - 투찰 작성
+	@RequestMapping(value = "addBid",method=RequestMethod.GET)
+	@ResponseBody
+	public Company_InfoVO addBid(Company_InfoVO c_info,HttpServletRequest request,Model model) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		c_info = connectService.company_info(member_id);
+		c_info.setMember_id(member_id);
+		return c_info;
 	}
 
 	// 업체 분석/비교 도,시,평수 선택완료
