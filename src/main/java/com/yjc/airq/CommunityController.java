@@ -150,7 +150,7 @@ public class CommunityController {
 			
 			request.getSession().setAttribute("board_code",board_code);
 			request.getSession().setAttribute("board_type","thumbnail");
-
+			request.getSession().setAttribute("pagenum",pagenum);
 			return "community/thumbnailBoardMain";
 		}
 	@RequestMapping(value = "replyDelete", method = RequestMethod.POST)
@@ -278,6 +278,7 @@ public class CommunityController {
 	@RequestMapping(value = "postDelete", method = RequestMethod.GET)
 	public String recommandDelete(Model model,HttpServletRequest request) {
 		String post_code = request.getParameter("post_code");
+		int pagenum = (int) request.getSession().getAttribute("pagenum");
 		replyService.deletePostReply(post_code);
 		uploadService.deletePostUpload(post_code);
 		postService.deletePost(post_code);
@@ -285,9 +286,9 @@ public class CommunityController {
 		String board_code = (String)request.getSession().getAttribute("board_code");
 		System.out.println("DELETE");
 		if(board_type=="table")
-			return "redirect: /tableBoardMain?board_code="+board_code;
+			return "redirect: /tableBoardMain?board_code="+board_code+"&pagenum="+pagenum;
 		else
-			return "redirect: /thumbnailBoardMain?board_code="+board_code;
+			return "redirect: /thumbnailBoardMain?board_code="+board_code+"&pagenum="+pagenum;
 	}
 	
 	
@@ -298,6 +299,7 @@ public class CommunityController {
 		String post_title = request.getParameter("post_title");
 		String post_content = request.getParameter("post_content");
 		String post_code = (String)request.getParameter("post_code");
+		int pagenum = (int) request.getSession().getAttribute("pagenum");
 		postVO.setPost_title(post_title);
 		postVO.setPost_content(post_content);
 		postVO.setPost_code(post_code);
@@ -308,8 +310,8 @@ public class CommunityController {
 		String board_type = (String)request.getSession().getAttribute("board_type");
 		String board_code = (String)request.getSession().getAttribute("board_code");
 		if(board_type=="table")
-			return "redirect: /tableBoardMain?board_code="+board_code;
+			return "redirect: /tableBoardMain?board_code="+board_code+"&pagenum="+pagenum;
 		else
-			return "redirect: /thumbnailBoardMain?board_code="+board_code;
+			return "redirect: /thumbnailBoardMain?board_code="+board_code+"&pagenum="+pagenum;
 	}
 }
