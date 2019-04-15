@@ -44,4 +44,6 @@ public interface ConnectService {
 	public ArrayList<ProductVO> selectList(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space, @Param("startnum") int startnum,  @Param("endnum") int endnum);
 	// 결제내역리스트
 	public ArrayList<PaymentVO> paymentList();
+	// 마이페이지 - 관리자 프로덕트 리스트 조회
+	public ArrayList<ProductVO> productMP();
 }
