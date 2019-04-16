@@ -154,11 +154,11 @@ function ajax(data,idx){
 				$("#space").val("0").prop("selected", true);
 			}else{
 				for(var i=0; i<data.pList.length; i++){
-					result += '<li class="compareLiContent">'
-					result += '<div class="col col-10-1" data-label="상품코드">'+data.pList[i].product_code+'</div>'
-					result += '<div class="col col-15" data-label="상품이름">'+data.pList[i].product_name+'</div>'
-					result += '<div class="col col-30" data-label="상품 상세설명">'+data.pList[i].product_detail+'</div>'
-					result += '<div class="col col-10-1" data-label="가격">'+data.pList[i].product_price+'</div>'
+					result += '<li class="tableListContent">'
+					result += '<div class="tableColumn tableCol-10-1" data-label="상품코드">'+data.pList[i].product_code+'</div>'
+					result += '<div class="tableColumn tableCol-15" data-label="상품이름">'+data.pList[i].product_name+'</div>'
+					result += '<div class="tableColumn tableCol-30" data-label="상품 상세설명">'+data.pList[i].product_detail+'</div>'
+					result += '<div class="tableColumn tableCol-10-1" data-label="가격">'+data.pList[i].product_price+'</div>'
 					switch(data.pList[i].p_space){
 						case 1: space="1~10평"; break;
 						case 2: space="11~20평"; break;
@@ -172,18 +172,18 @@ function ajax(data,idx){
 						case 10: space="91~100평"; break;
 						case 11: space="101평~"; break;
 						}
-					result += '<div class="col col-15" data-label="측정 적절 평수">'+space+'</div>'
-					result += '<div class="col col-10-1" data-label="측정 지점">'+data.pList[i].measure_point+'</div>'
+					result += '<div class="tableColumn tableCol-15" data-label="측정 적절 평수">'+space+'</div>'
+					result += '<div class="tableColumn tableCol-10-1" data-label="측정 지점">'+data.pList[i].measure_point+'</div>'
 					for(var j=0; j<data.pList[i].areaVO.length; j++){
 						area += data.pList[i].areaVO[j].area_si+" "
 					}
-					result += '<div class="col col-15" data-label="서비스 가능지역">'+area+'</div>'
-					result += '<div class="col col-10-1" data-label="별점 평균">'+data.pList[i].staravg+'</div>'
-					result += '<div class="col col-10-1" data-label="판매 건수">'+data.pList[i].sellnum+'</div>'
+					result += '<div class="tableColumn tableCol-15" data-label="서비스 가능지역">'+area+'</div>'
+					result += '<div class="tableColumn tableCol-10-1" data-label="별점 평균">'+data.pList[i].staravg+'</div>'
+					result += '<div class="tableColumn tableCol-10-1" data-label="판매 건수">'+data.pList[i].sellnum+'</div>'
 					space="";area="";
 				}
-				$("#compareLiHeader").nextAll().remove();
-				$("#compareLiHeader").after(result);
+				$("#tableListHeader").nextAll().remove();
+				$("#tableListHeader").after(result);
 				if(data.criteria.prev){
 					page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.startPage-1)+');" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'
 				}

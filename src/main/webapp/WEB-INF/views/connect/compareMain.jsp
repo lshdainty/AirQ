@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 	<link rel="stylesheet" href="/resources/css/connect/compareMain.css">
+	<link rel="stylesheet" href="/resources/css/include/table.css">
 	<%-- 각 도의 시목록 api 키값 시작 --%>
 		<input type="hidden" id="sigoon_key" value="b0888bae39fbd0463a9252" />
 		<%-- <input type="hidden" name="apiKey" value="E4A59B05-0CF4-3654-BD0C-A169F70CCB34" /> --%>
@@ -49,25 +50,25 @@
 								<option value="">별점 평균순</option>
 							</select>
 						</div>
-						<ul id="compareBoardUl">
-							<li id="compareLiHeader">
-								<div class="col col-10-1">상품코드</div>
-								<div class="col col-15">상품이름</div>
-								<div class="col col-30">상품 상세설명</div>
-								<div class="col col-10-1">가격</div>
-								<div class="col col-15">측정 적절 평수</div>
-								<div class="col col-10-1">측정 지점</div>
-								<div class="col col-15">서비스 가능지역</div>
-								<div class="col col-10-1">만족도 평균</div>
-								<div class="col col-10-1">판매 건수</div>
+						<ul class="tableList">
+							<li class="tableListHeader" id="tableListHeader">
+								<div class="tableColumn tableCol-10-1">상품코드</div>
+								<div class="tableColumn tableCol-15">상품이름</div>
+								<div class="tableColumn tableCol-30">상품 상세설명</div>
+								<div class="tableColumn tableCol-10-1">가격</div>
+								<div class="tableColumn tableCol-15">측정 적절 평수</div>
+								<div class="tableColumn tableCol-10-1">측정 지점</div>
+								<div class="tableColumn tableCol-15">서비스 가능지역</div>
+								<div class="tableColumn tableCol-10-1">만족도 평균</div>
+								<div class="tableColumn tableCol-10-1">판매 건수</div>
 							</li>
 							<c:forEach var="pList" items="${pList }">
-								<li class="compareLiContent">
-									<div class="col col-10-1" data-label="상품코드">${pList.product_code}</div>
-									<div class="col col-15" data-label="상품이름">${pList.product_name}</div>
-									<div class="col col-30" data-label="상품 상세설명">${pList.product_detail}</div>
-									<div class="col col-10-1" data-label="가격">${pList.product_price}</div>
-									<div class="col col-15" data-label="측정 적절 평수">
+								<li class="tableListContent">
+									<div class="tableColumn tableCol-10-1" data-label="상품코드">${pList.product_code}</div>
+									<div class="tableColumn tableCol-15" data-label="상품이름">${pList.product_name}</div>
+									<div class="tableColumn tableCol-30" data-label="상품 상세설명">${pList.product_detail}</div>
+									<div class="tableColumn tableCol-10-1" data-label="가격">${pList.product_price}</div>
+									<div class="tableColumn tableCol-15" data-label="측정 적절 평수">
 										<c:choose>
 											<c:when test="${pList.p_space == '1'}">1~10평</c:when>
 											<c:when test="${pList.p_space == '2'}">11~20평</c:when>
@@ -82,14 +83,14 @@
 											<c:when test="${pList.p_space == '11'}">100~평</c:when>
 										</c:choose>
 									</div>
-									<div class="col col-10-1" data-label="측정 지점">${pList.measure_point}</div>
-									<div class="col col-15" data-label="서비스 가능지역">
+									<div class="tableColumn tableCol-10-1" data-label="측정 지점">${pList.measure_point}</div>
+									<div class="tableColumn tableCol-15" data-label="서비스 가능지역">
 										<c:forEach var="aList" items="${pList.areaVO }">
 											${aList.area_si }
 										</c:forEach>
 									</div>
-									<div class="col col-10-1" data-label="만족도 평균">${pList.staravg}</div>
-									<div class="col col-10-1" data-label="판매 건수">${pList.sellnum}</div>
+									<div class="tableColumn tableCol-10-1" data-label="만족도 평균">${pList.staravg}</div>
+									<div class="tableColumn tableCol-10-1" data-label="판매 건수">${pList.sellnum}</div>
 								</li>
 							</c:forEach>
 						</ul>

@@ -76,14 +76,15 @@ public class CommunityController {
 			doc=Jsoup.parse(content);
 			content_text = doc.select("p");
 			postVO.setPost_content(content_text.text());
-			System.out.println(postVO);
 		}
 		
 		
 		model.addAttribute("posts",posts);
+		model.addAttribute("criteria",criteria);
+		
 		request.getSession().setAttribute("board_code",board_code);
 		request.getSession().setAttribute("board_type","table");
-
+		request.getSession().setAttribute("pagenum",pagenum);
 		
 		return "community/tableBoardMain";
 	}
