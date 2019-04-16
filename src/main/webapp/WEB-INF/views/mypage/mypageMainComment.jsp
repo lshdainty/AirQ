@@ -22,10 +22,9 @@
            
            <div class="B">글쓴이</div>
             <select class="C"id="변경2">
-                <option value="1">모든글보기</option>
                 <option value="1">공개글보기</option>
-                <option value="1">업체연결서비스</option>
-                <option value="1">커뮤니티</option>
+                <option value="2">업체연결서비스</option>
+                <option value="3">커뮤니티</option>
             </select>
             </div>
         <%--상단 부분 끝 --%>

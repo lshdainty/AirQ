@@ -115,4 +115,9 @@ public class ConnectServiceImplement implements ConnectService {
 	public ArrayList<PaymentVO> paymentList(){
 		return paymentMapper.paymentList();
 	}
+	//마이페이지- 관리자 프로덕트 리스트 조회
+	@Override
+	public ArrayList<ProductVO> productMP() {
+		return productMapper.productMP();
+	}
 }
