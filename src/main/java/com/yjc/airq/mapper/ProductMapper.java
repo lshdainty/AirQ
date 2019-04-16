@@ -15,4 +15,6 @@ public interface ProductMapper {
 	public ArrayList<ProductVO> selectList(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space, @Param("startnum") int startnum,  @Param("endnum") int endnum);
 	// 항목 선택후 항목에 맞는 상품 개수 조회
 	public int selectCount(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space);
+	// 상품 상세 페이지
+	public ProductVO productContent(String product_code);
 }
