@@ -72,18 +72,5 @@ $(function(){
 		 $("#t_addr_si").val(t_addr_si);
 		 $("#t_addr_dong").val(t_addr_dong);
 		 
-		 /* var query={
-				 t_addr_do:t_addr_do,t_addr_si:t_addr_si,
-				 t_addr_dong:t_addr_dong,t_addr_detail:t_addr_detail
-		 };
-		 
-		 $.ajax({
-			 type:"post",
-			 url:"tenderWriteComplete",
-			 data:query,
-			 success:function(data){
-				 
-			 }
-		 });*/
 	 });
 });

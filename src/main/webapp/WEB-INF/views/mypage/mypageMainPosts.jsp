@@ -31,15 +31,28 @@
         <%--상단 부분 끝 --%>
         <br>
         <%-- 하단부분 시작 --%>
+        <%-- TENDER --%>
         <c:forEach var="tenderList" items="${tenderList}"
         varStatus="index" begin="0" end="15">
-        <div class="form2">
+        <div class="form2" id="select1">
 
             <div class="tender_title"><input type="checkbox" id="cb" name="cb">${tenderList.tender_title }</div> 
             <div class="requirement">${tenderList.requirement }</div> 
             <div class="tender_name">${tenderList.tender_name }</div>
             <div class="t_creation_date">${tenderList.t_creation_date }</div>
             <a href="<c:url value='/mypageMainPosts/${tenderList.tender_code }' />" class="btn btn-lg btn-danger">글 삭제</a>
+        </div>
+        </c:forEach>
+        
+        <%-- PRODUCT --%>
+        <c:forEach var="productMP" items="${productMP}"
+        varStatus="index" begin="0" end="15">
+        <div class="form3" id="select2">
+
+            <div class="product_code"><input type="checkbox" id="cb" name="cb">${productMP.product_code }</div> 
+            <div class="product_detail">${productMP.product_detail }</div> 
+            <div class="product_name">${productMP.product_name }</div>
+            <a href="<c:url value='/mypageMainPostsProduct/${productMP.product_code }' />" class="btn btn-lg btn-danger">글 삭제</a>
         </div>
         </c:forEach>
         

@@ -110,7 +110,7 @@
 
 <input type="hidden" value="${detailPost.post_code}" id="post_code"
 	name="post_id">
-<a href="postDelete?post_code=${detailPost.post_code}"
+<a href="postDelete?post_code=${detailPost.post_code}&pagenum=${pagenum}"
 	class="btn btn-primary" id="test">삭제</a>
 <a href="postModify?post_code=${detailPost.post_code}"
 	class="btn btn-primary" id="test">수정</a>

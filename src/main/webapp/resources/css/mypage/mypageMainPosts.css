@@ -74,6 +74,40 @@
 	width: 10%;
 }
 
+.container .form3 {
+	border: 1px solid blue;
+}
+
+.container .form3 .product_code {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form3 .product_detail {
+	width: 40%;
+	height: 50px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form3 .product_name {
+	width: 15%;
+	height: 50px;
+	display: inline-block;
+}
+
+.container .form3 .selection {
+	display: inline-block;
+}
+
+.container .form3 .check {
+	display: inline-block;
+	width: 10%;
+}
+
 .container .content {
 	overflow: hidden;
 }

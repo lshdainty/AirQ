@@ -50,4 +50,9 @@
 	<select id="productContent" resultMap="ProductVO">
 		select * from product where product_code = #{product_code}
 	</select>
+
+<!-- 마이페이지- 관리자 프로덕트 리스트 조회 -->
+	<select id="productMP" resultType="com.yjc.airq.domain.ProductVO">
+		select * from product
+	</select>
 </mapper>

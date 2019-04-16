@@ -8,11 +8,9 @@
 
 <%--입찰 공고 수정 테이블 시작 --%>
 <h1 id="tenderModifyTitle">입찰 작성</h1>
-	<form action="/tenderModifyComplete" method="POST">
+<form action="/tenderModifyComplete" method="POST">
+	<input type="hidden" id="tender_code" name="tender_code" value="${tenderModify.tender_code}">
 	<table id="tenderModifyTbl">
-		<tr>
-			<td><input type="hidden" id="tender_code" name="tender_code" value="${tenderModify.tender_code}"></td>
-		</tr>
 		<tr>
 			<td class="tr">제목</td>
 			<td class="tr"><input type="text" id="tender_title" name="tender_title" value="${tenderModify.tender_title }"  required autocomplete="off"></td>
@@ -47,8 +45,8 @@
 		</tr>
 	</table>
 	<div id="tenderModifyBtnDiv">
-	<input type="submit" id="tenderModifyCBtn" name="tenderModifyCBtn" value="수정완료">
-</div>
+		<input type="submit" id="tenderModifyCBtn" name="tenderModifyCBtn" value="수정완료">
+	</div>
 </form>
 
 <%--입찰 공고 수정 테이블 끝 --%>

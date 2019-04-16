@@ -10,8 +10,17 @@
 	
 	<!-- 투찰 작성 -->
 	<select id="company_info" parameterType="String" resultType="com.yjc.airq.domain.Company_InfoVO">
-		select company_code,company_name
+		select *
 		from member m,company_info c
 		where m.member_id=c.member_id and m.member_devision = 'se' and m.member_id=#{member_id}
+	</select>
+	<select id="bidNumber" parameterType="String" resultType="int">
+		select count(*)
+		from(select obj.*, b.win_bid_whether, b.company_code
+    		 from(select t.tender_code, p.refund_whether
+     		      from tender t, payment p
+     	   		  where t.tender_code = p.tender_code and p.refund_whether = 'n') obj, bid b
+ 	   		 where obj.tender_code = b.tender_code and b.win_bid_whether = 'y') o
+ 		where o.company_code = #{company_code}
 	</select>
 </mapper>

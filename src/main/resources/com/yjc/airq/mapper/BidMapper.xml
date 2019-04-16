@@ -6,6 +6,7 @@
 	<select id="bidContent" parameterType="String" resultType="com.yjc.airq.domain.BidVO">
 		select * from bid where tender_code=#{tender_code}
 	</select>
+	
 	<!-- 입찰 공고 삭제 -->
 	<select id="findUploadCode" resultType="com.yjc.airq.domain.BidVO">
 		select upload_code from bid where tender_code=#{tender_code}

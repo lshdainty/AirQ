@@ -172,8 +172,12 @@ public class ConnectController {
 	@ResponseBody
 	public Company_InfoVO addBid(Company_InfoVO c_info,HttpServletRequest request,Model model) {
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-		c_info = connectService.company_info(member_id);
 		c_info.setMember_id(member_id);
+		c_info = connectService.company_info(member_id);
+		
+		//건수
+		int bidNum=connectService.bidNumber(c_info.getCompany_code());
+		c_info.setBidNum(bidNum);
 		return c_info;
 	}
 

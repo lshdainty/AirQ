@@ -87,6 +87,11 @@ public class ConnectServiceImplement implements ConnectService {
 	}
 	
 	@Override
+	public int bidNumber(String company_code) {
+		return companyMapper.bidNumber(company_code);
+	}
+	
+	@Override
 	public BidVO addBid(String company_code) {
 		// TODO Auto-generated method stub
 		return null;
@@ -120,5 +125,10 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public ProductVO productContent(String product_code) {
 		return productMapper.productContent(product_code);
+
+	//마이페이지- 관리자 프로덕트 리스트 조회
+	@Override
+	public ArrayList<ProductVO> productMP() {
+		return productMapper.productMP();
 	}
 }
