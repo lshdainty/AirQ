@@ -201,7 +201,7 @@ function ajax(data,idx){
 }	//function
 //ajax 함수 끝
 
-$(".compareLiContent").on('click',function(){
+$(".tableListContent").on('click',function(){
 	var product_code = $(this).attr("id");
 	window.location.href="product/"+product_code;
 });
