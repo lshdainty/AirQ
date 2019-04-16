@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.mapper.MemberMapper;
+import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.ReplyMapper;
 import com.yjc.airq.mapper.TenderMapper;
 import com.yjc.airq.service.ConnectService;
@@ -30,6 +31,7 @@ public class MypageController {
 	private MemberMapper memberMapper;
 	private ReplyMapper replyMapper;
 	private TenderMapper tenderMapper;
+	private ProductMapper productMapper;
 
 	// mypageMain 가기
 	@RequestMapping(value = "mypageMain", method = RequestMethod.GET)
@@ -76,6 +78,7 @@ public class MypageController {
 	@RequestMapping(value = "mypageMainPosts", method = RequestMethod.GET)
 	public String mypageMainPosts(Model model) {
 		model.addAttribute("tenderList", connectService.tenderList());
+		model.addAttribute("productMP", connectService.productMP());
 		return "mypage/mypageMainPosts";
 	}
 	
@@ -83,6 +86,13 @@ public class MypageController {
 	@RequestMapping(value = "/mypageMainPosts/{tender_code}", method = RequestMethod.GET)
 	public String deletePosts(@PathVariable String tender_code) {
 		tenderMapper.deletePosts(tender_code);
+		return "redirect:/mypageMainPosts";
+	}
+	
+	// mypageMainPosts 글 삭제 버튼 클릭 이벤트
+	@RequestMapping(value = "/mypageMainPostsProduct/{product_code}", method = RequestMethod.GET)
+	public String deletePostsProduct(@PathVariable String product_code) {
+		productMapper.deletePostsProduct(product_code);
 		return "redirect:/mypageMainPosts";
 	}
 

@@ -3,9 +3,18 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.yjc.airq.mapper.PostMapper">
+	<select id="tenderList" resultType="com.yjc.airq.domain.TenderVO">
+		select rownum,t.* 
+		from (select * from tender order by t_creation_date asc) t 
+		order by rownum desc
+		
+	</select>
+
 	<select id="getPosts" resultType="com.yjc.airq.domain.PostVO">
 		<![CDATA[ 
-			SELECT X.RNUM, X.* FROM(SELECT ROWNUM AS RNUM, A.* FROM (SELECT * FROM POST WHERE BOARD_CODE=#{board_code}) A WHERE ROWNUM <= #{endnum}) X WHERE X.RNUM >= #{startnum}
+			SELECT X.RNUM, X.* FROM
+			(SELECT ROWNUM AS RNUM, A.* FROM (SELECT * FROM POST WHERE BOARD_CODE=#{board_code} ORDER BY ROWNUM DESC)
+			 A WHERE ROWNUM <= #{endnum}) X WHERE X.RNUM >= #{startnum}
 		]]> 
 	</select>
 	
