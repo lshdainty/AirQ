@@ -87,6 +87,11 @@ public class ConnectServiceImplement implements ConnectService {
 	}
 	
 	@Override
+	public int bidNumber(String company_code) {
+		return companyMapper.bidNumber(company_code);
+	}
+	
+	@Override
 	public BidVO addBid(String company_code) {
 		// TODO Auto-generated method stub
 		return null;

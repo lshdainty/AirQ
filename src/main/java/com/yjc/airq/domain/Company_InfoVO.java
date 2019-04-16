@@ -15,4 +15,6 @@ public class Company_InfoVO {
 	private String c_addr_detail;
 	private String registration_status;
 	private String member_id;
+	
+	private int bidNum;
 }

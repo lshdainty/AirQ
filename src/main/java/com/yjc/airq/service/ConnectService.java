@@ -29,6 +29,7 @@ public interface ConnectService {
 	// 투찰 작성
 	public Company_InfoVO company_info(String member_id);
 	public BidVO addBid(String company_code);
+	public int bidNumber(String company_code);
 	
 	// 입찰 공고 삭제
 	public ArrayList<BidVO> findUploadCode(String tender_code);

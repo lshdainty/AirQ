@@ -7,7 +7,7 @@ $(document).ready(function(){
 			+'<td id="company_name" class="listC" data-label="업체명"></td>'
 			+'<td id="member_id" class="listC" data-label="대표자"></td>'
 			+'<td data-label="금액"><input type="text" id="bid_price" name="bid_price"></td>'
-			+'<td data-label="건수"></td>'
+			+'<td id="bidNum" data-label="건수"></td>'
 			+'<td data-label="별점"></td>'
 			+'<td data-label="첨부파일"><input type="file" id="bid_ppt_name"></td>'
 			+'<td data-label="비고"></td>'
@@ -21,9 +21,8 @@ $(document).ready(function(){
 			success:function(data){
 				$("#company_name").text(data.company_name);
 				$("#member_id").text(data.member_id);
+				$("#bidNum").text(data.bidNum);
 			}
 		});
-		
-		/*window.location.href="/addBid";*/
 	});
 });
