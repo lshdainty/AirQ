@@ -44,7 +44,7 @@
 			<li class="tableListContent post-detail">
 				<input type="hidden" value="${post.post_code}">
 				<div class="tableColumn tableCol-10-1" data-label="번호">${post.rownum }</div>
-				<div class="tableColumn tableCol-30" data-label="제목">${post.post_title }</div>
+				<div class="tableColumn tableCol-30" data-label="제목">${post.post_title } [${post.reply_count }]</div>
 				<div class="tableColumn tableCol-15" data-label="내용">${post.post_content }</div>
 				<div class="tableColumn tableCol-15" data-label="작성자">${post.member_id}</div>
 				<div class="tableColumn tableCol-15" data-label="작성일">${post.p_creation_date}</div>

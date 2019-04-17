@@ -23,7 +23,6 @@ import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ReplyVO;
 import com.yjc.airq.service.PostService;
-import com.yjc.airq.service.ReplyService;
 import com.yjc.airq.service.UploadService;
 
 import lombok.AllArgsConstructor;
@@ -37,7 +36,6 @@ public class CommunityController {
 	
 	private PostService postService;
 	private UploadService uploadService;
-	private ReplyService replyService;
 	
 	
 	
@@ -66,12 +64,15 @@ public class CommunityController {
 		ArrayList<PostVO> posts=postService.getPosts(criteria.getStartnum(),criteria.getEndnum(),board_code);
 		
 		Iterator<PostVO> it = posts.iterator();
+		ArrayList<ReplyVO> replys = new ArrayList<ReplyVO>();
 		PostVO postVO;
 		String content;
 		Elements content_text;
 		Document doc;
 		while(it.hasNext()) {
 			postVO=it.next();
+			replys = postService.getReplys(postVO.getPost_code());
+			postVO.setReply_count(replys.size());
 			content=postVO.getPost_content();
 			doc=Jsoup.parse(content);
 			content_text = doc.select("p");
@@ -134,7 +135,7 @@ public class CommunityController {
 			Document doc;
 			while(it.hasNext()) {
 				postVO=it.next();
-				replys = replyService.getReplys(postVO.getPost_code());
+				replys = postService.getReplys(postVO.getPost_code());
 				postVO.setReply_count(replys.size());
 				content=postVO.getPost_content();
 				doc=Jsoup.parse(content);
@@ -161,7 +162,7 @@ public class CommunityController {
 	@ResponseBody
 	public void replyDelete(String reply_code ,String post_code) {
 		
-		replyService.replyDelete(reply_code);
+		postService.replyDelete(reply_code);
 		
 	}
 	
@@ -195,7 +196,7 @@ public class CommunityController {
 		replyVO.setPost_code(post_code);
 		replyVO.setProduct_code(product_code);
 		System.out.println(replyVO);
-		replyService.insertReply(replyVO);
+		postService.insertReply(replyVO);
 		return replyVO;
 	}
 	
@@ -217,7 +218,7 @@ public class CommunityController {
 		
 		String post_code = (String)request.getParameter("post_code");
 		PostVO postVO = postService.detailPost(post_code);
-		ArrayList<ReplyVO> replys = replyService.getReplys(post_code);
+		ArrayList<ReplyVO> replys = postService.getReplys(post_code);
 		postVO.setReply_count(replys.size());
 		model.addAttribute("detailPost",postVO);
 		model.addAttribute("postReply",replys);
@@ -283,7 +284,7 @@ public class CommunityController {
 	public String recommandDelete(Model model,HttpServletRequest request) {
 		String post_code = request.getParameter("post_code");
 		int pagenum = (int) request.getSession().getAttribute("pagenum");
-		replyService.deletePostReply(post_code);
+		postService.deletePostReply(post_code);
 		uploadService.deletePostUpload(post_code);
 		postService.deletePost(post_code);
 		String board_type = (String)request.getSession().getAttribute("board_type");
