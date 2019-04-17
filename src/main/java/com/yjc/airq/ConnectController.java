@@ -58,26 +58,7 @@ public class ConnectController {
 		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
 		
 		ArrayList<ProductVO> pList = connectService.productList(criteria.getStartnum(),criteria.getEndnum());
-		ArrayList<PaymentVO> pmList = connectService.paymentList();
-		int sellnum = 0;
-		float staravg = 0;
-		for (ProductVO provo : pList) {
-			for (PaymentVO payvo : pmList) {
-				if (provo.getProduct_code().equals(payvo.getDemandVO().getProduct_code())
-						&& payvo.getRefund_whether().equals("n")) {
-					sellnum = sellnum + 1;
-					staravg = staravg + payvo.getStar_score();
-				}
-				provo.setSellnum(String.valueOf(sellnum));
-				if (staravg == 0) {
-					provo.setStaravg("0");
-				} else {
-					provo.setStaravg(new DecimalFormat(".#").format(staravg / sellnum));
-				}
-			}
-			sellnum = 0;
-			staravg = 0;
-		}
+		System.out.println("쿼리문 변경 후 pList:"+pList);
 		model.addAttribute("pList",pList);
 		model.addAttribute("criteria",criteria);
 
@@ -216,26 +197,6 @@ public class ConnectController {
 			pList = connectService.productList(criteria.getStartnum(),criteria.getEndnum());
 		}else {
 			pList = connectService.selectList(sido,sigoon,space,criteria.getStartnum(),criteria.getEndnum());
-		}
-		ArrayList<PaymentVO> pmList = connectService.paymentList();
-		int sellnum = 0;
-		float staravg = 0;
-		for (ProductVO provo : pList) {
-			for (PaymentVO payvo : pmList) {
-				if (provo.getProduct_code().equals(payvo.getDemandVO().getProduct_code())
-						&& payvo.getRefund_whether().equals("n")) {
-					sellnum = sellnum + 1;
-					staravg = staravg + payvo.getStar_score();
-				}
-				provo.setSellnum(String.valueOf(sellnum));
-				if (staravg == 0) {
-					provo.setStaravg("0");
-				} else {
-					provo.setStaravg(new DecimalFormat(".#").format(staravg / sellnum));
-				}
-			}
-			sellnum = 0;
-			staravg = 0;
 		}
 		JSONArray pJson = JSONArray.fromObject(pList);
 		Map<String,Object> map = new HashMap<String,Object>();

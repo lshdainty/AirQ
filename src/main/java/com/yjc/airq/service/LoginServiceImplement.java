@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class MemberServiceImplement implements MemberService{
+public class LoginServiceImplement implements LoginService{
 	private MemberMapper mapper;
 	
 	@Override

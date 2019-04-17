@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import com.yjc.airq.domain.MemberVO;
-import com.yjc.airq.service.MemberService;
+import com.yjc.airq.service.LoginService;
 
 import lombok.AllArgsConstructor;
 
@@ -21,7 +21,7 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class LoginController {
-	private MemberService memberService;
+	private LoginService memberService;
 	
 	//로그인 메인페이지로 가기
 	@RequestMapping(value = "loginMain", method = RequestMethod.GET)

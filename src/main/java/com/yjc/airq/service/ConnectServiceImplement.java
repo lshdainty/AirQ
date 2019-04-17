@@ -14,7 +14,6 @@ import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.mapper.AreaMapper;
 import com.yjc.airq.mapper.BidMapper;
 import com.yjc.airq.mapper.CompanyMapper;
-import com.yjc.airq.mapper.PaymentMapper;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.TenderMapper;
 
@@ -28,7 +27,6 @@ public class ConnectServiceImplement implements ConnectService {
 	private CompanyMapper companyMapper;
 	private ProductMapper productMapper;
 	private AreaMapper areaMapper;
-	private PaymentMapper paymentMapper;
 	
 	// 입찰 리스트 출력
 	@Override
@@ -86,13 +84,13 @@ public class ConnectServiceImplement implements ConnectService {
 		return companyMapper.company_info(member_id);
 	}
 	
-		// 건수
+	// 건수
 	@Override
 	public int bidNumber(String company_code) {
 		return companyMapper.bidNumber(company_code);
 	}
 	
-		//별점
+	//별점
 	@Override
 	public double star_score_avg(String company_code) {
 		return companyMapper.star_score_avg(company_code);
@@ -120,12 +118,6 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public ArrayList<ProductVO> selectList(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space, @Param("startnum") int startnum,  @Param("endnum") int endnum){
 		return productMapper.selectList(sido,sigoon,space,startnum,endnum);
-	}
-	
-	// 결제내역리스트
-	@Override
-	public ArrayList<PaymentVO> paymentList(){
-		return paymentMapper.paymentList();
 	}
 	
 	// 상품 상세 페이지

@@ -16,7 +16,7 @@ import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.ReplyMapper;
 import com.yjc.airq.mapper.TenderMapper;
 import com.yjc.airq.service.ConnectService;
-import com.yjc.airq.service.MemberService;
+import com.yjc.airq.service.LoginService;
 
 import lombok.AllArgsConstructor;
 
@@ -27,7 +27,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MypageController {
 	private ConnectService connectService;
-	private MemberService memberService;
+	private LoginService memberService;
 	private MemberMapper memberMapper;
 	private ReplyMapper replyMapper;
 	private TenderMapper tenderMapper;
