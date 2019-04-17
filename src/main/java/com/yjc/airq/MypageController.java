@@ -21,7 +21,7 @@ import com.yjc.airq.mapper.ReplyMapper;
 import com.yjc.airq.mapper.TenderMapper;
 import com.yjc.airq.service.ConnectService;
 import com.yjc.airq.service.LoginService;
-import com.yjc.airq.service.PostService;
+import com.yjc.airq.service.CommunityService;
 
 import lombok.AllArgsConstructor;
 

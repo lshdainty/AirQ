@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yjc.airq.domain.ManageVO;
+import com.yjc.airq.domain.IotVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.service.ManageService;
 import com.yjc.airq.service.LoginService;
@@ -24,9 +24,6 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class ManageController {
-	
-	private LoginService memberService;
-	private ManageService manageService;
 
 	// 공기질 모니터링 메인페이지로 가기
 	@RequestMapping(value = "monitoringMain", method = RequestMethod.GET)
@@ -48,7 +45,7 @@ public class ManageController {
 	
 	// 원격제어 등록하기
 	@RequestMapping(value = "remoteReg", method = RequestMethod.GET)
-	public String remoteReg(Model model, ManageVO rg) {
+	public String remoteReg(Model model, IotVO rg) {
 		
 		System.out.println(rg.getRemote());
 		System.out.println(rg.getLocation());

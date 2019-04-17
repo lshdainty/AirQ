@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class PostServiceImplement implements PostService {
+public class CommunityServiceImplement implements CommunityService {
 	private PostMapper postMapper;
 	private ReplyMapper replyMapper;
 	@Override

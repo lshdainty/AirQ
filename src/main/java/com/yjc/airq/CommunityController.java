@@ -22,7 +22,7 @@ import com.yjc.airq.domain.Criteria;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ReplyVO;
-import com.yjc.airq.service.PostService;
+import com.yjc.airq.service.CommunityService;
 import com.yjc.airq.service.UploadService;
 
 import lombok.AllArgsConstructor;
@@ -34,7 +34,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CommunityController {
 	
-	private PostService postService;
+	private CommunityService postService;
 	private UploadService uploadService;
 	
 	
