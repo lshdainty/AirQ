@@ -239,4 +239,13 @@ public class ConnectController {
 
 		return json;
 	}
+	
+	// 분석/비교 서비스 - 리스트에서 서비스상품 세부 내용으로 가기
+	@RequestMapping(value = "product/{product_code}", method = RequestMethod.GET)
+	public String productDetail(@PathVariable String product_code, Model model) {
+		model.addAttribute("productContent", connectService.productContent(product_code));
+		System.out.println(connectService.productContent(product_code));
+		
+		return "connect/productContent";
+	}
 }

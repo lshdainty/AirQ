@@ -52,7 +52,6 @@
 						</div>
 						<ul class="tableList">
 							<li class="tableListHeader" id="tableListHeader">
-								<div class="tableColumn tableCol-10-1">상품코드</div>
 								<div class="tableColumn tableCol-15">상품이름</div>
 								<div class="tableColumn tableCol-30">상품 상세설명</div>
 								<div class="tableColumn tableCol-10-1">가격</div>
@@ -63,8 +62,7 @@
 								<div class="tableColumn tableCol-10-1">판매 건수</div>
 							</li>
 							<c:forEach var="pList" items="${pList }">
-								<li class="tableListContent">
-									<div class="tableColumn tableCol-10-1" data-label="상품코드">${pList.product_code}</div>
+								<li class="tableListContent" id="${pList.product_code}">
 									<div class="tableColumn tableCol-15" data-label="상품이름">${pList.product_name}</div>
 									<div class="tableColumn tableCol-30" data-label="상품 상세설명">${pList.product_detail}</div>
 									<div class="tableColumn tableCol-10-1" data-label="가격">${pList.product_price}</div>
