@@ -8,7 +8,7 @@ $(document).ready(function(){
 			+'<td id="member_id" class="listC" data-label="대표자"></td>'
 			+'<td data-label="금액"><input type="text" id="bid_price" name="bid_price"></td>'
 			+'<td id="bidNum" data-label="건수"></td>'
-			+'<td data-label="별점"></td>'
+			+'<td id="star_score" data-label="별점"></td>'
 			+'<td data-label="첨부파일"><input type="file" id="bid_ppt_name"></td>'
 			+'<td data-label="비고"></td>'
 			+'<td data-label="TOTAL 점수"></td> </tr>';
@@ -22,6 +22,7 @@ $(document).ready(function(){
 				$("#company_name").text(data.company_name);
 				$("#member_id").text(data.member_id);
 				$("#bidNum").text(data.bidNum);
+				$("#star_score").text(data.star_score_avg);
 			}
 		});
 	});

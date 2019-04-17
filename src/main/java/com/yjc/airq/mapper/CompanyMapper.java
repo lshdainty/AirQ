@@ -9,4 +9,5 @@ public interface CompanyMapper {
 	//투찰 작성
 	public Company_InfoVO company_info(String member_id);
 	public int bidNumber(String company_code);
+	public double star_score_avg(String company_code);
 }

@@ -17,4 +17,5 @@ public class Company_InfoVO {
 	private String member_id;
 	
 	private int bidNum;
+	private double star_score_avg;
 }
