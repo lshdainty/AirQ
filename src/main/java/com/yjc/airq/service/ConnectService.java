@@ -50,6 +50,4 @@ public interface ConnectService {
 	public ArrayList<PaymentVO> paymentList();
 	// 상품 상세 페이지
 	public ProductVO productContent(String product_code);
-	// 마이페이지 - 관리자 프로덕트 리스트 조회
-	public ArrayList<ProductVO> productMP();
 }

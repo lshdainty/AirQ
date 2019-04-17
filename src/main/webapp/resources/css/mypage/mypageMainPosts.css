@@ -108,6 +108,44 @@
 	width: 10%;
 }
 
+.container .form4 {
+	border: 1px solid blue;
+}
+
+.container .form4 .post_title {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form4 .post_content {
+	width: 40%;
+	height: 50px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form4 .member_id {
+	width: 15%;
+	height: 50px;
+	display: inline-block;
+}
+
+.container .form4 .p_creation_date {
+	width: 10%;
+	height: 30px;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: inherit;
+}
+
+.container .form4 .check {
+	display: inline-block;
+	width: 10%;
+}
+
 .container .content {
 	overflow: hidden;
 }
