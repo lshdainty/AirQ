@@ -49,7 +49,7 @@
 					<img src="${post.post_thumbnail}" class="card-img-top"
 						style="height: 200px; overflow: hidden" alt="...">
 					<div class="card-body">
-						<h5 class="card-title">${post.post_title}[${post.reply_count }]</h5>
+						<h5 class="card-title">${post.post_title} [${post.reply_count }]</h5>
 						<a href="postDetail?post_code=${post.post_code}"
 							class="btn btn-primary">자세히</a>
 					</div>

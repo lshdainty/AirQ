@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import com.yjc.airq.domain.PostVO;
+import com.yjc.airq.domain.ReplyVO;
 
-public interface PostService {
+public interface CommunityService {
 	ArrayList<PostVO> getPosts(@Param("startnum") int startnum, @Param("endnum") int endnum,@Param("board_code")String board_code);
 	void insertPost(PostVO postVO);
 	void modifyPost(PostVO postVO);
@@ -16,4 +17,9 @@ public interface PostService {
 	void viewCount(String post_code);
 	void postVote(String post_code);
 	int postCount(String board_code);
+	ArrayList<ReplyVO> getReplys(String post_code);
+	void insertReply(ReplyVO replyVO);
+	void deletePostReply(String post_code);
+	void replyDelete(String reply_code);
+	ArrayList<ReplyVO> mypageReplys();
 }

@@ -1,9 +1,9 @@
 package com.yjc.airq.mapper;
 
-import com.yjc.airq.domain.ManageVO;
+import com.yjc.airq.domain.IotVO;
 
 public interface ManageMapper {
 	
-	public String remoteReg(ManageVO rg);
+	public String remoteReg(IotVO rg);
 	
 };

@@ -6,26 +6,19 @@
     <div class="Posts">
         <p>mypageMainPosts page</p>
     </div >
-<form id="form1">
+<div id="form1">
         <section class="content">
             <main>
            <%--상단 부분 시작 --%>
        <div class="form1">
           <input type="checkbox" id="all" name="all">
-           <select class="A"id="변경">
-           	   <option value="1">선택</option>
-               <option value="1">비공개</option>
-               <option value="2">공개</option>
-               <option value="3">삭제</option>
-           </select>
-           <div class="check"><button type="submit" id="check1" class="btn btn-check">확인</button></div>
-           
+			<a href="<c:url value=' ' />" class="btn btn-lg btn-danger">글 삭제</a>           
            <div class="B">글쓴이</div>
-            <select class="C"id="변경2">
-                <option value="1">모든글보기</option>
-                <option value="1">공개글보기</option>
-                <option value="1">업체연결서비스</option>
-                <option value="1">커뮤니티</option>
+            <select class="C"id="change">
+            	<option value="0">모든 글 보기</option>
+                <option value="1" id="selectA">입찰 서비스</option>
+                <option value="2" id="selectB">업체 분석/비교</option>
+                <option value="3" id="selectC">커뮤니티</option>
             </select>
             </div>
         <%--상단 부분 끝 --%>
@@ -33,7 +26,7 @@
         <%-- 하단부분 시작 --%>
         <%-- TENDER --%>
         <c:forEach var="tenderList" items="${tenderList}"
-        varStatus="index" begin="0" end="15">
+        varStatus="index" begin="0" end="20">
         <div class="form2" id="select1">
 
             <div class="tender_title"><input type="checkbox" id="cb" name="cb">${tenderList.tender_title }</div> 
@@ -46,7 +39,7 @@
         
         <%-- PRODUCT --%>
         <c:forEach var="productMP" items="${productMP}"
-        varStatus="index" begin="0" end="15">
+        varStatus="index" begin="0" end="20">
         <div class="form3" id="select2">
 
             <div class="product_code"><input type="checkbox" id="cb" name="cb">${productMP.product_code }</div> 
@@ -56,10 +49,23 @@
         </div>
         </c:forEach>
         
+        <%-- POST --%>
+        <c:forEach var="postMP" items="${postMP}"
+        varStatus="index" begin="0" end="20">
+        <div class="form4" id="select3">
+
+            <div class="post_title"><input type="checkbox" id="cb" name="cb">${postMP.post_title }</div> 
+            <div class="post_content">${postMP.post_content }</div> 
+            <div class="member_id">${postMP.member_id }</div>
+            <div class="p_creation_date">${postMP.p_creation_date }</div>
+            <a href="<c:url value='/mypageMainPostsPost/${postMP.post_code }' />" class="btn btn-lg btn-danger">글 삭제</a>
+        </div>
+        </c:forEach>
+        
         <%--하단부분 끝 --%>
             </main>
         </section>
-        </form>
+        </div>
         <footer>
 
         </footer>

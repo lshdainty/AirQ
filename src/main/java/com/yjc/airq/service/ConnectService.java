@@ -29,9 +29,9 @@ public interface ConnectService {
 	// 투찰 작성
 	public Company_InfoVO company_info(String member_id);
 	public BidVO addBid(String company_code);
-		//건수
+	//건수
 	public int bidNumber(String company_code);
-		//별점
+	//별점
 	public double star_score_avg(String company_code);
 	
 	// 입찰 공고 삭제
@@ -46,10 +46,6 @@ public interface ConnectService {
 	
 	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
 	public ArrayList<ProductVO> selectList(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space, @Param("startnum") int startnum,  @Param("endnum") int endnum);
-	// 결제내역리스트
-	public ArrayList<PaymentVO> paymentList();
 	// 상품 상세 페이지
 	public ProductVO productContent(String product_code);
-	// 마이페이지 - 관리자 프로덕트 리스트 조회
-	public ArrayList<ProductVO> productMP();
 }

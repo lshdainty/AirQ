@@ -47,39 +47,22 @@ public class ConnectController {
 	public String compareMain(Model model, HttpServletRequest request) {
 		Criteria criteria = new Criteria();
 		int pagenum = 1;
-		criteria.setTotalcount(productMapper.productCount()); // 전체 게시글 개수를 지정
-		criteria.setPagenum(pagenum); // 현재 페이지를 페이지 객체에 지정
-		criteria.setStartnum(pagenum); // 컨텐츠 시작 번호 지정
-		criteria.setEndnum(pagenum); // 컨텐츠 끈 번호 지정
-		criteria.setCurrentblock(pagenum); // 현재 페이지 블록이 몇번인지 현재 페이지 번호 통해 지정
-		criteria.setLastblock(criteria.getTotalcount()); // 마지막 블록 번호를 전체 게시글 수를 통해 정함
-		criteria.prevnext(pagenum); // 현재 페이지 번호로 화살표를 나타낼지 정함
-		criteria.setStartPage(criteria.getCurrentblock()); // 시작 페이지를 페이지 블록번호로 정함
-		criteria.setEndPage(criteria.getLastblock(), criteria.getCurrentblock()); // 마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
 
-		ArrayList<ProductVO> pList = connectService.productList(criteria.getStartnum(), criteria.getEndnum());
-		ArrayList<PaymentVO> pmList = connectService.paymentList();
-		int sellnum = 0;
-		float staravg = 0;
-		for (ProductVO provo : pList) {
-			for (PaymentVO payvo : pmList) {
-				if (provo.getProduct_code().equals(payvo.getDemandVO().getProduct_code())
-						&& payvo.getRefund_whether().equals("n")) {
-					sellnum = sellnum + 1;
-					staravg = staravg + payvo.getStar_score();
-				}
-				provo.setSellnum(String.valueOf(sellnum));
-				if (staravg == 0) {
-					provo.setStaravg("0");
-				} else {
-					provo.setStaravg(new DecimalFormat(".#").format(staravg / sellnum));
-				}
-			}
-			sellnum = 0;
-			staravg = 0;
-		}
-		model.addAttribute("pList", pList);
-		model.addAttribute("criteria", criteria);
+		criteria.setTotalcount(productMapper.productCount());	//전체 게시글 개수를 지정
+		criteria.setPagenum(pagenum);	//현재 페이지를 페이지 객체에 지정
+		criteria.setStartnum(pagenum);	//컨텐츠 시작 번호 지정
+		criteria.setEndnum(pagenum);	//컨텐츠 끈 번호 지정 
+		criteria.setCurrentblock(pagenum);	//현재 페이지 블록이 몇번인지 현재 페이지 번호 통해 지정
+		criteria.setLastblock(criteria.getTotalcount());	//마지막 블록 번호를 전체 게시글 수를 통해 정함
+		criteria.prevnext(pagenum);	//현재 페이지 번호로 화살표를 나타낼지 정함
+		criteria.setStartPage(criteria.getCurrentblock());	//시작 페이지를 페이지 블록번호로 정함
+		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
+		
+		ArrayList<ProductVO> pList = connectService.productList(criteria.getStartnum(),criteria.getEndnum());
+		System.out.println("쿼리문 변경 후 pList:"+pList);
+		model.addAttribute("pList",pList);
+		model.addAttribute("criteria",criteria);
+
 
 		return "connect/compareMain";
 	}
@@ -221,26 +204,6 @@ public class ConnectController {
 			pList = connectService.productList(criteria.getStartnum(), criteria.getEndnum());
 		} else {
 			pList = connectService.selectList(sido, sigoon, space, criteria.getStartnum(), criteria.getEndnum());
-		}
-		ArrayList<PaymentVO> pmList = connectService.paymentList();
-		int sellnum = 0;
-		float staravg = 0;
-		for (ProductVO provo : pList) {
-			for (PaymentVO payvo : pmList) {
-				if (provo.getProduct_code().equals(payvo.getDemandVO().getProduct_code())
-						&& payvo.getRefund_whether().equals("n")) {
-					sellnum = sellnum + 1;
-					staravg = staravg + payvo.getStar_score();
-				}
-				provo.setSellnum(String.valueOf(sellnum));
-				if (staravg == 0) {
-					provo.setStaravg("0");
-				} else {
-					provo.setStaravg(new DecimalFormat(".#").format(staravg / sellnum));
-				}
-			}
-			sellnum = 0;
-			staravg = 0;
 		}
 		JSONArray pJson = JSONArray.fromObject(pList);
 		Map<String, Object> map = new HashMap<String, Object>();
