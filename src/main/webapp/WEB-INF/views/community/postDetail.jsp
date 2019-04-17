@@ -94,7 +94,7 @@
 							</div>
 							<c:if test="${sessionScope.user.member_id==reply.member_id}" >
 							<div class="comment-button">
-								<button class="comment__button comment__button--red reply-delete">삭제</button>
+								<button class="comment__button comment__button--red reply-delete" >삭제</button>
 								<input type="hidden" class="reply_code" value="${reply.reply_code}">
 							</div>
 							</c:if>
@@ -111,8 +111,8 @@
 <input type="hidden" value="${detailPost.post_code}" id="post_code"
 	name="post_id">
 <a href="postDelete?post_code=${detailPost.post_code}&pagenum=${pagenum}"
-	class="btn btn-primary" id="test">삭제</a>
+	class="btn btn-primary" id="test" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
 <a href="postModify?post_code=${detailPost.post_code}"
-	class="btn btn-primary" id="test">수정</a>
+	class="btn btn-primary" id="test" onclick="return confirm('수정하시겠습니까?');">수정</a>
 <script src="resources/js/community/community.js"></script>
 <%@include file="../include/footer.jsp"%>

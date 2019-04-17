@@ -41,7 +41,7 @@
 	<%-- 커뮤니티 - 대기오염물질 헤더 끝 --%>
 </c:if>
 <%-- 커뮤니티 - 상품추천 리스트 시작 --%>
-<div class="album py-5 bg-light">
+<div class="album py-5">
 	<div class="row">
 		<c:forEach var="post" items="${posts}">
 			<div class="col-md-4">
@@ -49,7 +49,7 @@
 					<img src="${post.post_thumbnail}" class="card-img-top"
 						style="height: 200px; overflow: hidden" alt="...">
 					<div class="card-body">
-						<h5 class="card-title">${post.post_title}</h5>
+						<h5 class="card-title">${post.post_title}[${post.reply_count }]</h5>
 						<a href="postDetail?post_code=${post.post_code}"
 							class="btn btn-primary">자세히</a>
 					</div>
