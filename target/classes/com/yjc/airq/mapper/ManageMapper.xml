@@ -4,7 +4,7 @@
 
 <mapper namespace="com.yjc.airq.mapper.ManageMapper">
 
-	<insert id="remoteReg" parameterType="com.yjc.airq.domain.ManageVO">
+	<insert id="remoteReg" parameterType="com.yjc.airq.domain.IotVO">
 		select * from IOT
 	</insert>
 
