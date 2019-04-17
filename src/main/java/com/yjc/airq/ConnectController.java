@@ -178,6 +178,12 @@ public class ConnectController {
 		//건수
 		int bidNum=connectService.bidNumber(c_info.getCompany_code());
 		c_info.setBidNum(bidNum);
+		//별점
+		double star_score=connectService.star_score_avg(c_info.getCompany_code());
+		String star_score_str=String.format("%.1f",star_score);
+		double star_score_avg=Double.parseDouble(star_score_str);
+		c_info.setStar_score_avg(star_score_avg);
+		
 		return c_info;
 	}
 

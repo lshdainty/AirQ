@@ -86,9 +86,16 @@ public class ConnectServiceImplement implements ConnectService {
 		return companyMapper.company_info(member_id);
 	}
 	
+		// 건수
 	@Override
 	public int bidNumber(String company_code) {
 		return companyMapper.bidNumber(company_code);
+	}
+	
+		//별점
+	@Override
+	public double star_score_avg(String company_code) {
+		return companyMapper.star_score_avg(company_code);
 	}
 	
 	@Override
