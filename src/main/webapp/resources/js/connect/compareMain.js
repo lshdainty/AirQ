@@ -155,7 +155,6 @@ function ajax(data,idx){
 			}else{
 				for(var i=0; i<data.pList.length; i++){
 					result += '<li class="tableListContent" id="'+data.pList[i].product_code+'">'
-					result += '<div class="tableColumn tableCol-10-1" data-label="상품코드">'+data.pList[i].product_code+'</div>'
 					result += '<div class="tableColumn tableCol-15" data-label="상품이름">'+data.pList[i].product_name+'</div>'
 					result += '<div class="tableColumn tableCol-30" data-label="상품 상세설명">'+data.pList[i].product_detail+'</div>'
 					result += '<div class="tableColumn tableCol-10-1" data-label="가격">'+data.pList[i].product_price+'</div>'
@@ -178,7 +177,7 @@ function ajax(data,idx){
 						area += data.pList[i].areaVO[j].area_si+" "
 					}
 					result += '<div class="tableColumn tableCol-15" data-label="서비스 가능지역">'+area+'</div>'
-					result += '<div class="tableColumn tableCol-10-1" data-label="별점 평균">'+data.pList[i].staravg+'</div>'
+					result += '<div class="tableColumn tableCol-10-1" data-label="만족도 평균">'+data.pList[i].staravg+'</div>'
 					result += '<div class="tableColumn tableCol-10-1" data-label="판매 건수">'+data.pList[i].sellnum+'</div>'
 					space="";area="";
 				}
@@ -201,7 +200,8 @@ function ajax(data,idx){
 }	//function
 //ajax 함수 끝
 
-$(".tableListContent").on('click',function(){
+$(document).on('click','.tableListContent',function(){
 	var product_code = $(this).attr("id");
+	console.log(product_code);
 	window.location.href="product/"+product_code;
 });
