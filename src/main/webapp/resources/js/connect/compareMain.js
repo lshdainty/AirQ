@@ -154,7 +154,7 @@ function ajax(data,idx){
 				$("#space").val("0").prop("selected", true);
 			}else{
 				for(var i=0; i<data.pList.length; i++){
-					result += '<li class="compareLiContent" id="'+data.pList[i].product_code+'">'
+					result += '<li class="tableListContent" id="'+data.pList[i].product_code+'">'
 					result += '<div class="tableColumn tableCol-10-1" data-label="상품코드">'+data.pList[i].product_code+'</div>'
 					result += '<div class="tableColumn tableCol-15" data-label="상품이름">'+data.pList[i].product_name+'</div>'
 					result += '<div class="tableColumn tableCol-30" data-label="상품 상세설명">'+data.pList[i].product_detail+'</div>'
