@@ -10,8 +10,11 @@
 
 <h2 id="tenderTitle">${tenderContent.tender_title }</h2>
 <div>
-	<span id="tenderWriter">${tenderContent.member_id }</span> | <span id="tenderDate">${tenderContent.t_creation_date }</span> <span id="tenderDeadline">입찰 마감 일자 : ${tenderContent.tender_deadline }</span>
-	<input type="hidden" id="tcode" name="tcode" value="${tenderContent.tender_code }">
+	<span id="tenderWriter">${tenderContent.member_id }</span> | <span
+		id="tenderDate">${tenderContent.t_creation_date }</span> <span
+		id="tenderDeadline">입찰 마감 일자 : ${tenderContent.tender_deadline }</span>
+	<input type="hidden" id="tcode" name="tcode"
+		value="${tenderContent.tender_code }">
 </div>
 <hr />
 
@@ -43,7 +46,7 @@
 </table>
 <div id="tenderADiv">
 	<a href="/tenderDelete/${tenderContent.tender_code }" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
-	<span>|</span>
+	<span>|</span> 
 	<a href="/tenderModify/${tenderContent.tender_code }" onclick="return confirm('수정하시겠습니까?');">수정</a>
 	<span>|</span>
 	<a href="/tenderMain">목록</a>
@@ -70,29 +73,26 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="bidContent" items="bidContent">
+		<%-- <c:forEach var="bidContent" items="bidContent">
 			<tr>
 				<td scope="row"><input type="radio"></td>
 				<td class="listC" data-label="순위"></td>
+				<td class="listC" data-label="업체명">${bidContent. }</td>
+				<td class="listC" data-label="대표자">${bidContent. }</td>
+				<td data-label="금액">${bidContent. }</td>
+				<td data-label="건수">15</td>
+				<td data-label="별점">8.5</td>
+				<td data-label="첨부파일">${bidContent. }</td>
+				<td data-label="비고">신규회원</td>
+				<td data-label="TOTAL 점수">0</td>
 			</tr>
-		</c:forEach>
-		<tr>
-			<td scope="row"><input type="radio"></td>
-			<td class="listC" data-label="순위">1</td>
-			<td class="listC" data-label="업체명">에어체크업</td>
-			<td class="listC" data-label="대표자">aaa</td>
-			<td data-label="금액"></td>
-			<td data-label="건수">15</td>
-			<td data-label="별점">8.5</td>
-			<td data-label="첨부파일"></td>
-			<td data-label="비고">신규회원</td>
-			<td data-label="TOTAL 점수">0</td>
-		</tr>
+		</c:forEach> --%>
 	</tbody>
 </table>
 <div>
 	<button id="tenderApplicationBtn">입찰신청</button>
-	<button id="bid">투찰하기</button>
+	<button id="bidWrite">투찰하기</button>
+	<button id="bidComplete">작성완료</button>
 </div>
 <%-- 참여 업체 리스트 테이블 끝 --%>
 

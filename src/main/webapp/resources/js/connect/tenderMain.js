@@ -3,7 +3,7 @@ $(document).ready(function(){
 	$(document).on('click','.tenderLiContent',function(){
 		var tindex=$(".tenderLiContent").index(this);
 		var tcode=$(".tenderLiContent:eq("+tindex+")").attr('id');
-		window.location.href="tender/" + tcode;
+		window.location.href="tenderContent/" + tcode;
 		
 	});
 });

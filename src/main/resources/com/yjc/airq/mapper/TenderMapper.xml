@@ -33,7 +33,7 @@
 	<!-- 입찰 공고 수정 -->
 	<update id="tenderModify" parameterType="com.yjc.airq.domain.TenderVO" >
 		update tender
-		set tender_title=#{tender_title},tender_name=#{tender_name},service_date=#{service_date},tender_deadline=#{tender_deadline},calculate_period=${calculate_period},t_space=${t_space},floor_number=${floor_number},requirement=#{requirement},t_addr_do=#{t_addr_do},t_addr_si=#{t_addr_si},t_addr_dong=#{t_addr_dong},t_addr_detail=#{t_addr_detail}
+		set tender_title=#{tender_title},tender_name=#{tender_name},service_date=#{service_date},tender_deadline=#{tender_deadline},calculate_period=${calculate_period},t_space=${t_space},floor_number=${floor_number},requirement=#{requirement}
 		where tender_code=#{tender_code}
 	</update>
 	

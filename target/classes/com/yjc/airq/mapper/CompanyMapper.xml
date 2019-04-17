@@ -26,7 +26,7 @@
 	</select>
 	<!-- 별점 계산 -->
 	<select id="star_score_avg" parameterType="String" resultType="double">
-		select avg(star_score) star_score_avg
+		select to_char(avg(star_score),'99.9') star_score_avg
 		from(select obj.*, b.win_bid_whether, b.company_code
      		 from(select t.tender_code, p.refund_whether,p.star_score
          		  from tender t, payment p
