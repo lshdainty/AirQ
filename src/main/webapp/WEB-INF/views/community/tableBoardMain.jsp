@@ -11,7 +11,7 @@
 	<p>Liberty Board</p>
 </div>
 <%-- 커뮤니티 - 상품추천 헤더 끝 --%>
-<div class="bg-light py-5">
+<div class="py-5">
 	<%-- 	<table class="table">
 		<thead class="thead-dark">
 			<tr>

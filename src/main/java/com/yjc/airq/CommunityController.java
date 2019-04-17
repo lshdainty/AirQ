@@ -126,6 +126,7 @@ public class CommunityController {
 			
 			// 불러온 포스트 중의 컨텐츠에서 첫번째 img 태그에서 썸네일을 추출
 			Iterator<PostVO> it = posts.iterator();
+			ArrayList<ReplyVO> replys = new ArrayList<ReplyVO>();
 			PostVO postVO;
 			String content;
 			String thumbnail;
@@ -133,6 +134,8 @@ public class CommunityController {
 			Document doc;
 			while(it.hasNext()) {
 				postVO=it.next();
+				replys = replyService.getReplys(postVO.getPost_code());
+				postVO.setReply_count(replys.size());
 				content=postVO.getPost_content();
 				doc=Jsoup.parse(content);
 				imageElement = doc.select("img").first();

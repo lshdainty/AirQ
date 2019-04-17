@@ -6,11 +6,12 @@
 	#content{
 	max-width:70%;
 	margin:56px auto auto auto;
-	background:#f8f9fa;
+	background:#fff;
 	}
 }
 @media (max-width : 768px){
 	#content{
 		margin:56px 0 0 0;
 		background:#fff;
+	}
 }
