@@ -53,7 +53,7 @@
 							<a class="dropdown-item"
 								href="/thumbnailBoardMain?board_code=bd_rec&pagenum=1">상품추천</a>
 							<a class="dropdown-item"
-								href="tableBoardMain?board_code=bd_lib&pagenum=1">자유게시판</a> <a
+								href="/tableBoardMain?board_code=bd_lib&pagenum=1">자유게시판</a> <a
 								class="dropdown-item"
 								href="/thumbnailBoardMain?board_code=bd_met&pagenum=1">대기오염
 								물질정보</a> <a class="dropdown-item"

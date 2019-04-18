@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Param;
 import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
-import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 
