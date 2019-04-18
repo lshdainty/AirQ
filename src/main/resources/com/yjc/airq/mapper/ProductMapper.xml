@@ -36,7 +36,7 @@
 	</select>
 	
 	<select id="getStaravg" resultType="String">
-		select to_char(avg(pa.STAR_SCORE),9.9) as staravg
+		select to_char(avg(pa.STAR_SCORE),99.9) as staravg
 		from product p, demand d, payment pa
 		where p.product_code = d.product_code and d.demand_code = pa.demand_code and p.product_code=#{product_code} and refund_whether='n'
 	</select>
