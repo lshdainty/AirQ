@@ -1,5 +1,6 @@
 #content{
 	min-height:100vh;
+	overflow:hidden;
 }
 
 @media (min-width: 768px){
