@@ -12,7 +12,7 @@ import com.yjc.airq.domain.TenderVO;
 
 public interface ConnectService {
 	// 제품 목록
-	public ArrayList<ProductVO> productList(@Param("startnum") int startnum,  @Param("endnum") int endnum);
+	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum,  @Param("endnum") int endnum);
 	
 	// 업체 리스트 출력
 	public ArrayList<TenderVO> tenderList();
@@ -40,11 +40,11 @@ public interface ConnectService {
 	
 	// 입찰 공고 수정
 	public int tenderModify(TenderVO tenderVo);
-	// 상품중 서비스 가능한 지역 리스트 찾기
-	public ArrayList<AreaVO> productAreaList();
 	
 	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
-	public ArrayList<ProductVO> selectList(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space, @Param("startnum") int startnum,  @Param("endnum") int endnum);
+	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("space") int space, @Param("sort") String sort, @Param("startnum") int startnum,  @Param("endnum") int endnum);
 	// 상품 상세 페이지
 	public ProductVO productContent(String product_code);
+	// 광역시/도를 선택시 해당하는 시,구 목록출력
+	public ArrayList<AreaVO> selectSigoon(AreaVO areaVO);
 }
