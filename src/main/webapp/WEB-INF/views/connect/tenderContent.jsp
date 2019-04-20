@@ -45,11 +45,11 @@
 	</tr>
 </table>
 <div id="tenderADiv">
-	<a href="/tenderDelete/${tenderContent.tender_code }" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
-	<span>|</span> 
-	<a href="/tenderModify/${tenderContent.tender_code }" onclick="return confirm('수정하시겠습니까?');">수정</a>
-	<span>|</span>
-	<a href="/tenderMain">목록</a>
+	<a href="/tenderDelete/${tenderContent.tender_code }"
+		onclick="return confirm('삭제하시겠습니까?');">삭제</a> <span>|</span> <a
+		href="/tenderModify/${tenderContent.tender_code }"
+		onclick="return confirm('수정하시겠습니까?');">수정</a> <span>|</span> <a
+		href="/tenderMain">목록</a>
 </div>
 <%--입찰 공고 세부 내용 끝 --%>
 
@@ -75,11 +75,11 @@
 	<tbody>
 		<%-- <c:forEach var="bidContent" items="bidContent">
 			<tr>
-				<td scope="row"><input type="radio"></td>
+				<td scope="row"><input type="radio" id="${bidContent.company_code} "></td>
 				<td class="listC" data-label="순위"></td>
-				<td class="listC" data-label="업체명">${bidContent. }</td>
-				<td class="listC" data-label="대표자">${bidContent. }</td>
-				<td data-label="금액">${bidContent. }</td>
+				<td id="company_name" name="company_name" class="listC" data-label="업체명">${bidContent. }</td>
+				<td id="member_id" name="member_id" class="listC" data-label="대표자">${bidContent. }</td>
+				<td id="bid_price" name="bid_price" data-label="금액">${bidContent. }</td>
 				<td data-label="건수">15</td>
 				<td data-label="별점">8.5</td>
 				<td data-label="첨부파일">${bidContent. }</td>
@@ -90,9 +90,11 @@
 	</tbody>
 </table>
 <div>
-	<button id="tenderApplicationBtn">입찰신청</button>
-	<button id="bidWrite">투찰하기</button>
-	<button id="bidComplete">작성완료</button>
+	<c:if test="${sessionScope.user.member_devision == 'se' }">
+		<button id="tenderApplicationBtn">입찰신청</button>
+		<button id="bidWrite">투찰하기</button>
+		<button id="bidComplete">작성완료</button>
+	</c:if>
 </div>
 <%-- 참여 업체 리스트 테이블 끝 --%>
 

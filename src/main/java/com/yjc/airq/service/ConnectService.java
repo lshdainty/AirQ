@@ -14,6 +14,9 @@ public interface ConnectService {
 	// 제품 목록
 	public ArrayList<ProductVO> productList(@Param("startnum") int startnum,  @Param("endnum") int endnum);
 	
+	// 회원 이름 가져오기
+	public String member_name(String member_id);
+	
 	// 업체 리스트 출력
 	public ArrayList<TenderVO> tenderList();
 	public ArrayList<TenderVO> companyCnt(String tender_code);

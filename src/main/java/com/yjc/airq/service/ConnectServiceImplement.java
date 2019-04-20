@@ -13,6 +13,7 @@ import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.mapper.AreaMapper;
 import com.yjc.airq.mapper.BidMapper;
 import com.yjc.airq.mapper.CompanyMapper;
+import com.yjc.airq.mapper.MemberMapper;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.TenderMapper;
 
@@ -26,6 +27,14 @@ public class ConnectServiceImplement implements ConnectService {
 	private CompanyMapper companyMapper;
 	private ProductMapper productMapper;
 	private AreaMapper areaMapper;
+	private MemberMapper memberMapper;
+	
+	//회원 이름 가져오기
+	@Override
+	public String member_name(String member_id) {
+		// TODO Auto-generated method stub
+		return memberMapper.member_name(member_id);
+	}
 	
 	// 입찰 리스트 출력
 	@Override

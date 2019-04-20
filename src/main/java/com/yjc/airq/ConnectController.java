@@ -1,19 +1,24 @@
 package com.yjc.airq;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
@@ -21,6 +26,7 @@ import com.yjc.airq.domain.Criteria;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
+import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.service.ConnectService;
 import com.yjc.airq.service.UploadService;
@@ -150,12 +156,14 @@ public class ConnectController {
 	@ResponseBody
 	public Company_InfoVO addBid(Company_InfoVO c_info, HttpServletRequest request, Model model) {
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-		c_info.setMember_id(member_id);
+		String member_name=connectService.member_name(member_id);
+		c_info.setMember_name(member_name);
+		
 		c_info = connectService.company_info(member_id);
 
 		// 건수
 		int bidNum = connectService.bidNumber(c_info.getCompany_code());
-
+		
 		if (bidNum != 0) {
 			c_info.setBidNum(bidNum);
 			// 별점
@@ -167,8 +175,72 @@ public class ConnectController {
 			c_info.setStar_score_avg(0);
 			c_info.setNote("신규회원");
 		}
+		System.out.println(c_info);
 		return c_info;
 	}
+	
+	// 입찰 서비스 - 투찰 작성 완료
+	@PostMapping(value = "/addBidComplete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public void addBidComplete(MultipartFile[] uploadFile, String sBid_price, UploadVO uploadVo, BidVO bidVo , HttpServletRequest request, Model model) {
+		
+		//금액 int로 변환
+		String s=request.getParameter("sBid_price"); 
+		int bid_price=Integer.parseInt(s);
+		bidVo.setBid_price(bid_price);
+		System.out.println(bid_price);
+		
+		System.out.println(bidVo.getTender_code());
+		 
+		//업로드
+		String uploadFolder="C:\\upload";
+		
+		// make folder
+		File uploadPath = new File(uploadFolder, getFolder());
+		
+		if(uploadPath.exists() == false) {
+			uploadPath.mkdirs();// yyyy-MM-dd 폴더 생성
+		}
+		
+		for(MultipartFile multipartFile : uploadFile) {
+			
+			//업로드 코드
+			Date today = new Date();
+			SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+			String day = date.format(today);
+			int random=(int)(Math.random()*10000);
+			String upload_code="ul"+day+random;
+			uploadVo.setUpload_code(upload_code);
+			
+			String uploadFileName = multipartFile.getOriginalFilename();
+			uploadVo.setOriginal_name(uploadFileName);
+			
+			// IE has file path IE는 전체 파일 경로가 전송됨
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
+			
+			UUID uuid = UUID.randomUUID();
+			
+			uploadFileName = uuid.toString()+uploadFileName;
+			uploadVo.setFile_name(uploadFileName);
+			System.out.println(uploadVo);
+			try {
+				File saveFile = new File(uploadFolder, uploadFileName);
+				
+				multipartFile.transferTo(saveFile);
+			} catch(Exception e) {
+				 e.printStackTrace();
+			} // end catch
+		} // end for
+	}
+	
+	// 입찰 서비스 - 파일업로드
+	private String getFolder() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String str = sdf.format(date);
+		return str.replace("-","");
+	}
+	
 
 	// 업체 분석/비교 도,시,평수 선택완료
 	@RequestMapping(value = "selectCompare", method = RequestMethod.GET)
