@@ -46,6 +46,7 @@ polygonTemplate.events.on("hit", function(ev) {
 		url: "/areasido",
 		data : {area_do : ev.target.dataItem.dataContext.name},
 		async: false,
+		dataType: "json",
 		success: function(data) {
 			var html = "<option value='선택'>선택</option>";
 			
@@ -140,6 +141,7 @@ function ajax(idx,sort){
 		url: "/selectCompare?pagenum="+idx,
 		data : data,
 		async: false,
+		dataType: "json",
 		success: function(data) {
 			var result="";
 			var space="";
