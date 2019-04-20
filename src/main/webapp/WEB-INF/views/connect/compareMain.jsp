@@ -34,66 +34,63 @@
 						<option value="10">91~100</option>
 						<option value="11">100~</option>
 					</select>
-					<button id="check">선택확인</button>
 				</div>
 			<%-- 데이터 값 선택 끝 --%>
 			</div>
 		<%-- 상품목록 시작 --%>
 			<div id="compareTable">
-				<form action="#" method="post">
-					<div id="compareContainer">
-						<div id="compareSelectDiv">
-							<select class="compareSelect">
-								<option value="">판매순</option>
-								<option value="">가격 높은순</option>
-								<option value="">가격 낮은순</option>
-								<option value="">별점 평균순</option>
-							</select>
-						</div>
-						<ul class="tableList">
-							<li class="tableListHeader" id="tableListHeader">
-								<div class="tableColumn tableCol-15">상품이름</div>
-								<div class="tableColumn tableCol-30">상품 상세설명</div>
-								<div class="tableColumn tableCol-10-1">가격</div>
-								<div class="tableColumn tableCol-15">측정 적절 평수</div>
-								<div class="tableColumn tableCol-10-1">측정 지점</div>
-								<div class="tableColumn tableCol-15">서비스 가능지역</div>
-								<div class="tableColumn tableCol-10-1">만족도 평균</div>
-								<div class="tableColumn tableCol-10-1">판매 건수</div>
-							</li>
-							<c:forEach var="pList" items="${pList }">
-								<li class="tableListContent" id="${pList.product_code}">
-									<div class="tableColumn tableCol-15" data-label="상품이름">${pList.product_name}</div>
-									<div class="tableColumn tableCol-30" data-label="상품 상세설명">${pList.product_detail}</div>
-									<div class="tableColumn tableCol-10-1" data-label="가격">${pList.product_price}</div>
-									<div class="tableColumn tableCol-15" data-label="측정 적절 평수">
-										<c:choose>
-											<c:when test="${pList.p_space == '1'}">1~10평</c:when>
-											<c:when test="${pList.p_space == '2'}">11~20평</c:when>
-											<c:when test="${pList.p_space == '3'}">21~30평</c:when>
-											<c:when test="${pList.p_space == '4'}">31~40평</c:when>
-											<c:when test="${pList.p_space == '5'}">41~50평</c:when>
-											<c:when test="${pList.p_space == '6'}">51~60평</c:when>
-											<c:when test="${pList.p_space == '7'}">61~70평</c:when>
-											<c:when test="${pList.p_space == '8'}">71~80평</c:when>
-											<c:when test="${pList.p_space == '9'}">81~90평</c:when>
-											<c:when test="${pList.p_space == '10'}">91~100평</c:when>
-											<c:when test="${pList.p_space == '11'}">100~평</c:when>
-										</c:choose>
-									</div>
-									<div class="tableColumn tableCol-10-1" data-label="측정 지점">${pList.measure_point}</div>
-									<div class="tableColumn tableCol-15" data-label="서비스 가능지역">
-										<c:forEach var="aList" items="${pList.areaVO }">
-											${aList.area_si }
-										</c:forEach>
-									</div>
-									<div class="tableColumn tableCol-10-1" data-label="만족도 평균">${pList.staravg}</div>
-									<div class="tableColumn tableCol-10-1" data-label="판매 건수">${pList.sellnum}</div>
-								</li>
-							</c:forEach>
-						</ul>
+				<div id="compareContainer">
+					<div id="compareSelectDiv">
+						<select class="compareSelect">
+							<option value="sellnum">판매순</option>
+							<option value="hprice">가격 높은순</option>
+							<option value="lprice">가격 낮은순</option>
+							<option value="staravg">만족도 평균순</option>
+						</select>
 					</div>
-				</form>
+					<ul class="tableList">
+						<li class="tableListHeader" id="tableListHeader">
+							<div class="tableColumn tableCol-15">상품이름</div>
+							<div class="tableColumn tableCol-30">상품 상세설명</div>
+							<div class="tableColumn tableCol-10-1">가격</div>
+							<div class="tableColumn tableCol-15">측정 적절 평수</div>
+							<div class="tableColumn tableCol-10-1">측정 지점</div>
+							<div class="tableColumn tableCol-15">서비스 가능지역</div>
+							<div class="tableColumn tableCol-10-1">만족도 평균</div>
+							<div class="tableColumn tableCol-10-1">판매 건수</div>
+						</li>
+						<c:forEach var="pList" items="${pList }">
+							<li class="tableListContent" id="${pList.product_code}">
+								<div class="tableColumn tableCol-15" data-label="상품이름">${pList.product_name}</div>
+								<div class="tableColumn tableCol-30" data-label="상품 상세설명">${pList.product_detail}</div>
+								<div class="tableColumn tableCol-10-1" data-label="가격">${pList.product_price}</div>
+								<div class="tableColumn tableCol-15" data-label="측정 적절 평수">
+									<c:choose>
+										<c:when test="${pList.p_space == '1'}">1~10평</c:when>
+										<c:when test="${pList.p_space == '2'}">11~20평</c:when>
+										<c:when test="${pList.p_space == '3'}">21~30평</c:when>
+										<c:when test="${pList.p_space == '4'}">31~40평</c:when>
+										<c:when test="${pList.p_space == '5'}">41~50평</c:when>
+										<c:when test="${pList.p_space == '6'}">51~60평</c:when>
+										<c:when test="${pList.p_space == '7'}">61~70평</c:when>
+										<c:when test="${pList.p_space == '8'}">71~80평</c:when>
+										<c:when test="${pList.p_space == '9'}">81~90평</c:when>
+										<c:when test="${pList.p_space == '10'}">91~100평</c:when>
+										<c:when test="${pList.p_space == '11'}">100~평</c:when>
+									</c:choose>
+								</div>
+								<div class="tableColumn tableCol-10-1" data-label="측정 지점">${pList.measure_point}</div>
+								<div class="tableColumn tableCol-15" data-label="서비스 가능지역">
+									<c:forEach var="aList" items="${pList.areaVO }">
+										${aList.area_si }
+									</c:forEach>
+								</div>
+								<div class="tableColumn tableCol-10-1" data-label="만족도 평균">${pList.staravg}</div>
+								<div class="tableColumn tableCol-10-1" data-label="판매 건수">${pList.sellnum}</div>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
 			</div>
 			<nav aria-label="Page navigation example">
 				<div class="d-flex justify-content-center">

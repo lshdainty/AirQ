@@ -43,17 +43,15 @@ polygonTemplate.events.on("hit", function(ev) {
     //지도에서 광역시,도 클릭시 코드를 통하여 시,구 목록 생성하는 코드
     $.ajax({
 		type: "get",
-		url: "http://openapi.nsdi.go.kr/nsdi/eios/service/rest/AdmService/admSiList.json",
-		data : {admCode : ev.target.dataItem.dataContext.id , authkey : $('#sigoon_key').val()},
+		url: "/areasido",
+		data : {area_do : ev.target.dataItem.dataContext.name},
 		async: false,
-		dataType: 'json',
 		success: function(data) {
-			var html = "<option>선택</option>";
+			var html = "<option value='선택'>선택</option>";
 			
-			for(var i=0;i<data.admVOList.admVOList.length;i++){
-				html +="<option value='"+data.admVOList.admVOList[i].lowestAdmCodeNm+"'>"+data.admVOList.admVOList[i].lowestAdmCodeNm+"</option>"
+			for(var i=0;i<data.aList.length;i++){
+				html +="<option value='"+data.aList[i].area_si+"'>"+data.aList[i].area_si+"</option>"
     		}
-
             $('#sigoon_code').html(html);
 		},
 		error: function(xhr, stat, err) {}
@@ -62,6 +60,7 @@ polygonTemplate.events.on("hit", function(ev) {
     //alert(ev.target.dataItem.dataContext.id);	//클릭시 광역시,도에 맞는 코드값 나오는 코드
   	$("#sido_code").val(ev.target.dataItem.dataContext.name);
   }
+  ajax(1,sortdata());
 })
 
 
@@ -91,51 +90,50 @@ homeButton.parent = chart.zoomControl;
 homeButton.insertBefore(chart.zoomControl.plusButton);
 //지도 관련 js 끝
 
-//데이터 null값 체크 시작
-function data(){
-	if($("#sido_code").val()=="광역시/도"&&$("#sigoon_code option:selected").val()=="선택"&&$("#space option:selected").val()=="0"){
-		var query = {
-				sido : $("#sido_code").val(),
-				sigoon : $("#sigoon_code option:selected").val(),
-				space : $("#space option:selected").val()
-		}
-		return query;
-	}else if($("#sido_code").val()=="광역시/도"){
-		alert("광역시/도를 선택해주세요");
-		return false;
-	}else if($("#sigoon_code option:selected").val()=="선택"){
-		alert("시/구를 선택해주세요");
-		return false;
-	}else if($("#space option:selected").val()=="0"){
-		alert("평수를 선택해주세요");
-		return false;
-	}else{
-		var query = {
-				sido : $("#sido_code").val(),
-				sigoon : $("#sigoon_code option:selected").val(),
-				space : $("#space option:selected").val()
-		}
-		return query;
-	}
+//정렬값 확인 함수 시작
+function sortdata(){
+	var sort = $(".compareSelect option:selected").val()
+	return sort;
 }
-//데이터 null값 체크 끝
+//정렬값 확인 함수 끝
+
+//정렬check박스 선택 시작
+$(".compareSelect").change(function(){
+	ajax(1,sortdata());
+});
+//정렬check박스 선택 끝
+
+//광역시/도 선택 시작
+//$("#sido_code").change(function(){
+//	ajax(1,sortdata());
+//});
+//광역시/도 선택 끝
+
+//시/구 선택 시작
+$("#sigoon_code").change(function(){
+	ajax(1,sortdata());
+});
+//시/구 선택 선택 끝
+
+//평수 선택 시작
+$("#space").change(function(){
+	ajax(1,sortdata());
+});
+//평수 선택 끝
 
 //paging 시작
 function page(idx){
-	ajax(data(),idx);
+	ajax(idx,sortdata());
 }
 //paging 끝
 
-//선택된 값 info페이지로 넘어가게 하는 코드 시작
-$("#check").click(function(){
-	ajax(data(),1);
-});
-//선택된 값 info페이지로 넘어가게 하는 코드 끝
-
 //ajax 함수 시작
-function ajax(data,idx){
-	if(!data){
-		return false;
+function ajax(idx,sort){
+	var data = {
+		sido : $("#sido_code").val(),
+		sigoon : $("#sigoon_code option:selected").val(),
+		space : $("#space option:selected").val(),
+		sort : sort
 	}
 	$.ajax({
 		type: "get",

@@ -4,14 +4,6 @@
 
     <link rel="stylesheet" href="resources/css/service/normalize.min.css">
     <link rel="stylesheet" href="resources/css/service/main.css">
-
-
-    <script src="resources/js/service/jquery-1.11.2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.6/ScrollMagic.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.6/plugins/animation.gsap.js"></script>
-    <script src="resources/js/service/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-	
 	<section>
         <div class="full-width full-height">
             <div class="pin-scene">
@@ -42,6 +34,10 @@
 
         </div>
     </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.6/ScrollMagic.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.6/plugins/animation.gsap.js"></script>
+    <script src="resources/js/service/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     <script src="resources/js/service/main.js"></script>
 	
 <%@include file="../include/footer.jsp" %>

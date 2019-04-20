@@ -54,7 +54,7 @@
 				</div>
 				<div class="product-page-info-section brewery">
 					<h2 class="product-page-h2-heading" itemprop="type">
-						<span class="product-page-heading-type">회사 이름</span> : 에어체크업
+						<span class="product-page-heading-type">회사 이름</span> : ${productContent.companyVO.company_name}
 					</h2>
 				</div>
 			</div>

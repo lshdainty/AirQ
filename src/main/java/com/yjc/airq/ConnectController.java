@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.Criteria;
@@ -50,6 +51,7 @@ public class ConnectController {
 	public String compareMain(Model model, HttpServletRequest request) {
 		Criteria criteria = new Criteria();
 		int pagenum = 1;
+		String sort = "sellnum";
 
 		criteria.setTotalcount(productMapper.productCount());	//전체 게시글 개수를 지정
 		criteria.setPagenum(pagenum);	//현재 페이지를 페이지 객체에 지정
@@ -61,7 +63,7 @@ public class ConnectController {
 		criteria.setStartPage(criteria.getCurrentblock());	//시작 페이지를 페이지 블록번호로 정함
 		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
 		
-		ArrayList<ProductVO> pList = connectService.productList(criteria.getStartnum(),criteria.getEndnum());
+		ArrayList<ProductVO> pList = connectService.productList(sort,criteria.getStartnum(),criteria.getEndnum());
 		model.addAttribute("pList",pList);
 		model.addAttribute("criteria",criteria);
 
@@ -249,6 +251,7 @@ public class ConnectController {
 		String sido = request.getParameter("sido");
 		String sigoon = request.getParameter("sigoon");
 		int space = Integer.parseInt(request.getParameter("space"));
+		String sort = request.getParameter("sort");
 
 		Criteria criteria = new Criteria();
 		int pagenum = Integer.parseInt(request.getParameter("pagenum"));
@@ -268,9 +271,9 @@ public class ConnectController {
 
 		ArrayList<ProductVO> pList;
 		if (sido.equals("광역시/도") && sigoon.equals("선택") && space == 0) {
-			pList = connectService.productList(criteria.getStartnum(), criteria.getEndnum());
+			pList = connectService.productList(sort,criteria.getStartnum(), criteria.getEndnum());
 		} else {
-			pList = connectService.selectList(sido, sigoon, space, criteria.getStartnum(), criteria.getEndnum());
+			pList = connectService.selectList(sido, sigoon, space, sort,criteria.getStartnum(), criteria.getEndnum());
 		}
 		JSONArray pJson = JSONArray.fromObject(pList);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -285,8 +288,20 @@ public class ConnectController {
 	@RequestMapping(value = "product/{product_code}", method = RequestMethod.GET)
 	public String productDetail(@PathVariable String product_code, Model model) {
 		model.addAttribute("productContent", connectService.productContent(product_code));
-		System.out.println(connectService.productContent(product_code));
 
 		return "connect/productContent";
+	}
+	
+	// 광역시/도를 선택시 해당하는 시,구 목록출력
+	@RequestMapping(value = "areasido", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject areasido(Model model, AreaVO areaVO) {
+		ArrayList<AreaVO> aList = connectService.selectSigoon(areaVO);
+		JSONArray aJson = JSONArray.fromObject(aList);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("aList", aJson);
+		JSONObject json = JSONObject.fromObject(map);
+		
+		return json;
 	}
 }

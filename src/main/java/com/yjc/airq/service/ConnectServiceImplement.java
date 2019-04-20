@@ -112,20 +112,14 @@ public class ConnectServiceImplement implements ConnectService {
 
 	// 상품 리스트 출력
 	@Override
-	public ArrayList<ProductVO> productList(@Param("startnum") int startnum, @Param("endnum") int endnum) {
-		return productMapper.productList(startnum, endnum);
-	}
-
-	// 상품중 서비스 가능한 지역 리스트 출력
-	@Override
-	public ArrayList<AreaVO> productAreaList() {
-		return areaMapper.productAreaList();
+	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum) {
+		return productMapper.productList(sort,startnum, endnum);
 	}
 
 	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
 	@Override
-	public ArrayList<ProductVO> selectList(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space, @Param("startnum") int startnum,  @Param("endnum") int endnum){
-		return productMapper.selectList(sido,sigoon,space,startnum,endnum);
+	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("space") int space, @Param("sort") String sort, @Param("startnum") int startnum,  @Param("endnum") int endnum){
+		return productMapper.selectList(sido,sigoon,space,sort,startnum,endnum);
 	}
 	
 	// 상품 상세 페이지
@@ -134,5 +128,9 @@ public class ConnectServiceImplement implements ConnectService {
 		return productMapper.productContent(product_code);
 	}
 
-
+	// 광역시/도를 선택시 해당하는 시,구 목록출력
+	@Override
+	public ArrayList<AreaVO> selectSigoon(AreaVO areaVO) {
+		return areaMapper.selectSigoon(areaVO);
+	}
 }
