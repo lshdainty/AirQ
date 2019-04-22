@@ -44,7 +44,7 @@
 <div class="album py-5">
 	<div class="row">
 		<c:forEach var="post" items="${posts}">
-			<div class="col-md-4">
+			<div class="col-md-4 post-item">
 				<div class="card mb-4 ">
 					<img src="${post.post_thumbnail}" class="card-img-top"
 						style="height: 200px; overflow: hidden" alt="...">
@@ -104,7 +104,6 @@ function page(idx){
 }
 </script>
 <script src="resources/js/community/community.js"></script>
-
 <%-- 스크립트 링크 끝 --%>
 
 

@@ -62,7 +62,7 @@
 								<div class="tableColumn tableCol-10-1">판매 건수</div>
 							</li>
 							<c:forEach var="pList" items="${pList }">
-								<li class="tableListContent" id="${pList.product_code}">
+								<li class="tableListContent post-item" id="${pList.product_code}">
 									<div class="tableColumn tableCol-15" data-label="상품이름">${pList.product_name}</div>
 									<div class="tableColumn tableCol-30" data-label="상품 상세설명">${pList.product_detail}</div>
 									<div class="tableColumn tableCol-10-1" data-label="가격">${pList.product_price}</div>

@@ -1,4 +1,8 @@
 $(document).ready(function(){
+	
+	
+	var controller = new ScrollMagic.Controller();
+	
     var bgImage = $(".bg-image"),
         dude = $(".dude"),
         scrollLine = $(".scroll-line"),
@@ -8,12 +12,17 @@ $(document).ready(function(){
     var tLoader = new TimelineMax();
         tLoader
         .from(titleMain,1,{autoAlpha:0})
-        .from(scrollLine,0.5,{scaleY:0,transformOrigin:"center top",ease:Power1.easeOut},'=-2')
-        .from(bgImage,2,{autoAlpha:0,scale:1.5,ease:Power1.easeOut},'-=2')
-        .from(dude,2,{autoAlpha:0,scale:1.5,ease:Power1.easeOut},'-=1.5')
+        .from(scrollLine,0.5,{scaleY:0,transformOrigin:"center top",ease:Power1.easeOut})
+        .from(bgImage,2,{autoAlpha:0,scale:4.5,ease:Power1.easeOut},'-=2')
+        .from(dude,2,{autoAlpha:0,scale:4.5,ease:Power1.easeOut},'-=2.5')
 
 
-    var controller = new ScrollMagic.Controller();
+    
+    var firstAnimation = new TimelineMax();
+        
+        firstAnimation
+        	.from
+    
 
     var tlMainScroll = new TimelineMax()
     .add([

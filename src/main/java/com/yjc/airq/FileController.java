@@ -56,7 +56,7 @@ public class FileController {
  
         try{
         	String original_name = upload.getOriginalFilename();
-            String file_name = uuid;
+            String file_name = uuid+original_name;
             String uploadPath = request.getServletContext().getRealPath("/resources/uploadFile/images");
             byte[] bytes = upload.getBytes();
             File uploadFile = new File(uploadPath);

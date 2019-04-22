@@ -41,7 +41,7 @@
 			<div class="tableColumn tableCol-15">등록일</div>
 		</li>
 		<c:forEach var="post" items="${posts}">
-			<li class="tableListContent post-detail">
+			<li class="tableListContent post-detail post-item">
 				<input type="hidden" value="${post.post_code}">
 				<div class="tableColumn tableCol-10-1" data-label="번호">${post.rownum }</div>
 				<div class="tableColumn tableCol-30" data-label="제목">${post.post_title } [${post.reply_count }]</div>
