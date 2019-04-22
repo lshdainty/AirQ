@@ -12,5 +12,7 @@ public interface UploadMapper {
 	
 	//투찰에 있던 파일 삭제
 	public void deleteBidUpload(ArrayList<String> uploadArr);
+	//투찰 파일 업로드
+	public void bidUpload(UploadVO uploadVo);
 
 }

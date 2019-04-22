@@ -44,6 +44,9 @@ hr {
 	margin-right:10px;
 	color:gray;
 }
+#aBid_ppt_name {
+	width:200px;
+}
 
 @media all and (max-width:493px) {
 	#tenderTbl tr td:first-child {

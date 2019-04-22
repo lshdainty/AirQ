@@ -25,4 +25,7 @@ public interface MemberMapper {
 	// 파일 업로드
 	// public String fileDB(FileTestVO fDB);
 	
+	// 회원 이름 가져오기
+	public String member_name(String member_id);
+	
 }

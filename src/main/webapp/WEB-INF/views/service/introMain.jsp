@@ -5,9 +5,6 @@
     <link rel="stylesheet" href="resources/css/service/normalize.min.css">
     <link rel="stylesheet" href="resources/css/service/main.css">
 
-
-
-	
 	<section>
 	<div class="first-animation"></div>
         <div class="full-width full-height">

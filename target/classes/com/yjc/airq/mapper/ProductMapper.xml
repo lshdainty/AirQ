@@ -4,7 +4,7 @@
 <mapper namespace="com.yjc.airq.mapper.ProductMapper">
 	<resultMap id="ProductVO" type="com.yjc.airq.domain.ProductVO">
 		<result property="product_code" column="product_code"></result>
-		<result property="product_name;" column="product_name;"></result>
+		<result property="product_name" column="product_name"></result>
 		<result property="product_detail" column="product_detail"></result>
 		<result property="product_price" column="product_price"></result>
 		<result property="p_space" column="p_space"></result>
@@ -12,21 +12,53 @@
 		<result property="company_code" column="company_code"></result>
 		<association property="sellnum" column="product_code" select="getSellnum"/>
 		<association property="staravg" column="product_code" select="getStaravg"/>
+		<association property="companyVO" column="company_code" select="getCompany"/>
 		<collection property="areaVO" column="product_code" javaType="java.util.ArrayList" ofType="com.yjc.airq.domain.AreaVO" select="getAreaByCode"/>
 	</resultMap>
 	
 	<select id="productList" resultMap="ProductVO">
-		<![CDATA[ 
-			select X.rnum, X.* from(select rownum as rnum, A.* from (select * from product) A where rownum <= #{endnum}) X where X.rnum >= #{startnum}
-		]]> 
+		select X.rnum, X.* 
+		from(
+			select rownum as rnum, A.* 
+			from (
+				select * 
+				from product p 
+				<choose>
+					<when test="sort.equals('sellnum')">
+						order by (
+								select count(*) 
+								from demand d,payment pa 
+								where p.product_code=d.product_code and d.demand_code = pa.demand_code and pa.refund_whether='n') desc, p.product_name
+					</when>
+					<when test="sort.equals('hprice')">
+						order by p.product_price desc, p.product_name
+					</when>
+					<when test="sort.equals('lprice')">
+						order by p.product_price, p.product_name
+					</when>
+					<when test="sort.equals('staravg')">
+						order by (
+								select avg(pa.STAR_SCORE)
+								from demand d,payment pa 
+								where p.product_code=d.product_code and d.demand_code = pa.demand_code and pa.refund_whether='n') desc, p.product_name
+					</when>
+				</choose>) A 
+			where <![CDATA[rownum <= #{endnum}]]>) X 
+		where <![CDATA[X.rnum >= #{startnum}]]>
 	</select>
 	
 	<select id="productCount" resultType="int">
 		select count(*) from product
 	</select>
 	
+	<select id="getCompany" resultType="com.yjc.airq.domain.Company_InfoVO">
+		select * from company_info where company_code = #{company_code}
+	</select>
+	
 	<select id="getAreaByCode" resultType="com.yjc.airq.domain.AreaVO">
-		select a.*,pa.product_code from area a, p_possible_area pa where a.area_code = pa.area_code and pa.product_code=#{product_code}
+		select a.*,pa.product_code 
+		from area a, p_possible_area pa 
+		where a.area_code = pa.area_code and pa.product_code=#{product_code}
 	</select>
 	
 	<select id="getSellnum" resultType="String">
@@ -42,23 +74,72 @@
 	</select>
 	
 	<select id="selectList" resultMap="ProductVO">
-			select X.rnum,X.* 
-			from(
-    				select rownum as rnum, A.* 
-    				from(
-            				select product_code,product_name,product_detail,product_price,p_space,measure_point,company_code 
-            				from (
-                    				select p.*,a.* 
-                    				from product p, area a, p_possible_area pa
-                    				where p.product_code = pa.product_code and pa.area_code = a.area_code and a.area_do=#{sido} and a.area_si=#{sigoon} and p.p_space=#{space})) A
-    				where <![CDATA[rownum <= #{endnum}]]>) X
-			where <![CDATA[X.rnum >= #{startnum}]]>
+		select X.rnum,X.* 
+		from(
+    		select rownum as rnum, A.* 
+    		from(
+           		select *
+				from product o
+				<where>
+					<if test="space != 0">
+						p_space = #{space}
+					</if>
+					<if test="!sido.equals('광역시/도') or !sigoon.equals('선택')">
+						and product_code in (
+											select p.product_code 
+											from product p, P_POSSIBLE_AREA pa, area a 
+											where p.product_code = pa.product_code and pa.AREA_CODE = a.AREA_CODE
+											<if test="!sido.equals('광역시/도')">
+												and a.area_do=#{sido}
+											</if>
+											<if test="!sigoon.equals('선택')">
+												and a.area_si=#{sigoon}
+											</if>)
+					</if>
+				</where>
+				<choose>
+					<when test="sort.equals('sellnum')">
+						order by (
+								select count(*) 
+								from demand d,payment pa 
+								where o.product_code=d.product_code and d.demand_code = pa.demand_code and pa.refund_whether='n') desc, o.product_name
+					</when>
+					<when test="sort.equals('hprice')">
+						order by o.product_price desc, o.product_name
+					</when>
+					<when test="sort.equals('lprice')">
+						order by o.product_price, o.product_name
+					</when>
+					<when test="sort.equals('staravg')">
+						order by (
+								select avg(pa.STAR_SCORE)
+								from demand d,payment pa 
+								where o.product_code=d.product_code and d.demand_code = pa.demand_code and pa.refund_whether='n') desc, o.product_name
+					</when>
+				</choose>) A
+    		where <![CDATA[rownum <= #{endnum}]]>) X
+		where <![CDATA[X.rnum >= #{startnum}]]>
 	</select>
 	
 	<select id="selectCount" resultType="int">
 		select count(*)
-		from product p, area a, p_possible_area pa
-		where p.product_code = pa.product_code and pa.area_code = a.area_code and a.area_do=#{sido} and a.area_si=#{sigoon} and p.p_space=#{space}
+		from product
+		<where>
+			<if test="space != 0">
+				p_space = #{space}
+			</if>
+			<if test="!sido.equals('광역시/도') or !sigoon.equals('선택')">
+				and product_code in (
+										select p.product_code 
+										from product p, P_POSSIBLE_AREA pa, area a where p.product_code = pa.product_code and pa.AREA_CODE = a.AREA_CODE
+										<if test="!sido.equals('광역시/도')">
+											and a.area_do=#{sido}
+										</if>
+										<if test="!sigoon.equals('선택')">
+											and a.area_si=#{sigoon}
+										</if>)
+			</if>
+		</where>
 	</select>
 	
 	<select id="productContent" resultMap="ProductVO">

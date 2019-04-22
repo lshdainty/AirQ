@@ -12,4 +12,8 @@ public class BidVO {
 	private String win_bid_whether;
 	private String upload_code;
 	
+	private int bidNum;
+	private double star_score_avg;
+	private String note;
+	private String company_name;
 }

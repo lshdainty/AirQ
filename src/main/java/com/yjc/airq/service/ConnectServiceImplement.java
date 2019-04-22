@@ -10,11 +10,14 @@ import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
+import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.mapper.AreaMapper;
 import com.yjc.airq.mapper.BidMapper;
 import com.yjc.airq.mapper.CompanyMapper;
+import com.yjc.airq.mapper.MemberMapper;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.TenderMapper;
+import com.yjc.airq.mapper.UploadMapper;
 
 import lombok.AllArgsConstructor;
 
@@ -26,6 +29,15 @@ public class ConnectServiceImplement implements ConnectService {
 	private CompanyMapper companyMapper;
 	private ProductMapper productMapper;
 	private AreaMapper areaMapper;
+	private MemberMapper memberMapper;
+	private UploadMapper uploadMapper;
+	
+	//회원 이름 가져오기
+	@Override
+	public String member_name(String member_id) {
+		// TODO Auto-generated method stub
+		return memberMapper.member_name(member_id);
+	}
 	
 	// 입찰 리스트 출력
 	@Override
@@ -79,8 +91,18 @@ public class ConnectServiceImplement implements ConnectService {
 	
 	//투찰 작성
 	@Override
+	public void addBid(BidVO bidVo) {
+		bidMapper.addBid(bidVo);
+	}
+	
+	@Override
 	public Company_InfoVO company_info(String member_id) {
 		return companyMapper.company_info(member_id);
+	}
+	
+	@Override
+	public String company_code(String member_id) {
+		return companyMapper.company_code(member_id);
 	}
 	
 	// 건수
@@ -95,28 +117,22 @@ public class ConnectServiceImplement implements ConnectService {
 		return companyMapper.star_score_avg(company_code);
 	}
 	
+	//투찰 파일업로드
 	@Override
-	public BidVO addBid(String company_code) {
-		// TODO Auto-generated method stub
-		return null;
+	public void bidUpload(UploadVO uploadVo) {
+		uploadMapper.bidUpload(uploadVo);
 	}
 
 	// 상품 리스트 출력
 	@Override
-	public ArrayList<ProductVO> productList(@Param("startnum") int startnum, @Param("endnum") int endnum) {
-		return productMapper.productList(startnum, endnum);
-	}
-
-	// 상품중 서비스 가능한 지역 리스트 출력
-	@Override
-	public ArrayList<AreaVO> productAreaList() {
-		return areaMapper.productAreaList();
+	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum) {
+		return productMapper.productList(sort,startnum, endnum);
 	}
 
 	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
 	@Override
-	public ArrayList<ProductVO> selectList(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space, @Param("startnum") int startnum,  @Param("endnum") int endnum){
-		return productMapper.selectList(sido,sigoon,space,startnum,endnum);
+	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("space") int space, @Param("sort") String sort, @Param("startnum") int startnum,  @Param("endnum") int endnum){
+		return productMapper.selectList(sido,sigoon,space,sort,startnum,endnum);
 	}
 	
 	// 상품 상세 페이지
@@ -125,5 +141,9 @@ public class ConnectServiceImplement implements ConnectService {
 		return productMapper.productContent(product_code);
 	}
 
-
+	// 광역시/도를 선택시 해당하는 시,구 목록출력
+	@Override
+	public ArrayList<AreaVO> selectSigoon(AreaVO areaVO) {
+		return areaMapper.selectSigoon(areaVO);
+	}
 }

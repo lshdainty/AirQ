@@ -1,26 +1,33 @@
 package com.yjc.airq;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.Criteria;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
+import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.service.ConnectService;
 import com.yjc.airq.service.UploadService;
@@ -44,6 +51,7 @@ public class ConnectController {
 	public String compareMain(Model model, HttpServletRequest request) {
 		Criteria criteria = new Criteria();
 		int pagenum = 1;
+		String sort = "sellnum";
 
 		criteria.setTotalcount(productMapper.productCount());	//전체 게시글 개수를 지정
 		criteria.setPagenum(pagenum);	//현재 페이지를 페이지 객체에 지정
@@ -55,7 +63,7 @@ public class ConnectController {
 		criteria.setStartPage(criteria.getCurrentblock());	//시작 페이지를 페이지 블록번호로 정함
 		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
 		
-		ArrayList<ProductVO> pList = connectService.productList(criteria.getStartnum(),criteria.getEndnum());
+		ArrayList<ProductVO> pList = connectService.productList(sort,criteria.getStartnum(),criteria.getEndnum());
 		model.addAttribute("pList",pList);
 		model.addAttribute("criteria",criteria);
 
@@ -101,10 +109,19 @@ public class ConnectController {
 
 	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
 	@RequestMapping(value = "tenderContent/{tender_code}", method = RequestMethod.GET)
-	public String ten(@PathVariable String tender_code, Model model) {
+	public String ten(@PathVariable String tender_code,BidVO bidVo, Model model) {
+		//입찰
 		model.addAttribute("tenderContent", connectService.tenderContent(tender_code));
+		
+		//투찰
+		ArrayList<BidVO> bidArr=connectService.bidContent(tender_code);
+		
+		for(int i=0;i<bidArr.size();i++) {
+			System.out.println(bidArr.get(i));
+		}
+		
 		model.addAttribute("bidContent", connectService.bidContent(tender_code));
-		System.out.println(connectService.bidContent(tender_code));
+		//System.out.println(connectService.bidContent(tender_code));
 		return "connect/tenderContent";
 	}
 
@@ -117,7 +134,6 @@ public class ConnectController {
 
 		for (int i = 0; i < arr.size(); i++) {
 			uploadArr.add(arr.get(i).getUpload_code());
-			System.out.println(uploadArr);
 		}
 		if (!uploadArr.isEmpty()) {
 			connectService.deleteBid(tender_code); // 투찰 업체 삭제
@@ -150,12 +166,14 @@ public class ConnectController {
 	@ResponseBody
 	public Company_InfoVO addBid(Company_InfoVO c_info, HttpServletRequest request, Model model) {
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-		c_info.setMember_id(member_id);
+		String member_name=connectService.member_name(member_id);
+		c_info.setMember_name(member_name);
+		
 		c_info = connectService.company_info(member_id);
 
 		// 건수
 		int bidNum = connectService.bidNumber(c_info.getCompany_code());
-
+		
 		if (bidNum != 0) {
 			c_info.setBidNum(bidNum);
 			// 별점
@@ -167,8 +185,78 @@ public class ConnectController {
 			c_info.setStar_score_avg(0);
 			c_info.setNote("신규회원");
 		}
+		System.out.println(c_info);
 		return c_info;
 	}
+	
+	// 입찰 서비스 - 투찰 작성 완료
+	@PostMapping(value = "/addBidComplete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public void addBidComplete(MultipartFile[] uploadFile, String sBid_price, UploadVO uploadVo, BidVO bidVo , HttpServletRequest request, Model model) {
+		
+		//insert bid
+		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		bidVo.setCompany_code(connectService.company_code(member_id));
+		bidVo.setBidNum(connectService.bidNumber(bidVo.getCompany_code()));
+		bidVo.setStar_score_avg(connectService.star_score_avg(bidVo.getCompany_code()));
+		
+		//금액 int로 변환
+		String s=request.getParameter("sBid_price"); 
+		int bid_price=Integer.parseInt(s);
+		bidVo.setBid_price(bid_price);
+		 
+		//업로드
+		String uploadFolder="C:\\upload";
+		
+		// make folder
+		File uploadPath = new File(uploadFolder, getFolder());
+		
+		if(uploadPath.exists() == false) {
+			uploadPath.mkdirs();// yyyy-MM-dd 폴더 생성
+		}
+		
+		for(MultipartFile multipartFile : uploadFile) {
+			
+			//업로드 코드
+			Date today = new Date();
+			SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+			String day = date.format(today);
+			int random=(int)(Math.random()*10000);
+			String upload_code="ul"+day+random;
+			uploadVo.setUpload_code(upload_code);
+			bidVo.setUpload_code(upload_code);
+			
+			String uploadFileName = multipartFile.getOriginalFilename();
+			uploadVo.setOriginal_name(uploadFileName);
+			bidVo.setBid_ppt_name(uploadFileName);
+			
+			// IE has file path IE는 전체 파일 경로가 전송됨
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
+			
+			UUID uuid = UUID.randomUUID();
+			
+			uploadFileName = uuid.toString()+uploadFileName;
+			uploadVo.setFile_name(uploadFileName);
+			connectService.bidUpload(uploadVo);
+			connectService.addBid(bidVo);
+			try {
+				File saveFile = new File(uploadFolder, uploadFileName);
+				
+				multipartFile.transferTo(saveFile);
+			} catch(Exception e) {
+				 e.printStackTrace();
+			} // end catch
+		} // end for
+	}
+	
+	// 입찰 서비스 - 파일업로드
+	private String getFolder() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String str = sdf.format(date);
+		return str.replace("-","");
+	}
+	
 
 	// 업체 분석/비교 도,시,평수 선택완료
 	@RequestMapping(value = "selectCompare", method = RequestMethod.GET)
@@ -177,6 +265,7 @@ public class ConnectController {
 		String sido = request.getParameter("sido");
 		String sigoon = request.getParameter("sigoon");
 		int space = Integer.parseInt(request.getParameter("space"));
+		String sort = request.getParameter("sort");
 
 		Criteria criteria = new Criteria();
 		int pagenum = Integer.parseInt(request.getParameter("pagenum"));
@@ -196,9 +285,9 @@ public class ConnectController {
 
 		ArrayList<ProductVO> pList;
 		if (sido.equals("광역시/도") && sigoon.equals("선택") && space == 0) {
-			pList = connectService.productList(criteria.getStartnum(), criteria.getEndnum());
+			pList = connectService.productList(sort,criteria.getStartnum(), criteria.getEndnum());
 		} else {
-			pList = connectService.selectList(sido, sigoon, space, criteria.getStartnum(), criteria.getEndnum());
+			pList = connectService.selectList(sido, sigoon, space, sort,criteria.getStartnum(), criteria.getEndnum());
 		}
 		JSONArray pJson = JSONArray.fromObject(pList);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -213,8 +302,20 @@ public class ConnectController {
 	@RequestMapping(value = "product/{product_code}", method = RequestMethod.GET)
 	public String productDetail(@PathVariable String product_code, Model model) {
 		model.addAttribute("productContent", connectService.productContent(product_code));
-		System.out.println(connectService.productContent(product_code));
 
 		return "connect/productContent";
+	}
+	
+	// 광역시/도를 선택시 해당하는 시,구 목록출력
+	@RequestMapping(value = "areasido", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject areasido(Model model, AreaVO areaVO) {
+		ArrayList<AreaVO> aList = connectService.selectSigoon(areaVO);
+		JSONArray aJson = JSONArray.fromObject(aList);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("aList", aJson);
+		JSONObject json = JSONObject.fromObject(map);
+		
+		return json;
 	}
 }

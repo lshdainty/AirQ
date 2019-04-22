@@ -34,4 +34,8 @@
    			 where obj.tender_code = b.tender_code and b.win_bid_whether = 'y') o
 		where o.company_code = #{company_code}
 	</select>
+	<!-- 사업자번호 -->
+	<select id="company_code" parameterType="String" resultType="String">
+		select company_code from company_info where member_id=#{member_id}
+	</select>
 </mapper>
