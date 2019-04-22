@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="/resources/css/connect/tender.css" rel="stylesheet" />
+<link href="/resources/css/connect/tenderContent.css" rel="stylesheet" />
 
 
 <%--입찰 공고 세부 내용 시작 --%>
@@ -68,6 +68,7 @@
 			<th scope="col">건수</th>
 			<th scope="col">별점</th>
 			<th scope="col">첨부파일</th>
+			<th scope="col">첨부파일 점수</th>
 			<th scope="col">비고</th>
 			<th scope="col">TOTAL 점수</th>
 		</tr>
@@ -76,13 +77,14 @@
 		<%-- <c:forEach var="bidContent" items="bidContent">
 			<tr>
 				<td scope="row"><input type="radio" id="${bidContent.company_code} "></td>
-				<td class="listC" data-label="순위"></td>
-				<td id="company_name" name="company_name" class="listC" data-label="업체명">${bidContent. }</td>
+				<td class="listC" data-label="순위">0</td>
+				<td id="company_name" name="company_name" class="listC" data-label="업체명">dd</td>
 				<td id="member_id" name="member_id" class="listC" data-label="대표자">${bidContent. }</td>
 				<td id="bid_price" name="bid_price" data-label="금액">${bidContent. }</td>
 				<td data-label="건수">15</td>
 				<td data-label="별점">8.5</td>
 				<td data-label="첨부파일">${bidContent. }</td>
+				<td data-label="첨부파일 점수"><input type="text" id="bid_ppt_score" name="bid_ppt_score"><button>입력<button></td>
 				<td data-label="비고">신규회원</td>
 				<td data-label="TOTAL 점수">0</td>
 			</tr>
@@ -91,9 +93,11 @@
 </table>
 <div>
 	<c:if test="${sessionScope.user.member_devision == 'se' }">
-		<button id="tenderApplicationBtn">입찰신청</button>
 		<button id="bidWrite">투찰하기</button>
 		<button id="bidComplete">작성완료</button>
+	</c:if>
+	<c:if test="${sessionScope.user.member_devision == 'no' }">
+		<button id="tenderApplicationBtn">입찰신청</button>
 	</c:if>
 </div>
 <%-- 참여 업체 리스트 테이블 끝 --%>

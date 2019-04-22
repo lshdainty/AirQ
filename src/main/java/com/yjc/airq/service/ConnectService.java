@@ -9,6 +9,7 @@ import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
+import com.yjc.airq.domain.UploadVO;
 
 public interface ConnectService {
 	// 제품 목록
@@ -30,11 +31,14 @@ public interface ConnectService {
 	
 	// 투찰 작성
 	public Company_InfoVO company_info(String member_id);
-	public BidVO addBid(String company_code);
+	public void addBid(BidVO bidVo);
+	public String company_code(String member_id);
 	//건수
 	public int bidNumber(String company_code);
 	//별점
 	public double star_score_avg(String company_code);
+	//투찰 파일 업로드
+	public void bidUpload(UploadVO uploadVo);
 	
 	// 입찰 공고 삭제
 	public ArrayList<BidVO> findUploadCode(String tender_code);

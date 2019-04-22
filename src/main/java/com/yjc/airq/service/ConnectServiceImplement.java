@@ -10,12 +10,14 @@ import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
+import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.mapper.AreaMapper;
 import com.yjc.airq.mapper.BidMapper;
 import com.yjc.airq.mapper.CompanyMapper;
 import com.yjc.airq.mapper.MemberMapper;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.TenderMapper;
+import com.yjc.airq.mapper.UploadMapper;
 
 import lombok.AllArgsConstructor;
 
@@ -28,6 +30,7 @@ public class ConnectServiceImplement implements ConnectService {
 	private ProductMapper productMapper;
 	private AreaMapper areaMapper;
 	private MemberMapper memberMapper;
+	private UploadMapper uploadMapper;
 	
 	//회원 이름 가져오기
 	@Override
@@ -88,8 +91,18 @@ public class ConnectServiceImplement implements ConnectService {
 	
 	//투찰 작성
 	@Override
+	public void addBid(BidVO bidVo) {
+		bidMapper.addBid(bidVo);
+	}
+	
+	@Override
 	public Company_InfoVO company_info(String member_id) {
 		return companyMapper.company_info(member_id);
+	}
+	
+	@Override
+	public String company_code(String member_id) {
+		return companyMapper.company_code(member_id);
 	}
 	
 	// 건수
@@ -104,10 +117,10 @@ public class ConnectServiceImplement implements ConnectService {
 		return companyMapper.star_score_avg(company_code);
 	}
 	
+	//투찰 파일업로드
 	@Override
-	public BidVO addBid(String company_code) {
-		// TODO Auto-generated method stub
-		return null;
+	public void bidUpload(UploadVO uploadVo) {
+		uploadMapper.bidUpload(uploadVo);
 	}
 
 	// 상품 리스트 출력

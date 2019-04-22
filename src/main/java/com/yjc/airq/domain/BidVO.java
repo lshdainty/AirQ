@@ -15,4 +15,5 @@ public class BidVO {
 	private int bidNum;
 	private double star_score_avg;
 	private String note;
+	private String company_name;
 }

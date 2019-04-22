@@ -15,4 +15,8 @@
 		delete from bid where tender_code=#{tender_code}
 	</delete>
 	
+	<!-- 투찰 작성 -->
+	<insert id="addBid" parameterType="com.yjc.airq.domain.BidVO">
+		insert into bid(tender_code,company_code,bid_price,bid_ppt_name,upload_code) values(#{tender_code},#{company_code},${bid_price},#{bid_ppt_name},#{upload_code})
+	</insert>
 </mapper>

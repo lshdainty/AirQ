@@ -109,10 +109,19 @@ public class ConnectController {
 
 	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
 	@RequestMapping(value = "tenderContent/{tender_code}", method = RequestMethod.GET)
-	public String ten(@PathVariable String tender_code, Model model) {
+	public String ten(@PathVariable String tender_code,BidVO bidVo, Model model) {
+		//입찰
 		model.addAttribute("tenderContent", connectService.tenderContent(tender_code));
+		
+		//투찰
+		ArrayList<BidVO> bidArr=connectService.bidContent(tender_code);
+		
+		for(int i=0;i<bidArr.size();i++) {
+			System.out.println(bidArr.get(i));
+		}
+		
 		model.addAttribute("bidContent", connectService.bidContent(tender_code));
-		System.out.println(connectService.bidContent(tender_code));
+		//System.out.println(connectService.bidContent(tender_code));
 		return "connect/tenderContent";
 	}
 
@@ -125,7 +134,6 @@ public class ConnectController {
 
 		for (int i = 0; i < arr.size(); i++) {
 			uploadArr.add(arr.get(i).getUpload_code());
-			System.out.println(uploadArr);
 		}
 		if (!uploadArr.isEmpty()) {
 			connectService.deleteBid(tender_code); // 투찰 업체 삭제
@@ -186,13 +194,16 @@ public class ConnectController {
 	@ResponseBody
 	public void addBidComplete(MultipartFile[] uploadFile, String sBid_price, UploadVO uploadVo, BidVO bidVo , HttpServletRequest request, Model model) {
 		
+		//insert bid
+		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		bidVo.setCompany_code(connectService.company_code(member_id));
+		bidVo.setBidNum(connectService.bidNumber(bidVo.getCompany_code()));
+		bidVo.setStar_score_avg(connectService.star_score_avg(bidVo.getCompany_code()));
+		
 		//금액 int로 변환
 		String s=request.getParameter("sBid_price"); 
 		int bid_price=Integer.parseInt(s);
 		bidVo.setBid_price(bid_price);
-		System.out.println(bid_price);
-		
-		System.out.println(bidVo.getTender_code());
 		 
 		//업로드
 		String uploadFolder="C:\\upload";
@@ -213,9 +224,11 @@ public class ConnectController {
 			int random=(int)(Math.random()*10000);
 			String upload_code="ul"+day+random;
 			uploadVo.setUpload_code(upload_code);
+			bidVo.setUpload_code(upload_code);
 			
 			String uploadFileName = multipartFile.getOriginalFilename();
 			uploadVo.setOriginal_name(uploadFileName);
+			bidVo.setBid_ppt_name(uploadFileName);
 			
 			// IE has file path IE는 전체 파일 경로가 전송됨
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
@@ -224,7 +237,8 @@ public class ConnectController {
 			
 			uploadFileName = uuid.toString()+uploadFileName;
 			uploadVo.setFile_name(uploadFileName);
-			System.out.println(uploadVo);
+			connectService.bidUpload(uploadVo);
+			connectService.addBid(bidVo);
 			try {
 				File saveFile = new File(uploadFolder, uploadFileName);
 				
