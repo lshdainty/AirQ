@@ -111,9 +111,9 @@
 		</div>
 	<%-- 페이지 끝 --%>
 
-	<script src="resources/js/connect/core.js"></script>
-	<script src="resources/js/connect/maps.js"></script>
-	<script src="resources/js/connect/southKoreaHigh.js"></script>
-	<script src="resources/js/connect/animated.js"></script>
+	<script src="resources/js/core.js"></script>
+	<script src="resources/js/maps.js"></script>
+	<script src="resources/js/southKoreaHigh.js"></script>
+	<script src="resources/js/animated.js"></script>
 	<script src="resources/js/connect/compareMain.js"></script>
 <%@include file="../include/footer.jsp" %>
