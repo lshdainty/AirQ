@@ -24,8 +24,6 @@ $(document).ready(function(){
 			url:"/addBid",
 			dataType:"json",
 			success:function(data){
-				console.log(data);
-				alert(data.member_name);
 				$("#aCompany_name").text(data.company_name);
 				$("#aMember_name").text(data.member_name);
 				$("#bidNum").text(data.bidNum);
