@@ -33,6 +33,7 @@ public interface ConnectService {
 	public Company_InfoVO company_info(String member_id);
 	public void addBid(BidVO bidVo);
 	public String company_code(String member_id);
+	public String company_name(String company_code);
 	//건수
 	public int bidNumber(String company_code);
 	//별점

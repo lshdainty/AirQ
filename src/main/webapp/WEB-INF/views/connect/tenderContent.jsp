@@ -74,21 +74,21 @@
 		</tr>
 	</thead>
 	<tbody>
-		<%-- <c:forEach var="bidContent" items="bidContent">
+		<c:forEach var="bidContent" items="${bidContent}">
 			<tr>
-				<td scope="row"><input type="radio" id="${bidContent.company_code} "></td>
+				<td scope="row"><input type="radio" value="${bidContent.company_code}" name="bidContent" ></td>
 				<td class="listC" data-label="순위">0</td>
-				<td id="company_name" name="company_name" class="listC" data-label="업체명">dd</td>
-				<td id="member_id" name="member_id" class="listC" data-label="대표자">${bidContent. }</td>
-				<td id="bid_price" name="bid_price" data-label="금액">${bidContent. }</td>
-				<td data-label="건수">15</td>
-				<td data-label="별점">8.5</td>
-				<td data-label="첨부파일">${bidContent. }</td>
-				<td data-label="첨부파일 점수"><input type="text" id="bid_ppt_score" name="bid_ppt_score"><button>입력<button></td>
-				<td data-label="비고">신규회원</td>
+				<td id="company_name" name="company_name" class="listC" data-label="업체명">${bidContent.company_name }</td>
+				<td id="member_id" name="member_id" class="listC" data-label="대표자">${bidContent.member_id }</td>
+				<td id="bid_price" name="bid_price" data-label="금액">${bidContent.bid_price }</td>
+				<td data-label="건수">${bidContent.bidNum }</td>
+				<td data-label="별점">${bidContent.star_score_avg }</td>
+				<td data-label="첨부파일">dd</td>
+				<td data-label="첨부파일 점수"><input type="text" id="bid_ppt_score" name="bid_ppt_score"><button>입력</button></td>
+				<td data-label="비고">${bidContent.note }</td>
 				<td data-label="TOTAL 점수">0</td>
 			</tr>
-		</c:forEach> --%>
+		</c:forEach>
 	</tbody>
 </table>
 <div>
