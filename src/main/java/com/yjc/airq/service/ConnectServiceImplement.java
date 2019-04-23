@@ -110,6 +110,11 @@ public class ConnectServiceImplement implements ConnectService {
 		return companyMapper.company_name(company_code);
 	}
 	
+	@Override
+	public String member_id(String company_code) {
+		return companyMapper.member_id(company_code);
+	}
+	
 	// 건수
 	@Override
 	public int bidNumber(String company_code) {

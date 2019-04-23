@@ -42,5 +42,9 @@
 	<select id="company_name" parameterType="String" resultType="String">
 		select company_name from company_info where company_code=#{company_code}
 	</select>
+	<!-- 아이디 -->
+	<select id="member_id" parameterType="String" resultType="String">
+		select member_id from company_info where company_code=#{company_code}
+	</select>
 	
 </mapper>

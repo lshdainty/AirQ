@@ -12,4 +12,5 @@ public interface CompanyMapper {
 	public double star_score_avg(String company_code);
 	public String company_code(String member_id);
 	public String company_name(String company_code);
+	public String member_id(String company_code);
 }

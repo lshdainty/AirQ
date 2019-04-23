@@ -119,7 +119,7 @@ public class ConnectController {
 		
 		for(int i=0;i<bidArr.size();i++) {
 			String company_code=bidArr.get(i).getCompany_code();
-			bidArr.get(i).setMember_id(((MemberVO) request.getSession().getAttribute("user")).getMember_id());
+			bidArr.get(i).setMember_id(connectService.member_id(company_code));
 			bidArr.get(i).setBidNum(connectService.bidNumber(company_code));
 			bidArr.get(i).setCompany_name(connectService.company_name(company_code));
 			
