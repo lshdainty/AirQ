@@ -8,7 +8,7 @@ $(document).ready(function(){
 	if (document.readyState == 'complete') {
 	    init();
 	} else {
-	    init();
+	    $(window).on('load',init);
 	};
 	TweenMax.staggerFrom($('.post-item'),1,{autoAlpha:0,x:-100,ease:Power1.easeOut},0.1);
 });

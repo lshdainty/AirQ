@@ -1,8 +1,5 @@
 $(document).ready(function(){
 	
-	
-	var controller = new ScrollMagic.Controller();
-	
     var bgImage = $(".bg-image"),
         dude = $(".dude"),
         scrollLine = $(".scroll-line"),
@@ -18,11 +15,7 @@ $(document).ready(function(){
 
 
     
-    var firstAnimation = new TimelineMax();
-        
-        firstAnimation
-        	.from
-    
+    var controller = new ScrollMagic.Controller();
 
     var tlMainScroll = new TimelineMax()
     .add([
