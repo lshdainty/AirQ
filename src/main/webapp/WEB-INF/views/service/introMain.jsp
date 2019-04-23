@@ -42,4 +42,3 @@
     <script src="resources/js/service/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     <script src="resources/js/service/main.js"></script>
 	
-<%@include file="../include/footer.jsp" %>
