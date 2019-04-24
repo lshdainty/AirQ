@@ -332,4 +332,11 @@ public class ConnectController {
 		
 		return json;
 	}
+	
+	// 자식창 테스트중
+	@RequestMapping(value = "test", method = RequestMethod.GET)
+	public String test(Model model, AreaVO areaVO) {
+		System.out.println("controller왔음");
+		return "test";
+	}
 }

@@ -149,9 +149,9 @@ function ajax(idx,sort){
 			var page="";
 			if(data.pList.length==0){
 				alert("검색결과가 없습니다.");
-				$("#sido_code").val("광역시/도");
-				$("#sigoon_code").val("선택").prop("selected", true);
-				$("#space").val("0").prop("selected", true);
+//				$("#sido_code").val("광역시/도");
+//				$("#sigoon_code").val("선택").prop("selected", true);
+//				$("#space").val("0").prop("selected", true);
 			}else{
 				for(var i=0; i<data.pList.length; i++){
 					result += '<li class="tableListContent" id="'+data.pList[i].product_code+'">'

@@ -13,7 +13,7 @@
 		</div>
 		<div class="product-page-product-details-list-block">
 			<div class="product-page-info-section title">
-				<h1 itemprop="name">${productContent.product_name}</h1>
+				<h1 id="product_name" itemprop="name">${productContent.product_name}</h1>
 			</div>
 			<div class="product-group cart">
 				<div class="product-page-info-section brewery">
@@ -72,7 +72,7 @@
 				<h2 class="product-page-h2-heading price" id="DFH-price-usd" itemprop="price">가격 : ${productContent.product_price}원</h2>
 				<span id="DFH-price-per-unit-usd" style="display: none;">${productContent.product_price}</span>
 			</div>
-			<button class="product-page-buybutton button-cart button-cart-DFH" data-loading-text="Yesss..." type="button">
+			<button id="paymentButton" class="product-page-buybutton button-cart button-cart-DFH" data-loading-text="Yesss..." type="button">
 				<span class="button-cart-text">Add to Cart</span>
 			</button>
 		</div>
@@ -80,4 +80,5 @@
 	<!-- end of product-page-product-details-list-block -->
 </div>
 <!-- end of product-page-product-details-section-->
+<script src="/resources/js/connect/productContent.js"></script>
 <%@include file="../include/footer.jsp"%>
