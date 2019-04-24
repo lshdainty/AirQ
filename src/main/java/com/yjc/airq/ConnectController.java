@@ -132,7 +132,6 @@ public class ConnectController {
 				bidArr.get(i).setNote("신규회원");
 			}
 			
-			System.out.println(bidArr.get(i));
 		}
 		
 		model.addAttribute("bidContent", bidArr);
@@ -187,19 +186,16 @@ public class ConnectController {
 
 		// 건수
 		int bidNum = connectService.bidNumber(c_info.getCompany_code());
-		
 		if (bidNum != 0) {
 			c_info.setBidNum(bidNum);
 			// 별점
-			double star_score_avg = connectService.star_score_avg(c_info.getCompany_code());
-			c_info.setStar_score_avg(star_score_avg);
+			c_info.setStar_score_avg(connectService.star_score_avg(c_info.getCompany_code()));
 			c_info.setNote("없음");
 		}else {
 			c_info.setBidNum(0);
 			c_info.setStar_score_avg(0);
 			c_info.setNote("신규회원");
 		}
-		System.out.println(c_info);
 		return c_info;
 	}
 	
@@ -212,7 +208,12 @@ public class ConnectController {
 		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
 		bidVo.setCompany_code(connectService.company_code(member_id));
 		bidVo.setBidNum(connectService.bidNumber(bidVo.getCompany_code()));
-		bidVo.setStar_score_avg(connectService.star_score_avg(bidVo.getCompany_code()));
+		int bidNum=bidVo.getBidNum();
+		if(bidNum != 0) {
+			bidVo.setStar_score_avg(connectService.star_score_avg(bidVo.getCompany_code()));
+		}else {
+			bidVo.setStar_score_avg(0);
+		}
 		
 		//금액 int로 변환
 		String s=request.getParameter("sBid_price"); 
@@ -220,10 +221,10 @@ public class ConnectController {
 		bidVo.setBid_price(bid_price);
 		 
 		//업로드
-		String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/images");
+		String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/ppt/"+getFolder());
 		
 		// make folder
-		File uploadPath = new File(uploadFolder, getFolder());
+		File uploadPath = new File(uploadFolder);
 		
 		if(uploadPath.exists() == false) {
 			uploadPath.mkdirs();// yyyy-MM-dd 폴더 생성

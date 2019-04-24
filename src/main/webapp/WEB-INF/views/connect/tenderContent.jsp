@@ -44,13 +44,17 @@
 		<td>${tenderContent.requirement }</td>
 	</tr>
 </table>
+
 <div id="tenderADiv">
-	<a href="/tenderDelete/${tenderContent.tender_code }"
-		onclick="return confirm('삭제하시겠습니까?');">삭제</a> <span>|</span> <a
-		href="/tenderModify/${tenderContent.tender_code }"
-		onclick="return confirm('수정하시겠습니까?');">수정</a> <span>|</span> <a
-		href="/tenderMain">목록</a>
+	<c:if test="${sessionScope.user.member_devision == 'no' }">
+		<a href="/tenderDelete/${tenderContent.tender_code }"
+			onclick="return confirm('삭제하시겠습니까?');">삭제</a> <span>|</span> <a
+			href="/tenderModify/${tenderContent.tender_code }"
+			onclick="return confirm('수정하시겠습니까?');">수정</a> <span>|</span> <a
+			href="/tenderMain">목록</a>
+	</c:if>
 </div>
+
 <%--입찰 공고 세부 내용 끝 --%>
 
 

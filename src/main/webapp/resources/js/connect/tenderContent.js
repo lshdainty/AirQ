@@ -85,8 +85,8 @@ $(document).ready(function(){
 			processData:false,
 			contentType:false,
 			success:function(data){
-				/*location.href="/tenderContent/"+$("#tcode").val();*/
-				alert("success");
+				alert("등록 완료");
+				location.href="/tenderContent/"+$("#tcode").val();
 			}
 		});
 	});
