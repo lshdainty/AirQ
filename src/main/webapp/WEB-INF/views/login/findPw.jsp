@@ -20,14 +20,14 @@
 					<li><input type="checkbox" id="root">
 					 <label for="root">등록된 전화번호로 찾기</label><br>
 						<ul>
-							<li>  <input type="text" id="tel" class="form-control-1"placeholder="Phone Number"><br></li>
+							<li>  <input type="text" id="tel" name="member_tel" class="form-control-1"placeholder="Phone Number"><br></li>
 						</ul></li>
 				</ul>
 				<ul class="tree2">
 					<li><input type="checkbox" id="root2"> 
 					<label for="root2">등록된 이메일로 찾기</label><br>
 						<ul>
-							<li> <input type="text" id="email" class="form-control-1"placeholder="e-mail"> <br></li>
+							<li> <input type="text" id="email" name="member_email" class="form-control-1"placeholder="e-mail"> <br></li>
 						</ul></li>
 				</ul>
 			</div>

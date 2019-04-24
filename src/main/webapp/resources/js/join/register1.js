@@ -2,48 +2,26 @@
  * 
  */
 $(document).ready(function() {
-	// join 버튼 클릭했을 때
+	/*// 사업자 번호 insert
 	$("#btn-join").click(function() {
-		alert(id = $("#id").val());	// id, pw 알림창
-		alert(password = $("#password").val());
 		var query = {
-			id : $("#id").val(),
-			password : $("#password").val(),
-			name : $("#name").val(),
-			email : $("#email").val(),
-			tel : $("#tel").val(),
-			address : $("#address").val()
+			company_code : $("#company_code").val(),
+			company_name : $("#company_name").val(),
+			company_tel : $("#company_tel").val(),
+			member_id : $("#id").val()
 		}
 		$.ajax({
-			type : "GET",
+			type : "POST",
 			data : query,
-			url : "signup", // 회원 추가
+			url : "Bsignup", // 회원 추가
 			success : function(data) {
 				alert("회원가입 성공");
 			}
 		});// ajax
-
-	});
-	// 사업자 번호 insert
-	$("#btn-join").click(function() {
-		alert($("#bnumber").val())	// 사업자 번호 알림창
-		var query = {
-			bnumber : $("#bnumber").val()
-		}
-		$.ajax({
-			type : "GET",
-			data : query,
-			url : "Bsignup", // 회원 추가
-			success : function(data) {
-				alert("사업자 등록 번호 성공");
-			}
-		});// ajax
 	}); // ajax
-
+*/
 	// 중복 확인 눌렀을 때
 	$("#btn-check").click(function() {
-		alert("중복 확인 체크");	// 중복확인 클릭 시 알림창
-		alert($("#id").val());
 		var query = {
 			id : $("#id").val()
 		}
@@ -54,13 +32,11 @@ $(document).ready(function() {
 			url : "idCheck", // 회원 추가
 			success : function(data) {
 				if (data == "No") {	// 아이디 중복 될 경우 join버튼 비활성화
-					alert("아이디가 중복됩니다.");
 					$(".result .msg").text("사용불가");
 					$(".result .msg").attr("style", "color:#f00");
 
 					$("#btn-join").attr("disabled", "disabled");
 				} else if (data == "Yes") {		// 아이디 중복 되지 않을 경우 join버튼 활성화
-					alert("사용가능한 아이디 입니다.");
 					$(".result .msg").text("사용가능");
 					$(".result .msg").attr("style", "color:#00f");
 

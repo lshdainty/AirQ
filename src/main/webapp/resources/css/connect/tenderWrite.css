@@ -26,6 +26,11 @@
 	border-top: 1px #D5D5D5 solid;
 }
 
+#calculatePeriodN {
+	font-size:0.8em;
+	color:#747474;
+}
+
 #tenderWriteBtnDiv {
 	height:50px;
 }

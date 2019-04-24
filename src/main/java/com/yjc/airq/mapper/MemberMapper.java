@@ -1,27 +1,31 @@
 package com.yjc.airq.mapper;
 
 import java.util.ArrayList;
-import com.yjc.airq.domain.FileTestVO;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
 import com.yjc.airq.domain.MemberVO;
-import com.yjc.airq.domain.SellerVO;
 
 public interface MemberMapper {
 	public ArrayList<MemberVO> getMemberList();
 	public MemberVO login(String id);
-	public MemberVO findId(MemberVO LVOI);
-	public MemberVO findPw(MemberVO LVOP);
-	public ArrayList<MemberVO> memberList();
-	
-	// 판매자 회원 목록 조회
-	public String sellerList(SellerVO sl);
-	
+	public MemberVO findPw(@Param("member_name") String name, @Param("member_id") String id, @Param("member_tel") String tel, @Param("member_email") String email);
+	public MemberVO findId(@Param("member_name") String name, @Param("member_tel")String tel, @Param("member_email")String email);
+
 	// 일반 회원가입
-	public String signup(MemberVO mb);
+	public void signup(MemberVO mb);
 	
 	// 중복 체크
 	public MemberVO idCheck(String id);
 	
+	//마이페이지 관리자 회원관리 - 회원삭제
+	@Delete("delete from member where member_id=#{member_id}")
+	public boolean deleteMember(String member_id);
+	
 	// 파일 업로드
-	public String fileDB(FileTestVO fDB);
+	// public String fileDB(FileTestVO fDB);
+	
+	// 회원 이름 가져오기
+	public String member_name(String member_id);
 	
 }
