@@ -8,13 +8,17 @@ import org.springframework.stereotype.Service;
 import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
+import com.yjc.airq.domain.DemandVO;
+import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.mapper.AreaMapper;
 import com.yjc.airq.mapper.BidMapper;
 import com.yjc.airq.mapper.CompanyMapper;
+import com.yjc.airq.mapper.DemandMapper;
 import com.yjc.airq.mapper.MemberMapper;
+import com.yjc.airq.mapper.PaymentMapper;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.TenderMapper;
 import com.yjc.airq.mapper.UploadMapper;
@@ -31,6 +35,8 @@ public class ConnectServiceImplement implements ConnectService {
 	private AreaMapper areaMapper;
 	private MemberMapper memberMapper;
 	private UploadMapper uploadMapper;
+	private DemandMapper demandMapper;
+	private PaymentMapper paymentMapper;
 	
 	//회원 이름 가져오기
 	@Override
@@ -156,5 +162,17 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public ArrayList<AreaVO> selectSigoon(AreaVO areaVO) {
 		return areaMapper.selectSigoon(areaVO);
+	}
+	
+	// 서비스 제품 주문정보 insert
+	@Override
+	public void pInsertDemand(DemandVO demandVO) {
+		demandMapper.pInsertDemand(demandVO);
+	}
+		
+	// 서비스 제품 결제정보 insert
+	@Override
+	public void pInsertPayment(PaymentVO paymentVO) {
+		 paymentMapper.pInsertPayment(paymentVO);
 	}
 }

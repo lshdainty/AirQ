@@ -17,7 +17,7 @@
 			</div>
 			<div class="product-group cart">
 				<div class="product-page-info-section brewery">
-					<h2 class="product-page-h2-heading" itemprop="type">
+					<h2 id="product_code" class="product-page-h2-heading" itemprop="type">
 						<span class="product-page-heading-type">상품 코드</span> : ${productContent.product_code}
 					</h2>
 				</div>

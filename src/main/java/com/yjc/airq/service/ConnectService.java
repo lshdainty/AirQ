@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
+import com.yjc.airq.domain.DemandVO;
+import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
@@ -63,4 +65,8 @@ public interface ConnectService {
 
 	// 광역시/도를 선택시 해당하는 시,구 목록출력
 	public ArrayList<AreaVO> selectSigoon(AreaVO areaVO);
+	// 서비스제품 주문정보 insert
+	public void pInsertDemand(DemandVO demandVO);
+	// 서비스 제품 결제정보 insert
+	public void pInsertPayment(PaymentVO paymentVO);
 }

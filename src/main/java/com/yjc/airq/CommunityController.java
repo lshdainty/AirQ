@@ -174,7 +174,7 @@ public class CommunityController {
 		Date today = new Date();
 		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
 		String day = date.format(today);
-		int random=(int)(Math.random()*10000);
+		String random=String.format("%04d",(int)(Math.random()*10000));
 		String reply_code="rp"+day+random;
 		// 댓글 코드 생성 완료
 		String reply_content = request.getParameter("reply_content");
@@ -259,7 +259,7 @@ public class CommunityController {
 		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
 		String day = date.format(today);
 		Timestamp current_date = new Timestamp(System.currentTimeMillis());
-		int random=(int)(Math.random()*10000);
+		String random=String.format("%04d",(int)(Math.random()*10000));
 		String post_code="ps"+day+random;
 		// 포스트 코드 생성 완료
 		String board_code = (String)request.getSession().getAttribute("board_code");

@@ -1,8 +1,7 @@
 ﻿$(document).ready(function() {
 	var windowObj;
     $("#paymentButton").click(function(){
-    	windowObj = window.open("/test","자식창");
-    	windowObj.document.getElementById("childText").value = document.getElementById("product_name").value;
+    	var product_code = $("#product_code").text().split(':')
+    	windowObj = window.open("/cPayment/"+product_code[1].trim(),"test","width=570, height=350");
     });
 });
-

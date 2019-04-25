@@ -86,7 +86,7 @@ public class FileController {
     		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
     		String day = date.format(today);
     		Timestamp upload_date = new Timestamp(System.currentTimeMillis());
-    		int random=(int)(Math.random()*10000);
+    		String random=String.format("%04d",(int)(Math.random()*10000));
     		String upload_code="ul"+day+random;
     		/* 업로드 코드 생성 완료 */
             

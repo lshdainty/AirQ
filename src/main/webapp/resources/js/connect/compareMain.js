@@ -104,12 +104,6 @@ $(".compareSelect").change(function(){
 });
 //정렬check박스 선택 끝
 
-//광역시/도 선택 시작
-//$("#sido_code").change(function(){
-//	ajax(1,sortdata());
-//});
-//광역시/도 선택 끝
-
 //시/구 선택 시작
 $("#sigoon_code").change(function(){
 	ajax(1,sortdata());
@@ -193,7 +187,8 @@ function ajax(idx,sort){
 					page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.endPage+1)+');" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'
 				}
 				$(".pagination").empty();
-				$(".pagination").prepend(page)
+				$(".pagination").prepend(page);
+				$("html, body").animate({ scrollTop: 0 }, 1);
 			}	//else
 		}	//success
 	});	//ajax
