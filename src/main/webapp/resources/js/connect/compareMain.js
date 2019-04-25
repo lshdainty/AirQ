@@ -104,12 +104,6 @@ $(".compareSelect").change(function(){
 });
 //정렬check박스 선택 끝
 
-//광역시/도 선택 시작
-//$("#sido_code").change(function(){
-//	ajax(1,sortdata());
-//});
-//광역시/도 선택 끝
-
 //시/구 선택 시작
 $("#sigoon_code").change(function(){
 	ajax(1,sortdata());

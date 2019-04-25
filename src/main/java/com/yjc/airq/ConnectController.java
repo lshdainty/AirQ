@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.MediaType;
@@ -25,7 +24,9 @@ import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.Criteria;
+import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.MemberVO;
+import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
@@ -46,7 +47,7 @@ public class ConnectController {
 	private ConnectService connectService;
 	private ProductMapper productMapper;
 	private UploadService uploadService;
-
+	
 	// 업체 분석/비교 메인페이지로 가기
 	@RequestMapping(value = "compareMain", method = RequestMethod.GET)
 	public String compareMain(Model model, HttpServletRequest request) {
@@ -96,7 +97,7 @@ public class ConnectController {
 		String day = date.format(today);
 
 		// 코드 뒤에 랜덤 4자리
-		int random = (int) (Math.random() * 10000);
+		String random = String.format("%04d",Math.random()*10000);
 		String tender_code = "td" + day + random;
 
 		// VO에 생성한 코드 set하기
@@ -236,7 +237,7 @@ public class ConnectController {
 			Date today = new Date();
 			SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
 			String day = date.format(today);
-			int random=(int)(Math.random()*10000);
+			String random=String.format("%04d",(int)(Math.random()*10000));
 			String upload_code="ul"+day+random;
 			uploadVo.setUpload_code(upload_code);
 			bidVo.setUpload_code(upload_code);
@@ -271,7 +272,6 @@ public class ConnectController {
 		String str = sdf.format(date);
 		return str.replace("-","");
 	}
-	
 
 	// 업체 분석/비교 도,시,평수 선택완료
 	@RequestMapping(value = "selectCompare", method = RequestMethod.GET)
@@ -334,10 +334,36 @@ public class ConnectController {
 		return json;
 	}
 	
-	// 자식창 테스트중
-	@RequestMapping(value = "test", method = RequestMethod.GET)
-	public String test(Model model, AreaVO areaVO) {
-		System.out.println("controller왔음");
-		return "test";
+	// 결제창으로 이동
+	@RequestMapping(value = "cPayment/{product_code}", method = RequestMethod.GET)
+	public String cPayment(@PathVariable String product_code, Model model) {
+		model.addAttribute("productContent", connectService.productContent(product_code));
+		
+		return "connect/cPayment";
+	}
+	
+	// 결제정보 insert
+	@RequestMapping(value = "cOrder", method = RequestMethod.POST)
+	@ResponseBody
+	public String cOrder(Model model, HttpServletRequest request, DemandVO demandVO, PaymentVO paymentVO) {
+		//주문 코드,결제 코드 생성
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
+		String random=String.format("%04d",(int)(Math.random()*10000));
+		String random1=String.format("%04d",(int)(Math.random()*10000));
+		String demand_code="dm"+day+random;
+		String payment_code="pm"+day+random1;
+		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		
+		demandVO.setDemand_code(demand_code);
+		demandVO.setMember_id(member_id);
+		paymentVO.setPayment_code(payment_code);
+		paymentVO.setDemand_code(demand_code);
+		
+		connectService.pInsertDemand(demandVO);
+		connectService.pInsertPayment(paymentVO);
+		
+		return "";
 	}
 }
