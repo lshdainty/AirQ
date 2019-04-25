@@ -364,6 +364,6 @@ public class ConnectController {
 		connectService.pInsertDemand(demandVO);
 		connectService.pInsertPayment(paymentVO);
 		
-		return "";
+		return demand_code;
 	}
 }

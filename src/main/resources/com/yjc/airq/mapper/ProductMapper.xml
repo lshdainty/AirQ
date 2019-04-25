@@ -40,7 +40,7 @@
 						order by (
 								select avg(pa.STAR_SCORE)
 								from demand d,payment pa 
-								where p.product_code=d.product_code and d.demand_code = pa.demand_code and pa.refund_whether='n') desc, p.product_name
+								where p.product_code=d.product_code and d.demand_code = pa.demand_code and pa.refund_whether='n') desc nulls last, p.product_name
 					</when>
 				</choose>) A 
 			where <![CDATA[rownum <= #{endnum}]]>) X 
@@ -112,9 +112,9 @@
 					</when>
 					<when test="sort.equals('staravg')">
 						order by (
-								select nvl(avg(pa.STAR_SCORE),0)
+								select avg(pa.STAR_SCORE)
 								from demand d,payment pa 
-								where o.product_code=d.product_code and d.demand_code = pa.demand_code and pa.refund_whether='n') desc, o.product_name
+								where o.product_code=d.product_code and d.demand_code = pa.demand_code and pa.refund_whether='n') desc nulls last, o.product_name
 					</when>
 				</choose>) A
     		where <![CDATA[rownum <= #{endnum}]]>) X
