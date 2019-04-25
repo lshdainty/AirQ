@@ -40,4 +40,5 @@
 	<insert id="bidUpload" parameterType="com.yjc.airq.domain.UploadVO">
 		insert into upload(upload_code,original_name,file_name,upload_date) values(#{upload_code},#{original_name},#{file_name},sysdate)
 	</insert>
+	
 </mapper>

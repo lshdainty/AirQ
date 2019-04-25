@@ -8,9 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -110,7 +112,7 @@ public class ConnectController {
 
 	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
 	@RequestMapping(value = "tenderContent/{tender_code}", method = RequestMethod.GET)
-	public String ten(@PathVariable String tender_code,BidVO bidVo, Model model, HttpServletRequest request) {
+	public String tenderContent(@PathVariable String tender_code,BidVO bidVo, Model model, HttpServletRequest request) {
 		//입찰
 		model.addAttribute("tenderContent", connectService.tenderContent(tender_code));
 		
@@ -131,10 +133,19 @@ public class ConnectController {
 				bidArr.get(i).setStar_score_avg(0);
 				bidArr.get(i).setNote("신규회원");
 			}
+			System.out.println(bidArr.get(i));
 			
+			
+			Resource resource = new FileSystemResource("/resources/uploadFile/ppt/"+bidArr.get(i).getBid_ppt_name());
+			String resourceName = resource.getFilename(); //bid_ppt_name
+			
+			System.out.println(resource);
+			System.out.println(resourceName);
+			HttpHeaders headers = new HttpHeaders();
 		}
 		
 		model.addAttribute("bidContent", bidArr);
+		
 		return "connect/tenderContent";
 	}
 
@@ -221,7 +232,7 @@ public class ConnectController {
 		bidVo.setBid_price(bid_price);
 		 
 		//업로드
-		String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/ppt/"+getFolder());
+		String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/ppt/");
 		
 		// make folder
 		File uploadPath = new File(uploadFolder);

@@ -100,21 +100,6 @@ public class ConnectServiceImplement implements ConnectService {
 		return companyMapper.company_info(member_id);
 	}
 	
-	@Override
-	public String company_code(String member_id) {
-		return companyMapper.company_code(member_id);
-	}
-	
-	@Override
-	public String company_name(String company_code) {
-		return companyMapper.company_name(company_code);
-	}
-	
-	@Override
-	public String member_id(String company_code) {
-		return companyMapper.member_id(company_code);
-	}
-	
 	// 건수
 	@Override
 	public int bidNumber(String company_code) {
@@ -132,7 +117,23 @@ public class ConnectServiceImplement implements ConnectService {
 	public void bidUpload(UploadVO uploadVo) {
 		uploadMapper.bidUpload(uploadVo);
 	}
-
+	
+	//투찰 리스트에 필요한 것
+	@Override
+	public String company_code(String member_id) {
+		return companyMapper.company_code(member_id);
+	}
+	
+	@Override
+	public String company_name(String company_code) {
+		return companyMapper.company_name(company_code);
+	}
+	
+	@Override
+	public String member_id(String company_code) {
+		return companyMapper.member_id(company_code);
+	}
+	
 	// 상품 리스트 출력
 	@Override
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum) {

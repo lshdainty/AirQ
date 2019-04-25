@@ -48,11 +48,12 @@
 <div id="tenderADiv">
 	<c:if test="${sessionScope.user.member_devision == 'no' }">
 		<a href="/tenderDelete/${tenderContent.tender_code }"
-			onclick="return confirm('삭제하시겠습니까?');">삭제</a> <span>|</span> <a
-			href="/tenderModify/${tenderContent.tender_code }"
-			onclick="return confirm('수정하시겠습니까?');">수정</a> <span>|</span> <a
-			href="/tenderMain">목록</a>
+			onclick="return confirm('삭제하시겠습니까?');">삭제</a> <span>|</span> 
+		<a href="/tenderModify/${tenderContent.tender_code }"
+			onclick="return confirm('수정하시겠습니까?');">수정</a> <span>|</span> 
 	</c:if>
+	<a href="/tenderMain">목록</a>
+	
 </div>
 
 <%--입찰 공고 세부 내용 끝 --%>
@@ -87,7 +88,7 @@
 				<td id="bid_price" name="bid_price" data-label="금액">${bidContent.bid_price }</td>
 				<td data-label="건수">${bidContent.bidNum }</td>
 				<td data-label="별점">${bidContent.star_score_avg }</td>
-				<td data-label="첨부파일">dd</td>
+				<td data-label="첨부파일">${bidContent.bid_ppt_name }</td>
 				<td data-label="첨부파일 점수"><input type="text" id="bid_ppt_score" name="bid_ppt_score"><button>입력</button></td>
 				<td data-label="비고">${bidContent.note }</td>
 				<td data-label="TOTAL 점수">0</td>

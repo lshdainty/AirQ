@@ -14,4 +14,5 @@ public interface BidMapper {
 	
 	// 투찰 등록
 	public void addBid(BidVO bidVo);
+	
 }
