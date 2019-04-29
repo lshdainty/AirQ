@@ -17,7 +17,34 @@
 .container .form1 .A{
 	display : inline-block;
 }
-.container .form1 .B{
+.container .form2 {
+
+}
+.container .form2 .member_id{
+	width:10%;
+
+}
+.container .form2 .member_name{
+	width:15%;
+
+}
+.container .form2 .member_tel{
+	width : 15%;
+
+}
+.container .form2 .member_email{
+	width : 20%;
+
+}
+.container .form2 .m_addr_do{
+	width : 15%;
+
+}
+.container .form2 .member_devision{
+	width : 15%;
+
+}
+.container .form2 .B>*{
 	display : inline-block;
 }
 
