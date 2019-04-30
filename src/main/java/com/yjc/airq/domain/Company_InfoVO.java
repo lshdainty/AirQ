@@ -20,4 +20,6 @@ public class Company_InfoVO {
 	private double star_score_avg;
 	private String note;
 	private String member_name;
+	private String sum;
+	private String month;
 }

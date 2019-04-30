@@ -1,6 +1,13 @@
 package com.yjc.airq;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yjc.airq.domain.Company_InfoVO;
+import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
+import com.yjc.airq.mapper.CompanyMapper;
 import com.yjc.airq.mapper.MemberMapper;
 import com.yjc.airq.mapper.PostMapper;
 import com.yjc.airq.mapper.ProductMapper;
@@ -21,9 +31,10 @@ import com.yjc.airq.mapper.ReplyMapper;
 import com.yjc.airq.mapper.TenderMapper;
 import com.yjc.airq.service.ConnectService;
 import com.yjc.airq.service.LoginService;
-import com.yjc.airq.service.CommunityService;
+import com.yjc.airq.service.MypageService;
 
 import lombok.AllArgsConstructor;
+import net.sf.json.JSONObject;
 
 /**
  * mypage를 관리하는 controller
@@ -38,6 +49,7 @@ public class MypageController {
 	private TenderMapper tenderMapper;
 	private ProductMapper productMapper;
 	private PostMapper postMapper;
+	private MypageService companyMapper;
 
 	// mypageMain 가기
 	@RequestMapping(value = "mypageMain", method = RequestMethod.GET)
@@ -62,6 +74,7 @@ public class MypageController {
 	@RequestMapping(value = "/mypageMainComment/{reply_code}", method = RequestMethod.GET)
 	public String deleteComment(@PathVariable String reply_code) {
 		replyMapper.deleteComment(reply_code);
+		
 		return "redirect:/mypageMainComment";
 	}
 
@@ -95,26 +108,17 @@ public class MypageController {
 		ArrayList<TenderVO> tenderVO = connectService.tenderList();
 		ArrayList<ProductVO> productVO = productMapper.productMP();
 		ArrayList<PostVO> postVO = postMapper.postMP();
-		System.out.println(tenderVO);
-		System.out.println(productVO);
-		System.out.println(postVO);
-		System.out.println(selected+"머넘어옴?");
-//		System.out.println(selectB+"머넘어옴?22");
 		
 			 if(selected.equals("0")) {
-				 System.out.println("0번 선택됨");
 				 return "0";
 			 }
 			 if(selected.equals("1")) {
-				 System.out.println("1번선택됨");
 				return "1";
 			 }		 
 			 if(selected.equals("2")){
-				 System.out.println("2번선택됨");
 				 return "2";
 			 }
 			 if(selected.equals("3")) {
-				 System.out.println("3번 선택됨");
 				 return "3";
 			 }
 	return "";
@@ -123,6 +127,7 @@ public class MypageController {
 
 	}
 	// mypageMainPosts tender 글 삭제 버튼 클릭 이벤트
+	
 	@RequestMapping(value = "/mypageMainPosts/{tender_code}", method = RequestMethod.GET)
 	public String deletePosts(@PathVariable String tender_code) {
 		tenderMapper.deletePosts(tender_code);
@@ -179,10 +184,32 @@ public class MypageController {
 
 	// mypageSeller 가기
 	@RequestMapping(value = "mypageSeller", method = RequestMethod.GET)
-	public String mypageSeller(Model model) {
+	public String mypageSeller(Model model,HttpSession session, HttpServletRequest request,Company_InfoVO company_InfoVO){
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id(); 
+		System.out.println(member_id+"현재로그인정보");
+		ArrayList<Company_InfoVO> cList = companyMapper.c_code(member_id);
+		System.out.println(cList);
+		model.addAttribute("cList",cList);
+//		String board_type = (String)request.getSession().getAttribute("board_type");
+		
 		return "mypage/mypageSeller";
 	}
-
+	//mypageSeller Json사용
+	@ResponseBody
+	@RequestMapping(value = "/mypageSeller",method =RequestMethod.POST)
+	public JSONObject cList(HttpServletRequest request){
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		ArrayList<Company_InfoVO> list = companyMapper.c_code(member_id);
+		System.out.println("dd"+list.get(1).getSum());
+		System.out.println("ss"+list.get(1).getMonth());
+		System.out.println(list.get(1));
+		System.out.println(list);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		JSONObject json = JSONObject.fromObject(map);
+		return json;
+		
+	}
 	// mypageSeller 가기
 	@RequestMapping(value = "mypageSellerPosts", method = RequestMethod.GET)
 	public String mypageSellerPosts(Model model) {
