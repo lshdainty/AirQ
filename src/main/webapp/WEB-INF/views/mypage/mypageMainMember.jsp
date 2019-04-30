@@ -14,8 +14,6 @@
                 <option value="1">일반사용자</option>
                 <option value="1">판매사용자</option>
             </select>
-            </div>
-            <div class="form2">
         <c:forEach var="getMemberList" items="${getMemberList}"
         varStatus="index" begin="1" end="30">
         <div class="B">

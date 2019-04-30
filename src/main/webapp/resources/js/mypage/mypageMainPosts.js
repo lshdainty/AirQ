@@ -61,6 +61,7 @@ $(document).ready(function(){
 					$(".form3").hide();
 					$(".form4").children().hide();
 					$(".form4").hide();
+					
 				}else if(data == "2"){
 					$(".form2").children().hide();
 					$(".form2").hide();

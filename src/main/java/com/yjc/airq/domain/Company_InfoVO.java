@@ -1,8 +1,5 @@
 package com.yjc.airq.domain;
 
-
-import java.sql.Timestamp;
-
 import com.yjc.airq.domain.Company_InfoVO;
 import lombok.Data;
 
@@ -23,8 +20,4 @@ public class Company_InfoVO {
 	private double star_score_avg;
 	private String note;
 	private String member_name;
-	private String sum;
-	private String month;
-	
-
 }
