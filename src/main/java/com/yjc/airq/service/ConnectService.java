@@ -22,8 +22,10 @@ public interface ConnectService {
 
 	// 업체 리스트 출력
 	public ArrayList<TenderVO> tenderList();
-	public ArrayList<TenderVO> companyCnt(String tender_code);
-
+	// 참여 업체 수
+	public int company_count(String tender_code);
+	// 마감기한 d_day
+	public int d_day(String tender_code);
 	// 입찰 공고 작성
 	public int addTenderboard(TenderVO tenderVo);
 

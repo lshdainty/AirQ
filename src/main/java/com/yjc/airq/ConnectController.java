@@ -79,7 +79,22 @@ public class ConnectController {
 	// 입찰 서비스 메인페이지로 가기
 	@RequestMapping(value = "tenderMain", method = RequestMethod.GET)
 	public String tenderMain(Model model, TenderVO tenderVo) {
-		model.addAttribute("tenderList", connectService.tenderList());
+		ArrayList<TenderVO> tenderList=connectService.tenderList();
+		for(int i=0;i<tenderList.size();i++) {
+			String tender_code=tenderList.get(i).getTender_code();
+			tenderList.get(i).setCompany_count(connectService.company_count(tender_code));
+			int d_day=connectService.d_day(tender_code);
+			
+			if(d_day < 0) {
+				tenderList.get(i).setD_day("입찰 종료");
+			} else if(d_day == 0) {
+				tenderList.get(i).setD_day("D-day");
+			} else {
+				tenderList.get(i).setD_day("D-"+d_day);
+			}
+			
+		}
+		model.addAttribute("tenderList", tenderList);
 
 		return "connect/tenderMain";
 	}

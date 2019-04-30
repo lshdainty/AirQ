@@ -28,4 +28,6 @@ public class TenderVO {
 
 	// 참여 업체 수 
 	private int company_count;
+	// 마감기한 D-day
+	private String d_day;
 }

@@ -51,9 +51,16 @@ public class ConnectServiceImplement implements ConnectService {
 		return tenderMapper.tenderList();
 	}
 
+	// 참여 업체 수
 	@Override
-	public ArrayList<TenderVO> companyCnt(String tender_code) {
-		return tenderMapper.companyCnt(tender_code);
+	public int company_count(String tender_code) {
+		return tenderMapper.company_count(tender_code);
+	}
+	
+	// 마감기한 d_day
+	@Override
+	public int d_day(String tender_code) {
+		return tenderMapper.d_day(tender_code);
 	}
 
 	// 입찰 공고 작성

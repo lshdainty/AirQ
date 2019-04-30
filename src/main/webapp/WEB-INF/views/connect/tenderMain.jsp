@@ -34,8 +34,8 @@
 					<div class="tableColumn tableCol-30" data-label="제목">${tenderList.tender_title }</div>
 					<div class="tableColumn tableCol-15" data-label="글쓴이">${tenderList.member_id }</div>
 					<div class="tableColumn tableCol-15" data-label="등록일">${tenderList.t_creation_date }</div>
-					<div class="tableColumn tableCol-15" data-label="참여업체수"></div>
-					<div class="tableColumn tableCol-15" data-label="마감기한">${tenderList.tender_deadline }</div>
+					<div class="tableColumn tableCol-15" data-label="참여업체수">${tenderList.company_count }</div>
+					<div class="tableColumn tableCol-15" data-label="마감기한">${tenderList.d_day }</div>
 				</li>
 			</c:forEach>
 		</ul>
