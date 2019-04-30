@@ -53,7 +53,7 @@ public class FileController {
         
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
-        System.out.println("dddd");
+        
         try{
         	String original_name = upload.getOriginalFilename();
             String file_name = uuid+original_name;

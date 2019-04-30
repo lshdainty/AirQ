@@ -1,6 +1,7 @@
 package com.yjc.airq;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -93,22 +94,22 @@ public class ConnectController {
 	@RequestMapping(value = "tenderWriteComplete", method = RequestMethod.POST)
 	public String tenderList(TenderVO tenderVo, HttpServletRequest request) {
 		tenderVo.setMember_id(((MemberVO) request.getSession().getAttribute("user")).getMember_id());
-
+		
 		// 코드 앞에 날짜 6자리
 		Date today = new Date();
 		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
 		String day = date.format(today);
-
+		
 		// 코드 뒤에 랜덤 4자리
-		String random = String.format("%04d",Math.random()*10000);
+		String random=String.format("%04d",(int)(Math.random()*10000));
 		String tender_code = "td" + day + random;
-
+		
 		// VO에 생성한 코드 set하기
 		tenderVo.setTender_code(tender_code);
-
+		
 		// insert에 영향을 받은 행의 갯수
 		int s = connectService.addTenderboard(tenderVo);
-
+		
 		return "redirect: /tenderMain";
 	}
 
@@ -143,7 +144,16 @@ public class ConnectController {
 			
 			System.out.println(resource);
 			System.out.println(resourceName);
+
 			HttpHeaders headers = new HttpHeaders();
+			try {
+				System.out.println("0");
+				headers.add("Content-Disposition","attachment; filename="+new String(resourceName.getBytes("UTF-8"),"ISO-8859-1"));
+				System.out.println(headers);
+			} catch(UnsupportedEncodingException e) {
+				System.out.println("2");
+				e.printStackTrace();
+			}
 		}
 		
 		model.addAttribute("bidContent", bidArr);
