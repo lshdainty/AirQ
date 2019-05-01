@@ -42,41 +42,40 @@ public class ManageController {
 	public String remoteRegist(Model model) {
 		return "manage/remoteRegist";
 	}
-	
+
 	// 원격제어 등록하기
 	@RequestMapping(value = "remoteReg", method = RequestMethod.GET)
 	public String remoteReg(Model model, IotVO rg) {
-		
+
 		System.out.println(rg.getRemote());
 		System.out.println(rg.getLocation());
-		
-		
+
 		return "manage/remoteRegist";
 	}
-	
+
 	// JSON 연습 Map 방식
-	@ResponseBody
-	@RequestMapping(value = "/abcd", method = RequestMethod.GET)
-	public Map<String, Object> getJsonByMap(MemberVO mb){
-		Map<String, Object> jsonObject =  new HashMap<String, Object>();
-		Map<String, Object> jsonSubObject = null;
-		ArrayList<Map<String, Object>> jsonList = new ArrayList<Map<String, Object>>();
-
-		
-		// 1번째 데이터
-		jsonSubObject = new HashMap<String, Object>();
-		jsonSubObject.put("idsx", mb.getMember_id());
-		jsonSubObject.put("title", "제목1입니다.");
-		jsonSubObject.put("create_date", new Date());
-		jsonList.add(jsonSubObject);
-
-		
-		jsonObject.put("success", true);
-		jsonObject.put("total_count", 10);
-		jsonObject.put("result_list", jsonList);
-		
-		System.out.println(jsonObject);
-		
-		return jsonObject;
-	}
+//	@ResponseBody
+//	@RequestMapping(value = "/abcd", method = RequestMethod.GET)
+//	public Map<String, Object> getJsonByMap(MemberVO mb){
+//		Map<String, Object> jsonObject =  new HashMap<String, Object>();
+//		Map<String, Object> jsonSubObject = null;
+//		ArrayList<Map<String, Object>> jsonList = new ArrayList<Map<String, Object>>();
+//
+//		
+//		// 1번째 데이터
+//		jsonSubObject = new HashMap<String, Object>();
+//		jsonSubObject.put("idsx", mb.getMember_id());
+//		jsonSubObject.put("title", "제목1입니다.");
+//		jsonSubObject.put("create_date", new Date());
+//		jsonList.add(jsonSubObject);
+//
+//		
+//		jsonObject.put("success", true);
+//		jsonObject.put("total_count", 10);
+//		jsonObject.put("result_list", jsonList);
+//		
+//		System.out.println(jsonObject);
+//		
+//		return jsonObject;
+//	}
 }

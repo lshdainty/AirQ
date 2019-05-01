@@ -2,6 +2,7 @@ package com.yjc.airq;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -20,4 +21,12 @@ public class HomeController {
 		return "home";
 	}
 	
+	//홈 메인페이지로 가기
+	@RequestMapping(value = "/{data}", method = RequestMethod.POST)
+	public String home(@PathVariable String data) {
+		
+		System.out.println("data: " + data);
+		
+		return "home";
+		}
 }
