@@ -14,9 +14,11 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class HomeController {
-
 	//홈 메인페이지로 가기
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
+
 		return "home";
+		
+	}
 	}

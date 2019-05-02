@@ -11,4 +11,6 @@ public class PaymentVO {
 	private String demand_code;
 	private String tender_code;
 	private DemandVO demandVO;
+	
+	private String day;
 }
