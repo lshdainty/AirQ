@@ -166,6 +166,20 @@ public class ConnectServiceImplement implements ConnectService {
 		return companyMapper.member_id(company_code);
 	}
 	
+	// 투찰 삭제
+	@Override
+	public void bidDelete(BidVO bidVo) {
+		bidMapper.bidDelete(bidVo);
+	}
+	@Override
+	public String bUpload_code(BidVO bidVo) {
+		return bidMapper.bUpload_code(bidVo);
+	}
+	@Override
+	public void bidUploadDelete(String upload_code) {
+		uploadMapper.bidUploadDelete(upload_code);
+	}
+	
 	// 상품 리스트 출력
 	@Override
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum) {

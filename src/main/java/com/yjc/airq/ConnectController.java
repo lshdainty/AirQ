@@ -330,12 +330,44 @@ public class ConnectController {
 			} // end catch
 		} // end for
 	}
-	/*
-	 * // 입찰 서비스 - 파일업로드 private String getFolder() { SimpleDateFormat sdf = new
-	 * SimpleDateFormat("yyyy-MM-dd"); Date date = new Date(); String str =
-	 * sdf.format(date); return str.replace("-",""); }
-	 */
-
+	
+	/* 투찰 삭제 */
+	@RequestMapping(value="bidDelete", method=RequestMethod.POST)
+	@ResponseBody
+	public String bidDelete(BidVO bidVo ,String company_code, String tender_code, HttpServletRequest request) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		// 로그인 한 사업자 번호
+		String mCompany_code=connectService.company_code(member_id);
+		
+		if(company_code.equals(mCompany_code)) {
+			// 삭제할 업로드 코드 가져옴
+			String upload_code=connectService.bUpload_code(bidVo);
+			
+			connectService.bidDelete(bidVo);
+			
+			connectService.bidUploadDelete(upload_code);
+			return "s";
+		}else {
+			return "f";
+		}
+	}
+	
+	/* 투찰 수정 */
+	@RequestMapping(value="bidModify", method=RequestMethod.POST)
+	@ResponseBody
+	public String bidModify(String tender_code, String company_code, HttpServletRequest request) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		// 로그인 한 사업자 번호
+		String mCompany_code=connectService.company_code(member_id);
+		
+		if(company_code.equals(mCompany_code)) {
+			return "s";
+		}else {
+			return "f";
+		}
+		
+	}
+	
 	// 업체 분석/비교 도,시,평수 선택완료
 	@RequestMapping(value = "selectCompare", method = RequestMethod.GET)
 	@ResponseBody

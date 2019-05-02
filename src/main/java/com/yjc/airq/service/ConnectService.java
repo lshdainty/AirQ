@@ -65,7 +65,12 @@ public interface ConnectService {
 	public ArrayList<BidVO> findUploadCode(String tender_code);
 	public void deleteBid(String tender_code);
 	public int tenderDelete(String tender_code);
-
+	
+	// 투찰 삭제
+	public void bidDelete(BidVO bidVo);
+	public String bUpload_code(BidVO bidVo); 
+	public void bidUploadDelete(String upload_code);
+	
 	// 입찰 공고 수정
 	public int tenderModify(TenderVO tenderVo);
 

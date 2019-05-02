@@ -28,7 +28,7 @@
 		DELETE FROM UPLOAD WHERE POST_CODE=#{post_code}
 	</delete>
 	
-	<!-- 투찰에 있던 파일 삭제 -->
+	<!-- 입찰 삭제할 때 투찰에 있던 파일 삭제 -->
 	<delete id="deleteBidUpload" parameterType="map">
 		delete from upload where upload_code in
 		<foreach collection="list" item="upload" index="index" open="(" separator="," close=")">
@@ -41,4 +41,10 @@
 		insert into upload(upload_code,original_name,file_name,upload_date) values(#{upload_code},#{original_name},#{file_name},sysdate)
 	</insert>
 	
+	<!-- 투찰 파일 삭제 -->
+	<delete id="bidUploadDelete" parameterType="String">
+		delete
+		from upload
+		where upload_code=#{upload_code}
+	</delete>
 </mapper>
