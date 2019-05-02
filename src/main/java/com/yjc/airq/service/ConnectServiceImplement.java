@@ -9,6 +9,7 @@ import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.DemandVO;
+import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
@@ -100,6 +101,24 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public int tenderModify(TenderVO tenderVo) {
 		return tenderMapper.tenderModify(tenderVo);
+	}
+	
+	// 입찰 공고 열람 권한(글쓴이)
+	@Override
+	public String tMemberCheck(String tender_code) {
+		return tenderMapper.tMemberCheck(tender_code);
+	}
+	
+	// 입찰 공고 열람 권한(사업자)
+	@Override
+	public String member_devision(String member_id) {
+		return memberMapper.member_devision(member_id);
+	}
+	
+	//투찰 작성 권한 체크(한 번만 등록 가능)
+	@Override
+	public ArrayList<BidVO> bidPCheck(String tender_code) {
+		return bidMapper.bidPCheck(tender_code);
 	}
 	
 	//투찰 작성

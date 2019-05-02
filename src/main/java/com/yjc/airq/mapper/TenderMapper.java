@@ -21,6 +21,8 @@ public interface TenderMapper {
 	public int tenderDelete(String tcode);
 	// 입찰 공고 수정
 	public int tenderModify(TenderVO tenderVo);
+	// 입찰 공고 열람 권한(글쓴이)
+	public String tMemberCheck(String tender_code);
 	
 	//마이페이지 관리자 글관리 - 글삭제
 	@Delete("delete from tender where tender_code=#{tender_code}")

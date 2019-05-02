@@ -3,6 +3,21 @@ $(document).ready(function(){
 	/*투찰 작성*/
 	$("#bidComplete").css("display","none");
 	$(document).on('click','#bidWrite',function(){
+		var tender_code=$("#tcode").val();
+		$.ajax({
+			type:"POST",
+			url:"/BidPCheck/"+tender_code,
+			success:function(data){
+				if(data == "s"){
+					alert("이미 참여한 입찰입니다.");
+					return false;
+				}else{
+					bidWrite();
+				}
+			}
+		});
+	});
+	function bidWrite(){
 		$("#bidWrite").css("display","none");
 		$("#bidComplete").css("display","inherit");
 		
@@ -32,7 +47,7 @@ $(document).ready(function(){
 				$("#note").text(data.note);
 			}
 		});
-	});
+	};
 	
 	/*파일 업로드 확장자 체크*/
 	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|jpg|png)$");

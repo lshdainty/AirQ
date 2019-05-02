@@ -100,6 +100,8 @@
 	<c:if test="${sessionScope.user.member_devision == 'se' }">
 		<button id="bidWrite">투찰하기</button>
 		<button id="bidComplete">작성완료</button>
+		<button>삭제하기</button>
+		<button>수정하기</button>
 	</c:if>
 	<c:if test="${sessionScope.user.member_devision == 'no' }">
 		<button id="tenderApplicationBtn">입찰신청</button>

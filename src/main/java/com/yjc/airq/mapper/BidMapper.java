@@ -15,4 +15,6 @@ public interface BidMapper {
 	// 투찰 등록
 	public void addBid(BidVO bidVo);
 	
+	//투찰 작성 권한 체크(한 번만 등록 가능)
+	public ArrayList<BidVO> bidPCheck(String tender_code);
 }

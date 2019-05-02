@@ -40,4 +40,11 @@
 		from member
 		where member_id=#{member_id}
 	</select>
+	
+	<!-- 입찰 공고 열람 권한(사업자) -->
+	<select id="member_devision" parameterType="String" resultType="String">
+		select member_devision
+		from member
+		where member_id=#{member_id}
+	</select>
 </mapper>
