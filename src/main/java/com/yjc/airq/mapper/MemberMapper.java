@@ -28,4 +28,6 @@ public interface MemberMapper {
 	// 회원 이름 가져오기
 	public String member_name(String member_id);
 	
+	// 입찰 공고 열람 권한(사업자)
+	public String member_devision(String member_id);
 }

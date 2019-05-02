@@ -19,7 +19,7 @@
 	
 	<!-- 마감기한 d-day -->
 	<select id="d_day" parameterType="String" resultType="int">
-		select tender_deadline-trunc(t_creation_date)
+		select tender_deadline-trunc(sysdate)
 		from tender
 		where tender_code=#{tender_code}
 	</select>
@@ -46,4 +46,10 @@
 		where tender_code=#{tender_code}
 	</update>
 	
+	<!-- 입찰 공고 열람 권한(글쓴이) -->
+	<select id="tMemberCheck" parameterType="String" resultType="String">
+		select member_id
+		from tender
+		where tender_code=#{tender_code}
+	</select>
 </mapper>

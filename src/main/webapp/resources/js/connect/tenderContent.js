@@ -1,8 +1,22 @@
 $(document).ready(function(){
-	
 	/*투찰 작성*/
 	$("#bidComplete").css("display","none");
 	$(document).on('click','#bidWrite',function(){
+		var tender_code=$("#tcode").val();
+		$.ajax({
+			type:"POST",
+			url:"/BidPCheck/"+tender_code,
+			success:function(data){
+				if(data == "s"){
+					alert("이미 참여한 입찰입니다.");
+					return false;
+				}else{
+					bidWrite();
+				}
+			}
+		});
+	});
+	function bidWrite(){
 		$("#bidWrite").css("display","none");
 		$("#bidComplete").css("display","inherit");
 		
@@ -32,7 +46,7 @@ $(document).ready(function(){
 				$("#note").text(data.note);
 			}
 		});
-	});
+	};
 	
 	/*파일 업로드 확장자 체크*/
 	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|jpg|png)$");
@@ -90,4 +104,61 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	/*투찰 삭제*/
+	$(document).on('click','#bidDelete',function(){
+		
+		var tender_code=$("#tcode").val();
+		// 투찰에 대한 사업자번호
+		var company_code=$('input:radio[name="bidContent"]:checked').val();
+		var query={
+				company_code:company_code,
+				tender_code:tender_code
+		};
+		
+		$.ajax({
+			type:"POST",
+			url:"/bidDelete/",
+			data:query,
+			success:function(data){
+				if(data == "s"){
+					location.href="/tenderContent/"+tender_code;
+				}else{
+					alert("삭제할 권한이 없습니다.");
+					$('input:radio[name="bidContent"]:checked').prop('checked',false);
+					return false;
+				}
+			}
+		});
+	});
+	
+	/*투찰 수정*/
+	$(document).on('click','#bidModify',function(){
+		var tender_code=$("#tcode").val();
+		// 투찰에 대한 사업자번호
+		var company_code=$('input:radio[name="bidContent"]:checked').val();
+		var query={
+				company_code:company_code,
+				tender_code:tender_code
+		};
+		
+		$.ajax({
+			type:"POST",
+			url:"/bidModify",
+			data:query,
+			success:function(data){
+				if(data == "s"){
+					bidModify();
+				}else{
+					alert("수정할 권한이 없습니다.");
+					$('input:radio[name="bidContent"]:checked').prop('checked',false);
+					return false;
+				}
+			}
+		});
+	});
+	
+	function bidModify(){
+		
+	}
 });

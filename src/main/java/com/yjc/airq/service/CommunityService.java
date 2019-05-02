@@ -1,9 +1,7 @@
 package com.yjc.airq.service;
 
 import java.util.ArrayList;
-
 import org.apache.ibatis.annotations.Param;
-
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ReplyVO;
 

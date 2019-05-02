@@ -20,4 +20,22 @@
 		insert into bid(tender_code,company_code,bid_price,bid_ppt_name,upload_code) values(#{tender_code},#{company_code},${bid_price},#{bid_ppt_name},#{upload_code})
 	</insert>
 	
+	<!-- 투찰 작성 권한 체크(한 번만 등록 가능) -->
+	<select id="bidPCheck" parameterType="String" resultType="com.yjc.airq.domain.BidVO">
+		select company_code
+		from bid
+		where tender_code=#{tender_code}
+	</select>
+	
+	<!-- 투찰 삭제 -->
+	<delete id="bidDelete" parameterType="com.yjc.airq.domain.BidVO">
+		delete
+		from bid
+		where tender_code=#{tender_code} and company_code=#{company_code}
+	</delete>
+	<select id="bUpload_code" parameterType="com.yjc.airq.domain.BidVO" resultType="String">
+		select upload_code
+		from bid
+		where tender_code=#{tender_code} and company_code=#{company_code}
+	</select>
 </mapper>

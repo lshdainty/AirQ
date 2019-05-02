@@ -98,6 +98,21 @@ public class ConnectController {
 
 		return "connect/tenderMain";
 	}
+	
+	// 입찰 서비스 - 입찰 공고 열람 권한 체크
+	@RequestMapping(value="tMemberCheck", method=RequestMethod.POST)
+	@ResponseBody
+	public String tMembercheck(String tcode, HttpServletRequest request) {
+		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String tMember_id=connectService.tMemberCheck(tcode);
+		String member_devision=connectService.member_devision(member_id);
+		
+		if(member_id.equals(tMember_id) || member_devision.equals("se") || member_devision.equals("ma")) {
+			return "s";
+		}else {
+			return "f";
+		}
+	}
 
 	// 입찰 서비스 - 리스트에서 글쓰기로 가기
 	@RequestMapping(value = "tenderboardWrite", method = RequestMethod.POST)
@@ -151,22 +166,20 @@ public class ConnectController {
 				bidArr.get(i).setStar_score_avg(0);
 				bidArr.get(i).setNote("신규회원");
 			}
-			System.out.println(bidArr.get(i));
+			//System.out.println(bidArr.get(i));
 			
 			
 			Resource resource = new FileSystemResource("/resources/uploadFile/ppt/"+bidArr.get(i).getBid_ppt_name());
 			String resourceName = resource.getFilename(); //bid_ppt_name
 			
-			System.out.println(resource);
-			System.out.println(resourceName);
+			//System.out.println(resource);
+			//System.out.println(resourceName);
 
 			HttpHeaders headers = new HttpHeaders();
 			try {
-				System.out.println("0");
 				headers.add("Content-Disposition","attachment; filename="+new String(resourceName.getBytes("UTF-8"),"ISO-8859-1"));
-				System.out.println(headers);
+				//System.out.println(headers);
 			} catch(UnsupportedEncodingException e) {
-				System.out.println("2");
 				e.printStackTrace();
 			}
 		}
@@ -210,6 +223,22 @@ public class ConnectController {
 		int s = connectService.tenderModify(tenderVo);
 		String tender_code = tenderVo.getTender_code();
 		return "redirect: /tenderContent/" + tender_code;
+	}
+	
+	// 입찰 서비스 - 투찰 작성 권한 체크(한 번만 등록 가능)
+	@RequestMapping(value="BidPCheck/{tender_code}", method=RequestMethod.POST)
+	@ResponseBody
+	public String BidPrivilegeCheck(@PathVariable String tender_code, HttpServletRequest request) {
+		ArrayList<BidVO> bidPCheck=connectService.bidPCheck(tender_code);
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String company_code=connectService.company_code(member_id);
+		
+		for(int i=0;i<bidPCheck.size();i++) {
+			if(bidPCheck.get(i).getCompany_code().equals(company_code)) {
+				return "s";
+			}
+		}
+		return "f";
 	}
 
 	// 입찰 서비스 - 투찰 작성
@@ -302,14 +331,43 @@ public class ConnectController {
 		} // end for
 	}
 	
-	// 입찰 서비스 - 파일업로드
-	private String getFolder() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		String str = sdf.format(date);
-		return str.replace("-","");
+	/* 투찰 삭제 */
+	@RequestMapping(value="bidDelete", method=RequestMethod.POST)
+	@ResponseBody
+	public String bidDelete(BidVO bidVo ,String company_code, String tender_code, HttpServletRequest request) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		// 로그인 한 사업자 번호
+		String mCompany_code=connectService.company_code(member_id);
+		
+		if(company_code.equals(mCompany_code)) {
+			// 삭제할 업로드 코드 가져옴
+			String upload_code=connectService.bUpload_code(bidVo);
+			
+			connectService.bidDelete(bidVo);
+			
+			connectService.bidUploadDelete(upload_code);
+			return "s";
+		}else {
+			return "f";
+		}
 	}
-
+	
+	/* 투찰 수정 */
+	@RequestMapping(value="bidModify", method=RequestMethod.POST)
+	@ResponseBody
+	public String bidModify(String tender_code, String company_code, HttpServletRequest request) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		// 로그인 한 사업자 번호
+		String mCompany_code=connectService.company_code(member_id);
+		
+		if(company_code.equals(mCompany_code)) {
+			return "s";
+		}else {
+			return "f";
+		}
+		
+	}
+	
 	// 업체 분석/비교 도,시,평수 선택완료
 	@RequestMapping(value = "selectCompare", method = RequestMethod.GET)
 	@ResponseBody

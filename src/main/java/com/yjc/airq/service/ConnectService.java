@@ -8,6 +8,7 @@ import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.DemandVO;
+import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
@@ -32,6 +33,12 @@ public interface ConnectService {
 	// 입찰 세부내용 보기
 	public TenderVO tenderContent(String tender_code);
 	public ArrayList<BidVO> bidContent(String tender_code);
+	
+	// 입찰 공고 열람 권한(글쓴이)
+	public String tMemberCheck(String tender_code);
+	
+	// 입찰 공고 열람 권한(사업자)
+	public String member_devision(String member_id);
 
 	// 투찰 작성
 	public Company_InfoVO company_info(String member_id);
@@ -50,12 +57,20 @@ public interface ConnectService {
 	public String company_code(String member_id);
 	public String company_name(String company_code);
 	public String member_id(String company_code);
+	
+	//투찰 작성 권한 체크(한 번만 등록 가능)
+	public ArrayList<BidVO> bidPCheck(String tender_code);
 
 	// 입찰 공고 삭제
 	public ArrayList<BidVO> findUploadCode(String tender_code);
 	public void deleteBid(String tender_code);
 	public int tenderDelete(String tender_code);
-
+	
+	// 투찰 삭제
+	public void bidDelete(BidVO bidVo);
+	public String bUpload_code(BidVO bidVo); 
+	public void bidUploadDelete(String upload_code);
+	
 	// 입찰 공고 수정
 	public int tenderModify(TenderVO tenderVo);
 
