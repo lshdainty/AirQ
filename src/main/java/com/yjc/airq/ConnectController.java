@@ -403,4 +403,10 @@ public class ConnectController {
 		
 		return demand_code;
 	}
+	
+	// 분석/비교 서비스 - 상품 등록 페이지로 가기
+	@RequestMapping(value = "productWrite", method = RequestMethod.GET)
+	public String productWrite() {
+		return "connect/productWrite";
+	}
 }

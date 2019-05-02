@@ -92,6 +92,11 @@
 					</ul>
 				</div>
 			</div>
+			<div>
+				<c:if test="${sessionScope.user.member_devision == 'se' }">
+					<button id="productWrite">상품등록</button>
+				</c:if>
+			</div>
 			<nav aria-label="Page navigation example">
 				<div class="d-flex justify-content-center">
 					<ul class="pagination">

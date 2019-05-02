@@ -195,8 +195,16 @@ function ajax(idx,sort){
 }	//function
 //ajax 함수 끝
 
+//상품 상세페이지 시작
 $(document).on('click','.tableListContent',function(){
 	var product_code = $(this).attr("id");
 	console.log(product_code);
 	window.location.href="product/"+product_code;
 });
+//상품 상세페이지 끝
+
+//상품 등록페이지 시작
+$("#productWrite").click(function(){
+	window.location.href="/productWrite";
+});
+//상품 등록페이지 끝
