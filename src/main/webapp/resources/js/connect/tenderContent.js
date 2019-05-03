@@ -1,3 +1,13 @@
+(function(){
+	$.ajax({
+		async:true,
+		type:"POST",
+		url:"/member_devision",
+		success:function(data){
+			alert(data);
+		}
+	});
+});
 $(document).ready(function(){
 	/*투찰 작성*/
 	$("#bidComplete").css("display","none");
@@ -161,4 +171,5 @@ $(document).ready(function(){
 	function bidModify(){
 		
 	}
+	
 });

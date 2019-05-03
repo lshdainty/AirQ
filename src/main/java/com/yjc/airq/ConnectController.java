@@ -368,6 +368,14 @@ public class ConnectController {
 		
 	}
 	
+	@RequestMapping(value="member_devision",method=RequestMethod.POST)
+	@ResponseBody
+	public String member_devision(HttpServletRequest request) {
+		String member_devision = ((MemberVO) request.getSession().getAttribute("user")).getMember_devision();
+		
+		return member_devision;
+	}
+	
 	// 업체 분석/비교 도,시,평수 선택완료
 	@RequestMapping(value = "selectCompare", method = RequestMethod.GET)
 	@ResponseBody
