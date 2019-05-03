@@ -11,9 +11,9 @@ am4core.ready(function() {
 	// Create axes
 	var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
 	categoryAxis.dataFields.category = "country";
-	categoryAxis.renderer.grid.template.location = 0;
+	categoryAxis.renderer.grid.template.location = 1;
 	categoryAxis.renderer.minGridDistance = 30;
-	categoryAxis.renderer.labels.template.horizontalCenter = "right";
+	categoryAxis.renderer.labels.template.horizontalCenter = "middle";
 	categoryAxis.renderer.labels.template.verticalCenter = "middle";
 	categoryAxis.renderer.labels.template.rotation = 0;
 	categoryAxis.tooltip.disabled = true;
@@ -49,6 +49,7 @@ am4core.ready(function() {
 	// Cursor
 	chart.cursor = new am4charts.XYCursor();
 	
+	
 	$.ajax({
 		url:"mypageSeller",
 		type:"POST",
@@ -57,44 +58,56 @@ am4core.ready(function() {
 			alert("ajax들어왔다6");
 			console.log(data);
 			alert(data.list[0].sum);
-
+			var sum0 = data.list[0].sum
+			var sum1 = data.list[1].sum
+			var sum2 = data.list[2].sum
+			var sum3 = data.list[3].sum
+			var sum4 = data.list[4].sum
+			var sum5 = data.list[5].sum
+			var sum6 = data.list[6].sum
+			var sum7 = data.list[7].sum
+			var sum8 = data.list[8].sum
+			var sum9 = data.list[9].sum
+			var sum10 = data.list[10].sum
+			var sum11 = data.list[11].sum
+			
 		// Add data
 		chart.data = [ {
 			"country" : "1월",
-			"visits" : data.list[0].sum
+			"visits" : sum0
 		}, {
 			"country" : "2월",
-			"visits" : data.list[1].sum
+			"visits" : sum1
 		}, {
 			"country" : "3월",
-			"visits" : data.list[2].sum
+			"visits" : sum2
 		}, {
 			"country" : "4월",
-			"visits" : data.list[3].sum
+			"visits" : sum3
 		}, {
 			"country" : "5월",
-			"visits" : 20000
+			"visits" : sum4
 		}, {
 			"country" : "6월",
-			"visits" : 1114
+			"visits" : sum5
 		}, {
 			"country" : "7월",
-			"visits" : 984
+			"visits" : sum6
 		}, {
 			"country" : "8월",
-			"visits" : 711
+			"visits" : sum7
 		}, {
 			"country" : "9월",
-			"visits" : 665
+			"visits" : sum8
 		}, {
 			"country" : "10월",
-			"visits" : 580
+			"visits" : sum9
 		}, {
 			"country" : "11월",
-			"visits" : 443
+			"visits" : sum10
 		}, {
 			"country" : "12월",
-			"visits" : 441
+			"visits" : sum11
 		} ];
 		},
 		error:function(){
@@ -102,8 +115,6 @@ am4core.ready(function() {
 
 		}
 		});
-//	var cList = $("#cList").val();
-//	alert($'{cList}');
 	
 
 

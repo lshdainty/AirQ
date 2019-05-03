@@ -95,6 +95,7 @@ public class FileController {
     		uploadDB.setFile_name(file_name);
             uploadDB.setUpload_date(upload_date);
             files.add(uploadDB);
+            System.out.println(files);
             
         }catch(IOException e){
             e.printStackTrace();

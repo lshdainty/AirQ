@@ -14,30 +14,32 @@
 	<%--광역시/도/시/구/동 선택 api키값 끝 --%>
 	
 	<%--결제정보 시작 --%>
-	<input type="hidden" id="product_code" value="${productContent.product_code}">
-	<label for="product_name">상품명 : </label>
-	<input type="text" id="product_name" value="${productContent.product_name}" readonly><br/>
-	<label for="company_name">서비스 회사명  : </label>
-	<input type="text" id="company_name" value="${productContent.companyVO.company_name}" readonly><br/>
-	<label for="payment_price">가격 : </label>
-	<input type="text" id="payment_price" value="${productContent.product_price}" readonly><br/>
-	<select id="sido_code" class="select">
-		<option>선택</option>
-	</select>
-	<input type="hidden" id="d_addr_do" name="d_addr_do" />
-	<select id="sigoon_code" class="select">
-		<option>선택</option>
-	</select>
-	<input type="hidden" id="d_addr_si" name="d_addr_si" />
-	<select id="sidong_code" class="select">
-		<option>선택</option>
-	</select>
-	<input type="hidden" id="d_addr_dong" name="d_addr_dong" />
-	<input type="text" id="d_addr_detail" name="d_addr_detail" required autocomplete="off">
-	<br/>
-	<label for="d_service_date">서비스 날짜선택 : </label>
-	<input type="datetime-local" id="d_service_date">
-	<button id="cOrder">주문</button>
+	<form>
+		<input type="hidden" id="product_code" value="${productContent.product_code}">
+		<label for="product_name">상품명 : </label>
+		<input type="text" id="product_name" value="${productContent.product_name}" readonly><br/>
+		<label for="company_name">서비스 회사명  : </label>
+		<input type="text" id="company_name" value="${productContent.companyVO.company_name}" readonly><br/>
+		<label for="payment_price">가격 : </label>
+		<input type="text" id="payment_price" value="${productContent.product_price}" readonly><br/>
+		<select id="sido_code" class="select">
+			<option>선택</option>
+		</select>
+		<input type="hidden" id="d_addr_do" name="d_addr_do" />
+		<select id="sigoon_code" class="select">
+			<option>선택</option>
+		</select>
+		<input type="hidden" id="d_addr_si" name="d_addr_si" />
+		<select id="sidong_code" class="select">
+			<option>선택</option>
+		</select>
+		<input type="hidden" id="d_addr_dong" name="d_addr_dong" />
+		<input type="text" id="d_addr_detail" name="d_addr_detail">
+		<br/>
+		<label for="d_service_date">서비스 날짜선택 : </label>
+		<input type="datetime-local" id="d_service_date" min="" required>
+		<button id="cOrder">주문</button>
+	</form>
 	<%--결제정보 끝 --%>
 	<script src="/resources/js/connect/cPayment.js"></script>
 </body>

@@ -14,19 +14,11 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class HomeController {
-
 	//홈 메인페이지로 가기
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
+
 		return "home";
+		
 	}
-	
-	//홈 메인페이지로 가기
-	@RequestMapping(value = "/{data}", method = RequestMethod.POST)
-	public String home(@PathVariable String data) {
-		
-		System.out.println("data: " + data);
-		
-		return "home";
-		}
-}
+	}

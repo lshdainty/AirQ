@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.MemberVO;
+import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.mapper.CompanyMapper;
 import com.yjc.airq.mapper.MemberMapper;
+import com.yjc.airq.mapper.PaymentMapper;
 import com.yjc.airq.mapper.PostMapper;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.ReplyMapper;
@@ -50,6 +52,7 @@ public class MypageController {
 	private ProductMapper productMapper;
 	private PostMapper postMapper;
 	private MypageService companyMapper;
+	private PaymentMapper paymentMapper;
 
 	// mypageMain 가기
 	@RequestMapping(value = "mypageMain", method = RequestMethod.GET)
@@ -170,7 +173,12 @@ public class MypageController {
 
 	// mypageNormalPay 가기
 	@RequestMapping(value = "mypageNormalPay", method = RequestMethod.GET)
-	public String mypageNormalPay(Model model) {
+	public String mypageNormalPay(Model model, PaymentVO paymentVO, HttpServletRequest request) {
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		System.out.println(member_id);
+		ArrayList<PaymentVO> mypay = paymentMapper.mypay(member_id);
+		model.addAttribute("mypay", mypay);
+		System.out.println(mypay);
 		return "mypage/mypageNormalPay";
 	}
 
