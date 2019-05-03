@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,17 +64,13 @@ public class FileController {
             if(!uploadFile.exists())
             	uploadFile.mkdirs();
             
-            
-            
-            uploadPath=uploadPath+"/"+file_name+original_name;
+            uploadPath=uploadPath+"/"+file_name;
             // 파일업로드
             out = new FileOutputStream(new File(uploadPath));
             out.write(bytes);
             
-            
-            
             printWriter = response.getWriter();
-            String fileUrl = "resources/uploadFile/images/"+file_name+original_name;
+            String fileUrl = "resources/uploadFile/images/"+file_name;
             
             json.addProperty("uploaded",1);
             json.addProperty("fileName",file_name);
@@ -81,21 +78,21 @@ public class FileController {
             
             printWriter.println(json);
             
-    		/* 업로드 코드 생성 시작 */
-    		Date today = new Date();
-    		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
-    		String day = date.format(today);
-    		Timestamp upload_date = new Timestamp(System.currentTimeMillis());
-    		String random=String.format("%04d",(int)(Math.random()*10000));
-    		String upload_code="ul"+day+random;
-    		/* 업로드 코드 생성 완료 */
-            
-    		uploadDB.setUpload_code(upload_code);
-    		uploadDB.setOriginal_name(original_name);
-    		uploadDB.setFile_name(file_name);
-            uploadDB.setUpload_date(upload_date);
-            files.add(uploadDB);
-            System.out.println(files);
+//    		/* 업로드 코드 생성 시작 */
+//    		Date today = new Date();
+//    		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+//    		String day = date.format(today);
+//    		Timestamp upload_date = new Timestamp(System.currentTimeMillis());
+//    		String random=String.format("%04d",(int)(Math.random()*10000));
+//    		String upload_code="ul"+day+random;
+//    		/* 업로드 코드 생성 완료 */
+//            
+//    		uploadDB.setUpload_code(upload_code);
+//    		uploadDB.setOriginal_name(original_name);
+//    		uploadDB.setFile_name(file_name);
+//            uploadDB.setUpload_date(upload_date);
+//            files.add(uploadDB);
+//            System.out.println(files);
             
         }catch(IOException e){
             e.printStackTrace();
@@ -114,10 +111,14 @@ public class FileController {
     }
     
     
-    @RequestMapping(value = "fileInitialization", method = RequestMethod.GET)
-    public String fileCount(HttpServletRequest request) {
+    @RequestMapping(value = "fileInitialization/{data}", method = RequestMethod.GET)
+    public String fileCount(@PathVariable String data, HttpServletRequest request) {
     	files.clear();
+    	if(data.equals("s")) {
+    		return "connect/productWrite";
+    	}else {
     		return "community/postWriteForm";
+    	}
     }
     
     @RequestMapping(value = "fileInsert", method = RequestMethod.GET)

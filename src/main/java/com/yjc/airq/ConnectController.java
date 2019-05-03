@@ -2,6 +2,7 @@ package com.yjc.airq;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +12,10 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -31,6 +36,7 @@ import com.yjc.airq.domain.Criteria;
 import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
+import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
@@ -416,7 +422,7 @@ public class ConnectController {
 		return "connect/productContent";
 	}
 	
-	// 광역시/도를 선택시 해당하는 시,구 목록출력
+	// 분석/비교 서비스 - 광역시/도를 선택시 해당하는 시,구 목록출력
 	@RequestMapping(value = "areasido", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject areasido(Model model, AreaVO areaVO) {
@@ -429,7 +435,7 @@ public class ConnectController {
 		return json;
 	}
 	
-	// 결제창으로 이동
+	// 분석/비교 서비스 - 결제창으로 이동
 	@RequestMapping(value = "cPayment/{product_code}", method = RequestMethod.GET)
 	public String cPayment(@PathVariable String product_code, Model model) {
 		model.addAttribute("productContent", connectService.productContent(product_code));
@@ -437,7 +443,7 @@ public class ConnectController {
 		return "connect/cPayment";
 	}
 	
-	// 결제정보 insert
+	// 분석/비교 서비스 - 결제정보 insert
 	@RequestMapping(value = "cOrder", method = RequestMethod.POST)
 	@ResponseBody
 	public String cOrder(Model model, HttpServletRequest request, DemandVO demandVO, PaymentVO paymentVO) {
@@ -466,5 +472,34 @@ public class ConnectController {
 	@RequestMapping(value = "productWrite", method = RequestMethod.GET)
 	public String productWrite() {
 		return "connect/productWrite";
+	}
+	
+	// 분석/비교 서비스 - 상품 등록 insert
+	@RequestMapping(value = "productInsert", method = RequestMethod.GET)
+	public String productInsert(Model model,HttpServletRequest request) {
+			
+		String product_title = request.getParameter("product_title");
+		String payment_price = request.getParameter("payment_price");
+		String p_space = request.getParameter("p_space");
+		String measure_point = request.getParameter("measure_point");
+		String product_content = request.getParameter("product_content");
+		String[] area_code = request.getParameterValues("area_code");
+		System.out.println("title : "+product_title);
+		System.out.println("price : "+payment_price);
+		System.out.println("space : "+p_space);
+		System.out.println("point : "+measure_point);
+		System.out.println("content : "+product_content);
+		System.out.println("area_code : "+area_code);
+		Document doc = Jsoup.parse(product_content);
+		Elements imageElement;
+		imageElement = doc.select("img : ");
+		System.out.println("element : "+imageElement);
+		// 포스트 코드 생성
+//		Date today = new Date();
+//		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+//		String day = date.format(today);
+//		Timestamp current_date = new Timestamp(System.currentTimeMillis());
+//		String random=String.format("%04d",(int)(Math.random()*10000));
+		return "";
 	}
 }

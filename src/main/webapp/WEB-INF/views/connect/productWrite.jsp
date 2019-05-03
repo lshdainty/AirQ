@@ -26,16 +26,14 @@
 					<select id="sido_code" class="select">
 						<option>광역시/도</option>
 					</select>
-					<input type="hidden" id="d_addr_do" name="d_addr_do" />
 					<select id="sigoon_code" class="select">
 						<option>시/구</option>
 					</select>
-					<input type="hidden" id="d_addr_si" name="d_addr_si" />
 					<button id="areaAdd" type="button">가능지역 추가하기</button><br/>
 					<div id="possibleArea">
 					</div>
 					<label for="payment_price">측정 적절 평수 : </label>
-					<select id="p_space" class="select">
+					<select id="p_space" name="p_space" class="select">
 						<option>선택</option>
 						<option value="1">1~10평</option>
 						<option value="2">11~20평</option>
@@ -70,5 +68,5 @@
 	</div>
 </div>
 <script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
-<script src="resources/js/connect/productWrite.js"></script>
+<script src="/resources/js/connect/productWrite.js"></script>
 <%@include file="../include/footer.jsp"%>

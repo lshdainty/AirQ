@@ -7,7 +7,7 @@ $(function() {
 					{//해당 이름으로 된 textarea에 에디터를 적용
 						width : '100%',
 						height : '50vh',
-						filebrowserImageUploadUrl : "${pageContext.request.contextPath}/imageUpload" //여기 경로로 파일을 전달하여 업로드 시킨다.
+						filebrowserImageUploadUrl : "imageUpload" //여기 경로로 파일을 전달하여 업로드 시킨다.
 					});
 	CKEDITOR.on('dialogDefinition', function(ev) {
 		var dialogName = ev.data.name;
@@ -52,7 +52,7 @@ $(function() {
 				var html = "<option>시/구</option>";
 			
 				for(var i=0;i<data.aList.length;i++){ 
-					html +="<option value='"+data.aList[i].area_si+"'>"+data.aList[i].area_si+"</option>"
+					html +="<option value='"+data.aList[i].area_code+"'>"+data.aList[i].area_si+"</option>"
 				}
 				$('#sigoon_code').html(html);	
 			},
@@ -62,10 +62,19 @@ $(function() {
 });
 
 $("#areaAdd").click(function(){
-	var sido = $("#sido_code option:selected").val();
-	var sigoon = $("#sigoon_code option:selected").val();
-	var html = "<p>"+sido+":"+sigoon+"</p>";
-	$("#possibleArea").append(html);
-	$("#sido_code").val("선택").prop("selected", true);
-	$("#sigoon_code").val("선택").prop("selected", true);
+	if($("#sido_code option:selected").val()=="광역시/도"){
+		alert("광역시/도를 선택해주세요");
+		return false;
+	}else if($("#sigoon_code option:selected").text()=="시/구"){
+		alert("시/구를 선택해주세요");
+		return false;
+	}else{
+		var sido = $("#sido_code option:selected").val();
+		var sigoon = $("#sigoon_code option:selected").text();
+		var area_code = $("#sigoon_code option:selected").val();
+		var html = "<label for='area_code'>"+sido+":"+sigoon+"</label><input type='hidden' id='area_code' name='area_code' value='"+area_code+"' /><br/>";
+		$("#possibleArea").append(html);
+		$("#sido_code").val("광역시/도").prop("selected", true);
+		$("#sigoon_code").val("시/구").prop("selected", true);
+	}
 });
