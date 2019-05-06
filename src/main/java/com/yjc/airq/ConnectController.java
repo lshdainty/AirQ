@@ -484,6 +484,20 @@ public class ConnectController {
 		return "connect/productWrite";
 	}
 	
+	// 분석/비교 서비스 - 작성글 수정,삭제 권한 체크
+	@RequestMapping(value = "permissionCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public String permissionCheck(HttpServletRequest request) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String product_code = request.getParameter("product_code");
+		String writePerson = connectService.writePersonCheck(product_code);
+		if(member_id.equals(writePerson)) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
 	// 분석/비교 서비스 - 상품 등록 insert
 	@RequestMapping(value = "productInsert", method = RequestMethod.GET)
 	public String productInsert(Model model,HttpServletRequest request) {
@@ -524,6 +538,27 @@ public class ConnectController {
 			connectService.productImageUpload(uploadVO);
 		}
 		
-		return "redirect: product/" + product_code;
+		return "redirect: /product/" + product_code;
+	}
+	
+	// 분석/비교 서비스 - 상품 등록 update넘어가기
+	@RequestMapping(value = "productModify/{product_code}", method = RequestMethod.GET)
+	public String productUpdate(@PathVariable String product_code) {
+		
+		System.out.println(product_code);
+		
+		return "connect/productModify";
+	}
+	
+	// 분석/비교 서비스 - 상품 정보 delete
+	@RequestMapping(value = "productDelete/{product_code}", method = RequestMethod.GET)
+	public String productDelete(@PathVariable String product_code) {
+		connectService.productAreaDelete(product_code);
+		connectService.productImageDelete(product_code);
+		connectService.productPaymentDelete(product_code);
+		connectService.productDemandDelete(product_code);
+		connectService.productDelete(product_code);
+		
+		return "redirect: /compareMain";
 	}
 }

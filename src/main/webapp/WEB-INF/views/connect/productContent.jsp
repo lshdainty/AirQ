@@ -75,6 +75,10 @@
 			<button id="paymentButton" class="product-page-buybutton button-cart button-cart-DFH" data-loading-text="Yesss..." type="button">
 				<span class="button-cart-text">Add to Cart</span>
 			</button>
+			<c:if test="${sessionScope.user.member_devision == 'se' }">
+				<button id="productModify">상품수정</button>
+				<button id="productDelete">상품삭제</button>
+			</c:if>
 		</div>
 	</div>
 	<!-- end of product-page-product-details-list-block -->

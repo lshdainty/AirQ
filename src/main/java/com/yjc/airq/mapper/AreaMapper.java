@@ -11,4 +11,6 @@ public interface AreaMapper {
 	public ArrayList<AreaVO> selectSigoon(AreaVO areaVO);
 	// 서비스 가능 지역 등록
 	public void productAreaInsert(@Param("area_code") String area_code,@Param("product_code") String product_code);
+	// 서비스 가능 지역 삭제
+	public void productAreaDelete(@Param("product_code") String product_code);
 }

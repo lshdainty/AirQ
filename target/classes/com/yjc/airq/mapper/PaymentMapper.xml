@@ -5,4 +5,15 @@
 	<insert id="pInsertPayment" parameterType="com.yjc.airq.domain.PaymentVO">
 		insert into payment(payment_code,payment_price,demand_code) values(#{payment_code},#{payment_price},#{demand_code})
 	</insert>
+	
+	<delete id="productPaymentDelete" parameterType="String">
+		delete 
+		from payment 
+		where demand_code in(
+								select d.demand_code
+								from product p, demand d, payment p
+								where p.product_code = d.product_code
+								and d.demand_code = p.demand_code
+								and d.product_code = #{product_code})
+	</delete>
 </mapper>

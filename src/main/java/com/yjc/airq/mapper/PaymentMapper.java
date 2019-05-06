@@ -11,6 +11,9 @@ public interface PaymentMapper {
 	// 서비스 제품 주문정보 insert
 	public void pInsertPayment(PaymentVO paymentVO);
 	
+	// 서비스 제품 결제 삭제
+	public void productPaymentDelete(@Param("product_code") String product_code);
+	
 	//마이페이지 일반사용자 결제내역
 	@Select("select d.member_id, d.demand_code, p.star_score , p.payment_code, to_char(d.demand_date,'yyyy-mm-dd') as day" + 
 			" from payment p, demand d, member m" + 
