@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import org.jsoup.Jsoup;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.w3c.dom.Attr;
 
 import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
@@ -485,29 +487,43 @@ public class ConnectController {
 	// 분석/비교 서비스 - 상품 등록 insert
 	@RequestMapping(value = "productInsert", method = RequestMethod.GET)
 	public String productInsert(Model model,HttpServletRequest request) {
-			
-		String product_title = request.getParameter("product_title");
-		String payment_price = request.getParameter("payment_price");
-		String p_space = request.getParameter("p_space");
-		String measure_point = request.getParameter("measure_point");
-		String product_content = request.getParameter("product_content");
+		ProductVO productVO = new ProductVO();
+		UploadVO uploadVO = new UploadVO();
+		
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
+		String random=String.format("%04d",(int)(Math.random()*10000));
+		String product_code="pd"+day+random;
+		
+		productVO.setProduct_code(product_code);
+		productVO.setProduct_name(request.getParameter("product_name"));
+		productVO.setProduct_detail(request.getParameter("product_detail"));
+		productVO.setProduct_price(Integer.parseInt(request.getParameter("product_price")));
+		productVO.setP_space(Integer.parseInt(request.getParameter("p_space")));
+		productVO.setMeasure_point(Integer.parseInt(request.getParameter("measure_point")));
+		productVO.setCompany_code(connectService.company_code(((MemberVO) request.getSession().getAttribute("user")).getMember_id()));
+		connectService.productInsert(productVO);
+		
 		String[] area_code = request.getParameterValues("area_code");
-		System.out.println("title : "+product_title);
-		System.out.println("price : "+payment_price);
-		System.out.println("space : "+p_space);
-		System.out.println("point : "+measure_point);
-		System.out.println("content : "+product_content);
-		System.out.println("area_code : "+area_code);
-		Document doc = Jsoup.parse(product_content);
-		Elements imageElement;
-		imageElement = doc.select("img : ");
-		System.out.println("element : "+imageElement);
-		// 포스트 코드 생성
-//		Date today = new Date();
-//		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
-//		String day = date.format(today);
-//		Timestamp current_date = new Timestamp(System.currentTimeMillis());
-//		String random=String.format("%04d",(int)(Math.random()*10000));
-		return "";
+		for(int i=0; i<area_code.length; i++) {
+			connectService.productAreaInsert(area_code[i],product_code);
+		}
+		
+		Document doc = Jsoup.parse(request.getParameter("product_detail"));
+		Elements imageElement = doc.select("img");
+		String image_name[] = new String[imageElement.size()];
+		for(int i=0; i<imageElement.size(); i++) {
+			random=String.format("%04d",(int)(Math.random()*10000));
+			String upload_code = "ul"+day+random;
+			image_name[i] = imageElement.get(i).attr("src");
+			uploadVO.setUpload_code(upload_code);
+			uploadVO.setOriginal_name(image_name[i].substring(image_name[i].lastIndexOf("/")+33));
+			uploadVO.setFile_name(image_name[i].substring(image_name[i].lastIndexOf("/")+1));
+			uploadVO.setProduct_code(product_code);
+			connectService.productImageUpload(uploadVO);
+		}
+		
+		return "redirect: product/" + product_code;
 	}
 }

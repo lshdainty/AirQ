@@ -5,4 +5,8 @@
 	<select id="selectSigoon" resultType="com.yjc.airq.domain.AreaVO">
 		select * from area where area_do = #{area_do}
 	</select>
+	
+	<insert id="productAreaInsert">
+		insert into p_possible_area values(#{area_code},#{product_code})
+	</insert>
 </mapper>

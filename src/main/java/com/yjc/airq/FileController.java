@@ -33,7 +33,6 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class FileController {
-
 	
     UploadService uploadService;
     public ArrayList<UploadVO> files;
@@ -78,22 +77,6 @@ public class FileController {
             
             printWriter.println(json);
             
-//    		/* 업로드 코드 생성 시작 */
-//    		Date today = new Date();
-//    		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
-//    		String day = date.format(today);
-//    		Timestamp upload_date = new Timestamp(System.currentTimeMillis());
-//    		String random=String.format("%04d",(int)(Math.random()*10000));
-//    		String upload_code="ul"+day+random;
-//    		/* 업로드 코드 생성 완료 */
-//            
-//    		uploadDB.setUpload_code(upload_code);
-//    		uploadDB.setOriginal_name(original_name);
-//    		uploadDB.setFile_name(file_name);
-//            uploadDB.setUpload_date(upload_date);
-//            files.add(uploadDB);
-//            System.out.println(files);
-            
         }catch(IOException e){
             e.printStackTrace();
         } finally {
@@ -109,45 +92,4 @@ public class FileController {
             }
         }
     }
-    
-    
-    @RequestMapping(value = "fileInitialization/{data}", method = RequestMethod.GET)
-    public String fileCount(@PathVariable String data, HttpServletRequest request) {
-    	files.clear();
-    	if(data.equals("s")) {
-    		return "connect/productWrite";
-    	}else {
-    		return "community/postWriteForm";
-    	}
-    }
-    
-    @RequestMapping(value = "fileInsert", method = RequestMethod.GET)
-    public String fileUpdate(HttpServletRequest request) {
-    	Iterator<UploadVO> it = files.iterator();
-    	String product_code=request.getParameter("product_code");
-    	String post_code=request.getParameter("post_code");
-    	System.out.println(post_code);
-    	if(product_code==null)
-    		product_code="";
-    	if(post_code==null)
-    		post_code="";
-    	
-    	UploadVO uploadVO;
-    	while(it.hasNext()) {
-    		uploadVO=it.next();
-    		
-    		uploadVO.setProduct_code(product_code);
-    		uploadVO.setPost_code(post_code);
-    		uploadService.imgUpload(uploadVO);
-    		
-    	}
-    	
-		String board_type = (String)request.getSession().getAttribute("board_type");
-		String board_code = (String)request.getSession().getAttribute("board_code");
-		if(board_type=="table")
-			return "redirect: /tableBoardMain?board_code="+board_code+"&pagenum=1";
-		else
-			return "redirect: /thumbnailBoardMain?board_code="+board_code+"&pagenum=1";
-    }
-   
 }

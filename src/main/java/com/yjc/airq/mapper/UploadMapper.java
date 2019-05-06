@@ -18,4 +18,7 @@ public interface UploadMapper {
 	
 	// 투찰 삭제
 	public void bidUploadDelete(String upload_code);
+	
+	// 서비스 제품 사진 등록
+	public void productImageUpload(UploadVO uploadVO);
 }

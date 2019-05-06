@@ -86,4 +86,10 @@ public interface ConnectService {
 	public void pInsertDemand(DemandVO demandVO);
 	// 서비스 제품 결제정보 insert
 	public void pInsertPayment(PaymentVO paymentVO);
+	// 서비스 제품 등록
+	public void productInsert(ProductVO productVO);
+	// 서비스 가능 지역 등록
+	public void productAreaInsert(@Param("area_code") String area_code,@Param("product_code") String product_code);
+	// 서비스 제품 사진 등록
+	public void productImageUpload(UploadVO uploadVO);
 }

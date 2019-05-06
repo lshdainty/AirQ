@@ -12,17 +12,17 @@
 				<div class="row">
 					<div style="width: 100%">
 						<label for="firstName">서비스 상품 이름</label> 
-						<input type="text" class="form-control" id="product_title" placeholder="Product Name" required name="product_title">
+						<input type="text" class="form-control" id="product_name" placeholder="Product Name" required name="product_name">
 						<div class="invalid-feedback">ProductName is empty.</div>
 					</div>
 				</div>
 				<%-- 상품 이름 끝 --%>
 				<%--상품 기본 정보 선택 시작 --%>
-				<div class="product_detail">
-					<label for="product_detail">서비스 상품 상세 정보</label><br/>
-					<label for="payment_price">가격 : </label>
-					<input type="number" id="payment_price" name="payment_price" placeholder="예시:10000"><br/>
-					<label for="payment_price">측정 가능지역 : </label>
+				<div class="product_info">
+					<label for="product_info">서비스 상품 상세 정보</label><br/>
+					<label for="product_price">가격 : </label>
+					<input type="number" id="product_price" name="product_price" placeholder="예시:10000"><br/>
+					<label for="possible_area">측정 가능지역 : </label>
 					<select id="sido_code" class="select">
 						<option>광역시/도</option>
 					</select>
@@ -30,9 +30,9 @@
 						<option>시/구</option>
 					</select>
 					<button id="areaAdd" type="button">가능지역 추가하기</button><br/>
-					<div id="possibleArea">
+					<div id="p_possible_area">
 					</div>
-					<label for="payment_price">측정 적절 평수 : </label>
+					<label for="p_space">측정 적절 평수 : </label>
 					<select id="p_space" name="p_space" class="select">
 						<option>선택</option>
 						<option value="1">1~10평</option>
@@ -47,7 +47,7 @@
 						<option value="10">91~100평</option>
 						<option value="11">100평~</option>
 					</select><br/>
-					<label for="payment_price">측정 지점 : </label>
+					<label for="measure_point">측정 지점 : </label>
 					<input type="number" id="measure_point" name="measure_point" placeholder="예시:3"/>
 				</div>
 				<%--상품 기본 정보 선택 끝 --%>
@@ -55,8 +55,8 @@
 				<div class="mb-3">
 					<label for="username">서비스 상품 내용</label>
 					<div class="input-group">
-						<textarea rows="20" cols="100" class="form-control" id="product_content"
-							placeholder="Product Content" name="product_content" required></textarea>
+						<textarea rows="20" cols="100" class="form-control" id="product_detail"
+							placeholder="Product Content" name="product_detail" required></textarea>
 						<div class="invalid-feedback" style="width: 100%;">ProductContent is empty.</div>
 					</div>
 				</div>
@@ -68,5 +68,5 @@
 	</div>
 </div>
 <script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
-<script src="/resources/js/connect/productWrite.js"></script>
+<script src="resources/js/connect/productWrite.js"></script>
 <%@include file="../include/footer.jsp"%>

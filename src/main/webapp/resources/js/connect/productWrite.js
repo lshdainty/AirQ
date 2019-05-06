@@ -3,7 +3,7 @@
 };
 $(function() {
 	CKEDITOR.replace(
-					'product_content',
+					'product_detail',
 					{//해당 이름으로 된 textarea에 에디터를 적용
 						width : '100%',
 						height : '50vh',
@@ -73,7 +73,7 @@ $("#areaAdd").click(function(){
 		var sigoon = $("#sigoon_code option:selected").text();
 		var area_code = $("#sigoon_code option:selected").val();
 		var html = "<label for='area_code'>"+sido+":"+sigoon+"</label><input type='hidden' id='area_code' name='area_code' value='"+area_code+"' /><br/>";
-		$("#possibleArea").append(html);
+		$("#p_possible_area").append(html);
 		$("#sido_code").val("광역시/도").prop("selected", true);
 		$("#sigoon_code").val("시/구").prop("selected", true);
 	}

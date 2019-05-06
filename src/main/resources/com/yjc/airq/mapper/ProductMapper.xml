@@ -146,4 +146,7 @@
 		select * from product where product_code = #{product_code}
 	</select>
 
+	<insert id="productInsert" parameterType="com.yjc.airq.domain.ProductVO">
+		insert into product values(#{product_code},#{product_name},#{product_detail},#{product_price},#{p_space},#{measure_point},#{company_code})
+	</insert>
 </mapper>

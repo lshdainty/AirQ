@@ -215,4 +215,22 @@ public class ConnectServiceImplement implements ConnectService {
 	public void pInsertPayment(PaymentVO paymentVO) {
 		 paymentMapper.pInsertPayment(paymentVO);
 	}
+	
+	// 서비스 제품 등록
+	@Override
+	public void productInsert(ProductVO productVO) {
+		 productMapper.productInsert(productVO);
+	}
+	
+	// 서비스 가능 지역 등록
+	@Override
+	public void productAreaInsert(@Param("area_code") String area_code,@Param("product_code") String product_code) {
+		areaMapper.productAreaInsert(area_code,product_code);
+	}
+	
+	// 서비스 제품 사진 등록
+	@Override
+	public void productImageUpload(UploadVO uploadVO) {
+		uploadMapper.productImageUpload(uploadVO);
+	}
 }

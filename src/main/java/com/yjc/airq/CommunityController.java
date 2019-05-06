@@ -22,6 +22,7 @@ import com.yjc.airq.domain.Criteria;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ReplyVO;
+import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.service.CommunityService;
 import com.yjc.airq.service.UploadService;
 
@@ -234,14 +235,15 @@ public class CommunityController {
 	@RequestMapping(value = "postWrite", method = RequestMethod.GET)
 	public String recommandWrite(Model model,HttpServletRequest request) {	
 		
-		return "redirect:/fileInitialization/p";
+		return "community/postWriteForm";
 	}
 
 	// 글 추가
 	@RequestMapping(value = "postInsert", method = RequestMethod.GET)
 	public String recommandInsert(Model model,HttpServletRequest request) {
 		
-		PostVO postVO =new PostVO();
+		PostVO postVO = new PostVO();
+		UploadVO uploadVO = new UploadVO();
 		
 		String post_title = request.getParameter("post_title");
 		String post_content = request.getParameter("post_content");
@@ -265,7 +267,25 @@ public class CommunityController {
 		
 		postService.insertPost(postVO);
 		
-		return "redirect: /fileInsert?post_code="+post_code;
+		Document doc = Jsoup.parse(request.getParameter("post_content"));
+		Elements imageElement = doc.select("img");
+		String image_name[] = new String[imageElement.size()];
+		for(int i=0; i<imageElement.size(); i++) {
+			random=String.format("%04d",(int)(Math.random()*10000));
+			String upload_code = "ul"+day+random;
+			image_name[i] = imageElement.get(i).attr("src");
+			uploadVO.setUpload_code(upload_code);
+			uploadVO.setOriginal_name(image_name[i].substring(image_name[i].lastIndexOf("/")+33));
+			uploadVO.setFile_name(image_name[i].substring(image_name[i].lastIndexOf("/")+1));
+			uploadVO.setPost_code(post_code);
+			uploadService.imgUpload(uploadVO);
+		}
+		
+		String board_type = (String)request.getSession().getAttribute("board_type");
+		if(board_type=="table")
+			return "redirect: /tableBoardMain?board_code="+board_code+"&pagenum=1";
+		else
+			return "redirect: /thumbnailBoardMain?board_code="+board_code+"&pagenum=1";
 	}
 	
 	//  글 삭제

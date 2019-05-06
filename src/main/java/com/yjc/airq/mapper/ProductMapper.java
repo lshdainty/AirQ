@@ -19,6 +19,8 @@ public interface ProductMapper {
 	public int selectCount(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space);
 	// 상품 상세 페이지
 	public ProductVO productContent(String product_code);
+	// 서비스 제품 등록
+	public void productInsert(ProductVO productVO);
 	// 마이페이지- 관리자 프로덕트 리스트 조회
 	@Select("select * from product")
 	public ArrayList<ProductVO> productMP();
