@@ -150,7 +150,6 @@ function ajax(idx,sort){
 				for(var i=0; i<data.pList.length; i++){
 					result += '<li class="tableListContent" id="'+data.pList[i].product_code+'">'
 					result += '<div class="tableColumn tableCol-15" data-label="상품이름">'+data.pList[i].product_name+'</div>'
-					result += '<div class="tableColumn tableCol-30" data-label="상품 상세설명">'+data.pList[i].product_detail+'</div>'
 					result += '<div class="tableColumn tableCol-10-1" data-label="가격">'+data.pList[i].product_price+'</div>'
 					switch(data.pList[i].p_space){
 						case 1: space="1~10평"; break;

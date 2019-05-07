@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.w3c.dom.Attr;
@@ -542,17 +543,59 @@ public class ConnectController {
 	}
 	
 	// 분석/비교 서비스 - 상품 등록 update넘어가기
-	@RequestMapping(value = "productModify/{product_code}", method = RequestMethod.GET)
-	public String productUpdate(@PathVariable String product_code) {
-		
-		System.out.println(product_code);
+	@RequestMapping(value = "productModify", method = RequestMethod.GET)
+	public String productModify(Model model,@RequestParam("product_code") String product_code) {
+		model.addAttribute("productContent", connectService.productContent(product_code));
 		
 		return "connect/productModify";
 	}
 	
+	// 분석/비교 서비스 - 상품 정보 update
+	@RequestMapping(value = "productUpdate", method = RequestMethod.GET)
+	public String productUpdate(Model model,HttpServletRequest request,@RequestParam("product_code") String product_code) {
+		ProductVO productVO = new ProductVO();
+		UploadVO uploadVO = new UploadVO();
+			
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
+			
+		productVO.setProduct_code(product_code);
+		productVO.setProduct_name(request.getParameter("product_name"));
+		productVO.setProduct_detail(request.getParameter("product_detail"));
+		productVO.setProduct_price(Integer.parseInt(request.getParameter("product_price")));
+		productVO.setP_space(Integer.parseInt(request.getParameter("p_space")));
+		productVO.setMeasure_point(Integer.parseInt(request.getParameter("measure_point")));
+		productVO.setCompany_code(connectService.company_code(((MemberVO) request.getSession().getAttribute("user")).getMember_id()));
+		connectService.productUpdate(productVO);
+		
+		connectService.productAreaDelete(product_code);
+		String[] area_code = request.getParameterValues("area_code");
+		for(int i=0; i<area_code.length; i++) {
+			connectService.productAreaInsert(area_code[i],product_code);
+		}
+		
+		connectService.productImageDelete(product_code);
+		Document doc = Jsoup.parse(request.getParameter("product_detail"));
+		Elements imageElement = doc.select("img");
+		String image_name[] = new String[imageElement.size()];
+		for(int i=0; i<imageElement.size(); i++) {
+			String random=String.format("%04d",(int)(Math.random()*10000));
+			String upload_code = "ul"+day+random;
+			image_name[i] = imageElement.get(i).attr("src");
+			uploadVO.setUpload_code(upload_code);
+			uploadVO.setOriginal_name(image_name[i].substring(image_name[i].lastIndexOf("/")+33));
+			uploadVO.setFile_name(image_name[i].substring(image_name[i].lastIndexOf("/")+1));
+			uploadVO.setProduct_code(product_code);
+			connectService.productImageUpload(uploadVO);
+		}
+			
+		return "redirect: /product/" + product_code;
+	}
+	
 	// 분석/비교 서비스 - 상품 정보 delete
-	@RequestMapping(value = "productDelete/{product_code}", method = RequestMethod.GET)
-	public String productDelete(@PathVariable String product_code) {
+	@RequestMapping(value = "productDelete", method = RequestMethod.GET)
+	public String productDelete(@RequestParam("product_code") String product_code) {
 		connectService.productAreaDelete(product_code);
 		connectService.productImageDelete(product_code);
 		connectService.productPaymentDelete(product_code);

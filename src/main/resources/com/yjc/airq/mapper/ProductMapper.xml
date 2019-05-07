@@ -158,6 +158,17 @@
 		insert into product values(#{product_code},#{product_name},#{product_detail},#{product_price},#{p_space},#{measure_point},#{company_code})
 	</insert>
 	
+	<update id="productUpdate" parameterType="com.yjc.airq.domain.ProductVO">
+		update product 
+		set product_name = #{product_name}, 
+			product_detail = #{product_detail}, 
+			product_price = #{product_price},
+			p_space = #{p_space},
+			measure_point = #{measure_point},
+			company_code = #{company_code}
+		where product_code = #{product_code}
+	</update>
+	
 	<delete id="productDelete" parameterType="String">
 		delete from product where product_code = #{product_code}
 	</delete>

@@ -33,9 +33,6 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class FileController {
-	
-    UploadService uploadService;
-    public ArrayList<UploadVO> files;
 	/**
      * 이미지 업로드
      * @param request

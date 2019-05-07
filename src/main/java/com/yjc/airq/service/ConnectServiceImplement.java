@@ -240,6 +240,12 @@ public class ConnectServiceImplement implements ConnectService {
 		uploadMapper.productImageUpload(uploadVO);
 	}
 	
+	// 서비스 제품 수정
+	@Override
+	public void productUpdate(ProductVO productVO) {
+		productMapper.productUpdate(productVO);
+	}
+	
 	// 서비스 가능 지역 삭제
 	@Override
 	public void productAreaDelete(@Param("product_code") String product_code) {

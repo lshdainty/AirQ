@@ -14,7 +14,7 @@
     		async: false,
     		success: function(data) {
     			if(data=="success"){
-    				window.location.href="/productModify/"+product_code[1].trim();
+    				window.location.href="/productModify?product_code="+product_code[1].trim();
     			}else{
     				alert("권한이 없습니다.");
     			}
@@ -32,7 +32,7 @@
     		async: false,
     		success: function(data) {
     			if(data=="success"){
-    				window.location.href="/productDelete/"+product_code[1].trim();
+    				window.location.href="/productDelete?product_code="+product_code[1].trim();
     			}else{
     				alert("권한이 없습니다.");
     			}

@@ -24,6 +24,8 @@ public interface ProductMapper {
 	public String writePersonCheck(@Param("product_code") String product_code);
 	// 서비스 제품 등록
 	public void productInsert(ProductVO productVO);
+	// 서비스 제품 수정
+	public void productUpdate(ProductVO productVO);
 	// 서비스 제품 삭제
 	public void productDelete(@Param("product_code") String product_code);
 	// 마이페이지- 관리자 프로덕트 리스트 조회
