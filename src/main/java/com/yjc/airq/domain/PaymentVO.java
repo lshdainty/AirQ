@@ -13,4 +13,7 @@ public class PaymentVO {
 	private DemandVO demandVO;
 	
 	private String day;
+	private String company_name;
+	private String company_id;
+	private String product_detail;
 }

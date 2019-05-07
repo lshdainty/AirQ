@@ -1,0 +1,209 @@
+.container {
+	border: 1px solid red;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.container>.content>* {
+	border: 2px soild red;
+}
+
+.container .form1 {
+	border: 1px solid green;
+}
+
+.container .form1 .A {
+	display:inline-block;
+	width: 5%;
+}
+
+.container .form1 .B {
+	display: inline-block;
+	width: 28%;
+	margin-left: 23%;
+}
+
+.container .form1 .topdate{
+	display: inline-block;
+	width: 15%;
+}
+
+.container .form1 .topscore{
+	display: inline-block;
+	width: 10%;
+}
+
+.container .form1 .C {
+	float: right;
+}
+
+.container .form2 {
+	border: 1px solid blue;
+}
+
+.container .form2 .company_name {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form2 .product_detail {
+	width: 40%;
+	height: 10%;
+	text-overflow: ellipsis;
+	display: inline-block;
+	margin:0px;
+}
+
+.container .form2 .day {
+	width: 15%;
+	height: 50px;
+	display: inline-block;
+}
+
+.container .form2 .star_score {
+	width: 20%;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+ input[type=number]{
+	width: 50px;
+	display: inline-block;
+}
+
+.container .form2 .star_score .star_number{
+	display: inline-block;
+}
+
+.container .form2 .star_score .star_scoreBtn{
+	display: inline-block;
+}
+
+.container .form2 .selection {
+	display: inline-block;
+}
+
+.container .form3 {
+	border: 1px solid blue;
+		display: none;
+}
+
+.container .form3 .company_name {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form3 .product_detail {
+	width: 40%;
+	height: 50px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+	margin: 0px;
+}
+
+.container .form3 .day {
+	width: 15%;
+	height: 50px;
+	display: inline-block;
+}
+.container .form3 .star_score {
+	width: 10%;
+	height: 30px;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: inherit;
+}
+.container .form3 .selection {
+	display: inline-block;
+}
+
+.container .form4 {
+	border: 1px solid blue;
+	display: none;
+}
+
+.container .form4 .company_name {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form4 .product_detail {
+	width: 40%;
+	height: 50px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+	margin: 0px;
+}
+
+.container .form4 .day {
+	width: 15%;
+	height: 50px;
+	display: inline-block;
+}
+
+.container .form4 .star_score {
+	width: 10%;
+	height: 30px;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: inherit;
+}
+
+.container .content {
+	overflow: hidden;
+}
+
+.container .content>* {
+	float: left;
+	padding-bottom: 2000px;
+	margin-bottom: -2000px;
+}
+
+.container .content main {
+	width: 100%;
+}
+
+/*float 지정 해제 해줌*/
+.container footer {
+	clear: both;
+}
+/*599px보다 웹페이지를 줄이면 일렬로 나타나게*/
+@media ( max-width :1400px) {
+	.container>.content>* {
+		background-color: #f8f9fa;
+	}
+	.container .content {
+		padding-left: 0px;
+		padding-right: 0px;
+		overflow: visible;
+	}
+	.container .content>* {
+		float: none;
+		padding-bottom: 0px;
+		margin-bottom: 0px;
+	}
+	.container .content main {
+		width: 100%;
+	}
+	.container .content nav {
+		width: auto;
+		margin-left: 0;
+		left: 0;
+		position: relative;
+	}
+	.container .content aside {
+		width: auto;
+		margin-right: 0;
+	}
+}
