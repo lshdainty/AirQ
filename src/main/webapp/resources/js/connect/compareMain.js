@@ -198,7 +198,7 @@ function ajax(idx,sort){
 $(document).on('click','.tableListContent',function(){
 	var product_code = $(this).attr("id");
 	console.log(product_code);
-	window.location.href="product/"+product_code;
+	window.location.href="/product?product_code="+product_code;
 });
 //상품 상세페이지 끝
 

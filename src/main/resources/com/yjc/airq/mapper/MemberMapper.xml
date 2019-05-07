@@ -28,6 +28,10 @@
 	<select id="idCheck" resultType="com.yjc.airq.domain.MemberVO">
  		select member_id from member where member_id = #{id}
 	</select>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from member where member_id=#{member_id}
+	</delete>
 
 	<!-- 파일 업로드 -->
 	<!-- <select id="fileDB" resultType="com.yjc.airq.domain.FileTestVO">

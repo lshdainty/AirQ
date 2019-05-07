@@ -82,6 +82,9 @@
 		</div>
 	</div>
 	<!-- end of product-page-product-details-list-block -->
+	<div id="productDetail">
+		${productContent.product_detail}
+	</div>
 </div>
 <!-- end of product-page-product-details-section-->
 <script src="/resources/js/connect/productContent.js"></script>

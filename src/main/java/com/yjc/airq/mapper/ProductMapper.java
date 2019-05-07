@@ -29,9 +29,7 @@ public interface ProductMapper {
 	// 서비스 제품 삭제
 	public void productDelete(@Param("product_code") String product_code);
 	// 마이페이지- 관리자 프로덕트 리스트 조회
-	@Select("select * from product")
 	public ArrayList<ProductVO> productMP();
 	//마이페이지 관리자 글관리 - 글삭제
-	@Delete("delete from product where product_code=#{product_code}")
-	public boolean deletePostsProduct(String product_code);
+	public boolean deletePostsProduct(@Param("product_code") String product_code);
 }

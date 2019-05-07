@@ -172,4 +172,12 @@
 	<delete id="productDelete" parameterType="String">
 		delete from product where product_code = #{product_code}
 	</delete>
+	
+	<select id="productMP" resultType="com.yjc.airq.domain.ProductVO">
+		select * from product
+	</select>
+	
+	<delete id="deletePostsProduct" parameterType="String">
+		delete from product where product_code=#{product_code}
+	</delete>
 </mapper>

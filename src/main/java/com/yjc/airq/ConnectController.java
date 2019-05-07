@@ -426,8 +426,8 @@ public class ConnectController {
 	}
 
 	// 분석/비교 서비스 - 리스트에서 서비스상품 세부 내용으로 가기
-	@RequestMapping(value = "product/{product_code}", method = RequestMethod.GET)
-	public String productDetail(@PathVariable String product_code, Model model) {
+	@RequestMapping(value = "product", method = RequestMethod.GET)
+	public String productDetail(@RequestParam("product_code") String product_code, Model model) {
 		model.addAttribute("productContent", connectService.productContent(product_code));
 
 		return "connect/productContent";
@@ -539,7 +539,7 @@ public class ConnectController {
 			connectService.productImageUpload(uploadVO);
 		}
 		
-		return "redirect: /product/" + product_code;
+		return "redirect: /product?product_code=" + product_code;
 	}
 	
 	// 분석/비교 서비스 - 상품 등록 update넘어가기
@@ -590,7 +590,7 @@ public class ConnectController {
 			connectService.productImageUpload(uploadVO);
 		}
 			
-		return "redirect: /product/" + product_code;
+		return "redirect: /product?product_code=" + product_code;
 	}
 	
 	// 분석/비교 서비스 - 상품 정보 delete
