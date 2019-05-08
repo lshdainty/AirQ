@@ -95,9 +95,7 @@
 											<if test="!sigoon.equals('선택')">
 												and a.area_si in(#{sigoon},(select area_si 
                              												from area 
-                             												where area_do = (select area_do 
-                             																from area 
-                             																where area_si = #{sigoon}) 
+                             												where area_do = #{sido}
                              												and area_si like '%전체'))
 											</if>)
 					</if>
@@ -143,9 +141,7 @@
 										<if test="!sigoon.equals('선택')">
 											and a.area_si in(#{sigoon},(select area_si 
                              												from area 
-                             												where area_do = (select area_do 
-                             																from area 
-                             																where area_si = #{sigoon}) 
+                             												where area_do = #{sido} 
                              												and area_si like '%전체'))
 										</if>)
 			</if>
