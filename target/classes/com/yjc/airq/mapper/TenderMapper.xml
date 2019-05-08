@@ -52,4 +52,8 @@
 		from tender
 		where tender_code=#{tender_code}
 	</select>
+	
+	<delete id="deletePosts" parameterType="String">
+		delete from tender where tender_code=#{tender_code}
+	</delete>
 </mapper>

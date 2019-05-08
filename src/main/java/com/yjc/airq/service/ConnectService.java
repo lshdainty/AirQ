@@ -93,4 +93,24 @@ public interface ConnectService {
 	public void pInsertDemand(DemandVO demandVO);
 	// 서비스 제품 결제정보 insert
 	public void pInsertPayment(PaymentVO paymentVO);
+	// 작성글 수정,삭제 권한 체크
+	public String writePersonCheck(@Param("product_code") String product_code);
+	// 서비스 제품 등록
+	public void productInsert(ProductVO productVO);
+	// 서비스 가능 지역 등록
+	public void productAreaInsert(@Param("area_code") String area_code,@Param("product_code") String product_code);
+	// 서비스 제품 사진 등록
+	public void productImageUpload(UploadVO uploadVO);
+	// 서비스 제품 수정
+	public void productUpdate(ProductVO productVO);
+	// 서비스 가능 지역 삭제
+	public void productAreaDelete(@Param("product_code") String product_code);
+	// 서비스 제품 사진 삭제
+	public void productImageDelete(@Param("product_code") String product_code);
+	// 서비스 제품 결제 삭제
+	public void productPaymentDelete(@Param("product_code") String product_code);
+	// 서비스 제품 주문 삭제
+	public void productDemandDelete(@Param("product_code") String product_code);
+	// 서비스 제품 삭제
+	public void productDelete(@Param("product_code") String product_code);
 }

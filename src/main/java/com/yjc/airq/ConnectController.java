@@ -2,6 +2,7 @@ package com.yjc.airq;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,8 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -21,8 +27,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.w3c.dom.Attr;
 
 import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
@@ -31,6 +39,7 @@ import com.yjc.airq.domain.Criteria;
 import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
+import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
@@ -438,14 +447,14 @@ public class ConnectController {
 	}
 
 	// 분석/비교 서비스 - 리스트에서 서비스상품 세부 내용으로 가기
-	@RequestMapping(value = "product/{product_code}", method = RequestMethod.GET)
-	public String productDetail(@PathVariable String product_code, Model model) {
+	@RequestMapping(value = "product", method = RequestMethod.GET)
+	public String productDetail(@RequestParam("product_code") String product_code, Model model) {
 		model.addAttribute("productContent", connectService.productContent(product_code));
 
 		return "connect/productContent";
 	}
 	
-	// 광역시/도를 선택시 해당하는 시,구 목록출력
+	// 분석/비교 서비스 - 광역시/도를 선택시 해당하는 시,구 목록출력
 	@RequestMapping(value = "areasido", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject areasido(Model model, AreaVO areaVO) {
@@ -458,7 +467,7 @@ public class ConnectController {
 		return json;
 	}
 	
-	// 결제창으로 이동
+	// 분석/비교 서비스 - 결제창으로 이동
 	@RequestMapping(value = "cPayment/{product_code}", method = RequestMethod.GET)
 	public String cPayment(@PathVariable String product_code, Model model) {
 		model.addAttribute("productContent", connectService.productContent(product_code));
@@ -466,7 +475,7 @@ public class ConnectController {
 		return "connect/cPayment";
 	}
 	
-	// 결제정보 insert
+	// 분석/비교 서비스 - 결제정보 insert
 	@RequestMapping(value = "cOrder", method = RequestMethod.POST)
 	@ResponseBody
 	public String cOrder(Model model, HttpServletRequest request, DemandVO demandVO, PaymentVO paymentVO) {
@@ -495,5 +504,125 @@ public class ConnectController {
 	@RequestMapping(value = "productWrite", method = RequestMethod.GET)
 	public String productWrite() {
 		return "connect/productWrite";
+	}
+	
+	// 분석/비교 서비스 - 작성글 수정,삭제 권한 체크
+	@RequestMapping(value = "permissionCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public String permissionCheck(HttpServletRequest request) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String product_code = request.getParameter("product_code");
+		String writePerson = connectService.writePersonCheck(product_code);
+		if(member_id.equals(writePerson)) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	// 분석/비교 서비스 - 상품 등록 insert
+	@RequestMapping(value = "productInsert", method = RequestMethod.GET)
+	public String productInsert(Model model,HttpServletRequest request) {
+		ProductVO productVO = new ProductVO();
+		UploadVO uploadVO = new UploadVO();
+		
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
+		String random=String.format("%04d",(int)(Math.random()*10000));
+		String product_code="pd"+day+random;
+		
+		productVO.setProduct_code(product_code);
+		productVO.setProduct_name(request.getParameter("product_name"));
+		productVO.setProduct_detail(request.getParameter("product_detail"));
+		productVO.setProduct_price(Integer.parseInt(request.getParameter("product_price")));
+		productVO.setP_space(Integer.parseInt(request.getParameter("p_space")));
+		productVO.setMeasure_point(Integer.parseInt(request.getParameter("measure_point")));
+		productVO.setCompany_code(connectService.company_code(((MemberVO) request.getSession().getAttribute("user")).getMember_id()));
+		connectService.productInsert(productVO);
+		
+		String[] area_code = request.getParameterValues("area_code");
+		for(int i=0; i<area_code.length; i++) {
+			connectService.productAreaInsert(area_code[i],product_code);
+		}
+		
+		Document doc = Jsoup.parse(request.getParameter("product_detail"));
+		Elements imageElement = doc.select("img");
+		String image_name[] = new String[imageElement.size()];
+		for(int i=0; i<imageElement.size(); i++) {
+			random=String.format("%04d",(int)(Math.random()*10000));
+			String upload_code = "ul"+day+random;
+			image_name[i] = imageElement.get(i).attr("src");
+			uploadVO.setUpload_code(upload_code);
+			uploadVO.setOriginal_name(image_name[i].substring(image_name[i].lastIndexOf("/")+33));
+			uploadVO.setFile_name(image_name[i].substring(image_name[i].lastIndexOf("/")+1));
+			uploadVO.setProduct_code(product_code);
+			connectService.productImageUpload(uploadVO);
+		}
+		
+		return "redirect: /product?product_code=" + product_code;
+	}
+	
+	// 분석/비교 서비스 - 상품 등록 update넘어가기
+	@RequestMapping(value = "productModify", method = RequestMethod.GET)
+	public String productModify(Model model,@RequestParam("product_code") String product_code) {
+		model.addAttribute("productContent", connectService.productContent(product_code));
+		
+		return "connect/productModify";
+	}
+	
+	// 분석/비교 서비스 - 상품 정보 update
+	@RequestMapping(value = "productUpdate", method = RequestMethod.GET)
+	public String productUpdate(Model model,HttpServletRequest request,@RequestParam("product_code") String product_code) {
+		ProductVO productVO = new ProductVO();
+		UploadVO uploadVO = new UploadVO();
+			
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
+			
+		productVO.setProduct_code(product_code);
+		productVO.setProduct_name(request.getParameter("product_name"));
+		productVO.setProduct_detail(request.getParameter("product_detail"));
+		productVO.setProduct_price(Integer.parseInt(request.getParameter("product_price")));
+		productVO.setP_space(Integer.parseInt(request.getParameter("p_space")));
+		productVO.setMeasure_point(Integer.parseInt(request.getParameter("measure_point")));
+		productVO.setCompany_code(connectService.company_code(((MemberVO) request.getSession().getAttribute("user")).getMember_id()));
+		connectService.productUpdate(productVO);
+		
+		connectService.productAreaDelete(product_code);
+		String[] area_code = request.getParameterValues("area_code");
+		for(int i=0; i<area_code.length; i++) {
+			connectService.productAreaInsert(area_code[i],product_code);
+		}
+		
+		connectService.productImageDelete(product_code);
+		Document doc = Jsoup.parse(request.getParameter("product_detail"));
+		Elements imageElement = doc.select("img");
+		String image_name[] = new String[imageElement.size()];
+		for(int i=0; i<imageElement.size(); i++) {
+			String random=String.format("%04d",(int)(Math.random()*10000));
+			String upload_code = "ul"+day+random;
+			image_name[i] = imageElement.get(i).attr("src");
+			uploadVO.setUpload_code(upload_code);
+			uploadVO.setOriginal_name(image_name[i].substring(image_name[i].lastIndexOf("/")+33));
+			uploadVO.setFile_name(image_name[i].substring(image_name[i].lastIndexOf("/")+1));
+			uploadVO.setProduct_code(product_code);
+			connectService.productImageUpload(uploadVO);
+		}
+			
+		return "redirect: /product?product_code=" + product_code;
+	}
+	
+	// 분석/비교 서비스 - 상품 정보 delete
+	@RequestMapping(value = "productDelete", method = RequestMethod.GET)
+	public String productDelete(@RequestParam("product_code") String product_code) {
+		connectService.productAreaDelete(product_code);
+		connectService.productImageDelete(product_code);
+		connectService.productPaymentDelete(product_code);
+		connectService.productDemandDelete(product_code);
+		connectService.productDelete(product_code);
+		
+		return "redirect: /compareMain";
 	}
 }

@@ -19,8 +19,7 @@ public interface MemberMapper {
 	public MemberVO idCheck(String id);
 	
 	//마이페이지 관리자 회원관리 - 회원삭제
-	@Delete("delete from member where member_id=#{member_id}")
-	public boolean deleteMember(String member_id);
+	public void deleteMember(String member_id);
 	
 	// 파일 업로드
 	// public String fileDB(FileTestVO fDB);

@@ -2,7 +2,8 @@ package com.yjc.airq.mapper;
 
 import java.util.ArrayList;
 
-import com.yjc.airq.domain.BidVO;
+import org.apache.ibatis.annotations.Param;
+
 import com.yjc.airq.domain.UploadVO;
 
 public interface UploadMapper {
@@ -18,4 +19,10 @@ public interface UploadMapper {
 	
 	// 투찰 삭제
 	public void bidUploadDelete(String upload_code);
+	
+	// 서비스 제품 사진 등록
+	public void productImageUpload(UploadVO uploadVO);
+	
+	// 서비스 제품 사진 삭제
+	public void productImageDelete(@Param("product_code") String product_code);
 }

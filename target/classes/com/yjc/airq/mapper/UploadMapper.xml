@@ -8,15 +8,13 @@
 			ORIGINAL_NAME,
 			FILE_NAME,
 			UPLOAD_DATE,
-			PRODUCT_CODE,
 			POST_CODE
 		)
 		VALUES(
 		#{upload_code},
 		#{original_name},
 		#{file_name},
-		#{upload_date},
-		#{product_code},
+		systimestamp,
 		#{post_code}
 		)
 	</insert>
@@ -46,5 +44,17 @@
 		delete
 		from upload
 		where upload_code=#{upload_code}
+	</delete>
+	
+	<!-- 서비스 제품 사진 등록 -->
+	<insert id="productImageUpload" parameterType="com.yjc.airq.domain.UploadVO">
+		insert into upload(upload_code,original_name,file_name,upload_date,product_code) values(#{upload_code},#{original_name},#{file_name},systimestamp,#{product_code})
+	</insert>
+	
+	<!-- 서비스 제품 사진 등록 -->
+	<delete id="productImageDelete" parameterType="String">
+		delete
+		from upload
+		where product_code=#{product_code}
 	</delete>
 </mapper>

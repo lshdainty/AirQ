@@ -60,12 +60,6 @@ public class MypageController {
 		return "mypage/mypageMain";
 	}
 
-	// mypageMainCategory 가기
-	@RequestMapping(value = "mypageMainCategory", method = RequestMethod.GET)
-	public String mypageMainCategory(Model model) {
-		return "mypage/mypageMainCategory";
-	}
-
 	// mypageMainComment 가기
 	@RequestMapping(value = "mypageMainComment", method = RequestMethod.GET)
 	public String mypageMainComment(Model model) {
@@ -177,11 +171,44 @@ public class MypageController {
 		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
 		System.out.println(member_id);
 		ArrayList<PaymentVO> mypay = paymentMapper.mypay(member_id);
+		ArrayList<PaymentVO> mypayNotNull = paymentMapper.mypayNotNull(member_id);
+		ArrayList<PaymentVO> mypayNull = paymentMapper.mypayNull(member_id);
+		model.addAttribute("mypayNull", mypayNull);
 		model.addAttribute("mypay", mypay);
+		model.addAttribute("mypayNotNull", mypayNotNull);
 		System.out.println(mypay);
+		
 		return "mypage/mypageNormalPay";
 	}
 
+	//mypageNormalPay 셀렉트 옵션에 따른 페이지 ajax변환
+	@RequestMapping(value ="mypageNormalPayAjax", method = RequestMethod.POST)
+	@ResponseBody
+	public String mypageNormalPayOption(Model model,@RequestParam String selected, HttpServletRequest request) {
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		ArrayList<PaymentVO> mypay = paymentMapper.mypay(member_id);
+		ArrayList<PaymentVO> mypayNotNull = paymentMapper.mypayNotNull(member_id);
+		ArrayList<PaymentVO> mypayNull = paymentMapper.mypayNull(member_id);
+		
+			 if(selected.equals("0")) {
+				 return "0";
+			 }
+			 if(selected.equals("1")) {
+				return "1";
+			 }		 
+			 if(selected.equals("2")){
+				 return "2";
+			 }
+			 if(selected.equals("3")) {
+				 return "3";
+			 }
+	return "";
+	}
+	
+//	//mypageNormalPay 별점 추가 버튼에 따른 디비 값 업데이트
+//	@RequestMapping(value ="mypageNormalPayAjax", method = RequestMethod.POST)
+//	@ResponseBody
+	
 	// mypageNormalDelete 가기
 	@RequestMapping(value = "mypageNormalDelete", method = RequestMethod.GET)
 	public String mypageNormalDelete(Model model) {

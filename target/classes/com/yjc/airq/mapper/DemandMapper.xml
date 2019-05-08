@@ -5,4 +5,8 @@
 	<insert id="pInsertDemand" parameterType="com.yjc.airq.domain.DemandVO">
 		insert into demand values(#{demand_code},systimestamp,#{d_addr_do},#{d_addr_si},#{d_addr_dong},#{d_addr_detail},#{member_id},#{product_code},#{d_service_date})
 	</insert>
+	
+	<delete id="productDemandDelete" parameterType="String">
+		delete from demand where product_code = #{product_code}
+	</delete>
 </mapper>

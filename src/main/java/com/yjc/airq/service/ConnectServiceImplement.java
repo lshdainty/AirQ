@@ -231,4 +231,64 @@ public class ConnectServiceImplement implements ConnectService {
 	public void pInsertPayment(PaymentVO paymentVO) {
 		 paymentMapper.pInsertPayment(paymentVO);
 	}
+	
+	// 작성글 수정,삭제 권한 체크
+	@Override
+	public String writePersonCheck(@Param("product_code") String product_code) {
+		return productMapper.writePersonCheck(product_code);
+	}
+	
+	// 서비스 제품 등록
+	@Override
+	public void productInsert(ProductVO productVO) {
+		productMapper.productInsert(productVO);
+	}
+	
+	// 서비스 가능 지역 등록
+	@Override
+	public void productAreaInsert(@Param("area_code") String area_code,@Param("product_code") String product_code) {
+		areaMapper.productAreaInsert(area_code,product_code);
+	}
+	
+	// 서비스 제품 사진 등록
+	@Override
+	public void productImageUpload(UploadVO uploadVO) {
+		uploadMapper.productImageUpload(uploadVO);
+	}
+	
+	// 서비스 제품 수정
+	@Override
+	public void productUpdate(ProductVO productVO) {
+		productMapper.productUpdate(productVO);
+	}
+	
+	// 서비스 가능 지역 삭제
+	@Override
+	public void productAreaDelete(@Param("product_code") String product_code) {
+		areaMapper.productAreaDelete(product_code);
+	}
+		
+	// 서비스 제품 사진 삭제
+	@Override
+	public void productImageDelete(@Param("product_code") String product_code) {
+		uploadMapper.productImageDelete(product_code);
+	}
+	
+	// 서비스 제품 결제 삭제
+	@Override
+	public void productPaymentDelete(@Param("product_code") String product_code) {
+		paymentMapper.productPaymentDelete(product_code);
+	}
+	
+	// 서비스 제품 주문 삭제
+	@Override
+	public void productDemandDelete(@Param("product_code") String product_code) {
+		demandMapper.productDemandDelete(product_code);
+	}
+		
+	// 서비스 제품 삭제
+	@Override
+	public void productDelete(@Param("product_code") String product_code) {
+		productMapper.productDelete(product_code);
+	}
 }

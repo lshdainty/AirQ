@@ -51,7 +51,6 @@
 					<ul class="tableList">
 						<li class="tableListHeader" id="tableListHeader">
 							<div class="tableColumn tableCol-15">상품이름</div>
-							<div class="tableColumn tableCol-30">상품 상세설명</div>
 							<div class="tableColumn tableCol-10-1">가격</div>
 							<div class="tableColumn tableCol-15">측정 적절 평수</div>
 							<div class="tableColumn tableCol-10-1">측정 지점</div>
@@ -62,7 +61,6 @@
 						<c:forEach var="pList" items="${pList }">
 							<li class="tableListContent post-item" id="${pList.product_code}">
 								<div class="tableColumn tableCol-15" data-label="상품이름">${pList.product_name}</div>
-								<div class="tableColumn tableCol-30" data-label="상품 상세설명">${pList.product_detail}</div>
 								<div class="tableColumn tableCol-10-1" data-label="가격">${pList.product_price}</div>
 								<div class="tableColumn tableCol-15" data-label="측정 적절 평수">
 									<c:choose>
