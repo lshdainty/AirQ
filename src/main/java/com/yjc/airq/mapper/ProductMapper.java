@@ -31,5 +31,5 @@ public interface ProductMapper {
 	// 마이페이지- 관리자 프로덕트 리스트 조회
 	public ArrayList<ProductVO> productMP();
 	//마이페이지 관리자 글관리 - 글삭제
-	public boolean deletePostsProduct(@Param("product_code") String product_code);
+	public void deletePostsProduct(@Param("product_code") String product_code);
 }

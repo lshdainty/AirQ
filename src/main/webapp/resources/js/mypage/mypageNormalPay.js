@@ -37,7 +37,18 @@ $(document).ready(function(){
 	});
 });
 
-////별점 버튼 클릭 시 데이터 넘어가는것
-//$(Button).ready(function()){
-//	
-//}
+//별점 버튼 클릭 시 데이터 넘어가는것
+$(document).ready(function(){
+	$("#gavestar").click(function(){
+		var btn = document.getElementById("star").value; 
+//		console.log(document.getElementById("star").value);
+		$.ajax({
+			type : "POST",
+			data : btn,
+			url : "s",
+			success : function(data){
+				
+			}
+		})
+	});
+});

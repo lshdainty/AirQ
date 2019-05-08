@@ -60,12 +60,6 @@ public class MypageController {
 		return "mypage/mypageMain";
 	}
 
-	// mypageMainCategory 가기
-	@RequestMapping(value = "mypageMainCategory", method = RequestMethod.GET)
-	public String mypageMainCategory(Model model) {
-		return "mypage/mypageMainCategory";
-	}
-
 	// mypageMainComment 가기
 	@RequestMapping(value = "mypageMainComment", method = RequestMethod.GET)
 	public String mypageMainComment(Model model) {
@@ -210,6 +204,10 @@ public class MypageController {
 			 }
 	return "";
 	}
+	
+//	//mypageNormalPay 별점 추가 버튼에 따른 디비 값 업데이트
+//	@RequestMapping(value ="mypageNormalPayAjax", method = RequestMethod.POST)
+//	@ResponseBody
 	
 	// mypageNormalDelete 가기
 	@RequestMapping(value = "mypageNormalDelete", method = RequestMethod.GET)

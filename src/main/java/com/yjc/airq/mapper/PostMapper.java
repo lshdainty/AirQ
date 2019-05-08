@@ -21,5 +21,5 @@ public interface PostMapper {
 	// 마이페이지 - 관리자 포스트 리스트 조회
 	public ArrayList<PostVO> postMP();
 	//마이페이지 관리자 글관리 - 글삭제
-	public boolean deletePostsPost(@Param("post_code") String post_code);
+	public void deletePostsPost(@Param("post_code") String post_code);
 }

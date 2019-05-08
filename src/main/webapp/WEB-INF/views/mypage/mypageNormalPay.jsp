@@ -34,7 +34,7 @@
             <div class="day">${mypay.day}</div>
             <div class="star_score">
             <c:if test="${mypay.star_score eq '0'}">
-            <div class="star_number"><input type="number" name="star"/></div>
+            <div class="star_number"><input type="number" id="star"name="star"/></div>
             <div class="star_scoreBtn"><button id="gavestar">별점 주기</button></div>
             </c:if>
             <c:if test="${mypay.star_score ne '0'}">
@@ -53,7 +53,7 @@
             <div class="product_detail">${mypayNull.product_detail}</div> 
             <div class="day">${mypayNull.day}</div>
 <%--             <div class="star_score">${mypayNull.star_score}</div> --%>
-			<input type="number" name="star"/>
+			<input type="number" id="star"name="star"/>
             <button id="gavestar">별점 주기</button>
         </div>
         </c:forEach>

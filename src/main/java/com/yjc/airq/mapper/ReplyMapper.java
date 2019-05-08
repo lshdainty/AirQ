@@ -2,7 +2,6 @@ package com.yjc.airq.mapper;
 
 import java.util.ArrayList;
 
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 
 import com.yjc.airq.domain.ReplyVO;
@@ -14,5 +13,5 @@ public interface ReplyMapper {
 	public void replyDelete(String reply_code);
 	public ArrayList<ReplyVO> mypageReplys();
 	//마이페이지 관리자 댓글관리 - 댓글삭제
-	public boolean deleteComment(@Param("reply_code") String reply_code);
+	public void deleteComment(@Param("reply_code") String reply_code);
 }
