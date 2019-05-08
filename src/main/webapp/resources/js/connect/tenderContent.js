@@ -4,13 +4,34 @@
 		type:"POST",
 		url:"/member_devision",
 		success:function(data){
-			alert(data);
+			if(data == 'no'){ //사용자
+				var html='<span>|</span>'
+						+'<a href="/tenderDelete/${tenderContent.tender_code }" onclick="return confirm(&#39삭제하시겠습니까?&#39);">삭제</a>'
+						+'<span>|</span>'
+						+'<a href="/tenderModify/${tenderContent.tender_code }" onclick="return confirm(&#39수정하시겠습니까?&#39);">수정</a>';
+				$("#tenderADiv").append(html);
+				
+				var html2='<button id="tenderApplicationBtn">입찰신청</button>';
+				$("#bidBtnBiv").append(html2);
+			}else if(data == 'se'){ //사업자
+				var html='<button id="bidWrite">투찰하기</button>'
+				+'<button id="bidComplete">작성완료</button>'
+				+'<button id="bidDelete" onclick="return confirm(&#39삭제하시겠습니까?&#39);">삭제하기</button>'
+				+'<button id="bidModify" onclick="return confirm(&#39수정하시겠습니까?&#39);">수정하기</button>';
+				
+				$("#bidBtnBiv").append(html);
+				$("#bidComplete").css("display","none");
+				
+				$('input[id="bid_ppt_score"]').attr("disabled", false);
+			}else{ //관리자
+				
+			}
 		}
 	});
-});
+}());
 $(document).ready(function(){
 	/*투찰 작성*/
-	$("#bidComplete").css("display","none");
+	
 	$(document).on('click','#bidWrite',function(){
 		var tender_code=$("#tcode").val();
 		$.ajax({

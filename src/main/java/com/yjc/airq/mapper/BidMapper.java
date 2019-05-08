@@ -21,4 +21,11 @@ public interface BidMapper {
 	// 투찰 삭제
 	public void bidDelete(BidVO bidVo);
 	public String bUpload_code(BidVO bidVo);
+	
+	// 투찰 점수 - 건수
+	public ArrayList<BidVO> bidNumScore(String tender_code);
+	// 투찰 점수 - 별점
+	public ArrayList<BidVO> bidStarScore(String tender_code);
+	// 투찰 점수 - 별점
+	public ArrayList<BidVO> bidPriceScore(String tender_code);
 }

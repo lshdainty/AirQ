@@ -180,6 +180,22 @@ public class ConnectServiceImplement implements ConnectService {
 		uploadMapper.bidUploadDelete(upload_code);
 	}
 	
+	// 투찰 점수 - 건수
+	@Override
+	public ArrayList<BidVO> bidNumScore(String tender_code) {
+		return bidMapper.bidNumScore(tender_code);
+	}
+	// 투찰 점수 - 별점
+	@Override
+	public ArrayList<BidVO> bidStarScore(String tender_code) {
+		return bidMapper.bidStarScore(tender_code);
+	}
+	// 투찰 점수 - 별점
+	@Override
+	public ArrayList<BidVO> bidPriceScore(String tender_code) {
+		return bidMapper.bidPriceScore(tender_code);
+	}
+	
 	// 상품 리스트 출력
 	@Override
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum) {

@@ -71,6 +71,13 @@ public interface ConnectService {
 	public String bUpload_code(BidVO bidVo); 
 	public void bidUploadDelete(String upload_code);
 	
+	// 투찰 점수 - 건수
+	public ArrayList<BidVO> bidNumScore(String tender_code);
+	// 투찰 점수 - 별점
+	public ArrayList<BidVO> bidStarScore(String tender_code);
+	// 투찰 점수 - 별점
+	public ArrayList<BidVO> bidPriceScore(String tender_code);
+	
 	// 입찰 공고 수정
 	public int tenderModify(TenderVO tenderVo);
 

@@ -46,14 +46,7 @@
 </table>
 
 <div id="tenderADiv">
-	<c:if test="${sessionScope.user.member_devision == 'no' }">
-		<a href="/tenderDelete/${tenderContent.tender_code }"
-			onclick="return confirm('삭제하시겠습니까?');">삭제</a> <span>|</span> 
-		<a href="/tenderModify/${tenderContent.tender_code }"
-			onclick="return confirm('수정하시겠습니까?');">수정</a> <span>|</span> 
-	</c:if>
 	<a href="/tenderMain">목록</a>
-	
 </div>
 
 <%--입찰 공고 세부 내용 끝 --%>
@@ -96,16 +89,7 @@
 		</c:forEach>
 	</tbody>
 </table>
-<div>
-	<c:if test="${sessionScope.user.member_devision == 'se' }">
-		<button id="bidWrite">투찰하기</button>
-		<button id="bidComplete">작성완료</button>
-		<button id="bidDelete" onclick="return confirm('삭제하시겠습니까?');">삭제하기</button>
-		<button id="bidModify" onclick="return confirm('수정하시겠습니까?');">수정하기</button>
-	</c:if>
-	<c:if test="${sessionScope.user.member_devision == 'no' }">
-		<button id="tenderApplicationBtn">입찰신청</button>
-	</c:if>
+<div id="bidBtnBiv">
 </div>
 <%-- 참여 업체 리스트 테이블 끝 --%>
 

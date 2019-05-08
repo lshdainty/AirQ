@@ -17,4 +17,9 @@ public class BidVO {
 	private String note;
 	private String company_name;
 	private String member_id;
+	private int totalScore=0;
+	private int bidNumScore;
+	private int bidStarScore;
+	private int bidPriceScore;
+	//private int rank;
 }

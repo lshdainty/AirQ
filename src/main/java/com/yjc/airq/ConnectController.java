@@ -149,7 +149,7 @@ public class ConnectController {
 		//입찰
 		model.addAttribute("tenderContent", connectService.tenderContent(tender_code));
 		
-		//투찰
+		//투찰 리스트
 		ArrayList<BidVO> bidArr=connectService.bidContent(tender_code);
 		
 		for(int i=0;i<bidArr.size();i++) {
@@ -183,6 +183,27 @@ public class ConnectController {
 				e.printStackTrace();
 			}
 		}
+		
+		
+		
+		// 투찰 점수 - 건수
+		ArrayList<BidVO> numScoreArr=connectService.bidNumScore(tender_code);
+		
+		//System.out.println(numScoreArr);
+		
+		// 투찰 점수 - 별점
+		ArrayList<BidVO> starScoreArr=connectService.bidStarScore(tender_code);
+		//System.out.println(starScoreArr);
+		
+		// 투찰 점수 - 가격
+		ArrayList<BidVO> priceScoreArr=connectService.bidPriceScore(tender_code);
+		//System.out.println(priceScoreArr);
+		
+		System.out.println(bidArr);
+		
+		bidArr=priceScoreArr;
+		
+		System.out.println(bidArr);
 		
 		model.addAttribute("bidContent", bidArr);
 		
