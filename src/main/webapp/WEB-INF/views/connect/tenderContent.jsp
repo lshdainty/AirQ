@@ -84,7 +84,7 @@
 				<td data-label="첨부파일">${bidContent.bid_ppt_name }</td>
 				<td data-label="첨부파일 점수"><input type="text" id="bid_ppt_score" name="bid_ppt_score"><button>입력</button></td>
 				<td data-label="비고">${bidContent.note }</td>
-				<td data-label="TOTAL 점수">0</td>
+				<td data-label="TOTAL 점수">${bidContent.totalScore }</td>
 			</tr>
 		</c:forEach>
 	</tbody>
