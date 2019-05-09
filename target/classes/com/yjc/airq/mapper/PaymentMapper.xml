@@ -57,4 +57,9 @@
 		GROUP by d.MEMBER_ID,p.STAR_SCORE,d.DEMAND_CODE, p.payment_code, to_char(d.demand_date,'yyyy-mm-dd'), c.company_name, c.MEMBER_ID,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1)
 		order by to_char(d.demand_date,'yyyy-mm-dd') desc
 	</select>
+	
+	<update id="mypayStarUp" parameterType="com.yjc.airq.domain.PaymentVO">
+		UPDATE payment set star_score = #{star_score}
+		where payment_code = #{payment_code}
+	</update>
 </mapper>

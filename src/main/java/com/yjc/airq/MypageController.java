@@ -169,14 +169,12 @@ public class MypageController {
 	@RequestMapping(value = "mypageNormalPay", method = RequestMethod.GET)
 	public String mypageNormalPay(Model model, PaymentVO paymentVO, HttpServletRequest request) {
 		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
-		System.out.println(member_id);
 		ArrayList<PaymentVO> mypay = paymentMapper.mypay(member_id);
 		ArrayList<PaymentVO> mypayNotNull = paymentMapper.mypayNotNull(member_id);
 		ArrayList<PaymentVO> mypayNull = paymentMapper.mypayNull(member_id);
 		model.addAttribute("mypayNull", mypayNull);
 		model.addAttribute("mypay", mypay);
 		model.addAttribute("mypayNotNull", mypayNotNull);
-		System.out.println(mypay);
 		
 		return "mypage/mypageNormalPay";
 	}
@@ -205,9 +203,39 @@ public class MypageController {
 	return "";
 	}
 	
-//	//mypageNormalPay 별점 추가 버튼에 따른 디비 값 업데이트
-//	@RequestMapping(value ="mypageNormalPayAjax", method = RequestMethod.POST)
-//	@ResponseBody
+	//mypageNormalPay 별점 추가 버튼에 따른 디비 값 업데이트
+	@ResponseBody
+	@RequestMapping(value ="/mypageNormalPayStarAjax", method = RequestMethod.POST)
+	public Object mypayStarUp(Model model, HttpServletRequest request,PaymentVO paymentVO) {
+		//,@RequestParam("btn1") String btn1
+		System.out.println("ㅇㅇㅇㅇㅇㅇ");
+		String btn1 = request.getParameter("btn1");
+		String btn2 = request.getParameter("btn2");
+		String code1 = request.getParameter("code1");
+		String code2 = request.getParameter("code2");
+		
+//		System.out.println(btn1);
+//		System.out.println(btn2);
+//		System.out.println(code1);
+//		System.out.println(code2);
+		
+		int sum1 = Integer.parseInt(btn1+btn2);
+		String sum2 = code1+code2;
+		
+//		System.out.println(sum1);
+//		System.out.println(sum2);
+		
+		if(sum1 >= 1 && sum1 <= 10) {
+			paymentVO.setStar_score(sum1);
+			paymentVO.setPayment_code(sum2);
+			paymentMapper.mypayStarUp(paymentVO);
+			return "1";
+		}else {
+			System.out.println("값 잘못 넣었음");
+			return "2";
+		}
+		
+	}
 	
 	// mypageNormalDelete 가기
 	@RequestMapping(value = "mypageNormalDelete", method = RequestMethod.GET)

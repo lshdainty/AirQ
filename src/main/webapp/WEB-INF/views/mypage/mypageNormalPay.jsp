@@ -15,9 +15,9 @@
            <div class="topdate">날짜</div>
            <div class="topscore">별점</div>
             <select class="C"id="change">
-                <option value="1" id="selectA">전부다 </option>
-                <option value="2" id="selectB">null인것만</option>
-                <option value="3" id="selectC">null아닌것만</option>
+                <option value="1" id="selectA">모든항목 </option>
+                <option value="2" id="selectB">점수 등록필요</option>
+                <option value="3" id="selectC">점수 등록완료</option>
 
             </select>
             </div>
@@ -28,14 +28,14 @@
         <c:forEach var="mypay" items="${mypay}"
         varStatus="index" begin="0" end="20">
         <div class="form2" id="select1">
-	
+        	<div class="aa">${mypay.payment_code}</div>
             <div class="company_name">${mypay.company_name}</div> 
             <div class="product_detail">${mypay.product_detail}</div> 
             <div class="day">${mypay.day}</div>
             <div class="star_score">
             <c:if test="${mypay.star_score eq '0'}">
-            <div class="star_number"><input type="number" id="star"name="star"/></div>
-            <div class="star_scoreBtn"><button id="gavestar">별점 주기</button></div>
+            <div class="star_number"><input type="number" class="star" name="star"/></div>
+            <div class="star_scoreBtn"><button id="gavestar" class="gavestar" name="gavestar">별점 주기</button></div>
             </c:if>
             <c:if test="${mypay.star_score ne '0'}">
             ${mypay.star_score}
@@ -48,13 +48,12 @@
         <c:forEach var="mypayNull" items="${mypayNull}"
         varStatus="index" begin="0" end="20">
         <div class="form3" id="select2">
-
+        	<div class="bb">${mypayNull.payment_code}</div>
             <div class="company_name">${mypayNull.company_name}</div> 
             <div class="product_detail">${mypayNull.product_detail}</div> 
             <div class="day">${mypayNull.day}</div>
-<%--             <div class="star_score">${mypayNull.star_score}</div> --%>
-			<input type="number" id="star"name="star"/>
-            <button id="gavestar">별점 주기</button>
+			<input type="number" class="star" name="star"/>
+            <button id="gavestar" class="gavestar" name="gavestar">별점 주기</button>
         </div>
         </c:forEach>
         
