@@ -52,8 +52,10 @@
             <div class="company_name">${mypayNull.company_name}</div> 
             <div class="product_detail">${mypayNull.product_detail}</div> 
             <div class="day">${mypayNull.day}</div>
-			<input type="number" class="star" name="star"/>
-            <button id="gavestar" class="gavestar" name="gavestar">별점 주기</button>
+            <div class="star_score">
+			<div class="star_number"><input type="number" class="star" name="star"/></div>
+            <div class="star_scoreBtn"><button id="gavestar" class="gavestar" name="gavestar">별점 주기</button></div>
+        	</div>
         </div>
         </c:forEach>
         

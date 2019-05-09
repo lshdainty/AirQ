@@ -96,7 +96,7 @@ $(document).ready(function(){
 
 				},
 				error : function(xhr, status, error){
-					alert("ajax 에러발생")
+					alert("1~10 사이의 점수를 입력해 주세요.")
 				}
 		})
 	});

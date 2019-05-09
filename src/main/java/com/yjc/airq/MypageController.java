@@ -208,7 +208,6 @@ public class MypageController {
 	@RequestMapping(value ="/mypageNormalPayStarAjax", method = RequestMethod.POST)
 	public Object mypayStarUp(Model model, HttpServletRequest request,PaymentVO paymentVO) {
 		//,@RequestParam("btn1") String btn1
-		System.out.println("ㅇㅇㅇㅇㅇㅇ");
 		String btn1 = request.getParameter("btn1");
 		String btn2 = request.getParameter("btn2");
 		String code1 = request.getParameter("code1");

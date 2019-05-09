@@ -16,7 +16,7 @@
 
 .container .form1 .A {
 	display:inline-block;
-	width: 5%;
+	width: 35px;
 }
 
 .container .form1 .B {
@@ -97,9 +97,25 @@
 	border: 1px solid blue;
 		display: none;
 }
-
+.container .form3 #gavestar{
+	display: inline-block;
+	
+}
 .container .form3 .bb{
 	display: none;
+}.container .form3 .star_score {
+	width: 20%;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.container .form3 .star_score .star_number{
+	display: inline-block;
+}
+
+.container .form3 .star_score .star_scoreBtn{
+	display: inline-block;
 }
 
 .container .form3 .company_name {
@@ -122,13 +138,6 @@
 	width: 15%;
 	height: 50px;
 	display: inline-block;
-}
-.container .form3 .star_score {
-	width: 10%;
-	height: 30px;
-	display: inline-block;
-	text-overflow: ellipsis;
-	overflow: inherit;
 }
 .container .form3 .selection {
 	display: inline-block;
@@ -188,7 +197,7 @@
 	clear: both;
 }
 /*599px보다 웹페이지를 줄이면 일렬로 나타나게*/
-@media ( max-width :1400px) {
+@media ( max-width :570px) {
 	.container>.content>* {
 		background-color: #f8f9fa;
 	}
