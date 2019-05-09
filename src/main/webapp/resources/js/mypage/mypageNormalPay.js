@@ -1,3 +1,7 @@
+$(".form3").children().hide();
+$(".form3").hide();
+$(".form4").children().hide();
+$(".form4").hide();
 // 셀렉트 옵션에 따른 데이터 값 불러오기
 $(document).ready(function(){
 	$("#change") .click(function(){

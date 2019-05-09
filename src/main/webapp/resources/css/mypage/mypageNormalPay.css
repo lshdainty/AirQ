@@ -1,17 +1,10 @@
-.container {
-	border: 1px solid red;
-}
 
 * {
 	box-sizing: border-box;
 }
 
-.container>.content>* {
-	border: 2px soild red;
-}
-
 .container .form1 {
-	border: 1px solid green;
+	box-shadow: 5px 5px 5px rgba(0.5,0.5,0.5,0.5);
 }
 
 .container .form1 .A {
@@ -40,7 +33,10 @@
 }
 
 .container .form2 {
-	border: 1px solid blue;
+		column-gap: 15px;
+		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		border-style: outset;
+		margin-bottom: 15px;
 }
 
 .container .form2 .aa{
@@ -58,7 +54,7 @@
 	width: 40%;
 	height: 50px;
 	text-overflow: ellipsis;
-	overflow: auto;
+	-webkit-line-clamp:3;
 	display: inline-block;
 	margin: 0px;
 }
@@ -94,8 +90,10 @@
 }
 
 .container .form3 {
-	border: 1px solid blue;
-		display: none;
+		column-gap: 15px;
+		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		border-style: outset;
+		margin-bottom: 15px;
 }
 .container .form3 #gavestar{
 	display: inline-block;
@@ -129,7 +127,7 @@
 	width: 40%;
 	height: 50px;
 	text-overflow: ellipsis;
-	overflow: auto;
+	-webkit-line-clamp:3;
 	display: inline-block;
 	margin: 0px;
 }
@@ -144,8 +142,10 @@
 }
 
 .container .form4 {
-	border: 1px solid blue;
-	display: none;
+		column-gap: 15px;
+		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		border-style: outset;
+		margin-bottom: 15px;
 }
 
 .container .form4 .company_name {
@@ -159,7 +159,7 @@
 	width: 40%;
 	height: 50px;
 	text-overflow: ellipsis;
-	overflow: auto;
+	-webkit-line-clamp:3;
 	display: inline-block;
 	margin: 0px;
 }

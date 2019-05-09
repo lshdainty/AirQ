@@ -1,24 +1,21 @@
-.container {
-	border: 1px solid red;
-}
 
 * {
 	box-sizing: border-box;
 }
-
-.container>.content>* {
-	border: 2px soild red;
+.container .form1 {
+	box-shadow: 5px 5px 5px rgba(0.5,0.5,0.5,0.5);
 }
-
-.container .content>* {
-	border:2px soild red;
-}
-
 .container .form1 .A{
 	display : inline-block;
 }
 .container .form1 .B{
 	display : inline-block;
+}
+.container .form2 {
+		column-gap: 15px;
+		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		border-style: outset;
+		margin-bottom: 15px;
 }
 
 /*float 지정 해제 해줌*/
