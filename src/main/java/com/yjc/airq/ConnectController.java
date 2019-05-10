@@ -508,8 +508,8 @@ public class ConnectController {
 	}
 	
 	// 분석/비교 서비스 - 결제창으로 이동
-	@RequestMapping(value = "cPayment/{product_code}", method = RequestMethod.GET)
-	public String cPayment(@PathVariable String product_code, Model model) {
+	@RequestMapping(value = "cPayment", method = RequestMethod.GET)
+	public String cPayment(@RequestParam("product_code") String product_code, Model model) {
 		model.addAttribute("productContent", connectService.productContent(product_code));
 		
 		return "connect/cPayment";

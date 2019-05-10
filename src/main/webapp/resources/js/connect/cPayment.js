@@ -98,6 +98,7 @@
 				url: "/cOrder",
 				data : query,
 				success: function(data) {
+					console.log(data);
 					alert("주문을 완료하였습니다. 주문코드 : " + data);
 					window.close();
 				},
