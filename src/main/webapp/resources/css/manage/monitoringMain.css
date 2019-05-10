@@ -84,3 +84,68 @@
 	top:5px;
 	left:25px;
 }
+
+#htmlMarker1{
+	cursor:pointer;
+	width:40px;
+	height:40px;
+	line-height:42px;
+	font-size:10px;
+	color:white;
+	text-align:center;
+	font-weight:bold;
+	background:url(/resources/images/cluster-marker-1.png);
+	background-size:contain;
+}
+
+#htmlMarker2{
+	cursor:pointer;
+	width:40px;
+	height:40px;
+	line-height:42px;
+	font-size:10px;
+	color:white;
+	text-align:center;
+	font-weight:bold;
+	background:url(/resources/images/cluster-marker-2.png);
+	background-size:contain;
+}
+
+#htmlMarker3{
+	cursor:pointer;
+	width:40px;
+	height:40px;
+	line-height:42px;
+	font-size:10px;
+	color:white;
+	text-align:center;
+	font-weight:bold;
+	background:url(/resources/images/cluster-marker-3.png);
+	background-size:contain;
+}
+
+#htmlMarker4{
+	cursor:pointer;
+	width:40px;
+	height:40px;
+	line-height:42px;
+	font-size:10px;
+	color:white;
+	text-align:center;
+	font-weight:bold;
+	background:url(/resources/images/cluster-marker-4.png);
+	background-size:contain;
+}
+
+#htmlMarker5{
+	cursor:pointer;
+	width:40px;
+	height:40px;
+	line-height:42px;
+	font-size:10px;
+	color:white;
+	text-align:center;
+	font-weight:bold;
+	background:url(/resources/images/cluster-marker-5.png);
+	background-size:contain;
+}

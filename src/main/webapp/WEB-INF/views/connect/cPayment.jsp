@@ -38,7 +38,7 @@
 		<br/>
 		<label for="d_service_date">서비스 날짜선택 : </label>
 		<input type="datetime-local" id="d_service_date" min="" required>
-		<button id="cOrder">주문</button>
+		<button type="button" id="cOrder">주문</button>
 	</form>
 	<%--결제정보 끝 --%>
 	<script src="/resources/js/connect/cPayment.js"></script>
