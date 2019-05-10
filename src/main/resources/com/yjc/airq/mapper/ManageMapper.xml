@@ -4,8 +4,15 @@
 
 <mapper namespace="com.yjc.airq.mapper.ManageMapper">
 
-	<insert id="remoteReg" parameterType="com.yjc.airq.domain.IotVO">
+	<select id="remoteReg" resultType="com.yjc.airq.domain.IotVO">
 		select * from IOT
-	</insert>
+	</select>
 
+	<select id="iotMain" resultType="com.yjc.airq.domain.IotInfoVO">
+		select m.member_id, mo.model_name, i.place_name
+		from iot_info i, model mo, member m
+		where m.member_id = #{member_id}
+		and i.model_id = mo.model_id
+	</select>
+	
 </mapper>

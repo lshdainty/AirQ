@@ -1,10 +1,31 @@
 @charset "UTF-8";
 
+
+ 
+/* 이미지 */
+.container2 .switch .window, .boiler, .airclean {
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+.container2 .switch {
+	display: inline-block;
+	text-align: center;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	margin: 0%;
+	margin-bottom: 15px;
+	width: 400px;
+	padding: 10px;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
 .container2 {
 	margin: auto;
 	margin-top: 10%;
 	width: 500px;
-/* 	border: 1px solid red; */
+	/* 	border: 1px solid red; */
 	text-align: center;
 }
 
@@ -19,13 +40,6 @@
 	display: inline-block;
 	height: 100%;
 	/*border: 1px solid blue;*/
-}
-
-.switch {
-	display: inline-block;
-	height: 100%;
-	border: 1px solid black;
-	margin-bottom: 10px;
 }
 
 html {

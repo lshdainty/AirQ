@@ -5,12 +5,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yjc.airq.domain.IotInfoVO;
 import com.yjc.airq.domain.IotVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.service.ManageService;
@@ -24,6 +28,8 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class ManageController {
+	
+	private ManageService manageService;
 
 	// 공기질 모니터링 메인페이지로 가기
 	@RequestMapping(value = "monitoringMain", method = RequestMethod.GET)
@@ -33,7 +39,15 @@ public class ManageController {
 
 	// IoT 원격제어 메인페이지로 가기
 	@RequestMapping(value = "remoteMain", method = RequestMethod.GET)
-	public String remoteMain(Model model) {
+	public String remoteMain(Model model, IotInfoVO iif, HttpServletRequest request, HttpSession session) {
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		System.out.println("로그인 ID: " + member_id);
+		
+		ArrayList<IotInfoVO> myIot = manageService.iotMain(member_id);
+		System.out.println("myIot: " + myIot);
+		model.addAttribute("myIot", myIot);
+		session.setAttribute("myPlace", myIot);
+		
 		return "manage/remoteMain";
 	}
 
@@ -44,12 +58,25 @@ public class ManageController {
 	}
 
 	// 원격제어 등록하기
+	@ResponseBody
 	@RequestMapping(value = "remoteReg", method = RequestMethod.GET)
-	public String remoteReg(Model model, IotVO rg) {
+	public String remoteReg(Model model, IotVO i) {
 
-		System.out.println(rg.getRemote());
-		System.out.println(rg.getLocation());
-
+		System.out.println("i.getRemote(): " + i.getRemote());
+		System.out.println("i.getLocation(): " + i.getLocation());
+		
+		
+		
+//		if(rg.getRemote().equals("보일러")) {
+//			return "boiler";
+//		}else if(rg.getRemote().equals("창문")) {
+//			return "window";
+//		}else if(rg.getRemote().equals("공기청정기")) {
+//			return "airclean";
+//		}else if(rg.getRemote().equals("환풍기")) {
+//			return "ventilator";
+//		}
+		
 		return "manage/remoteRegist";
 	}
 
