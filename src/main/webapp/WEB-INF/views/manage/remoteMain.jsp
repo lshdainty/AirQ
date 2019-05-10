@@ -11,9 +11,13 @@
 		${myiot.place_name}
 	</c:forEach> --%>
 	<c:forEach var="myiot" items="${myIot}">
+			${sessionScope.myiot.model_name}
 		<figure>
 			<div class="switch">
-			<img class="window" src="resources/images/boiler.png" /><br/>
+			<c:if test="${sessionScope.myiot.model_name eq 'boiler' }">
+				<img class="window" src="resources/images/boiler.png" /><br/>
+			</c:if>
+			
 	        <div class="local">
 	           	 ${myiot.model_name } 원격제어 <br/> 위치: ${myiot.place_name}
 	        </div>

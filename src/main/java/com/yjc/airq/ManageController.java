@@ -46,7 +46,7 @@ public class ManageController {
 		ArrayList<IotInfoVO> myIot = manageService.iotMain(member_id);
 		System.out.println("myIot: " + myIot);
 		model.addAttribute("myIot", myIot);
-		session.setAttribute("myPlace", myIot);
+		session.setAttribute("myIot", myIot);
 		
 		return "manage/remoteMain";
 	}

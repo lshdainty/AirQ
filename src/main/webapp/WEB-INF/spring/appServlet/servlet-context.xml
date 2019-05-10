@@ -33,7 +33,7 @@
 			<exclude-mapping path="/imageUpload" />
 			<exclude-mapping path="/resources/**" />
 			<exclude-mapping path="/" />
-			<exclude-mapping path="/test" />
+			<exclude-mapping path="/test/**" />
 			<exclude-mapping path="/loginMain" />
 			<exclude-mapping path="/login" />
 			<exclude-mapping path="/findId" />
