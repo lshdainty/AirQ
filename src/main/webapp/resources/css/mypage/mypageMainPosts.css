@@ -1,17 +1,10 @@
-.container {
-	border: 1px solid red;
-}
 
 * {
 	box-sizing: border-box;
 }
 
-.container>.content>* {
-	border: 2px soild red;
-}
-
 .container .form1 {
-	border: 1px solid green;
+	box-shadow: 5px 5px 5px rgba(0.5,0.5,0.5,0.5);
 }
 
 .container .form1 .A {
@@ -33,7 +26,10 @@
 }
 
 .container .form2 {
-	border: 1px solid blue;
+		column-gap: 15px;
+		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		border-style: outset;
+		margin-bottom: 15px;
 }
 
 .container .form2 .tender_title {
@@ -75,7 +71,10 @@
 }
 
 .container .form3 {
-	border: 1px solid blue;
+		column-gap: 15px;
+		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		border-style: outset;
+		margin-bottom: 15px;
 }
 
 .container .form3 .product_code {
@@ -109,7 +108,10 @@
 }
 
 .container .form4 {
-	border: 1px solid blue;
+		column-gap: 15px;
+		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		border-style: outset;
+		margin-bottom: 15px;
 }
 
 .container .form4 .post_title {

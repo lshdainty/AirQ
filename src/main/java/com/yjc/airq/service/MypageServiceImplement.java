@@ -70,8 +70,11 @@ public void deleteComment(String reply_code) {
 }
 @Override
 public void deletePosts(String tender_code) {
-	// TODO Auto-generated method stub
 	mapper6.deletePosts(tender_code);
+}
+@Override
+public void mypayStarUp(PaymentVO paymentVO) {
+	mapper2.mypayStarUp(paymentVO);
 }
 
 }

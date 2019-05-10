@@ -1,22 +1,15 @@
-.container {
-	border: 1px solid red;
-}
 
 * {
 	box-sizing: border-box;
 }
 
-.container>.content>* {
-	border: 2px soild red;
-}
-
 .container .form1 {
-	border: 1px solid green;
+	box-shadow: 5px 5px 5px rgba(0.5,0.5,0.5,0.5);
 }
 
 .container .form1 .A {
 	display:inline-block;
-	width: 5%;
+	width: 35px;
 }
 
 .container .form1 .B {
@@ -40,7 +33,14 @@
 }
 
 .container .form2 {
-	border: 1px solid blue;
+		column-gap: 15px;
+		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		border-style: outset;
+		margin-bottom: 15px;
+}
+
+.container .form2 .aa{
+	display: none;
 }
 
 .container .form2 .company_name {
@@ -52,10 +52,11 @@
 
 .container .form2 .product_detail {
 	width: 40%;
-	height: 10%;
+	height: 50px;
 	text-overflow: ellipsis;
+	-webkit-line-clamp:3;
 	display: inline-block;
-	margin:0px;
+	margin: 0px;
 }
 
 .container .form2 .day {
@@ -89,8 +90,30 @@
 }
 
 .container .form3 {
-	border: 1px solid blue;
-		display: none;
+		column-gap: 15px;
+		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		border-style: outset;
+		margin-bottom: 15px;
+}
+.container .form3 #gavestar{
+	display: inline-block;
+	
+}
+.container .form3 .bb{
+	display: none;
+}.container .form3 .star_score {
+	width: 20%;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.container .form3 .star_score .star_number{
+	display: inline-block;
+}
+
+.container .form3 .star_score .star_scoreBtn{
+	display: inline-block;
 }
 
 .container .form3 .company_name {
@@ -104,7 +127,7 @@
 	width: 40%;
 	height: 50px;
 	text-overflow: ellipsis;
-	overflow: hidden;
+	-webkit-line-clamp:3;
 	display: inline-block;
 	margin: 0px;
 }
@@ -114,20 +137,15 @@
 	height: 50px;
 	display: inline-block;
 }
-.container .form3 .star_score {
-	width: 10%;
-	height: 30px;
-	display: inline-block;
-	text-overflow: ellipsis;
-	overflow: inherit;
-}
 .container .form3 .selection {
 	display: inline-block;
 }
 
 .container .form4 {
-	border: 1px solid blue;
-	display: none;
+		column-gap: 15px;
+		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		border-style: outset;
+		margin-bottom: 15px;
 }
 
 .container .form4 .company_name {
@@ -141,7 +159,7 @@
 	width: 40%;
 	height: 50px;
 	text-overflow: ellipsis;
-	overflow: hidden;
+	-webkit-line-clamp:3;
 	display: inline-block;
 	margin: 0px;
 }
@@ -179,7 +197,7 @@
 	clear: both;
 }
 /*599px보다 웹페이지를 줄이면 일렬로 나타나게*/
-@media ( max-width :1400px) {
+@media ( max-width :570px) {
 	.container>.content>* {
 		background-color: #f8f9fa;
 	}
