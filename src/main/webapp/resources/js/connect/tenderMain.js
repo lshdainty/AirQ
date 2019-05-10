@@ -13,7 +13,7 @@ $(document).ready(function(){
 			data:query,
 			success:function(data){
 				if(data=='s'){
-					window.location.href="tenderContent/" + tcode;
+					window.location.href="/tenderContentGo/" + tcode;
 				}else{
 					alert("열람할 권한이 없습니다.");
 				}

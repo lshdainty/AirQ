@@ -7,42 +7,13 @@
 
 
 <%--입찰 공고 세부 내용 시작 --%>
-
-<h2 id="tenderTitle">${tenderContent.tender_title }</h2>
-<div>
-	<span id="tenderWriter">${tenderContent.member_id }</span> | <span
-		id="tenderDate">${tenderContent.t_creation_date }</span> <span
-		id="tenderDeadline">입찰 마감 일자 : ${tenderContent.tender_deadline }</span>
-	<input type="hidden" id="tcode" name="tcode"
-		value="${tenderContent.tender_code }">
+<div id="tenderContentDiv">
+	<input type="hidden" id="tcode" name="tcode" value="${tender_code }">
 </div>
-<hr />
+<hr/>
 
 <table id="tenderTbl">
-	<tr>
-		<td>입찰자 명</td>
-		<td>${tenderContent.tender_name }</td>
-	</tr>
-	<tr>
-		<td>주소</td>
-		<td>${tenderContent.t_addr_do }${tenderContent.t_addr_si }${tenderContent.t_addr_dong }${tenderContent.t_addr_detail }</td>
-	</tr>
-	<tr>
-		<td>평수</td>
-		<td>${tenderContent.t_space }</td>
-	</tr>
-	<tr>
-		<td>층수</td>
-		<td>${tenderContent.floor_number }</td>
-	</tr>
-	<tr>
-		<td>서비스 일자</td>
-		<td>${tenderContent.service_date }</td>
-	</tr>
-	<tr>
-		<td>요구사항</td>
-		<td>${tenderContent.requirement }</td>
-	</tr>
+	
 </table>
 
 <div id="tenderADiv">
@@ -72,21 +43,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="bidContent" items="${bidContent}">
-			<tr>
-				<td scope="row"><input type="radio" value="${bidContent.company_code}" name="bidContent" ></td>
-				<td class="listC" data-label="순위">0</td>
-				<td id="company_name" name="company_name" class="listC" data-label="업체명">${bidContent.company_name }</td>
-				<td id="member_id" name="member_id" class="listC" data-label="대표자">${bidContent.member_id }</td>
-				<td id="bid_price" name="bid_price" data-label="금액">${bidContent.bid_price }</td>
-				<td data-label="건수">${bidContent.bidNum }</td>
-				<td data-label="별점">${bidContent.star_score_avg }</td>
-				<td data-label="첨부파일">${bidContent.bid_ppt_name }</td>
-				<td data-label="첨부파일 점수"><input type="text" id="bid_ppt_score" name="bid_ppt_score" value="${bidContent.bid_ppt_score }"><button class="bid_ppt_score_btn">입력</button></td>
-				<td data-label="비고">${bidContent.note }</td>
-				<td data-label="TOTAL 점수">${bidContent.totalScore }</td>
-			</tr>
-		</c:forEach>
+		
 	</tbody>
 </table>
 <div id="bidBtnBiv">

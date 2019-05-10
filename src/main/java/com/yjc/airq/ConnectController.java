@@ -2,12 +2,13 @@ package com.yjc.airq;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
@@ -30,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
@@ -148,11 +151,21 @@ public class ConnectController {
 		
 		return "redirect: /tenderMain";
 	}
-
+	
+	@RequestMapping(value = "tenderContentGo/{tender_code}", method = RequestMethod.GET)
+	public String tenderContentGo(@PathVariable String tender_code, Model model) {
+		model.addAttribute("tender_code",tender_code);
+		System.out.println(tender_code);
+		return "connect/tenderContent";
+	}
+	
 	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
-	@RequestMapping(value = "tenderContent/{tender_code}", method = RequestMethod.GET)
-	public String tenderContent(@PathVariable String tender_code,BidVO bidVo, Model model, HttpServletRequest request) {
+	@RequestMapping(value = "tenderContent/{tender_code}", method = RequestMethod.POST)
+	@ResponseBody
+	public JSONObject tenderContent(@PathVariable String tender_code,BidVO bidVo, Model model) {
+		System.out.println("dd");
 		//입찰
+		TenderVO tender = connectService.tenderContent(tender_code);
 		model.addAttribute("tenderContent", connectService.tenderContent(tender_code));
 		
 		//투찰 리스트
@@ -237,14 +250,17 @@ public class ConnectController {
 			}
 		}
 		
+		//객체는 jsonArray에 넣지말고 map에 바로 넣기
+//		JSONArray tenderJson = JSONArray.fromObject(tender);
+		JSONArray bidJson = JSONArray.fromObject(bidArr);
+		Map<String, Object> aMap = new HashMap<String, Object>();
+		aMap.put("tenderVo", tender);
+		aMap.put("bidArr", bidJson);
+		JSONObject json = JSONObject.fromObject(aMap);
+		System.out.println(json);
 		model.addAttribute("bidContent", bidArr);
 		
-		return "connect/tenderContent";
-	}
-	
-	public ArrayList<BidVO> sort(){
-		
-		return null;
+		return json;
 	}
 	
 	// 입찰 서비스 - 입찰 공고 삭제 후 리스트로 가기
@@ -487,7 +503,7 @@ public class ConnectController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("aList", aJson);
 		JSONObject json = JSONObject.fromObject(map);
-		
+		System.out.println(json);
 		return json;
 	}
 	

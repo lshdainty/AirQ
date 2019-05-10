@@ -1,7 +1,7 @@
 (function(){
 	$.ajax({
 		async:true,
-		type:"POST",
+		type:"post",
 		url:"/member_devision",
 		success:function(data){
 			if(data == 'no'){ //사용자
@@ -32,7 +32,51 @@
 }());
 
 (function(){
-	
+	var tender_code=$("#tcode").val();
+	$.ajax({
+		type:"POST",
+		async:false,
+		dataType:"json",
+		url:"/tenderContent/"+tender_code,
+		success:function(data){
+			var bidArr=data.bidArr;
+			var tenderVo=data.tenderVo;
+			bidArr.sort(function(a,b){
+				return a.totalScore > b.totalScore ? -1 : a.totalScore < b.totalScore ? 1 : 0;
+			});
+			
+			var tenderHtml='<h2 id="tenderTitle">'+tenderVo.tender_title+'</h2>'
+				+'<span id="tenderWriter">'+tenderVo.member_id+'</span>'
+				+' | <span id="tenderDate">'+tenderVo.tcreationdate+'</span>'
+				+' <span id="tenderDeadline">입찰 마감 일자 : '+tenderVo.tender_deadline+'</span>';
+			$("#tenderContentDiv").append(tenderHtml);
+			
+			var tenderHtml2='<tr><td>입찰자 명</td><td>'+tenderVo.tender_name+'</td></tr>'
+			+'<tr><td>주소</td><td>'+tenderVo.t_addr_do+tenderVo.t_addr_si+tenderVo.t_addr_dong+tenderVo.t_addr_detail+'</td></tr>'
+			+'<tr><td>평수</td><td>'+tenderVo.t_space+'</td></tr>'
+			+'<tr><td>층수</td><td>'+tenderVo.floor_number+'</td></tr>'
+			+'<tr><td>서비스 일자</td><td>'+tenderVo.service_date+'</td></tr>'
+			+'<tr><td>요구사항</td><td>'+tenderVo.requirement+'</td></tr>';
+			$("#tenderTbl").append(tenderHtml2);
+			
+			for(var i=0; i<bidArr.length; i++){
+				var bidHtml='<tr>'
+					+'<td scope="row"><input type="radio" value='+bidArr[i].tender_code+' name="bidContent" ></td>'
+					+'<td class="listC" data-label="순위">'+(i+1)+'</td>'
+					+'<td id="company_name" name="company_name" class="listC" data-label="업체명">'+bidArr[i].company_name+'</td>'
+					+'<td id="member_id" name="member_id" class="listC" data-label="대표자">'+bidArr[i].member_id+'</td>'
+					+'<td id="bid_price" name="bid_price" data-label="금액">'+bidArr[i].bid_price+'</td>'
+					+'<td data-label="건수">'+bidArr[i].bidNum+'</td>'
+					+'<td data-label="별점">'+bidArr[i].star_score_avg+'</td>'
+					+'<td data-label="첨부파일">'+bidArr[i].bid_ppt_name+'</td>'
+					+'<td data-label="첨부파일 점수"><input type="text" id="bid_ppt_score" name="bid_ppt_score" value="'+bidArr[i].bid_ppt_score+'"><button class="bid_ppt_score_btn">입력</button></td>'
+					+'<td data-label="비고">'+bidArr[i].note+'</td>'
+					+'<td data-label="TOTAL 점수">'+bidArr[i].totalScore+'</td>'
+				+'</tr>';
+				 $("#tenderParticipationTbl tbody").append(bidHtml);
+			}
+		}
+	});
 }());
 $(document).ready(function(){
 	/*투찰 작성*/
