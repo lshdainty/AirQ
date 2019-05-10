@@ -29,6 +29,8 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/**" />
+			<exclude-mapping path="/m.**"/>
+			<exclude-mapping path="/imageUpload" />
 			<exclude-mapping path="/resources/**" />
 			<exclude-mapping path="/" />
 			<exclude-mapping path="/test" />

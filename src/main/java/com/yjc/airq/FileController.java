@@ -66,7 +66,7 @@ public class FileController {
             out.write(bytes);
             
             printWriter = response.getWriter();
-            String fileUrl = "resources/uploadFile/images/"+file_name;
+            String fileUrl = "/resources/uploadFile/images/"+file_name;
             
             json.addProperty("uploaded",1);
             json.addProperty("fileName",file_name);
