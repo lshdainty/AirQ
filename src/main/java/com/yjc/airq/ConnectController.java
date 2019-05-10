@@ -228,12 +228,6 @@ public class ConnectController {
 			map.replace(company_code,score+priceScore);
 		}
 		
-		Iterator<String> keySet = map.keySet().iterator();
-		
-		//System.out.println(key+","+map.get(key));
-		
-		
-			
 		for(int i=0; i<bidArr.size(); i++) {
 			String company_code=bidArr.get(i).getCompany_code();
 			for(String key:map.keySet()) {
@@ -247,7 +241,12 @@ public class ConnectController {
 		
 		return "connect/tenderContent";
 	}
-
+	
+	public ArrayList<BidVO> sort(){
+		
+		return null;
+	}
+	
 	// 입찰 서비스 - 입찰 공고 삭제 후 리스트로 가기
 	@RequestMapping(value = "tenderDelete/{tender_code}", method = RequestMethod.GET)
 	public String tenderDelete(@PathVariable String tender_code, Model model) {
@@ -272,7 +271,6 @@ public class ConnectController {
 	@RequestMapping(value = "tenderModify/{tender_code}", method = RequestMethod.GET)
 	public String tenderModify(@PathVariable String tender_code, Model model) {
 		model.addAttribute("tenderModify", connectService.tenderContent(tender_code));
-
 		return "connect/tenderModify";
 	}
 
@@ -357,7 +355,6 @@ public class ConnectController {
 		}
 		
 		for(MultipartFile multipartFile : uploadFile) {
-			
 			//업로드 코드
 			Date today = new Date();
 			SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
@@ -366,18 +363,15 @@ public class ConnectController {
 			String upload_code="ul"+day+random;
 			uploadVo.setUpload_code(upload_code);
 			bidVo.setUpload_code(upload_code);
-			
 			String uploadFileName = multipartFile.getOriginalFilename();
 			uploadVo.setOriginal_name(uploadFileName);
 			bidVo.setBid_ppt_name(uploadFileName);
-			
 			// IE has file path IE는 전체 파일 경로가 전송됨
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
-			
 			UUID uuid = UUID.randomUUID();
-			
 			uploadFileName = uuid.toString()+uploadFileName;
 			uploadVo.setFile_name(uploadFileName);
+			System.out.println(uploadVo);
 			connectService.bidUpload(uploadVo);
 			connectService.addBid(bidVo);
 			try {

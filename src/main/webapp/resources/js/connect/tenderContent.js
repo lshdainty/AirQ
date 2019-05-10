@@ -6,9 +6,9 @@
 		success:function(data){
 			if(data == 'no'){ //사용자
 				var html='<span>|</span>'
-						+'<a href="/tenderDelete/${tenderContent.tender_code }" onclick="return confirm(&#39삭제하시겠습니까?&#39);">삭제</a>'
+						+'<a id="tenderDeleteA" href="#">삭제</a>'
 						+'<span>|</span>'
-						+'<a href="/tenderModify/${tenderContent.tender_code }" onclick="return confirm(&#39수정하시겠습니까?&#39);">수정</a>';
+						+'<a id="tenderModifyA" href="#">수정</a>';
 				$("#tenderADiv").append(html);
 				
 				var html2='<button id="tenderApplicationBtn">입찰신청</button>';
@@ -16,22 +16,26 @@
 			}else if(data == 'se'){ //사업자
 				var html='<button id="bidWrite">투찰하기</button>'
 				+'<button id="bidComplete">작성완료</button>'
-				+'<button id="bidDelete" onclick="return confirm(&#39삭제하시겠습니까?&#39);">삭제하기</button>'
+				+'<button id="bidDelete">삭제하기</button>'
 				+'<button id="bidModify" onclick="return confirm(&#39수정하시겠습니까?&#39);">수정하기</button>';
 				
 				$("#bidBtnBiv").append(html);
 				$("#bidComplete").css("display","none");
 				
-				$('input[id="bid_ppt_score"]').attr("disabled", false);
+				$('input[id="bid_ppt_score"]').attr("disabled", true);
+				$(".bid_ppt_score_btn").attr("disabled", true);
 			}else{ //관리자
 				
 			}
 		}
 	});
 }());
+
+(function(){
+	
+}());
 $(document).ready(function(){
 	/*투찰 작성*/
-	
 	$(document).on('click','#bidWrite',function(){
 		var tender_code=$("#tcode").val();
 		$.ajax({
@@ -98,7 +102,6 @@ $(document).ready(function(){
 	
 	/*투찰 작성 완료 시*/
 	$(document).on('click','#bidComplete',function(){
-		
 		//공백 체크
 		var aBid_price=$("#aBid_price").val();
 		var aBid_ppt_name=$("#aBid_ppt_name").val();
@@ -134,33 +137,36 @@ $(document).ready(function(){
 				location.href="/tenderContent/"+$("#tcode").val();
 			}
 		});
+		
 	});
 	
 	/*투찰 삭제*/
 	$(document).on('click','#bidDelete',function(){
+		var c=confirm('삭제하시겠습니까?');
+		if(c){
+			var tender_code=$("#tcode").val();
+			// 투찰에 대한 사업자번호
+			var company_code=$('input:radio[name="bidContent"]:checked').val();
+			var query={
+					company_code:company_code,
+					tender_code:tender_code
+			};
 		
-		var tender_code=$("#tcode").val();
-		// 투찰에 대한 사업자번호
-		var company_code=$('input:radio[name="bidContent"]:checked').val();
-		var query={
-				company_code:company_code,
-				tender_code:tender_code
-		};
-		
-		$.ajax({
-			type:"POST",
-			url:"/bidDelete/",
-			data:query,
-			success:function(data){
-				if(data == "s"){
-					location.href="/tenderContent/"+tender_code;
-				}else{
-					alert("삭제할 권한이 없습니다.");
-					$('input:radio[name="bidContent"]:checked').prop('checked',false);
+			$.ajax({
+				type:"POST",
+				url:"/bidDelete/",
+				data:query,
+				success:function(data){
+					if(data == "s"){
+						location.href="/tenderContent/"+tender_code;
+					}else{
+						alert("삭제할 권한이 없습니다.");
+						$('input:radio[name="bidContent"]:checked').prop('checked',false);
 					return false;
 				}
-			}
-		});
+				}
+			});
+		}
 	});
 	
 	/*투찰 수정*/
@@ -187,6 +193,22 @@ $(document).ready(function(){
 				}
 			}
 		});
+	});
+	
+	$(document).on('click','#tenderModifyA',function(){
+		var c=confirm('수정하시겠습니까?');
+		var tender_code=$("#tcode").val();
+		if(c){
+			window.location.href="/tenderModify/"+tender_code;
+		}
+	});
+	
+	$(document).on('click','#tenderDeleteA',function(){
+		var c=confirm('삭제하시겠습니까?');
+		var tender_code=$("#tcode").val();
+		if(c){
+			window.location.href="/tenderDelete/"+tender_code;
+		}
 	});
 	
 	function bidModify(){

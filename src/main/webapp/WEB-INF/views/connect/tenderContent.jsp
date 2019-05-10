@@ -82,7 +82,7 @@
 				<td data-label="건수">${bidContent.bidNum }</td>
 				<td data-label="별점">${bidContent.star_score_avg }</td>
 				<td data-label="첨부파일">${bidContent.bid_ppt_name }</td>
-				<td data-label="첨부파일 점수"><input type="text" id="bid_ppt_score" name="bid_ppt_score"><button>입력</button></td>
+				<td data-label="첨부파일 점수"><input type="text" id="bid_ppt_score" name="bid_ppt_score" value="${bidContent.bid_ppt_score }"><button class="bid_ppt_score_btn">입력</button></td>
 				<td data-label="비고">${bidContent.note }</td>
 				<td data-label="TOTAL 점수">${bidContent.totalScore }</td>
 			</tr>
