@@ -13,11 +13,11 @@
 		</div>
 		<div class="product-page-product-details-list-block">
 			<div class="product-page-info-section title">
-				<h1 itemprop="name">${productContent.product_name}</h1>
+				<h1 id="product_name" itemprop="name">${productContent.product_name}</h1>
 			</div>
 			<div class="product-group cart">
 				<div class="product-page-info-section brewery">
-					<h2 class="product-page-h2-heading" itemprop="type">
+					<h2 id="product_code" class="product-page-h2-heading" itemprop="type">
 						<span class="product-page-heading-type">상품 코드</span> : ${productContent.product_code}
 					</h2>
 				</div>
@@ -72,12 +72,20 @@
 				<h2 class="product-page-h2-heading price" id="DFH-price-usd" itemprop="price">가격 : ${productContent.product_price}원</h2>
 				<span id="DFH-price-per-unit-usd" style="display: none;">${productContent.product_price}</span>
 			</div>
-			<button class="product-page-buybutton button-cart button-cart-DFH" data-loading-text="Yesss..." type="button">
+			<button id="paymentButton" class="product-page-buybutton button-cart button-cart-DFH" data-loading-text="Yesss..." type="button">
 				<span class="button-cart-text">Add to Cart</span>
 			</button>
+			<c:if test="${sessionScope.user.member_devision == 'se' }">
+				<button id="productModify">상품수정</button>
+				<button id="productDelete">상품삭제</button>
+			</c:if>
 		</div>
 	</div>
 	<!-- end of product-page-product-details-list-block -->
+	<div id="productDetail">
+		${productContent.product_detail}
+	</div>
 </div>
 <!-- end of product-page-product-details-section-->
+<script src="/resources/js/connect/productContent.js"></script>
 <%@include file="../include/footer.jsp"%>

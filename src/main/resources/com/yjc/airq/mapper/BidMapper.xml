@@ -19,4 +19,72 @@
 	<insert id="addBid" parameterType="com.yjc.airq.domain.BidVO">
 		insert into bid(tender_code,company_code,bid_price,bid_ppt_name,upload_code) values(#{tender_code},#{company_code},${bid_price},#{bid_ppt_name},#{upload_code})
 	</insert>
+	
+	<!-- 투찰 작성 권한 체크(한 번만 등록 가능) -->
+	<select id="bidPCheck" parameterType="String" resultType="com.yjc.airq.domain.BidVO">
+		select company_code
+		from bid
+		where tender_code=#{tender_code}
+	</select>
+	
+	<!-- 투찰 삭제 -->
+	<delete id="bidDelete" parameterType="com.yjc.airq.domain.BidVO">
+		delete
+		from bid
+		where tender_code=#{tender_code} and company_code=#{company_code}
+	</delete>
+	<select id="bUpload_code" parameterType="com.yjc.airq.domain.BidVO" resultType="String">
+		select upload_code
+		from bid
+		where tender_code=#{tender_code} and company_code=#{company_code}
+	</select>
+	
+	<!-- 투찰 점수 - 건수 -->
+	<select id="bidNumScore" resultType="com.yjc.airq.domain.BidVO">
+		select u.*, case bidNumRank when 1 then 10
+                      when 2 then 8
+                      when 3 then 6
+                      when 4 then 4
+                      when 5 then 2
+                      else 0 end as bidNumScore
+		from(select n.num, d.*, dense_rank() over(order by num desc) bidNumRank
+   			 from (select count(*) as num,company_code
+           		   from(select obj.*, b.win_bid_whether, b.company_code
+            		    from(select t.tender_code, p.refund_whether
+                  		 	 from tender t, payment p
+                  		     where t.tender_code = p.tender_code and p.refund_whether = 'n') obj, bid b
+              		    where obj.tender_code = b.tender_code and b.win_bid_whether = 'y') o
+        	       group by company_code
+        		   order by num desc) n, bid d
+   			where n.company_code=d.company_code and d.tender_code=#{tender_code}
+    		order by rownum desc) u
+	</select>
+	
+	<!-- 투찰 점수 - 별점 -->
+	<select id="bidStarScore" resultType="com.yjc.airq.domain.BidVO">
+		select n.star_score_avg, n.star_score_avg/0.5 as bidStarScore, d.*
+		from (select avg(star_score) star_score_avg, company_code
+    		  from(select obj.*, b.win_bid_whether, b.company_code
+        		  from(select t.tender_code, p.refund_whether,p.star_score
+           			   from tender t, payment p
+            		   where t.tender_code = p.tender_code and p.refund_whether = 'n') obj, bid b
+ 				  where obj.tender_code = b.tender_code and b.win_bid_whether = 'y') o
+			 group by company_code
+			 order by star_score_avg desc) n, bid d
+		where n.company_code=d.company_code and d.tender_code=#{tender_code}
+	</select>
+	
+	<!-- 투찰 점수 - 가격, ppt점수 -->
+	<select id="bidPriceScore" resultType="com.yjc.airq.domain.BidVO">
+		select d.*, case bidPriceRank when 1 then 20
+                      when 2 then 16
+                      when 3 then 12
+                      when 4 then 8
+                      when 5 then 4
+                      else 0 end as bidPriceScore
+		from (select dense_rank() over(order by bid_price) bidPriceRank, b.*
+      		  from (select * 
+      		  		from bid
+     				where tender_code=#{tender_code}) b) d
+	</select>
 </mapper>

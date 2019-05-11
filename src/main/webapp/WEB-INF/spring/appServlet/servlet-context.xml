@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans
-	xmlns="http://www.springframework.org/schema/mvc"
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.1.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -28,8 +29,11 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/**" />
+			<exclude-mapping path="/m.**"/>
+			<exclude-mapping path="/imageUpload" />
 			<exclude-mapping path="/resources/**" />
 			<exclude-mapping path="/" />
+			<exclude-mapping path="/test/**" />
 			<exclude-mapping path="/loginMain" />
 			<exclude-mapping path="/login" />
 			<exclude-mapping path="/findId" />
@@ -55,6 +59,28 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="10485760" />	10mb 제한
 	</beans:bean> -->
+
+		<!-- Chat 2019.04.24 웹소켓 테스트 -->
+	<beans:bean id="ChatController" class="web.ChatController" />
+	
+	<websocket:handlers>
+		<websocket:mapping handler="echoHandler" path="/echo"/>
+		<websocket:sockjs />
+	</websocket:handlers>
+    
+	<beans:bean id="echoHandler" class="chat.EchoHandler" />
+	
+	
+	<!-- WebSocket handler -->
+	<!-- <websocket:handlers>
+		<websocket:mapping handler="echoHandler" path="/WebSocket"/>
+		<websocket:sockjs />
+	</websocket:handlers>
+	<beans:bean id="echoHandler" class="com.yjc.airq.handler.echoHandler" /> -->	<!-- mapping -->
+	
+	<!-- WebSocket을 정의 할 때 속성 정의가 필요한데 그것이 handler, path값 이다.
+	handler는 웹소켓이 처리(handling) 할 로직이 있는 부분
+	path는 웹소켓을 호출 하는 경로 -->
 
 	<context:component-scan
 		base-package="com.yjc.airq" />

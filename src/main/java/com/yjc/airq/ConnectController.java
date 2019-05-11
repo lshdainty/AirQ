@@ -1,6 +1,7 @@
 package com.yjc.airq;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,9 +9,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +32,9 @@ import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.Criteria;
+import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.MemberVO;
+import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
@@ -46,7 +55,7 @@ public class ConnectController {
 	private ConnectService connectService;
 	private ProductMapper productMapper;
 	private UploadService uploadService;
-
+	
 	// 업체 분석/비교 메인페이지로 가기
 	@RequestMapping(value = "compareMain", method = RequestMethod.GET)
 	public String compareMain(Model model, HttpServletRequest request) {
@@ -74,9 +83,39 @@ public class ConnectController {
 	// 입찰 서비스 메인페이지로 가기
 	@RequestMapping(value = "tenderMain", method = RequestMethod.GET)
 	public String tenderMain(Model model, TenderVO tenderVo) {
-		model.addAttribute("tenderList", connectService.tenderList());
+		ArrayList<TenderVO> tenderList=connectService.tenderList();
+		for(int i=0;i<tenderList.size();i++) {
+			String tender_code=tenderList.get(i).getTender_code();
+			tenderList.get(i).setCompany_count(connectService.company_count(tender_code));
+			int d_day=connectService.d_day(tender_code);
+			
+			if(d_day < 0) {
+				tenderList.get(i).setD_day("입찰 종료");
+			} else if(d_day == 0) {
+				tenderList.get(i).setD_day("D-day");
+			} else {
+				tenderList.get(i).setD_day("D-"+d_day);
+			}
+			
+		}
+		model.addAttribute("tenderList", tenderList);
 
 		return "connect/tenderMain";
+	}
+	
+	// 입찰 서비스 - 입찰 공고 열람 권한 체크
+	@RequestMapping(value="tMemberCheck", method=RequestMethod.POST)
+	@ResponseBody
+	public String tMembercheck(String tcode, HttpServletRequest request) {
+		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String tMember_id=connectService.tMemberCheck(tcode);
+		String member_devision=connectService.member_devision(member_id);
+		
+		if(member_id.equals(tMember_id) || member_devision.equals("se") || member_devision.equals("ma")) {
+			return "s";
+		}else {
+			return "f";
+		}
 	}
 
 	// 입찰 서비스 - 리스트에서 글쓰기로 가기
@@ -89,32 +128,43 @@ public class ConnectController {
 	@RequestMapping(value = "tenderWriteComplete", method = RequestMethod.POST)
 	public String tenderList(TenderVO tenderVo, HttpServletRequest request) {
 		tenderVo.setMember_id(((MemberVO) request.getSession().getAttribute("user")).getMember_id());
-
+		
 		// 코드 앞에 날짜 6자리
 		Date today = new Date();
 		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
 		String day = date.format(today);
-
+		
 		// 코드 뒤에 랜덤 4자리
-		int random = (int) (Math.random() * 10000);
+		String random=String.format("%04d",(int)(Math.random()*10000));
 		String tender_code = "td" + day + random;
-
+		
 		// VO에 생성한 코드 set하기
 		tenderVo.setTender_code(tender_code);
-
+		
 		// insert에 영향을 받은 행의 갯수
 		int s = connectService.addTenderboard(tenderVo);
-
+		
 		return "redirect: /tenderMain";
 	}
-
+	
 	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
-	@RequestMapping(value = "tenderContent/{tender_code}", method = RequestMethod.GET)
-	public String ten(@PathVariable String tender_code,BidVO bidVo, Model model, HttpServletRequest request) {
+	@RequestMapping(value = "tenderContentGo/{tender_code}", method = RequestMethod.GET)
+	public String tenderContentGo(@PathVariable String tender_code, Model model) {
+		model.addAttribute("tender_code",tender_code);
+		System.out.println(tender_code);
+		return "connect/tenderContent";
+	}
+	
+	// 입찰 서비스 - 입찰 세부 내용으로 간 후 데이터 가져오기
+	@RequestMapping(value = "tenderContent/{tender_code}", method = RequestMethod.POST)
+	@ResponseBody
+	public JSONObject tenderContent(@PathVariable String tender_code,BidVO bidVo, Model model) {
+		System.out.println("dd");
 		//입찰
+		TenderVO tender = connectService.tenderContent(tender_code);
 		model.addAttribute("tenderContent", connectService.tenderContent(tender_code));
 		
-		//투찰
+		//투찰 리스트
 		ArrayList<BidVO> bidArr=connectService.bidContent(tender_code);
 		
 		for(int i=0;i<bidArr.size();i++) {
@@ -131,14 +181,84 @@ public class ConnectController {
 				bidArr.get(i).setStar_score_avg(0);
 				bidArr.get(i).setNote("신규회원");
 			}
+			//System.out.println(bidArr.get(i));
 			
-			System.out.println(bidArr.get(i));
+			
+			Resource resource = new FileSystemResource("/resources/uploadFile/ppt/"+bidArr.get(i).getBid_ppt_name());
+			String resourceName = resource.getFilename(); //bid_ppt_name
+			
+			//System.out.println(resource);
+			//System.out.println(resourceName);
+
+			HttpHeaders headers = new HttpHeaders();
+			try {
+				headers.add("Content-Disposition","attachment; filename="+new String(resourceName.getBytes("UTF-8"),"ISO-8859-1"));
+				//System.out.println(headers);
+			} catch(UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 		}
 		
+		// 투찰 점수 - 건수
+		ArrayList<BidVO> numScoreArr=connectService.bidNumScore(tender_code);
+		
+		// 투찰 점수 - 별점
+		ArrayList<BidVO> starScoreArr=connectService.bidStarScore(tender_code);
+		
+		// 투찰 점수 - 가격
+		ArrayList<BidVO> priceScoreArr=connectService.bidPriceScore(tender_code);
+		
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		
+		for(int i=0; i<bidArr.size(); i++) {
+			String company_code=bidArr.get(i).getCompany_code();
+			int pptScore=bidArr.get(i).getBid_ppt_score();
+			map.put(company_code,pptScore);
+		}
+		
+		for(int i=0; i<numScoreArr.size(); i++) {
+			String company_code=numScoreArr.get(i).getCompany_code();
+			int score=map.get(company_code);
+			int numScore=numScoreArr.get(i).getBidNumScore();
+			map.replace(company_code, score+numScore);
+		}
+		
+		for(int i=0; i<starScoreArr.size(); i++) {
+			String company_code=starScoreArr.get(i).getCompany_code();
+			int starScore=starScoreArr.get(i).getBidStarScore();
+			int score=map.get(company_code);
+			map.replace(company_code,score+starScore);
+		}
+		
+		for(int i=0; i<priceScoreArr.size(); i++) {
+			String company_code=priceScoreArr.get(i).getCompany_code();
+			int priceScore=priceScoreArr.get(i).getBidPriceScore();
+			int score=map.get(company_code);
+			map.replace(company_code,score+priceScore);
+		}
+		
+		for(int i=0; i<bidArr.size(); i++) {
+			String company_code=bidArr.get(i).getCompany_code();
+			for(String key:map.keySet()) {
+				if(company_code.equals(key)) {
+					bidArr.get(i).setTotalScore(map.get(key));
+				}
+			}
+		}
+		
+		//객체는 jsonArray에 넣지말고 map에 바로 넣기
+//		JSONArray tenderJson = JSONArray.fromObject(tender);
+		JSONArray bidJson = JSONArray.fromObject(bidArr);
+		Map<String, Object> aMap = new HashMap<String, Object>();
+		aMap.put("tenderVo", tender);
+		aMap.put("bidArr", bidJson);
+		JSONObject json = JSONObject.fromObject(aMap);
+		System.out.println(json);
 		model.addAttribute("bidContent", bidArr);
-		return "connect/tenderContent";
+		
+		return json;
 	}
-
+	
 	// 입찰 서비스 - 입찰 공고 삭제 후 리스트로 가기
 	@RequestMapping(value = "tenderDelete/{tender_code}", method = RequestMethod.GET)
 	public String tenderDelete(@PathVariable String tender_code, Model model) {
@@ -163,7 +283,6 @@ public class ConnectController {
 	@RequestMapping(value = "tenderModify/{tender_code}", method = RequestMethod.GET)
 	public String tenderModify(@PathVariable String tender_code, Model model) {
 		model.addAttribute("tenderModify", connectService.tenderContent(tender_code));
-
 		return "connect/tenderModify";
 	}
 
@@ -173,6 +292,22 @@ public class ConnectController {
 		int s = connectService.tenderModify(tenderVo);
 		String tender_code = tenderVo.getTender_code();
 		return "redirect: /tenderContent/" + tender_code;
+	}
+	
+	// 입찰 서비스 - 투찰 작성 권한 체크(한 번만 등록 가능)
+	@RequestMapping(value="BidPCheck/{tender_code}", method=RequestMethod.POST)
+	@ResponseBody
+	public String BidPrivilegeCheck(@PathVariable String tender_code, HttpServletRequest request) {
+		ArrayList<BidVO> bidPCheck=connectService.bidPCheck(tender_code);
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String company_code=connectService.company_code(member_id);
+		
+		for(int i=0;i<bidPCheck.size();i++) {
+			if(bidPCheck.get(i).getCompany_code().equals(company_code)) {
+				return "s";
+			}
+		}
+		return "f";
 	}
 
 	// 입찰 서비스 - 투찰 작성
@@ -187,19 +322,16 @@ public class ConnectController {
 
 		// 건수
 		int bidNum = connectService.bidNumber(c_info.getCompany_code());
-		
 		if (bidNum != 0) {
 			c_info.setBidNum(bidNum);
 			// 별점
-			double star_score_avg = connectService.star_score_avg(c_info.getCompany_code());
-			c_info.setStar_score_avg(star_score_avg);
+			c_info.setStar_score_avg(connectService.star_score_avg(c_info.getCompany_code()));
 			c_info.setNote("없음");
 		}else {
 			c_info.setBidNum(0);
 			c_info.setStar_score_avg(0);
 			c_info.setNote("신규회원");
 		}
-		System.out.println(c_info);
 		return c_info;
 	}
 	
@@ -212,7 +344,12 @@ public class ConnectController {
 		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
 		bidVo.setCompany_code(connectService.company_code(member_id));
 		bidVo.setBidNum(connectService.bidNumber(bidVo.getCompany_code()));
-		bidVo.setStar_score_avg(connectService.star_score_avg(bidVo.getCompany_code()));
+		int bidNum=bidVo.getBidNum();
+		if(bidNum != 0) {
+			bidVo.setStar_score_avg(connectService.star_score_avg(bidVo.getCompany_code()));
+		}else {
+			bidVo.setStar_score_avg(0);
+		}
 		
 		//금액 int로 변환
 		String s=request.getParameter("sBid_price"); 
@@ -220,37 +357,33 @@ public class ConnectController {
 		bidVo.setBid_price(bid_price);
 		 
 		//업로드
-		String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/images");
+		String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/ppt/");
 		
 		// make folder
-		File uploadPath = new File(uploadFolder, getFolder());
+		File uploadPath = new File(uploadFolder);
 		
 		if(uploadPath.exists() == false) {
 			uploadPath.mkdirs();// yyyy-MM-dd 폴더 생성
 		}
 		
 		for(MultipartFile multipartFile : uploadFile) {
-			
 			//업로드 코드
 			Date today = new Date();
 			SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
 			String day = date.format(today);
-			int random=(int)(Math.random()*10000);
+			String random=String.format("%04d",(int)(Math.random()*10000));
 			String upload_code="ul"+day+random;
 			uploadVo.setUpload_code(upload_code);
 			bidVo.setUpload_code(upload_code);
-			
 			String uploadFileName = multipartFile.getOriginalFilename();
 			uploadVo.setOriginal_name(uploadFileName);
 			bidVo.setBid_ppt_name(uploadFileName);
-			
 			// IE has file path IE는 전체 파일 경로가 전송됨
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
-			
 			UUID uuid = UUID.randomUUID();
-			
 			uploadFileName = uuid.toString()+uploadFileName;
 			uploadVo.setFile_name(uploadFileName);
+			System.out.println(uploadVo);
 			connectService.bidUpload(uploadVo);
 			connectService.addBid(bidVo);
 			try {
@@ -263,15 +396,52 @@ public class ConnectController {
 		} // end for
 	}
 	
-	// 입찰 서비스 - 파일업로드
-	private String getFolder() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		String str = sdf.format(date);
-		return str.replace("-","");
+	/* 투찰 삭제 */
+	@RequestMapping(value="bidDelete", method=RequestMethod.POST)
+	@ResponseBody
+	public String bidDelete(BidVO bidVo ,String company_code, String tender_code, HttpServletRequest request) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		// 로그인 한 사업자 번호
+		String mCompany_code=connectService.company_code(member_id);
+		
+		if(company_code.equals(mCompany_code)) {
+			// 삭제할 업로드 코드 가져옴
+			String upload_code=connectService.bUpload_code(bidVo);
+			
+			connectService.bidDelete(bidVo);
+			
+			connectService.bidUploadDelete(upload_code);
+			return "s";
+		}else {
+			return "f";
+		}
 	}
 	
-
+	/* 투찰 수정 */
+	@RequestMapping(value="bidModify", method=RequestMethod.POST)
+	@ResponseBody
+	public String bidModify(String tender_code, String company_code, HttpServletRequest request) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		// 로그인 한 사업자 번호
+		String mCompany_code=connectService.company_code(member_id);
+		
+		if(company_code.equals(mCompany_code)) {
+			return "s";
+		}else {
+			return "f";
+		}
+		
+	}
+	
+	/* 회원권한 가져오기 */
+	@RequestMapping(value="member_devision",method=RequestMethod.POST)
+	@ResponseBody
+	public String member_devision(HttpServletRequest request) {
+		String member_devision = ((MemberVO) request.getSession().getAttribute("user")).getMember_devision();
+		
+		return member_devision;
+	}
+	
 	// 업체 분석/비교 도,시,평수 선택완료
 	@RequestMapping(value = "selectCompare", method = RequestMethod.GET)
 	@ResponseBody
@@ -313,14 +483,14 @@ public class ConnectController {
 	}
 
 	// 분석/비교 서비스 - 리스트에서 서비스상품 세부 내용으로 가기
-	@RequestMapping(value = "product/{product_code}", method = RequestMethod.GET)
-	public String productDetail(@PathVariable String product_code, Model model) {
+	@RequestMapping(value = "product", method = RequestMethod.GET)
+	public String productDetail(@RequestParam("product_code") String product_code, Model model) {
 		model.addAttribute("productContent", connectService.productContent(product_code));
 
 		return "connect/productContent";
 	}
 	
-	// 광역시/도를 선택시 해당하는 시,구 목록출력
+	// 분석/비교 서비스 - 광역시/도를 선택시 해당하는 시,구 목록출력
 	@RequestMapping(value = "areasido", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject areasido(Model model, AreaVO areaVO) {
@@ -329,7 +499,166 @@ public class ConnectController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("aList", aJson);
 		JSONObject json = JSONObject.fromObject(map);
-		
+
 		return json;
+	}
+	
+	// 분석/비교 서비스 - 결제창으로 이동
+	@RequestMapping(value = "cPayment", method = RequestMethod.GET)
+	public String cPayment(@RequestParam("product_code") String product_code, Model model) {
+		model.addAttribute("productContent", connectService.productContent(product_code));
+		
+		return "connect/cPayment";
+	}
+	
+	// 분석/비교 서비스 - 결제정보 insert
+	@RequestMapping(value = "cOrder", method = RequestMethod.POST)
+	@ResponseBody
+	public String cOrder(Model model, HttpServletRequest request, DemandVO demandVO, PaymentVO paymentVO) {
+		//주문 코드,결제 코드 생성
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
+		String random=String.format("%04d",(int)(Math.random()*10000));
+		String random1=String.format("%04d",(int)(Math.random()*10000));
+		String demand_code="dm"+day+random;
+		String payment_code="pm"+day+random1;
+		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		
+		demandVO.setDemand_code(demand_code);
+		demandVO.setMember_id(member_id);
+		paymentVO.setPayment_code(payment_code);
+		paymentVO.setDemand_code(demand_code);
+		
+		connectService.pInsertDemand(demandVO);
+		connectService.pInsertPayment(paymentVO);
+		
+		return demand_code;
+	}
+	
+	// 분석/비교 서비스 - 상품 등록 페이지로 가기
+	@RequestMapping(value = "productWrite", method = RequestMethod.GET)
+	public String productWrite() {
+		return "connect/productWrite";
+	}
+	
+	// 분석/비교 서비스 - 작성글 수정,삭제 권한 체크
+	@RequestMapping(value = "permissionCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public String permissionCheck(HttpServletRequest request) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String product_code = request.getParameter("product_code");
+		String writePerson = connectService.writePersonCheck(product_code);
+		if(member_id.equals(writePerson)) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+		
+	// 분석/비교 서비스 - 상품 등록 insert
+	@RequestMapping(value = "productInsert", method = RequestMethod.GET)
+	public String productInsert(Model model,HttpServletRequest request) {
+		ProductVO productVO = new ProductVO();
+		UploadVO uploadVO = new UploadVO();
+			
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
+		String random=String.format("%04d",(int)(Math.random()*10000));
+		String product_code="pd"+day+random;
+			
+		productVO.setProduct_code(product_code);
+		productVO.setProduct_name(request.getParameter("product_name"));
+		productVO.setProduct_detail(request.getParameter("product_detail"));
+		productVO.setProduct_price(Integer.parseInt(request.getParameter("product_price")));
+		productVO.setP_space(Integer.parseInt(request.getParameter("p_space")));
+		productVO.setMeasure_point(Integer.parseInt(request.getParameter("measure_point")));
+		productVO.setCompany_code(connectService.company_code(((MemberVO) request.getSession().getAttribute("user")).getMember_id()));
+		connectService.productInsert(productVO);
+			
+		String[] area_code = request.getParameterValues("area_code");
+		for(int i=0; i<area_code.length; i++) {
+			connectService.productAreaInsert(area_code[i],product_code);
+		}
+			
+		Document doc = Jsoup.parse(request.getParameter("product_detail"));
+		Elements imageElement = doc.select("img");
+		String image_name[] = new String[imageElement.size()];
+		for(int i=0; i<imageElement.size(); i++) {
+			random=String.format("%04d",(int)(Math.random()*10000));
+			String upload_code = "ul"+day+random;
+			image_name[i] = imageElement.get(i).attr("src");
+			uploadVO.setUpload_code(upload_code);
+			uploadVO.setOriginal_name(image_name[i].substring(image_name[i].lastIndexOf("/")+33));
+			uploadVO.setFile_name(image_name[i].substring(image_name[i].lastIndexOf("/")+1));
+			uploadVO.setProduct_code(product_code);
+			connectService.productImageUpload(uploadVO);
+		}
+			
+		return "redirect: /product?product_code=" + product_code;
+	}
+		
+	// 분석/비교 서비스 - 상품 등록 update넘어가기
+	@RequestMapping(value = "productModify", method = RequestMethod.GET)
+	public String productModify(Model model,@RequestParam("product_code") String product_code) {
+		model.addAttribute("productContent", connectService.productContent(product_code));
+			
+		return "connect/productModify";
+	}
+		
+	// 분석/비교 서비스 - 상품 정보 update
+	@RequestMapping(value = "productUpdate", method = RequestMethod.GET)
+	public String productUpdate(Model model,HttpServletRequest request,@RequestParam("product_code") String product_code) {
+		ProductVO productVO = new ProductVO();
+		UploadVO uploadVO = new UploadVO();
+				
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
+				
+		productVO.setProduct_code(product_code);
+		productVO.setProduct_name(request.getParameter("product_name"));
+		productVO.setProduct_detail(request.getParameter("product_detail"));
+		productVO.setProduct_price(Integer.parseInt(request.getParameter("product_price")));
+		productVO.setP_space(Integer.parseInt(request.getParameter("p_space")));
+		productVO.setMeasure_point(Integer.parseInt(request.getParameter("measure_point")));
+		productVO.setCompany_code(connectService.company_code(((MemberVO) request.getSession().getAttribute("user")).getMember_id()));
+		connectService.productUpdate(productVO);
+			
+		connectService.productAreaDelete(product_code);
+		String[] area_code = request.getParameterValues("area_code");
+		for(int i=0; i<area_code.length; i++) {
+			connectService.productAreaInsert(area_code[i],product_code);
+		}
+			
+		connectService.productImageDelete(product_code);
+		Document doc = Jsoup.parse(request.getParameter("product_detail"));
+		Elements imageElement = doc.select("img");
+		String image_name[] = new String[imageElement.size()];
+		for(int i=0; i<imageElement.size(); i++) {
+			String random=String.format("%04d",(int)(Math.random()*10000));
+			String upload_code = "ul"+day+random;
+			image_name[i] = imageElement.get(i).attr("src");
+			uploadVO.setUpload_code(upload_code);
+			uploadVO.setOriginal_name(image_name[i].substring(image_name[i].lastIndexOf("/")+33));
+			uploadVO.setFile_name(image_name[i].substring(image_name[i].lastIndexOf("/")+1));
+			uploadVO.setProduct_code(product_code);
+			connectService.productImageUpload(uploadVO);
+		}
+				
+		return "redirect: /product?product_code=" + product_code;
+	}
+		
+	// 분석/비교 서비스 - 상품 정보 delete
+	@RequestMapping(value = "productDelete", method = RequestMethod.GET)
+	public String productDelete(@RequestParam("product_code") String product_code) {
+		connectService.productAreaDelete(product_code);
+		connectService.productImageDelete(product_code);
+		connectService.productPaymentDelete(product_code);
+		connectService.productDemandDelete(product_code);
+		connectService.productDelete(product_code);
+			
+		return "redirect: /compareMain";
 	}
 }

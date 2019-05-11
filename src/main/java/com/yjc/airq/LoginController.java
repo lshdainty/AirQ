@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.service.LoginService;
 

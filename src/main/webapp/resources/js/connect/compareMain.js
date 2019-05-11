@@ -104,12 +104,6 @@ $(".compareSelect").change(function(){
 });
 //정렬check박스 선택 끝
 
-//광역시/도 선택 시작
-//$("#sido_code").change(function(){
-//	ajax(1,sortdata());
-//});
-//광역시/도 선택 끝
-
 //시/구 선택 시작
 $("#sigoon_code").change(function(){
 	ajax(1,sortdata());
@@ -149,14 +143,13 @@ function ajax(idx,sort){
 			var page="";
 			if(data.pList.length==0){
 				alert("검색결과가 없습니다.");
-				$("#sido_code").val("광역시/도");
-				$("#sigoon_code").val("선택").prop("selected", true);
-				$("#space").val("0").prop("selected", true);
+//				$("#sido_code").val("광역시/도");
+//				$("#sigoon_code").val("선택").prop("selected", true);
+//				$("#space").val("0").prop("selected", true);
 			}else{
 				for(var i=0; i<data.pList.length; i++){
 					result += '<li class="tableListContent" id="'+data.pList[i].product_code+'">'
 					result += '<div class="tableColumn tableCol-15" data-label="상품이름">'+data.pList[i].product_name+'</div>'
-					result += '<div class="tableColumn tableCol-30" data-label="상품 상세설명">'+data.pList[i].product_detail+'</div>'
 					result += '<div class="tableColumn tableCol-10-1" data-label="가격">'+data.pList[i].product_price+'</div>'
 					switch(data.pList[i].p_space){
 						case 1: space="1~10평"; break;
@@ -193,15 +186,24 @@ function ajax(idx,sort){
 					page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.endPage+1)+');" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'
 				}
 				$(".pagination").empty();
-				$(".pagination").prepend(page)
+				$(".pagination").prepend(page);
+				$("html, body").animate({ scrollTop: 0 }, 1);
 			}	//else
 		}	//success
 	});	//ajax
 }	//function
 //ajax 함수 끝
 
+//상품 상세페이지 시작
 $(document).on('click','.tableListContent',function(){
 	var product_code = $(this).attr("id");
 	console.log(product_code);
-	window.location.href="product/"+product_code;
+	window.location.href="/product?product_code="+product_code;
 });
+//상품 상세페이지 끝
+
+//상품 등록페이지 시작
+$("#productWrite").click(function(){
+	window.location.href="/productWrite";
+});
+//상품 등록페이지 끝

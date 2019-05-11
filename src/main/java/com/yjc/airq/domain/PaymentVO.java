@@ -11,4 +11,9 @@ public class PaymentVO {
 	private String demand_code;
 	private String tender_code;
 	private DemandVO demandVO;
+	
+	private String day;
+	private String company_name;
+	private String company_id;
+	private String product_detail;
 }

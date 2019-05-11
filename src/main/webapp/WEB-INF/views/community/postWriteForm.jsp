@@ -3,8 +3,6 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 
-
-<% application.getRealPath(""); %>
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 order-md-4">		
@@ -74,7 +72,6 @@
 		});
 
 	});
-
 </script>
 <%-- 스크립트 링크 끝 --%>
 

@@ -14,7 +14,9 @@
 			<select class="tenderSelect">
 				<option>전체 글 보기</option>
 				<option>내가 쓴 글 보기</option>
-			</select> <select class="tenderSelect">
+			</select> 
+			<select class="tenderSelect">
+				<option>날짜</option>
 				<option>참여업체수</option>
 				<option>마감기한</option>
 			</select>
@@ -34,14 +36,16 @@
 					<div class="tableColumn tableCol-30" data-label="제목">${tenderList.tender_title }</div>
 					<div class="tableColumn tableCol-15" data-label="글쓴이">${tenderList.member_id }</div>
 					<div class="tableColumn tableCol-15" data-label="등록일">${tenderList.t_creation_date }</div>
-					<div class="tableColumn tableCol-15" data-label="참여업체수"></div>
-					<div class="tableColumn tableCol-15" data-label="마감기한">${tenderList.tender_deadline }</div>
+					<div class="tableColumn tableCol-15" data-label="참여업체수">${tenderList.company_count }</div>
+					<div class="tableColumn tableCol-15" data-label="마감기한">${tenderList.d_day }</div>
 				</li>
 			</c:forEach>
 		</ul>
-		<div id="tenderWriteDiv" class="tenderWriteDiv">
-			<input type="submit" id="tenderWrite" class="tenderWriteBtn" name="tenderWrite" value="작성하기">
-		</div>
+		<c:if test="${sessionScope.user.member_devision == 'no' }">
+			<div id="tenderWriteDiv" class="tenderWriteDiv">
+				<input type="submit" id="tenderWrite" class="tenderWriteBtn" name="tenderWrite" value="작성하기">
+			</div>
+		</c:if>
 	</div>
 </form>
 <%--입찰 공고 테이블 끝 --%>

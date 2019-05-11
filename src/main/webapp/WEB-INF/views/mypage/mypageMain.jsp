@@ -3,60 +3,13 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypageMain.css" />
-
+<style>
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
+</style>
 <%-- use strict 시작 (.js 파일로 나누지 않은 이유는 검색 결과.. 한 파일 안에 있어야 됨) --%>
-<script>
-	'use strict';
-
-	window.chartColors = {
-		red : 'rgb(255, 99, 132)',
-		orange : 'rgb(255, 159, 64)',
-		yellow : 'rgb(255, 205, 86)',
-		green : 'rgb(75, 192, 192)',
-		blue : 'rgb(54, 162, 235)',
-		purple : 'rgb(153, 102, 255)',
-		grey : 'rgb(201, 203, 207)'
-	};
-
-	(function(global) {
-		var MONTHS = [ 'January', 'February', 'March', 'April', 'May', 'June',
-				'July', 'August', 'September', 'October', 'November',
-				'December' ];
-
-		var COLORS = [ '#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236',
-				'#166a8f', '#00a950', '#58595b', '#8549ba' ];
-
-		var Samples = global.Samples || (global.Samples = {});
-		var Color = global.Color;
-
-		Samples.utils = {
-			// Adapted from http://indiegamr.com/generate-repeatable-random-numbers-in-js/
-			srand : function(seed) {
-				this._seed = seed;
-			},
-
-			rand : function(min, max) {
-				var seed = this._seed;
-				min = min === undefined ? 0 : min;
-				max = max === undefined ? 1 : max;
-				this._seed = (seed * 9301 + 49297) % 233280;
-				return min + (this._seed / 233280) * (max - min);
-			},
-
-			color : function(index) {
-				return COLORS[index % COLORS.length];
-			},
-
-		};
-
-		// DEPRECATED
-		window.randomScalingFactor = function() {
-			return Math.round(Samples.utils.rand(-100, 100));
-		};
-		Samples.utils.srand(Date.now());
-
-	}(this));
-</script>
 <%-- use strict 끝 --%>
 
 <%-- 방문자 수 그래프 시작 --%>
@@ -67,97 +20,9 @@
 			<canvas id="canvas"></canvas>
 		</div>
 		<br> <br>
-		<script>
-			var MONTHS = [ 'January', 'February', 'March', 'April', 'May',
-					'June', 'July', 'August', 'September', 'October',
-					'November', 'December' ];
-			var config = {
-				type : 'line',
-				data : {
-					// 밑에 표시되는 것(1~12월)
-					labels : [ 'January', 'February', 'March', 'April', 'May',
-							'June', 'July', 'August', 'September', 'October',
-							'November', 'December' ],
-					datasets : [
-							{
-								label : 'My First dataset',
-								backgroundColor : window.chartColors.red,
-								borderColor : window.chartColors.red,
-								data : [
-								// 그래프(데이터) 표시
-								randomScalingFactor(), randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor() ],
-								fill : false,
-							},
-							{
-								label : 'My Second dataset',
-								fill : false,
-								backgroundColor : window.chartColors.blue,
-								borderColor : window.chartColors.blue,
-								data : [ randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor(),
-										randomScalingFactor() ],
-							} ]
-				},
-				options : {
-					responsive : true,
-					title : {
-						display : true,
-						text : 'Chart.js Line Chart'
-					},
-					tooltips : {
-						mode : 'index',
-						intersect : false,
-					},
-					hover : {
-						mode : 'nearest',
-						intersect : true
-					},
-					scales : {
-						xAxes : [ {
-							display : true,
-							scaleLabel : {
-								display : true,
-								labelString : 'Month'
-							}
-						} ],
-						yAxes : [ {
-							display : true,
-							scaleLabel : {
-								display : true,
-								labelString : 'Value'
-							}
-						} ]
-					}
-				}
-			};
-
-			// 그래프 표시
-			window.onload = function() {
-				var ctx = document.getElementById('canvas').getContext('2d');
-				window.myLine = new Chart(ctx, config);
-			};
-		</script>
 	</div>
 <%-- 방문자 수 그래프 끝 --%>
+<div id="chartdiv"></div>
 
 	<section class="content">
 		<main>
@@ -218,6 +83,125 @@
 		</div>
 	</div>
 </footer>
+<script src="resources/js/core.js"></script>
+<script src="resources/js/charts.js"></script>
+<script src="resources/js/animated.js"></script>
+<script>
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+var chart = am4core.create("chartdiv", am4charts.XYChart);
+chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+chart.data = [
+  {
+    country: "USA",
+    visits: 23725
+  },
+  {
+    country: "China",
+    visits: 1882
+  },
+  {
+    country: "Japan",
+    visits: 1809
+  },
+  {
+    country: "Germany",
+    visits: 1322
+  },
+  {
+    country: "UK",
+    visits: 1122
+  },
+  {
+    country: "France",
+    visits: 1114
+  },
+  {
+    country: "India",
+    visits: 984
+  },
+  {
+    country: "Spain",
+    visits: 711
+  },
+  {
+    country: "Netherlands",
+    visits: 665
+  },
+  {
+    country: "Russia",
+    visits: 580
+  },
+  {
+    country: "South Korea",
+    visits: 443
+  },
+  {
+    country: "Canada",
+    visits: 441
+  }
+];
+
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.renderer.grid.template.location = 0;
+categoryAxis.dataFields.category = "country";
+categoryAxis.renderer.minGridDistance = 40;
+categoryAxis.fontSize = 11;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.min = 0;
+valueAxis.max = 24000;
+valueAxis.strictMinMax = true;
+valueAxis.renderer.minGridDistance = 30;
+// axis break
+var axisBreak = valueAxis.axisBreaks.create();
+axisBreak.startValue = 2100;
+axisBreak.endValue = 22900;
+axisBreak.breakSize = 0.005;
+
+// make break expand on hover
+var hoverState = axisBreak.states.create("hover");
+hoverState.properties.breakSize = 1;
+hoverState.properties.opacity = 0.1;
+hoverState.transitionDuration = 1500;
+
+axisBreak.defaultState.transitionDuration = 1000;
+/*
+// this is exactly the same, but with events
+axisBreak.events.on("over", function() {
+  axisBreak.animate(
+    [{ property: "breakSize", to: 1 }, { property: "opacity", to: 0.1 }],
+    1500,
+    am4core.ease.sinOut
+  );
+});
+axisBreak.events.on("out", function() {
+  axisBreak.animate(
+    [{ property: "breakSize", to: 0.005 }, { property: "opacity", to: 1 }],
+    1000,
+    am4core.ease.quadOut
+  );
+});*/
+
+var series = chart.series.push(new am4charts.ColumnSeries());
+series.dataFields.categoryX = "country";
+series.dataFields.valueY = "visits";
+series.columns.template.tooltipText = "{valueY.value}";
+series.columns.template.tooltipY = 0;
+series.columns.template.strokeOpacity = 0;
+
+// as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+series.columns.template.adapter.add("fill", function(fill, target) {
+  return chart.colors.getIndex(target.dataItem.index);
+});
+
+}); // end am4core.ready()
+</script>
 
 <script src='resources/js/mypage/mypageMain.js'></script>
 <%@include file="../include/footer.jsp"%>

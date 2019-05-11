@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
-import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.mapper.UploadMapper;
 

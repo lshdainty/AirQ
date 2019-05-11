@@ -3,6 +3,14 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjc.airq.mapper.AreaMapper">
 	<select id="selectSigoon" resultType="com.yjc.airq.domain.AreaVO">
-		select area_si from area where area_do = #{area_do}
+		select * from area where area_do = #{area_do}
 	</select>
+	
+	<insert id="productAreaInsert" parameterType="String">
+		insert into p_possible_area values(#{area_code},#{product_code})
+	</insert>
+	
+	<delete id="productAreaDelete" parameterType="String">
+		delete from p_possible_area where product_code = #{product_code}
+	</delete>
 </mapper>

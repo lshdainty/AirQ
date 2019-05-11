@@ -2,7 +2,6 @@ package com.yjc.airq.service;
 
 import java.util.ArrayList;
 
-import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.UploadVO;
 
 public interface UploadService {

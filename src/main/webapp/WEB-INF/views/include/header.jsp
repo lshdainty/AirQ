@@ -137,8 +137,7 @@
 										<a class="dropdown-item" href="/mypageMain">MyPage</a> <a
 											class="dropdown-item" href="/mypageMainPosts">글 관리</a> <a
 											class="dropdown-item" href="/mypageMainComment">댓글 관리</a> <a
-											class="dropdown-item" href="/mypageMainMember">회원 관리</a> <a
-											class="dropdown-item" href="/mypageMainCategory">카테고리 관리</a>
+											class="dropdown-item" href="/mypageMainMember">회원 관리</a> 
 									</div></li>
 							</c:when>
 							<%-- 관리자 로그인 끝 --%>

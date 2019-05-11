@@ -40,7 +40,7 @@
 						order by (
 								select avg(pa.STAR_SCORE)
 								from demand d,payment pa 
-								where p.product_code=d.product_code and d.demand_code = pa.demand_code and pa.refund_whether='n') desc, p.product_name
+								where p.product_code=d.product_code and d.demand_code = pa.demand_code and pa.refund_whether='n') desc nulls last, p.product_name
 					</when>
 				</choose>) A 
 			where <![CDATA[rownum <= #{endnum}]]>) X 
@@ -68,7 +68,7 @@
 	</select>
 	
 	<select id="getStaravg" resultType="String">
-		select to_char(avg(pa.STAR_SCORE),99.9) as staravg
+		select nvl(to_char(avg(pa.STAR_SCORE),99.9),'0.0') as staravg
 		from product p, demand d, payment pa
 		where p.product_code = d.product_code and d.demand_code = pa.demand_code and p.product_code=#{product_code} and refund_whether='n'
 	</select>
@@ -93,7 +93,10 @@
 												and a.area_do=#{sido}
 											</if>
 											<if test="!sigoon.equals('선택')">
-												and a.area_si=#{sigoon}
+												and a.area_si in(#{sigoon},(select area_si 
+                             												from area 
+                             												where area_do = #{sido}
+                             												and area_si like '%전체'))
 											</if>)
 					</if>
 				</where>
@@ -114,7 +117,7 @@
 						order by (
 								select avg(pa.STAR_SCORE)
 								from demand d,payment pa 
-								where o.product_code=d.product_code and d.demand_code = pa.demand_code and pa.refund_whether='n') desc, o.product_name
+								where o.product_code=d.product_code and d.demand_code = pa.demand_code and pa.refund_whether='n') desc nulls last, o.product_name
 					</when>
 				</choose>) A
     		where <![CDATA[rownum <= #{endnum}]]>) X
@@ -136,7 +139,10 @@
 											and a.area_do=#{sido}
 										</if>
 										<if test="!sigoon.equals('선택')">
-											and a.area_si=#{sigoon}
+											and a.area_si in(#{sigoon},(select area_si 
+                             												from area 
+                             												where area_do = #{sido} 
+                             												and area_si like '%전체'))
 										</if>)
 			</if>
 		</where>
@@ -145,5 +151,39 @@
 	<select id="productContent" resultMap="ProductVO">
 		select * from product where product_code = #{product_code}
 	</select>
+	
+	<select id="writePersonCheck" resultType="String">
+		select m.member_id 
+		from product p, company_info c, member m
+		where p.company_code = c.company_code
+		and c.member_id = m.member_id
+		and p.product_code=#{product_code}
+	</select>
 
+	<insert id="productInsert" parameterType="com.yjc.airq.domain.ProductVO">
+		insert into product values(#{product_code},#{product_name},#{product_detail},#{product_price},#{p_space},#{measure_point},#{company_code})
+	</insert>
+	
+	<update id="productUpdate" parameterType="com.yjc.airq.domain.ProductVO">
+		update product 
+		set product_name = #{product_name}, 
+			product_detail = #{product_detail}, 
+			product_price = #{product_price},
+			p_space = #{p_space},
+			measure_point = #{measure_point},
+			company_code = #{company_code}
+		where product_code = #{product_code}
+	</update>
+	
+	<delete id="productDelete" parameterType="String">
+		delete from product where product_code = #{product_code}
+	</delete>
+	
+	<select id="productMP" resultType="com.yjc.airq.domain.ProductVO">
+		select * from product
+	</select>
+	
+	<delete id="deletePostsProduct" parameterType="String">
+		delete from product where product_code=#{product_code}
+	</delete>
 </mapper>

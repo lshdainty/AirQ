@@ -28,6 +28,10 @@
 	<select id="idCheck" resultType="com.yjc.airq.domain.MemberVO">
  		select member_id from member where member_id = #{id}
 	</select>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from member where member_id=#{member_id}
+	</delete>
 
 	<!-- 파일 업로드 -->
 	<!-- <select id="fileDB" resultType="com.yjc.airq.domain.FileTestVO">
@@ -37,6 +41,13 @@
 	<!-- 회원 이름 가져오기 -->
 	<select id="member_name" parameterType="String" resultType="String">
 		select member_name
+		from member
+		where member_id=#{member_id}
+	</select>
+	
+	<!-- 입찰 공고 열람 권한(사업자) -->
+	<select id="member_devision" parameterType="String" resultType="String">
+		select member_devision
 		from member
 		where member_id=#{member_id}
 	</select>

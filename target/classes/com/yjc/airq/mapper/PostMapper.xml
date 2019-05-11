@@ -68,4 +68,12 @@
 	<delete id="deletePost" parameterType="String">
 		DELETE FROM POST WHERE POST_CODE=#{post_code}
 	</delete>
+	
+	<select id="postMP" resultType="com.yjc.airq.domain.PostVO">
+		select * from post
+	</select>
+	
+	<delete id="deletePostsPost" parameterType="String">
+		delete from post where post_code=#{post_code}
+	</delete>
 </mapper>

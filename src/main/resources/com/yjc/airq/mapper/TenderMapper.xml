@@ -10,10 +10,19 @@
 		
 	</select>
 	
-	<!-- 업체 리스트 중 참여 업체 수 -->
-	<!-- <select id="companyCnt" parameterType="String" resultType="com.yjc.airq.domain.tenderVO">
-		select count(*) from bid where tender_code=#{tender_code}
-	</select> -->
+	<!-- 참여 업체 수 -->
+	<select id="company_count" parameterType="String" resultType="int">
+		select count(*)
+		from bid
+		where tender_code=#{tender_code}
+	</select>
+	
+	<!-- 마감기한 d-day -->
+	<select id="d_day" parameterType="String" resultType="int">
+		select tender_deadline-trunc(sysdate)
+		from tender
+		where tender_code=#{tender_code}
+	</select>
 	
 	<!-- 입찰공고 작성 -->
 	<insert id="addTenderboard" parameterType="com.yjc.airq.domain.TenderVO">
@@ -22,7 +31,9 @@
 	
 	<!-- 입찰 리스트 세부내용 -->
 	<select id="tenderContent" parameterType="String" resultType="com.yjc.airq.domain.TenderVO">
-		select * from tender where tender_code=#{tender_code}
+		select tender_code,tender_title, t_creation_date,to_char(t_creation_date,'yyyy-MM-dd HH:mm') as tcreationdate, to_char(service_date,'yyyy-MM-dd') as service_date,  to_char(tender_deadline,'yyyy-MM-dd') as tender_deadline, calculate_period,t_space, floor_number,requirement, t_addr_do,t_addr_si, t_addr_dong, t_addr_detail, member_id, tender_name
+		from tender 
+		where tender_code=#{tender_code}
 	</select>
 	
 	<!-- 입찰 공고 삭제 -->
@@ -37,4 +48,14 @@
 		where tender_code=#{tender_code}
 	</update>
 	
+	<!-- 입찰 공고 열람 권한(글쓴이) -->
+	<select id="tMemberCheck" parameterType="String" resultType="String">
+		select member_id
+		from tender
+		where tender_code=#{tender_code}
+	</select>
+	
+	<delete id="deletePosts" parameterType="String">
+		delete from tender where tender_code=#{tender_code}
+	</delete>
 </mapper>
