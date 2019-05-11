@@ -72,9 +72,19 @@ $("#areaAdd").click(function(){
 		var sido = $("#sido_code option:selected").val();
 		var sigoon = $("#sigoon_code option:selected").text();
 		var area_code = $("#sigoon_code option:selected").val();
-		var html = "<label for='area_code'>"+sido+":"+sigoon+"</label><input type='hidden' id='area_code' name='area_code' value='"+area_code+"' /><br/>";
+		var html = [
+			"<div class='possible'>",
+				"<label for='area_code'>"+sido+":"+sigoon+"</label>",
+				"<input type='hidden' id='area_code' name='area_code' value='"+area_code+"' />",
+				"<input type='button' class='removeBtn' value='삭제하기' />",
+			"</div>"
+		].join("");
 		$("#p_possible_area").append(html);
 		$("#sido_code").val("광역시/도").prop("selected", true);
 		$("#sigoon_code").val("시/구").prop("selected", true);
 	}
+});
+
+$(document).on("click",".removeBtn",function(){
+	$(this).parent().remove();
 });

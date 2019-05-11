@@ -33,8 +33,11 @@
 					<button id="areaAdd" type="button">가능지역 추가하기</button><br/>
 					<div id="p_possible_area">
 						<c:forEach var="aList" items="${productContent.areaVO }">
-							<label for="area_code">${aList.area_do }:${aList.area_si }</label>
-							<input type="hidden" id="area_code" name="area_code" value="${aList.area_code }" /><br/>
+							<div class='possible'>
+								<label for='area_code'>${aList.area_do }:${aList.area_si }</label>
+								<input type='hidden' id='area_code' name='area_code' value='${aList.area_code }' />
+								<input type='button' class='removeBtn' value='삭제하기'>
+							</div>
 						</c:forEach>
 					</div>
 					<label for="p_space">측정 적절 평수 : </label>

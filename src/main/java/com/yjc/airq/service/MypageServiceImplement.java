@@ -28,53 +28,65 @@ public class MypageServiceImplement implements MypageService{
 	private ProductMapper mapper4;
 	private ReplyMapper mapper5;
 	private TenderMapper mapper6;
-@Override
-public ArrayList<Company_InfoVO> c_code( String member_id) {
-	return mapper.c_code(  member_id);
-}
-@Override
-public void deleteMember(String member_id) {
-	mapper1.deleteMember(member_id);
-}
-@Override
-public ArrayList<PaymentVO> mypay(String member_id) {
-	return mapper2.mypay(member_id);
-}
-@Override
-public ArrayList<PaymentVO> mypayNotNull(String member_id) {
-	return mapper2.mypayNotNull(member_id);
-}
-@Override
-public ArrayList<PaymentVO> mypayNull(String member_id) {
-	return mapper2.mypayNull(member_id);
-}
-@Override
-public void deletePostsPost(String post_code) {
-	mapper3.deletePostsPost(post_code);
-}
-@Override
-public ArrayList<PostVO> postMP() {
-	return mapper3.postMP();
-}
-@Override
-public ArrayList<ProductVO> productMP() {
-	return mapper4.productMP();
-}
-@Override
-public void deletePostsProduct(String product_code) {
-	mapper4.deletePostsProduct(product_code);
-}
-@Override
-public void deleteComment(String reply_code) {
-	mapper5.deleteComment(reply_code);
-}
-@Override
-public void deletePosts(String tender_code) {
-	mapper6.deletePosts(tender_code);
-}
-@Override
-public void mypayStarUp(PaymentVO paymentVO) {
-	mapper2.mypayStarUp(paymentVO);
-}
+	
+	@Override
+	public ArrayList<Company_InfoVO> c_code( String member_id) {
+		return mapper.c_code(  member_id);
+	}
+	
+	@Override
+	public void deleteMember(String member_id) {
+		mapper1.deleteMember(member_id);
+	}
+	
+	@Override
+	public ArrayList<PaymentVO> mypay(String member_id) {
+		return mapper2.mypay(member_id);
+	}
+
+	@Override
+	public ArrayList<PaymentVO> mypayNotNull(String member_id) {
+		return mapper2.mypayNotNull(member_id);
+	}
+
+	@Override
+	public ArrayList<PaymentVO> mypayNull(String member_id) {
+		return mapper2.mypayNull(member_id);
+	}
+
+	@Override
+	public void deletePostsPost(String post_code) {
+		mapper3.deletePostsPost(post_code);
+	}
+
+	@Override
+	public ArrayList<PostVO> postMP() {
+		return mapper3.postMP();
+	}
+
+	@Override
+	public ArrayList<ProductVO> productMP() {
+		return mapper4.productMP();
+	}
+
+	@Override
+	public void deletePostsProduct(String product_code) {
+		mapper4.deletePostsProduct(product_code);
+	}
+
+	@Override
+	public void deleteComment(String reply_code) {
+		mapper5.deleteComment(reply_code);
+	}
+
+	@Override
+	public void deletePosts(String tender_code) {
+		mapper6.deletePosts(tender_code);
+	}
+
+	@Override
+	public void mypayStarUp(PaymentVO paymentVO) {
+		mapper2.mypayStarUp(paymentVO);
+	}
 
 }

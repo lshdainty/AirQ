@@ -1,9 +1,6 @@
 package com.yjc.airq;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,7 +15,6 @@ import com.yjc.airq.domain.IotInfoVO;
 import com.yjc.airq.domain.IotVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.service.ManageService;
-import com.yjc.airq.service.LoginService;
 
 import lombok.AllArgsConstructor;
 

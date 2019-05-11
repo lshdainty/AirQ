@@ -2,11 +2,8 @@ package com.yjc.airq.mapper;
 
 import java.util.ArrayList;
 
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
-import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.ProductVO;
 
 public interface ProductMapper {

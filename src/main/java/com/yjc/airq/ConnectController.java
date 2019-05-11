@@ -2,11 +2,8 @@ package com.yjc.airq;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,8 +28,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
@@ -152,6 +147,7 @@ public class ConnectController {
 		return "redirect: /tenderMain";
 	}
 	
+	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
 	@RequestMapping(value = "tenderContentGo/{tender_code}", method = RequestMethod.GET)
 	public String tenderContentGo(@PathVariable String tender_code, Model model) {
 		model.addAttribute("tender_code",tender_code);
@@ -159,7 +155,7 @@ public class ConnectController {
 		return "connect/tenderContent";
 	}
 	
-	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
+	// 입찰 서비스 - 입찰 세부 내용으로 간 후 데이터 가져오기
 	@RequestMapping(value = "tenderContent/{tender_code}", method = RequestMethod.POST)
 	@ResponseBody
 	public JSONObject tenderContent(@PathVariable String tender_code,BidVO bidVo, Model model) {
@@ -437,6 +433,7 @@ public class ConnectController {
 		
 	}
 	
+	/* 회원권한 가져오기 */
 	@RequestMapping(value="member_devision",method=RequestMethod.POST)
 	@ResponseBody
 	public String member_devision(HttpServletRequest request) {
@@ -488,7 +485,6 @@ public class ConnectController {
 	// 분석/비교 서비스 - 리스트에서 서비스상품 세부 내용으로 가기
 	@RequestMapping(value = "product", method = RequestMethod.GET)
 	public String productDetail(@RequestParam("product_code") String product_code, Model model) {
-		System.out.println(product_code);
 		model.addAttribute("productContent", connectService.productContent(product_code));
 
 		return "connect/productContent";
@@ -503,7 +499,7 @@ public class ConnectController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("aList", aJson);
 		JSONObject json = JSONObject.fromObject(map);
-		System.out.println(json);
+
 		return json;
 	}
 	
@@ -540,7 +536,7 @@ public class ConnectController {
 		return demand_code;
 	}
 	
-	// 분석/비교 서비스 - 상품 등록 페이 지로 가기
+	// 분석/비교 서비스 - 상품 등록 페이지로 가기
 	@RequestMapping(value = "productWrite", method = RequestMethod.GET)
 	public String productWrite() {
 		return "connect/productWrite";
