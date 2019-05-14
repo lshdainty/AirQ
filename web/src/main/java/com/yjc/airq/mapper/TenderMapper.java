@@ -2,6 +2,7 @@ package com.yjc.airq.mapper;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 
 import com.yjc.airq.domain.TenderVO;
@@ -23,6 +24,8 @@ public interface TenderMapper {
 	public int tenderModify(TenderVO tenderVo);
 	// 입찰 공고 열람 권한(글쓴이)
 	public String tMemberCheck(String tender_code);
+	// 투찰 기간 설정
+	public int calculate_period(String tender_code);
 	
 	//마이페이지 관리자 글관리 - 글삭제
 	public void deletePosts(@Param("tender_code") String tender_code);

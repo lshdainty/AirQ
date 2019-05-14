@@ -87,4 +87,11 @@
       		  		from bid
      				where tender_code=#{tender_code}) b) d
 	</select>
+	
+	<!-- 투찰 점수 부여 -->
+	<update id="bid_ppt_score" parameterType="com.yjc.airq.domain.BidVO">
+		update bid
+		set bid_ppt_score = ${bid_ppt_score}
+		where company_code = #{company_code} and tender_code=#{tender_code}
+	</update>
 </mapper>

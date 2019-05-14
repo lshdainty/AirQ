@@ -32,6 +32,7 @@
 }());
 
 (function(){
+	console.log("start");
 	var tender_code=$("#tcode").val();
 	$.ajax({
 		type:"POST",
@@ -44,6 +45,16 @@
 			bidArr.sort(function(a,b){
 				return a.totalScore > b.totalScore ? -1 : a.totalScore < b.totalScore ? 1 : 0;
 			});
+			
+			if(tenderVo.calculate_period != 0){
+				var period=tenderVo.calculate_period;
+				period=Math.abs(period);
+				var periodHtml = '<span id="periodSpan"> (최근 '+period+'개월의 기록만 보여줍니다.)</span>';
+				$("#tenderParticipationList").append(periodHtml);
+			}else {
+				var periodHtml = '<span id="periodSpan"> (사업자의 전체 기록을 보여줍니다.)</span>';
+				$("#tenderParticipationList").append(periodHtml);
+			}
 			
 			var tenderHtml='<h2 id="tenderTitle">'+tenderVo.tender_title+'</h2>'
 				+'<span id="tenderWriter">'+tenderVo.member_id+'</span>'
@@ -60,8 +71,8 @@
 			$("#tenderTbl").append(tenderHtml2);
 			
 			for(var i=0; i<bidArr.length; i++){
-				var bidHtml='<tr>'
-					+'<td scope="row"><input type="radio" value='+bidArr[i].tender_code+' name="bidContent" ></td>'
+				var bidHtml='<tr class="bidTr">'
+					+'<td scope="row"><input type="radio" value='+bidArr[i].company_code+' name="bidContent" ></td>'
 					+'<td class="listC" data-label="순위">'+(i+1)+'</td>'
 					+'<td id="company_name" name="company_name" class="listC" data-label="업체명">'+bidArr[i].company_name+'</td>'
 					+'<td id="member_id" name="member_id" class="listC" data-label="대표자">'+bidArr[i].member_id+'</td>'
@@ -69,7 +80,7 @@
 					+'<td data-label="건수">'+bidArr[i].bidNum+'</td>'
 					+'<td data-label="별점">'+bidArr[i].star_score_avg+'</td>'
 					+'<td data-label="첨부파일">'+bidArr[i].bid_ppt_name+'</td>'
-					+'<td data-label="첨부파일 점수"><input type="text" id="bid_ppt_score" name="bid_ppt_score" value="'+bidArr[i].bid_ppt_score+'"><button class="bid_ppt_score_btn">입력</button></td>'
+					+'<td data-label="첨부파일 점수"><input type="number" id="bid_ppt_score" name="bid_ppt_score" min="0" max="50" value="'+bidArr[i].bid_ppt_score+'"><button class="bid_ppt_score_btn">입력</button></td>'
 					+'<td data-label="비고">'+bidArr[i].note+'</td>'
 					+'<td data-label="TOTAL 점수">'+bidArr[i].totalScore+'</td>'
 				+'</tr>';
@@ -79,6 +90,38 @@
 	});
 }());
 $(document).ready(function(){
+	
+	/*ppt점수 부여*/
+	$(document).on('click','.bid_ppt_score_btn',function(){
+		
+		var tender_code=$("#tcode").val();
+		var index=$(".bid_ppt_score_btn").index(this);
+		var company_code=$(".bidTr:eq("+index+") > td:first-child > input").val();
+		var bid_ppt_score=$(".bidTr:eq("+index+") #bid_ppt_score").val();
+		
+		var query={
+				tender_code:tender_code,
+				company_code:company_code,
+				bid_ppt_score:bid_ppt_score
+		};
+		
+		if(bid_ppt_score>50){
+			alert("ppt점수는 0~50점까지 입력가능합니다.");
+			$(".bidTr:eq("+index+") #bid_ppt_score").val(0);
+			return false;
+		}
+		
+		$.ajax({
+			type:"post",
+			data:query,
+			url:"/bid_ppt_score",
+			success:function(data){
+				window.location.reload();
+			}
+		});
+	});
+	
+	
 	/*투찰 작성*/
 	$(document).on('click','#bidWrite',function(){
 		var tender_code=$("#tcode").val();
@@ -113,9 +156,11 @@ $(document).ready(function(){
 		
 		$("#tenderParticipationTbl tbody").append(tbody);
 		
+		var tender_code=$("#tcode").val();
+		
 		$.ajax({
 			type:"GET",
-			url:"/addBid",
+			url:"/addBid/"+tender_code,
 			dataType:"json",
 			success:function(data){
 				$("#aCompany_name").text(data.company_name);
@@ -146,6 +191,7 @@ $(document).ready(function(){
 	
 	/*투찰 작성 완료 시*/
 	$(document).on('click','#bidComplete',function(){
+		var tender_code=$("#tcode").val();
 		//공백 체크
 		var aBid_price=$("#aBid_price").val();
 		var aBid_ppt_name=$("#aBid_ppt_name").val();
@@ -172,13 +218,13 @@ $(document).ready(function(){
 		
 		$.ajax({
 			type:"post",
-			url:"/addBidComplete",
+			url:"/addBidComplete/"+tender_code,
 			data:formData,
 			processData:false,
 			contentType:false,
 			success:function(data){
 				alert("등록 완료");
-				location.href="/tenderContent/"+$("#tcode").val();
+				window.location.reload();
 			}
 		});
 		
@@ -195,21 +241,24 @@ $(document).ready(function(){
 					company_code:company_code,
 					tender_code:tender_code
 			};
-		
+			alert(company_code);
 			$.ajax({
 				type:"POST",
-				url:"/bidDelete/",
+				url:"/bidDelete",
 				data:query,
+				dataType:"text",
 				success:function(data){
 					if(data == "s"){
-						location.href="/tenderContent/"+tender_code;
+						window.location.reload();
 					}else{
 						alert("삭제할 권한이 없습니다.");
 						$('input:radio[name="bidContent"]:checked').prop('checked',false);
 					return false;
-				}
+					}
 				}
 			});
+		}else{
+			return false;
 		}
 	});
 	
@@ -244,6 +293,8 @@ $(document).ready(function(){
 		var tender_code=$("#tcode").val();
 		if(c){
 			window.location.href="/tenderModify/"+tender_code;
+		}else{
+			return false;
 		}
 	});
 	
@@ -252,6 +303,8 @@ $(document).ready(function(){
 		var tender_code=$("#tcode").val();
 		if(c){
 			window.location.href="/tenderDelete/"+tender_code;
+		}else{
+			return false;
 		}
 	});
 	

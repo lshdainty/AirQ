@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -147,30 +148,36 @@ public class ConnectController {
 		return "redirect: /tenderMain";
 	}
 	
-	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
 	@RequestMapping(value = "tenderContentGo/{tender_code}", method = RequestMethod.GET)
 	public String tenderContentGo(@PathVariable String tender_code, Model model) {
 		model.addAttribute("tender_code",tender_code);
-		System.out.println(tender_code);
 		return "connect/tenderContent";
 	}
 	
-	// 입찰 서비스 - 입찰 세부 내용으로 간 후 데이터 가져오기
+	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
 	@RequestMapping(value = "tenderContent/{tender_code}", method = RequestMethod.POST)
 	@ResponseBody
 	public JSONObject tenderContent(@PathVariable String tender_code,BidVO bidVo, Model model) {
-		System.out.println("dd");
 		//입찰
 		TenderVO tender = connectService.tenderContent(tender_code);
-		model.addAttribute("tenderContent", connectService.tenderContent(tender_code));
+		//model.addAttribute("tenderContent", connectService.tenderContent(tender_code));
 		
 		//투찰 리스트
 		ArrayList<BidVO> bidArr=connectService.bidContent(tender_code);
 		
+		// 기간 설정
+		int period=connectService.calculate_period(tender_code);
+		
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, period);
+		Date d = cal.getTime();
+		String period_day = dt.format(d);
+		
 		for(int i=0;i<bidArr.size();i++) {
 			String company_code=bidArr.get(i).getCompany_code();
 			bidArr.get(i).setMember_id(connectService.member_id(company_code));
-			bidArr.get(i).setBidNum(connectService.bidNumber(company_code));
+			bidArr.get(i).setBidNum(connectService.bidNumber(company_code, period_day));
 			bidArr.get(i).setCompany_name(connectService.company_name(company_code));
 			
 			int bidNum=bidArr.get(i).getBidNum();
@@ -247,14 +254,12 @@ public class ConnectController {
 		}
 		
 		//객체는 jsonArray에 넣지말고 map에 바로 넣기
-//		JSONArray tenderJson = JSONArray.fromObject(tender);
 		JSONArray bidJson = JSONArray.fromObject(bidArr);
 		Map<String, Object> aMap = new HashMap<String, Object>();
 		aMap.put("tenderVo", tender);
 		aMap.put("bidArr", bidJson);
 		JSONObject json = JSONObject.fromObject(aMap);
-		System.out.println(json);
-		model.addAttribute("bidContent", bidArr);
+		//model.addAttribute("bidContent", bidArr);
 		
 		return json;
 	}
@@ -294,6 +299,13 @@ public class ConnectController {
 		return "redirect: /tenderContent/" + tender_code;
 	}
 	
+	// 입찰 서비스 - ppt점수 부여
+	@RequestMapping(value="bid_ppt_score", method=RequestMethod.POST)
+	@ResponseBody
+	public void bid_ppt_score(BidVO bidVo) {
+		connectService.bid_ppt_score(bidVo);
+	}
+	
 	// 입찰 서비스 - 투찰 작성 권한 체크(한 번만 등록 가능)
 	@RequestMapping(value="BidPCheck/{tender_code}", method=RequestMethod.POST)
 	@ResponseBody
@@ -311,17 +323,28 @@ public class ConnectController {
 	}
 
 	// 입찰 서비스 - 투찰 작성
-	@RequestMapping(value = "addBid", method = RequestMethod.GET)
+	@RequestMapping(value = "addBid/{tender_code}", method = RequestMethod.GET)
 	@ResponseBody
-	public Company_InfoVO addBid(Company_InfoVO c_info, HttpServletRequest request, Model model) {
+	public Company_InfoVO addBid(@PathVariable String tender_code, Company_InfoVO c_info, HttpServletRequest request) {
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
 		String member_name=connectService.member_name(member_id);
 		c_info.setMember_name(member_name);
 		
 		c_info = connectService.company_info(member_id);
-
+		
+		// 기간 설정
+		int period=connectService.calculate_period(tender_code);
+		
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, period);
+		Date d = cal.getTime();
+		String period_day = dt.format(d);
+		
+		
+		
 		// 건수
-		int bidNum = connectService.bidNumber(c_info.getCompany_code());
+		int bidNum = connectService.bidNumber(c_info.getCompany_code(),period_day);
 		if (bidNum != 0) {
 			c_info.setBidNum(bidNum);
 			// 별점
@@ -332,18 +355,27 @@ public class ConnectController {
 			c_info.setStar_score_avg(0);
 			c_info.setNote("신규회원");
 		}
+
 		return c_info;
 	}
 	
 	// 입찰 서비스 - 투찰 작성 완료
-	@PostMapping(value = "/addBidComplete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PostMapping(value = "/addBidComplete/{tender_code}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public void addBidComplete(MultipartFile[] uploadFile, String sBid_price, UploadVO uploadVo, BidVO bidVo , HttpServletRequest request, Model model) {
+	public void addBidComplete(@PathVariable String tender_code,MultipartFile[] uploadFile, String sBid_price, UploadVO uploadVo, BidVO bidVo , HttpServletRequest request, Model model) {
+		// 기간 설정
+		int period=connectService.calculate_period(tender_code);
+				
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, period);
+		Date d = cal.getTime();
+		String period_day = dt.format(d);
 		
 		//insert bid
 		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
 		bidVo.setCompany_code(connectService.company_code(member_id));
-		bidVo.setBidNum(connectService.bidNumber(bidVo.getCompany_code()));
+		bidVo.setBidNum(connectService.bidNumber(bidVo.getCompany_code(),period_day));
 		int bidNum=bidVo.getBidNum();
 		if(bidNum != 0) {
 			bidVo.setStar_score_avg(connectService.star_score_avg(bidVo.getCompany_code()));
@@ -433,7 +465,6 @@ public class ConnectController {
 		
 	}
 	
-	/* 회원권한 가져오기 */
 	@RequestMapping(value="member_devision",method=RequestMethod.POST)
 	@ResponseBody
 	public String member_devision(HttpServletRequest request) {
@@ -485,6 +516,7 @@ public class ConnectController {
 	// 분석/비교 서비스 - 리스트에서 서비스상품 세부 내용으로 가기
 	@RequestMapping(value = "product", method = RequestMethod.GET)
 	public String productDetail(@RequestParam("product_code") String product_code, Model model) {
+		System.out.println(product_code);
 		model.addAttribute("productContent", connectService.productContent(product_code));
 
 		return "connect/productContent";
@@ -499,7 +531,7 @@ public class ConnectController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("aList", aJson);
 		JSONObject json = JSONObject.fromObject(map);
-
+		System.out.println(json);
 		return json;
 	}
 	
@@ -536,7 +568,7 @@ public class ConnectController {
 		return demand_code;
 	}
 	
-	// 분석/비교 서비스 - 상품 등록 페이지로 가기
+	// 분석/비교 서비스 - 상품 등록 페이 지로 가기
 	@RequestMapping(value = "productWrite", method = RequestMethod.GET)
 	public String productWrite() {
 		return "connect/productWrite";

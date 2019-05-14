@@ -58,4 +58,11 @@
 	<delete id="deletePosts" parameterType="String">
 		delete from tender where tender_code=#{tender_code}
 	</delete>
+	
+	<!-- 투찰 기간 설정 -->
+	<select id="calculate_period" resultType="int">
+		select calculate_period
+		from tender
+		where tender_code=#{tender_code}
+	</select>
 </mapper>

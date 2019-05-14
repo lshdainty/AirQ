@@ -114,6 +114,16 @@ public class ConnectServiceImplement implements ConnectService {
 		return memberMapper.member_devision(member_id);
 	}
 	
+	@Override
+	public int calculate_period(String tender_code) {
+		return tenderMapper.calculate_period(tender_code);
+	}
+	
+	@Override
+	public int bid_ppt_score(BidVO bidVo) {
+		return bidMapper.bid_ppt_score(bidVo);
+	}
+	
 	//투찰 작성 권한 체크(한 번만 등록 가능)
 	@Override
 	public ArrayList<BidVO> bidPCheck(String tender_code) {
@@ -133,8 +143,8 @@ public class ConnectServiceImplement implements ConnectService {
 	
 	// 건수
 	@Override
-	public int bidNumber(String company_code) {
-		return companyMapper.bidNumber(company_code);
+	public int bidNumber(@Param("company_code") String company_code,@Param("period_day") String period_day) {
+		return companyMapper.bidNumber(company_code,period_day);
 	}
 	
 	//별점
@@ -195,97 +205,97 @@ public class ConnectServiceImplement implements ConnectService {
 		return bidMapper.bidPriceScore(tender_code);
 	}
 	
-	// 비교분석 서비스- 상품 리스트 출력
+	// 상품 리스트 출력
 	@Override
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum) {
 		return productMapper.productList(sort,startnum, endnum);
 	}
 
-	// 비교분석 서비스- 사용자가 선택한 도,시,평수에 해당하는 제품목록
+	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
 	@Override
 	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("space") int space, @Param("sort") String sort, @Param("startnum") int startnum,  @Param("endnum") int endnum){
 		return productMapper.selectList(sido,sigoon,space,sort,startnum,endnum);
 	}
 	
-	// 비교분석 서비스- 상품 상세 페이지
+	// 상품 상세 페이지
 	@Override
 	public ProductVO productContent(String product_code) {
 		return productMapper.productContent(product_code);
 	}
 
-	// 비교분석 서비스- 광역시/도를 선택시 해당하는 시,구 목록출력
+	// 광역시/도를 선택시 해당하는 시,구 목록출력
 	@Override
 	public ArrayList<AreaVO> selectSigoon(AreaVO areaVO) {
 		return areaMapper.selectSigoon(areaVO);
 	}
 	
-	// 비교분석 서비스- 서비스 제품 주문정보 insert
+	// 서비스 제품 주문정보 insert
 	@Override
 	public void pInsertDemand(DemandVO demandVO) {
 		demandMapper.pInsertDemand(demandVO);
 	}
 		
-	// 비교분석 서비스- 서비스 제품 결제정보 insert
+	// 서비스 제품 결제정보 insert
 	@Override
 	public void pInsertPayment(PaymentVO paymentVO) {
 		 paymentMapper.pInsertPayment(paymentVO);
 	}
 	
-	// 비교분석 서비스- 작성글 수정,삭제 권한 체크
+	// 작성글 수정,삭제 권한 체크
 	@Override
 	public String writePersonCheck(@Param("product_code") String product_code) {
 		return productMapper.writePersonCheck(product_code);
 	}
 	
-	// 비교분석 서비스- 서비스 제품 등록
+	// 서비스 제품 등록
 	@Override
 	public void productInsert(ProductVO productVO) {
 		productMapper.productInsert(productVO);
 	}
 	
-	// 비교분석 서비스- 서비스 가능 지역 등록
+	// 서비스 가능 지역 등록
 	@Override
 	public void productAreaInsert(@Param("area_code") String area_code,@Param("product_code") String product_code) {
 		areaMapper.productAreaInsert(area_code,product_code);
 	}
 	
-	// 비교분석 서비스- 서비스 제품 사진 등록
+	// 서비스 제품 사진 등록
 	@Override
 	public void productImageUpload(UploadVO uploadVO) {
 		uploadMapper.productImageUpload(uploadVO);
 	}
 	
-	// 비교분석 서비스- 서비스 제품 수정
+	// 서비스 제품 수정
 	@Override
 	public void productUpdate(ProductVO productVO) {
 		productMapper.productUpdate(productVO);
 	}
 	
-	// 비교분석 서비스- 서비스 가능 지역 삭제
+	// 서비스 가능 지역 삭제
 	@Override
 	public void productAreaDelete(@Param("product_code") String product_code) {
 		areaMapper.productAreaDelete(product_code);
 	}
 		
-	// 비교분석 서비스- 서비스 제품 사진 삭제
+	// 서비스 제품 사진 삭제
 	@Override
 	public void productImageDelete(@Param("product_code") String product_code) {
 		uploadMapper.productImageDelete(product_code);
 	}
 	
-	// 비교분석 서비스- 서비스 제품 결제 삭제
+	// 서비스 제품 결제 삭제
 	@Override
 	public void productPaymentDelete(@Param("product_code") String product_code) {
 		paymentMapper.productPaymentDelete(product_code);
 	}
 	
-	// 비교분석 서비스- 서비스 제품 주문 삭제
+	// 서비스 제품 주문 삭제
 	@Override
 	public void productDemandDelete(@Param("product_code") String product_code) {
 		demandMapper.productDemandDelete(product_code);
 	}
 		
-	// 비교분석 서비스- 서비스 제품 삭제
+	// 서비스 제품 삭제
 	@Override
 	public void productDelete(@Param("product_code") String product_code) {
 		productMapper.productDelete(product_code);
