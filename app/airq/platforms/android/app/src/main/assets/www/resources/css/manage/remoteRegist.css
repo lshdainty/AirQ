@@ -1,0 +1,122 @@
+.form-select { @include user-select(none);
+	background: #ffffff;
+	overflow: hidden;
+	border: 1px solid #cbcbcb;
+	border-radius: 3px;
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(0, 0, 0, 0.07);
+	
+	@include
+	single-transition(box-shadow, 0.2s);
+	
+	&:focus, &:hover{  
+	box-shadow:0 0 15px rgba(0,0,0,0.2);
+	}
+
+&:after {
+	content: '▾';
+	position: absolute;
+	top: 0;
+	right: 12px;
+	z-index: 1;
+	color: #bbbbbb;
+	line-height: 40px;
+	font-size: 14px;
+	.ie&
+	{
+	display:none;
+}
+
+}
+}
+select {
+	/*position: relative;*/
+	background: transparent;
+	background-image: none;
+	display: block;
+	width: 100%;
+	outline: none;
+	color: #888888;
+	cursor: pointer;
+	z-index: 2;
+	border: none;
+	padding: 10px 10px 10px 5px;
+	text-overflow: '';
+	text-indent: 5px; @ include appearance(none); &[ multiple =multiple] {
+	height : auto;
+	border: 1px solid #cbcbcb;
+	border-radius: 3px;
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 10px
+		rgba(0, 0, 0, 0.07); @ include single-transition(box-shadow, 0.2s); &:
+	hover { border-color : #cccccc;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+}
+option[disabled] {
+	color: #eeeeee;
+	text-shadow: none;
+	border: none;
+}
+
+}
+select:-moz-focusring {
+	color: transparent;
+	text-shadow: 0 0 0 #888888;
+}
+
+select::-ms-expand {
+	display: none;
+}
+
+/*==========  Generic styling  ==========*/
+.re_container{
+	border: 1px solid black;
+}
+.contain {
+	/* border: 1px solid red; */
+}
+
+.column-6 {
+	width: 200px;
+}
+
+.column-7 {
+	width: 200px;
+}
+
+#s_id {
+	font-size: 20px;
+}
+
+#s_id2 {
+	font-size: 20px;
+}
+
+#btn-reg {
+	margin-top: 20px;
+	padding: 19px 39px 18px 39px;
+	color: #FFF;
+	background-color: #4bc970;
+	font-size: 18px;
+	text-align: center;
+	font-style: normal;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 200px;
+	border: 1px solid #3ac162;
+	margin-right: 10px;
+}
+
+#btn-can {
+	padding: 19px 39px 18px 39px;
+	color: #FFF;
+	background-color: #F15F5F;
+	font-size: 18px;
+	text-align: center;
+	font-style: normal;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 200px;
+	border: 1px solid #F15F5F;
+	margin-bottom: 10px;
+}

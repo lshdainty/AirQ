@@ -1,6 +1,9 @@
 package com.yjc.airq.app;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -10,16 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.Criteria;
+import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ReplyVO;
+import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.service.CommunityService;
 import com.yjc.airq.service.UploadService;
 
@@ -102,6 +109,17 @@ public class mobileCommunityController {
 		PostVO postVO = postService.detailPost(post_code);
 		ArrayList<ReplyVO> replys = postService.getReplys(post_code);
 		postVO.setReply_count(replys.size());
+		Elements imageElements;
+		Document doc;
+		doc=Jsoup.parse(postVO.getPost_content());
+		if(doc.select("img")!=null) {
+			imageElements = doc.select("img");
+			for(int i=0; i <imageElements.size(); i++) {
+				imageElements.get(i).attr("src","http://39.127.7.69"+imageElements.get(i).attr("src"));
+			}
+		}
+		postVO.setPost_content(doc.select("body").toString());
+		System.out.println(postVO.getPost_content());
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("detailPost", postVO);
 		map.put("replys", replys);
@@ -109,4 +127,120 @@ public class mobileCommunityController {
 		return json;
 				
 	}
+	@ResponseBody
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.postInsert", method = RequestMethod.GET)
+	public void recommandInsert(Model model,HttpServletRequest request) {
+		
+		PostVO postVO = new PostVO();
+		UploadVO uploadVO = new UploadVO();
+		
+		String post_title = request.getParameter("post_title");
+		String post_content = request.getParameter("post_content");
+		// 포스트 코드 생성
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
+		Timestamp current_date = new Timestamp(System.currentTimeMillis());
+		String random=String.format("%04d",(int)(Math.random()*10000));
+		String post_code="ps"+day+random;
+		// 포스트 코드 생성 완료
+		String board_code = (String)request.getSession().getAttribute("board_code");
+		postVO.setPost_code(post_code);
+		postVO.setPost_title(post_title);
+		postVO.setPost_content(post_content);
+		postVO.setP_creation_date(current_date);
+		postVO.setView_num(0);
+		postVO.setRecommend_num(0);
+		postVO.setMember_id(((MemberVO) request.getSession().getAttribute("user")).getMember_id());
+		postVO.setBoard_code(board_code);
+		
+		postService.insertPost(postVO);
+		
+		Document doc = Jsoup.parse(request.getParameter("post_content"));
+		Elements imageElement = doc.select("img");
+		String image_name[] = new String[imageElement.size()];
+		for(int i=0; i<imageElement.size(); i++) {
+			random=String.format("%04d",(int)(Math.random()*10000));
+			String upload_code = "ul"+day+random;
+			image_name[i] = imageElement.get(i).attr("src");
+			uploadVO.setUpload_code(upload_code);
+			uploadVO.setOriginal_name(image_name[i].substring(image_name[i].lastIndexOf("/")+33));
+			uploadVO.setFile_name(image_name[i].substring(image_name[i].lastIndexOf("/")+1));
+			uploadVO.setPost_code(post_code);
+			uploadService.imgUpload(uploadVO);
+		}
+	}
+	
+	@RequestMapping(value = "m.postVote", method = RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@ResponseBody
+	public String postVote(Model model ,@RequestParam("post_code") String post_code) {
+		System.out.println(post_code);
+		postService.postVote(post_code);
+		
+		return "success";
+	}
+	
+	
+	// 댓글 추가
+		@CrossOrigin(origins = "*")
+		@RequestMapping(value = "m.addReply", method = RequestMethod.POST)
+		@ResponseBody
+		public ReplyVO addReply(HttpServletRequest request) {
+			// 댓글 코드 생성
+			ReplyVO replyVO = new ReplyVO();
+			Date today = new Date();
+			SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+			String day = date.format(today);
+			String random=String.format("%04d",(int)(Math.random()*10000));
+			String reply_code="rp"+day+random;
+			// 댓글 코드 생성 완료
+			String reply_content = request.getParameter("reply_content");
+			Timestamp r_creation_date = new Timestamp(System.currentTimeMillis());
+//			String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+	    	String product_code=request.getParameter("product_code");
+	    	String post_code=request.getParameter("post_code");
+	    	
+		    if(product_code==null)
+		    	product_code="";
+		    if(post_code==null)
+		    	post_code="";
+		    	
+			replyVO.setReply_code(reply_code);
+			replyVO.setReply_content(reply_content);
+			replyVO.setR_creation_date(r_creation_date);
+			replyVO.setMember_id("test");// 로그인 완료 후 다시 작성
+			replyVO.setPost_code(post_code);
+			replyVO.setProduct_code(product_code);
+			System.out.println(replyVO);
+			postService.insertReply(replyVO);
+			return replyVO;
+		}
+		
+		// 글 수정
+		@CrossOrigin(origins = "*")
+		@ResponseBody
+		@RequestMapping(value = "m.postModify", method = RequestMethod.GET)
+		public JSONObject recommandModify(Model model,HttpServletRequest request) {
+			
+			String post_code = (String)request.getParameter("post_code");
+			PostVO postVO = postService.detailPost(post_code);
+			Elements imageElements;
+			Document doc;
+			System.out.println(postVO.getPost_content());
+			doc=Jsoup.parse(postVO.getPost_content());
+			if(doc.select("img")!=null) {
+				imageElements = doc.select("img");
+				for(int i=0; i <imageElements.size(); i++) {
+					imageElements.get(i).attr("src","http://39.127.7.69"+imageElements.get(i).attr("src"));
+				}
+			}
+			System.out.println(doc.select("body"));
+			postVO.setPost_content(doc.select("body").toString());
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("modifyPost", postVO);
+			JSONObject json = JSONObject.fromObject(map);
+			return json;
+		}
 }
