@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "753036687075",
+    "firebase_url": "https://airq-aa4e1.firebaseio.com",
+    "project_id": "airq-aa4e1",
+    "storage_bucket": "airq-aa4e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753036687075:android:833a1c5ac4e4c5b1",
+        "android_client_info": {
+          "package_name": "com.yjc.airq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753036687075-7g3494s3rrjvvbd0j374h5kfuf3bom0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVDumns0fBGL2euh35Ofw8MLyY4_1Ikt0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753036687075-7g3494s3rrjvvbd0j374h5kfuf3bom0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
