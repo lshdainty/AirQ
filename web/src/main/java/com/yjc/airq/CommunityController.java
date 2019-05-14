@@ -37,7 +37,7 @@ public class CommunityController {
 	
 	private CommunityService postService;
 	private UploadService uploadService;
-	
+	private final static String IP_ADDRESS = "http://39.127.7.69/";
 	//테이블 형식 레이아웃 메인페이지
 	@RequestMapping(value = "tableBoardMain", method = RequestMethod.GET)
 	public String tableBoardMain(Model model,HttpServletRequest request) {
@@ -309,19 +309,47 @@ public class CommunityController {
 	//  글 수정
 	@RequestMapping(value = "postUpdate", method = RequestMethod.GET)
 	public String recommandUpdate(Model model,HttpServletRequest request) {
+		int pagenum = (int) request.getSession().getAttribute("pagenum");
+
+		
+		String board_type = (String)request.getSession().getAttribute("board_type");
+		String board_code = (String)request.getSession().getAttribute("board_code");
+		
+		
 		PostVO postVO =new PostVO();
 		String post_title = request.getParameter("post_title");
 		String post_content = request.getParameter("post_content");
 		String post_code = (String)request.getParameter("post_code");
-		int pagenum = (int) request.getSession().getAttribute("pagenum");
-		postVO.setPost_title(post_title);
-		postVO.setPost_content(post_content);
-		postVO.setPost_code(post_code);
+		String random=String.format("%04d",(int)(Math.random()*10000));
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
 		
+		
+		postVO.setPost_title(post_title);
+		uploadService.deletePostUpload(post_code);
+		Document doc = Jsoup.parse(post_content);
+		Elements imageElement = doc.select("img");
+		String image_name[] = new String[imageElement.size()];
+		UploadVO uploadVO = new UploadVO();
+		for(int i=0; i<imageElement.size(); i++) {
+			imageElement.get(i).attr("src",(imageElement.get(i).attr("src")).replace(IP_ADDRESS,""));
+			random=String.format("%04d",(int)(Math.random()*10000));
+			String upload_code = "ul"+day+random;
+			image_name[i] = imageElement.get(i).attr("src");
+			uploadVO.setUpload_code(upload_code);
+			uploadVO.setOriginal_name(image_name[i].substring(image_name[i].lastIndexOf("/")+33));
+			uploadVO.setFile_name(image_name[i].substring(image_name[i].lastIndexOf("/")+1));
+			uploadVO.setPost_code(post_code);
+			uploadService.imgUpload(uploadVO);
+		}
+		postVO.setPost_content(doc.select("body").toString().replace("<body>","").replace("</body>",""));
+		postVO.setPost_code(post_code);
+		System.out.println(postVO);
 		postService.modifyPost(postVO);
 		
-		String board_type = (String)request.getSession().getAttribute("board_type");
-		String board_code = (String)request.getSession().getAttribute("board_code");
+		
+		
 		if(board_type=="table")
 			return "redirect: /tableBoardMain?board_code="+board_code+"&pagenum="+pagenum;
 		else
