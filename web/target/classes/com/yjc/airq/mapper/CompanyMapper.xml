@@ -18,11 +18,11 @@
 	<select id="bidNumber" parameterType="String" resultType="int">
 		select count(*)
 		from(select obj.*, b.win_bid_whether, b.company_code
-    		 from(select t.tender_code, p.refund_whether
+    		 from(select t.tender_code, p.refund_whether,p.payment_date
      		      from tender t, payment p
      	   		  where t.tender_code = p.tender_code and p.refund_whether = 'n') obj, bid b
  	   		 where obj.tender_code = b.tender_code and b.win_bid_whether = 'y') o
- 		where o.company_code = #{company_code}
+ 		where o.company_code = #{company_code} and o.payment_date between to_date(#{period_day},'yyyy-MM-dd') and sysdate
 	</select>
 	<!-- 별점 계산 -->
 	<select id="star_score_avg" parameterType="String" resultType="double">

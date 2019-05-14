@@ -14,7 +14,7 @@ import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
 
 public interface ConnectService {
-	// 비교분석 서비스- 제품 목록
+	// 제품 목록
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
 
 	// 회원 이름 가져오기
@@ -22,21 +22,19 @@ public interface ConnectService {
 
 	// 업체 리스트 출력
 	public ArrayList<TenderVO> tenderList();
-	
 	// 참여 업체 수
 	public int company_count(String tender_code);
-	
 	// 마감기한 d_day
 	public int d_day(String tender_code);
-	
 	// 입찰 공고 작성
 	public int addTenderboard(TenderVO tenderVo);
 
-	// 입찰 세부내용 보기 - 입찰내용
+	// 입찰 세부내용 보기
 	public TenderVO tenderContent(String tender_code);
-	
-	// 입찰 세부내용 보기 - 입찰에 해당하는 투찰리스트
 	public ArrayList<BidVO> bidContent(String tender_code);
+	
+	// 투찰 기간 설정
+	public int calculate_period(String tender_code);
 	
 	// 입찰 공고 열람 권한(글쓴이)
 	public String tMemberCheck(String tender_code);
@@ -49,11 +47,14 @@ public interface ConnectService {
 	public void addBid(BidVO bidVo);
 
 	// 건수
-	public int bidNumber(String company_code);
+	public int bidNumber(@Param("company_code") String company_code,@Param("period_day") String period_day);
 
 	// 별점
 	public double star_score_avg(String company_code);
-
+	
+	// 투찰 점수 부여
+	public int bid_ppt_score(BidVO bidVo);
+	
 	// 투찰 파일 업로드
 	public void bidUpload(UploadVO uploadVo);
 
@@ -85,34 +86,36 @@ public interface ConnectService {
 	// 입찰 공고 수정
 	public int tenderModify(TenderVO tenderVo);
 
-	// 비교분석 서비스- 사용자가 선택한 도,시,평수에 해당하는 제품목록
+	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
 	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("space") int space, @Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
-	// 비교분석 서비스- 상품 상세 페이지
+
+	// 상품 상세 페이지
 	public ProductVO productContent(String product_code);
-	// 비교분석 서비스- 광역시/도를 선택시 해당하는 시,구 목록출력
+
+	// 광역시/도를 선택시 해당하는 시,구 목록출력
 	public ArrayList<AreaVO> selectSigoon(AreaVO areaVO);
-	// 비교분석 서비스- 서비스제품 주문정보 insert
+	// 서비스제품 주문정보 insert
 	public void pInsertDemand(DemandVO demandVO);
-	// 비교분석 서비스- 서비스 제품 결제정보 insert
+	// 서비스 제품 결제정보 insert
 	public void pInsertPayment(PaymentVO paymentVO);
-	// 비교분석 서비스- 작성글 수정,삭제 권한 체크
+	// 작성글 수정,삭제 권한 체크
 	public String writePersonCheck(@Param("product_code") String product_code);
-	// 비교분석 서비스- 서비스 제품 등록
+	// 서비스 제품 등록
 	public void productInsert(ProductVO productVO);
-	// 비교분석 서비스- 서비스 가능 지역 등록
+	// 서비스 가능 지역 등록
 	public void productAreaInsert(@Param("area_code") String area_code,@Param("product_code") String product_code);
-	// 비교분석 서비스- 서비스 제품 사진 등록
+	// 서비스 제품 사진 등록
 	public void productImageUpload(UploadVO uploadVO);
-	// 비교분석 서비스- 서비스 제품 수정
+	// 서비스 제품 수정
 	public void productUpdate(ProductVO productVO);
-	// 비교분석 서비스- 서비스 가능 지역 삭제
+	// 서비스 가능 지역 삭제
 	public void productAreaDelete(@Param("product_code") String product_code);
-	// 비교분석 서비스- 서비스 제품 사진 삭제
+	// 서비스 제품 사진 삭제
 	public void productImageDelete(@Param("product_code") String product_code);
-	// 비교분석 서비스- 서비스 제품 결제 삭제
+	// 서비스 제품 결제 삭제
 	public void productPaymentDelete(@Param("product_code") String product_code);
-	// 비교분석 서비스- 서비스 제품 주문 삭제
+	// 서비스 제품 주문 삭제
 	public void productDemandDelete(@Param("product_code") String product_code);
-	// 비교분석 서비스- 서비스 제품 삭제
+	// 서비스 제품 삭제
 	public void productDelete(@Param("product_code") String product_code);
 }

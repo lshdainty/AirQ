@@ -28,4 +28,7 @@ public interface BidMapper {
 	public ArrayList<BidVO> bidStarScore(String tender_code);
 	// 투찰 점수 - 별점
 	public ArrayList<BidVO> bidPriceScore(String tender_code);
+	
+	// 투찰 점수 부여
+	public int bid_ppt_score(BidVO bidVo);
 }

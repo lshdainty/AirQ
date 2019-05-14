@@ -66,10 +66,10 @@
 			<td>계산 기간</td>
 			<td><select id="calculate_period" name="calculate_period">
 					<option value="0">전체</option>
-					<option value="3">3개월</option>
-					<option value="6">6개월</option>
-					<option value="9">9개월</option>
-					<option value="12">1년</option>
+					<option value="-3">3개월</option>
+					<option value="-6">6개월</option>
+					<option value="-9">9개월</option>
+					<option value="-12">1년</option>
 			</select> <span id="calculatePeriodN"> 사용자 지정에 따라 점수 계산 기간을 지정할 수 있습니다.</span>
 			</td>
 		</tr>

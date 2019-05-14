@@ -12,7 +12,7 @@ public interface CompanyMapper {
 	
 	//투찰 작성
 	public Company_InfoVO company_info(String member_id);
-	public int bidNumber(String company_code);
+	public int bidNumber(@Param("company_code") String company_code,@Param("period_day") String period_day);
 	public double star_score_avg(String company_code);
 	public String company_code(String member_id);
 	public String company_name(String company_code);
