@@ -42,36 +42,45 @@
 	<!-- 투찰 점수 - 건수 -->
 	<select id="bidNumScore" resultType="com.yjc.airq.domain.BidVO">
 		select u.*, case bidNumRank when 1 then 10
-                      when 2 then 8
-                      when 3 then 6
-                      when 4 then 4
-                      when 5 then 2
-                      else 0 end as bidNumScore
+      		            	  when 2 then 8
+        		              when 3 then 6
+        		              when 4 then 4
+        		              when 5 then 2
+        		              else 0 end as bidNumScore
 		from(select n.num, d.*, dense_rank() over(order by num desc) bidNumRank
-   			 from (select count(*) as num,company_code
-           		   from(select obj.*, b.win_bid_whether, b.company_code
-            		    from(select t.tender_code, p.refund_whether
-                  		 	 from tender t, payment p
-                  		     where t.tender_code = p.tender_code and p.refund_whether = 'n') obj, bid b
-              		    where obj.tender_code = b.tender_code and b.win_bid_whether = 'y') o
-        	       group by company_code
-        		   order by num desc) n, bid d
-   			where n.company_code=d.company_code and d.tender_code=#{tender_code}
-    		order by rownum desc) u
+  		   from (select count(*) as num,company_code
+   		        from(select obj.*, b.win_bid_whether, b.company_code
+      		          from(select t.tender_code, p.refund_whether, p.payment_date
+           		          from tender t, payment p
+         		            where t.tender_code = p.tender_code and p.refund_whether = 'n'
+             		        <if test='!period_day.equals("0")'>
+               			       and p.payment_date between to_date('2019-02-14','yyyy-MM-dd') and sysdate) obj, bid b
+               				</if>
+            		    where obj.tender_code = b.tender_code and b.win_bid_whether = 'y') o
+        		  group by company_code
+       		   order by num desc) n, bid d
+   		  where n.company_code=d.company_code and d.tender_code=#{tender_code}
+   		  order by num desc) u,payment y
+   		  where u.tender_code=y.tender_code
 	</select>
 	
 	<!-- 투찰 점수 - 별점 -->
 	<select id="bidStarScore" resultType="com.yjc.airq.domain.BidVO">
-		select n.star_score_avg, n.star_score_avg/0.5 as bidStarScore, d.*
-		from (select avg(star_score) star_score_avg, company_code
-    		  from(select obj.*, b.win_bid_whether, b.company_code
-        		  from(select t.tender_code, p.refund_whether,p.star_score
-           			   from tender t, payment p
-            		   where t.tender_code = p.tender_code and p.refund_whether = 'n') obj, bid b
- 				  where obj.tender_code = b.tender_code and b.win_bid_whether = 'y') o
-			 group by company_code
-			 order by star_score_avg desc) n, bid d
-		where n.company_code=d.company_code and d.tender_code=#{tender_code}
+		select u.*,y.payment_date
+		from(select n.star_score_avg, n.star_score_avg/0.5 as bidStarScore, d.*
+ 		   from (select avg(star_score) star_score_avg, company_code
+    		      from(select obj.*, b.win_bid_whether, b.company_code
+     		          from(select t.tender_code, p.refund_whether,p.star_score, p.payment_date
+      		              from tender t, payment p
+      		              where t.tender_code = p.tender_code and p.refund_whether = 'n'
+      		              <if test='!period_day.equals("0")'>
+      		               and p.payment_date between to_date(#{period_day},'yyyy-MM-dd') and sysdate) obj, bid b
+     		         		</if>
+     		          where obj.tender_code = b.tender_code and b.win_bid_whether = 'y') o
+      		    group by company_code
+      		    order by star_score_avg desc) n, bid d
+  		  where n.company_code=d.company_code and d.tender_code=#{tender_code}) u, payment y
+		where u.tender_code=y.tender_code
 	</select>
 	
 	<!-- 투찰 점수 - 가격, ppt점수 -->

@@ -85,6 +85,7 @@
 					+'<td data-label="TOTAL 점수">'+bidArr[i].totalScore+'</td>'
 				+'</tr>';
 				 $("#tenderParticipationTbl tbody").append(bidHtml);
+				 console.log(bidArr[i]);
 			}
 		}
 	});

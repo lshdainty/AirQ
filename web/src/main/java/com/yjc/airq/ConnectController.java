@@ -170,26 +170,37 @@ public class ConnectController {
 		
 		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.MONTH, period);
-		Date d = cal.getTime();
-		String period_day = dt.format(d);
+		String period_day;
+		if(period != 0) {
+			cal.add(Calendar.MONTH, period);
+			Date d = cal.getTime();
+			period_day = dt.format(d);
+		} else {
+			period_day="0";
+		}
+		
+		System.out.println(period_day);
 		
 		for(int i=0;i<bidArr.size();i++) {
 			String company_code=bidArr.get(i).getCompany_code();
-			bidArr.get(i).setMember_id(connectService.member_id(company_code));
-			bidArr.get(i).setBidNum(connectService.bidNumber(company_code, period_day));
+			bidArr.get(i).setMember_id(connectService.member_id(company_code)); //아이디 가져오기
+			bidArr.get(i).setBidNum(connectService.bidNumber(company_code, period_day)); //특정 기간 건수
 			bidArr.get(i).setCompany_name(connectService.company_name(company_code));
 			
-			int bidNum=bidArr.get(i).getBidNum();
-			if(bidNum != 0) {
-				bidArr.get(i).setStar_score_avg(connectService.star_score_avg(company_code));
+			int bidNum=bidArr.get(i).getBidNum(); //특정 기간 건수
+			int bidTotalNum=connectService.bidTotalNum(company_code); //전체 기간 건수
+			
+			if(bidTotalNum != 0) { //전체 기간 건수가 0이 아닐경우
 				bidArr.get(i).setNote("없음");
 			}else {
-				bidArr.get(i).setStar_score_avg(0);
 				bidArr.get(i).setNote("신규회원");
 			}
-			//System.out.println(bidArr.get(i));
 			
+			if(bidNum != 0) { // 특정 기간 건수가 0이 아닐 경우
+				bidArr.get(i).setStar_score_avg(connectService.star_score_avg(company_code, period_day)); //전체 기간 별점
+			}else {
+				bidArr.get(i).setStar_score_avg(0);
+			}
 			
 			Resource resource = new FileSystemResource("/resources/uploadFile/ppt/"+bidArr.get(i).getBid_ppt_name());
 			String resourceName = resource.getFilename(); //bid_ppt_name
@@ -207,14 +218,15 @@ public class ConnectController {
 		}
 		
 		// 투찰 점수 - 건수
-		ArrayList<BidVO> numScoreArr=connectService.bidNumScore(tender_code);
+		ArrayList<BidVO> numScoreArr=connectService.bidNumScore(tender_code, period_day);
 		
+		System.out.println(numScoreArr);
 		// 투찰 점수 - 별점
-		ArrayList<BidVO> starScoreArr=connectService.bidStarScore(tender_code);
-		
+		ArrayList<BidVO> starScoreArr=connectService.bidStarScore(tender_code, period_day);
+		System.out.println(starScoreArr);
 		// 투찰 점수 - 가격
 		ArrayList<BidVO> priceScoreArr=connectService.bidPriceScore(tender_code);
-		
+		System.out.println(priceScoreArr);
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		
 		for(int i=0; i<bidArr.size(); i++) {
@@ -348,7 +360,7 @@ public class ConnectController {
 		if (bidNum != 0) {
 			c_info.setBidNum(bidNum);
 			// 별점
-			c_info.setStar_score_avg(connectService.star_score_avg(c_info.getCompany_code()));
+			c_info.setStar_score_avg(connectService.star_score_avg(c_info.getCompany_code(),period_day));
 			c_info.setNote("없음");
 		}else {
 			c_info.setBidNum(0);
@@ -378,7 +390,7 @@ public class ConnectController {
 		bidVo.setBidNum(connectService.bidNumber(bidVo.getCompany_code(),period_day));
 		int bidNum=bidVo.getBidNum();
 		if(bidNum != 0) {
-			bidVo.setStar_score_avg(connectService.star_score_avg(bidVo.getCompany_code()));
+			bidVo.setStar_score_avg(connectService.star_score_avg(bidVo.getCompany_code(),period_day));
 		}else {
 			bidVo.setStar_score_avg(0);
 		}
