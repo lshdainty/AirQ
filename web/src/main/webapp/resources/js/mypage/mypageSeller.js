@@ -55,9 +55,9 @@ am4core.ready(function() {
 		type:"POST",
 		dataType: "json",
 		success:function(data){
-			alert("ajax들어왔다6");
-			console.log(data);
-			alert(data.list[0].sum);
+//			alert("ajax들어왔다6");
+//			console.log(data);
+//			alert(data.list[0].sum);
 			var sum0 = data.list[0].sum
 			var sum1 = data.list[1].sum
 			var sum2 = data.list[2].sum

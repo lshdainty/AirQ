@@ -48,9 +48,12 @@ public interface ConnectService {
 
 	// 건수
 	public int bidNumber(@Param("company_code") String company_code,@Param("period_day") String period_day);
-
+	
+	//건수
+	public int bidTotalNum(String company_code);
+	
 	// 별점
-	public double star_score_avg(String company_code);
+	public double star_score_avg(@Param("company_code") String company_code,@Param("period_day") String period_day);
 	
 	// 투찰 점수 부여
 	public int bid_ppt_score(BidVO bidVo);
@@ -77,9 +80,9 @@ public interface ConnectService {
 	public void bidUploadDelete(String upload_code);
 	
 	// 투찰 점수 - 건수
-	public ArrayList<BidVO> bidNumScore(String tender_code);
+	public ArrayList<BidVO> bidNumScore(@Param("tender_code") String tender_code,@Param("period_day") String period_day);
 	// 투찰 점수 - 별점
-	public ArrayList<BidVO> bidStarScore(String tender_code);
+	public ArrayList<BidVO> bidStarScore(@Param("tender_code") String tender_code,@Param("period_day") String period_day);
 	// 투찰 점수 - 별점
 	public ArrayList<BidVO> bidPriceScore(String tender_code);
 	

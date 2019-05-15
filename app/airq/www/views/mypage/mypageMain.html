@@ -1,18 +1,28 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@include file="../include/header.jsp"%>
-<link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypageMain.css" />
-<style>
-#chartdiv {
-  width: 100%;
-  height: 500px;
-}
-</style>
-<%-- use strict 시작 (.js 파일로 나누지 않은 이유는 검색 결과.. 한 파일 안에 있어야 됨) --%>
-<%-- use strict 끝 --%>
+<!DOCTYPE html>
+<html lang="en">
 
-<%-- 방문자 수 그래프 시작 --%>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src="../../../www/resources/js/mypage/mypageMain.js"></script>
+	<link rel="stylesheet" href="../../../www/resources/css/mypage/mypageMain.css">
+	<link rel="stylesheet" href="../../../www/resources/css/bootstrap.css">
+	<link rel="stylesheet" href="../../../www/resources/css/include/header.css">
+	<link rel="stylesheet" href="../../../www/resources/css/include/table.css">
+	<script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="../../../www/resources/js/bootstrap.js"></script>
+	<script src="../../../www/resources/js/home.js"></script>
+	<script src="../../../www/resources/js/TweenLite.js"></script>
+	<script src="../../../www/resources/js/TweenMax.js"></script>
+	<script src="../../../www/resources/js/animation.js"></script>
+	<script src="../../../www/resources/js/mypage/mypageMain.js"></script>
+</head>
+
+<body>
+<link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypageMain.css" />
+
 <div class="container">
 	<div class="login-main-text">
 		<h2>mypage</h2>
@@ -21,7 +31,6 @@
 		</div>
 		<br> <br>
 	</div>
-<%-- 방문자 수 그래프 끝 --%>
 <div id="chartdiv"></div>
 
 	<section class="content">
@@ -204,4 +213,7 @@ series.columns.template.adapter.add("fill", function(fill, target) {
 </script>
 
 <script src='resources/js/mypage/mypageMain.js'></script>
-<%@include file="../include/footer.jsp"%>
+<div id="footer"></div>
+</body>
+
+</html>

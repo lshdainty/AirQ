@@ -149,8 +149,8 @@ public class ConnectServiceImplement implements ConnectService {
 	
 	//별점
 	@Override
-	public double star_score_avg(String company_code) {
-		return companyMapper.star_score_avg(company_code);
+	public double star_score_avg(@Param("company_code") String company_code,@Param("period_day") String period_day) {
+		return companyMapper.star_score_avg(company_code, period_day);
 	}
 	
 	//투찰 파일업로드
@@ -191,18 +191,24 @@ public class ConnectServiceImplement implements ConnectService {
 	
 	// 투찰 점수 - 건수
 	@Override
-	public ArrayList<BidVO> bidNumScore(String tender_code) {
-		return bidMapper.bidNumScore(tender_code);
+	public ArrayList<BidVO> bidNumScore(@Param("tender_code") String tender_code,@Param("period_day") String period_day) {
+		return bidMapper.bidNumScore(tender_code, period_day);
 	}
 	// 투찰 점수 - 별점
 	@Override
-	public ArrayList<BidVO> bidStarScore(String tender_code) {
-		return bidMapper.bidStarScore(tender_code);
+	public ArrayList<BidVO> bidStarScore(@Param("tender_code") String tender_code,@Param("period_day") String period_day) {
+		return bidMapper.bidStarScore(tender_code, period_day);
 	}
 	// 투찰 점수 - 별점
 	@Override
 	public ArrayList<BidVO> bidPriceScore(String tender_code) {
 		return bidMapper.bidPriceScore(tender_code);
+	}
+	
+	//건수
+	@Override
+	public int bidTotalNum(String company_code) {
+		return companyMapper.bidTotalNum(company_code);
 	}
 	
 	// 상품 리스트 출력

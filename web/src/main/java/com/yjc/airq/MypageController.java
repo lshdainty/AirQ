@@ -244,9 +244,9 @@ public class MypageController {
 	@RequestMapping(value = "mypageSeller", method = RequestMethod.GET)
 	public String mypageSeller(Model model,HttpSession session, HttpServletRequest request,Company_InfoVO company_InfoVO){
 		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id(); 
-		System.out.println(member_id+"현재로그인정보");
+//		System.out.println(member_id+"현재로그인정보");
 		ArrayList<Company_InfoVO> cList = companyMapper.c_code(member_id);
-		System.out.println(cList);
+//		System.out.println(cList);
 		model.addAttribute("cList",cList);
 //		String board_type = (String)request.getSession().getAttribute("board_type");
 		
@@ -258,10 +258,10 @@ public class MypageController {
 	public JSONObject cList(HttpServletRequest request){
 		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
 		ArrayList<Company_InfoVO> list = companyMapper.c_code(member_id);
-		System.out.println("dd"+list.get(1).getSum());
-		System.out.println("ss"+list.get(1).getMonth());
-		System.out.println(list.get(1));
-		System.out.println(list);
+//		System.out.println("dd"+list.get(1).getSum());
+//		System.out.println("ss"+list.get(1).getMonth());
+//		System.out.println(list.get(1));
+//		System.out.println(list);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		JSONObject json = JSONObject.fromObject(map);

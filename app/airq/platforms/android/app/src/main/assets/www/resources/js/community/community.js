@@ -205,6 +205,7 @@ $(document).ready(function() {
 			var post_code = $('#post_code').val();
 			var reply_code = $(this).next().val();
 			var data = {'reply_code':reply_code,'post_code':post_code};
+			console.log(data);
 			$(this).parent().parent().parent().parent().remove();
     			$.ajax({
 				type:'post',
