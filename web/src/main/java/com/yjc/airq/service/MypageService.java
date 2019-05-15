@@ -8,6 +8,7 @@ import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ProductVO;
+import com.yjc.airq.domain.TenderVO;
 
 public interface MypageService {
 	public ArrayList<Company_InfoVO> c_code(String member_id);
@@ -37,4 +38,10 @@ public interface MypageService {
 	//마이페이지 일반사용자 결제내역 별점 업데이트
 	public void mypayStarUp(PaymentVO paymentVO);
 
-	}
+	//마이페이지 일반 글관리- 글삭제
+	public ArrayList<PostVO> postNMP(@Param("member_id")String member_id);
+	//마이페이지 일반 글관리 -텐더 리스트뽑기
+	public ArrayList<TenderVO> tenderNMP(@Param("member_id")String member_id);
+	//마이페이지 판매자 글관리 - 프로덕트
+	public ArrayList<ProductVO> productSMP(@Param("member_id")String member_id);
+}

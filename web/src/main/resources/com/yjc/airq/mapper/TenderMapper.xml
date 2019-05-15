@@ -54,10 +54,16 @@
 		from tender
 		where tender_code=#{tender_code}
 	</select>
-	
+	<!-- 마이페이지 글관리- 글삭제 -->
 	<delete id="deletePosts" parameterType="String">
 		delete from tender where tender_code=#{tender_code}
 	</delete>
+	
+	<!-- 마이페이지 글관리 - 리스트 뽑기 -->
+	<select id="tenderNMP" resultType="com.yjc.airq.domain.TenderVO">
+		select rownum,t.* from (select * from tender order by t_creation_date asc) t where member_id = #{member_id}
+		order by rownum desc
+	</select>
 	
 	<!-- 투찰 기간 설정 -->
 	<select id="calculate_period" resultType="int">

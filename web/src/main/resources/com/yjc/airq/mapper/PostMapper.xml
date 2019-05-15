@@ -73,6 +73,10 @@
 		select * from post
 	</select>
 	
+	<select id="postNMP" resultType="com.yjc.airq.domain.PostVO">
+		select * from post where member_id = #{member_id}
+	</select>
+	
 	<delete id="deletePostsPost" parameterType="String">
 		delete from post where post_code=#{post_code}
 	</delete>

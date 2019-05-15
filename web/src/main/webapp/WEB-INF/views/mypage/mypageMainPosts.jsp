@@ -4,15 +4,15 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypageMainPosts.css" />
     <div class="container">
     <div class="Posts">
-        <p>mypageMainPosts page</p>
+        <p></p>
     </div >
 <div id="form1">
         <section class="content">
             <main>
            <%--상단 부분 시작 --%>
        <div class="form1">
-          <input type="checkbox" id="all" name="all">
-			<a href="<c:url value=' ' />" class="btn btn-lg btn-danger">글 삭제</a>           
+       <div class="A">제목</div>
+       <div class="AA">내용</div>
            <div class="B">글쓴이</div>
             <select class="C"id="change">
             	<option value="0">모든 글 보기</option>
@@ -25,11 +25,10 @@
         <br>
         <%-- 하단부분 시작 --%>
         <%-- TENDER --%>
-        <c:forEach var="tenderList" items="${tenderList}"
-        varStatus="index" begin="0" end="20">
+        <c:forEach var="tenderList" items="${tenderList}">
         <div class="form2" id="select1">
 
-            <div class="tender_title"><input type="checkbox" id="cb" name="cb">${tenderList.tender_title }</div> 
+            <div class="tender_title">${tenderList.tender_title }</div> 
             <div class="requirement">${tenderList.requirement }</div> 
             <div class="tender_name">${tenderList.tender_name }</div>
             <div class="t_creation_date">${tenderList.t_creation_date }</div>
@@ -38,23 +37,21 @@
         </c:forEach>
         
         <%-- PRODUCT --%>
-        <c:forEach var="productMP" items="${productMP}"
-        varStatus="index" begin="0" end="20">
+        <c:forEach var="productMP" items="${productMP}">
         <div class="form3" id="select2">
 
-            <div class="product_code"><input type="checkbox" id="cb" name="cb">${productMP.product_code }</div> 
+            <div class="product_code">${productMP.product_name }</div> 
             <div class="product_detail">${productMP.product_detail }</div> 
-            <div class="product_name">${productMP.product_name }</div>
+            <div class="product_name">${productMP.company_code}</div>
             <a href="<c:url value='/mypageMainPostsProduct/${productMP.product_code }' />" class="btn btn-lg btn-danger">글 삭제</a>
         </div>
         </c:forEach>
         
         <%-- POST --%>
-        <c:forEach var="postMP" items="${postMP}"
-        varStatus="index" begin="0" end="20">
+        <c:forEach var="postMP" items="${postMP}">
         <div class="form4" id="select3">
 
-            <div class="post_title"><input type="checkbox" id="cb" name="cb">${postMP.post_title }</div> 
+            <div class="post_title">${postMP.post_title }</div> 
             <div class="post_content">${postMP.post_content }</div> 
             <div class="member_id">${postMP.member_id }</div>
             <div class="p_creation_date">${postMP.p_creation_date }</div>
