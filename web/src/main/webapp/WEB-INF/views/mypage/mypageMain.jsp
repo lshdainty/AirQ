@@ -3,12 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypageMain.css" />
-<style>
-#chartdiv {
-  width: 100%;
-  height: 500px;
-}
-</style>
+
 <%-- use strict 시작 (.js 파일로 나누지 않은 이유는 검색 결과.. 한 파일 안에 있어야 됨) --%>
 <%-- use strict 끝 --%>
 
