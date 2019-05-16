@@ -25,5 +25,6 @@ public interface PaymentMapper {
 	//마이페이지 일반사용자 결제내역 별점 업데이트
 	public int mypayStarUp(PaymentVO paymentVO);
 
-	
+	// 입찰 신청 결제
+	public void tendering(PaymentVO paymentVo);
 }

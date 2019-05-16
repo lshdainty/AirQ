@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjc.airq.mapper.PaymentMapper">
 	<insert id="pInsertPayment" parameterType="com.yjc.airq.domain.PaymentVO">
-		insert into payment(payment_code,payment_price,demand_code) values(#{payment_code},#{payment_price},#{demand_code})
+		insert into payment(payment_code,payment_price,demand_code,payment_date) values(#{payment_code},#{payment_price},#{demand_code},systimestamp)
 	</insert>
 	
 	<delete id="productPaymentDelete" parameterType="String">
@@ -65,4 +65,9 @@
 		UPDATE payment set star_score = #{star_score}
 		where payment_code = #{payment_code}
 	</update>
+	
+	<!-- 입찰 신청 결제 -->
+	<insert id="tendering">
+		insert into payment(payment_code,payment_price,tender_code,payment_date) values(#{payment_code},${payment_price},#{tender_code},systimestamp)
+	</insert>
 </mapper>

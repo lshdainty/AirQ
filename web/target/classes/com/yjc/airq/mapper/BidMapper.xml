@@ -54,33 +54,32 @@
            		          from tender t, payment p
          		            where t.tender_code = p.tender_code and p.refund_whether = 'n'
              		        <if test='!period_day.equals("0")'>
-               			       and p.payment_date between to_date('2019-02-14','yyyy-MM-dd') and sysdate) obj, bid b
+               			       and p.payment_date between to_date(#{period_day},'yyyy-MM-dd') and sysdate
                				</if>
+               				) obj, bid b
             		    where obj.tender_code = b.tender_code and b.win_bid_whether = 'y') o
         		  group by company_code
        		   order by num desc) n, bid d
    		  where n.company_code=d.company_code and d.tender_code=#{tender_code}
-   		  order by num desc) u,payment y
-   		  where u.tender_code=y.tender_code
+   		  order by num desc) u
 	</select>
 	
 	<!-- 투찰 점수 - 별점 -->
 	<select id="bidStarScore" resultType="com.yjc.airq.domain.BidVO">
-		select u.*,y.payment_date
-		from(select n.star_score_avg, n.star_score_avg/0.5 as bidStarScore, d.*
- 		   from (select avg(star_score) star_score_avg, company_code
+		select n.star_score_avg, n.star_score_avg/0.5 as bidStarScore, d.*
+ 		   from (select to_char(avg(star_score),99.9) star_score_avg, company_code
     		      from(select obj.*, b.win_bid_whether, b.company_code
      		          from(select t.tender_code, p.refund_whether,p.star_score, p.payment_date
       		              from tender t, payment p
       		              where t.tender_code = p.tender_code and p.refund_whether = 'n'
       		              <if test='!period_day.equals("0")'>
-      		               and p.payment_date between to_date(#{period_day},'yyyy-MM-dd') and sysdate) obj, bid b
+      		               and p.payment_date between to_date(#{period_day},'yyyy-MM-dd') and sysdate
      		         		</if>
+     		         		) obj, bid b
      		          where obj.tender_code = b.tender_code and b.win_bid_whether = 'y') o
       		    group by company_code
       		    order by star_score_avg desc) n, bid d
-  		  where n.company_code=d.company_code and d.tender_code=#{tender_code}) u, payment y
-		where u.tender_code=y.tender_code
+  		  where n.company_code=d.company_code and d.tender_code=#{tender_code}
 	</select>
 	
 	<!-- 투찰 점수 - 가격, ppt점수 -->
@@ -103,4 +102,11 @@
 		set bid_ppt_score = ${bid_ppt_score}
 		where company_code = #{company_code} and tender_code=#{tender_code}
 	</update>
+	
+	<!-- 투찰 가격 -->
+	<select id="bid_price" resultType="int">
+		select bid_price
+		from bid
+		where tender_code=#{tender_code} and company_code=#{company_code}
+	</select>
 </mapper>

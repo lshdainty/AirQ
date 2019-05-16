@@ -1,38 +1,45 @@
 (function(){
+	var tender_code=$("#tcode").val();
 	$.ajax({
 		async:true,
 		type:"post",
-		url:"/member_devision",
+		dataType:"json",
+		url:"/member_devision/"+tender_code,
 		success:function(data){
-			if(data == 'no'){ //사용자
-				var html='<span>|</span>'
-						+'<a id="tenderDeleteA" href="#">삭제</a>'
-						+'<span>|</span>'
-						+'<a id="tenderModifyA" href="#">수정</a>';
-				$("#tenderADiv").append(html);
+			if(data.tenderCheck == '0'){
+				if(data.member_devision == 'no'){ //사용자
+					var html='<span>|</span>'
+							+'<a id="tenderDeleteA" href="#">삭제</a>'
+							+'<span>|</span>'
+							+'<a id="tenderModifyA" href="#">수정</a>';
+					$("#tenderADiv").append(html);
 				
-				var html2='<button id="tenderApplicationBtn">입찰신청</button>';
-				$("#bidBtnBiv").append(html2);
-			}else if(data == 'se'){ //사업자
-				var html='<button id="bidWrite">투찰하기</button>'
-				+'<button id="bidComplete">작성완료</button>'
-				+'<button id="bidDelete">삭제하기</button>'
-				+'<button id="bidModify" onclick="return confirm(&#39수정하시겠습니까?&#39);">수정하기</button>';
+					var html2='<button id="tendering">입찰신청</button>';
+					$("#bidBtnBiv").append(html2);
+				}else if(data.member_devision == 'se'){ //사업자
+					var html='<button id="bidWrite">투찰하기</button>'
+					+'<button id="bidComplete">작성완료</button>'
+					+'<button id="bidDelete">삭제하기</button>'
+					+'<button id="bidModify" onclick="return confirm(&#39수정하시겠습니까?&#39);">수정하기</button>';
 				
-				$("#bidBtnBiv").append(html);
-				$("#bidComplete").css("display","none");
+					$("#bidBtnBiv").append(html);
+					$("#bidComplete").css("display","none");
 				
+					$('input[id="bid_ppt_score"]').attr("disabled", true);
+					$(".bid_ppt_score_btn").attr("disabled", true);
+				}else{ //관리자
+				
+				}
+			} else {
 				$('input[id="bid_ppt_score"]').attr("disabled", true);
 				$(".bid_ppt_score_btn").attr("disabled", true);
-			}else{ //관리자
-				
+				alert("종료된 입찰입니다.");
 			}
 		}
 	});
 }());
 
 (function(){
-	console.log("start");
 	var tender_code=$("#tcode").val();
 	$.ajax({
 		type:"POST",
@@ -91,6 +98,31 @@
 	});
 }());
 $(document).ready(function(){
+	/*입찰 신청*/
+	$(document).on('click','#tendering',function(){
+		var c=confirm('결제하시겠습니까?');
+		if(c){
+			var tender_code=$("#tcode").val();
+			// 투찰에 대한 사업자번호
+			var company_code=$('input:radio[name="bidContent"]:checked').val();
+			var query={
+				tender_code:tender_code,
+				company_code:company_code
+			};
+			
+			$.ajax({
+				type:"POST",
+				data:query,
+				url:"/tendering",
+				success:function(){
+					
+				}
+			});
+		}else{
+			return false;
+		}
+		
+	});
 	
 	/*ppt점수 부여*/
 	$(document).on('click','.bid_ppt_score_btn',function(){
