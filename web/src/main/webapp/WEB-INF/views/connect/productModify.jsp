@@ -7,7 +7,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 order-md-4">
-			<form class="needs-validation" enctype="multipart/form-data" action="/productUpdate" method="get" novalidate >
+			<form class="needs-validation" enctype="multipart/form-data" action="/productUpdate" method="post" novalidate >
 				<input type="hidden" name="product_code" value="${productContent.product_code}"/>
 				<%-- 상품 이름 시작 --%>
 				<div class="row">
@@ -18,6 +18,14 @@
 					</div>
 				</div>
 				<%-- 상품 이름 끝 --%>
+				<%--썸네일 추가 시작 --%>
+				<div id="divImage" style="display:none;">
+					<img id="div_inner_img" src="" alt="이미지를 넣어주세요" width="250px" height="250px">
+				</div>
+				<div id="thumbnailDiv">
+					<input id="fileImage" type="file" name="thumbnail" multiple>
+				</div>
+				<%--썸네일 추가 끝 --%>
 				<%--상품 기본 정보 선택 시작 --%>
 				<div class="product_info">
 					<label for="product_info">서비스 상품 상세 정보</label><br/>

@@ -1,6 +1,24 @@
 ﻿var editorConfig = {
 		filebrowserUploadUrl : "imageUpload", //이미지 업로드
 };
+
+//Thumbnail preview보기
+function readURL(input){
+	if(input.files&&input.files[0]){
+		var reader = new FileReader();
+		reader.onload = function(e){
+			$('#div_inner_img').prop('src',e.target.result);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+
+//Thumbnail을 업로드하면 함수실행
+$("#fileImage").change(function(){
+	readURL(this);
+	$("#divImage").show();
+});
+
 $(function() {
 	CKEDITOR.replace(
 					'product_detail',

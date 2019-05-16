@@ -8,7 +8,7 @@
 	<div class="product-page-product-details-section" id="product">
 		<div class="product-page-product-image-block">
 			<div class="product-page-hero-product-image">
-				<img alt="" src="https://www.hopsy.beer/image/catalog/DraftForHome/assets/products/brand_up_2l.png" />
+				<img alt="" src="resources/uploadFile/images/${productContent.file_name}" />
 			</div>
 		</div>
 		<div class="product-page-product-details-list-block">
