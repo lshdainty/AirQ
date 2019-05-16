@@ -528,7 +528,6 @@ public class ConnectController {
 	// 분석/비교 서비스 - 리스트에서 서비스상품 세부 내용으로 가기
 	@RequestMapping(value = "product", method = RequestMethod.GET)
 	public String productDetail(@RequestParam("product_code") String product_code, Model model) {
-		System.out.println(product_code);
 		model.addAttribute("productContent", connectService.productContent(product_code));
 
 		return "connect/productContent";
@@ -543,7 +542,6 @@ public class ConnectController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("aList", aJson);
 		JSONObject json = JSONObject.fromObject(map);
-		System.out.println(json);
 		return json;
 	}
 	
@@ -580,7 +578,7 @@ public class ConnectController {
 		return demand_code;
 	}
 	
-	// 분석/비교 서비스 - 상품 등록 페이 지로 가기
+	// 분석/비교 서비스 - 상품 등록 페이지로 가기
 	@RequestMapping(value = "productWrite", method = RequestMethod.GET)
 	public String productWrite() {
 		return "connect/productWrite";
@@ -601,8 +599,8 @@ public class ConnectController {
 	}
 		
 	// 분석/비교 서비스 - 상품 등록 insert
-	@RequestMapping(value = "productInsert", method = RequestMethod.GET)
-	public String productInsert(Model model,HttpServletRequest request) {
+	@RequestMapping(value = "productInsert", method = RequestMethod.POST)
+	public String productInsert(Model model,HttpServletRequest request,MultipartFile[] thumbnail) {
 		ProductVO productVO = new ProductVO();
 		UploadVO uploadVO = new UploadVO();
 			
@@ -611,7 +609,8 @@ public class ConnectController {
 		String day = date.format(today);
 		String random=String.format("%04d",(int)(Math.random()*10000));
 		String product_code="pd"+day+random;
-			
+		
+		//상품정보 insert
 		productVO.setProduct_code(product_code);
 		productVO.setProduct_name(request.getParameter("product_name"));
 		productVO.setProduct_detail(request.getParameter("product_detail"));
@@ -620,12 +619,14 @@ public class ConnectController {
 		productVO.setMeasure_point(Integer.parseInt(request.getParameter("measure_point")));
 		productVO.setCompany_code(connectService.company_code(((MemberVO) request.getSession().getAttribute("user")).getMember_id()));
 		connectService.productInsert(productVO);
-			
+		
+		//서비스 가능한 지역 insert
 		String[] area_code = request.getParameterValues("area_code");
 		for(int i=0; i<area_code.length; i++) {
 			connectService.productAreaInsert(area_code[i],product_code);
 		}
 			
+		//이미지 정보 insert
 		Document doc = Jsoup.parse(request.getParameter("product_detail"));
 		Elements imageElement = doc.select("img");
 		String image_name[] = new String[imageElement.size()];
@@ -638,6 +639,32 @@ public class ConnectController {
 			uploadVO.setFile_name(image_name[i].substring(image_name[i].lastIndexOf("/")+1));
 			uploadVO.setProduct_code(product_code);
 			connectService.productImageUpload(uploadVO);
+		}
+		
+		//thumbnail정보 insert
+		for(MultipartFile multipartFile : thumbnail) {
+			random=String.format("%04d",(int)(Math.random()*10000));
+			String uuid=UUID.randomUUID().toString().replace("-", "");
+			
+			String upload_code = "ul"+day+random;
+			String original_name = multipartFile.getOriginalFilename();
+			String file_name = uuid+original_name;
+			
+			uploadVO.setUpload_code(upload_code);
+			uploadVO.setOriginal_name(original_name);
+			uploadVO.setFile_name(file_name);
+			uploadVO.setProduct_code(product_code);
+			connectService.productThumbnailUpload(uploadVO);
+			
+			//업로드
+			String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/images/");
+			try {
+				File saveFile = new File(uploadFolder, file_name);
+				
+				multipartFile.transferTo(saveFile);
+			} catch(Exception e) {
+				 e.printStackTrace();
+			} // end catch
 		}
 			
 		return "redirect: /product?product_code=" + product_code;
@@ -652,15 +679,16 @@ public class ConnectController {
 	}
 		
 	// 분석/비교 서비스 - 상품 정보 update
-	@RequestMapping(value = "productUpdate", method = RequestMethod.GET)
-	public String productUpdate(Model model,HttpServletRequest request,@RequestParam("product_code") String product_code) {
+	@RequestMapping(value = "productUpdate", method = RequestMethod.POST)
+	public String productUpdate(Model model,HttpServletRequest request,@RequestParam("product_code") String product_code,MultipartFile[] thumbnail) {
 		ProductVO productVO = new ProductVO();
 		UploadVO uploadVO = new UploadVO();
 				
 		Date today = new Date();
 		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
 		String day = date.format(today);
-				
+		
+		//상품정보 update
 		productVO.setProduct_code(product_code);
 		productVO.setProduct_name(request.getParameter("product_name"));
 		productVO.setProduct_detail(request.getParameter("product_detail"));
@@ -669,13 +697,15 @@ public class ConnectController {
 		productVO.setMeasure_point(Integer.parseInt(request.getParameter("measure_point")));
 		productVO.setCompany_code(connectService.company_code(((MemberVO) request.getSession().getAttribute("user")).getMember_id()));
 		connectService.productUpdate(productVO);
-			
+		
+		//서비스 가능한 지역 삭제후 insert
 		connectService.productAreaDelete(product_code);
 		String[] area_code = request.getParameterValues("area_code");
 		for(int i=0; i<area_code.length; i++) {
 			connectService.productAreaInsert(area_code[i],product_code);
 		}
-			
+		
+		//상품 사진 삭제 후 insert
 		connectService.productImageDelete(product_code);
 		Document doc = Jsoup.parse(request.getParameter("product_detail"));
 		Elements imageElement = doc.select("img");
@@ -689,6 +719,32 @@ public class ConnectController {
 			uploadVO.setFile_name(image_name[i].substring(image_name[i].lastIndexOf("/")+1));
 			uploadVO.setProduct_code(product_code);
 			connectService.productImageUpload(uploadVO);
+		}
+		
+		//thumbnail정보 insert
+		for(MultipartFile multipartFile : thumbnail) {
+			String random=String.format("%04d",(int)(Math.random()*10000));
+			String uuid=UUID.randomUUID().toString().replace("-", "");
+					
+			String upload_code = "ul"+day+random;
+			String original_name = multipartFile.getOriginalFilename();
+			String file_name = uuid+original_name;
+					
+			uploadVO.setUpload_code(upload_code);
+			uploadVO.setOriginal_name(original_name);
+			uploadVO.setFile_name(file_name);
+			uploadVO.setProduct_code(product_code);
+			connectService.productThumbnailUpload(uploadVO);
+					
+			//업로드
+			String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/images/");
+			try {
+				File saveFile = new File(uploadFolder, file_name);
+				
+				multipartFile.transferTo(saveFile);
+			} catch(Exception e) {
+				 e.printStackTrace();
+			} // end catch
 		}
 				
 		return "redirect: /product?product_code=" + product_code;

@@ -67,7 +67,7 @@ public class FileController {
             
             json.addProperty("uploaded",1);
             json.addProperty("fileName",file_name);
-            json.addProperty("url","http://39.127.7.69"+fileUrl);
+            json.addProperty("url",fileUrl);
             
             printWriter.println(json);
             

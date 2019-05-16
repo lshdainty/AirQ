@@ -109,6 +109,8 @@ public interface ConnectService {
 	public void productAreaInsert(@Param("area_code") String area_code,@Param("product_code") String product_code);
 	// 서비스 제품 사진 등록
 	public void productImageUpload(UploadVO uploadVO);
+	// 서비스 제품 썸네일 등록
+	public void productThumbnailUpload(UploadVO uploadVO);
 	// 서비스 제품 수정
 	public void productUpdate(ProductVO productVO);
 	// 서비스 가능 지역 삭제
