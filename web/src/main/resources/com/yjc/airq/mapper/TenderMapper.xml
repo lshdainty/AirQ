@@ -26,7 +26,7 @@
 	
 	<!-- 입찰공고 작성 -->
 	<insert id="addTenderboard" parameterType="com.yjc.airq.domain.TenderVO">
-		insert into tender values(#{tender_code},#{tender_title},sysdate,#{service_date},#{tender_deadline},${calculate_period},${t_space},${floor_number},#{requirement},#{t_addr_do},#{t_addr_si},#{t_addr_dong},#{t_addr_detail},#{member_id},#{tender_name})
+		insert into tender values(#{tender_code},#{tender_title},systimestamp,#{service_date},#{tender_deadline},${calculate_period},${t_space},${floor_number},#{requirement},#{t_addr_do},#{t_addr_si},#{t_addr_dong},#{t_addr_detail},#{member_id},#{tender_name})
 	</insert>
 	
 	<!-- 입찰 리스트 세부내용 -->
@@ -64,5 +64,12 @@
 		select calculate_period
 		from tender
 		where tender_code=#{tender_code}
+	</select>
+	
+	<!-- 입찰 확인 여부 -->
+	<select id="tenderCheck" resultType="int">
+		select count(*)
+		from tender t, bid b
+		where t.tender_code=b.tender_code and t.tender_code=#{tender_code} and win_bid_whether='y'
 	</select>
 </mapper>
