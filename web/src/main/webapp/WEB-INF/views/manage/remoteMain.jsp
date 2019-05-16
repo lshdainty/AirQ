@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="/resources/css/manage/remoteMain.css" />
-	<h1>IoT원격제어 서비스 페이지입니다.</h1>
 	<div class="container2">
 	
 <%-- 	<c:forEach var="myiot" items="${myIot}">
@@ -11,11 +10,27 @@
 		${myiot.place_name}
 	</c:forEach> --%>
 	<c:forEach var="myiot" items="${myIot}">
-			${sessionScope.myiot.model_name}
 		<figure>
 			<div class="switch">
-			<c:if test="${sessionScope.myiot.model_name eq 'boiler' }">
+			
+			<%-- 보일러 사진 --%>
+			<c:if test="${myiot.model_name eq 'boiler' }">
 				<img class="window" src="resources/images/boiler.png" /><br/>
+			</c:if>
+			
+			<%-- 창문 사진 --%>
+			<c:if test="${myiot.model_name eq 'window' }">
+				<img class="window" src="resources/images/window.png" /><br/>
+			</c:if>
+			
+			<%-- 환풍기 사진 --%>
+			<c:if test="${myiot.model_name eq 'ventilator' }">
+				<img class="window" src="resources/images/Ventilator.jpg" /><br/>
+			</c:if>
+			
+			<%-- 공기청정기 사진 --%>
+			<c:if test="${myiot.model_name eq 'aircleaner' }">
+				<img class="window" src="resources/images/airclean.jpg" /><br/>
 			</c:if>
 			
 	        <div class="local">
