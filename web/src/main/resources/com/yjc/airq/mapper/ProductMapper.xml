@@ -179,14 +179,13 @@
 		delete from product where product_code = #{product_code}
 	</delete>
 	
-	<select id="productMP" resultType="com.yjc.airq.domain.ProductVO">
-		select * from product
+	<select id="productMP" resultMap="ProductVO">
+		select * from product 
 	</select>
 	
-	<select id="productSMP" resultType="com.yjc.airq.domain.ProductVO">
-		select * from product p ,company_info c, demand d where p.company_code = c.company_code
-		and d.product_code = p.product_code
-		and c.member_id = #{member_id}
+	<select id="productSMP" resultMap="ProductVO">
+		select * from product
+		where COMPANY_CODE= (select COMPANY_CODE from COMPANY_INFO where member_id = #{member_id})
 	</select>
 	
 	<delete id="deletePostsProduct" parameterType="String">

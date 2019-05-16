@@ -27,7 +27,7 @@
 
             <div class="tender_title">${tenderList.tender_title }</div> 
             <div class="requirement">${tenderList.requirement }</div> 
-            <div class="tender_name">${tenderList.member_id }</div>
+            <div class="tender_member_id">${tenderList.member_id }</div>
             <div class="t_creation_date">${tenderList.t_creation_date }</div>
             <a href="<c:url value='/mypageNormalPosts/${tenderList.tender_code }' />" class="btn btn-lg btn-danger">글 삭제</a>
         </div>

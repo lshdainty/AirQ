@@ -101,6 +101,7 @@ public class MypageController {
 		ArrayList<TenderVO> tenderVO = connectService.tenderList();
 		ArrayList<ProductVO> productVO = productMapper.productMP();
 		ArrayList<PostVO> postVO = postMapper.postMP();
+		System.out.println(productVO);
 		
 			 if(selected.equals("0")) {
 				 return "0";

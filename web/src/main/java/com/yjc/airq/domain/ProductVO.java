@@ -18,7 +18,5 @@ public class ProductVO {
 	private String staravg;	//별점평균
 	private Company_InfoVO companyVO;	//상품을 제공하는 회사정보
 	private ArrayList<AreaVO> areaVO;	//제품 서비스가 가능한 지역 리스트
-	
-	private String member_id;
-	private Timestamp d_service_date;
+
 }

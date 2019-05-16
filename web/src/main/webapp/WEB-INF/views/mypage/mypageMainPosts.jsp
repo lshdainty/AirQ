@@ -30,7 +30,7 @@
 
             <div class="tender_title">${tenderList.tender_title }</div> 
             <div class="requirement">${tenderList.requirement }</div> 
-            <div class="tender_name">${tenderList.tender_name }</div>
+            <div class="tender_member_id">${tenderList.member_id }</div>
             <div class="t_creation_date">${tenderList.t_creation_date }</div>
             <a href="<c:url value='/mypageMainPosts/${tenderList.tender_code }' />" class="btn btn-lg btn-danger">글 삭제</a>
         </div>
@@ -42,7 +42,7 @@
 
             <div class="product_code">${productMP.product_name }</div> 
             <div class="product_detail">${productMP.product_detail }</div> 
-            <div class="product_name">${productMP.company_code}</div>
+            <div class="product_member_id">${productMP.companyVO.member_id}</div>
             <a href="<c:url value='/mypageMainPostsProduct/${productMP.product_code }' />" class="btn btn-lg btn-danger">글 삭제</a>
         </div>
         </c:forEach>

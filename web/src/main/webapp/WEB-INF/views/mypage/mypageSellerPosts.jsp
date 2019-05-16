@@ -30,8 +30,7 @@
 
             <div class="product_code">${productSMP.product_name }</div> 
             <div class="product_detail">${productSMP.product_detail }</div> 
-            <div class="product_name">${productSMP.member_id}</div>
-            <div class="product_d_service_date">${productSMP.d_service_date }</div>
+            <div class="product_member_id">${productSMP.companyVO.member_id}</div>
             <a href="<c:url value='/mypageSellerPostsProduct/${productSMP.product_code }' />" class="btn btn-lg btn-danger">글 삭제</a>
         </div>
         </c:forEach>
