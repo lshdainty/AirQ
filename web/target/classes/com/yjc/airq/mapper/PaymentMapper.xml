@@ -18,43 +18,46 @@
 	</delete>
 	
 	<select id="mypay" resultType="com.yjc.airq.domain.PaymentVO">
-		select d.member_id, d.demand_code, p.star_score , p.payment_code, to_char(d.demand_date,'yyyy-mm-dd') as day, c.company_name, c.MEMBER_ID as company_id,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1) as product_detail
-		from payment p, demand d, member m, product pr, company_info c
+		select d.member_id,t.TENDER_CODE, d.demand_code, p.star_score , p.payment_code, to_char(d.demand_date,'yyyy-mm-dd') as day, c.company_name, c.MEMBER_ID as company_id,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1) as product_detail
+		from payment p, demand d, member m, product pr, company_info c, tender t
 		where m.member_id = d.member_id
+        and d.member_id = t.member_id
 		and d.demand_code = p.demand_code
 		and d.product_code = pr.product_code
 		and pr.company_code = c.company_code
 		and m.member_id = #{member_id}
 		and p.REFUND_WHETHER ='n'
-		GROUP by d.MEMBER_ID,p.STAR_SCORE,d.DEMAND_CODE, p.payment_code, to_char(d.demand_date,'yyyy-mm-dd'), c.company_name, c.MEMBER_ID,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1)
+		GROUP by d.MEMBER_ID,t.TENDER_CODE,p.STAR_SCORE,d.DEMAND_CODE, p.payment_code, to_char(d.demand_date,'yyyy-mm-dd'), c.company_name, c.MEMBER_ID,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1)
 		order by to_char(d.demand_date,'yyyy-mm-dd') desc
 	</select>
 	
 	<select id="mypayNotNull" resultType="com.yjc.airq.domain.PaymentVO">
-		select d.member_id, d.demand_code, p.star_score , p.payment_code, to_char(d.demand_date,'yyyy-mm-dd') as day, c.company_name, c.MEMBER_ID as company_id,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1) as product_detail
-		from payment p, demand d, member m, product pr, company_info c
+		select d.member_id,t.TENDER_CODE, d.demand_code, p.star_score , p.payment_code, to_char(d.demand_date,'yyyy-mm-dd') as day, c.company_name, c.MEMBER_ID as company_id,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1) as product_detail
+		from payment p, demand d, member m, product pr, company_info c, tender t
 		where m.member_id = d.member_id
+		and d.member_id = t.member_id
 		and d.demand_code = p.demand_code
 		and d.product_code = pr.product_code
 		and pr.company_code = c.company_code
 		and m.member_id = #{member_id}
 		and not p.star_score is null
 		and p.REFUND_WHETHER ='n'
-		GROUP by d.MEMBER_ID,p.STAR_SCORE,d.DEMAND_CODE, p.payment_code, to_char(d.demand_date,'yyyy-mm-dd'), c.company_name, c.MEMBER_ID,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1)
+		GROUP by d.MEMBER_ID,t.TENDER_CODE,p.STAR_SCORE,d.DEMAND_CODE, p.payment_code, to_char(d.demand_date,'yyyy-mm-dd'), c.company_name, c.MEMBER_ID,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1)
 		order by to_char(d.demand_date,'yyyy-mm-dd') desc
 	</select>
 	
 	<select id="mypayNull" resultType="com.yjc.airq.domain.PaymentVO">
-		select d.member_id, d.demand_code, p.star_score , p.payment_code, to_char(d.demand_date,'yyyy-mm-dd') as day, c.company_name, c.MEMBER_ID as company_id,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1) as product_detail
-		from payment p, demand d, member m, product pr, company_info c
+		select d.member_id,t.TENDER_CODE, d.demand_code, p.star_score , p.payment_code, to_char(d.demand_date,'yyyy-mm-dd') as day, c.company_name, c.MEMBER_ID as company_id,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1) as product_detail
+		from payment p, demand d, member m, product pr, company_info c, tender t
 		where m.member_id = d.member_id
+        and d.member_id = t.member_id
 		and d.demand_code = p.demand_code
 		and d.product_code = pr.product_code
 		and pr.company_code = c.company_code
 		and m.member_id = #{member_id}
 		and p.star_score is null
 		and p.REFUND_WHETHER ='n'
-		GROUP by d.MEMBER_ID,p.STAR_SCORE,d.DEMAND_CODE, p.payment_code, to_char(d.demand_date,'yyyy-mm-dd'), c.company_name, c.MEMBER_ID,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1)
+		GROUP by d.MEMBER_ID,t.TENDER_CODE,p.STAR_SCORE,d.DEMAND_CODE, p.payment_code, to_char(d.demand_date,'yyyy-mm-dd'), c.company_name, c.MEMBER_ID,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1)
 		order by to_char(d.demand_date,'yyyy-mm-dd') desc
 	</select>
 	

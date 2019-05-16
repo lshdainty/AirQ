@@ -1,10 +1,17 @@
-
 * {
 	box-sizing: border-box;
+	justify-content: space-between;
 }
 
 .container .form1 {
 	box-shadow: 5px 5px 5px rgba(0.5,0.5,0.5,0.5);
+	background-color: #80bfff;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	border-radius: 3px;
+	padding: 25px 30px;
+	
 }
 
 .container .form1 .A {
@@ -30,13 +37,16 @@
 
 .container .form1 .C {
 	float: right;
+	height: 25px;
 }
 
 .container .form2 {
-		column-gap: 15px;
-		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		background-color: #ffffff;
+		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+		padding: 25px 30px;
+		margin-bottom: 10px;
 		border-style: outset;
-		margin-bottom: 15px;
+		
 }
 
 .container .form2 .aa{
@@ -53,10 +63,16 @@
 .container .form2 .product_detail {
 	width: 40%;
 	height: 50px;
-	text-overflow: ellipsis;
-	-webkit-line-clamp:3;
+	text-overflow: clip;
+	overflow:auto;
+	overflow-x:hidden;
 	display: inline-block;
 	margin: 0px;
+	-webkit-transition: height 2s;
+  	transition: height 2s;
+}
+.container .form2 .product_detail:hover {
+ 	height: 100px;
 }
 
 .container .form2 .day {
@@ -90,10 +106,11 @@
 }
 
 .container .form3 {
-		column-gap: 15px;
-		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		background-color: #ffffff;
+		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+		padding: 25px 30px;
+		margin-bottom: 10px;
 		border-style: outset;
-		margin-bottom: 15px;
 }
 .container .form3 #gavestar{
 	display: inline-block;
@@ -126,10 +143,17 @@
 .container .form3 .product_detail {
 	width: 40%;
 	height: 50px;
-	text-overflow: ellipsis;
+	text-overflow: clip;
+	overflow:auto;
+	overflow-x:hidden;
 	-webkit-line-clamp:3;
 	display: inline-block;
 	margin: 0px;
+	-webkit-transition: height 2s;
+  	transition: height 2s;
+}
+.container .form3 .product_detail:hover {
+ 	height: 150px;
 }
 
 .container .form3 .day {
@@ -142,10 +166,11 @@
 }
 
 .container .form4 {
-		column-gap: 15px;
-		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		background-color: #ffffff;
+		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+		padding: 25px 30px;
+		margin-bottom: 10px;
 		border-style: outset;
-		margin-bottom: 15px;
 }
 
 .container .form4 .company_name {
@@ -158,10 +183,17 @@
 .container .form4 .product_detail {
 	width: 40%;
 	height: 50px;
-	text-overflow: ellipsis;
+	text-overflow: clip;
+	overflow:auto;
+	overflow-x:hidden;
 	-webkit-line-clamp:3;
 	display: inline-block;
 	margin: 0px;
+	-webkit-transition: height 2s;
+  	transition: height 2s;
+}
+.container .form4 .product_detail:hover {
+ 	height: 150px;
 }
 
 .container .form4 .day {

@@ -9,10 +9,10 @@
 <%--             <div class="payment_price">${Gra.payment_price }</div> --%>
 <div id="chartdiv"></div>
 <!-- <input type="hidden" id ="sum1" value=${cList[0].sum}> -->
-<div class="cList" id ="cList">${cList[0].sum }</div>
-${cList[1].company_code}
-${cList[2].company_code}
-${cList[0].sum}
+<%-- <div class="cList" id ="cList">${cList[0].sum }</div> --%>
+<%-- ${cList[1].company_code} --%>
+<%-- ${cList[2].company_code} --%>
+<%-- ${cList[0].sum} --%>
 <script type="text/javascript">
 // $(function(){
 // 	var result = new Array();

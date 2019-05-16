@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ProductVO;
 
 public interface ProductMapper {
@@ -29,4 +30,6 @@ public interface ProductMapper {
 	public ArrayList<ProductVO> productMP();
 	//마이페이지 관리자 글관리 - 글삭제
 	public void deletePostsProduct(@Param("product_code") String product_code);
+	//마이페이지 판매자 글관리 -글삭제
+	public ArrayList<ProductVO> productSMP(@Param("member_id")String member_id);
 }

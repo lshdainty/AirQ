@@ -1,35 +1,45 @@
 
 * {
 	box-sizing: border-box;
+	justify-content: space-between;
 }
 
 .container .form1 {
 	box-shadow: 5px 5px 5px rgba(0.5,0.5,0.5,0.5);
+	background-color: #80bfff;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	border-radius: 3px;
+	padding: 25px 30px;
+	
 }
 
 .container .form1 .A {
 	width: 15%;
+	display: inline-block;
+}
+.container .form1 .AA {
+	width: 15%;
+	display: inline-block;
 }
 
 .container .form1 .B {
 	display: inline-block;
-	margin-left: 28%;
+	margin-left: 23%;
 }
 
 .container .form1 .C {
 	float: right;
-}
-
-.container .form1 .check {
-	display: inline-block;
-	width: 10%;
+	height: 25px;
 }
 
 .container .form2 {
-		column-gap: 15px;
-		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		background-color: #ffffff;
+		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+		padding: 25px 30px;
+		margin-bottom: 10px;
 		border-style: outset;
-		margin-bottom: 15px;
 }
 
 .container .form2 .tender_title {
@@ -42,9 +52,17 @@
 .container .form2 .requirement {
 	width: 40%;
 	height: 50px;
-	text-overflow: ellipsis;
-	overflow: hidden;
+	text-overflow: clip;
+	overflow:auto;
+	overflow-x:hidden;
 	display: inline-block;
+	margin: 0px;
+	-webkit-transition: height 2s;
+  	transition: height 2s;
+}
+
+.container .form2 .requirement:hover {
+ 	height: 100px;
 }
 
 .container .form2 .tender_name {
@@ -65,16 +83,12 @@
 	display: inline-block;
 }
 
-.container .form2 .check {
-	display: inline-block;
-	width: 10%;
-}
-
 .container .form3 {
-		column-gap: 15px;
-		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		background-color: #ffffff;
+		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+		padding: 25px 30px;
+		margin-bottom: 10px;
 		border-style: outset;
-		margin-bottom: 15px;
 }
 
 .container .form3 .product_code {
@@ -87,9 +101,18 @@
 .container .form3 .product_detail {
 	width: 40%;
 	height: 50px;
-	text-overflow: ellipsis;
-	overflow: hidden;
+	text-overflow: clip;
+	overflow:auto;
+	overflow-x:hidden;
+	-webkit-line-clamp:3;
 	display: inline-block;
+	margin: 0px;
+	-webkit-transition: height 2s;
+  	transition: height 2s;
+}
+
+.container .form3 .product_detail:hover {
+ 	height: 150px;
 }
 
 .container .form3 .product_name {
@@ -102,16 +125,12 @@
 	display: inline-block;
 }
 
-.container .form3 .check {
-	display: inline-block;
-	width: 10%;
-}
-
 .container .form4 {
-		column-gap: 15px;
-		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+		background-color: #ffffff;
+		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+		padding: 25px 30px;
+		margin-bottom: 10px;
 		border-style: outset;
-		margin-bottom: 15px;
 }
 
 .container .form4 .post_title {
@@ -124,9 +143,18 @@
 .container .form4 .post_content {
 	width: 40%;
 	height: 50px;
-	text-overflow: ellipsis;
-	overflow: hidden;
+	text-overflow: clip;
+	overflow:auto;
+	overflow-x:hidden;
+	-webkit-line-clamp:3;
 	display: inline-block;
+	margin: 0px;
+	-webkit-transition: height 2s;
+  	transition: height 2s;
+}
+
+.container .form4 .post_content:hover {
+ 	height: 150px;
 }
 
 .container .form4 .member_id {
@@ -141,11 +169,6 @@
 	display: inline-block;
 	text-overflow: ellipsis;
 	overflow: inherit;
-}
-
-.container .form4 .check {
-	display: inline-block;
-	width: 10%;
 }
 
 .container .content {

@@ -25,8 +25,8 @@
         <br>
         <%-- 하단부분 시작 --%>
         <%-- star_score all --%>
-        <c:forEach var="mypay" items="${mypay}"
-        varStatus="index" begin="0" end="20">
+        
+        <c:forEach var="mypay" items="${mypay}">
         <div class="form2" id="select1">
         	<div class="aa">${mypay.payment_code}</div>
             <div class="company_name">${mypay.company_name}</div> 
@@ -45,8 +45,7 @@
         </c:forEach>
         
         <%-- star_score null --%>
-        <c:forEach var="mypayNull" items="${mypayNull}"
-        varStatus="index" begin="0" end="20">
+        <c:forEach var="mypayNull" items="${mypayNull}">
         <div class="form3" id="select2">
         	<div class="bb">${mypayNull.payment_code}</div>
             <div class="company_name">${mypayNull.company_name}</div> 
@@ -60,8 +59,7 @@
         </c:forEach>
         
         <%-- star_score not null --%>
-        <c:forEach var="mypayNotNull" items="${mypayNotNull}"
-        varStatus="index" begin="0" end="20">
+        <c:forEach var="mypayNotNull" items="${mypayNotNull}">
         <div class="form4" id="select3">
 
             <div class="company_name">${mypayNotNull.company_name}</div> 

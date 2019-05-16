@@ -115,9 +115,6 @@ public class MypageController {
 				 return "3";
 			 }
 	return "";
-	
-		
-
 	}
 	// mypageMainPosts tender 글 삭제 버튼 클릭 이벤트
 	
@@ -151,8 +148,46 @@ public class MypageController {
 
 	// mypageNormalPosts 가기
 	@RequestMapping(value = "mypageNormalPosts", method = RequestMethod.GET)
-	public String mypageNormalPosts(Model model) {
+	public String mypageNormalPosts(Model model, HttpServletRequest request) {
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		model.addAttribute("tenderList", tenderMapper.tenderNMP(member_id));
+		model.addAttribute("postNMP", postMapper.postNMP(member_id));
 		return "mypage/mypageNormalPosts";
+	}
+	
+	//mypageNormalPosts 셀렉트 옵션에 따른 페이지 ajax변환
+	@RequestMapping(value ="mypageNormalPostsAjax", method = RequestMethod.POST)
+	@ResponseBody
+	public String mypageNormalPostsOption(Model model,@RequestParam String selected, HttpServletRequest request) {
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		ArrayList<TenderVO> tenderVO = tenderMapper.tenderNMP(member_id);
+		ArrayList<PostVO> postVO = postMapper.postNMP(member_id);
+		
+			 if(selected.equals("0")) {
+				 return "0";
+			 }
+			 if(selected.equals("1")) {
+				return "1";
+			 }
+			 if(selected.equals("3")) {
+				 return "3";
+			 }
+	return "";
+	}
+	
+	// mypageNormalPosts tender 글 삭제 버튼 클릭 이벤트
+	
+	@RequestMapping(value = "/mypageNormalPosts/{tender_code}", method = RequestMethod.GET)
+	public String deleteNormalPosts(@PathVariable String tender_code) {
+		tenderMapper.deletePosts(tender_code);
+		return "redirect:/mypageNormalPosts";
+	}
+	
+	// mypageNormalPosts post 글 삭제 버튼 클릭 이벤트
+	@RequestMapping(value = "/mypageNormalPostsPost/{post_code}", method = RequestMethod.GET)
+	public String deleteNormalPostsPost(@PathVariable String post_code) {
+		postMapper.deletePostsPost(post_code);
+		return "redirect:/mypageNormalPosts";
 	}
 
 	// mypageNormalComment 가기
@@ -244,9 +279,9 @@ public class MypageController {
 	@RequestMapping(value = "mypageSeller", method = RequestMethod.GET)
 	public String mypageSeller(Model model,HttpSession session, HttpServletRequest request,Company_InfoVO company_InfoVO){
 		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id(); 
-		System.out.println(member_id+"현재로그인정보");
+//		System.out.println(member_id+"현재로그인정보");
 		ArrayList<Company_InfoVO> cList = companyMapper.c_code(member_id);
-		System.out.println(cList);
+//		System.out.println(cList);
 		model.addAttribute("cList",cList);
 //		String board_type = (String)request.getSession().getAttribute("board_type");
 		
@@ -258,35 +293,72 @@ public class MypageController {
 	public JSONObject cList(HttpServletRequest request){
 		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
 		ArrayList<Company_InfoVO> list = companyMapper.c_code(member_id);
-		System.out.println("dd"+list.get(1).getSum());
-		System.out.println("ss"+list.get(1).getMonth());
-		System.out.println(list.get(1));
-		System.out.println(list);
+//		System.out.println("dd"+list.get(1).getSum());
+//		System.out.println("ss"+list.get(1).getMonth());
+//		System.out.println(list.get(1));
+//		System.out.println(list);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		JSONObject json = JSONObject.fromObject(map);
 		return json;
 		
 	}
-	// mypageSeller 가기
+	// mypageSeller 글관리 가기
 	@RequestMapping(value = "mypageSellerPosts", method = RequestMethod.GET)
-	public String mypageSellerPosts(Model model) {
+	public String mypageSellerPosts(Model model, HttpServletRequest request) {
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		model.addAttribute("productSMP", productMapper.productSMP(member_id));
+		model.addAttribute("postNMP", postMapper.postNMP(member_id));
 		return "mypage/mypageSellerPosts";
 	}
+	
+	//mypageMainPosts 셀렉트 옵션에 따른 페이지 ajax변환
+	@RequestMapping(value ="mypageSellerPostsAjax", method = RequestMethod.POST)
+	@ResponseBody
+	public String mypageSellerPostsOption(Model model,@RequestParam String selected, HttpServletRequest request) {
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		ArrayList<ProductVO> productVO = productMapper.productSMP(member_id);
+		ArrayList<PostVO> postVO = postMapper.postNMP(member_id);
+		
+			 if(selected.equals("0")) {
+				 return "0";
+			 }
+			 if(selected.equals("2")){
+				 return "2";
+			 }
+			 if(selected.equals("3")) {
+				 return "3";
+			 }
+	return "";
+	}
+	
+	// mypageSellerPosts product 글 삭제 버튼 클릭 이벤트
+	@RequestMapping(value = "/mypageSellerPostsProduct/{product_code}", method = RequestMethod.GET)
+	public String deleteSellrePostsProduct(@PathVariable String product_code) {
+		productMapper.deletePostsProduct(product_code);
+		return "redirect:/mypageSellerPosts";
+	}
+	
+	// mypageSellerPosts post 글 삭제 버튼 클릭 이벤트
+	@RequestMapping(value = "/mypageSellerPostsPost/{post_code}", method = RequestMethod.GET)
+	public String deleteSellerPostsPost(@PathVariable String post_code) {
+		postMapper.deletePostsPost(post_code);
+		return "redirect:/mypageSellerPosts";
+	}
 
-	// mypageSeller 가기
+	// mypageSeller 댓글관리 가기
 	@RequestMapping(value = "mypageSellerComment", method = RequestMethod.GET)
 	public String mypageSellerComment(Model model) {
 		return "mypage/mypageSellerComment";
 	}
 
-	// mypageSeller 가기
+	// mypageSeller 판매내역 가기
 	@RequestMapping(value = "mypageSellerSales", method = RequestMethod.GET)
 	public String mypageSellerSales(Model model) {
 		return "mypage/mypageSellerSales";
 	}
 
-	// mypageSeller 가기
+	// mypageSeller 회원탈퇴 가기
 	@RequestMapping(value = "mypageSellerDelete", method = RequestMethod.GET)
 	public String mypageSellerDelete(Model model) {
 		return "mypage/mypageSellerDelete";

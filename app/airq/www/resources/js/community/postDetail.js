@@ -6,12 +6,11 @@ $(document).ready(function () {
       crossDomain: true,
       type: "GET",
       contentType: "application/json; charset=utf-8",
-      url: "http://39.127.7.69/m.postDetail",
+      url: sessionStorage.getItem("IP_ADDRESS")+"/m.postDetail",
       headers: { "Access-Control-Allow-Origin": "*" },
       data: data,
       dataType: "json", //also tried "jsonp"
       success: function (data, status, jqXHR) {
-        console.log(data);
         var p_creation_date = new Date(data.detailPost.p_creation_date.time).toISOString().slice(0, 16);
         var test = p_creation_date.replace('T', ' ');
 
@@ -75,9 +74,8 @@ $(document).ready(function () {
       $.ajax({
         type:'post',
         data:{'post_code':postCode},
-        url:'http://39.127.7.69/m.postVote',
+        url:sessionStorage.getItem("IP_ADDRESS")+'m.postVote',
         success:function(result){
-          console.log(result);
           var recommend_num = parseInt($('.recommend_num').last().text());
           recommend_num=recommend_num+1;
           $('.recommend_num').text(recommend_num);
@@ -94,15 +92,22 @@ $(document).ready(function () {
       replyVO.member_id = member_id;
       replyVO.post_code = postCode;
       replyVO.reply_content = reply_content;
-      console.log(replyVO);
       $.ajax({
         type:'POST',
-        url:'http://39.127.7.69/m.addReply',
+        url:sessionStorage.getItem("IP_ADDRESS")+'/m.addReply',
         data:replyVO,
         success:function(result){	
-          var content ='<div class="comment-list"><div class="comment-l"><div class="comment"><div class="comment-meta">'+
-          '<span class="comment__name"><a href="#">'+member_id+'</a></span><span class="comment__date"> 방금 전'+
-          '</span></div><div class="comment-content"><div><p><br>'+reply_content+'</p></div></div><div class="comment-button">'+
+          var content ='<div class="comment-list">'+
+          '<div class="comment-l">'+
+          '<div class="comment">'+
+          '<div class="comment-meta">'+
+          '<span class="comment__name">'+
+          '<a href="#">'+member_id+'</a></span>'+
+          '<span class="comment__date"> 방금 전'+
+          '</span></div>'+
+          '<div class="comment-content">'+
+          '<div><p><br>'+reply_content+'</p></div></div>'+
+          '<div class="comment-button">'+
           '</div></div></div></div>';
            var reply_count =parseInt($('#reply_count').text());
           $('#replys').prepend(content);
@@ -116,5 +121,18 @@ $(document).ready(function () {
     $(document).on("click","#postModify",function(){
       var data = {post_code : postCode};
       window.location.href = "../../../www/views/community/postModify.html?"+postCode;
+    });
+
+    $(document).on("click","#postDelete",function(){
+      var data = {post_code : postCode};
+      $.ajax({
+        type:'GET',
+        url:sessionStorage.getItem("IP_ADDRESS")+"/m.postDelete",
+        data:data,
+        success:function(result){	
+          alert(result);
+          history.go(-1);
+        }
+      }); 
     });
 });

@@ -8,6 +8,7 @@ import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ProductVO;
+import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.mapper.CompanyMapper;
 import com.yjc.airq.mapper.MemberMapper;
 import com.yjc.airq.mapper.PaymentMapper;
@@ -87,6 +88,21 @@ public class MypageServiceImplement implements MypageService{
 	@Override
 	public void mypayStarUp(PaymentVO paymentVO) {
 		mapper2.mypayStarUp(paymentVO);
+	}
+
+	@Override
+	public ArrayList<PostVO> postNMP(String member_id) {
+		return mapper3.postNMP(member_id);
+	}
+
+	@Override
+	public ArrayList<TenderVO> tenderNMP(String member_id) {
+		return mapper6.tenderNMP(member_id);
+	}
+
+	@Override
+	public ArrayList<ProductVO> productSMP(String member_id) {
+		return mapper4.productSMP(member_id);
 	}
 
 }
