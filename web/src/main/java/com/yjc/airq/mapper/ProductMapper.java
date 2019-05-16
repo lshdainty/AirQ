@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ProductVO;
 
 public interface ProductMapper {

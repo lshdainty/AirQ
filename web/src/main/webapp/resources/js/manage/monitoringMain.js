@@ -2,30 +2,18 @@ var test;
 
 $.ajax({
 	type: "get",
-	url: "/test1111",
+	url: "/dustData",
 	dataType:"json",
 	async: false,
 	success: function(data) {
-		console.log(data);
 		test = data;
 	}
 });
 
-//$.ajax({
-//	type: "get",
-//	url: "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=ih2Gzic0JjfHpYSWXRXk4QNjcf9DaJo6F6hMKgBRQpn4T7YiXPelW%2B8Z%2BJCqkH1%2FSeeNJa%2BROW54XiWGBQmKTg%3D%3D&numOfRows=999&sidoName=서울&ver=1.3&_returnType=json",
-//	dataType:"jsonp",
-//	async: false,
-//	success: function(data) {
-//		console.log(data);
-//		test = data;
-//	}
-//});
-
 // 네이버 지도 자바 스크립트 시작
 var mapOptions = {
     center: new naver.maps.LatLng(35.8967746, 128.6209546),
-    zoom: 2,
+    zoom: 10,
     scaleControl: false,
     logoControl: false,
     mapDataControl: false,
@@ -37,7 +25,6 @@ var map = new naver.maps.Map('map', mapOptions);
 
 //2. HTML 마커
 //JSON 데이터부분
-
 var marker_position = test;
 
 var htmlMarkers = [];
@@ -121,8 +108,7 @@ var markerClustering = new MarkerClustering({
 
 //infowindow 생성/삭제
 $('img').on('click',function(e) {
-	alert("나오냐?");
-	console.log($(this).parent().parent());
+	alert("test");
 	var infowindow = $(this).parent().parent().find('.infowindow');
 	if(infowindow.css('display')=="block"){
 		infowindow.hide();

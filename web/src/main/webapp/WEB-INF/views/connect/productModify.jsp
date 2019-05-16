@@ -19,9 +19,10 @@
 				</div>
 				<%-- 상품 이름 끝 --%>
 				<%--썸네일 추가 시작 --%>
-				<div id="divImage" style="display:none;">
-					<img id="div_inner_img" src="" alt="이미지를 넣어주세요" width="250px" height="250px">
+				<div id="divImage" style="display:block;">
+					<img id="div_inner_img" src="resources/uploadFile/images/${productContent.file_name}" alt="이미지를 넣어주세요" width="250px" height="250px">
 				</div>
+				<input type="hidden" name="ori_thumbnail" value="${productContent.file_name}" />
 				<div id="thumbnailDiv">
 					<input id="fileImage" type="file" name="thumbnail" multiple>
 				</div>
