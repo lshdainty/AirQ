@@ -12,4 +12,5 @@ public class UploadVO {
 	private Timestamp upload_date;
 	private String product_code;
 	private String post_code;
+	private String thumbnail_whether;
 }

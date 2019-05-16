@@ -13,6 +13,7 @@
 		<association property="sellnum" column="product_code" select="getSellnum"/>
 		<association property="staravg" column="product_code" select="getStaravg"/>
 		<association property="companyVO" column="company_code" select="getCompany"/>
+		<association property="file_name" column="product_code" select="getThumbnail"/>
 		<collection property="areaVO" column="product_code" javaType="java.util.ArrayList" ofType="com.yjc.airq.domain.AreaVO" select="getAreaByCode"/>
 	</resultMap>
 	
@@ -71,6 +72,10 @@
 		select nvl(to_char(avg(pa.STAR_SCORE),99.9),'0.0') as staravg
 		from product p, demand d, payment pa
 		where p.product_code = d.product_code and d.demand_code = pa.demand_code and p.product_code=#{product_code} and refund_whether='n'
+	</select>
+	
+	<select id="getThumbnail" resultType="String">
+		select file_name from upload where product_code = #{product_code} and thumbnail_whether = 'y'
 	</select>
 	
 	<select id="selectList" resultMap="ProductVO">

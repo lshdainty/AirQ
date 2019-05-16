@@ -289,6 +289,12 @@ public class ConnectServiceImplement implements ConnectService {
 		uploadMapper.productImageUpload(uploadVO);
 	}
 	
+	// 서비스 제품 썸네일 등록
+	@Override
+	public void productThumbnailUpload(UploadVO uploadVO) {
+		uploadMapper.productThumbnailUpload(uploadVO);
+	}	
+	
 	// 서비스 제품 수정
 	@Override
 	public void productUpdate(ProductVO productVO) {
