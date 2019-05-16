@@ -5,12 +5,11 @@ function getThumbnailPosts(board_code, pagenum) {
 			crossDomain: true,
 			type: "GET",
 			contentType: "application/json; charset=utf-8",
-			url: "http://39.127.7.69/m.getPosts",
+			url: sessionStorage.getItem("IP_ADDRESS")+"/m.getPosts",
 			headers: { "Access-Control-Allow-Origin": "*" },
 			data: data,
 			dataType: "json", //also tried "jsonp"
 			success: function (data, status, jqXHR) {
-				console.log(data);
 				var postRow = $('.post-row');
 				postRow.empty();
 				var posts = '';
@@ -22,7 +21,7 @@ function getThumbnailPosts(board_code, pagenum) {
 					if((data.pList[index].post_thumbnail).substring(0,1)=='h')
 					var postImg = $('<img>').attr('src', data.pList[index].post_thumbnail).addClass('card-img-top').attr('style', 'height: 200px; overflow: hidden').appendTo(postCard);
 					else
-					var postImg = $('<img>').attr('src', 'http://39.127.7.69/'+data.pList[index].post_thumbnail).addClass('card-img-top').attr('style', 'height: 200px; overflow: hidden').appendTo(postCard);
+					var postImg = $('<img>').attr('src', sessionStorage.getItem("IP_ADDRESS")+data.pList[index].post_thumbnail).addClass('card-img-top').attr('style', 'height: 200px; overflow: hidden').appendTo(postCard);
 					var postBody = $('<div/>').addClass('card-body').appendTo(postCard);
 					var cardTitle = $('<h5/>').addClass('card-title').appendTo(postBody).text(data.pList[index].post_title + '[' + data.pList[index].reply_count + ']').appendTo(postBody);
 					var postWirteBtn = $('<a/>').attr('href', '../../../www/views/community/postDetail.html?'+data.pList[index].post_code).addClass('btn btn-primary').text('자세히').appendTo(postBody);
@@ -55,12 +54,11 @@ function getTablePosts(board_code,pagenum){
 			crossDomain: true,
 			type: "GET",
 			contentType: "application/json; charset=utf-8",
-			url: "http://39.127.7.69/m.getPosts",
+			url: sessionStorage.getItem("IP_ADDRESS")+"/m.getPosts",
 			headers: { "Access-Control-Allow-Origin": "*" },
 			data: data,
 			dataType: "json", //also tried "jsonp"
 			success: function (data, status, jqXHR) {
-				console.log(data);
 				var postRow = $('.post-row');
 				postRow.empty();
 				var posts = '';
@@ -104,14 +102,20 @@ function getTablePosts(board_code,pagenum){
 
 function thumbnailPage(idx) {
 	var pagenum = idx;
-	var board_code = window.location.search.substring(1).split('?');
-	var pageURL = "http://39.127.7.69/m.getPosts?board_code=" + board_code + "&pagenum=" + pagenum;
+	var board_code = window.location.search.split("?").toString().split("board_code=").toString();
+	board_code = board_code.substr(board_code.indexOf("bd_"));
+	sessionStorage.setItem("board_code",board_code);
+	sessionStorage.setItem("pagenum",pagenum);
+	var pageURL = sessionStorage.getItem("IP_ADDRESS")+"/m.getPosts?board_code=" + board_code + "&pagenum=" + pagenum;
 	getThumbnailPosts(board_code.toString(), pagenum)
 }
 function tablePage(idx) {
 	var pagenum = idx;
-	var board_code = window.location.search.substring(1).split('?');
-	var pageURL = "http://39.127.7.69/m.getPosts?board_code=" + board_code + "&pagenum=" + pagenum;
+	var board_code = window.location.search.split("?").toString().split("board_code=").toString();
+	board_code = board_code.substr(board_code.indexOf("bd_"));
+	sessionStorage.setItem("board_code",board_code);
+	sessionStorage.setItem("pagenum",pagenum);
+	var pageURL = sessionStorage.getItem("IP_ADDRESS")+"/m.getPosts?board_code=" + board_code + "&pagenum=" + pagenum;
 	getTablePosts(board_code.toString(), pagenum)
 }
 (function() {
@@ -137,10 +141,11 @@ function tablePage(idx) {
 
 $(document).ready(function() {
 	var init = function () {
-		var board_code = window.location.search.substring(1).split('?');
-		var test = window.location.pathname.split('/');
-		console.log(window.location.pathname.split('/'));
-		test[4] = 'thumbnailBoardMain.html';
+		var board_code = window.location.search.split("?").toString().split("board_code=").toString();
+		board_code = board_code.substr(board_code.indexOf("bd_"));
+		if(board_code!="")
+		sessionStorage.setItem("board_code",board_code);
+		sessionStorage.setItem("pagenum",1);
 
 		$('#header').load('../../../www/views/include/header.html');
 		$('#footer').load('../../../www/views/include/footer.jsp');
@@ -150,7 +155,6 @@ $(document).ready(function() {
 		else
 			path = 'thumbnailBoardMain.html';
 
-		console.log('path:'+path);
 		switch(path){
 			case 'tableBoardMain.html':
 			getTablePosts(board_code.toString(),"1");
@@ -196,48 +200,7 @@ $(document).ready(function() {
 	$('#post-write').click(function(){
 		window.location.href="postWriteForm.html";
 	});
-	$(document).on("click","#post-vote",function(){
-		var post_code = $('#post_code').val();
-		$.ajax({
-			type:'post',
-			data:{'post_code':post_code},
-			url:'http://39.127.7.69/m.postVote',
-			success:function(result){
-				var recommend_num = parseInt($('.recommend_num').last().text());
-				recommend_num=recommend_num+1;
-				$('.recommend_num').text(recommend_num);
-				$('.recommend_num').first().html('추천&nbsp'+recommend_num);
-			}
-		});
-	});
-	$('#reply-insert').click(function(){
-		var reply_content = $('#reply_content').val();
-		var member_id = $('#member_id').text();
-		var post_code = $('#post_code').val();
-		var replyVO = new Object();
-		
-		replyVO.member_id = member_id;
-		replyVO.post_code = post_code;
-		replyVO.reply_content = reply_content;
-		$.ajax({
-			type:'POST',
-			url:'addReply',
-			data:replyVO,
-			success:function(result){	
-				var content ='<div class="comment-list"><div class="comment-l"><div class="comment"><div class="comment-meta">'+
-				'<span class="comment__name"><a href="#">'+member_id+'</a></span><span class="comment__date"> 방금 전'+
-				'</span></div><div class="comment-content"><div><p><br>'+reply_content+'</p></div></div><div class="comment-button">'+
-				'<button class="comment__button comment__button--red reply-delete">삭제</button><input type="hidden"'+
-				'class="reply_code" value="'+result.reply_code+'"></div></div></div></div>';
- 				var reply_count =parseInt($('#reply_count').text());
-				$('#replys').prepend(content);
-				$('#reply_content').val("");
-				reply_count = reply_count+1;
-				$('#reply_count').text(reply_count);
-				$('#post_ReplyCount').html('댓글&nbsp'+reply_count);
-			}
-		}); 
-	});
+	
 	$(document).on("click",".reply-delete",function(){
 			var post_code = $('#post_code').val();
 			var reply_code = $(this).next().val();
@@ -253,7 +216,6 @@ $(document).ready(function() {
 					$('#reply_count').text(reply_count);
 					$('#post_ReplyCount').html('댓글&nbsp'+reply_count);
 			}
-		});    
+		});
 	});
-
 });
