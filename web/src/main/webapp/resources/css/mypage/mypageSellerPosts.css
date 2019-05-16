@@ -34,55 +34,6 @@
 	height: 25px;
 }
 
-.container .form2 {
-		background-color: #ffffff;
-		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
-		padding: 25px 30px;
-		margin-bottom: 10px;
-		border-style: outset;
-}
-
-.container .form2 .tender_title {
-	width: 15%;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	display: inline-block;
-}
-
-.container .form2 .requirement {
-	width: 40%;
-	height: 50px;
-	text-overflow: clip;
-	overflow:auto;
-	overflow-x:hidden;
-	display: inline-block;
-	margin: 0px;
-	-webkit-transition: height 2s;
-  	transition: height 2s;
-}
-
-.container .form2 .requirement:hover {
- 	height: 100px;
-}
-
-.container .form2 .tender_name {
-	width: 15%;
-	height: 50px;
-	display: inline-block;
-}
-
-.container .form2 .t_creation_date {
-	width: 10%;
-	height: 30px;
-	display: inline-block;
-	text-overflow: ellipsis;
-	overflow: inherit;
-}
-
-.container .form2 .selection {
-	display: inline-block;
-}
-
 .container .form3 {
 		background-color: #ffffff;
 		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
@@ -113,6 +64,13 @@
 
 .container .form3 .product_detail:hover {
  	height: 150px;
+}
+.container .form3 .product_d_service_date {
+	width: 10%;
+	height: 30px;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: inherit;
 }
 
 .container .form3 .product_name {

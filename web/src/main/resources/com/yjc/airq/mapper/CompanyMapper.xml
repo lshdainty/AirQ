@@ -14,8 +14,8 @@
 		from member m,company_info c
 		where m.member_id=c.member_id and m.member_devision = 'se' and m.member_id=#{member_id}
 	</select>
-	<!-- 건수 계산 -->
 	
+	<!-- 건수 계산 -->
 	<select id="bidNumber" parameterType="String" resultType="int">
 		select count(*)
 		from(select obj.*, b.win_bid_whether, b.company_code
@@ -31,7 +31,7 @@
 	
 	<!-- 별점 계산 -->
 	<select id="star_score_avg" parameterType="String" resultType="double">
-		select avg(star_score) star_score_avg
+		select to_char(avg(star_score),99.9) star_score_avg
 		from(select obj.*, b.win_bid_whether, b.company_code
   		     from(select t.tender_code, p.refund_whether,p.star_score,p.payment_date
    		          from tender t, payment p

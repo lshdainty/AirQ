@@ -4,15 +4,26 @@
 
 <mapper namespace="com.yjc.airq.mapper.ManageMapper">
 
-	<select id="remoteReg" resultType="com.yjc.airq.domain.IotVO">
+<!-- 	<select id="remoteReg" resultType="com.yjc.airq.domain.IotVO">
 		select * from IOT
-	</select>
+	</select> -->
 
 	<select id="iotMain" resultType="com.yjc.airq.domain.IotInfoVO">
 		select m.member_id, mo.model_name, i.place_name
 		from iot_info i, model mo, member m
 		where m.member_id = #{member_id}
-		and i.model_id = mo.model_id
+		and m.member_id = i.member_id
+		and i.model_id = mo.model_id  
 	</select>
+
+	<!-- 원격 제어 등록 -->
+	<insert id="iotInfoInsert" parameterType="com.yjc.airq.domain.IotInfoVO">
+		insert into iot_info(iot_id, out_whether, place_name, measure_cycle, location_x, location_y, ip, port, member_id, model_id)
+		values('admin2', 'y', #{place_name}, 1, '100', '100', '39.127.7.68', 80, #{member_id}, #{model_id})
+	</insert>
+	
+<!-- 	<insert id="modelInsert" parameterType="com.yjc.airq.domain.IotInfoVO">
+		
+	</insert> -->
 	
 </mapper>

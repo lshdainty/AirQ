@@ -25,6 +25,7 @@
         <br>
         <%-- 하단부분 시작 --%>
         <%-- star_score all --%>
+        
         <c:forEach var="mypay" items="${mypay}">
         <div class="form2" id="select1">
         	<div class="aa">${mypay.payment_code}</div>

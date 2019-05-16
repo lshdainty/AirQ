@@ -26,7 +26,11 @@ public interface TenderMapper {
 	public String tMemberCheck(String tender_code);
 	// 투찰 기간 설정
 	public int calculate_period(String tender_code);
+	// 입찰 확인 여부
+	public int tenderCheck(String tender_code);
 	
 	//마이페이지 관리자 글관리 - 글삭제
 	public void deletePosts(@Param("tender_code") String tender_code);
+	//마이페이지 일반 글관리 - 글삭제
+	public ArrayList<TenderVO> tenderNMP(@Param("member_id")String member_id);
 }

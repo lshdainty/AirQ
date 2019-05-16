@@ -188,6 +188,12 @@
 		select * from product
 	</select>
 	
+	<select id="productSMP" resultType="com.yjc.airq.domain.ProductVO">
+		select * from product p ,company_info c, demand d where p.company_code = c.company_code
+		and d.product_code = p.product_code
+		and c.member_id = #{member_id}
+	</select>
+	
 	<delete id="deletePostsProduct" parameterType="String">
 		delete from product where product_code=#{product_code}
 	</delete>

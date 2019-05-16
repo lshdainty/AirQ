@@ -17,11 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.IotInfoVO;
-import com.yjc.airq.domain.IotVO;
 import com.yjc.airq.domain.MemberVO;
+import com.yjc.airq.domain.ModelVO;
 import com.yjc.airq.service.ManageService;
 
 import lombok.AllArgsConstructor;
@@ -171,49 +172,39 @@ public class ManageController {
 	// 원격제어 등록하기
 	@ResponseBody
 	@RequestMapping(value = "remoteReg", method = RequestMethod.GET)
-	public String remoteReg(Model model, IotVO i) {
+	public String remoteReg(Model model, IotInfoVO iif, HttpServletRequest request, HttpSession session) {
+		
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		String ModelName = request.getParameter("remote");
+		String PlaceName = request.getParameter("location");
+		String boi_3jo = "boi_3jo";
+		
+		System.out.println("원격 장치(): " + ModelName);
+		System.out.println("장소: " + PlaceName);
+		
 
-		System.out.println("i.getRemote(): " + i.getRemote());
-		System.out.println("i.getLocation(): " + i.getLocation());
 		
+		// 혹시나 장치 추가할거면,,
+		// manageService.modelInsert(ModelName);
 		
-		
-//		if(rg.getRemote().equals("보일러")) {
-//			return "boiler";
-//		}else if(rg.getRemote().equals("창문")) {
-//			return "window";
-//		}else if(rg.getRemote().equals("공기청정기")) {
-//			return "airclean";
-//		}else if(rg.getRemote().equals("환풍기")) {
-//			return "ventilator";
-//		}
+		if(ModelName.equals("보일러")) {
+			System.out.println("여기까지옴?");
+			System.out.println(PlaceName);
+			
+			iif.setMember_id(member_id);
+			iif.setPlace_name(PlaceName);
+			iif.setModel_id("boi_3jo");
+			
+			manageService.iotInfoInsert(iif);
+			System.out.println("durl");
+		}else if(ModelName.equals("window")) {
+			
+		}else if(ModelName.equals("aircleaner")) {
+			
+		}else if(ModelName.equals("ventilator")) {
+			
+		}
 		
 		return "manage/remoteRegist";
 	}
-
-	// JSON 연습 Map 방식
-//	@ResponseBody
-//	@RequestMapping(value = "/abcd", method = RequestMethod.GET)
-//	public Map<String, Object> getJsonByMap(MemberVO mb){
-//		Map<String, Object> jsonObject =  new HashMap<String, Object>();
-//		Map<String, Object> jsonSubObject = null;
-//		ArrayList<Map<String, Object>> jsonList = new ArrayList<Map<String, Object>>();
-//
-//		
-//		// 1번째 데이터
-//		jsonSubObject = new HashMap<String, Object>();
-//		jsonSubObject.put("idsx", mb.getMember_id());
-//		jsonSubObject.put("title", "제목1입니다.");
-//		jsonSubObject.put("create_date", new Date());
-//		jsonList.add(jsonSubObject);
-//
-//		
-//		jsonObject.put("success", true);
-//		jsonObject.put("total_count", 10);
-//		jsonObject.put("result_list", jsonList);
-//		
-//		System.out.println(jsonObject);
-//		
-//		return jsonObject;
-//	}
 }

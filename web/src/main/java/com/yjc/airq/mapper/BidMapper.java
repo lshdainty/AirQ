@@ -33,4 +33,7 @@ public interface BidMapper {
 	
 	// 투찰 점수 부여
 	public int bid_ppt_score(BidVO bidVo);
+	
+	// 투찰 가격
+	public int bid_price(@Param("tender_code") String tender_code, @Param("company_code") String company_code);
 }

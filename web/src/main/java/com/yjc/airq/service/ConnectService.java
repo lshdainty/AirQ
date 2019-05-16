@@ -28,7 +28,10 @@ public interface ConnectService {
 	public int d_day(String tender_code);
 	// 입찰 공고 작성
 	public int addTenderboard(TenderVO tenderVo);
-
+	
+	// 입찰 확인 여부
+	public int tenderCheck(String tender_code);
+	
 	// 입찰 세부내용 보기
 	public TenderVO tenderContent(String tender_code);
 	public ArrayList<BidVO> bidContent(String tender_code);
@@ -68,7 +71,13 @@ public interface ConnectService {
 	
 	//투찰 작성 권한 체크(한 번만 등록 가능)
 	public ArrayList<BidVO> bidPCheck(String tender_code);
-
+	
+	// 입찰 신청 결제
+	public void tendering(PaymentVO paymentVo);
+	
+	// 투찰 가격
+	public int bid_price(@Param("tender_code") String tender_code, @Param("company_code") String company_code);
+	
 	// 입찰 공고 삭제
 	public ArrayList<BidVO> findUploadCode(String tender_code);
 	public void deleteBid(String tender_code);

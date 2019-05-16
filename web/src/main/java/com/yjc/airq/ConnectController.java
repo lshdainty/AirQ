@@ -90,15 +90,22 @@ public class ConnectController {
 			tenderList.get(i).setCompany_count(connectService.company_count(tender_code));
 			int d_day=connectService.d_day(tender_code);
 			
-			if(d_day < 0) {
-				tenderList.get(i).setD_day("입찰 종료");
-			} else if(d_day == 0) {
-				tenderList.get(i).setD_day("D-day");
-			} else {
-				tenderList.get(i).setD_day("D-"+d_day);
-			}
+			//입찰 확인 여부
+			int tenderCheck = connectService.tenderCheck(tender_code);
 			
+			if(tenderCheck == 0) {
+				if(d_day < 0) {
+					tenderList.get(i).setD_day("입찰 마감");
+				} else if(d_day == 0) {
+					tenderList.get(i).setD_day("D-day");
+				} else {
+					tenderList.get(i).setD_day("D-"+d_day);
+				}
+			} else {
+				tenderList.get(i).setD_day("입찰 종료");
+			}
 		}
+		
 		model.addAttribute("tenderList", tenderList);
 
 		return "connect/tenderMain";
@@ -179,8 +186,6 @@ public class ConnectController {
 			period_day="0";
 		}
 		
-		System.out.println(period_day);
-		
 		for(int i=0;i<bidArr.size();i++) {
 			String company_code=bidArr.get(i).getCompany_code();
 			bidArr.get(i).setMember_id(connectService.member_id(company_code)); //아이디 가져오기
@@ -220,13 +225,12 @@ public class ConnectController {
 		// 투찰 점수 - 건수
 		ArrayList<BidVO> numScoreArr=connectService.bidNumScore(tender_code, period_day);
 		
-		System.out.println(numScoreArr);
 		// 투찰 점수 - 별점
 		ArrayList<BidVO> starScoreArr=connectService.bidStarScore(tender_code, period_day);
-		System.out.println(starScoreArr);
+		
 		// 투찰 점수 - 가격
 		ArrayList<BidVO> priceScoreArr=connectService.bidPriceScore(tender_code);
-		System.out.println(priceScoreArr);
+		
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		
 		for(int i=0; i<bidArr.size(); i++) {
@@ -316,6 +320,26 @@ public class ConnectController {
 	@ResponseBody
 	public void bid_ppt_score(BidVO bidVo) {
 		connectService.bid_ppt_score(bidVo);
+	}
+	
+	// 입찰 서비스 - 입찰 신청
+	@RequestMapping(value="tendering",method=RequestMethod.POST)
+	@ResponseBody
+	public void tendering(PaymentVO paymentVo, String tender_code, String company_code) {
+		//주문 코드,결제 코드 생성
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
+		String random=String.format("%04d",(int)(Math.random()*10000));
+		String payment_code="pm"+day+random;
+		
+		int bid_price = connectService.bid_price(tender_code, company_code);
+		
+		paymentVo.setPayment_code(payment_code);
+		paymentVo.setPayment_price(bid_price);
+		paymentVo.setTender_code(tender_code);
+		
+		connectService.tendering(paymentVo);
 	}
 	
 	// 입찰 서비스 - 투찰 작성 권한 체크(한 번만 등록 가능)
@@ -477,12 +501,20 @@ public class ConnectController {
 		
 	}
 	
-	@RequestMapping(value="member_devision",method=RequestMethod.POST)
+	@RequestMapping(value="member_devision/{tender_code}",method=RequestMethod.POST)
 	@ResponseBody
-	public String member_devision(HttpServletRequest request) {
+	public JSONObject member_devision(HttpServletRequest request, @PathVariable String tender_code) {
+		Map<String,String> map = new HashMap<String, String>();
+		
+		int check = connectService.tenderCheck(tender_code);
+		String tenderCheck=Integer.toString(check);
 		String member_devision = ((MemberVO) request.getSession().getAttribute("user")).getMember_devision();
 		
-		return member_devision;
+		map.put("member_devision",member_devision);
+		map.put("tenderCheck",tenderCheck);
+		JSONObject json = JSONObject.fromObject(map);
+		
+		return json;
 	}
 	
 	// 업체 분석/비교 도,시,평수 선택완료
