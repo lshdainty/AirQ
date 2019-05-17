@@ -7,9 +7,30 @@
 		select rownum,t.* 
 		from (select * from tender order by t_creation_date asc) t 
 		order by rownum desc
-		
 	</select>
-	
+	<select id="tenderMain" resultType="com.yjc.airq.domain.TenderVO">
+  	  select x.*
+  	  from(select rownum as rnum,t.* 
+  	       from (select * 
+   	            from tender
+   	            order by t_creation_date asc) t 
+    	     where <![CDATA[rownum <= #{endnum}]]>) x
+  	  where <![CDATA[X.rnum >= #{startnum}]]>
+  	  order by rownum desc
+	</select>
+	<select id="selectTender" resultType="com.yjc.airq.domain.TenderVO">
+		select x.*
+  	 	from(select rownum as rnum,t.* 
+  	         from (select * 
+        	       from tender
+        	       <if test="sort.equals('mTender')">
+            		   where member_id=#{member_id}
+            	   </if>
+             	 order by t_creation_date asc) t 
+        	 where <![CDATA[rownum <= #{endnum}]]>) x
+    	where <![CDATA[X.rnum >= #{startnum}]]>
+    	order by rownum desc
+	</select>
 	<!-- 참여 업체 수 -->
 	<select id="company_count" parameterType="String" resultType="int">
 		select count(*)
@@ -81,5 +102,16 @@
 		select count(*)
 		from tender t, bid b
 		where t.tender_code=b.tender_code and t.tender_code=#{tender_code} and win_bid_whether='y'
+	</select>
+	
+	<!-- 입찰 페이징 -->
+	<select id="tenderCount" resultType="int">
+		select count(*)
+		from tender
+	</select>
+	<select id="selectCount" resultType="int">
+		select count(*)
+   		from tender
+   		where member_id=#{member_id}
 	</select>
 </mapper>

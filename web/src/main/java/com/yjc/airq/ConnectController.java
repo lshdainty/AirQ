@@ -84,7 +84,22 @@ public class ConnectController {
 	// 입찰 서비스 메인페이지로 가기
 	@RequestMapping(value = "tenderMain", method = RequestMethod.GET)
 	public String tenderMain(Model model, TenderVO tenderVo) {
-		ArrayList<TenderVO> tenderList=connectService.tenderList();
+		Criteria criteria = new Criteria();
+		int pagenum = 1;
+		String sort = "sellnum";
+
+		criteria.setTotalcount(connectService.tenderCount());	//전체 게시글 개수를 지정
+		criteria.setPagenum(pagenum);	//현재 페이지를 페이지 객체에 지정
+		criteria.setStartnum(pagenum);	//컨텐츠 시작 번호 지정
+		criteria.setEndnum(pagenum);	//컨텐츠 끈 번호 지정 
+		criteria.setCurrentblock(pagenum);	//현재 페이지 블록이 몇번인지 현재 페이지 번호 통해 지정
+		criteria.setLastblock(criteria.getTotalcount());	//마지막 블록 번호를 전체 게시글 수를 통해 정함
+		criteria.prevnext(pagenum);	//현재 페이지 번호로 화살표를 나타낼지 정함
+		criteria.setStartPage(criteria.getCurrentblock());	//시작 페이지를 페이지 블록번호로 정함
+		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
+		
+		ArrayList<TenderVO> tenderList=connectService.tenderMain(criteria.getStartnum(),criteria.getEndnum());
+		
 		for(int i=0;i<tenderList.size();i++) {
 			String tender_code=tenderList.get(i).getTender_code();
 			tenderList.get(i).setCompany_count(connectService.company_count(tender_code));
@@ -107,9 +122,45 @@ public class ConnectController {
 		}
 		
 		model.addAttribute("tenderList", tenderList);
-
+		model.addAttribute("criteria",criteria);
+		
 		return "connect/tenderMain";
 	}
+	// 입찰 서비스 - 페이징
+	@RequestMapping(value="selectTender", method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject selectTender(HttpServletRequest request) {
+		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		
+		Criteria criteria = new Criteria();
+		String sort = request.getParameter("sort");
+		int pagenum = Integer.parseInt(request.getParameter("pagenum"));
+		System.out.println(pagenum);
+		if(sort.equals("tTender")) {
+			criteria.setTotalcount(connectService.tenderCount()); // 전체 게시글 개수를 지정
+		} else {
+			criteria.setTotalcount(connectService.selectCount(member_id)); // 내가 쓴 글 개수 지정
+		}
+		
+		
+		criteria.setPagenum(pagenum); // 현재 페이지를 페이지 객체에 지정
+		criteria.setStartnum(pagenum); // 컨텐츠 시작 번호 지정
+		criteria.setEndnum(pagenum); // 컨텐츠 끈 번호 지정
+		criteria.setCurrentblock(pagenum); // 현재 페이지 블록이 몇번인지 현재 페이지 번호 통해 지정
+		criteria.setLastblock(criteria.getTotalcount()); // 마지막 블록 번호를 전체 게시글 수를 통해 정함
+		criteria.prevnext(pagenum); // 현재 페이지 번호로 화살표를 나타낼지 정함
+		criteria.setStartPage(criteria.getCurrentblock()); // 시작 페이지를 페이지 블록번호로 정함
+		criteria.setEndPage(criteria.getLastblock(), criteria.getCurrentblock()); // 마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
+		
+		ArrayList<TenderVO> tenderList=connectService.selectTender(sort,member_id,criteria.getStartnum(),criteria.getEndnum());
+		JSONArray jArr=JSONArray.fromObject(tenderList);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("tenderList",jArr);
+		map.put("criteria",criteria);
+		JSONObject json = JSONObject.fromObject(map);
+
+		return json;
+	} 
 	
 	// 입찰 서비스 - 입찰 공고 열람 권한 체크
 	@RequestMapping(value="tMemberCheck", method=RequestMethod.POST)
@@ -124,6 +175,20 @@ public class ConnectController {
 		}else {
 			return "f";
 		}
+	}
+	
+	// 입찰 서비스 - 메인페이지 멤버체크
+	@RequestMapping(value="tCheck", method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject tCheck(HttpServletRequest request) {
+		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String member_devision=connectService.member_devision(member_id);
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("member_devision",member_devision);
+		JSONObject json = JSONObject.fromObject(map);
+		
+		return json;
 	}
 
 	// 입찰 서비스 - 리스트에서 글쓰기로 가기
@@ -340,6 +405,7 @@ public class ConnectController {
 		paymentVo.setTender_code(tender_code);
 		
 		connectService.tendering(paymentVo);
+		connectService.win_bid_whether(tender_code, company_code);
 	}
 	
 	// 입찰 서비스 - 투찰 작성 권한 체크(한 번만 등록 가능)

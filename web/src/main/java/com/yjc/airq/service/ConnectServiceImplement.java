@@ -50,11 +50,25 @@ public class ConnectServiceImplement implements ConnectService {
 	public ArrayList<TenderVO> tenderList() {
 		return tenderMapper.tenderList();
 	}
+	@Override
+	public ArrayList<TenderVO> tenderMain(int startnum, int endnum) {
+		return tenderMapper.tenderMain(startnum, endnum);
+	}
+	@Override
+	public ArrayList<TenderVO> selectTender(String sort, String member_id, int startnum, int endnum) {
+		return tenderMapper.selectTender(sort, member_id, startnum, endnum);
+	}
 	
 	// 입찰 확인 여부
 	@Override
 	public int tenderCheck(String tender_code) {
 		return tenderMapper.tenderCheck(tender_code);
+	}
+	
+	//입찰 여부
+	@Override
+	public void win_bid_whether(String tender_code, String company_code) {
+		bidMapper.win_bid_whether(tender_code, company_code);
 	}
 	
 	// 참여 업체 수
@@ -227,6 +241,16 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public int bid_price(@Param("tender_code") String tender_code, @Param("company_code") String company_code) {
 		return bidMapper.bid_price(tender_code, company_code);
+	}
+	
+	// 입찰 페이징
+	@Override
+	public int tenderCount() {
+		return tenderMapper.tenderCount();
+	}
+	@Override
+	public int selectCount(String member_id) {
+		return tenderMapper.selectCount(member_id);
 	}
 	
 	// 상품 리스트 출력

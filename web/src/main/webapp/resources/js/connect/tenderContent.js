@@ -115,7 +115,7 @@ $(document).ready(function(){
 				data:query,
 				url:"/tendering",
 				success:function(){
-					
+					window.location.reload();
 				}
 			});
 		}else{

@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class TenderVO {
 	
-	private int rownum;
+	private int rnum;
 	private String tender_code;
 	private String tender_title;
 	private String tender_name;
