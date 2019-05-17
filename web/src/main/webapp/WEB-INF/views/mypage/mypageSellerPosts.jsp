@@ -29,7 +29,7 @@
         <div class="form3" id="select2">
             <div class="product_">업체 분석/비교</div> 
             <div class="product_name">${productSMP.product_name }</div> 
-            <div class="product_A">가격:${productSMP.product_price},측정지점:${productSMP.measure_point}</div>
+            <div class="product_A">별점:${productSMP.staravg},가격:${productSMP.product_price},신고수:${productSMP.report_count }</div>
             <a href="<c:url value='/product?product_code=${productSMP.product_code }' />" class="btn btn-primary">상세정보</a>
 <%--             <a href="<c:url value='/mypageSellerPostsProduct/${productSMP.product_code }' />" class="btn btn-danger">글삭제</a>         --%>    
         	</div>
@@ -40,7 +40,7 @@
         <div class="form4" id="select3">
             <div class="post_name">${postNMP.board_name }</div> 
             <div class="post_title">${postNMP.post_title }</div> 
-            <div class="post_A">조회수:${postNMP.view_num },추천수:${postNMP.recommend_num },댓글수:${postNMP.reply_count }</div>
+            <div class="post_A">조회수:${postNMP.view_num },추천수:${postNMP.recommend_num },댓글수:${postNMP.reply_count }, 신고수:${postNMP.report_count }</div>
             <div class="p_creation_date">${postNMP.p_creation_date }</div>
             <a href="<c:url value='/postDetail?post_code=${postNMP.post_code }' />" class="btn btn-primary">상세정보</a>
 <%--             <a href="<c:url value='/mypageSellerPostsPost/${postNMP.post_code }' />" class="btn btn-danger">글삭제</a>                 --%>      

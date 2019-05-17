@@ -22,4 +22,5 @@ public class PostVO {
 	private int end_num;
 	
 	private String board_name;
+	private String report_count;
 }

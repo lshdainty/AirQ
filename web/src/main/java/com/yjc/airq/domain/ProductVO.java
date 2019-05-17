@@ -18,4 +18,6 @@ public class ProductVO {
 	private Company_InfoVO companyVO;	//상품을 제공하는 회사정보
 	private String file_name;	//별점평균
 	private ArrayList<AreaVO> areaVO;	//제품 서비스가 가능한 지역 리스트
+	
+	private String report_count;
 }

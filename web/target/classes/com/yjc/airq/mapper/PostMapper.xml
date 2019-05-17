@@ -78,11 +78,12 @@
 	</select>
 	
 	<select id="postNMP" resultType="com.yjc.airq.domain.PostVO">
-		select p.post_code,p.POST_TITLE,to_char(p.POST_CONTENT) as post_content,p.P_CREATION_DATE,p.VIEW_NUM,p.RECOMMEND_NUM,p.MEMBER_ID,b.BOARD_NAME ,count(r.reply_code) as reply_count
-		from post p, board b, reply r
+		select p.post_code,p.POST_TITLE,to_char(p.POST_CONTENT) as post_content,p.P_CREATION_DATE,p.VIEW_NUM,p.RECOMMEND_NUM,p.MEMBER_ID,b.BOARD_NAME ,count(r.reply_code) as reply_count, count(re.original_code) as report_count
+		from post p, board b, reply r,report re
 		where p.member_id = #{member_id}
         and p.board_code = b.board_code 
 		and p.post_code = r.post_code(+)
+        and p.post_code = re.original_code(+)
 		group by p.POST_CODE,p.POST_TITLE,to_char(p.POST_CONTENT),p.P_CREATION_DATE,p.VIEW_NUM,p.RECOMMEND_NUM,p.MEMBER_ID,b.BOARD_NAME
 	</select>
 <!-- 	마이페이지 글관리 글수정 -->

@@ -184,9 +184,12 @@
 	</select>
 	
 	<select id="productSMP" resultMap="ProductVO">
-		select * from product p ,company_info c, demand d where p.company_code = c.company_code
-		and d.product_code = p.product_code
+        select p.PRODUCT_CODE, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.P_SPACE, p.MEASURE_POINT, p.COMPANY_CODE, count(re.original_code) as report_count 
+        from product p ,company_info c, report re
+        where p.company_code = c.company_code
+        and p.product_code = re.ORIGINAL_CODE(+)
 		and c.member_id = #{member_id}
+        group by p.PRODUCT_CODE, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.P_SPACE, p.MEASURE_POINT, p.COMPANY_CODE
 	</select>
 	
 <!-- 	마이페이지 글관리 글수정하기 -->

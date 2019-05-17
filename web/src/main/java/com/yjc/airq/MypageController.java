@@ -229,9 +229,7 @@ public class MypageController {
 			 }
 	return "";
 	}
-	// mypageMainPosts tender 글 수정 버튼 클릭 이벤트
-	
-	// mypageMainPosts tender 글 수정 버튼 클릭 이벤트
+	// mypageMainPosts tender 글 상세 버튼 클릭 이벤트
 	
 	@RequestMapping(value = "/tenderContentGo/${tenderNMP.tender_code}", method = RequestMethod.GET)
 	public String deletePostsNormal(@PathVariable String tender_code) {
@@ -375,6 +373,7 @@ public class MypageController {
 		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
 		model.addAttribute("productSMP", mypageService.productSMP(member_id));
 		model.addAttribute("postNMP", mypageService.postNMP(member_id));
+		System.out.println(mypageService.productSMP(member_id));
 		return "mypage/mypageSellerPosts";
 	}
 	
@@ -409,14 +408,14 @@ public class MypageController {
 //		return "redirect:/mypageSellerPosts";
 //	}
 	
-	// mypageSellerPosts product 글 수정 버튼 클릭 이벤트
+	// mypageSellerPosts product 글 상세 버튼 클릭 이벤트
 	@RequestMapping(value = "/product?product_code=${productSMP.product_code }", method = RequestMethod.GET)
 	public String deletePostsSellerProduct(@PathVariable String product_code) {
 		mypageService.deletePostsProduct(product_code);
 		return "redirect:/product?product_code=${productSMP.product_code }";
 	}
 	
-	// mypageSellerPosts post 글 수정 버튼 클릭 이벤트
+	// mypageSellerPosts post 글 상세 버튼 클릭 이벤트
 	@RequestMapping(value = "/postDetail?post_code=${postNMP.post_code }", method = RequestMethod.GET)
 	public String deletePostsSellerPost(@PathVariable String post_code) {
 		mypageService.deletePostsPost(post_code);
