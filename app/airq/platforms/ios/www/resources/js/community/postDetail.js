@@ -1,17 +1,16 @@
 $(document).ready(function () {
-  var postCode = window.location.search.substring(1).split('?');
+  var postCode = window.location.search.substring(1).split('?').toString();
   var data = { post_code: postCode.toString() };
   $.ajax(
     {
       crossDomain: true,
       type: "GET",
       contentType: "application/json; charset=utf-8",
-      url: "http://39.127.7.69/m.postDetail",
+      url: sessionStorage.getItem("IP_ADDRESS")+"/m.postDetail",
       headers: { "Access-Control-Allow-Origin": "*" },
       data: data,
       dataType: "json", //also tried "jsonp"
       success: function (data, status, jqXHR) {
-        console.log(data);
         var p_creation_date = new Date(data.detailPost.p_creation_date.time).toISOString().slice(0, 16);
         var test = p_creation_date.replace('T', ' ');
 
@@ -44,7 +43,6 @@ $(document).ready(function () {
 
         $('.comment__title').append('<span class="comment__count"> 총 <em id="reply_count">' + data.detailPost.reply_count + '</em>개</span>');
         $('.comment-write-inner').prepend('<div class="comment-write__name" id="member_id">' + data.detailPost.member_id + '</div>');
-
         $.each(data.replys, function (index) {
           var r_creation_date = new Date(data.replys[index].r_creation_date.time).toISOString().slice(0, 16);
           var test = r_creation_date.replace('T', ' ');
@@ -71,5 +69,70 @@ $(document).ready(function () {
       error: function (jqXHR, status) {
         alert('error');
       }
+    });
+    $(document).on("click","#post-vote",function(){
+      $.ajax({
+        type:'post',
+        data:{'post_code':postCode},
+        url:sessionStorage.getItem("IP_ADDRESS")+'m.postVote',
+        success:function(result){
+          var recommend_num = parseInt($('.recommend_num').last().text());
+          recommend_num=recommend_num+1;
+          $('.recommend_num').text(recommend_num);
+          $('.recommend_num').first().html('추천&nbsp'+recommend_num);
+        }
+      });
+    });
+    $(document).on("click","#reply-insert",function(){
+      var reply_content = $('#reply_content').val();
+      var member_id = $('#member_id').text();
+      var post_code = $('#post_code').val();
+      var replyVO = new Object();
+      
+      replyVO.member_id = member_id;
+      replyVO.post_code = postCode;
+      replyVO.reply_content = reply_content;
+      $.ajax({
+        type:'POST',
+        url:sessionStorage.getItem("IP_ADDRESS")+'/m.addReply',
+        data:replyVO,
+        success:function(result){	
+          var content ='<div class="comment-list">'+
+          '<div class="comment-l">'+
+          '<div class="comment">'+
+          '<div class="comment-meta">'+
+          '<span class="comment__name">'+
+          '<a href="#">'+member_id+'</a></span>'+
+          '<span class="comment__date"> 방금 전'+
+          '</span></div>'+
+          '<div class="comment-content">'+
+          '<div><p><br>'+reply_content+'</p></div></div>'+
+          '<div class="comment-button">'+
+          '</div></div></div></div>';
+           var reply_count =parseInt($('#reply_count').text());
+          $('#replys').prepend(content);
+          $('#reply_content').val("");
+          reply_count = reply_count+1;
+          $('#reply_count').text(reply_count);
+          $('#post_ReplyCount').html('댓글&nbsp'+reply_count);
+        }
+      }); 
+    });
+    $(document).on("click","#postModify",function(){
+      var data = {post_code : postCode};
+      window.location.href = "../../../www/views/community/postModify.html?"+postCode;
+    });
+
+    $(document).on("click","#postDelete",function(){
+      var data = {post_code : postCode};
+      $.ajax({
+        type:'GET',
+        url:sessionStorage.getItem("IP_ADDRESS")+"/m.postDelete",
+        data:data,
+        success:function(result){	
+          alert(result);
+          history.go(-1);
+        }
+      }); 
     });
 });

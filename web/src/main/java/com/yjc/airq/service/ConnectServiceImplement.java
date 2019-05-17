@@ -313,6 +313,12 @@ public class ConnectServiceImplement implements ConnectService {
 		uploadMapper.productImageUpload(uploadVO);
 	}
 	
+	// 서비스 제품 썸네일 등록
+	@Override
+	public void productThumbnailUpload(UploadVO uploadVO) {
+		uploadMapper.productThumbnailUpload(uploadVO);
+	}	
+	
 	// 서비스 제품 수정
 	@Override
 	public void productUpdate(ProductVO productVO) {
@@ -347,5 +353,10 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public void productDelete(@Param("product_code") String product_code) {
 		productMapper.productDelete(product_code);
+	}
+
+	@Override
+	public ArrayList<TenderVO> tenderNMP(String member_id) {
+		return tenderMapper.tenderNMP(member_id);
 	}
 }

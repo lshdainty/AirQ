@@ -42,45 +42,43 @@
 		border-style: outset;
 }
 
-.container .form2 .tender_title {
+.container .form2 .tender_name {
 	width: 15%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
 }
 
-.container .form2 .requirement {
-	width: 40%;
-	height: 50px;
-	text-overflow: clip;
-	overflow:auto;
-	overflow-x:hidden;
+.container .form2 .title {
+	width: 30%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+/* 	height: 50px; */
+/* 	text-overflow: clip; */
+/* 	overflow:auto; */
+/* 	overflow-x:hidden; */
 	display: inline-block;
-	margin: 0px;
-	-webkit-transition: height 2s;
-  	transition: height 2s;
+/* 	margin: 0px; */
+/* 	-webkit-transition: height 2s; */
+/*   	transition: height 2s; */
 }
 
-.container .form2 .requirement:hover {
- 	height: 100px;
-}
+/* .container .form2 .title:hover { */
+/*  	height: 100px; */
+/* } */
 
-.container .form2 .tender_name {
-	width: 15%;
-	height: 50px;
+.container .form2 .tender_A {
+	width: 30%;
 	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: hidden;	
 }
 
 .container .form2 .t_creation_date {
-	width: 10%;
-	height: 30px;
+	width: 20%;
 	display: inline-block;
 	text-overflow: ellipsis;
 	overflow: inherit;
-}
-
-.container .form2 .selection {
-	display: inline-block;
 }
 
 
@@ -92,38 +90,41 @@
 		border-style: outset;
 }
 
-.container .form4 .post_title {
+.container .form4 .post_name {
 	width: 15%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
 }
 
-.container .form4 .post_content {
-	width: 40%;
-	height: 50px;
-	text-overflow: clip;
-	overflow:auto;
-	overflow-x:hidden;
-	-webkit-line-clamp:3;
+.container .form4 .post_title {
+	width: 30%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+/* 	height: 50px; */
+/* 	text-overflow: clip; */
+/* 	overflow:auto; */
+/* 	overflow-x:hidden; */
+/* 	-webkit-line-clamp:3; */
 	display: inline-block;
 	margin: 0px;
-	-webkit-transition: height 2s;
-  	transition: height 2s;
+/* 	-webkit-transition: height 2s; */
+/*   	transition: height 2s; */
 }
 
-.container .form4 .post_content:hover {
- 	height: 150px;
-}
+/* .container .form4 .post_title:hover { */
+/*  	height: 150px; */
+/* } */
 
-.container .form4 .member_id {
-	width: 15%;
-	height: 50px;
+.container .form4 .post_A {
+	width: 30%;	
+	text-overflow: ellipsis;
+	overflow: hidden;
 	display: inline-block;
 }
 
 .container .form4 .p_creation_date {
-	width: 10%;
+	width: 20%;
 	height: 30px;
 	display: inline-block;
 	text-overflow: ellipsis;

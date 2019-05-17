@@ -75,10 +75,14 @@
 		from tender
 		where tender_code=#{tender_code}
 	</select>
-	<!-- 마이페이지 글관리- 글삭제 -->
-	<delete id="deletePosts" parameterType="String">
-		delete from tender where tender_code=#{tender_code}
-	</delete>
+	<!-- 마이페이지 글관리- 글 상세정보 -->
+	<select id="deletePosts" parameterType="String">
+		select tender_code from tender where tender_code=#{tender_code}
+	</select>
+<!-- 	 	마이페이지 글관리 글 삭제 -->
+<!-- 	<delete id="deletePosts1" parameterType="String"> -->
+<!-- 		delete from tender where tender_code=#{tender_code} -->
+<!-- 	</delete> -->
 	
 	<!-- 마이페이지 글관리 - 리스트 뽑기 -->
 	<select id="tenderNMP" resultType="com.yjc.airq.domain.TenderVO">

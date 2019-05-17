@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.Criteria;
-import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ReplyVO;
 import com.yjc.airq.domain.UploadVO;
@@ -147,22 +146,26 @@ public class mobileCommunityController {
 		// 포스트 코드 생성 완료
 		postVO.setPost_code(post_code);
 		postVO.setPost_title(post_title);
-		postVO.setPost_content(post_content);
+		Document doc = Jsoup.parse(post_content);
+		Elements imageElement = doc.select("img");
+		String image_name[] = new String[imageElement.size()];
+		for(int i=0;i < imageElement.size();i++) {
+			imageElement.get(i).attr("src",(imageElement.get(i).attr("src")).replace(IP_ADDRESS,""));
+		}
+		postVO.setPost_content(doc.select("body").toString().replace("<body>","").replace("</body>",""));
 		postVO.setP_creation_date(current_date);
 		postVO.setView_num(0);
 		postVO.setRecommend_num(0);
 		postVO.setMember_id(member_id);
 		postVO.setBoard_code(board_code);
-		
+		System.out.println(postVO.getPost_content());
 		postService.insertPost(postVO);
 		
-		Document doc = Jsoup.parse(request.getParameter("post_content"));
-		Elements imageElement = doc.select("img");
-		String image_name[] = new String[imageElement.size()];
 		for(int i=0; i<imageElement.size(); i++) {
 			random=String.format("%04d",(int)(Math.random()*10000));
 			String upload_code = "ul"+day+random;
 			image_name[i] = imageElement.get(i).attr("src");
+			System.out.println(image_name[i]);
 			uploadVO.setUpload_code(upload_code);
 			uploadVO.setOriginal_name(image_name[i].substring(image_name[i].lastIndexOf("/")+33));
 			uploadVO.setFile_name(image_name[i].substring(image_name[i].lastIndexOf("/")+1));

@@ -2,7 +2,6 @@ package com.yjc.airq;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -17,12 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.IotInfoVO;
 import com.yjc.airq.domain.MemberVO;
-import com.yjc.airq.domain.ModelVO;
 import com.yjc.airq.service.ManageService;
 
 import lombok.AllArgsConstructor;
@@ -45,22 +42,22 @@ public class ManageController {
 	}
 	
 	// 각 시/도 미세먼지 수치 가져오기
-	@RequestMapping(value = "test1111", method = RequestMethod.GET)
+	@RequestMapping(value = "dustData", method = RequestMethod.GET)
 	@ResponseBody
-	public JSONObject testTT(Model model) {
+	public JSONObject dustData(Model model) {
 		BufferedReader br = null;
-		String sidoName[] = {"서울", "부산", "대구", "인천", "광주", "대전", "울산", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주", "세종"};
-//		String sidoName1[] = {"대구","세종","제주"};
+		//String sidoName[] = {"서울", "부산", "대구", "인천", "광주", "대전", "울산", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주", "세종"};
+		String sidoName1[] = {"서울","대구"};
 		JSONObject json = new JSONObject();
 		JSONArray dustDataArray = new JSONArray();
 		JSONArray areaDataArray = new JSONArray();
 		JSONArray resultArray = new JSONArray();
         try{
         	//미세먼지 목록 가져오기
-        	for(int i=0; i<sidoName.length; i++) {
+        	for(int i=0; i<sidoName1.length; i++) {
         		String urlstr = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?"
             			+ "serviceKey=ih2Gzic0JjfHpYSWXRXk4QNjcf9DaJo6F6hMKgBRQpn4T7YiXPelW%2B8Z%2BJCqkH1%2FSeeNJa%2BROW54XiWGBQmKTg%3D%3D"
-            			+ "&numOfRows=999&sidoName="+URLEncoder.encode(sidoName[i],"UTF-8")+"&ver=1.3&_returnType=json";
+            			+ "&numOfRows=999&sidoName="+URLEncoder.encode(sidoName1[i],"UTF-8")+"&ver=1.3&_returnType=json";
                 URL url = new URL(urlstr);
                 HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
                 urlconnection.setRequestMethod("GET");
@@ -76,13 +73,12 @@ public class ManageController {
                     }
                 }
         	}
-        	System.out.println(dustDataArray.size());
         	
         	//미세먼지 측정소 목록 가져오기
-        	for(int i=0; i<sidoName.length; i++) {
+        	for(int i=0; i<sidoName1.length; i++) {
         		String urlstr = "http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/getMsrstnList?"
             			+ "serviceKey=ih2Gzic0JjfHpYSWXRXk4QNjcf9DaJo6F6hMKgBRQpn4T7YiXPelW%2B8Z%2BJCqkH1%2FSeeNJa%2BROW54XiWGBQmKTg%3D%3D"
-            			+ "&numOfRows=999&addr="+URLEncoder.encode(sidoName[i],"UTF-8")+"&_returnType=json";
+            			+ "&numOfRows=999&addr="+URLEncoder.encode(sidoName1[i],"UTF-8")+"&_returnType=json";
                 URL url = new URL(urlstr);
                 HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
                 urlconnection.setRequestMethod("GET");
@@ -98,7 +94,6 @@ public class ManageController {
                     }
                 }
         	}
-        	System.out.println(areaDataArray.size());
         	
         	//미세먼지수치,측정소 좌표값 합치기
         	for(int i=0; i<dustDataArray.size(); i++) {
@@ -136,11 +131,9 @@ public class ManageController {
         		}
         	}
         	
-        	System.out.println(resultArray);
         	Map<String, Object> map = new HashMap<String, Object>();
     		map.put("result", resultArray);
     		json = JSONObject.fromObject(map);
-    		System.out.println(json);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

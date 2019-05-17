@@ -1,45 +1,79 @@
 $(document).ready(function () {
 
-	$('#memberInput2562').focus(function () {
-		$('#memberInput2562').parent().addClass("member-input__state--focus");
+	function isLogin(){
+		var localUserInfo = JSON.parse(localStorage.getItem("user"));
+		var sessionUserInfo=sessionStorage["user"];
+		if(localUserInfo!=null){
+			sessionUserInfo = JSON.stringify(localUserInfo);
+			alert(sessionUserInfo);
+		}
+	}
+	isLogin();
+	$('#ID').focus();
+	$('#ID').focus(function () {
+			$('#ID').parent().addClass("member-input__state--focus");
+			$('#ID').keyup(function () {
+				putValue($('#ID'));
+				checkValue($('#ID'));
+				checkWrite($('#ID'),$('#PASS'));
+			});
 	});
-	$('#memberInput2562').focusout(function () {
-		$('#memberInput2562').parent().removeClass("member-input__state--focus");
+	$('#ID').focusout(function () {
+		putValue($('#ID'));
+		checkValue($('#ID'));
+		$('#ID').parent().removeClass("member-input__state--focus");
+		checkWrite($('#ID'),$('#PASS'));
+	});
+	$('#PASS').focus(function () {
+			$('#PASS').parent().addClass("member-input__state--focus");
+			$('#PASS').keyup(function () {
+				putValue($('#PASS'));
+				checkValue($('#PASS'));
+				checkWrite($('#ID'),$('#PASS'));
+			});
+	});
+	$('#PASS').focusout(function () {
+		putValue($('#PASS'));
+		checkValue($('#PASS'));
+		$('#PASS').parent().removeClass("member-input__state--focus");
+		checkWrite($('#ID'),$('#PASS'));
 	});
 
-	$('#memberInput2562').keyup(function () {
-		var input = $('#memberInput2562');
-		var value = input.val();
-		if (value!=""){
-			$('#memberInput2562').parent().addClass("member-input__state--value");
-			if($('#memberInput797').val() != "")
-				$('.login__btn').attr("disabled",false);
-			else
-				$('.login__btn').attr("disabled",true);
+	function putValue(selector){
+		selector.attr("value",selector.val());
+	}
+	function checkValue(selector){
+		var parent = selector.parent();
+		if((selector.attr("value"))!=""){
+			selector.parent().addClass("member-input__state--value");
 		}
-		else{
-			$('#memberInput2562').parent().removeClass("member-input__state--value");
+		else
+			selector.parent().removeClass("member-input__state--value");
+	}
+	function checkWrite(selector1,selector2){
+		if((selector1.attr("value"))!=""&& (selector2.attr("value"))!=""){
+			$('.login__btn').attr("disabled",false);
+		}
+		else
 			$('.login__btn').attr("disabled",true);
-		}
+	}
+	$('#PASS').focus(function () {
+		$('#PASS').parent().addClass("member-input__state--focus");
+	});
+	$('#PASS').focusout(function () {
+		$('#PASS').parent().removeClass("member-input__state--focus");
 	});
 
-	$('#memberInput797').focus(function () {
-		$('#memberInput797').parent().addClass("member-input__state--focus");
-	});
-	$('#memberInput797').focusout(function () {
-		$('#memberInput797').parent().removeClass("member-input__state--focus");
-	});
-
-	$('#memberInput797').keydown(function () {
-		if ($('#memberInput797').val() != ""){
-			$('#memberInput797').parent().addClass("member-input__state--value");
-			if($('#memberInput797').val() != "")
+	$('#PASS').keydown(function () {
+		if ($('#PASS').val() != ""){
+			$('#PASS').parent().addClass("member-input__state--value");
+			if($('#PASS').val() != "")
 			$('.login__btn').attr("disabled",false);
 		else
 			$('.login__btn').attr("disabled",true);
 		}
 		else{
-			$('#memberInput797').parent().removeClass("member-input__state--value");
+			$('#PASS').parent().removeClass("member-input__state--value");
 			$('.login__btn').attr("disabled",true);
 		}
 	});
@@ -55,33 +89,33 @@ $(document).ready(function () {
 		}
 	});
 
-	$('#memberInput2562').val() != null && $('#memberInput797').val() !={
-
-	}
 
 	//로그인 버튼 클릭
-	$("#logintest").click(function () {
+	$(".login__btn").click(function () {
 
 		var query = {
-			id: $("#id").val(),
-			password: $("#pw").val()
-		}
+			id: $("#ID").val(),
+			password: $("#PASS").val()
+		};
 		// 로그인 버튼 클릭 ajax 
 		$.ajax({
-			type: "POST",
+			type: "GET",
 			data: query,
-			url: "login", // 로그인 페이지 경로
+			dataType:'JSON',
+			url: sessionStorage.getItem("IP_ADDRESS")+"/m.login", // 로그인 페이지 경로
 			success: function (data) {
-				if (data == "success") { //로그인 성공
-					location.href = "/";
-				} else if (data == "failpw") { //pw 틀렸을 경우
-					$("#nopw").css("display", "block");
-					$("#nopw").show();
-					$("#noid").hide();
-				} else if (data == "failid") { //id 틀렸을 경우
-					$("#noid").css("display", "blokc");
-					$("#noid").show();
-					$("#nopw").hide();
+				console.log(data);
+				if(data.result=="success"){
+					alert("SUCCESS");
+					if(isChecked){
+						localStorage.setItem("user",JSON.stringify(data.userInfo));
+						window.location.href= "../../../www/views/service/introMain.html";
+					}
+					else{
+						sessionStorage.setItem("user",JSON.stringify(data.userInfo));
+						window.location.href= "../../../www/views/service/introMain.html";
+
+					}
 				}
 			}
 		}) // ajax 로그인 버튼 끝
