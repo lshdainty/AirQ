@@ -712,7 +712,7 @@ public class ConnectController {
 		
 	// 분석/비교 서비스 - 상품 정보 update
 	@RequestMapping(value = "productUpdate", method = RequestMethod.POST)
-	public String productUpdate(Model model,HttpServletRequest request,@RequestParam("product_code") String product_code,MultipartFile[] thumbnail) {
+	public String productUpdate(Model model,HttpServletRequest request,@RequestParam("product_code") String product_code, MultipartFile[] thumbnail, String ori_thumbnail) {
 		ProductVO productVO = new ProductVO();
 		UploadVO uploadVO = new UploadVO();
 				
@@ -755,30 +755,44 @@ public class ConnectController {
 		
 		//thumbnail정보 insert
 		for(MultipartFile multipartFile : thumbnail) {
-			String random=String.format("%04d",(int)(Math.random()*10000));
-			String uuid=UUID.randomUUID().toString().replace("-", "");
-					
-			String upload_code = "ul"+day+random;
-			String original_name = multipartFile.getOriginalFilename();
-			String file_name = uuid+original_name;
-					
-			uploadVO.setUpload_code(upload_code);
-			uploadVO.setOriginal_name(original_name);
-			uploadVO.setFile_name(file_name);
-			uploadVO.setProduct_code(product_code);
-			connectService.productThumbnailUpload(uploadVO);
-					
-			//업로드
-			String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/images/");
-			try {
-				File saveFile = new File(uploadFolder, file_name);
+			//첫번째 index는 무조건 나오기때문에 첫번째 index의 파일유무를 통하여 update작업 수행
+			if(multipartFile.isEmpty()) {
+				String random=String.format("%04d",(int)(Math.random()*10000));
 				
-				multipartFile.transferTo(saveFile);
-			} catch(Exception e) {
-				 e.printStackTrace();
-			} // end catch
+				String upload_code = "ul"+day+random;
+				String file_name = ori_thumbnail;
+				String original_name = ori_thumbnail.substring(32);
+				
+				uploadVO.setUpload_code(upload_code);
+				uploadVO.setOriginal_name(original_name);
+				uploadVO.setFile_name(file_name);
+				uploadVO.setProduct_code(product_code);
+				connectService.productThumbnailUpload(uploadVO);
+			}else {
+				String random=String.format("%04d",(int)(Math.random()*10000));
+				String uuid=UUID.randomUUID().toString().replace("-", "");
+						
+				String upload_code = "ul"+day+random;
+				String original_name = multipartFile.getOriginalFilename();
+				String file_name = uuid+original_name;
+						
+				uploadVO.setUpload_code(upload_code);
+				uploadVO.setOriginal_name(original_name);
+				uploadVO.setFile_name(file_name);
+				uploadVO.setProduct_code(product_code);
+				connectService.productThumbnailUpload(uploadVO);
+						
+				//업로드
+				String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/images/");
+				try {
+					File saveFile = new File(uploadFolder, file_name);
+					
+					multipartFile.transferTo(saveFile);
+				} catch(Exception e) {
+					e.printStackTrace();
+				} // end catch
+			}					
 		}
-				
 		return "redirect: /product?product_code=" + product_code;
 	}
 		
