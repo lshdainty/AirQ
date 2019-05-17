@@ -9,27 +9,29 @@
 		order by rownum desc
 	</select>
 	<select id="tenderMain" resultType="com.yjc.airq.domain.TenderVO">
-  	  select x.*
-  	  from(select rownum as rnum,t.* 
-  	       from (select * 
-   	            from tender
-   	            order by t_creation_date asc) t 
-    	     where <![CDATA[rownum <= #{endnum}]]>) x
-  	  where <![CDATA[X.rnum >= #{startnum}]]>
-  	  order by rownum desc
+  	      select x.* 
+   		  from(select rownum as rnum,a.*
+  	 		   from(select rownum,t.* 
+  	        		from (select * 
+        	    		  from tender
+             	  		  order by t_creation_date asc) t 
+            		order by rownum desc) a
+    			where <![CDATA[rownum <= #{endnum}]]> ) x
+    	  where <![CDATA[x.rnum>=#{startnum}]]>
 	</select>
 	<select id="selectTender" resultType="com.yjc.airq.domain.TenderVO">
-		select x.*
-  	 	from(select rownum as rnum,t.* 
-  	         from (select * 
-        	       from tender
-        	       <if test="sort.equals('mTender')">
-            		   where member_id=#{member_id}
-            	   </if>
-             	 order by t_creation_date asc) t 
-        	 where <![CDATA[rownum <= #{endnum}]]>) x
-    	where <![CDATA[X.rnum >= #{startnum}]]>
-    	order by rownum desc
+  	      select x.* 
+   		  from(select rownum as rnum,a.*
+  	 		   from(select rownum,t.* 
+  	        		from (select * 
+        	    		  from tender
+        	    		  <if test="sort.equals('mTender')">
+            		 		  where member_id=#{member_id}
+            	  		  </if>
+             	  		  order by t_creation_date asc) t 
+            		order by rownum desc) a
+    			where <![CDATA[rownum <= #{endnum}]]> ) x
+    	  where <![CDATA[x.rnum>=#{startnum}]]>
 	</select>
 	<!-- 참여 업체 수 -->
 	<select id="company_count" parameterType="String" resultType="int">

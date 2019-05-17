@@ -135,7 +135,7 @@ public class ConnectController {
 		Criteria criteria = new Criteria();
 		String sort = request.getParameter("sort");
 		int pagenum = Integer.parseInt(request.getParameter("pagenum"));
-		System.out.println(pagenum);
+		
 		if(sort.equals("tTender")) {
 			criteria.setTotalcount(connectService.tenderCount()); // 전체 게시글 개수를 지정
 		} else {
@@ -153,6 +153,28 @@ public class ConnectController {
 		criteria.setEndPage(criteria.getLastblock(), criteria.getCurrentblock()); // 마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
 		
 		ArrayList<TenderVO> tenderList=connectService.selectTender(sort,member_id,criteria.getStartnum(),criteria.getEndnum());
+		
+		for(int i=0;i<tenderList.size();i++) {
+			String tender_code=tenderList.get(i).getTender_code();
+			tenderList.get(i).setCompany_count(connectService.company_count(tender_code));
+			int d_day=connectService.d_day(tender_code);
+			
+			//입찰 확인 여부
+			int tenderCheck = connectService.tenderCheck(tender_code);
+			
+			if(tenderCheck == 0) {
+				if(d_day < 0) {
+					tenderList.get(i).setD_day("입찰 마감");
+				} else if(d_day == 0) {
+					tenderList.get(i).setD_day("D-day");
+				} else {
+					tenderList.get(i).setD_day("D-"+d_day);
+				}
+			} else {
+				tenderList.get(i).setD_day("입찰 종료");
+			}
+		}
+		
 		JSONArray jArr=JSONArray.fromObject(tenderList);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("tenderList",jArr);
@@ -530,7 +552,7 @@ public class ConnectController {
 		} // end for
 	}
 	
-	/* 투찰 삭제 */
+	// 입찰서비스 - 투찰 삭제 
 	@RequestMapping(value="bidDelete", method=RequestMethod.POST)
 	@ResponseBody
 	public String bidDelete(BidVO bidVo ,String company_code, String tender_code, HttpServletRequest request) {
@@ -551,7 +573,7 @@ public class ConnectController {
 		}
 	}
 	
-	/* 투찰 수정 */
+	// 입찰서비스 - 투찰 수정 
 	@RequestMapping(value="bidModify", method=RequestMethod.POST)
 	@ResponseBody
 	public String bidModify(String tender_code, String company_code, HttpServletRequest request) {
@@ -566,6 +588,14 @@ public class ConnectController {
 		}
 		
 	}
+	
+	// 입찰서비스 - 입찰 신고하기
+	@RequestMapping(value="tenderReport/{tender_code}",method=RequestMethod.GET)
+	public String tenderReport(@PathVariable String tender_code) {
+		
+		return "connect/tenderReport";
+	}
+	
 	
 	@RequestMapping(value="member_devision/{tender_code}",method=RequestMethod.POST)
 	@ResponseBody

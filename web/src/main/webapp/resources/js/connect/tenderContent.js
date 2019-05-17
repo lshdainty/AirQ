@@ -21,14 +21,22 @@
 					+'<button id="bidComplete">작성완료</button>'
 					+'<button id="bidDelete">삭제하기</button>'
 					+'<button id="bidModify" onclick="return confirm(&#39수정하시겠습니까?&#39);">수정하기</button>';
-				
+					
+					var html2='<span>|</span>'
+						+'<a id="tenderReport" href="#">신고</a>';
+					
 					$("#bidBtnBiv").append(html);
+					$("#tenderADiv").append(html2);
 					$("#bidComplete").css("display","none");
 				
 					$('input[id="bid_ppt_score"]').attr("disabled", true);
 					$(".bid_ppt_score_btn").attr("disabled", true);
 				}else{ //관리자
-				
+					var html='<span>|</span>'
+						+'<a id="tenderDeleteA" href="#">삭제</a>'
+						+'<span>|</span>'
+						+'<a id="tenderReport" href="#">신고</a>';
+					$("#tenderADiv").append(html);
 				}
 			} else {
 				$('input[id="bid_ppt_score"]').attr("disabled", true);
@@ -344,5 +352,11 @@ $(document).ready(function(){
 	function bidModify(){
 		
 	}
+	
+	/*신고하기*/
+	$(document).on('click','#tenderReport',function(){
+		var tender_code=$("#tcode").val();
+		var windowObj = window.open("/tenderReport/tender_code="+tender_code,"입찰 신고하기","width=570px, height=600px");
+	});
 	
 });

@@ -23,7 +23,7 @@
 			</li>
 			<c:forEach var="tenderList" items="${tenderList}">
 				<li class="tableListContent tenderLiContent post-item" id="${tenderList.tender_code }">
-					<div class="tableColumn tableCol-10-1" data-label="번호">d${tenderList.rnum }</div>
+					<div class="tableColumn tableCol-10-1" data-label="번호">${tenderList.rownum }</div>
 					<div class="tableColumn tableCol-30" data-label="제목">${tenderList.tender_title }</div>
 					<div class="tableColumn tableCol-15" data-label="글쓴이">${tenderList.member_id }</div>
 					<div class="tableColumn tableCol-15" data-label="등록일">${tenderList.t_creation_date }</div>

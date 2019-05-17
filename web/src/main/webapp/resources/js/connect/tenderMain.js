@@ -4,14 +4,13 @@ function sortdata(){
 }
 
 $("#tenderSelectDiv").change(function(){
-	alert("dd");
 	ajax(1,sortdata());
 });
 
 function page(idx){
-	alert(idx);
 	ajax(idx,sortdata());
 }
+
 function ajax(idx,sort){
 	var data={
 			sort:sort
@@ -24,10 +23,14 @@ function ajax(idx,sort){
 		async:false,
 		dataType:"json",
 		success:function(data){
-			console.log(data);
+			var tenderList="";
+			var page="";
+			var result="";
+			
 			for(var i=0;i<data.tenderList.length;i++){
-				var tenderList='<li class="tableListContent tenderLiContent post-item" id="'+data.tenderList[i].tender_code+'">'
-					+'<div class="tableColumn tableCol-10-1" data-label="번호">'+data.tenderList[i].rnum+'</div>'
+				
+				tenderList+='<li class="tableListContent tenderLiContent post-item" id="'+data.tenderList[i].tender_code+'">'
+					+'<div class="tableColumn tableCol-10-1" data-label="번호">'+data.tenderList[i].rownum+'</div>'
 					+'<div class="tableColumn tableCol-30" data-label="제목">'+data.tenderList[i].tender_title+'</div>'
 					+'<div class="tableColumn tableCol-15" data-label="글쓴이">'+data.tenderList[i].member_id+'</div>'
 					+'<div class="tableColumn tableCol-15" data-label="등록일">'+data.tenderList[i].t_creation_date+'</div>'
@@ -35,8 +38,8 @@ function ajax(idx,sort){
 					+'<div class="tableColumn tableCol-15" data-label="마감기한">'+data.tenderList[i].d_day+'</div>'
 					+'</li>';
 			}
-			$("#tableListHeader").nextAll().remove();
-			$("#tableList").append(tenderList);
+			$(".tableListHeader").nextAll().remove();
+			$(".tableList").append(tenderList);
 			
 			if(data.criteria.prev){
 				page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.startPage-1)+');" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'
