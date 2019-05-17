@@ -22,87 +22,99 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class MypageServiceImplement implements MypageService{
-	private CompanyMapper mapper;
-	private MemberMapper mapper1;
-	private PaymentMapper mapper2;
-	private PostMapper mapper3;
-	private ProductMapper mapper4;
-	private ReplyMapper mapper5;
-	private TenderMapper mapper6;
+	private CompanyMapper companyMapper;
+	private MemberMapper memberMapper;
+	private PaymentMapper paymentMapper;
+	private PostMapper postMapper;
+	private ProductMapper productMapper;
+	private ReplyMapper replyMapper;
+	private TenderMapper tenderMapper;
 	
 	@Override
 	public ArrayList<Company_InfoVO> c_code( String member_id) {
-		return mapper.c_code(  member_id);
+		return companyMapper.c_code(  member_id);
 	}
 	
 	@Override
 	public void deleteMember(String member_id) {
-		mapper1.deleteMember(member_id);
+		memberMapper.deleteMember(member_id);
 	}
 	
 	@Override
 	public ArrayList<PaymentVO> mypay(String member_id) {
-		return mapper2.mypay(member_id);
+		return paymentMapper.mypay(member_id);
 	}
 
 	@Override
 	public ArrayList<PaymentVO> mypayNotNull(String member_id) {
-		return mapper2.mypayNotNull(member_id);
+		return paymentMapper.mypayNotNull(member_id);
 	}
 
 	@Override
 	public ArrayList<PaymentVO> mypayNull(String member_id) {
-		return mapper2.mypayNull(member_id);
+		return paymentMapper.mypayNull(member_id);
 	}
 
 	@Override
 	public void deletePostsPost(String post_code) {
-		mapper3.deletePostsPost(post_code);
+		postMapper.deletePostsPost(post_code);
 	}
-
+//	@Override
+//	public void deletePostsPost1(String post_code) {
+//		postMapper.deletePostsPost1(post_code);
+//	}
 	@Override
 	public ArrayList<PostVO> postMP() {
-		return mapper3.postMP();
+		return postMapper.postMP();
 	}
 
 	@Override
 	public ArrayList<ProductVO> productMP() {
-		return mapper4.productMP();
+		return productMapper.productMP();
 	}
 
 	@Override
 	public void deletePostsProduct(String product_code) {
-		mapper4.deletePostsProduct(product_code);
+		productMapper.deletePostsProduct(product_code);
 	}
-
+//	@Override
+//	public void deletePostsProduct1(String product_code) {
+//		productMapper.deletePostsProduct1(product_code);
+//	}
 	@Override
 	public void deleteComment(String reply_code) {
-		mapper5.deleteComment(reply_code);
+		replyMapper.deleteComment(reply_code);
 	}
 
 	@Override
 	public void deletePosts(String tender_code) {
-		mapper6.deletePosts(tender_code);
+		tenderMapper.deletePosts(tender_code);
 	}
 
+//	@Override
+//	public void deletePosts1(String tender_code) {
+//		tenderMapper.deletePosts1(tender_code);
+//	}
 	@Override
 	public void mypayStarUp(PaymentVO paymentVO) {
-		mapper2.mypayStarUp(paymentVO);
+		paymentMapper.mypayStarUp(paymentVO);
 	}
 
 	@Override
 	public ArrayList<PostVO> postNMP(String member_id) {
-		return mapper3.postNMP(member_id);
+		return postMapper.postNMP(member_id);
 	}
 
 	@Override
 	public ArrayList<TenderVO> tenderNMP(String member_id) {
-		return mapper6.tenderNMP(member_id);
+		return tenderMapper.tenderNMP(member_id);
 	}
 
 	@Override
 	public ArrayList<ProductVO> productSMP(String member_id) {
-		return mapper4.productSMP(member_id);
+		return productMapper.productSMP(member_id);
 	}
+
+
 
 }

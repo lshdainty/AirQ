@@ -330,4 +330,9 @@ public class ConnectServiceImplement implements ConnectService {
 	public void productDelete(@Param("product_code") String product_code) {
 		productMapper.productDelete(product_code);
 	}
+
+	@Override
+	public ArrayList<TenderVO> tenderNMP(String member_id) {
+		return tenderMapper.tenderNMP(member_id);
+	}
 }

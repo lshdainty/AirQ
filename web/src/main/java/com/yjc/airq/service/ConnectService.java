@@ -132,4 +132,7 @@ public interface ConnectService {
 	public void productDemandDelete(@Param("product_code") String product_code);
 	// 서비스 제품 삭제
 	public void productDelete(@Param("product_code") String product_code);
+	
+	// 마이페이지 업체 리스트 출력
+	public ArrayList<TenderVO> tenderNMP(@Param("member_id")String member_id);
 }
