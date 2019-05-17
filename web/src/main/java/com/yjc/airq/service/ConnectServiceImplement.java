@@ -11,6 +11,7 @@ import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
+import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.mapper.AreaMapper;
@@ -20,6 +21,7 @@ import com.yjc.airq.mapper.DemandMapper;
 import com.yjc.airq.mapper.MemberMapper;
 import com.yjc.airq.mapper.PaymentMapper;
 import com.yjc.airq.mapper.ProductMapper;
+import com.yjc.airq.mapper.ReportMapper;
 import com.yjc.airq.mapper.TenderMapper;
 import com.yjc.airq.mapper.UploadMapper;
 
@@ -37,6 +39,7 @@ public class ConnectServiceImplement implements ConnectService {
 	private UploadMapper uploadMapper;
 	private DemandMapper demandMapper;
 	private PaymentMapper paymentMapper;
+	private ReportMapper reportMapper;
 	
 	//회원 이름 가져오기
 	@Override
@@ -251,6 +254,18 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public int selectCount(String member_id) {
 		return tenderMapper.selectCount(member_id);
+	}
+	
+	// 입찰 신고 insert
+	@Override
+	public void tenderReport(ReportVO reportVo) {
+		reportMapper.tenderReport(reportVo);
+	}
+	
+	// 입찰 삭제하면 delete_whether=y로 update
+	@Override
+	public void tDelete_whether(String tender_code) {
+		reportMapper.tDelete_whether(tender_code);
 	}
 	
 	// 상품 리스트 출력

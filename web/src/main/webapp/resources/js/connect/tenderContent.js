@@ -33,9 +33,7 @@
 					$(".bid_ppt_score_btn").attr("disabled", true);
 				}else{ //관리자
 					var html='<span>|</span>'
-						+'<a id="tenderDeleteA" href="#">삭제</a>'
-						+'<span>|</span>'
-						+'<a id="tenderReport" href="#">신고</a>';
+						+'<a id="tenderDeleteA" href="#">삭제</a>';
 					$("#tenderADiv").append(html);
 				}
 			} else {

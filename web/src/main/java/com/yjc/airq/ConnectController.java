@@ -37,6 +37,7 @@ import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
+import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.mapper.ProductMapper;
@@ -370,7 +371,7 @@ public class ConnectController {
 	// 입찰 서비스 - 입찰 공고 삭제 후 리스트로 가기
 	@RequestMapping(value = "tenderDelete/{tender_code}", method = RequestMethod.GET)
 	public String tenderDelete(@PathVariable String tender_code, Model model) {
-
+		
 		ArrayList<BidVO> arr = connectService.findUploadCode(tender_code); // 투찰에 있던 파일 찾기
 		ArrayList<String> uploadArr = new ArrayList<>();
 
@@ -382,8 +383,9 @@ public class ConnectController {
 
 			uploadService.deleteBidUpload(uploadArr); // 투찰에 있던 파일 삭제
 		}
-		int s = connectService.tenderDelete(tender_code); // 입찰 공고 삭제
-
+		connectService.tenderDelete(tender_code); // 입찰 공고 삭제
+		connectService.tDelete_whether(tender_code);
+		
 		return "redirect: /tenderMain";
 	}
 
@@ -591,9 +593,31 @@ public class ConnectController {
 	
 	// 입찰서비스 - 입찰 신고하기
 	@RequestMapping(value="tenderReport/{tender_code}",method=RequestMethod.GET)
-	public String tenderReport(@PathVariable String tender_code) {
+	public String tenderReport(@PathVariable String tender_code, Model model) {
+		model.addAttribute("tender_code",tender_code);
 		
 		return "connect/tenderReport";
+	}
+	
+	@RequestMapping(value="addReport",method=RequestMethod.POST)
+	@ResponseBody
+	public void addReport(ReportVO reportVo, String tender_code, HttpServletRequest request) {
+		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
+		String random=String.format("%04d",(int)(Math.random()*10000));
+		String report_code="rt"+day+random;
+		
+		String classification=tender_code.substring(0,2);
+		
+		reportVo.setReport_code(report_code);
+		reportVo.setOriginal_code(tender_code);
+		reportVo.setClassification(classification);
+		reportVo.setMember_id(member_id);
+		
+		connectService.tenderReport(reportVo);
 	}
 	
 	
