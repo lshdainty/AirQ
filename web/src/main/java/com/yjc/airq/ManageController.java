@@ -44,10 +44,10 @@ public class ManageController {
 	// 각 시/도 미세먼지 수치 가져오기
 	@RequestMapping(value = "dustData", method = RequestMethod.GET)
 	@ResponseBody
-	public JSONObject dustData(Model model) {
+	public JSONObject dustData(Model model, HttpServletRequest request) {
 		BufferedReader br = null;
 		//String sidoName[] = {"서울", "부산", "대구", "인천", "광주", "대전", "울산", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주", "세종"};
-		String sidoName1[] = {"서울","대구"};
+		String sidoName1[] = {"대구"};
 		JSONObject json = new JSONObject();
 		JSONArray dustDataArray = new JSONArray();
 		JSONArray areaDataArray = new JSONArray();
@@ -137,6 +137,7 @@ public class ManageController {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
+        System.out.println("실행 다했다...");
 		return json;
 	}
 
