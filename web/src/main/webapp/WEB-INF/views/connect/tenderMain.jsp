@@ -11,15 +11,6 @@
 	<div id="tenderContainer">
 		<h1 id="tenderTitle" class="tenderTitle">입찰 공고</h1>
 		<div id="tenderSelectDiv" class="tenderSelectDiv">
-			<select class="tenderSelect">
-				<option>전체 글 보기</option>
-				<option>내가 쓴 글 보기</option>
-			</select> 
-			<select class="tenderSelect">
-				<option>날짜</option>
-				<option>참여업체수</option>
-				<option>마감기한</option>
-			</select>
 		</div>
 		<ul class="tableList">
 			<li class="tableListHeader">
@@ -32,7 +23,7 @@
 			</li>
 			<c:forEach var="tenderList" items="${tenderList}">
 				<li class="tableListContent tenderLiContent post-item" id="${tenderList.tender_code }">
-					<div class="tableColumn tableCol-10-1" data-label="번호">${tenderList.rownum }</div>
+					<div class="tableColumn tableCol-10-1" data-label="번호">d${tenderList.rnum }</div>
 					<div class="tableColumn tableCol-30" data-label="제목">${tenderList.tender_title }</div>
 					<div class="tableColumn tableCol-15" data-label="글쓴이">${tenderList.member_id }</div>
 					<div class="tableColumn tableCol-15" data-label="등록일">${tenderList.t_creation_date }</div>
@@ -41,11 +32,23 @@
 				</li>
 			</c:forEach>
 		</ul>
-		<c:if test="${sessionScope.user.member_devision == 'no' }">
-			<div id="tenderWriteDiv" class="tenderWriteDiv">
-				<input type="submit" id="tenderWrite" class="tenderWriteBtn" name="tenderWrite" value="작성하기">
-			</div>
-		</c:if>
+		<div id="tenderWriteDiv" class="tenderWriteDiv">
+		</div>
+		<nav aria-label="Page navigation example">
+				<div class="d-flex justify-content-center">
+					<ul class="pagination">
+						<c:if test="${criteria.prev}">
+							<li class="page-item"><a class="page-link" href="javascript:page(${criteria.getStartPage()-1});" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+						</c:if>
+						<c:forEach begin="${criteria.getStartPage() }" end="${criteria.getEndPage() }" var="idx">
+							<li class="page-item"><a class="page-link" href="javascript:page(${idx });">${idx}</a></li>
+						</c:forEach>
+						<c:if test="${criteria.next}">
+							<li class="page-item"><a class="page-link" href="javascript:page(${criteria.getEndPage()+1});" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+						</c:if>
+					</ul>
+				</div>
+			</nav>
 	</div>
 </form>
 <%--입찰 공고 테이블 끝 --%>
