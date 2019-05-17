@@ -31,4 +31,6 @@ public class TenderVO {
 	private String d_day;
 	
 	private String tcreationdate;
+	
+	private String report_count;
 }
