@@ -25,8 +25,8 @@
 }
 
 .container .form1 .B {
+	width: 15%;
 	display: inline-block;
-	margin-left: 23%;
 }
 
 .container .form1 .C {
@@ -50,7 +50,7 @@
 }
 
 .container .form2 .title {
-	width: 30%;
+	width: 15%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 /* 	height: 50px; */
@@ -68,14 +68,14 @@
 /* } */
 
 .container .form2 .tender_A {
-	width: 30%;
+	width: 35%;
 	display: inline-block;
 	text-overflow: ellipsis;
 	overflow: hidden;	
 }
 
 .container .form2 .t_creation_date {
-	width: 20%;
+	width: 30%;
 	display: inline-block;
 	text-overflow: ellipsis;
 	overflow: inherit;
@@ -98,7 +98,7 @@
 }
 
 .container .form4 .post_title {
-	width: 30%;
+	width: 15%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 /* 	height: 50px; */
@@ -117,15 +117,14 @@
 /* } */
 
 .container .form4 .post_A {
-	width: 30%;	
+	width: 35%;	
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
 }
 
 .container .form4 .p_creation_date {
-	width: 20%;
-	height: 30px;
+	width: 30%;
 	display: inline-block;
 	text-overflow: ellipsis;
 	overflow: inherit;

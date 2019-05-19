@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypageSellerPosts.css" />
@@ -41,7 +42,7 @@
             <div class="post_name">${postNMP.board_name }</div> 
             <div class="post_title">${postNMP.post_title }</div> 
             <div class="post_A">조회수:${postNMP.view_num },추천수:${postNMP.recommend_num },댓글수:${postNMP.reply_count }, 신고수:${postNMP.report_count }</div>
-            <div class="p_creation_date">${postNMP.p_creation_date }</div>
+            <div class="p_creation_date">${fn:substring(postNMP.p_creation_date, 0, 10) }</div>
             <a href="<c:url value='/postDetail?post_code=${postNMP.post_code }' />" class="btn btn-primary">상세정보</a>
 <%--             <a href="<c:url value='/mypageSellerPostsPost/${postNMP.post_code }' />" class="btn btn-danger">글삭제</a>                 --%>      
         	</div>

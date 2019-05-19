@@ -11,10 +11,10 @@ public class ReportVO {
 	private String report_title;
 	private String report_content;
 	private Timestamp report_date;
-	private String classification;
+	private String report_classification;
 	private String original_code;
 	private String delete_whether;
 	private String member_id;
 	
-	private int count;
+	private String report_count;
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
+import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.service.CommunityService;
 import com.yjc.airq.service.ConnectService;
@@ -79,34 +80,13 @@ public class MypageController {
 	@RequestMapping(value = "mypageMainPosts", method = RequestMethod.GET)
 	public String mypageMainPosts(Model model, ServletRequest request) {
 		ArrayList<TenderVO> tenderList=connectService.tenderList();
-		for(int i=0;i<tenderList.size();i++) {
-			String tender_code=tenderList.get(i).getTender_code();
-			tenderList.get(i).setCompany_count(connectService.company_count(tender_code));
-			int d_day=connectService.d_day(tender_code);
-			
-			//입찰 확인 여부
-			int tenderCheck = connectService.tenderCheck(tender_code);
-			
-			if(tenderCheck == 0) {
-				if(d_day < 0) {
-					tenderList.get(i).setD_day("입찰 마감");
-				} else if(d_day == 0) {
-					tenderList.get(i).setD_day("D-day");
-				} else {
-					tenderList.get(i).setD_day("D-"+d_day);
-				}
-			} else {
-				tenderList.get(i).setD_day("입찰 종료");
-			}
-		}
-		
+		ArrayList<ReportVO> mypageMainR = mypageService.mypageMainR();
 
 		model.addAttribute("tenderList", tenderList);
 		model.addAttribute("productMP", mypageService.productMP());
 		model.addAttribute("postMP", mypageService.postMP());
-//		System.out.println(mypageService.postMP());
-//		System.out.println(tenderList);
-//		System.out.println(mypageService.productMP());
+		model.addAttribute("mypageMainR", mypageMainR);
+		System.out.println(mypageMainR);
 		return "mypage/mypageMainPosts";
 	}
 
@@ -119,13 +99,13 @@ public class MypageController {
 				 return "0";
 			 }
 			 if(selected.equals("1")) {
-				return "1";
+				return "pd";
 			 }		 
 			 if(selected.equals("2")){
-				 return "2";
+				 return "ps";
 			 }
 			 if(selected.equals("3")) {
-				 return "3";
+				 return "td";
 			 }
 	return "";
 	}

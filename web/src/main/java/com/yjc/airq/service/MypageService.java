@@ -8,6 +8,7 @@ import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ProductVO;
+import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 
 public interface MypageService {
@@ -53,5 +54,7 @@ public interface MypageService {
 	//마이페이지 판매자 글관리 - 프로덕트
 	public ArrayList<ProductVO> productSMP(@Param("member_id")String member_id);
 	
+	//마이페이지 메인 글관리
+	public ArrayList<ReportVO> mypageMainR();
 
 }
