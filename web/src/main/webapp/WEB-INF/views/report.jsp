@@ -4,18 +4,17 @@
 <html>
 <head>
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
+	<link href="/resources/css/Report.css" rel="stylesheet" />
 </head>
 <body>
-	<input type="hidden" id="original_code" name="original_code" value="${original_code}" />
+	<form id="reportForm">
+		<input type="hidden" id="original_code" name="original_code" value="${original_code}" />
+		<input type="text" id="report_title" name="report_title" class="Textbox" placeholder="신고제목"/>
+		<textarea id="report_content" name="report_content" class="Textbox" rows="8" placeholder="신고내용"></textarea>
 	
-	<label for="report_title">신고 제목 : </label>
-	<input type="text" id="report_title" name="report_title" /><br/>
-	
-	<label for="report_content">신고 내용 : </label>
-	<textarea id="report_content" name="report_content"></textarea><br/>
-	
-	<button id="reportSubmit">신고 작성</button>
-	<button id="reportCancel">신고 취소</button>
+		<button type="button" id="reportSubmit" class="reportButton">신고 작성</button>
+		<button type="button" id="reportCancel" class="reportButton">신고 취소</button>
+	</form>
 	<script src="/resources/js/report.js"></script>
 </body>
 </html>

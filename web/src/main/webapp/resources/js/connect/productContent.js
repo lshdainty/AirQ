@@ -15,7 +15,7 @@
     		async: false,
     		success: function(data) {
     			if(data=="success"){
-    				windowObj = window.open("/report?original_code="+product_code[1].trim(),"report","width=570, height=350");
+    				windowObj = window.open("/report?original_code="+product_code[1].trim(),"report","width=570px, height=600px");
     			}else{
     				alert("신고는 한번만 가능합니다.");
     			}

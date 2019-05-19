@@ -615,7 +615,7 @@ public class ConnectController {
 		
 		reportVo.setReport_code(report_code);
 		reportVo.setOriginal_code(tender_code);
-		reportVo.setClassification(classification);
+		reportVo.setReport_classification(classification);
 		reportVo.setMember_id(member_id);
 		
 		connectService.tenderReport(reportVo);
