@@ -45,6 +45,8 @@ public class ManageController {
 	@RequestMapping(value = "dustData", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject dustData(Model model, HttpServletRequest request) {
+		System.out.println(request.getParameter("x"));
+		System.out.println(request.getParameter("y"));
 		BufferedReader br = null;
 		//String sidoName[] = {"서울", "부산", "대구", "인천", "광주", "대전", "울산", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주", "세종"};
 		String sidoName1[] = {"대구"};
@@ -66,13 +68,17 @@ public class ManageController {
                 String line = "";
                 while((line = br.readLine()) != null) {
                     result = result + line + "\n";
+                    System.out.println("미세먼지 result : "+result);
                     JSONObject jsonObj = JSONObject.fromObject(result);
                     JSONArray jsonArr = JSONArray.fromObject(jsonObj.get("list"));
                     for(int j=0; j<jsonArr.size(); j++) {
                     	dustDataArray.add(jsonArr.get(j));
                     }
                 }
+                br.close();
+                urlconnection.disconnect();
         	}
+        	System.out.println(dustDataArray);
         	
         	//미세먼지 측정소 목록 가져오기
         	for(int i=0; i<sidoName1.length; i++) {
@@ -87,13 +93,17 @@ public class ManageController {
                 String line = "";
                 while((line = br.readLine()) != null) {
                     result = result + line + "\n";
+                    System.out.println("측정소 result : "+result);
                     JSONObject jsonObj = JSONObject.fromObject(result);
                     JSONArray jsonArr = JSONArray.fromObject(jsonObj.get("list"));
                     for(int j=0; j<jsonArr.size(); j++) {
                     	areaDataArray.add(jsonArr.get(j));
                     }
                 }
+                br.close();
+                urlconnection.disconnect();
         	}
+        	System.out.println(areaDataArray);
         	
         	//미세먼지수치,측정소 좌표값 합치기
         	for(int i=0; i<dustDataArray.size(); i++) {
@@ -130,6 +140,7 @@ public class ManageController {
         			}
         		}
         	}
+        	System.out.println("json변환 끝");
         	
         	Map<String, Object> map = new HashMap<String, Object>();
     		map.put("result", resultArray);

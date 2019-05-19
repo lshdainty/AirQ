@@ -10,6 +10,7 @@ import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
+import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
 
@@ -141,6 +142,13 @@ public interface ConnectService {
 	public void productDemandDelete(@Param("product_code") String product_code);
 	// 서비스 제품 삭제
 	public void productDelete(@Param("product_code") String product_code);
+	// 서비스 제품 삭제에 따른 신고테이블 삭제여부 update
+	public void reportUpdate(@Param("original_code") String original_code);
+	
+	// 기존에 신고한 내용이 있는지 확인
+	public String checkReport(@Param("member_id") String member_id,@Param("original_code") String original_code);
+	// 신고insert
+	public void insertReport(ReportVO reportVO);
 	
 	// 마이페이지 업체 리스트 출력
 	public ArrayList<TenderVO> tenderNMP(@Param("member_id")String member_id);

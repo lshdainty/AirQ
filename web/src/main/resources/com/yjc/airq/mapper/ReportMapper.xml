@@ -2,5 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjc.airq.mapper.ReportMapper">
-
+	<update id="reportUpdate">
+		update report set delete_whether = 'y' where original_code = #{original_code}
+	</update>
+	<select id="checkReport" resultType="String">
+		select report_code from report where member_id=#{member_id} and original_code=#{original_code}
+	</select>
+	<insert id="insertReport" parameterType="com.yjc.airq.domain.ReportVO">
+		insert into report(report_code,report_title,report_content,report_date,report_classification,original_code,member_id) values(#{report_code},#{report_title},#{report_content},systimestamp,#{report_classification},#{original_code},#{member_id})
+	</insert>
 </mapper>
