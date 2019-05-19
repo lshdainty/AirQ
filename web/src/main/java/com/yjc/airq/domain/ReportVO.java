@@ -16,5 +16,5 @@ public class ReportVO {
 	private String delete_whether;
 	private String member_id;
 	
-	private int count;
+	private String report_count;
 }

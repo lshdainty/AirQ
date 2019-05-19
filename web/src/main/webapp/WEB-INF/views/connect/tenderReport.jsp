@@ -8,10 +8,11 @@
 <link href="/resources/css/connect/tenderReport.css" rel="stylesheet" />
 </head>
 <body>
+	<input id="tender_code" type="hidden" value="${tender_code}">
 	<!-- 입찰 신고 form 시작 -->
 	<form id="reportForm">
-		<input type="text" placeholder="Title" class="rTextbox" />
-		<textarea rows="8" placeholder="Content" class="rTextbox"></textarea>
+		<input id="report_title" type="text" placeholder="Title" class="rTextbox" />
+		<textarea id="report_content" rows="8" placeholder="Content" class="rTextbox"></textarea>
 		<button id="reportButton">submit</button>
 	</form>
 	<!-- 입찰 신고 form 끝 -->

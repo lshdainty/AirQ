@@ -11,4 +11,24 @@
 	<insert id="insertReport" parameterType="com.yjc.airq.domain.ReportVO">
 		insert into report(report_code,report_title,report_content,report_date,report_classification,original_code,member_id) values(#{report_code},#{report_title},#{report_content},systimestamp,#{report_classification},#{original_code},#{member_id})
 	</insert>
+	<!-- 입찰 신고 insert -->
+	<insert id="tenderReport" parameterType="com.yjc.airq.mapper.ReportMapper">
+		insert into report(report_code, report_title, report_content, report_date, report_classification, original_code, member_id) values(#{report_code},#{report_title}, #{report_content},systimestamp,#{classification},#{original_code},#{member_id})
+	</insert>
+	
+	<!-- 입찰 삭제하면 delete_whether=y로 update -->
+	<update id="tDelete_whether" parameterType="String">
+		update report
+		set delete_whether='y'
+		where original_code=#{tender_code}
+	</update>
+	
+	<!-- 	마이페이지 글관리 -->
+	<select id="mypageMainR" resultType="com.yjc.airq.domain.ReportVO">
+		select to_date(REPORT_DATE,'YY-MM-DD HH24:MI:SS') as REPORT_DATE, REPORT_TITLE, DELETE_WHETHER, MEMBER_ID, REPORT_CLASSIFICATION as classification, REPORT_CODE,
+		to_char(REPORT_CONTENT) as report_content, count(ORIGINAL_CODE) as count ,ORIGINAL_CODE
+		from report 
+		GROUP BY ORIGINAL_CODE,DELETE_WHETHER, MEMBER_ID, REPORT_CLASSIFICATION, REPORT_CODE, to_char(REPORT_CONTENT), to_date(REPORT_DATE,'YY-MM-DD HH24:MI:SS'), REPORT_TITLE, ORIGINAL_CODE
+		order by delete_whether asc
+	</select>
 </mapper>

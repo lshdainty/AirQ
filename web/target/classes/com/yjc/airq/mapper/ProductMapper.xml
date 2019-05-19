@@ -179,6 +179,7 @@
 		delete from product where product_code = #{product_code}
 	</delete>
 	
+	
 	<select id="productMP" resultMap="ProductVO">
 		select * from product
 	</select>

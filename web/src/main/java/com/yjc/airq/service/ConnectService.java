@@ -108,6 +108,12 @@ public interface ConnectService {
 	public int tenderCount();
 	public int selectCount(String member_id);
 	
+	// 입찰 신고 insert
+	public void tenderReport(ReportVO reportVo);
+	
+	// 입찰 삭제하면 delete_whether=y로 update
+	public void tDelete_whether(String tender_code);
+	
 	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
 	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("space") int space, @Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
 

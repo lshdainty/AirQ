@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypageNormalPosts.css" />
@@ -26,9 +27,9 @@
         <div class="form2" id="select1">
             <div class="tender_name">입찰 서비스</div> 
             <div class="title">${tenderNMP.tender_title }</div> 
-            <div class="tender_A">참여업체수:${tenderNMP.company_count},입찰마감일자:${tenderNMP.t_creation_date}, 신고수:${tenderNMP.report_count}
+            <div class="tender_A">참여업체수:${tenderNMP.company_count},입찰마감일자:${fn:substring(tenderNMP.t_creation_date,0,10)}, 신고수:${tenderNMP.report_count}
         	</div>
-            <div class="t_creation_date">${tenderNMP.t_creation_date }</div>
+            <div class="t_creation_date">${fn:substring(tenderNMP.t_creation_date,0,10) }</div>
 <%--             <a href="<c:url value='/mypageNormalPosts/${tenderList.tender_code }' />" class="btn btn-lg btn-danger">글 삭제</a> --%>
             <a href="<c:url value='/tenderContentGo/${tenderNMP.tender_code }' />" class="btn btn-primary">상세정보</a>           
             <div class="">
@@ -42,7 +43,7 @@
             <div class="post_name">${postNMP.board_name }</div> 
             <div class="post_title">${postNMP.post_title }</div> 
             <div class="post_A">조회수:${postNMP.view_num },추천수:${postNMP.recommend_num },댓글수:${postNMP.reply_count }, 신고수:${postNMP.report_count }</div>
-            <div class="p_creation_date">${postNMP.p_creation_date }</div>
+            <div class="p_creation_date">${fn:substring(postNMP.p_creation_date,0,10) }</div>
             <a href="<c:url value='/postDetail?post_code=${postNMP.post_code }' />" class="btn btn-primary">상세정보</a>
 <%--             <a href="<c:url value='/mypageNormalPostsPost/${postNMP.post_code }' />" class="btn btn-lg btn-danger">글 삭제</a> --%>
 

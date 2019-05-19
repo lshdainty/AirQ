@@ -54,7 +54,8 @@ $(document).ready(function(){
 					$(".form3").show();
 					$(".form4").children().show();
 					$(".form4").show();
-				}else if(data == "1"){
+				}else if(data == "pd"){
+					console.log(".form2");
 					$(".form2").children().show();
 					$(".form2").show();
 					$(".form3").children().hide();
@@ -62,14 +63,14 @@ $(document).ready(function(){
 					$(".form4").children().hide();
 					$(".form4").hide();
 					
-				}else if(data == "2"){
+				}else if(data == "ps"){
 					$(".form2").children().hide();
 					$(".form2").hide();
 					$(".form3").children().show();
 					$(".form3").show();
 					$(".form4").children().hide();
 					$(".form4").hide();
-				}else if(data =="3"){
+				}else if(data =="td"){
 					$(".form2").children().hide();
 					$(".form2").hide();
 					$(".form3").children().hide();

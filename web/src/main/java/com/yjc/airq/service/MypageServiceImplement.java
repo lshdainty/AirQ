@@ -8,6 +8,7 @@ import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ProductVO;
+import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.mapper.CompanyMapper;
 import com.yjc.airq.mapper.MemberMapper;
@@ -16,6 +17,7 @@ import com.yjc.airq.mapper.PostMapper;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.ReplyMapper;
 import com.yjc.airq.mapper.TenderMapper;
+import com.yjc.airq.mapper.ReportMapper;
 
 import lombok.AllArgsConstructor;
 
@@ -29,6 +31,7 @@ public class MypageServiceImplement implements MypageService{
 	private ProductMapper productMapper;
 	private ReplyMapper replyMapper;
 	private TenderMapper tenderMapper;
+	private ReportMapper reportMapper;
 	
 	@Override
 	public ArrayList<Company_InfoVO> c_code( String member_id) {
@@ -113,6 +116,11 @@ public class MypageServiceImplement implements MypageService{
 	@Override
 	public ArrayList<ProductVO> productSMP(String member_id) {
 		return productMapper.productSMP(member_id);
+	}
+
+	@Override
+	public ArrayList<ReportVO> mypageMainR() {
+		return reportMapper.mypageMainR();
 	}
 
 

@@ -256,6 +256,18 @@ public class ConnectServiceImplement implements ConnectService {
 		return tenderMapper.selectCount(member_id);
 	}
 	
+	// 입찰 신고 insert
+	@Override
+	public void tenderReport(ReportVO reportVo) {
+		reportMapper.tenderReport(reportVo);
+	}
+	
+	// 입찰 삭제하면 delete_whether=y로 update
+	@Override
+	public void tDelete_whether(String tender_code) {
+		reportMapper.tDelete_whether(tender_code);
+	}
+	
 	// 상품 리스트 출력
 	@Override
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum) {

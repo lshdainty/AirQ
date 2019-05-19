@@ -26,7 +26,7 @@
 
 .container .form1 .B {
 	display: inline-block;
-	margin-left: 23%;
+	margin-left: 10%;
 }
 
 .container .form1 .C {
@@ -50,7 +50,7 @@
 }
 
 .container .form3 .product_name {
-	width: 30%;
+	width: 20%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 /* 	height: 50px; */
@@ -69,7 +69,7 @@
 /* } */
 
 .container .form3 .product_A {
-	width: 30%;
+	width: 60%;
 	display: inline-block;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -92,7 +92,7 @@
 }
 
 .container .form4 .post_title {
-	width: 30%;
+	width: 20%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 /* 	height: 50px; */
@@ -118,7 +118,7 @@
 }
 
 .container .form4 .p_creation_date {
-	width: 20%;
+	width: 30%;
 	height: 30px;
 	display: inline-block;
 	text-overflow: ellipsis;
