@@ -11,7 +11,7 @@ import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
-import com.yjc.airq.domain.ReportVO;
+import com.yjc.airq.domain.ReplyVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.mapper.AreaMapper;
@@ -21,7 +21,7 @@ import com.yjc.airq.mapper.DemandMapper;
 import com.yjc.airq.mapper.MemberMapper;
 import com.yjc.airq.mapper.PaymentMapper;
 import com.yjc.airq.mapper.ProductMapper;
-import com.yjc.airq.mapper.ReportMapper;
+import com.yjc.airq.mapper.ReplyMapper;
 import com.yjc.airq.mapper.TenderMapper;
 import com.yjc.airq.mapper.UploadMapper;
 
@@ -39,7 +39,7 @@ public class ConnectServiceImplement implements ConnectService {
 	private UploadMapper uploadMapper;
 	private DemandMapper demandMapper;
 	private PaymentMapper paymentMapper;
-	private ReportMapper reportMapper;
+	private ReplyMapper replyMapper;
 	
 	//회원 이름 가져오기
 	@Override
@@ -256,18 +256,6 @@ public class ConnectServiceImplement implements ConnectService {
 		return tenderMapper.selectCount(member_id);
 	}
 	
-	// 입찰 신고 insert
-	@Override
-	public void tenderReport(ReportVO reportVo) {
-		reportMapper.tenderReport(reportVo);
-	}
-	
-	// 입찰 삭제하면 delete_whether=y로 update
-	@Override
-	public void tDelete_whether(String tender_code) {
-		reportMapper.tDelete_whether(tender_code);
-	}
-	
 	// 상품 리스트 출력
 	@Override
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum) {
@@ -284,6 +272,12 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public ProductVO productContent(String product_code) {
 		return productMapper.productContent(product_code);
+	}
+	
+	// 상품 댓글
+	@Override
+	public ArrayList<ReplyVO> productReply(String product_code) {
+		return replyMapper.productReply(product_code);
 	}
 
 	// 광역시/도를 선택시 해당하는 시,구 목록출력
@@ -363,11 +357,35 @@ public class ConnectServiceImplement implements ConnectService {
 	public void productDemandDelete(@Param("product_code") String product_code) {
 		demandMapper.productDemandDelete(product_code);
 	}
+	
+	// 서비스 제품 댓글 삭제
+	@Override
+	public void productReplyDelete(@Param("product_code") String product_code) {
+		replyMapper.productReplyDelete(product_code);
+	}
 		
 	// 서비스 제품 삭제
 	@Override
 	public void productDelete(@Param("product_code") String product_code) {
 		productMapper.productDelete(product_code);
+	}
+	
+	// 사용자가 상품을 구매했는지 확인
+	@Override
+	public int checkPayment(@Param("member_id") String member_id,@Param("product_code") String product_code) {
+		return demandMapper.checkPayment(member_id,product_code);
+	}
+	
+	// 상품 댓글 insert
+	@Override
+	public void insertPReply(ReplyVO replyVO) {
+		replyMapper.insertPReply(replyVO);
+	}
+	
+	// 본인 댓글 delete
+	@Override
+	public void deletePReply(@Param("reply_code") String reply_code) {
+		replyMapper.deletePReply(reply_code);
 	}
 	
 	@Override

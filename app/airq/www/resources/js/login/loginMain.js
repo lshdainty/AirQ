@@ -1,14 +1,5 @@
 $(document).ready(function () {
 
-	function isLogin(){
-		var localUserInfo = JSON.parse(localStorage.getItem("user"));
-		var sessionUserInfo=sessionStorage["user"];
-		if(localUserInfo!=null){
-			sessionUserInfo = JSON.stringify(localUserInfo);
-			alert(sessionUserInfo);
-		}
-	}
-	isLogin();
 	$('#ID').focus();
 	$('#ID').focus(function () {
 			$('#ID').parent().addClass("member-input__state--focus");
@@ -98,6 +89,7 @@ $(document).ready(function () {
 			password: $("#PASS").val()
 		};
 		// 로그인 버튼 클릭 ajax 
+		$.support.cors = true;
 		$.ajax({
 			type: "GET",
 			data: query,

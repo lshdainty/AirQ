@@ -193,8 +193,8 @@ public class CommunityController {
 		replyVO.setMember_id(member_id);
 		replyVO.setPost_code(post_code);
 		replyVO.setProduct_code(product_code);
-		System.out.println(replyVO);
 		postService.insertReply(replyVO);
+
 		return replyVO;
 	}
 	

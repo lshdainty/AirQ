@@ -12,12 +12,6 @@ public interface ReportMapper {
 	public String checkReport(@Param("member_id") String member_id,@Param("original_code") String original_code);
 	// 신고 insert
 	public void insertReport(ReportVO reportVO);
-
-	// 입찰 신고 insert
-	public void tenderReport(ReportVO reportVo);
-	
-	// 입찰 삭제하면 delete_whether=y로 update
-	public void tDelete_whether(String tender_code);
 	
 	//마이페이지 글관리
 	public ArrayList<ReportVO> mypageMainR();
