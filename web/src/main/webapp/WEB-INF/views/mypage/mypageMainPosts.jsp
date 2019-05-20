@@ -17,7 +17,9 @@
        <div class="AAA">게시글 코드</div>
 <!--        <div class="AAAA">신고횟수</div> -->
        <div class="AAAAA">신고 날짜</div>
+       <div class="B">신고 횟수</div>
        <div class="AAAAAA">삭제 여부</div>
+       
             <select class="C"id="change">
             	<option value="0">모든 글 보기</option>
                 <option value="1" id="selectA">입찰 서비스</option>
@@ -29,13 +31,15 @@
         <br>
         
 		<%-- 하단부분 시작  --%>
+	
 		    <c:forEach var="mypageMainR" items="${mypageMainR}">
-      		<div class="form2" id="select1"> 
+      		<div class="form2" id="${mypageMainR.report_code}"> 
             <div class="report_title">${mypageMainR.report_title }</div> 
             <div class="member_id">${mypageMainR.member_id }</div> 
             <div class="original_code">${mypageMainR.original_code }</div>
 <%--             <div class="report_count">${mypageMainR.report_count }</div> --%>
             <div class="report_date">${fn:substring(mypageMainR.report_date, 0 ,10) }</div>
+            <div class="report_count">${mypageMainR.report_count}</div>
             <div class="delete_whether">${mypageMainR.delete_whether }</div>
 <%--             <a href="<c:url value='/tenderContentGo/${tenderList.tender_code }' />" class="btn btn-primary">상세정보</a> --%>
 <%--             <a href="<c:url value='/mypageMainPosts/${mypageMainR.tender_code }' />" class="btn btn-danger">글삭제</a> --%>

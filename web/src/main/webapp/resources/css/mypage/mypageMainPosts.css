@@ -35,10 +35,15 @@
 	width: 15%;
 	display: inline-block;
 }
-.container .form1 .AAAAAA {
-	width: 20%;
+.container .form1 .B {
+	width: 10%;
 	display: inline-block;
 }
+.container .form1 .AAAAAA {
+	width: 10%;
+	display: inline-block;
+}
+
 
 
 .container .form1 .C {
@@ -97,104 +102,14 @@
 	text-overflow: ellipsis;
 	overflow: inherit;
 }
+.container .form2 .report_count {
+	width: 10%;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: inherit;
+}
 .container .form2 .delete_whether {
 	width: 10%;
-	display: inline-block;
-	text-overflow: ellipsis;
-	overflow: inherit;
-}
-
-
-
-.container .form3 {
-		background-color: #ffffff;
-		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
-		padding: 25px 30px;
-		margin-bottom: 10px;
-		border-style: outset;
-}
-
-.container .form3 .product_code {
-	width: 15%;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	display: inline-block;
-}
-
-.container .form3 .product_detail {
-	width: 40%;
-	height: 50px;
-	text-overflow: clip;
-	overflow:auto;
-	overflow-x:hidden;
-	-webkit-line-clamp:3;
-	display: inline-block;
-	margin: 0px;
-	-webkit-transition: height 2s;
-  	transition: height 2s;
-}
-
-.container .form3 .product_detail:hover {
- 	height: 150px;
-}
-
-.container .form3 .product_member_id {
-	width: 15%;
-	height: 50px;
-	display: inline-block;
-}
-.container .form3 .product_d_service_date {
-	width: 10%;
-	height: 30px;
-	display: inline-block;
-	text-overflow: ellipsis;
-	overflow: inherit;
-}
-.container .form3 .selection {
-	display: inline-block;
-}
-
-.container .form4 {
-		background-color: #ffffff;
-		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
-		padding: 25px 30px;
-		margin-bottom: 10px;
-		border-style: outset;
-}
-
-.container .form4 .post_title {
-	width: 15%;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	display: inline-block;
-}
-
-.container .form4 .post_content {
-	width: 40%;
-	height: 50px;
-	text-overflow: clip;
-	overflow:auto;
-	overflow-x:hidden;
-	-webkit-line-clamp:3;
-	display: inline-block;
-	margin: 0px;
-	-webkit-transition: height 2s;
-  	transition: height 2s;
-}
-
-.container .form4 .post_content:hover {
- 	height: 150px;
-}
-
-.container .form4 .member_id {
-	width: 15%;
-	height: 50px;
-	display: inline-block;
-}
-
-.container .form4 .p_creation_date {
-	width: 10%;
-	height: 30px;
 	display: inline-block;
 	text-overflow: ellipsis;
 	overflow: inherit;

@@ -81,15 +81,23 @@ public class MypageController {
 	// mypageMainPosts 가기
 	@RequestMapping(value = "mypageMainPosts", method = RequestMethod.GET)
 	public String mypageMainPosts(Model model, ServletRequest request) {
-		ArrayList<TenderVO> tenderList=connectService.tenderList();
+//		ArrayList<TenderVO> tenderList=connectService.tenderList();
 		ArrayList<ReportVO> mypageMainR = mypageService.mypageMainR();
 
-		model.addAttribute("tenderList", tenderList);
-		model.addAttribute("productMP", mypageService.productMP());
-		model.addAttribute("postMP", mypageService.postMP());
+//		model.addAttribute("tenderList", tenderList);
+//		model.addAttribute("productMP", mypageService.productMP());
+//		model.addAttribute("postMP", mypageService.postMP());
 		model.addAttribute("mypageMainR", mypageMainR);
-		System.out.println(mypageMainR);
+//		System.out.println(mypageMainR);
 		return "mypage/mypageMainPosts";
+	}
+	
+	// mypageMainPostsIn - 리스트에서  글 세부 내용으로 가기
+	@RequestMapping(value = "mypageMainPostsIn", method = RequestMethod.GET)
+	public String mypageMainPostsIn(@RequestParam("report_code") String report_code, Model model) {
+		model.addAttribute("mypageMainRIn", mypageService.mypageMainRIn(report_code));
+		System.out.println(mypageService.mypageMainRIn(report_code));
+		return "mypage/mypageMainPostsIn";
 	}
 
 	//mypageMainPosts 셀렉트 옵션에 따른 페이지 ajax변환

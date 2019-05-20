@@ -119,10 +119,7 @@ public class MypageServiceImplement implements MypageService{
 		return productMapper.productSMP(member_id);
 	}
 
-	@Override
-	public ArrayList<ReportVO> mypageMainR() {
-		return reportMapper.mypageMainR();
-	}
+
 	
 	// 상품,입찰,게시글 삭제에 따른 신고테이블 삭제여부 update
 	@Override
@@ -140,6 +137,17 @@ public class MypageServiceImplement implements MypageService{
 	@Override
 	public void insertReport(ReportVO reportVO) {
 		reportMapper.insertReport(reportVO);
+	}
+	
+	//마이페이지 글관리
+	@Override
+	public ArrayList<ReportVO> mypageMainR() {
+		return reportMapper.mypageMainR();
+	}
+
+	@Override
+	public ArrayList<ReportVO> mypageMainRIn(@Param("report_code") String report_code) {
+		return reportMapper.mypageMainRIn(report_code);
 	}
 
 }

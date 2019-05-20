@@ -82,3 +82,10 @@ $(document).ready(function(){
 		})
 	});
 });
+
+//관리자 글 관리 상세페이지 시작
+$(document).on('click','.form2',function(){
+	var report_code = $(this).attr("id");
+	console.log(report_code);
+	window.location.href="/mypageMainPostsIn?report_code="+report_code;
+});
