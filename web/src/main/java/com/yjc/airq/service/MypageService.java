@@ -56,5 +56,10 @@ public interface MypageService {
 	
 	//마이페이지 메인 글관리
 	public ArrayList<ReportVO> mypageMainR();
+	
+	// 기존에 신고한 내용이 있는지 확인
+	public String checkReport(@Param("member_id") String member_id,@Param("original_code") String original_code);
+	// 신고insert
+	public void insertReport(ReportVO reportVO);
 
 }

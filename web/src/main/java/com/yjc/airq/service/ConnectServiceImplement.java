@@ -375,18 +375,6 @@ public class ConnectServiceImplement implements ConnectService {
 	public void reportUpdate(@Param("original_code") String original_code) {
 		reportMapper.reportUpdate(original_code);
 	}
-
-	// 기존에 신고한 내용이 있는지 확인
-	@Override
-	public String checkReport(@Param("member_id") String member_id,@Param("original_code") String original_code) {
-		return reportMapper.checkReport(member_id,original_code);
-	}
-	
-	// 신고insert
-	@Override
-	public void insertReport(ReportVO reportVO) {
-		reportMapper.insertReport(reportVO);
-	}
 	
 	@Override
 	public ArrayList<TenderVO> tenderNMP(String member_id) {

@@ -1,6 +1,8 @@
 package com.yjc.airq;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -418,5 +420,61 @@ public class MypageController {
 	@RequestMapping(value = "mypageSellerDelete", method = RequestMethod.GET)
 	public String mypageSellerDelete(Model model) {
 		return "mypage/mypageSellerDelete";
+	}
+	
+///////////////////////////////////////////////신고하기////////////////////////////////////////////////////////
+	// 분석비교/입찰/게시글 - 기존에 신고한 내용이 있는지 확인
+	@RequestMapping(value = "checkReport", method = RequestMethod.GET)
+	@ResponseBody
+	public String checkReport(Model model, HttpServletRequest request) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String original_code = request.getParameter("original_code");
+		String result = mypageService.checkReport(member_id,original_code);
+		
+		if(result==null) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	// 분석비교/입찰/게시글 - 신고창으로 이동
+	@RequestMapping(value = "report", method = RequestMethod.GET)
+	public String report(Model model, HttpServletRequest request) {
+		String original_code = request.getParameter("original_code");
+		model.addAttribute("original_code",original_code);
+		
+		return "report";
+	}
+	
+	// 분석비교/입찰/게시글 - 신고작성
+	@RequestMapping(value = "insertReport", method = RequestMethod.POST)
+	@ResponseBody
+	public String insertReport(Model model,HttpServletRequest request) {
+		ReportVO reportVO = new ReportVO();
+		
+		//코드생성
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+		String day = date.format(today);
+		String random=String.format("%04d",(int)(Math.random()*10000));
+		
+		//데이터 받아오기
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String report_code = "rt"+day+random;
+		String report_title = request.getParameter("report_title");
+		String report_content = request.getParameter("report_content");
+		String original_code = request.getParameter("original_code");
+		
+		reportVO.setReport_code(report_code);
+		reportVO.setReport_title(report_title);
+		reportVO.setReport_content(report_content);
+		reportVO.setReport_classification(original_code.substring(0, 2));
+		reportVO.setOriginal_code(original_code);
+		reportVO.setMember_id(member_id);
+		
+		mypageService.insertReport(reportVO);
+		
+		return "success";
 	}
 }

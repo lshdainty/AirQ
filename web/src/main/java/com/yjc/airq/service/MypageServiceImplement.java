@@ -2,6 +2,7 @@ package com.yjc.airq.service;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.yjc.airq.domain.Company_InfoVO;
@@ -123,6 +124,16 @@ public class MypageServiceImplement implements MypageService{
 		return reportMapper.mypageMainR();
 	}
 
-
+	// 기존에 신고한 내용이 있는지 확인
+	@Override
+	public String checkReport(@Param("member_id") String member_id,@Param("original_code") String original_code) {
+		return reportMapper.checkReport(member_id,original_code);
+	}
+	
+	// 신고insert
+	@Override
+	public void insertReport(ReportVO reportVO) {
+		reportMapper.insertReport(reportVO);
+	}
 
 }
