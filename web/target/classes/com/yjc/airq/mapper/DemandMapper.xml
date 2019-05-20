@@ -9,4 +9,12 @@
 	<delete id="productDemandDelete" parameterType="String">
 		delete from demand where product_code = #{product_code}
 	</delete>
+	
+	<select id="checkPayment" resultType="int">
+		select count(d.demand_code) as count from demand d, payment p
+		where d.demand_code = p.demand_code
+		and p.refund_whether = 'n'
+		and d.product_code = #{product_code}
+		and d.member_id = #{member_id}
+	</select>
 </mapper>

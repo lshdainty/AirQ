@@ -59,4 +59,28 @@
     		error: function(xhr, stat, err) {}
     	});
     });
+    
+    $("#reply-insert").click(function(){
+    	var product_code = $("#product_code").text().split(':');
+    	var query = {
+    			member_id : $("#member_id").text(),
+    			reply_content : $("#reply_content").val(),
+    			product_code : product_code[1].trim()
+    	}
+    	$.ajax({
+    		type: "get",
+    		url: "/productReplyInsert",
+    		data : query,
+    		async: false,
+    		success: function(data) {
+    			alert("돌아왔다.");
+    			if(data=="success"){
+    				alert("성공");
+    			}else{
+    				alert("상품을 구매한 사람만 작성 가능합니다.");
+    			}
+    		},
+    		error: function(xhr, stat, err) {}
+    	});
+    });
 });

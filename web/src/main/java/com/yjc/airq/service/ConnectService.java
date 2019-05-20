@@ -10,6 +10,7 @@ import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
+import com.yjc.airq.domain.ReplyVO;
 import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
@@ -108,17 +109,13 @@ public interface ConnectService {
 	public int tenderCount();
 	public int selectCount(String member_id);
 	
-	// 입찰 신고 insert
-	public void tenderReport(ReportVO reportVo);
-	
-	// 입찰 삭제하면 delete_whether=y로 update
-	public void tDelete_whether(String tender_code);
-	
 	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
 	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("space") int space, @Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
 
 	// 상품 상세 페이지
 	public ProductVO productContent(String product_code);
+	// 상품 댓글
+	public ArrayList<ReplyVO> productReply(String product_code);
 
 	// 광역시/도를 선택시 해당하는 시,구 목록출력
 	public ArrayList<AreaVO> selectSigoon(AreaVO areaVO);
@@ -148,6 +145,11 @@ public interface ConnectService {
 	public void productDemandDelete(@Param("product_code") String product_code);
 	// 서비스 제품 삭제
 	public void productDelete(@Param("product_code") String product_code);
+	
+	// 사용자가 상품을 구매했는지 확인
+	public int checkPayment(@Param("member_id") String member_id,@Param("product_code") String product_code);
+	// 상품 댓글 insert
+	public void insertPReply(ReplyVO replyVO);
 	
 	// 마이페이지 업체 리스트 출력
 	public ArrayList<TenderVO> tenderNMP(@Param("member_id")String member_id);

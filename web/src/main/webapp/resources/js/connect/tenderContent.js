@@ -23,7 +23,7 @@
 					+'<button id="bidModify" onclick="return confirm(&#39수정하시겠습니까?&#39);">수정하기</button>';
 					
 					var html2='<span>|</span>'
-						+'<a id="tenderReport" href="#">신고</a>';
+						+'<a id="reportButton" href="#">신고</a>';
 					
 					$("#bidBtnBiv").append(html);
 					$("#tenderADiv").append(html2);
@@ -352,9 +352,23 @@ $(document).ready(function(){
 	}
 	
 	/*신고하기*/
-	$(document).on('click','#tenderReport',function(){
+	$(document).on('click','#reportButton',function(){
 		var tender_code=$("#tcode").val();
-		var windowObj = window.open("/tenderReport/tender_code="+tender_code,"입찰 신고하기","width=570px, height=600px");
+    	//기존에 신고한 내용이 있는지 확인
+    	$.ajax({
+    		type: "get",
+    		url: "/checkReport",
+    		data : {original_code : tender_code},
+    		async: false,
+    		success: function(data) {
+    			if(data=="success"){
+    				windowObj = window.open("/report?original_code="+tender_code,"report","width=570px, height=600px");
+    			}else{
+    				alert("신고는 한번만 가능합니다.");
+    			}
+    		},
+    		error: function(xhr, stat, err) {}
+    	});
 	});
 	
 });

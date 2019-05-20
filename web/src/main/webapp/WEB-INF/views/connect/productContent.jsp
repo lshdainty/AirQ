@@ -91,7 +91,7 @@
 	<div class="comment-wrap">
 		<div class="comment-header">
 			<h2 class="comment__title">댓글</h2>
-			<span class="comment__count">총 <em id="reply_count">${detailPost.reply_count}</em>개</span>
+			<span class="comment__count">총 <em id="reply_count">${productContent.reply_count}</em>개</span>
 		</div>
 		<div class="comment-write">
 			<div class="comment-write-inner">
@@ -109,7 +109,7 @@
 		</div>
 		<div>
 			<div id="replys">
-				<c:forEach var="reply" items="${postReply}">
+				<c:forEach var="reply" items="${productReply}">
 					<div class="comment-list">
 						<div class="comment-l">
 							<div class="comment">

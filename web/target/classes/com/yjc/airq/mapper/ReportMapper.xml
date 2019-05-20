@@ -11,17 +11,6 @@
 	<insert id="insertReport" parameterType="com.yjc.airq.domain.ReportVO">
 		insert into report(report_code,report_title,report_content,report_date,report_classification,original_code,member_id) values(#{report_code},#{report_title},#{report_content},systimestamp,#{report_classification},#{original_code},#{member_id})
 	</insert>
-	<!-- 입찰 신고 insert -->
-	<insert id="tenderReport" parameterType="com.yjc.airq.mapper.ReportMapper">
-		insert into report(report_code, report_title, report_content, report_date, report_classification, original_code, member_id) values(#{report_code},#{report_title}, #{report_content},systimestamp,#{report_classification},#{original_code},#{member_id})
-	</insert>
-	
-	<!-- 입찰 삭제하면 delete_whether=y로 update -->
-	<update id="tDelete_whether" parameterType="String">
-		update report
-		set delete_whether='y'
-		where original_code=#{tender_code}
-	</update>
 	
 	<!-- 	마이페이지 글관리 -->
 	<select id="mypageMainR" resultType="com.yjc.airq.domain.ReportVO">

@@ -37,6 +37,7 @@ import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
+import com.yjc.airq.domain.ReplyVO;
 import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
@@ -387,7 +388,7 @@ public class ConnectController {
 			uploadService.deleteBidUpload(uploadArr); // 투찰에 있던 파일 삭제
 		}
 		connectService.tenderDelete(tender_code); // 입찰 공고 삭제
-		connectService.tDelete_whether(tender_code);
+		mypageService.reportUpdate(tender_code);	//신고 테이블 update
 		
 		return "redirect: /tenderMain";
 	}
@@ -594,36 +595,6 @@ public class ConnectController {
 		
 	}
 	
-	// 입찰서비스 - 입찰 신고하기
-	@RequestMapping(value="tenderReport/{tender_code}",method=RequestMethod.GET)
-	public String tenderReport(@PathVariable String tender_code, Model model) {
-		model.addAttribute("tender_code",tender_code);
-		
-		return "connect/tenderReport";
-	}
-	
-	@RequestMapping(value="addReport",method=RequestMethod.POST)
-	@ResponseBody
-	public void addReport(ReportVO reportVo, String tender_code, HttpServletRequest request) {
-		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-		
-		Date today = new Date();
-		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
-		String day = date.format(today);
-		String random=String.format("%04d",(int)(Math.random()*10000));
-		String report_code="rt"+day+random;
-		
-		String classification=tender_code.substring(0,2);
-		
-		reportVo.setReport_code(report_code);
-		reportVo.setOriginal_code(tender_code);
-		reportVo.setReport_classification(classification);
-		reportVo.setMember_id(member_id);
-		
-		connectService.tenderReport(reportVo);
-	}
-	
-	
 	@RequestMapping(value="member_devision/{tender_code}",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject member_devision(HttpServletRequest request, @PathVariable String tender_code) {
@@ -683,7 +654,12 @@ public class ConnectController {
 	// 분석/비교 서비스 - 리스트에서 서비스상품 세부 내용으로 가기
 	@RequestMapping(value = "product", method = RequestMethod.GET)
 	public String productDetail(@RequestParam("product_code") String product_code, Model model) {
-		model.addAttribute("productContent", connectService.productContent(product_code));
+		ProductVO productContent = connectService.productContent(product_code);
+		ArrayList<ReplyVO> productReply = connectService.productReply(product_code);
+		productContent.setReply_count(productReply.size());
+		
+		model.addAttribute("productContent", productContent);
+		model.addAttribute("productReply" , productReply);
 
 		return "connect/productContent";
 	}
@@ -934,5 +910,25 @@ public class ConnectController {
 		mypageService.reportUpdate(product_code);
 			
 		return "redirect: /compareMain";
+	}
+	
+	// 분석/비교 서비스 - 상품 댓글 insert
+	@RequestMapping(value = "productReplyInsert", method = RequestMethod.GET)
+	@ResponseBody
+	public String productReplyInsert(ReplyVO replyVO) {
+		int count = connectService.checkPayment(replyVO.getMember_id(),replyVO.getProduct_code());
+		System.out.println(replyVO);
+		if(count>0) {
+			Date today = new Date();
+			SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
+			String day = date.format(today);
+			String random=String.format("%04d",(int)(Math.random()*10000));
+			String reply_code="rp"+day+random;
+			replyVO.setReply_code(reply_code);
+			connectService.insertPReply(replyVO);
+		}else {
+			
+		}
+		return "";
 	}
 }
