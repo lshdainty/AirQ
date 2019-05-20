@@ -42,6 +42,7 @@ import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.service.ConnectService;
+import com.yjc.airq.service.MypageService;
 import com.yjc.airq.service.UploadService;
 
 import lombok.AllArgsConstructor;
@@ -57,6 +58,7 @@ public class ConnectController {
 	private ConnectService connectService;
 	private ProductMapper productMapper;
 	private UploadService uploadService;
+	private MypageService mypageService;
 	
 	// 업체 분석/비교 메인페이지로 가기
 	@RequestMapping(value = "compareMain", method = RequestMethod.GET)
@@ -799,25 +801,29 @@ public class ConnectController {
 			random=String.format("%04d",(int)(Math.random()*10000));
 			String uuid=UUID.randomUUID().toString().replace("-", "");
 			
-			String upload_code = "ul"+day+random;
-			String original_name = multipartFile.getOriginalFilename();
-			String file_name = uuid+original_name;
-			
-			uploadVO.setUpload_code(upload_code);
-			uploadVO.setOriginal_name(original_name);
-			uploadVO.setFile_name(file_name);
-			uploadVO.setProduct_code(product_code);
-			connectService.productThumbnailUpload(uploadVO);
-			
-			//업로드
-			String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/images/");
-			try {
-				File saveFile = new File(uploadFolder, file_name);
+			if(multipartFile.isEmpty()) {
 				
-				multipartFile.transferTo(saveFile);
-			} catch(Exception e) {
-				 e.printStackTrace();
-			} // end catch
+			}else {
+				String upload_code = "ul"+day+random;
+				String original_name = multipartFile.getOriginalFilename();
+				String file_name = uuid+original_name;
+				
+				uploadVO.setUpload_code(upload_code);
+				uploadVO.setOriginal_name(original_name);
+				uploadVO.setFile_name(file_name);
+				uploadVO.setProduct_code(product_code);
+				connectService.productThumbnailUpload(uploadVO);
+				
+				//업로드
+				String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/images/");
+				try {
+					File saveFile = new File(uploadFolder, file_name);
+					
+					multipartFile.transferTo(saveFile);
+				} catch(Exception e) {
+					 e.printStackTrace();
+				} // end catch
+			}
 		}
 			
 		return "redirect: /product?product_code=" + product_code;
@@ -925,7 +931,7 @@ public class ConnectController {
 		connectService.productPaymentDelete(product_code);
 		connectService.productDemandDelete(product_code);
 		connectService.productDelete(product_code);
-		connectService.reportUpdate(product_code);
+		mypageService.reportUpdate(product_code);
 			
 		return "redirect: /compareMain";
 	}

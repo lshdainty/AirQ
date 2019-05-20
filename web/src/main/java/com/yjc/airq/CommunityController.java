@@ -24,6 +24,7 @@ import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ReplyVO;
 import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.service.CommunityService;
+import com.yjc.airq.service.MypageService;
 import com.yjc.airq.service.UploadService;
 
 import lombok.AllArgsConstructor;
@@ -37,6 +38,7 @@ public class CommunityController {
 	
 	private CommunityService postService;
 	private UploadService uploadService;
+	private MypageService mypageService;
 	private final static String IP_ADDRESS = "http://39.127.7.69/";
 	//테이블 형식 레이아웃 메인페이지
 	@RequestMapping(value = "tableBoardMain", method = RequestMethod.GET)
@@ -296,6 +298,7 @@ public class CommunityController {
 		postService.deletePostReply(post_code);
 		uploadService.deletePostUpload(post_code);
 		postService.deletePost(post_code);
+		mypageService.reportUpdate(post_code);
 		String board_type = (String)request.getSession().getAttribute("board_type");
 		String board_code = (String)request.getSession().getAttribute("board_code");
 		System.out.println("DELETE");

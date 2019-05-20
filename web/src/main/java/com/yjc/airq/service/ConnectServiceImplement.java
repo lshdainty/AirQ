@@ -370,12 +370,6 @@ public class ConnectServiceImplement implements ConnectService {
 		productMapper.productDelete(product_code);
 	}
 	
-	// 서비스 제품 삭제에 따른 신고테이블 삭제여부 update
-	@Override
-	public void reportUpdate(@Param("original_code") String original_code) {
-		reportMapper.reportUpdate(original_code);
-	}
-	
 	@Override
 	public ArrayList<TenderVO> tenderNMP(String member_id) {
 		return tenderMapper.tenderNMP(member_id);
