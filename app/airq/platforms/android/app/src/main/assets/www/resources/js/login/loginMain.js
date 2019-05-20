@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
 	$('#ID').focus();
 	$('#ID').focus(function () {
 			$('#ID').parent().addClass("member-input__state--focus");
@@ -14,8 +15,6 @@ $(document).ready(function () {
 		$('#ID').parent().removeClass("member-input__state--focus");
 		checkWrite($('#ID'),$('#PASS'));
 	});
-
-	$('#PASS').focus();
 	$('#PASS').focus(function () {
 			$('#PASS').parent().addClass("member-input__state--focus");
 			$('#PASS').keyup(function () {
@@ -90,6 +89,8 @@ $(document).ready(function () {
 			password: $("#PASS").val()
 		};
 		// 로그인 버튼 클릭 ajax 
+		$.support.cors = true;
+    	$.mobile.allowCrossDomainPages = true;
 		$.ajax({
 			type: "GET",
 			data: query,

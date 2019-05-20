@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="../../../www/resources/css/include/mainFrame.css">
+<script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
+<nav class="app-top navbar-fixed bg-white">
+    <div class="img-logo">
+        <img src="../../../www/resources/images/logo.png" alt="">
+    </div>
+    <button class="top-menu menu-color__black">
+        <span class="toggler-icon"></span>
+    </button>
+</nav>
+
+<div class="sidebar-wrap">
+    <div class="items">
+        <div href="#" class="menu-title">
+            <button class="side-menu menu-color__black">
+                <span class="close-icon"></span>
+            </button>
+            MENU
+        </div>
+        <div href="#" class="item">글관리</div>
+        <div href="#" class="item">댓글관리</div>
+        <div href="#" class="item">결제내역</div>
+        <div href="#" class="item">로그아웃</div>
+    </div>
+</div>
+
+<script>
+$(function(){
+    var toggler_icon = $('.toggler-icon');
+    var close_icon = $('.close-icon');
+    var side_bar = $('.sidebar-wrap');
+    close_icon.click(function(){
+        alert('close');
+        side_bar.hide();
+    });
+});
+</script>
