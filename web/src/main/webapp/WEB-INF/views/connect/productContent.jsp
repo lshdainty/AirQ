@@ -83,8 +83,55 @@
 		</div>
 	</div>
 	<!-- end of product-page-product-details-list-block -->
-	<div id="productDetail">
-		${productContent.product_detail}
+</div>
+<div id="productDetail">
+	${productContent.product_detail}
+</div>
+<div id="comment">
+	<div class="comment-wrap">
+		<div class="comment-header">
+			<h2 class="comment__title">댓글</h2>
+			<span class="comment__count">총 <em id="reply_count">${detailPost.reply_count}</em>개</span>
+		</div>
+		<div class="comment-write">
+			<div class="comment-write-inner">
+				<div class="comment-write__name" id="member_id">${user.member_id}</div>
+				<div class="comment-write__content">
+					<textarea name="reply_content" placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다."
+					style="overflow: hidden; overflow-wrap: break-word; height: 44px;" id="reply_content"></textarea>
+				</div>
+				<div class="comment-write-footer">
+					<div class="comment-write-submit">
+						<button class="button button--blue" id="reply-insert">작성</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div id="replys">
+				<c:forEach var="reply" items="${postReply}">
+					<div class="comment-list">
+						<div class="comment-l">
+							<div class="comment">
+								<div class="comment-meta">
+									<span class="comment__name"><a href="#">${reply.member_id}</a></span>
+									<span class="comment__date">${reply.r_creation_date}</span>
+								</div>
+								<div class="comment-content">
+									<div><p><br> ${reply.reply_content}</p></div>
+								</div>
+								<c:if test="${sessionScope.user.member_id==reply.member_id}" >
+									<div class="comment-button">
+										<button class="comment__button comment__button--red reply-delete" >삭제</button>
+										<input type="hidden" class="reply_code" value="${reply.reply_code}">
+									</div>
+								</c:if>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
 	</div>
 </div>
 <!-- end of product-page-product-details-section-->

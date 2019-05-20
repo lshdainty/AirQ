@@ -38,14 +38,17 @@
 				<span class="article-vote__up-arrow">추천</span> <span
 					class="article-vote__count recommend_num">${detailPost.recommend_num}</span>
 			</button>
+			<button type="button" class="article-vote__button button" id="post-report">
+				<span class="article-vote__up-arrow">신고</span>
+			</button>
 		</div>
 	</div>
 </div>
 
 <div id="comment">
 	<div class="comment-wrap">
-
-
+	
+	
 		<div class="comment-header">
 			<h2 class="comment__title">댓글</h2>
 			<span class="comment__count">총 <em id="reply_count">${detailPost.reply_count}</em>개
@@ -108,8 +111,7 @@
 </div>
 
 
-<input type="hidden" value="${detailPost.post_code}" id="post_code"
-	name="post_id">
+<input type="hidden" value="${detailPost.post_code}" id="post_code" name="post_id">
 <a href="postDelete?post_code=${detailPost.post_code}&pagenum=${pagenum}"
 	class="btn btn-primary" id="test" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
 <a href="postModify?post_code=${detailPost.post_code}"
