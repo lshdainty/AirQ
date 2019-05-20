@@ -11,6 +11,8 @@ import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
+import com.yjc.airq.domain.ReplyVO;
+import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.mapper.AreaMapper;
@@ -20,6 +22,8 @@ import com.yjc.airq.mapper.DemandMapper;
 import com.yjc.airq.mapper.MemberMapper;
 import com.yjc.airq.mapper.PaymentMapper;
 import com.yjc.airq.mapper.ProductMapper;
+import com.yjc.airq.mapper.ReplyMapper;
+import com.yjc.airq.mapper.ReportMapper;
 import com.yjc.airq.mapper.TenderMapper;
 import com.yjc.airq.mapper.UploadMapper;
 
@@ -37,6 +41,8 @@ public class ConnectServiceImplement implements ConnectService {
 	private UploadMapper uploadMapper;
 	private DemandMapper demandMapper;
 	private PaymentMapper paymentMapper;
+	private ReportMapper reportMapper;
+	private ReplyMapper replyMapper;
 	
 	//회원 이름 가져오기
 	@Override
@@ -50,11 +56,25 @@ public class ConnectServiceImplement implements ConnectService {
 	public ArrayList<TenderVO> tenderList() {
 		return tenderMapper.tenderList();
 	}
+	@Override
+	public ArrayList<TenderVO> tenderMain(int startnum, int endnum) {
+		return tenderMapper.tenderMain(startnum, endnum);
+	}
+	@Override
+	public ArrayList<TenderVO> selectTender(String sort, String member_id, int startnum, int endnum) {
+		return tenderMapper.selectTender(sort, member_id, startnum, endnum);
+	}
 	
 	// 입찰 확인 여부
 	@Override
 	public int tenderCheck(String tender_code) {
 		return tenderMapper.tenderCheck(tender_code);
+	}
+	
+	//입찰 여부
+	@Override
+	public void win_bid_whether(String tender_code, String company_code) {
+		bidMapper.win_bid_whether(tender_code, company_code);
 	}
 	
 	// 참여 업체 수
@@ -229,6 +249,16 @@ public class ConnectServiceImplement implements ConnectService {
 		return bidMapper.bid_price(tender_code, company_code);
 	}
 	
+	// 입찰 페이징
+	@Override
+	public int tenderCount() {
+		return tenderMapper.tenderCount();
+	}
+	@Override
+	public int selectCount(String member_id) {
+		return tenderMapper.selectCount(member_id);
+	}
+	
 	// 상품 리스트 출력
 	@Override
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum) {
@@ -245,6 +275,12 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public ProductVO productContent(String product_code) {
 		return productMapper.productContent(product_code);
+	}
+	
+	// 상품 댓글
+	@Override
+	public ArrayList<ReplyVO> productReply(String product_code) {
+		return replyMapper.productReply(product_code);
 	}
 
 	// 광역시/도를 선택시 해당하는 시,구 목록출력
@@ -329,5 +365,22 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public void productDelete(@Param("product_code") String product_code) {
 		productMapper.productDelete(product_code);
+	}
+	
+	// 사용자가 상품을 구매했는지 확인
+	@Override
+	public int checkPayment(@Param("member_id") String member_id,@Param("product_code") String product_code) {
+		return demandMapper.checkPayment(member_id,product_code);
+	}
+	
+	// 상품 댓글 insert
+	@Override
+	public void insertPReply(ReplyVO replyVO) {
+		replyMapper.insertPReply(replyVO);
+	}
+	
+	@Override
+	public ArrayList<TenderVO> tenderNMP(String member_id) {
+		return tenderMapper.tenderNMP(member_id);
 	}
 }

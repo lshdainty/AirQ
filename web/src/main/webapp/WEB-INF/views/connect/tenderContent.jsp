@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="/resources/css/connect/tenderContent.css" rel="stylesheet" />
 
-
 <%--입찰 공고 세부 내용 시작 --%>
 <div id="tenderContentDiv">
 	<input type="hidden" id="tcode" name="tcode" value="${tender_code }">

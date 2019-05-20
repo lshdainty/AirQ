@@ -10,18 +10,22 @@ import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
+import com.yjc.airq.domain.ReplyVO;
+import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
 
 public interface ConnectService {
 	// 제품 목록
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
-
+	
 	// 회원 이름 가져오기
 	public String member_name(String member_id);
 
 	// 업체 리스트 출력
 	public ArrayList<TenderVO> tenderList();
+	public ArrayList<TenderVO> tenderMain(@Param("startnum") int startnum, @Param("endnum") int endnum);
+	public ArrayList<TenderVO> selectTender(@Param("sort") String sort, @Param("member_id") String member_id,@Param("startnum") int startnum, @Param("endnum") int endnum);
 	// 참여 업체 수
 	public int company_count(String tender_code);
 	// 마감기한 d_day
@@ -31,6 +35,9 @@ public interface ConnectService {
 	
 	// 입찰 확인 여부
 	public int tenderCheck(String tender_code);
+	
+	//입찰 여부
+	public void win_bid_whether(@Param("tender_code") String tender_code, @Param("company_code") String company_code);
 	
 	// 입찰 세부내용 보기
 	public TenderVO tenderContent(String tender_code);
@@ -97,12 +104,18 @@ public interface ConnectService {
 	
 	// 입찰 공고 수정
 	public int tenderModify(TenderVO tenderVo);
-
+	
+	// 입찰 페이징
+	public int tenderCount();
+	public int selectCount(String member_id);
+	
 	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
 	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("space") int space, @Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
 
 	// 상품 상세 페이지
 	public ProductVO productContent(String product_code);
+	// 상품 댓글
+	public ArrayList<ReplyVO> productReply(String product_code);
 
 	// 광역시/도를 선택시 해당하는 시,구 목록출력
 	public ArrayList<AreaVO> selectSigoon(AreaVO areaVO);
@@ -132,4 +145,12 @@ public interface ConnectService {
 	public void productDemandDelete(@Param("product_code") String product_code);
 	// 서비스 제품 삭제
 	public void productDelete(@Param("product_code") String product_code);
+	
+	// 사용자가 상품을 구매했는지 확인
+	public int checkPayment(@Param("member_id") String member_id,@Param("product_code") String product_code);
+	// 상품 댓글 insert
+	public void insertPReply(ReplyVO replyVO);
+	
+	// 마이페이지 업체 리스트 출력
+	public ArrayList<TenderVO> tenderNMP(@Param("member_id")String member_id);
 }

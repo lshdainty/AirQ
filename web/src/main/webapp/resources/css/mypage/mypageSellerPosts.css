@@ -20,13 +20,13 @@
 	display: inline-block;
 }
 .container .form1 .AA {
-	width: 15%;
+	width: 10%;
 	display: inline-block;
 }
 
 .container .form1 .B {
 	display: inline-block;
-	margin-left: 23%;
+	margin-left: 10%;
 }
 
 .container .form1 .C {
@@ -42,46 +42,39 @@
 		border-style: outset;
 }
 
-.container .form3 .product_code {
+.container .form3 .product_ {
 	width: 15%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
 }
 
-.container .form3 .product_detail {
-	width: 40%;
-	height: 50px;
-	text-overflow: clip;
-	overflow:auto;
-	overflow-x:hidden;
-	-webkit-line-clamp:3;
+.container .form3 .product_name {
+	width: 20%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+/* 	height: 50px; */
+/* 	text-overflow: clip; */
+/* 	overflow:auto; */
+/* 	overflow-x:hidden; */
+/* 	-webkit-line-clamp:3; */
 	display: inline-block;
-	margin: 0px;
-	-webkit-transition: height 2s;
-  	transition: height 2s;
+/* 	margin: 0px; */
+/* 	-webkit-transition: height 2s; */
+/*   	transition: height 2s; */
 }
 
-.container .form3 .product_detail:hover {
- 	height: 150px;
-}
-.container .form3 .product_d_service_date {
-	width: 10%;
-	height: 30px;
+/* .container .form3 .product_name:hover { */
+/*  	height: 150px; */
+/* } */
+
+.container .form3 .product_A {
+	width: 60%;
 	display: inline-block;
 	text-overflow: ellipsis;
-	overflow: inherit;
+	overflow: hidden;
 }
 
-.container .form3 .product_name {
-	width: 15%;
-	height: 50px;
-	display: inline-block;
-}
-
-.container .form3 .selection {
-	display: inline-block;
-}
 
 .container .form4 {
 		background-color: #ffffff;
@@ -91,38 +84,41 @@
 		border-style: outset;
 }
 
-.container .form4 .post_title {
+.container .form4 .post_name {
 	width: 15%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
 }
 
-.container .form4 .post_content {
-	width: 40%;
-	height: 50px;
-	text-overflow: clip;
-	overflow:auto;
-	overflow-x:hidden;
-	-webkit-line-clamp:3;
+.container .form4 .post_title {
+	width: 20%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+/* 	height: 50px; */
+/* 	text-overflow: clip; */
+/* 	overflow:auto; */
+/* 	overflow-x:hidden; */
+/* 	-webkit-line-clamp:3; */
 	display: inline-block;
 	margin: 0px;
-	-webkit-transition: height 2s;
-  	transition: height 2s;
+/* 	-webkit-transition: height 2s; */
+/*   	transition: height 2s; */
 }
 
-.container .form4 .post_content:hover {
- 	height: 150px;
-}
+/* .container .form4 .post_title:hover { */
+/*  	height: 150px; */
+/* } */
 
-.container .form4 .member_id {
-	width: 15%;
-	height: 50px;
+.container .form4 .post_A {
+	width: 30%;	
+	text-overflow: ellipsis;
+	overflow: hidden;
 	display: inline-block;
 }
 
 .container .form4 .p_creation_date {
-	width: 10%;
+	width: 30%;
 	height: 30px;
 	display: inline-block;
 	text-overflow: ellipsis;

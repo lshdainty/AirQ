@@ -21,14 +21,20 @@
 					+'<button id="bidComplete">작성완료</button>'
 					+'<button id="bidDelete">삭제하기</button>'
 					+'<button id="bidModify" onclick="return confirm(&#39수정하시겠습니까?&#39);">수정하기</button>';
-				
+					
+					var html2='<span>|</span>'
+						+'<a id="reportButton" href="#">신고</a>';
+					
 					$("#bidBtnBiv").append(html);
+					$("#tenderADiv").append(html2);
 					$("#bidComplete").css("display","none");
 				
 					$('input[id="bid_ppt_score"]').attr("disabled", true);
 					$(".bid_ppt_score_btn").attr("disabled", true);
 				}else{ //관리자
-				
+					var html='<span>|</span>'
+						+'<a id="tenderDeleteA" href="#">삭제</a>';
+					$("#tenderADiv").append(html);
 				}
 			} else {
 				$('input[id="bid_ppt_score"]').attr("disabled", true);
@@ -115,7 +121,7 @@ $(document).ready(function(){
 				data:query,
 				url:"/tendering",
 				success:function(){
-					
+					window.location.reload();
 				}
 			});
 		}else{
@@ -344,5 +350,25 @@ $(document).ready(function(){
 	function bidModify(){
 		
 	}
+	
+	/*신고하기*/
+	$(document).on('click','#reportButton',function(){
+		var tender_code=$("#tcode").val();
+    	//기존에 신고한 내용이 있는지 확인
+    	$.ajax({
+    		type: "get",
+    		url: "/checkReport",
+    		data : {original_code : tender_code},
+    		async: false,
+    		success: function(data) {
+    			if(data=="success"){
+    				windowObj = window.open("/report?original_code="+tender_code,"report","width=570px, height=600px");
+    			}else{
+    				alert("신고는 한번만 가능합니다.");
+    			}
+    		},
+    		error: function(xhr, stat, err) {}
+    	});
+	});
 	
 });

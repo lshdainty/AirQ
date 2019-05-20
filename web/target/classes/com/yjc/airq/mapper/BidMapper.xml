@@ -109,4 +109,11 @@
 		from bid
 		where tender_code=#{tender_code} and company_code=#{company_code}
 	</select>
+	
+	<!-- 입찰 여부 -->
+	<update id="win_bid_whether">
+		update bid
+		set win_bid_whether='y'
+		where tender_code=#{tender_code} and company_code=#{company_code}
+	</update>
 </mapper>

@@ -13,7 +13,6 @@
 		<association property="sellnum" column="product_code" select="getSellnum"/>
 		<association property="staravg" column="product_code" select="getStaravg"/>
 		<association property="companyVO" column="company_code" select="getCompany"/>
-		<association property="file_name" column="product_code" select="getThumbnail"/>
 		<collection property="areaVO" column="product_code" javaType="java.util.ArrayList" ofType="com.yjc.airq.domain.AreaVO" select="getAreaByCode"/>
 	</resultMap>
 	
@@ -72,10 +71,6 @@
 		select nvl(to_char(avg(pa.STAR_SCORE),99.9),'0.0') as staravg
 		from product p, demand d, payment pa
 		where p.product_code = d.product_code and d.demand_code = pa.demand_code and p.product_code=#{product_code} and refund_whether='n'
-	</select>
-	
-	<select id="getThumbnail" resultType="String">
-		select file_name from upload where product_code = #{product_code} and thumbnail_whether = 'y'
 	</select>
 	
 	<select id="selectList" resultMap="ProductVO">
@@ -184,17 +179,26 @@
 		delete from product where product_code = #{product_code}
 	</delete>
 	
-	<select id="productMP" resultType="com.yjc.airq.domain.ProductVO">
+	
+	<select id="productMP" resultMap="ProductVO">
 		select * from product
 	</select>
 	
-	<select id="productSMP" resultType="com.yjc.airq.domain.ProductVO">
-		select * from product p ,company_info c, demand d where p.company_code = c.company_code
-		and d.product_code = p.product_code
+	<select id="productSMP" resultMap="ProductVO">
+        select p.PRODUCT_CODE, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.P_SPACE, p.MEASURE_POINT, p.COMPANY_CODE, count(re.original_code) as report_count 
+        from product p ,company_info c, report re
+        where p.company_code = c.company_code
+        and p.product_code = re.ORIGINAL_CODE(+)
 		and c.member_id = #{member_id}
+        group by p.PRODUCT_CODE, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.P_SPACE, p.MEASURE_POINT, p.COMPANY_CODE
 	</select>
 	
-	<delete id="deletePostsProduct" parameterType="String">
-		delete from product where product_code=#{product_code}
-	</delete>
+<!-- 	마이페이지 글관리 글수정하기 -->
+	<select id="deletePostsProduct" parameterType="String">
+		select product_code from product where product_code = #{product_code}
+	</select>
+<!-- 	마이페이지 글관리 글삭제 --> 
+<!-- 	<delete id="deletePostsProduct1" parameterType="String"> -->
+<!-- 		delete from product where product_code = #{product_code} -->
+<!-- 	</delete> -->
 </mapper>

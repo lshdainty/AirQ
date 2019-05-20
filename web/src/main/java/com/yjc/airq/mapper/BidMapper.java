@@ -36,4 +36,7 @@ public interface BidMapper {
 	
 	// 투찰 가격
 	public int bid_price(@Param("tender_code") String tender_code, @Param("company_code") String company_code);
+	
+	//입찰 여부
+	public void win_bid_whether(@Param("tender_code") String tender_code, @Param("company_code") String company_code);
 }

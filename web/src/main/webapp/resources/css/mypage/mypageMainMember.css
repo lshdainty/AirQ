@@ -1,31 +1,127 @@
 
 * {
 	box-sizing: border-box;
+	justify-content: space-between;
 }
+
 .container .form1 {
 	box-shadow: 5px 5px 5px rgba(0.5,0.5,0.5,0.5);
+	background-color: #80bfff;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	border-radius: 3px;
+	padding: 25px 30px;
+	
 }
-.container .form1 .A{
-	display : inline-block;
+
+.container .form1 .C {
+	float: right;
+	height: 25px;
 }
-.container .form1 .B{
-	display : inline-block;
+
+.container .form1 .A {
+	width: 15%;
+	display: inline-block;
 }
-.container .form2 {
-		column-gap: 15px;
-		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+.container .form1 .AA {
+	width: 15%;
+	display: inline-block;
+}
+.container .form1 .AAA {
+	width: 15%;
+	display: inline-block;
+}
+.container .form1 .AAAA {
+	width: 15%;
+	display: inline-block;
+}
+.container .form1 .AAAAA {
+	width: 15%;
+	display: inline-block;
+}
+.container .form1 .AAAAAA {
+	width: 15%;
+	display: inline-block;
+}
+
+.container .form1 .B {
+	display: inline-block;
+	margin-left: 23%;
+}
+
+.container .form1 .C {
+	float: right;
+	height: 25px;
+}
+
+.container .form3 {
+		background-color: #ffffff;
+		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+		padding: 25px 30px;
+		margin-bottom: 10px;
 		border-style: outset;
-		margin-bottom: 15px;
+}
+
+.container .form3 .member_id {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+.container .form3 .member_name {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+.container .form3 .member_tel {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+.container .form3 .member_email {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+.container .form3 .m_addr_do {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+.container .form3 .member_devision {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .content {
+	overflow: hidden;
+}
+
+.container .content>* {
+	float: left;
+	padding-bottom: 2000px;
+	margin-bottom: -2000px;
+}
+
+.container .content main {
+	width: 100%;
 }
 
 /*float 지정 해제 해줌*/
 .container footer {
 	clear: both;
 }
-/*599px보다 웹페이지를 줄이면 일렬로 나타나게*/
-@media ( max-width :599px) {
+/*1400px보다 웹페이지를 줄이면 일렬로 나타나게*/
+@media ( max-width :1400px) {
 	.container>.content>* {
-		background-color : #f8f9fa;
+		background-color: #f8f9fa;
 	}
 	.container .content {
 		padding-left: 0px;
@@ -39,7 +135,6 @@
 	}
 	.container .content main {
 		width: 100%;
-		margin: 0 auto;
 	}
 	.container .content nav {
 		width: auto;

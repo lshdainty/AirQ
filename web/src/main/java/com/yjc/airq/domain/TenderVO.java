@@ -5,12 +5,12 @@ import lombok.Data;
 
 @Data
 public class TenderVO {
-	
+	private int rnum;
 	private int rownum;
 	private String tender_code;
 	private String tender_title;
 	private String tender_name;
-	private Timestamp t_creation_date;
+	private String t_creation_date;
 	private String service_date;
 	private String tender_deadline;
 	private int calculate_period;
@@ -31,4 +31,6 @@ public class TenderVO {
 	private String d_day;
 	
 	private String tcreationdate;
+	
+	private String report_count;
 }
