@@ -104,7 +104,6 @@ public class MypageController {
 	@RequestMapping(value ="mypageMainPostsAjax", method = RequestMethod.POST)
 	@ResponseBody
 	public String mypageMainPostsOption(Model model,@RequestParam String selected) {
-		
 			 if(selected.equals("0")) {
 				 return "0";
 			 }

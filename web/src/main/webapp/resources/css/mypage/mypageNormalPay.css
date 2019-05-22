@@ -13,29 +13,36 @@
 	padding: 25px 30px;
 	
 }
-
+.container .form1 .AA {
+	width: 15%;
+	display: inline-block;
+}
 .container .form1 .A {
-	display:inline-block;
-	width: 35px;
+	width: 15%;
+	display: inline-block;
 }
 
 .container .form1 .B {
+	width: 15%;
 	display: inline-block;
-	width: 28%;
-	margin-left: 23%;
 }
 
-.container .form1 .topdate{
+.container .form1 .C{
 	display: inline-block;
 	width: 15%;
 }
 
-.container .form1 .topscore{
+.container .form1 .D{
 	display: inline-block;
-	width: 10%;
+	width: 15%;
 }
 
-.container .form1 .C {
+.container .form1 .E{
+	display: inline-block;
+	width: 15%;
+}
+
+.container .form1 .F {
 	float: right;
 	height: 25px;
 }
@@ -60,24 +67,10 @@
 	display: inline-block;
 }
 
-.container .form2 .product_detail {
-	width: 40%;
-	height: 50px;
-	text-overflow: clip;
-	overflow:auto;
-	overflow-x:hidden;
-	display: inline-block;
-	margin: 0px;
-	-webkit-transition: height 2s;
-  	transition: height 2s;
-}
-.container .form2 .product_detail:hover {
- 	height: 100px;
-}
-
 .container .form2 .day {
 	width: 15%;
-	height: 50px;
+	text-overflow: ellipsis;
+	overflow: hidden;
 	display: inline-block;
 }
 
@@ -85,7 +78,7 @@
 	width: 20%;
 	display: inline-block;
 	text-overflow: ellipsis;
-	overflow: hidden;
+	overflow: hidden;	
 }
 
  input[type=number]{
