@@ -11,7 +11,6 @@ public interface ReplyMapper {
 	public void insertReply(ReplyVO replyVO);
 	public void deletePostReply(String post_code);
 	public void replyDelete(String reply_code);
-	public ArrayList<ReplyVO> mypageReplys();
 	//상품 댓글 select
 	public ArrayList<ReplyVO> productReply(String product_code);
 	//서비스 제품 댓글 삭제
@@ -22,4 +21,12 @@ public interface ReplyMapper {
 	public void deletePReply(@Param("reply_code") String reply_code);
 	//마이페이지 관리자 댓글관리 - 댓글삭제
 	public void deleteComment(@Param("reply_code") String reply_code);
+	//마이페이지 관리자 댓글 목록
+	public ArrayList<ReplyVO> mypageReplys();
+	public ArrayList<ReplyVO> mypageReplysPost();
+	public ArrayList<ReplyVO> mypageReplysProduct();
+	//마이페이지 일반사용자, 판매자 댓글 목록
+	public ArrayList<ReplyVO> mypageReplysNS(@Param("member_id") String member_id);
+	public ArrayList<ReplyVO> mypageReplysNSPost(@Param("member_id") String member_id);
+	public ArrayList<ReplyVO> mypageReplysNSProduct(@Param("member_id") String member_id);
 }

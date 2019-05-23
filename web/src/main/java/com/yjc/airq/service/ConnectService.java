@@ -157,6 +157,4 @@ public interface ConnectService {
 	// 본인 댓글 delete
 	public void deletePReply(@Param("reply_code") String reply_code);
 	
-	// 마이페이지 업체 리스트 출력
-	public ArrayList<TenderVO> tenderNMP(@Param("member_id")String member_id);
 }

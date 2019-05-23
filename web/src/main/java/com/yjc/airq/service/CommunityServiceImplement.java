@@ -87,8 +87,4 @@ public class CommunityServiceImplement implements CommunityService {
 		replyMapper.replyDelete(reply_code);
 	}
 
-	@Override
-	public ArrayList<ReplyVO> mypageReplys() {
-		return replyMapper.mypageReplys();
-	}
 }

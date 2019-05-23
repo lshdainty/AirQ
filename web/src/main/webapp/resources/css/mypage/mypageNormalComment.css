@@ -1,3 +1,4 @@
+
 * {
 	box-sizing: border-box;
 	justify-content: space-between;
@@ -11,163 +12,151 @@
 	letter-spacing: 0.03em;
 	border-radius: 3px;
 	padding: 25px 30px;
-	
-}
-.container .form1 .AA {
-	width: 15%;
-	display: inline-block;
-}
-.container .form1 .A {
-	width: 15%;
-	display: inline-block;
 }
 
-.container .form1 .B {
-	width: 15%;
+.container .form1 .A_select {
 	display: inline-block;
+	width: 10%;
 }
 
-.container .form1 .C{
+.container .form1 .A_title {
 	display: inline-block;
-	width: 15%;
+	width: 10%;
 }
 
-.container .form1 .D{
+.container .form1 .A_content {
+	display: inline-block;
+	width: 40%;
+}
+
+.container .form1 .A_date {
 	display: inline-block;
 	width: 15%;
 }
 
-.container .form1 .E{
-	display: inline-block;
-	width: 15%;
-}
-
-.container .form1 .F {
+.container .form1 .C {
+	height:25px;
 	float: right;
-	height: 25px;
 }
 
 .container .form2 {
-		background-color: #ffffff;
-		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
-		padding: 25px 30px;
-		margin-bottom: 10px;
-		border-style: outset;
-		
+	background-color: #ffffff;
+	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+	padding: 25px 30px;
+	margin-bottom: 10px;
+	border-style: outset;
 }
 
-.container .form2 .aa{
-	display: none;
-}
-
-.container .form2 .company_name {
-	width: 15%;
+.container .form2 .board {
+	width: 10%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
 }
 
-.container .form2 .day {
-	width: 15%;
+.container .form2 .name_title {
+	width: 10%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
 }
 
-.container .form2 .star_score {
-	width: 20%;
-	display: inline-block;
+.container .form2 .reply_content {
+	width: 40%;
+	height: 50px;
 	text-overflow: ellipsis;
-	overflow: hidden;	
-}
-
- input[type=number]{
-	width: 50px;
+	overflow: hidden;
 	display: inline-block;
 }
 
-.container .form2 .star_score .star_number{
+.container .form2 .r_creation_date{
 	display: inline-block;
+	width: 15%;
 }
 
-.container .form2 .star_score .star_scoreBtn{
-	display: inline-block;
-}
-
-.container .form2 .selection {
-	display: inline-block;
+.container .form2 .btn{
+	font-size: 15px;
+	width: 8%;
 }
 
 .container .form3 {
-		background-color: #ffffff;
-		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
-		padding: 25px 30px;
-		margin-bottom: 10px;
-		border-style: outset;
-}
-.container .form3 #gavestar{
-	display: inline-block;
-	
-}
-.container .form3 .bb{
-	display: none;
-}.container .form3 .star_score {
-	width: 20%;
-	display: inline-block;
-	text-overflow: ellipsis;
-	overflow: hidden;
+	background-color: #ffffff;
+	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+	padding: 25px 30px;
+	margin-bottom: 10px;
+	border-style: outset;
 }
 
-.container .form3 .star_score .star_number{
-	display: inline-block;
-}
-
-.container .form3 .star_score .star_scoreBtn{
-	display: inline-block;
-}
-
-.container .form3 .company_name {
-	width: 15%;
+.container .form3 .board {
+	width: 10%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
 }
 
-.container .form3 .day {
-	width: 15%;
+.container .form3 .name_title {
+	width: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form3 .reply_content {
+	width: 40%;
 	height: 50px;
+	text-overflow: ellipsis;
+	overflow: hidden;
 	display: inline-block;
 }
-.container .form3 .selection {
+
+.container .form3 .r_creation_date{
 	display: inline-block;
+	width: 15%;
+}
+
+.container .form3 .btn{
+	font-size: 15px;
+	width: 8%;
 }
 
 .container .form4 {
-		background-color: #ffffff;
-		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
-		padding: 25px 30px;
-		margin-bottom: 10px;
-		border-style: outset;
+	background-color: #ffffff;
+	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+	padding: 25px 30px;
+	margin-bottom: 10px;
+	border-style: outset;
 }
 
-.container .form4 .company_name {
-	width: 15%;
+.container .form4 .board {
+	width: 10%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
 }
 
-.container .form4 .day {
-	width: 15%;
+.container .form4 .name_title {
+	width: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form4 .reply_content {
+	width: 40%;
 	height: 50px;
+	text-overflow: ellipsis;
+	overflow: hidden;
 	display: inline-block;
 }
 
-.container .form4 .star_score {
-	width: 20%;
+.container .form4 .r_creation_date{
 	display: inline-block;
-	text-overflow: ellipsis;
-	overflow: hidden;
+	width: 15%;
+}
+
+.container .form4 .btn{
+	font-size: 15px;
+	width: 8%;
 }
 
 .container .content {
@@ -189,7 +178,7 @@
 	clear: both;
 }
 /*599px보다 웹페이지를 줄이면 일렬로 나타나게*/
-@media ( max-width :570px) {
+@media ( max-width :1400px) {
 	.container>.content>* {
 		background-color: #f8f9fa;
 	}

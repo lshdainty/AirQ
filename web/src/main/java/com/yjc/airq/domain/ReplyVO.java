@@ -12,4 +12,8 @@ public class ReplyVO {
 	private String member_id;
 	private String post_code;
 	private String product_code;
+	
+	private String board_name;
+	private String product_name;
+	private String post_title;
 }
