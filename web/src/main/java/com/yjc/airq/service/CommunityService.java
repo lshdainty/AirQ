@@ -19,5 +19,4 @@ public interface CommunityService {
 	void insertReply(ReplyVO replyVO);
 	void deletePostReply(String post_code);
 	void replyDelete(String reply_code);
-	ArrayList<ReplyVO> mypageReplys();
 }

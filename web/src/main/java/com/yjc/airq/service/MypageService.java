@@ -8,6 +8,7 @@ import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ProductVO;
+import com.yjc.airq.domain.ReplyVO;
 import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 
@@ -65,5 +66,18 @@ public interface MypageService {
 	public String checkReport(@Param("member_id") String member_id,@Param("original_code") String original_code);
 	// 신고insert
 	public void insertReport(ReportVO reportVO);
-
+	
+	//댓글 관리자 모두
+	ArrayList<ReplyVO> mypageReplys();
+	//댓글 관리자 Post
+	ArrayList<ReplyVO> mypageReplysPost();	
+	//댓글 관리자 Product
+	ArrayList<ReplyVO> mypageReplysProduct();
+	
+	//댓글 일반사용자,판매자 모두
+	ArrayList<ReplyVO> mypageReplysNS(@Param("member_id") String member_id);
+	//댓글 일반사용자,판매자 Post
+	ArrayList<ReplyVO> mypageReplysNSPost(@Param("member_id") String member_id);	
+	//댓글 일반사용자,판매자 Product
+	ArrayList<ReplyVO> mypageReplysNSProduct(@Param("member_id") String member_id);
 }

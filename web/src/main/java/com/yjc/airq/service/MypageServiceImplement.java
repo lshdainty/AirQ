@@ -9,6 +9,7 @@ import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ProductVO;
+import com.yjc.airq.domain.ReplyVO;
 import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.mapper.CompanyMapper;
@@ -150,4 +151,29 @@ public class MypageServiceImplement implements MypageService{
 		return reportMapper.mypageMainRIn(report_code);
 	}
 
+	@Override
+	public ArrayList<ReplyVO> mypageReplys() {
+		return replyMapper.mypageReplys();
+	}
+	@Override
+	public ArrayList<ReplyVO> mypageReplysPost() {
+		return replyMapper.mypageReplysPost();
+	}
+	@Override
+	public ArrayList<ReplyVO> mypageReplysProduct() {
+		return replyMapper.mypageReplysProduct();
+	}
+	
+	@Override
+	public ArrayList<ReplyVO> mypageReplysNS(@Param("member_id") String member_id) {
+		return replyMapper.mypageReplysNS(member_id);
+	}
+	@Override
+	public ArrayList<ReplyVO> mypageReplysNSPost(@Param("member_id") String member_id) {
+		return replyMapper.mypageReplysNSPost(member_id);
+	}
+	@Override
+	public ArrayList<ReplyVO> mypageReplysNSProduct(@Param("member_id") String member_id) {
+		return replyMapper.mypageReplysNSProduct(member_id);
+	}
 }
