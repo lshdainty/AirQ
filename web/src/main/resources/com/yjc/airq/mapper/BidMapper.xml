@@ -116,4 +116,10 @@
 		set win_bid_whether='y'
 		where tender_code=#{tender_code} and company_code=#{company_code}
 	</update>
+	
+	<select id="tenderBid" resultType="int">
+		select count(*)
+		from bid b,company_info c
+		where b.company_code=c.company_code and b.tender_code=#{tender_code} and c.member_id=#{member_id}
+	</select>
 </mapper>

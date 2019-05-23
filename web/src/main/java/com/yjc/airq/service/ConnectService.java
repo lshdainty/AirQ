@@ -108,6 +108,8 @@ public interface ConnectService {
 	public int tenderCount();
 	public int selectCount(String member_id);
 	
+	public int tenderBid(@Param("tender_code") String tender_code, @Param("member_id") String member_id);	
+
 	// 사용자가 사는 동 가져오기
 	public String selectDong(@Param("member_id") String member_id);
 	// 사용자가 사는곳에서 많이 팔린 제품 리스트

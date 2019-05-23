@@ -59,6 +59,21 @@ public class MypageServiceImplement implements MypageService{
 	public ArrayList<PaymentVO> mypayNull(String member_id) {
 		return paymentMapper.mypayNull(member_id);
 	}
+	
+	@Override
+	public ArrayList<PaymentVO> mypayT(String member_id) {
+		return paymentMapper.mypayT(member_id);
+	}
+
+	@Override
+	public ArrayList<PaymentVO> mypayNotNullT(String member_id) {
+		return paymentMapper.mypayNotNullT(member_id);
+	}
+
+	@Override
+	public ArrayList<PaymentVO> mypayNullT(String member_id) {
+		return paymentMapper.mypayNullT(member_id);
+	}
 
 	@Override
 	public void deletePostsPost(String post_code) {

@@ -25,6 +25,16 @@ public interface MypageService {
 	
 	//마이페이지 일반사용자 결제내역(별점안준거)
 	public ArrayList<PaymentVO> mypayNull(@Param("member_id")String member_id);
+	
+	//마이페이지 일반사용자 결제내역
+	public ArrayList<PaymentVO> mypayT(@Param("member_id")String member_id);
+	
+	//마이페이지 일반사용자 결제내역(별점준거)
+	public ArrayList<PaymentVO> mypayNotNullT(@Param("member_id")String member_id);
+	
+	//마이페이지 일반사용자 결제내역(별점안준거)
+	public ArrayList<PaymentVO> mypayNullT(@Param("member_id")String member_id);
+	
 	//마이페이지 관리자 글관리 - 글수정
 	public void deletePostsPost(@Param("post_code") String post_code);
 	//마이페이지 관리자 글관리 - 글삭제
