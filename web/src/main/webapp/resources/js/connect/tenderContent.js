@@ -53,8 +53,12 @@
 		dataType:"json",
 		url:"/tenderContentGo/"+tender_code,
 		success:function(data){
+			console.log(data);
 			var bidArr=data.bidArr;
 			var tenderVo=data.tenderVo;
+			var member_devision=data.member_devision;
+			var check=data.check;
+			var member_id=data.member_id;
 			bidArr.sort(function(a,b){
 				return a.totalScore > b.totalScore ? -1 : a.totalScore < b.totalScore ? 1 : 0;
 			});
@@ -83,22 +87,42 @@
 			+'<tr><td>요구사항</td><td>'+tenderVo.requirement+'</td></tr>';
 			$("#tenderTbl").append(tenderHtml2);
 			
-			for(var i=0; i<bidArr.length; i++){
-				var bidHtml='<tr class="bidTr">'
-					+'<td scope="row"><input type="radio" value='+bidArr[i].company_code+' name="bidContent" ></td>'
-					+'<td class="listC" data-label="순위">'+(i+1)+'</td>'
-					+'<td id="company_name" name="company_name" class="listC" data-label="업체명">'+bidArr[i].company_name+'</td>'
-					+'<td id="member_id" name="member_id" class="listC" data-label="대표자">'+bidArr[i].member_id+'</td>'
-					+'<td id="bid_price" name="bid_price" data-label="금액">'+bidArr[i].bid_price+'</td>'
-					+'<td data-label="건수">'+bidArr[i].bidNum+'</td>'
-					+'<td data-label="별점">'+bidArr[i].star_score_avg+'</td>'
-					+'<td data-label="첨부파일"><a href="/download?fileName='+bidArr[i].bid_ppt_name+'&upload_code='+bidArr[i].upload_code+'">'+bidArr[i].bid_ppt_name+'</a></td>'
-					+'<td data-label="첨부파일 점수"><input type="number" id="bid_ppt_score" name="bid_ppt_score" min="0" max="50" value="'+bidArr[i].bid_ppt_score+'"><button class="bid_ppt_score_btn">입력</button></td>'
-					+'<td data-label="비고">'+bidArr[i].note+'</td>'
-					+'<td data-label="TOTAL 점수">'+bidArr[i].totalScore+'</td>'
-				+'</tr>';
-				 $("#tenderParticipationTbl tbody").append(bidHtml);
-				 console.log(bidArr[i]);
+			if(member_devision != "se"){
+				for(var i=0; i<bidArr.length; i++){
+					var bidHtml='<tr class="bidTr">'
+						+'<td scope="row"><input type="radio" value='+bidArr[i].company_code+' name="bidContent" ></td>'
+						+'<td class="listC" data-label="순위">'+(i+1)+'</td>'
+						+'<td id="company_name" name="company_name" class="listC" data-label="업체명">'+bidArr[i].company_name+'</td>'
+						+'<td id="member_id" name="member_id" class="listC" data-label="대표자">'+bidArr[i].member_id+'</td>'
+						+'<td id="bid_price" name="bid_price" data-label="금액">'+bidArr[i].bid_price+'</td>'
+						+'<td data-label="건수">'+bidArr[i].bidNum+'</td>'
+						+'<td data-label="별점">'+bidArr[i].star_score_avg+'</td>'
+						+'<td data-label="첨부파일"><a href="/download?fileName='+bidArr[i].bid_ppt_name+'&upload_code='+bidArr[i].upload_code+'">'+bidArr[i].bid_ppt_name+'</a></td>'
+						+'<td data-label="첨부파일 점수"><input type="number" id="bid_ppt_score" name="bid_ppt_score" min="0" max="50" value="'+bidArr[i].bid_ppt_score+'"><button class="bid_ppt_score_btn">입력</button></td>'
+						+'<td data-label="비고">'+bidArr[i].note+'</td>'
+						+'<td data-label="TOTAL 점수">'+bidArr[i].totalScore+'</td>'
+						+'</tr>';
+					$("#tenderParticipationTbl tbody").append(bidHtml);
+				}
+			} else if(member_devision=="se" && check==1 ){
+				for(var i=0; i<bidArr.length; i++){
+					if(bidArr[i].member_id==member_id){
+						var bidHtml='<tr class="bidTr">'
+							+'<td scope="row"><input type="radio" value='+bidArr[i].company_code+' name="bidContent" ></td>'
+							+'<td class="listC" data-label="순위">'+(i+1)+'</td>'
+							+'<td id="company_name" name="company_name" class="listC" data-label="업체명">'+bidArr[i].company_name+'</td>'
+							+'<td id="member_id" name="member_id" class="listC" data-label="대표자">'+bidArr[i].member_id+'</td>'
+							+'<td id="bid_price" name="bid_price" data-label="금액">'+bidArr[i].bid_price+'</td>'
+							+'<td data-label="건수">'+bidArr[i].bidNum+'</td>'
+							+'<td data-label="별점">'+bidArr[i].star_score_avg+'</td>'
+							+'<td data-label="첨부파일"><a href="/download?fileName='+bidArr[i].bid_ppt_name+'&upload_code='+bidArr[i].upload_code+'">'+bidArr[i].bid_ppt_name+'</a></td>'
+							+'<td data-label="첨부파일 점수"><input type="number" id="bid_ppt_score" name="bid_ppt_score" min="0" max="50" value="'+bidArr[i].bid_ppt_score+'"><button class="bid_ppt_score_btn">입력</button></td>'
+							+'<td data-label="비고">'+bidArr[i].note+'</td>'
+							+'<td data-label="TOTAL 점수">'+bidArr[i].totalScore+'</td>'
+							+'</tr>';
+						$("#tenderParticipationTbl tbody").append(bidHtml);
+					}
+				}
 			}
 		}
 	});
@@ -121,7 +145,12 @@ $(document).ready(function(){
 				data:query,
 				url:"/tendering",
 				success:function(){
-					window.location.reload();
+					var confirm=confirm("결제 내역으로 이동하시겠습니까?")
+					if(confirm){
+						window.location.href="/mypageNormalPay"
+					}else{
+						window.location.reload();
+					}
 				}
 			});
 		}else{

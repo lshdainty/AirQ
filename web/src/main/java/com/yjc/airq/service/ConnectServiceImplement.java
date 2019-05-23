@@ -262,6 +262,11 @@ public class ConnectServiceImplement implements ConnectService {
 		return tenderMapper.selectCount(member_id);
 	}
 	
+	@Override
+	public int tenderBid(String tender_code, String member_id) {
+		return bidMapper.tenderBid(tender_code, member_id);
+	}
+	
 	// 상품 리스트 출력
 	@Override
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum) {

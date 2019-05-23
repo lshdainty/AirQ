@@ -220,10 +220,10 @@ public class MypageController {
 	}
 	// mypageMainPosts tender 글 상세 버튼 클릭 이벤트
 	
-	@RequestMapping(value = "/tenderContentGo/${tenderNMP.tender_code}", method = RequestMethod.GET)
+	@RequestMapping(value = "/tenderContent/${tenderNMP.tender_code}", method = RequestMethod.GET)
 	public String deletePostsNormal(@PathVariable String tender_code) {
 		mypageService.deletePosts(tender_code);
-		return "redirect:/tenderContentGo/${tenderNMP.tender_code }";
+		return "redirect:/tenderContent/${tenderNMP.tender_code }";
 	}
 	
 //	// mypageMainPosts post 글 수정 버튼 클릭 이벤트 ( 판매자 쪽에서 만들어져 있어서 필요x)

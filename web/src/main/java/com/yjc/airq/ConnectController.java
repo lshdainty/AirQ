@@ -262,6 +262,9 @@ public class ConnectController {
 	@RequestMapping(value = "tenderContentGo/{tender_code}", method = RequestMethod.POST)
 	@ResponseBody
 	public JSONObject tenderContent(@PathVariable String tender_code,BidVO bidVo, HttpServletRequest request) {
+		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		int check=connectService.tenderBid(tender_code, member_id);
+		String member_devision=connectService.member_devision(member_id);
 		
 		//입찰
 		TenderVO tender = connectService.tenderContent(tender_code);
@@ -367,13 +370,14 @@ public class ConnectController {
 			}
 		}
 		
-		
-		
 		//객체는 jsonArray에 넣지말고 map에 바로 넣기
 		JSONArray bidJson = JSONArray.fromObject(bidArr);
 		Map<String, Object> aMap = new HashMap<String, Object>();
 		aMap.put("tenderVo", tender);
 		aMap.put("bidArr", bidJson);
+		aMap.put("check",check);
+		aMap.put("member_devision",member_devision);
+		aMap.put("member_id",member_id);
 		
 		JSONObject json = JSONObject.fromObject(aMap);
 		//model.addAttribute("bidContent", bidArr);
