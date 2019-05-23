@@ -16,8 +16,8 @@
            
             <select class="C"id="change">
                 <option value="1">모든 댓글 보기</option>
-                <option value="2">업체연결서비스</option>
-                <option value="3">커뮤니티</option>
+                <option value="2">커뮤니티</option>
+                <option value="3">업체 분석/비교</option>
             </select>
             </div>
         <%--상단 부분 끝 --%>
@@ -45,7 +45,15 @@
             
             <div class="reply_content">${ReplyN.reply_content }</div>
             <div class="r_creation_date">${ReplyN.r_creation_date }</div>
-			<a href="<c:url value='/mypageNormalComment/${ReplyN.reply_code }' />" class="btn btn-lg btn-danger">삭제</a>
+            <c:choose>
+            	<c:when test="${ReplyN.post_code eq null }">
+            		<a href="<c:url value='/product?product_code=${ReplyN.product_code }' />" class="btn btn-primary">상세정보</a>        
+                </c:when>
+                <c:when test="${ReplyN.product_code eq null }">
+            		<a href="<c:url value='/postDetail?post_code=${ReplyN.post_code }' />" class="btn btn-primary">상세정보</a>        
+                </c:when>
+           	</c:choose>			
+           	<a href="<c:url value='/mypageNormalComment/${ReplyN.reply_code }' />" class="btn btn-lg btn-danger">삭제</a>
         </div>
         </c:forEach>
 
@@ -55,7 +63,8 @@
             <div class="name_title">${ReplyNPost.post_title }</div>
             <div class="reply_content">${ReplyNPost.reply_content }</div>
             <div class="r_creation_date">${ReplyNPost.r_creation_date }</div>
-			<a href="<c:url value='/mypageNormalComment/${ReplyNPost.reply_code }' />" class="btn btn-lg btn-danger">삭제</a>
+            <a href="<c:url value='/postDetail?post_code=${ReplyNPost.post_code }' />" class="btn btn-primary">상세정보</a>        
+           	<a href="<c:url value='/mypageNormalComment/${ReplyNPost.reply_code }' />" class="btn btn-lg btn-danger">삭제</a>
         </div>
         </c:forEach>
         
@@ -65,6 +74,7 @@
             <div class="name_title">${ReplyNProduct.product_name }</div>
             <div class="reply_content">${ReplyNProduct.reply_content }</div>
             <div class="r_creation_date">${ReplyNProduct.r_creation_date }</div>
+            <a href="<c:url value='/product?product_code=${ReplyNProduct.product_code }' />" class="btn btn-primary">상세정보</a>        
 			<a href="<c:url value='/mypageNormalComment/${ReplyNProduct.reply_code }' />" class="btn btn-lg btn-danger">삭제</a>
         </div>
         </c:forEach>
