@@ -16,8 +16,8 @@
            
             <select class="C"id="change">
                 <option value="1">모든 댓글 보기</option>
-                <option value="2">업체연결서비스</option>
-                <option value="3">커뮤니티</option>
+                <option value="2">커뮤니티</option>
+                <option value="3">업체 분석/비교</option>
             </select>
             </div>
         <%--상단 부분 끝 --%>
@@ -45,6 +45,14 @@
             
             <div class="reply_content">${ReplyS.reply_content }</div>
             <div class="r_creation_date">${ReplyS.r_creation_date }</div>
+            <c:choose>
+            	<c:when test="${ReplyS.post_code eq null }">
+            		<a href="<c:url value='/product?product_code=${ReplyS.product_code }' />" class="btn btn-primary">상세정보</a>        
+                </c:when>
+                <c:when test="${ReplyS.product_code eq null }">
+            		<a href="<c:url value='/postDetail?post_code=${ReplyS.post_code }' />" class="btn btn-primary">상세정보</a>        
+                </c:when>
+           	</c:choose>		
 			<a href="<c:url value='/mypageSellerComment/${ReplyS.reply_code }' />" class="btn btn-lg btn-danger">삭제</a>
         </div>
         </c:forEach>
@@ -55,6 +63,7 @@
             <div class="name_title">${ReplySPost.post_title }</div>
             <div class="reply_content">${ReplySPost.reply_content }</div>
             <div class="r_creation_date">${ReplySPost.r_creation_date }</div>
+            <a href="<c:url value='/postDetail?post_code=${ReplySPost.post_code }' />" class="btn btn-primary">상세정보</a>        
 			<a href="<c:url value='/mypageSellerComment/${ReplySPost.reply_code }' />" class="btn btn-lg btn-danger">삭제</a>
         </div>
         </c:forEach>
@@ -65,6 +74,7 @@
             <div class="name_title">${ReplySProduct.product_name }</div>
             <div class="reply_content">${ReplySProduct.reply_content }</div>
             <div class="r_creation_date">${ReplySProduct.r_creation_date }</div>
+            <a href="<c:url value='/product?product_code=${ReplySProduct.product_code }' />" class="btn btn-primary">상세정보</a>        
 			<a href="<c:url value='/mypageSellerComment/${ReplySProduct.reply_code }' />" class="btn btn-lg btn-danger">삭제</a>
         </div>
         </c:forEach>

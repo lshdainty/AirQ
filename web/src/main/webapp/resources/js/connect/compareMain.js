@@ -113,7 +113,7 @@ function ajax(idx,sort){
 						case 10: space="91~100평"; break;
 						case 11: space="101평~"; break;
 					}
-					result += '측정 적절 평수 : <span>'+space+'</span> / ';
+					result += '<div class="compare__content">측정 적절 평수 : <span>'+space+'</span> / ';
 					result += '측정 지점 : <span>'+data.pList[i].measure_point+'</span> / ';
 					result += '만족도 평균 : <span>'+data.pList[i].staravg+'</span> / ';
 					result += '판매 건수 : <span>'+data.pList[i].sellnum+'</span></div>';
@@ -139,6 +139,13 @@ function ajax(idx,sort){
 	});	//ajax
 }	//function
 //ajax 함수 끝
+
+//추천 상품 클릭시 상품 상세페이지 시작
+$(".compare-recommand__post").click(function(){
+	var product_code = $(this).attr("id");
+	window.location.href="/product?product_code="+product_code;
+});
+//추천 상품 클릭시 상품 상세페이지 끝
 
 //상품 상세페이지 시작
 $(document).on('click','.compare-post',function(){

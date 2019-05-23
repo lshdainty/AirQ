@@ -83,9 +83,15 @@ public class ConnectController {
 		criteria.setStartPage(criteria.getCurrentblock());	//시작 페이지를 페이지 블록번호로 정함
 		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
 		
-		//ArrayList<ProductVO> recommend =connectService.productList();
+		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String dong = connectService.selectDong(member_id);
 		
+		//사용자가 사는곳에서 많이 팔린 제품리스트
+		ArrayList<ProductVO> recommend = connectService.recommendList(dong);
+		
+		//전체 상품리스트
 		ArrayList<ProductVO> pList = connectService.productList(sort,criteria.getStartnum(),criteria.getEndnum());
+		model.addAttribute("recommend",recommend);
 		model.addAttribute("pList",pList);
 		model.addAttribute("criteria",criteria);
 
@@ -264,6 +270,9 @@ public class ConnectController {
 	@RequestMapping(value = "tenderContentGo/{tender_code}", method = RequestMethod.POST)
 	@ResponseBody
 	public JSONObject tenderContent(@PathVariable String tender_code,BidVO bidVo, HttpServletRequest request) {
+		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		int check=connectService.tenderBid(tender_code, member_id);
+		String member_devision=connectService.member_devision(member_id);
 		
 		//입찰
 		TenderVO tender = connectService.tenderContent(tender_code);
@@ -369,13 +378,14 @@ public class ConnectController {
 			}
 		}
 		
-		
-		
 		//객체는 jsonArray에 넣지말고 map에 바로 넣기
 		JSONArray bidJson = JSONArray.fromObject(bidArr);
 		Map<String, Object> aMap = new HashMap<String, Object>();
 		aMap.put("tenderVo", tender);
 		aMap.put("bidArr", bidJson);
+		aMap.put("check",check);
+		aMap.put("member_devision",member_devision);
+		aMap.put("member_id",member_id);
 		
 		JSONObject json = JSONObject.fromObject(aMap);
 		//model.addAttribute("bidContent", bidArr);

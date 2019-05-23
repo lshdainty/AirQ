@@ -38,7 +38,6 @@
 				<select id="t_addr_dong_">
 					<option>선택</option>
 				</select><input type="hidden" id="t_addr_dong" name="t_addr_dong" />
-					<input type="text" id="t_addr_detail" name="t_addr_detail" required autocomplete="off">
 					<button>입력완료</button>
 			</td>
 		</tr>
