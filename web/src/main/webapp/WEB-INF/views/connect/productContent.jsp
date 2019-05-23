@@ -90,7 +90,7 @@
 <div id="comment">
 	<div class="comment-wrap">
 		<div class="comment-header">
-			<h2 class="comment__title">댓글</h2>
+			<h2 class="comment__title">상품평</h2>
 			<span class="comment__count">총 <em id="reply_count">${productContent.reply_count}</em>개</span>
 		</div>
 		<div class="comment-write">

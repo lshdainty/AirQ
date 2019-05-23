@@ -114,4 +114,11 @@
 		var date2 = new Date(date1).toISOString().slice(0,11) + "00:00:00.000";
 		return date2
 	});
+	
+	$("#d_service_date").prop('value', function(){
+		var date = new Date();
+		var date1 = date.setDate(date.getDate()+1);
+		var date2 = new Date(date1).toISOString().slice(0,11) + "09:00:00.000";
+		return date2
+	});
 });

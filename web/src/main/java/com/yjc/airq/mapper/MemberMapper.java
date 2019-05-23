@@ -28,4 +28,7 @@ public interface MemberMapper {
 	
 	// 입찰 공고 열람 권한(사업자)
 	public String member_devision(String member_id);
+	
+	// 사용자가 사는 동 가져오기
+	public String selectDong(@Param("member_id") String member_id);
 }

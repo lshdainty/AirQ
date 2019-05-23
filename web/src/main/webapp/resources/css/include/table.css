@@ -13,6 +13,13 @@
 
 .tableCol-15 {
 	flex-basis: 15%;
+	
+	/* overflow setting start */
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	/* overflow setting end */
+	
 }
 
 .tableList li {
@@ -25,8 +32,7 @@
 	color: #747474;
 	font-size: 14px;
 	letter-spacing: 0.03em;
-	border-top: 2px #D5D5D5 solid;
-	border-bottom: 1px #D5D5D5 solid;
+	border-bottom: 2px #D5D5D5 solid;
 }
 
 .tableListContent {
