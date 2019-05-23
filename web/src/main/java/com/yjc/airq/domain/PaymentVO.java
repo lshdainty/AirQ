@@ -15,5 +15,5 @@ public class PaymentVO {
 	private String day;
 	private String company_name;
 	private String company_id;
-	private String product_detail;
+	private String product_name;
 }

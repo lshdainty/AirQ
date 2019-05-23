@@ -56,6 +56,8 @@ public interface MypageService {
 	
 	//마이페이지 메인 글관리
 	public ArrayList<ReportVO> mypageMainR();
+	//마이페이지 메인 글관리 상세
+	public ArrayList<ReportVO> mypageMainRIn(@Param("report_code") String report_code);
 	
 	// 상품,입찰,게시글 삭제에 따른 신고테이블 삭제여부 update
 	public void reportUpdate(@Param("original_code") String original_code);

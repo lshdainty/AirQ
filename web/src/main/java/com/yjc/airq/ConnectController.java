@@ -951,6 +951,7 @@ public class ConnectController {
 		connectService.productImageDelete(product_code);
 		connectService.productPaymentDelete(product_code);
 		connectService.productDemandDelete(product_code);
+		connectService.productReplyDelete(product_code);
 		connectService.productDelete(product_code);
 		mypageService.reportUpdate(product_code);
 			
@@ -960,9 +961,8 @@ public class ConnectController {
 	// 분석/비교 서비스 - 상품 댓글 insert
 	@RequestMapping(value = "productReplyInsert", method = RequestMethod.GET)
 	@ResponseBody
-	public String productReplyInsert(ReplyVO replyVO) {
+	public JSONObject productReplyInsert(ReplyVO replyVO,HttpServletRequest request) {
 		int count = connectService.checkPayment(replyVO.getMember_id(),replyVO.getProduct_code());
-		System.out.println(replyVO);
 		if(count>0) {
 			Date today = new Date();
 			SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
@@ -971,9 +971,37 @@ public class ConnectController {
 			String reply_code="rp"+day+random;
 			replyVO.setReply_code(reply_code);
 			connectService.insertPReply(replyVO);
-		}else {
 			
+			ArrayList<ReplyVO> productReply = connectService.productReply(replyVO.getProduct_code());
+			JSONArray rJson = JSONArray.fromObject(productReply);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("productReply", rJson);
+			map.put("reply_count",productReply.size());
+			map.put("result","success");
+			map.put("member_id",((MemberVO) request.getSession().getAttribute("user")).getMember_id());
+			JSONObject json = JSONObject.fromObject(map);
+			return json;
+		}else {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("result","fail");
+			JSONObject json = JSONObject.fromObject(map);
+			return json;
 		}
-		return "";
+	}
+	
+	// 분석/비교 서비스 - 본인 댓글 삭제
+	@RequestMapping(value = "productReplyDelete", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject productReplyDelete(ReplyVO replyVO,HttpServletRequest request) {
+		connectService.deletePReply(replyVO.getReply_code());
+		
+		ArrayList<ReplyVO> productReply = connectService.productReply(replyVO.getProduct_code());
+		JSONArray rJson = JSONArray.fromObject(productReply);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("productReply", rJson);
+		map.put("reply_count",productReply.size());
+		map.put("member_id",((MemberVO) request.getSession().getAttribute("user")).getMember_id());
+		JSONObject json = JSONObject.fromObject(map);
+		return json;
 	}
 }

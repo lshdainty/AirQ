@@ -11,7 +11,6 @@ import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.ReplyVO;
-import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
 
@@ -146,6 +145,8 @@ public interface ConnectService {
 	public void productPaymentDelete(@Param("product_code") String product_code);
 	// 서비스 제품 주문 삭제
 	public void productDemandDelete(@Param("product_code") String product_code);
+	// 서비스 제품 댓글 삭제
+	public void productReplyDelete(@Param("product_code") String product_code);
 	// 서비스 제품 삭제
 	public void productDelete(@Param("product_code") String product_code);
 	
@@ -153,6 +154,8 @@ public interface ConnectService {
 	public int checkPayment(@Param("member_id") String member_id,@Param("product_code") String product_code);
 	// 상품 댓글 insert
 	public void insertPReply(ReplyVO replyVO);
+	// 본인 댓글 delete
+	public void deletePReply(@Param("reply_code") String reply_code);
 	
 	// 마이페이지 업체 리스트 출력
 	public ArrayList<TenderVO> tenderNMP(@Param("member_id")String member_id);

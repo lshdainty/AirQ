@@ -15,4 +15,7 @@ public interface ReportMapper {
 	
 	//마이페이지 글관리
 	public ArrayList<ReportVO> mypageMainR();
+
+	//마이페이지 글관리 상세
+	public ArrayList<ReportVO> mypageMainRIn(@Param("report_code") String report_code);
 }

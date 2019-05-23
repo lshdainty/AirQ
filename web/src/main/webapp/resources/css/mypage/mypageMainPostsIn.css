@@ -1,0 +1,90 @@
+* {
+	box-sizing: border-box;
+	justify-content: space-between;
+}
+
+.container .content .top{
+	padding: 24px 16px;
+	border-bottom: 1px solid #ebeef1;
+	font-size : 16px;
+}
+
+.container .content .top .report_title{
+
+    line-height: 36px;
+    font-size: 24px;
+    color: #1e2022;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.container .content .top .member_id{
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.container .content .top .report_date{
+	display: inline-block;
+}
+
+.container .content .top .report_count{
+	display: inline-block;
+	float: right;
+}
+.container .content .report_content{
+	display: inline-block;
+	padding: 30px 16px;
+	
+}
+
+.container .content .link{
+	float: right;
+}
+
+.container .content {
+	overflow: hidden;
+}
+
+.container .content>* {
+	float: left;
+	padding-bottom: 2000px;
+	margin-bottom: -2000px;
+}
+
+.container .content main {
+	width: 100%;
+}
+
+/*float 지정 해제 해줌*/
+.container footer {
+	clear: both;
+}
+/*599px보다 웹페이지를 줄이면 일렬로 나타나게*/
+@media ( max-width :1400px) {
+	.container>.content>* {
+		background-color: #f8f9fa;
+	}
+	.container .content {
+		padding-left: 0px;
+		padding-right: 0px;
+		overflow: visible;
+	}
+	.container .content>* {
+		float: none;
+		padding-bottom: 0px;
+		margin-bottom: 0px;
+	}
+	.container .content main {
+		width: 100%;
+	}
+	.container .content nav {
+		width: auto;
+		margin-left: 0;
+		left: 0;
+		position: relative;
+	}
+	.container .content aside {
+		width: auto;
+		margin-right: 0;
+	}
+}

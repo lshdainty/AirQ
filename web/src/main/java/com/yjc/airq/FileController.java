@@ -29,6 +29,9 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class FileController {
+	
+	public final static String IP = "http://39.127.7.69";
+	
 	/**
      * 이미지 업로드
      * @param request
@@ -67,7 +70,7 @@ public class FileController {
             
             json.addProperty("uploaded",1);
             json.addProperty("fileName",file_name);
-            json.addProperty("url",fileUrl);
+            json.addProperty("url",IP+fileUrl);
             
             printWriter.println(json);
             

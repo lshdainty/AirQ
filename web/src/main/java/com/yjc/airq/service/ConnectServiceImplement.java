@@ -12,7 +12,6 @@ import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.ReplyVO;
-import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.mapper.AreaMapper;
@@ -23,7 +22,6 @@ import com.yjc.airq.mapper.MemberMapper;
 import com.yjc.airq.mapper.PaymentMapper;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.ReplyMapper;
-import com.yjc.airq.mapper.ReportMapper;
 import com.yjc.airq.mapper.TenderMapper;
 import com.yjc.airq.mapper.UploadMapper;
 
@@ -41,7 +39,6 @@ public class ConnectServiceImplement implements ConnectService {
 	private UploadMapper uploadMapper;
 	private DemandMapper demandMapper;
 	private PaymentMapper paymentMapper;
-	private ReportMapper reportMapper;
 	private ReplyMapper replyMapper;
 	
 	//회원 이름 가져오기
@@ -366,6 +363,12 @@ public class ConnectServiceImplement implements ConnectService {
 	public void productDemandDelete(@Param("product_code") String product_code) {
 		demandMapper.productDemandDelete(product_code);
 	}
+	
+	// 서비스 제품 댓글 삭제
+	@Override
+	public void productReplyDelete(@Param("product_code") String product_code) {
+		replyMapper.productReplyDelete(product_code);
+	}
 		
 	// 서비스 제품 삭제
 	@Override
@@ -383,6 +386,12 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public void insertPReply(ReplyVO replyVO) {
 		replyMapper.insertPReply(replyVO);
+	}
+	
+	// 본인 댓글 delete
+	@Override
+	public void deletePReply(@Param("reply_code") String reply_code) {
+		replyMapper.deletePReply(reply_code);
 	}
 	
 	@Override

@@ -32,7 +32,7 @@ public class mobileLoginController {
 		MemberVO result = memberService.login(id);
 		Map<String, Object> map = new HashMap<String, Object>();
 		JSONObject json;
-		
+		System.out.println("로그인");
 		
 		if(result!=null) {
 			if(password.equals(result.getMember_pw())) {
