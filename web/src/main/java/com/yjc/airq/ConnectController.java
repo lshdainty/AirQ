@@ -2,6 +2,7 @@ package com.yjc.airq;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,15 +19,20 @@ import org.jsoup.select.Elements;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yjc.airq.domain.AreaVO;
@@ -38,7 +44,6 @@ import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.ReplyVO;
-import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
 import com.yjc.airq.mapper.ProductMapper;
@@ -247,16 +252,17 @@ public class ConnectController {
 		return "redirect: /tenderMain";
 	}
 	
-	@RequestMapping(value = "tenderContentGo/{tender_code}", method = RequestMethod.GET)
+	@RequestMapping(value = "tenderContent/{tender_code}", method = RequestMethod.GET)
 	public String tenderContentGo(@PathVariable String tender_code, Model model) {
 		model.addAttribute("tender_code",tender_code);
 		return "connect/tenderContent";
 	}
 	
 	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
-	@RequestMapping(value = "tenderContent/{tender_code}", method = RequestMethod.POST)
+	@RequestMapping(value = "tenderContentGo/{tender_code}", method = RequestMethod.POST)
 	@ResponseBody
-	public JSONObject tenderContent(@PathVariable String tender_code,BidVO bidVo, Model model) {
+	public JSONObject tenderContent(@PathVariable String tender_code,BidVO bidVo, HttpServletRequest request) {
+		
 		//입찰
 		TenderVO tender = connectService.tenderContent(tender_code);
 		//model.addAttribute("tenderContent", connectService.tenderContent(tender_code));
@@ -361,15 +367,53 @@ public class ConnectController {
 			}
 		}
 		
+		
+		
 		//객체는 jsonArray에 넣지말고 map에 바로 넣기
 		JSONArray bidJson = JSONArray.fromObject(bidArr);
 		Map<String, Object> aMap = new HashMap<String, Object>();
 		aMap.put("tenderVo", tender);
 		aMap.put("bidArr", bidJson);
+		
 		JSONObject json = JSONObject.fromObject(aMap);
 		//model.addAttribute("bidContent", bidArr);
 		
 		return json;
+	}
+	
+	@GetMapping(value="/download", produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@ResponseBody
+	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName, String upload_code, HttpServletRequest request){
+
+		fileName=connectService.filename(upload_code);
+		System.out.println(fileName);
+		Resource resource = new FileSystemResource(request.getServletContext().getRealPath("/resources/uploadFile/ppt/")+fileName);
+		
+		if(resource.exists() == false) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		String resourceName = resource.getFilename();
+		String resourceOriginalName = resourceName.substring(resourceName.indexOf("_")+1);
+		HttpHeaders headers = new HttpHeaders();
+		
+		try {
+			String downloadName=null;
+			
+			if(userAgent.contains("Trident")) {
+				downloadName=URLEncoder.encode(resourceOriginalName, "UTF-8").replaceAll("\\+"," ");
+				
+			}else if(userAgent.contains("Edge")) {
+				downloadName=URLEncoder.encode(resourceOriginalName, "UTF-8");
+			}else {
+				downloadName=new String(resourceOriginalName.getBytes("UTF-8"), "ISO-8859-1");
+			}
+			
+			headers.add("Content-Disposition","attachment; filename="+new String(resourceName.getBytes("UTF-8"),"ISO-8859-1").substring(36));
+		} catch(UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
 	}
 	
 	// 입찰 서비스 - 입찰 공고 삭제 후 리스트로 가기
@@ -520,7 +564,7 @@ public class ConnectController {
 		 
 		//업로드
 		String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/ppt/");
-		
+		System.out.println(uploadFolder);
 		// make folder
 		File uploadPath = new File(uploadFolder);
 		
@@ -545,7 +589,7 @@ public class ConnectController {
 			UUID uuid = UUID.randomUUID();
 			uploadFileName = uuid.toString()+uploadFileName;
 			uploadVo.setFile_name(uploadFileName);
-			System.out.println(uploadVo);
+			
 			connectService.bidUpload(uploadVo);
 			connectService.addBid(bidVo);
 			try {
@@ -792,6 +836,7 @@ public class ConnectController {
 				
 				//업로드
 				String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/images/");
+				
 				try {
 					File saveFile = new File(uploadFolder, file_name);
 					

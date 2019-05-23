@@ -51,7 +51,7 @@
 		type:"POST",
 		async:false,
 		dataType:"json",
-		url:"/tenderContent/"+tender_code,
+		url:"/tenderContentGo/"+tender_code,
 		success:function(data){
 			var bidArr=data.bidArr;
 			var tenderVo=data.tenderVo;
@@ -92,7 +92,7 @@
 					+'<td id="bid_price" name="bid_price" data-label="금액">'+bidArr[i].bid_price+'</td>'
 					+'<td data-label="건수">'+bidArr[i].bidNum+'</td>'
 					+'<td data-label="별점">'+bidArr[i].star_score_avg+'</td>'
-					+'<td data-label="첨부파일">'+bidArr[i].bid_ppt_name+'</td>'
+					+'<td data-label="첨부파일"><a href="/download?fileName='+bidArr[i].bid_ppt_name+'&upload_code='+bidArr[i].upload_code+'">'+bidArr[i].bid_ppt_name+'</a></td>'
 					+'<td data-label="첨부파일 점수"><input type="number" id="bid_ppt_score" name="bid_ppt_score" min="0" max="50" value="'+bidArr[i].bid_ppt_score+'"><button class="bid_ppt_score_btn">입력</button></td>'
 					+'<td data-label="비고">'+bidArr[i].note+'</td>'
 					+'<td data-label="TOTAL 점수">'+bidArr[i].totalScore+'</td>'
