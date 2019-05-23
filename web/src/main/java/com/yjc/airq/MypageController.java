@@ -116,7 +116,7 @@ public class MypageController {
 	@RequestMapping(value = "mypageMainPostsIn", method = RequestMethod.GET)
 	public String mypageMainPostsIn(@RequestParam("report_code") String report_code, Model model) {
 		model.addAttribute("mypageMainRIn", mypageService.mypageMainRIn(report_code));
-		System.out.println(mypageService.mypageMainRIn(report_code));
+//		System.out.println(mypageService.mypageMainRIn(report_code));
 		return "mypage/mypageMainPostsIn";
 	}
 
@@ -141,10 +141,10 @@ public class MypageController {
 
 	// mypageMainPosts tender 글 수정 버튼 클릭 이벤트
 	
-	@RequestMapping(value = "/tenderContentGo/${tenderList.tender_code}", method = RequestMethod.GET)
+	@RequestMapping(value = "/tenderContent/${tenderList.tender_code}", method = RequestMethod.GET)
 	public String deletePosts(@PathVariable String tender_code) {
 		mypageService.deletePosts(tender_code);
-		return "redirect:/tenderContentGo/${tenderList.tender_code }";
+		return "redirect:/tenderContent/${tenderList.tender_code }";
 	}
 	
 	// mypageMainPosts product 글 수정 버튼 클릭 이벤트
@@ -240,10 +240,10 @@ public class MypageController {
 	}
 	// mypageMainPosts tender 글 상세 버튼 클릭 이벤트
 	
-	@RequestMapping(value = "/tenderContentGo/${tenderNMP.tender_code}", method = RequestMethod.GET)
+	@RequestMapping(value = "/tenderContent/${tenderNMP.tender_code}", method = RequestMethod.GET)
 	public String deletePostsNormal(@PathVariable String tender_code) {
 		mypageService.deletePosts(tender_code);
-		return "redirect:/tenderContentGo/${tenderNMP.tender_code }";
+		return "redirect:/tenderContent/${tenderNMP.tender_code }";
 	}
 	
 //	// mypageMainPosts post 글 수정 버튼 클릭 이벤트 ( 판매자 쪽에서 만들어져 있어서 필요x)
@@ -312,10 +312,15 @@ public class MypageController {
 		ArrayList<PaymentVO> mypay = mypageService.mypay(member_id);
 		ArrayList<PaymentVO> mypayNotNull = mypageService.mypayNotNull(member_id);
 		ArrayList<PaymentVO> mypayNull = mypageService.mypayNull(member_id);
+		ArrayList<PaymentVO> mypayT = mypageService.mypayT(member_id);
+		ArrayList<PaymentVO> mypayNotNullT = mypageService.mypayNotNullT(member_id);
+		ArrayList<PaymentVO> mypayNullT = mypageService.mypayNullT(member_id);
 		model.addAttribute("mypayNull", mypayNull);
 		model.addAttribute("mypay", mypay);
 		model.addAttribute("mypayNotNull", mypayNotNull);
-		
+		model.addAttribute("mypayNullT", mypayNullT);
+		model.addAttribute("mypayT", mypayT);
+		model.addAttribute("mypayNotNullT", mypayNotNullT);
 		return "mypage/mypageNormalPay";
 	}
 
@@ -348,18 +353,10 @@ public class MypageController {
 		String btn2 = request.getParameter("btn2");
 		String code1 = request.getParameter("code1");
 		String code2 = request.getParameter("code2");
-		
-//		System.out.println(btn1);
-//		System.out.println(btn2);
-//		System.out.println(code1);
-//		System.out.println(code2);
-		
+				
 		int sum1 = Integer.parseInt(btn1+btn2);
 		String sum2 = code1+code2;
-		
-//		System.out.println(sum1);
-//		System.out.println(sum2);
-		
+				
 		if(sum1 >= 1 && sum1 <= 10) {
 			paymentVO.setStar_score(sum1);
 			paymentVO.setPayment_code(sum2);
@@ -465,10 +462,40 @@ public class MypageController {
 
 	// mypageSeller 댓글관리 가기
 	@RequestMapping(value = "mypageSellerComment", method = RequestMethod.GET)
-	public String mypageSellerComment(Model model) {
+	public String mypageSellerComment(Model model, HttpServletRequest request) {
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		model.addAttribute("ReplyS",mypageService.mypageReplysNS(member_id));
+		model.addAttribute("ReplySPost",mypageService.mypageReplysNSPost(member_id));
+		model.addAttribute("ReplySProduct",mypageService.mypageReplysNSProduct(member_id));
 		return "mypage/mypageSellerComment";
 	}
+	//mypageSellerComment 셀렉트 옵션에 따른 페이지 ajax변환
+	@RequestMapping(value ="mypageSellerCommentAjax", method = RequestMethod.POST)
+	@ResponseBody
+	public String mypageSellerCommentOption(Model model,@RequestParam String selected) {
 
+			 if(selected.equals("0")) {
+				 return "0";
+			 }
+			 if(selected.equals("1")) {
+				return "1";
+			 }		 
+			 if(selected.equals("2")){
+				 return "2";
+			 }
+			 if(selected.equals("3")) {
+				 return "3";
+			 }
+	return "";
+	}
+	
+	// mypageSellerComment 댓글 삭제 버튼 클릭 이벤트
+	@RequestMapping(value = "/mypageSellerComment/{reply_code}", method = RequestMethod.GET)
+	public String deleteSellerComment(@PathVariable String reply_code) {
+		mypageService.deleteComment(reply_code);
+		
+		return "redirect:/mypageSellerComment";
+	}
 	// mypageSeller 판매내역 가기
 	@RequestMapping(value = "mypageSellerSales", method = RequestMethod.GET)
 	public String mypageSellerSales(Model model) {

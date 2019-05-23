@@ -22,9 +22,9 @@
        
             <select class="C"id="change">
             	<option value="0">모든 글 보기</option>
-                <option value="1" id="selectA">입찰 서비스</option>
-                <option value="2" id="selectB">업체 분석/비교</option>
-                <option value="3" id="selectC">커뮤니티</option>
+                <option value="1" id="selectA">업체 분석/비교</option>
+                <option value="2" id="selectB">커뮤니티</option>
+                <option value="3" id="selectC">입찰서비스</option>
             </select>
             </div>
         <%--상단 부분 끝 --%>
