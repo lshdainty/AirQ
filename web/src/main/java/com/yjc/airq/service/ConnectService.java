@@ -69,6 +69,9 @@ public interface ConnectService {
 	
 	// 투찰 파일 업로드
 	public void bidUpload(UploadVO uploadVo);
+	
+	// 업로드 다운받기(filename가져오기)
+	public String filename(String upload_code);
 
 	// 투찰 리스트에 필요한 것
 	public String company_code(String member_id);
@@ -154,6 +157,4 @@ public interface ConnectService {
 	// 본인 댓글 delete
 	public void deletePReply(@Param("reply_code") String reply_code);
 	
-	// 마이페이지 업체 리스트 출력
-	public ArrayList<TenderVO> tenderNMP(@Param("member_id")String member_id);
 }

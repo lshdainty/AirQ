@@ -182,6 +182,12 @@ public class ConnectServiceImplement implements ConnectService {
 		uploadMapper.bidUpload(uploadVo);
 	}
 	
+	// 업로드 다운받기(filename가져오기)
+	@Override
+	public String filename(String upload_code) {
+		return uploadMapper.filename(upload_code);
+	}
+	
 	//투찰 리스트에 필요한 것
 	@Override
 	public String company_code(String member_id) {
@@ -387,9 +393,5 @@ public class ConnectServiceImplement implements ConnectService {
 	public void deletePReply(@Param("reply_code") String reply_code) {
 		replyMapper.deletePReply(reply_code);
 	}
-	
-	@Override
-	public ArrayList<TenderVO> tenderNMP(String member_id) {
-		return tenderMapper.tenderNMP(member_id);
-	}
+
 }

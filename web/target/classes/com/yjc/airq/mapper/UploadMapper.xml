@@ -62,4 +62,11 @@
 		from upload
 		where product_code=#{product_code}
 	</delete>
+	
+	<!-- 업로드 다운받기(filename가져오기) -->
+	<select id="filename" resultType="String">
+		select file_name
+		from upload
+		where upload_code=#{upload_code}
+	</select>
 </mapper>

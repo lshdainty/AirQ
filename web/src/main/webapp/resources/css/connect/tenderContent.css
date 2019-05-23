@@ -64,12 +64,11 @@ hr {
 }
 
 #tenderParticipationTbl th {
-	background-color: #1d96b2;
-	color: white;
+	color:#747474;
 }
 
 #tenderParticipationTbl tr {
-	background-color: #f8f8f8;
+	background-color: transparent;
 	border: 1px solid #ddd;
 }
 
@@ -101,8 +100,6 @@ hr {
 		border-bottom: 0;
 	}
 	#tenderParticipationTbl tbody td[scope="row"] {
-		background-color: #1d96b2;
-		color: white;
 		display: flex;
 	}
 }

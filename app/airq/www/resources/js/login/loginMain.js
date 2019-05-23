@@ -96,11 +96,11 @@ $(document).ready(function () {
 			dataType:'JSON',
 			url: sessionStorage.getItem("IP_ADDRESS")+"/m.login", // 로그인 페이지 경로
 			success: function (data) {
-				console.log(data);
+				alert(data);
 				if(data.result=="success"){
-					alert("SUCCESS");
 					if(isChecked){
 						localStorage.setItem("user",JSON.stringify(data.userInfo));
+						sessionStorage.setItem("user",JSON.stringify(data.userInfo));
 						window.location.href= "../../../www/views/service/introMain.html";
 					}
 					else{

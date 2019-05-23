@@ -71,7 +71,7 @@ function ajax(idx,sort){
 								+'</select>';
 				$("#tenderSelectDiv").append(selectHtml);
 				
-				var tenderWrite='<input type="submit" id="tenderWrite" class="tenderWriteBtn" name="tenderWrite" value="작성하기">';
+				var tenderWrite='<input type="submit" id="tenderWrite" name="tenderWrite" value="작성하기">';
 				$("#tenderWriteDiv").append(tenderWrite);
 			}
 		}
@@ -89,11 +89,11 @@ $(document).ready(function(){
 		
 		$.ajax({
 			type:"POST",
-			url:"tMemberCheck",
+			url:"/tMemberCheck",
 			data:query,
 			success:function(data){
 				if(data=='s'){
-					window.location.href="/tenderContentGo/" + tcode;
+					window.location.href="/tenderContent/" + tcode;
 				}else{
 					alert("열람할 권한이 없습니다.");
 				}

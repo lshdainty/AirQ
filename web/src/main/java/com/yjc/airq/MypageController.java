@@ -23,7 +23,6 @@ import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
-import com.yjc.airq.service.CommunityService;
 import com.yjc.airq.service.ConnectService;
 import com.yjc.airq.service.LoginService;
 import com.yjc.airq.service.MypageService;
@@ -39,7 +38,6 @@ import net.sf.json.JSONObject;
 public class MypageController {
 	private ConnectService connectService;
 	private LoginService memberService;
-	private CommunityService communityService;
 	private MypageService mypageService;
 
 	// mypageMain 가기
@@ -51,8 +49,30 @@ public class MypageController {
 	// mypageMainComment 가기
 	@RequestMapping(value = "mypageMainComment", method = RequestMethod.GET)
 	public String mypageMainComment(Model model) {
-		model.addAttribute("Reply", communityService.mypageReplys());
+		model.addAttribute("Reply", mypageService.mypageReplys());
+		model.addAttribute("ReplyPost", mypageService.mypageReplysPost());
+		model.addAttribute("ReplyProduct", mypageService.mypageReplysProduct());
+
 		return "mypage/mypageMainComment";
+	}
+	//mypageMainComment 셀렉트 옵션에 따른 페이지 ajax변환
+	@RequestMapping(value ="mypageMainCommentAjax", method = RequestMethod.POST)
+	@ResponseBody
+	public String mypageMainCommentOption(Model model,@RequestParam String selected) {
+
+			 if(selected.equals("0")) {
+				 return "0";
+			 }
+			 if(selected.equals("1")) {
+				return "1";
+			 }		 
+			 if(selected.equals("2")){
+				 return "2";
+			 }
+			 if(selected.equals("3")) {
+				 return "3";
+			 }
+	return "";
 	}
 	
 	// mypageMainComment 댓글 삭제 버튼 클릭 이벤트
@@ -104,7 +124,6 @@ public class MypageController {
 	@RequestMapping(value ="mypageMainPostsAjax", method = RequestMethod.POST)
 	@ResponseBody
 	public String mypageMainPostsOption(Model model,@RequestParam String selected) {
-		
 			 if(selected.equals("0")) {
 				 return "0";
 			 }
@@ -176,7 +195,7 @@ public class MypageController {
 	public String mypageNormalPosts(Model model, HttpServletRequest request) {
 		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
 		
-		ArrayList<TenderVO> tenderNMP=connectService.tenderNMP(member_id);
+		ArrayList<TenderVO> tenderNMP=mypageService.tenderNMP(member_id);
 		for(int i=0;i<tenderNMP.size();i++) {
 			String tender_code=tenderNMP.get(i).getTender_code();
 			tenderNMP.get(i).setCompany_count(connectService.company_count(tender_code));
@@ -250,8 +269,40 @@ public class MypageController {
 
 	// mypageNormalComment 가기
 	@RequestMapping(value = "mypageNormalComment", method = RequestMethod.GET)
-	public String mypageNormalComment(Model model) {
+	public String mypageNormalComment(Model model, HttpServletRequest request) {
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		model.addAttribute("ReplyN", mypageService.mypageReplysNS(member_id));
+		model.addAttribute("ReplyNPost", mypageService.mypageReplysNSPost(member_id));
+		model.addAttribute("ReplyNProduct", mypageService.mypageReplysNSProduct(member_id));
+		
 		return "mypage/mypageNormalComment";
+	}
+	//mypageNormalComment 셀렉트 옵션에 따른 페이지 ajax변환
+	@RequestMapping(value ="mypageNormalCommentAjax", method = RequestMethod.POST)
+	@ResponseBody
+	public String mypageNormalCommentOption(Model model,@RequestParam String selected) {
+
+			 if(selected.equals("0")) {
+				 return "0";
+			 }
+			 if(selected.equals("1")) {
+				return "1";
+			 }		 
+			 if(selected.equals("2")){
+				 return "2";
+			 }
+			 if(selected.equals("3")) {
+				 return "3";
+			 }
+	return "";
+	}
+	
+	// mypageNormalComment 댓글 삭제 버튼 클릭 이벤트
+	@RequestMapping(value = "/mypageNormalComment/{reply_code}", method = RequestMethod.GET)
+	public String deleteNormalComment(@PathVariable String reply_code) {
+		mypageService.deleteComment(reply_code);
+		
+		return "redirect:/mypageNormalComment";
 	}
 
 	// mypageNormalPay 가기

@@ -2,7 +2,12 @@
     margin:0;
 	max-width:100%;
 }
-
+.load-gate{
+    position: absolute;
+    background: #000;
+    width: 100%;
+    height: 100%;
+}
 .full-height{
     height: 100vh;
     width: 100%;
