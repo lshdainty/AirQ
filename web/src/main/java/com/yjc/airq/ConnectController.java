@@ -78,6 +78,8 @@ public class ConnectController {
 		criteria.setStartPage(criteria.getCurrentblock());	//시작 페이지를 페이지 블록번호로 정함
 		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
 		
+		//ArrayList<ProductVO> recommend =connectService.productList();
+		
 		ArrayList<ProductVO> pList = connectService.productList(sort,criteria.getStartnum(),criteria.getEndnum());
 		model.addAttribute("pList",pList);
 		model.addAttribute("criteria",criteria);

@@ -1,50 +1,27 @@
-﻿//지도 관련 js 시작
-// 지도 테마설정 시작
-am4core.useTheme(am4themes_animated);
-// 지도 테마설정 끝
+﻿$.ajax({
+		type: "get",
+		url: "http://openapi.nsdi.go.kr/nsdi/eios/service/rest/AdmService/admCodeList.json",
+		data : {authkey : $('#sido_key').val()},
+		async: false,
+		dataType: 'json',
+		success: function(data) {
+			var html = "<option value='광역시/도'>광역시/도</option>";
+		
+			for(var i=0;i<data.admVOList.admVOList.length;i++){ 
+				html +="<option value='"+data.admVOList.admVOList[i].lowestAdmCodeNm+"'>"+data.admVOList.admVOList[i].lowestAdmCodeNm+"</option>"
+			}
+			$('#sido_code').html(html);
+		},
+		error: function(xhr, stat, err) {}
+});
 
-/* map instance 생성 */
-var chart = am4core.create("chartdiv", am4maps.MapChart);
-
-/* map definition 설정 */
-chart.geodata = am4geodata_southKoreaHigh;
-
-/* projection 설정 */
-chart.projection = new am4maps.projections.Miller();
-
-/* map polygon series 생성*/
-var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
-
-/* Make map load polygon (like country names) data from GeoJSON */
-polygonSeries.useGeodata = true;
-
-/* Configure series */
-var polygonTemplate = polygonSeries.mapPolygons.template;
-polygonTemplate.applyOnClones = true;
-polygonTemplate.togglable = true;
-polygonTemplate.tooltipText = "{name}";
-polygonTemplate.nonScalingStroke = true;
-polygonTemplate.strokeOpacity = 0.5;
-polygonTemplate.fill = chart.colors.getIndex(0);
-var lastSelected;
-
-polygonTemplate.events.on("hit", function(ev) {
-  if (lastSelected) {
-    // This line serves multiple purposes:
-    // 1. Clicking a country twice actually de-activates, the line below
-    //    de-activates it in advance, so the toggle then re-activates, making it
-    //    appear as if it was never de-activated to begin with.
-    // 2. Previously activated countries should be de-activated.
-    lastSelected.isActive = false;
-  }
-  //ev.target.series.chart.zoomToMapObject(ev.target);	//클릭시 확대 코드
-  if (lastSelected !== ev.target) {
-    lastSelected = ev.target;
-    //지도에서 광역시,도 클릭시 코드를 통하여 시,구 목록 생성하는 코드
-    $.ajax({
+$(document).on("change","#sido_code",function(){
+	var thisVal = $(this).val();
+	
+	$.ajax({
 		type: "get",
 		url: "/areasido",
-		data : {area_do : ev.target.dataItem.dataContext.name},
+		data : {area_do : thisVal},
 		async: false,
 		dataType: "json",
 		success: function(data) {
@@ -57,52 +34,28 @@ polygonTemplate.events.on("hit", function(ev) {
 		},
 		error: function(xhr, stat, err) {}
 	});
-    //alert(ev.target.dataItem.dataContext.name);  //클릭시 광역시,도 이름 나오도록 하는 코드
-    //alert(ev.target.dataItem.dataContext.id);	//클릭시 광역시,도에 맞는 코드값 나오는 코드
-  	$("#sido_code").val(ev.target.dataItem.dataContext.name);
-  }
-  ajax(1,sortdata());
-})
-
-
-/* Create selected and hover states and set alternative fill color */
-var ss = polygonTemplate.states.create("active");
-ss.properties.fill = chart.colors.getIndex(2);
-
-var hs = polygonTemplate.states.create("hover");
-hs.properties.fill = chart.colors.getIndex(4);
-
-// Hide Antarctica
-polygonSeries.exclude = ["AQ"];
-
-chart.zoomControl = new am4maps.ZoomControl();
-
-var homeButton = new am4core.Button();
-homeButton.events.on("hit", function(){
-  chart.goHome();
 });
-
-homeButton.icon = new am4core.Sprite();
-homeButton.padding(7, 5, 7, 5);
-homeButton.width = 30;
-homeButton.icon.path = "M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8";
-homeButton.marginBottom = 10;
-homeButton.parent = chart.zoomControl;
-homeButton.insertBefore(chart.zoomControl.plusButton);
-//지도 관련 js 끝
 
 //정렬값 확인 함수 시작
 function sortdata(){
-	var sort = $(".compareSelect option:selected").val()
-	return sort;
+	var sort = $(".option-active").attr("value");
+	return sort
 }
 //정렬값 확인 함수 끝
 
-//정렬check박스 선택 시작
-$(".compareSelect").change(function(){
+//정렬 선택 시작
+$('.category-option').click(function(){
+    $(".option-active").removeClass("option-active");
+    $('.compare-category').find(this).addClass("option-active");
+    ajax(1,sortdata());
+});
+//정렬 선택 끝
+
+//광역시/도 선택 시작
+$("#sido_code").change(function(){
 	ajax(1,sortdata());
 });
-//정렬check박스 선택 끝
+//광역시/도 선택 선택 끝
 
 //시/구 선택 시작
 $("#sigoon_code").change(function(){
@@ -125,7 +78,7 @@ function page(idx){
 //ajax 함수 시작
 function ajax(idx,sort){
 	var data = {
-		sido : $("#sido_code").val(),
+		sido : $("#sido_code option:selected").val(),
 		sigoon : $("#sigoon_code option:selected").val(),
 		space : $("#space option:selected").val(),
 		sort : sort
@@ -139,18 +92,14 @@ function ajax(idx,sort){
 		success: function(data) {
 			var result="";
 			var space="";
-			var area="";
 			var page="";
 			if(data.pList.length==0){
 				alert("검색결과가 없습니다.");
-//				$("#sido_code").val("광역시/도");
-//				$("#sigoon_code").val("선택").prop("selected", true);
-//				$("#space").val("0").prop("selected", true);
 			}else{
 				for(var i=0; i<data.pList.length; i++){
-					result += '<li class="tableListContent" id="'+data.pList[i].product_code+'">'
-					result += '<div class="tableColumn tableCol-15" data-label="상품이름">'+data.pList[i].product_name+'</div>'
-					result += '<div class="tableColumn tableCol-10-1" data-label="가격">'+data.pList[i].product_price+'</div>'
+					result += '<div class="compare-post" id="'+data.pList[i].product_code+'">';
+					result += '<div class="compare-thumb"><img src="'+"resources/images/800490.png"+'" alt="이미지X"></div>'
+					result += '<div class="compare-info"><div class="compare__title"><span>'+data.pList[i].product_name+'</span></div>'
 					switch(data.pList[i].p_space){
 						case 1: space="1~10평"; break;
 						case 2: space="11~20평"; break;
@@ -163,19 +112,16 @@ function ajax(idx,sort){
 						case 9: space="81~90평"; break;
 						case 10: space="91~100평"; break;
 						case 11: space="101평~"; break;
-						}
-					result += '<div class="tableColumn tableCol-15" data-label="측정 적절 평수">'+space+'</div>'
-					result += '<div class="tableColumn tableCol-10-1" data-label="측정 지점">'+data.pList[i].measure_point+'</div>'
-					for(var j=0; j<data.pList[i].areaVO.length; j++){
-						area += data.pList[i].areaVO[j].area_si+" "
 					}
-					result += '<div class="tableColumn tableCol-15" data-label="서비스 가능지역">'+area+'</div>'
-					result += '<div class="tableColumn tableCol-10-1" data-label="만족도 평균">'+data.pList[i].staravg+'</div>'
-					result += '<div class="tableColumn tableCol-10-1" data-label="판매 건수">'+data.pList[i].sellnum+'</div>'
-					space="";area="";
+					result += '측정 적절 평수 : <span>'+space+'</span> / ';
+					result += '측정 지점 : <span>'+data.pList[i].measure_point+'</span> / ';
+					result += '만족도 평균 : <span>'+data.pList[i].staravg+'</span> / ';
+					result += '판매 건수 : <span>'+data.pList[i].sellnum+'</span></div>';
+					result += '<div class="compare__price"><span>'+data.pList[i].product_price+'</span>원</div></div></div>'
+					space="";
 				}
-				$("#tableListHeader").nextAll().remove();
-				$("#tableListHeader").after(result);
+				$(".compare-list").empty();
+				$(".compare-list").append(result);
 				if(data.criteria.prev){
 					page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.startPage-1)+');" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'
 				}
@@ -195,9 +141,8 @@ function ajax(idx,sort){
 //ajax 함수 끝
 
 //상품 상세페이지 시작
-$(document).on('click','.tableListContent',function(){
+$(document).on('click','.compare-post',function(){
 	var product_code = $(this).attr("id");
-	console.log(product_code);
 	window.location.href="/product?product_code="+product_code;
 });
 //상품 상세페이지 끝
