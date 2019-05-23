@@ -1,0 +1,208 @@
+
+* {
+	box-sizing: border-box;
+	justify-content: space-between;
+}
+
+.container .form1 {
+	box-shadow: 5px 5px 5px rgba(0.5,0.5,0.5,0.5);
+	background-color: #80bfff;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	border-radius: 3px;
+	padding: 25px 30px;
+}
+
+.container .form1 .A_select {
+	display: inline-block;
+	width: 10%;
+}
+
+.container .form1 .A_title {
+	display: inline-block;
+	width: 10%;
+}
+
+.container .form1 .A_content {
+	display: inline-block;
+	width: 40%;
+}
+
+.container .form1 .A_date {
+	display: inline-block;
+	width: 15%;
+}
+
+.container .form1 .C {
+	height:25px;
+	float: right;
+}
+
+.container .form2 {
+	background-color: #ffffff;
+	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+	padding: 25px 30px;
+	margin-bottom: 10px;
+	border-style: outset;
+}
+
+.container .form2 .board {
+	width: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form2 .name_title {
+	width: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form2 .reply_content {
+	width: 40%;
+	height: 50px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form2 .r_creation_date{
+	display: inline-block;
+	width: 15%;
+}
+
+.container .form2 .btn{
+	font-size: 15px;
+	width: 8%;
+}
+
+.container .form3 {
+	background-color: #ffffff;
+	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+	padding: 25px 30px;
+	margin-bottom: 10px;
+	border-style: outset;
+}
+
+.container .form3 .board {
+	width: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form3 .name_title {
+	width: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form3 .reply_content {
+	width: 40%;
+	height: 50px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form3 .r_creation_date{
+	display: inline-block;
+	width: 15%;
+}
+
+.container .form3 .btn{
+	font-size: 15px;
+	width: 8%;
+}
+
+.container .form4 {
+	background-color: #ffffff;
+	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+	padding: 25px 30px;
+	margin-bottom: 10px;
+	border-style: outset;
+}
+
+.container .form4 .board {
+	width: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form4 .name_title {
+	width: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form4 .reply_content {
+	width: 40%;
+	height: 50px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form4 .r_creation_date{
+	display: inline-block;
+	width: 15%;
+}
+
+.container .form4 .btn{
+	font-size: 15px;
+	width: 8%;
+}
+
+.container .content {
+	overflow: hidden;
+}
+
+.container .content>* {
+	float: left;
+	padding-bottom: 2000px;
+	margin-bottom: -2000px;
+}
+
+.container .content main {
+	width: 100%;
+}
+
+/*float 지정 해제 해줌*/
+.container footer {
+	clear: both;
+}
+/*599px보다 웹페이지를 줄이면 일렬로 나타나게*/
+@media ( max-width :1400px) {
+	.container>.content>* {
+		background-color: #f8f9fa;
+	}
+	.container .content {
+		padding-left: 0px;
+		padding-right: 0px;
+		overflow: visible;
+	}
+	.container .content>* {
+		float: none;
+		padding-bottom: 0px;
+		margin-bottom: 0px;
+	}
+	.container .content main {
+		width: 100%;
+	}
+	.container .content nav {
+		width: auto;
+		margin-left: 0;
+		left: 0;
+		position: relative;
+	}
+	.container .content aside {
+		width: auto;
+		margin-right: 0;
+	}
+}

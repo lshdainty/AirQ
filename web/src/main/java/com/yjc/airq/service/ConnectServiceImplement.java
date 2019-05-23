@@ -398,9 +398,5 @@ public class ConnectServiceImplement implements ConnectService {
 	public void deletePReply(@Param("reply_code") String reply_code) {
 		replyMapper.deletePReply(reply_code);
 	}
-	
-	@Override
-	public ArrayList<TenderVO> tenderNMP(String member_id) {
-		return tenderMapper.tenderNMP(member_id);
-	}
+
 }

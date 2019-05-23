@@ -61,6 +61,38 @@
 		order by to_char(d.demand_date,'yyyy-mm-dd') desc
 	</select>
 	
+	<select id="mypayT" resultType="com.yjc.airq.domain.PaymentVO">
+	    select  p.tender_code,p.payment_code,p.payment_price,t.tender_title as product_name,p.star_score,t.member_id as company_id, to_char(t_creation_date,'yyyy-mm-dd') as day
+        from payment p,  member m, tender t
+		where m.member_id = t.member_id
+        and t.tender_code = p.tender_code
+		and m.member_id = #{member_id}
+		and p.REFUND_WHETHER ='n'
+		GROUP by  p.tender_code,p.payment_code,p.payment_price,t.tender_title,p.star_score, to_char(t_creation_date,'yyyy-mm-dd'),t.member_id
+		order by to_char(t_creation_date,'yyyy-mm-dd') desc
+	</select>
+	<select id="mypayNotNullT" resultType="com.yjc.airq.domain.PaymentVO">
+	    select  p.tender_code,p.payment_code,p.payment_price,t.tender_title as product_name,p.star_score,t.member_id as company_id, to_char(t_creation_date,'yyyy-mm-dd') as day
+        from payment p,  member m, tender t
+		where m.member_id = t.member_id
+        and t.tender_code = p.tender_code
+		and m.member_id = #{member_id}
+		and p.REFUND_WHETHER ='n'
+		and not p.star_score is null
+		GROUP by  p.tender_code,p.payment_code,p.payment_price,t.tender_title,p.star_score, to_char(t_creation_date,'yyyy-mm-dd'),t.member_id
+		order by to_char(t_creation_date,'yyyy-mm-dd') desc	
+	</select>
+	<select id="mypayNullT" resultType="com.yjc.airq.domain.PaymentVO">
+	    select  p.tender_code,p.payment_code,p.payment_price,t.tender_title as product_name,p.star_score,t.member_id as company_id, to_char(t_creation_date,'yyyy-mm-dd') as day
+        from payment p,  member m, tender t
+		where m.member_id = t.member_id
+        and t.tender_code = p.tender_code
+		and m.member_id = #{member_id}
+		and p.REFUND_WHETHER ='n'
+		and p.star_score is null
+		GROUP by  p.tender_code,p.payment_code,p.payment_price,t.tender_title,p.star_score, to_char(t_creation_date,'yyyy-mm-dd'),t.member_id
+		order by to_char(t_creation_date,'yyyy-mm-dd') desc
+	</select>
 	<update id="mypayStarUp" parameterType="com.yjc.airq.domain.PaymentVO">
 		UPDATE payment set star_score = #{star_score}
 		where payment_code = #{payment_code}

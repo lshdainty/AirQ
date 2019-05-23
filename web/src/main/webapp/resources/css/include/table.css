@@ -13,6 +13,13 @@
 
 .tableCol-15 {
 	flex-basis: 15%;
+	
+	/* overflow setting start */
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	/* overflow setting end */
+	
 }
 
 .tableList li {

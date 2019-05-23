@@ -1,39 +1,66 @@
 
 * {
 	box-sizing: border-box;
+	justify-content: space-between;
 }
 
 .container .form1 {
 	box-shadow: 5px 5px 5px rgba(0.5,0.5,0.5,0.5);
+	background-color: #80bfff;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	border-radius: 3px;
+	padding: 25px 30px;
 }
 
-.container .form1 .A {
-	width: 15%;
-}
-
-.container .form1 .B {
-	display: inline-block;
-	margin-left: 28%;
-}
-
-.container .form1 .C {
-	float: right;
-}
-
-.container .form1 .check {
+.container .form1 .A_select {
 	display: inline-block;
 	width: 10%;
 }
 
-.container .form2 {
-		column-gap: 15px;
-		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
-		border-style: outset;
-		margin-bottom: 15px;
+.container .form1 .A_title {
+	display: inline-block;
+	width: 10%;
 }
 
-.container .form2 .post_code {
+.container .form1 .A_content {
+	display: inline-block;
+	width: 40%;
+}
+
+.container .form1 .A_member {
+	display: inline-block;
+	width: 10%;
+}
+
+.container .form1 .A_date {
+	display: inline-block;
 	width: 15%;
+}
+
+.container .form1 .C {
+	height:25px;
+	float: right;
+}
+
+.container .form2 {
+	background-color: #ffffff;
+	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+	padding: 25px 30px;
+	margin-bottom: 10px;
+	border-style: outset;
+}
+
+.container .form2 .board {
+	width: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form2 .name_title {
+	width: 10%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
@@ -48,22 +75,108 @@
 }
 
 .container .form2 .member_id {
-	width: 15%;
-	height: 50px;
+	width: 10%;
 	display: inline-block;
 }
 
 .container .form2 .r_creation_date{
 	display: inline-block;
+	width: 15%;
 }
 
-.container .form2 .selection {
-	display: inline-block;
+.container .form2 .btn{
+	font-size: 15px;
+	width: 8%;
 }
 
-.container .form2 .check {
-	display: inline-block;
+.container .form3 {
+	background-color: #ffffff;
+	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+	padding: 25px 30px;
+	margin-bottom: 10px;
+	border-style: outset;
+}
+
+.container .form3 .board {
 	width: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form3 .name_title {
+	width: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form3 .reply_content {
+	width: 40%;
+	height: 50px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form3 .member_id {
+	width: 10%;
+	display: inline-block;
+}
+
+.container .form3 .r_creation_date{
+	display: inline-block;
+	width: 15%;
+}
+
+.container .form3 .btn{
+	font-size: 15px;
+	width: 8%;
+}
+
+.container .form4 {
+	background-color: #ffffff;
+	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+	padding: 25px 30px;
+	margin-bottom: 10px;
+	border-style: outset;
+}
+
+.container .form4 .board {
+	width: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form4 .name_title {
+	width: 10%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form4 .reply_content {
+	width: 40%;
+	height: 50px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form4 .member_id {
+	width: 10%;
+	display: inline-block;
+}
+
+.container .form4 .r_creation_date{
+	display: inline-block;
+	width: 15%;
+}
+
+.container .form4 .btn{
+	font-size: 15px;
+	width: 8%;
 }
 
 .container .content {

@@ -31,7 +31,7 @@
         	</div>
             <div class="t_creation_date">${fn:substring(tenderNMP.t_creation_date,0,10) }</div>
 <%--             <a href="<c:url value='/mypageNormalPosts/${tenderList.tender_code }' />" class="btn btn-lg btn-danger">글 삭제</a> --%>
-            <a href="<c:url value='/tenderContentGo/${tenderNMP.tender_code }' />" class="btn btn-primary">상세정보</a>           
+            <a href="<c:url value='/tenderContent/${tenderNMP.tender_code }' />" class="btn btn-primary">상세정보</a>           
             <div class="">
         	</div>
         </div>

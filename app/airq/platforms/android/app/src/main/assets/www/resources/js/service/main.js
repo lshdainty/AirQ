@@ -1,14 +1,23 @@
+var init = function() {
+    TweenLite.to($('.load-gate'), 0.5, {opacity: 0, onComplete: function() {
+        $('.load-gate').remove();
+    }});
+};
+
 $(document).ready(function(){
-	
+    if (document.readyState == 'complete') {
+	    init();
+	} else {
+	    $(window).on('load',init);
+	};
     var bgImage = $(".bg-image"),
         dude = $(".dude"),
         scrollLine = $(".scroll-line"),
         scrollDown = $(".scrolldown"),
         titleMain = $(".title-main")
-
     var tLoader = new TimelineMax();
         tLoader
-        .from(titleMain,1,{autoAlpha:0})
+        .from(titleMain,1,{autoAlpha:0},'-=0.5')
         .from(scrollLine,0.5,{scaleY:0,transformOrigin:"center top",ease:Bounce.easeOut})
         .from(bgImage,2,{autoAlpha:0,scale:4.5,ease:Power1.easeOut},'-=2')
         .from(dude,2,{autoAlpha:0,scale:4.5,ease:Power1.easeOut},'-=2.5')
@@ -20,3 +29,8 @@ $(document).ready(function(){
 
 });
 
+	if (document.readyState == 'complete') {
+	    init();
+	} else {
+	    $(window).on('load',init);
+	};
