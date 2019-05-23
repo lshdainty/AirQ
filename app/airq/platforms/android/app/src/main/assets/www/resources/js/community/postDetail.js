@@ -1,6 +1,7 @@
 $(document).ready(function () {
   var postCode = window.location.search.substring(1).split('?').toString();
   var data = { post_code: postCode.toString() };
+  var login_id = JSON.parse(sessionStorage.getItem("user")).member_id;
   $.ajax(
     {
       crossDomain: true,
@@ -42,7 +43,7 @@ $(document).ready(function () {
         var articleVoteNum = $('<span/>').addClass('article-vote__count recommend_num').text(data.detailPost.recommend_num).appendTo(articleVoteBtn);
 
         $('.comment__title').append('<span class="comment__count"> 총 <em id="reply_count">' + data.detailPost.reply_count + '</em>개</span>');
-        $('.comment-write-inner').prepend('<div class="comment-write__name" id="member_id">' + data.detailPost.member_id + '</div>');
+        $('.comment-write-inner').prepend('<div class="comment-write__name" id="member_id">' + login_id + '</div>');
         $.each(data.replys, function (index) {
           var r_creation_date = new Date(data.replys[index].r_creation_date.time).toISOString().slice(0, 16);
           var test = r_creation_date.replace('T', ' ');
