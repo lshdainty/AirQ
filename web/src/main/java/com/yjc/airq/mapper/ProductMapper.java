@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import com.yjc.airq.domain.ProductVO;
 
 public interface ProductMapper {
+	// 사용자가 사는곳에서 많이 팔린 제품 리스트
+	public ArrayList<ProductVO> recommendList(@Param("dong") String dong);
 	// 상품리스트 조회
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
 	// 상품 전체 개수 조회

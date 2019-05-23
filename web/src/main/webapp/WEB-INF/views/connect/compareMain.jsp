@@ -17,14 +17,16 @@
                 <p class="smart_explain">고객님이 사는 지역에서 많이 팔린 상품들입니다.</p>
             </div>
             <div class="compare-recommand__posts">
-                <div class="compare-recommand__post">
+            <c:forEach var="recommend" items="${recommend}">
+                <div class="compare-recommand__post" id="${recommend.product_code}">
                     <!-- post thumbnail -->
                     <div class="recommanded-thumbnail">
                         <img src="resources/images/800490.png" alt="이미지X">
                     </div>
                     <!-- post title -->
-                    <div class="recommanded-title"><span>상품제목입니다 추천상품이에요</span></div>
+                    <div class="recommanded-title"><span>${recommend.product_name}</span></div>
                 </div>
+            </c:forEach>
             </div>
         </div>
         <div class="order-address">

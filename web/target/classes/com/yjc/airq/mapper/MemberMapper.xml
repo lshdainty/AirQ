@@ -51,4 +51,8 @@
 		from member
 		where member_id=#{member_id}
 	</select>
+	
+	<select id="selectDong" resultType="String">
+		select m_addr_dong from member where member_id = #{member_id}
+	</select>
 </mapper>

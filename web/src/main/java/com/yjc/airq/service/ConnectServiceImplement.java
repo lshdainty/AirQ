@@ -262,6 +262,18 @@ public class ConnectServiceImplement implements ConnectService {
 		return tenderMapper.selectCount(member_id);
 	}
 	
+	// 사용자가 사는 동 가져오기
+	@Override
+	public String selectDong(@Param("member_id") String member_id) {
+		return memberMapper.selectDong(member_id);
+	}
+	
+	// 사용자가 사는곳에서 많이 팔린 제품 리스트
+	@Override
+	public ArrayList<ProductVO> recommendList(@Param("dong") String dong) {
+		return productMapper.recommendList(dong);
+	}
+	
 	// 상품 리스트 출력
 	@Override
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum) {
