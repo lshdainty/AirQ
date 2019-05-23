@@ -10,8 +10,9 @@
             <main>
            <%--상단 부분 시작 --%>
        <div class="form1">
-       	   <div class="AA">상품이름</div>
-       	   <div class="A">업체명</div>        
+       	   <div class="AA">구분</div>
+       	   <div class="A">제목</div>
+       	   <div class="A">업체</div>            
            <div class="B">대표자</div>
            <div class="C">판매코드</div>           
            <div class="E">별점</div>
@@ -31,6 +32,7 @@
         <c:forEach var="mypay" items="${mypay}">
         <div class="form2" id="select1">
         	<div class="aa">${mypay.payment_code}</div>
+        	<div class="company_name">업체 분석/비교</div>
         	<div class="company_name">${mypay.product_name}</div>
             <div class="company_name">${mypay.company_name}</div>             
             <div class="company_name">${mypay.company_id}</div>
@@ -52,6 +54,7 @@
         <c:forEach var="mypayNull" items="${mypayNull}">
         <div class="form3" id="select2">
         	<div class="bb">${mypayNull.payment_code}</div>
+        	<div class="company_name">업체 분석/비교</div>
         	<div class="company_name">${mypayNull.product_name}</div>
             <div class="company_name">${mypayNull.company_name}</div>             
             <div class="company_name">${mypayNull.company_id}</div>
@@ -66,7 +69,7 @@
         <%-- star_score not null --%>
         <c:forEach var="mypayNotNull" items="${mypayNotNull}">
         <div class="form4" id="select3">
-
+        	<div class="company_name">업체 분석/비교</div>
         	<div class="company_name">${mypayNotNull.product_name}</div>
             <div class="company_name">${mypayNotNull.company_name}</div>             
             <div class="company_name">${mypayNotNull.company_id}</div>            
@@ -74,6 +77,58 @@
             <div class="star_score">${mypayNotNull.star_score}</div>
         </div>
         </c:forEach>
+        
+                <%-- star_score all --%>
+        
+                <c:forEach var="mypayT" items="${mypayT}">
+        <div class="form2" id="select1">
+        	<div class="aa">${mypayT.payment_code}</div>
+        	<div class="company_name">입찰 서비스</div>        	
+        	<div class="company_name">${mypayT.product_name}</div>
+            <div class="company_name">${mypayT.company_name}</div>             
+            <div class="company_name">${mypayT.company_id}</div>
+            <div class="company_name">${mypayT.payment_code}</div>
+<%--             <div class="product_detail">${mypay.product_detail}</div>  --%>
+            <div class="star_score">
+            <c:if test="${mypayT.star_score eq '0'}">
+            <div class="star_number"><input type="number" class="star" name="star"/></div>
+            <div class="star_scoreBtn"><button id="gavestar" class="gavestar" name="gavestar">별점 주기</button></div>
+            </c:if>
+            <c:if test="${mypayT.star_score ne '0'}">
+            ${mypayT.star_score}
+            </c:if>
+            </div>
+        </div>
+        </c:forEach>
+        
+        <%-- star_score null --%>
+        <c:forEach var="mypayNullT" items="${mypayNullT}">
+        <div class="form3" id="select2">
+        	<div class="bb">${mypayNullT.payment_code}</div>
+        	<div class="company_name">입찰 서비스</div>        	        	
+        	<div class="company_name">${mypayNullT.product_name}</div>
+            <div class="company_name">${mypayNullT.company_name}</div>             
+            <div class="company_name">${mypayNullT.company_id}</div>
+                        <div class="company_name">${mypayNullT.payment_code}</div>
+            <div class="star_score">
+			<div class="star_number"><input type="number" class="star" name="star"/></div>
+            <div class="star_scoreBtn"><button id="gavestar" class="gavestar" name="gavestar">별점 주기</button></div>
+        	</div>
+        </div>
+        </c:forEach>
+        
+        <%-- star_score not null --%>
+        <c:forEach var="mypayNotNullT" items="${mypayNotNullT}">
+        <div class="form4" id="select3">
+        	<div class="company_name">입찰 서비스</div>        	
+        	<div class="company_name">${mypayNotNullT.product_name}</div>
+            <div class="company_name">${mypayNotNullT.company_name}</div>             
+            <div class="company_name">${mypayNotNullT.company_id}</div>            
+            <div class="company_name">${mypayNotNullT.payment_code}</div>
+            <div class="star_score">${mypayNotNullT.star_score}</div>
+        </div>
+        </c:forEach>
+        
         
         <%--하단부분 끝 --%>
             </main>

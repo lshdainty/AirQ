@@ -22,7 +22,7 @@
             	            <div class="link">
             	            <c:choose>
             	            <c:when test="${mypageMainRIn.report_classification eq 'td' }">
-           				    <a href="<c:url value='/tenderContentGo/${mypageMainRIn.original_code }' />" class="btn btn-primary">상세정보</a>
+           				    <a href="<c:url value='/tenderContent/${mypageMainRIn.original_code }' />" class="btn btn-primary">상세정보</a>
            					</c:when>
            					<c:when test="${mypageMainRIn.report_classification eq 'pd' }">
            					<a href="<c:url value='/product?product_code=${mypageMainRIn.original_code }' />" class="btn btn-primary">상세정보</a>
