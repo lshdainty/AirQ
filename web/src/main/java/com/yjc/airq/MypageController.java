@@ -44,7 +44,37 @@ public class MypageController {
 	// mypageMain 가기
 	@RequestMapping(value = "mypageMain", method = RequestMethod.GET)
 	public String mypageMain(Model model) {
+		model.addAttribute("postMPrec", mypageService.postMPrec());
+		model.addAttribute("postMPimp", mypageService.postMPimp());
+		model.addAttribute("postMPlib", mypageService.postMPlib());
+		model.addAttribute("postMPhea", mypageService.postMPhea());
+		model.addAttribute("postMPmet", mypageService.postMPmet());
+		model.addAttribute("tenderMP", mypageService.tenderMP());
+		model.addAttribute("productMP", mypageService.productMP());
+
 		return "mypage/mypageMain";
+	}
+	
+	// mypageMain tender 해당 글 가기 클릭 이벤트
+	
+	@RequestMapping(value = "/tenderContent/${tender_code}", method = RequestMethod.GET)
+	public String goTender(@PathVariable String tender_code) {
+		mypageService.deletePosts(tender_code);
+		return "redirect:/tenderContent/${tender_code}";
+	}
+	
+	// mypageMain product 해당 글 가기 클릭 이벤트
+	@RequestMapping(value = "/product?product_code=${product_code}", method = RequestMethod.GET)
+	public String goProduct(@PathVariable String product_code) {
+		mypageService.deletePostsProduct(product_code);
+		return "redirect:/product?product_code=${product_code}";
+	}
+	
+	// mypageMain post 해당 글 가기 클릭 이벤트
+	@RequestMapping(value = "/postDetail?post_code=${post_code}", method = RequestMethod.GET)
+	public String goPost(@PathVariable String post_code) {
+		mypageService.deletePostsPost(post_code);
+		return "redirect:/postDetail?post_code=${post_code}";
 	}
 
 	// mypageMainComment 가기
@@ -166,27 +196,7 @@ public class MypageController {
 	return "";
 	}
 
-	// mypageMainPosts tender 글 수정 버튼 클릭 이벤트
-	
-	@RequestMapping(value = "/tenderContent/${tenderList.tender_code}", method = RequestMethod.GET)
-	public String deletePosts(@PathVariable String tender_code) {
-		mypageService.deletePosts(tender_code);
-		return "redirect:/tenderContent/${tenderList.tender_code }";
-	}
-	
-	// mypageMainPosts product 글 수정 버튼 클릭 이벤트
-	@RequestMapping(value = "/product?product_code=${productMP.product_code }", method = RequestMethod.GET)
-	public String deletePostsProduct(@PathVariable String product_code) {
-		mypageService.deletePostsProduct(product_code);
-		return "redirect:/product?product_code=${productMP.product_code }";
-	}
-	
-	// mypageMainPosts post 글 수정 버튼 클릭 이벤트
-	@RequestMapping(value = "/postDetail?post_code=${postMP.post_code }", method = RequestMethod.GET)
-	public String deletePostsPost(@PathVariable String post_code) {
-		mypageService.deletePostsPost(post_code);
-		return "redirect:/postDetail?post_code=${postMP.post_code }";
-	}
+
 
 //	// mypageMainPosts tender 글 삭제 버튼 클릭 이벤트
 //	@RequestMapping(value = "/mypageMainPosts/{tender_code}", method = RequestMethod.GET)
