@@ -45,17 +45,6 @@ public class JoinController {
 	// 회원 가입
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	public String signup(Model model, MemberVO mb) {
-
-		System.out.println("회원가입 id: " + mb.getMember_id());
-		System.out.println("회원가입 pw: " + mb.getMember_pw());
-		System.out.println("Name: " + mb.getMember_name());
-		System.out.println("Tel: " + mb.getMember_tel());
-		System.out.println("E-mail: " + mb.getMember_email());
-		System.out.println("zipcode: " + mb.getM_zipcode());
-		System.out.println("road: " + mb.getM_road_addr());
-		System.out.println("addr: " + mb.getM_addr());
-		System.out.println("detail: " + mb.getM_addr_detail());
-		
 		// nRegister.jsp로 부터 받은 회원정보 들을 DB저장
 		joinService.signup(mb);
 
@@ -65,25 +54,6 @@ public class JoinController {
 	// (회원가입)사업자 등록번호 DB insert
 	@RequestMapping(value = "Bsignup", method = RequestMethod.POST)
 	public String Bsignup(Model model, Company_InfoVO company, MemberVO mb) {
-
-		System.out.println("회원가입 id: " + mb.getMember_id());
-		System.out.println("회원가입 pw: " + mb.getMember_pw());
-		System.out.println("Name: " + mb.getMember_name());
-		System.out.println("Tel: " + mb.getMember_tel());
-		System.out.println("E-mail: " + mb.getMember_email());
-		System.out.println("zipcode: " + mb.getM_zipcode());
-		System.out.println("road: " + mb.getM_road_addr());
-		System.out.println("addr: " + mb.getM_addr());
-		System.out.println("detail: " + mb.getM_addr_detail());
-		System.out.println("사업자 등록 번호: " + company.getCompany_code());
-		System.out.println("COMPANY_NAME: " + company.getCompany_name());
-		System.out.println("COMPANY_TEL: " + company.getCompany_tel());
-		System.out.println("COMPANY_email: " + company.getCompany_email());
-		System.out.println("zipcode: " + company.getC_zipcode());
-		System.out.println("road: " + company.getC_road_addr());
-		System.out.println("addr: " + company.getC_addr());
-		System.out.println("detail: " + company.getC_addr_detail());
-		System.out.println("MEMBER_ID: " + company.getMember_id());
 		joinService.signup(mb);
 		joinService.sellerList(company);
 
