@@ -28,6 +28,7 @@ import com.yjc.airq.service.LoginService;
 import com.yjc.airq.service.MypageService;
 
 import lombok.AllArgsConstructor;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -431,32 +432,11 @@ public class MypageController {
 
 	// mypageSeller 가기
 	@RequestMapping(value = "mypageSeller", method = RequestMethod.GET)
-	public String mypageSeller(Model model,HttpSession session, HttpServletRequest request,Company_InfoVO company_InfoVO){
-		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id(); 
-//		System.out.println(member_id+"현재로그인정보");
-		ArrayList<Company_InfoVO> cList = mypageService.c_code(member_id);
-//		System.out.println(cList);
-		model.addAttribute("cList",cList);
-//		String board_type = (String)request.getSession().getAttribute("board_type");
-		
+	public String mypageSeller(Model model){
+	
 		return "mypage/mypageSeller";
 	}
-	//mypageSeller Json사용
-	@ResponseBody
-	@RequestMapping(value = "/mypageSeller",method =RequestMethod.POST)
-	public JSONObject cList(HttpServletRequest request){
-		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
-		ArrayList<Company_InfoVO> list = mypageService.c_code(member_id);
-//		System.out.println("dd"+list.get(1).getSum());
-//		System.out.println("ss"+list.get(1).getMonth());
-//		System.out.println(list.get(1));
-//		System.out.println(list);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		JSONObject json = JSONObject.fromObject(map);
-		return json;
-		
-	}
+
 	// mypageSeller 글관리 가기
 	@RequestMapping(value = "mypageSellerPosts", method = RequestMethod.GET)
 	public String mypageSellerPosts(Model model, HttpServletRequest request) {
@@ -577,10 +557,37 @@ public class MypageController {
 
 	// mypageSeller 판매내역 가기
 	@RequestMapping(value = "mypageSellerSales", method = RequestMethod.GET)
-	public String mypageSellerSales(Model model) {
+	public String mypageSellerSales(Model model,HttpSession session, HttpServletRequest request,Company_InfoVO company_InfoVO) {
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id(); 
+//		System.out.println(member_id+"현재로그인정보");
+		ArrayList<Company_InfoVO> cList = mypageService.c_code(member_id);
+		System.out.println(cList);
+		model.addAttribute("cList",cList);
+//		String board_type = (String)request.getSession().getAttribute("board_type");
+	
 		return "mypage/mypageSellerSales";
 	}
-
+	//mypageSeller Json사용
+	@ResponseBody
+	@RequestMapping(value = "/mypageSellerSales",method =RequestMethod.POST)
+	public JSONArray cList(HttpServletRequest request){
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		ArrayList<Company_InfoVO> list = mypageService.c_code(member_id);
+//		System.out.println("dd"+list.get(1).getSum());
+//		System.out.println("ss"+list.get(1).getMonth());
+//		System.out.println(list.get(1));
+//		System.out.println(list);
+		JSONArray jArray = new JSONArray();
+		for(int i=0; i<list.size(); i++) {
+			JSONObject json = new JSONObject();
+			json.put("sum",list.get(i).getSum());
+			json.put("month",list.get(i).getMonth());
+			jArray.add(json);
+		}
+		System.out.println(jArray);
+		
+		return jArray;
+	}
 	// mypageSeller 회원탈퇴 가기
 	@RequestMapping(value = "mypageSellerDelete", method = RequestMethod.GET)
 	public String mypageSellerDelete(Model model) {
