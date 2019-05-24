@@ -79,6 +79,11 @@ public class MypageServiceImplement implements MypageService{
 	public void deletePostsPost(String post_code) {
 		postMapper.deletePostsPost(post_code);
 	}
+	
+	@Override
+	public void deletePostsProduct(String product_code) {
+		productMapper.deletePostsProduct(product_code);
+	}	
 //	@Override
 //	public void deletePostsPost1(String post_code) {
 //		postMapper.deletePostsPost1(post_code);
@@ -93,10 +98,7 @@ public class MypageServiceImplement implements MypageService{
 		return productMapper.productMP();
 	}
 
-	@Override
-	public void deletePostsProduct(String product_code) {
-		productMapper.deletePostsProduct(product_code);
-	}
+
 //	@Override
 //	public void deletePostsProduct1(String product_code) {
 //		productMapper.deletePostsProduct1(product_code);

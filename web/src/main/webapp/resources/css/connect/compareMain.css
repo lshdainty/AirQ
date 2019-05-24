@@ -45,6 +45,7 @@
 }
 
 .compare-recommand__post {
+	margin-left: 10rem;
 	padding: 0.7rem;
 	max-width:30%;
 }
@@ -131,7 +132,6 @@
 	display: block;
 	width: 100%;
 	margin: auto;
-	margin-top: 1rem;
 }
 
 .compare-post {
@@ -140,7 +140,9 @@
 	padding: 1rem;
 	border: 1px solid #929191;
 }
-
+.compare-post:first-child{
+	margin-top:0;
+}
 .compare-thumb img {
 	width: 130px;
 	height: 130px;

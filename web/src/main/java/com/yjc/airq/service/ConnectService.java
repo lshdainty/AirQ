@@ -15,9 +15,6 @@ import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
 
 public interface ConnectService {
-	// 제품 목록
-	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
-	
 	// 회원 이름 가져오기
 	public String member_name(String member_id);
 
@@ -111,16 +108,20 @@ public interface ConnectService {
 	public int tenderCount();
 	public int selectCount(String member_id);
 	
-	public int tenderBid(@Param("tender_code") String tender_code, @Param("member_id") String member_id);
-	
+	public int tenderBid(@Param("tender_code") String tender_code, @Param("member_id") String member_id);	
+
+	// 사용자가 사는 동 가져오기
+	public String selectDong(@Param("member_id") String member_id);
+	// 사용자가 사는곳에서 많이 팔린 제품 리스트
+	public ArrayList<ProductVO> recommendList(@Param("dong") String dong);
+	// 제품 목록
+	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
 	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
 	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("space") int space, @Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
-
 	// 상품 상세 페이지
 	public ProductVO productContent(String product_code);
 	// 상품 댓글
 	public ArrayList<ReplyVO> productReply(String product_code);
-
 	// 광역시/도를 선택시 해당하는 시,구 목록출력
 	public ArrayList<AreaVO> selectSigoon(AreaVO areaVO);
 	// 서비스제품 주문정보 insert

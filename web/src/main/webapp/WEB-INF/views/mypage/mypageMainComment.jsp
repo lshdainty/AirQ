@@ -17,8 +17,8 @@
            
             <select class="C"id="change">
                 <option value="1">모든 댓글 보기</option>
-                <option value="2">업체연결서비스</option>
-                <option value="3">커뮤니티</option>
+                <option value="2">커뮤니티</option>
+                <option value="3">업체 분석/비교</option>
             </select>
             </div>
         <%--상단 부분 끝 --%>
@@ -47,7 +47,16 @@
             <div class="reply_content">${Reply.reply_content }</div>
             <div class="member_id">${Reply.member_id }</div> 
             <div class="r_creation_date">${Reply.r_creation_date }</div>
+            <c:choose>
+            	<c:when test="${Reply.post_code eq null }">
+            		<a href="<c:url value='/product?product_code=${Reply.product_code }' />" class="btn btn-primary">상세정보</a>        
+                </c:when>
+                <c:when test="${Reply.product_code eq null }">
+            		<a href="<c:url value='/postDetail?post_code=${Reply.post_code }' />" class="btn btn-primary">상세정보</a>        
+                </c:when>
+           	</c:choose>
 			<a href="<c:url value='/mypageMainComment/${Reply.reply_code }' />" class="btn btn-lg btn-danger">삭제</a>
+
         </div>
         </c:forEach>
         
@@ -58,6 +67,7 @@
             <div class="reply_content">${ReplyPost.reply_content }</div>
             <div class="member_id">${ReplyPost.member_id }</div> 
             <div class="r_creation_date">${ReplyPost.r_creation_date }</div>
+            <a href="<c:url value='/postDetail?post_code=${ReplyPost.post_code }' />" class="btn btn-primary">상세정보</a>        
 			<a href="<c:url value='/mypageMainComment/${ReplyPost.reply_code }' />" class="btn btn-lg btn-danger">삭제</a>
         </div>
         </c:forEach>
@@ -69,6 +79,7 @@
             <div class="reply_content">${ReplyProduct.reply_content }</div>
             <div class="member_id">${ReplyProduct.member_id }</div> 
             <div class="r_creation_date">${ReplyProduct.r_creation_date }</div>
+            <a href="<c:url value='/product?product_code=${ReplyProduct.product_code }' />" class="btn btn-primary">상세정보</a>        
 			<a href="<c:url value='/mypageMainComment/${ReplyProduct.reply_code }' />" class="btn btn-lg btn-danger">삭제</a>
         </div>
         </c:forEach>

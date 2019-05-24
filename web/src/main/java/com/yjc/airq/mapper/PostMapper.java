@@ -18,10 +18,10 @@ public interface PostMapper {
 	public int postCount(String board_code);
 	// 마이페이지 - 관리자 포스트 리스트 조회
 	public ArrayList<PostVO> postMP();
-	//마이페이지 관리자 글관리 - 글삭제
+	//마이페이지 관리자 글관리 - 글 상세
 	public void deletePostsPost(@Param("post_code") String post_code);
 	//마이페이지 일반 글관리 -글삭제
-	public void deletePostsPost1(@Param("post_code") String post_code);
+//	public void deletePostsPost1(@Param("post_code") String post_code);
 	//마이페이지 일반 글관리 
 	public ArrayList<PostVO> postNMP(@Param("member_id")String member_id);
 }

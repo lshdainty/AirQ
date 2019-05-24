@@ -26,7 +26,7 @@
 
 .container .form1 .A_content {
 	display: inline-block;
-	width: 40%;
+	width: 50%;
 }
 
 .container .form1 .A_member {
@@ -67,7 +67,7 @@
 }
 
 .container .form2 .reply_content {
-	width: 40%;
+	width: 50%;
 	height: 50px;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -81,12 +81,12 @@
 
 .container .form2 .r_creation_date{
 	display: inline-block;
-	width: 15%;
+	width: 20%;
 }
 
 .container .form2 .btn{
 	font-size: 15px;
-	width: 8%;
+	width: 15%;
 }
 
 .container .form3 {
@@ -112,7 +112,7 @@
 }
 
 .container .form3 .reply_content {
-	width: 40%;
+	width: 50%;
 	height: 50px;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -126,12 +126,12 @@
 
 .container .form3 .r_creation_date{
 	display: inline-block;
-	width: 15%;
+	width: 20%;
 }
 
 .container .form3 .btn{
 	font-size: 15px;
-	width: 8%;
+	width: 15%;
 }
 
 .container .form4 {
@@ -157,7 +157,7 @@
 }
 
 .container .form4 .reply_content {
-	width: 40%;
+	width: 50%;
 	height: 50px;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -171,12 +171,12 @@
 
 .container .form4 .r_creation_date{
 	display: inline-block;
-	width: 15%;
+	width: 20%;
 }
 
 .container .form4 .btn{
 	font-size: 15px;
-	width: 8%;
+	width: 15%;
 }
 
 .container .content {

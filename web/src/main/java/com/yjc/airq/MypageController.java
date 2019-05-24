@@ -28,6 +28,7 @@ import com.yjc.airq.service.LoginService;
 import com.yjc.airq.service.MypageService;
 
 import lombok.AllArgsConstructor;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -83,6 +84,32 @@ public class MypageController {
 		return "redirect:/mypageMainComment";
 	}
 
+	// mypageMainComment product 글 수정 버튼 클릭 이벤트
+	@RequestMapping(value = "/product?product_code=${Reply.product_code }", method = RequestMethod.GET)
+	public String ReplyProduct(@PathVariable String product_code) {
+		mypageService.deletePostsProduct(product_code);
+		return "redirect:/product?product_code=${Reply.product_code }";
+	}
+	
+	// mypageMainComment post 글 수정 버튼 클릭 이벤트
+	@RequestMapping(value = "/postDetail?post_code=${Reply.post_code }", method = RequestMethod.GET)
+	public String ReplyPost(@PathVariable String post_code) {
+		mypageService.deletePostsPost(post_code);
+		return "redirect:/postDetail?post_code=${Reply.post_code }";
+	}
+	// mypageMainComment product2 글 수정 버튼 클릭 이벤트
+	@RequestMapping(value = "/product?product_code=${ReplyProduct.product_code }", method = RequestMethod.GET)
+	public String ReplyProduct2(@PathVariable String product_code) {
+		mypageService.deletePostsProduct(product_code);
+		return "redirect:/product?product_code=${ReplyProduct.product_code }";
+	}
+	
+	// mypageMainComment post2 글 수정 버튼 클릭 이벤트
+	@RequestMapping(value = "/postDetail?post_code=${ReplyPost.post_code }", method = RequestMethod.GET)
+	public String ReplyPost2(@PathVariable String post_code) {
+		mypageService.deletePostsPost(post_code);
+		return "redirect:/postDetail?post_code=${ReplyPost.post_code }";
+	}		
 	// mypageMainMember 가기
 	@RequestMapping(value = "mypageMainMember", method = RequestMethod.GET)
 	public String mypageMainMember(Model model) {
@@ -160,7 +187,7 @@ public class MypageController {
 		mypageService.deletePostsPost(post_code);
 		return "redirect:/postDetail?post_code=${postMP.post_code }";
 	}
-	
+
 //	// mypageMainPosts tender 글 삭제 버튼 클릭 이벤트
 //	@RequestMapping(value = "/mypageMainPosts/{tender_code}", method = RequestMethod.GET)
 //	public String deletePosts1(@PathVariable String tender_code) {
@@ -238,7 +265,7 @@ public class MypageController {
 			 }
 	return "";
 	}
-	// mypageMainPosts tender 글 상세 버튼 클릭 이벤트
+	// mypageNormalPosts tender 글 상세 버튼 클릭 이벤트
 	
 	@RequestMapping(value = "/tenderContent/${tenderNMP.tender_code}", method = RequestMethod.GET)
 	public String deletePostsNormal(@PathVariable String tender_code) {
@@ -274,7 +301,6 @@ public class MypageController {
 		model.addAttribute("ReplyN", mypageService.mypageReplysNS(member_id));
 		model.addAttribute("ReplyNPost", mypageService.mypageReplysNSPost(member_id));
 		model.addAttribute("ReplyNProduct", mypageService.mypageReplysNSProduct(member_id));
-		
 		return "mypage/mypageNormalComment";
 	}
 	//mypageNormalComment 셀렉트 옵션에 따른 페이지 ajax변환
@@ -304,6 +330,33 @@ public class MypageController {
 		
 		return "redirect:/mypageNormalComment";
 	}
+
+	// mypageNormalComment product 글 수정 버튼 클릭 이벤트
+	@RequestMapping(value = "/product?product_code=${ReplyN.product_code }", method = RequestMethod.GET)
+	public String ReplyNProduct(@PathVariable String product_code) {
+		mypageService.deletePostsProduct(product_code);
+		return "redirect:/product?product_code=${ReplyN.product_code }";
+	}
+	
+	// mypageNormalComment post 글 수정 버튼 클릭 이벤트
+	@RequestMapping(value = "/postDetail?post_code=${ReplyN.post_code }", method = RequestMethod.GET)
+	public String ReplyNPost(@PathVariable String post_code) {
+		mypageService.deletePostsPost(post_code);
+		return "redirect:/postDetail?post_code=${ReplyN.post_code }";
+	}
+	// mypageNormalComment product2 글 수정 버튼 클릭 이벤트
+	@RequestMapping(value = "/product?product_code=${ReplyNProduct.product_code }", method = RequestMethod.GET)
+	public String ReplyNProduct2(@PathVariable String product_code) {
+		mypageService.deletePostsProduct(product_code);
+		return "redirect:/product?product_code=${ReplyNProduct.product_code }";
+	}
+	
+	// mypageNormalComment post2 글 수정 버튼 클릭 이벤트
+	@RequestMapping(value = "/postDetail?post_code=${ReplyNPost.post_code }", method = RequestMethod.GET)
+	public String ReplyNPost2(@PathVariable String post_code) {
+		mypageService.deletePostsPost(post_code);
+		return "redirect:/postDetail?post_code=${ReplyNPost.post_code }";
+	}		
 
 	// mypageNormalPay 가기
 	@RequestMapping(value = "mypageNormalPay", method = RequestMethod.GET)
@@ -379,32 +432,11 @@ public class MypageController {
 
 	// mypageSeller 가기
 	@RequestMapping(value = "mypageSeller", method = RequestMethod.GET)
-	public String mypageSeller(Model model,HttpSession session, HttpServletRequest request,Company_InfoVO company_InfoVO){
-		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id(); 
-//		System.out.println(member_id+"현재로그인정보");
-		ArrayList<Company_InfoVO> cList = mypageService.c_code(member_id);
-//		System.out.println(cList);
-		model.addAttribute("cList",cList);
-//		String board_type = (String)request.getSession().getAttribute("board_type");
-		
+	public String mypageSeller(Model model){
+	
 		return "mypage/mypageSeller";
 	}
-	//mypageSeller Json사용
-	@ResponseBody
-	@RequestMapping(value = "/mypageSeller",method =RequestMethod.POST)
-	public JSONObject cList(HttpServletRequest request){
-		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
-		ArrayList<Company_InfoVO> list = mypageService.c_code(member_id);
-//		System.out.println("dd"+list.get(1).getSum());
-//		System.out.println("ss"+list.get(1).getMonth());
-//		System.out.println(list.get(1));
-//		System.out.println(list);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		JSONObject json = JSONObject.fromObject(map);
-		return json;
-		
-	}
+
 	// mypageSeller 글관리 가기
 	@RequestMapping(value = "mypageSellerPosts", method = RequestMethod.GET)
 	public String mypageSellerPosts(Model model, HttpServletRequest request) {
@@ -467,6 +499,7 @@ public class MypageController {
 		model.addAttribute("ReplyS",mypageService.mypageReplysNS(member_id));
 		model.addAttribute("ReplySPost",mypageService.mypageReplysNSPost(member_id));
 		model.addAttribute("ReplySProduct",mypageService.mypageReplysNSProduct(member_id));
+
 		return "mypage/mypageSellerComment";
 	}
 	//mypageSellerComment 셀렉트 옵션에 따른 페이지 ajax변환
@@ -492,16 +525,69 @@ public class MypageController {
 	// mypageSellerComment 댓글 삭제 버튼 클릭 이벤트
 	@RequestMapping(value = "/mypageSellerComment/{reply_code}", method = RequestMethod.GET)
 	public String deleteSellerComment(@PathVariable String reply_code) {
-		mypageService.deleteComment(reply_code);
-		
+			mypageService.deleteComment(reply_code);
 		return "redirect:/mypageSellerComment";
 	}
+	// mypageSellerComment product 글 수정 버튼 클릭 이벤트
+	@RequestMapping(value = "/product?product_code=${ReplyS.product_code }", method = RequestMethod.GET)
+	public String ReplySProduct(@PathVariable String product_code) {
+		mypageService.deletePostsProduct(product_code);
+		return "redirect:/product?product_code=${ReplyS.product_code }";
+	}
+	
+	// mypageSellerComment post 글 수정 버튼 클릭 이벤트
+	@RequestMapping(value = "/postDetail?post_code=${ReplyS.post_code }", method = RequestMethod.GET)
+	public String ReplySPost(@PathVariable String post_code) {
+		mypageService.deletePostsPost(post_code);
+		return "redirect:/postDetail?post_code=${ReplyS.post_code }";
+	}
+	// mypageSellerComment product2 글 수정 버튼 클릭 이벤트
+	@RequestMapping(value = "/product?product_code=${ReplySProduct.product_code }", method = RequestMethod.GET)
+	public String ReplySProduct2(@PathVariable String product_code) {
+		mypageService.deletePostsProduct(product_code);
+		return "redirect:/product?product_code=${ReplySProduct.product_code }";
+	}
+	
+	// mypageSellerComment post2 글 수정 버튼 클릭 이벤트
+	@RequestMapping(value = "/postDetail?post_code=${ReplySPost.post_code }", method = RequestMethod.GET)
+	public String ReplySPost2(@PathVariable String post_code) {
+		mypageService.deletePostsPost(post_code);
+		return "redirect:/postDetail?post_code=${ReplySPost.post_code }";
+	}		
+
 	// mypageSeller 판매내역 가기
 	@RequestMapping(value = "mypageSellerSales", method = RequestMethod.GET)
-	public String mypageSellerSales(Model model) {
+	public String mypageSellerSales(Model model,HttpSession session, HttpServletRequest request,Company_InfoVO company_InfoVO) {
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id(); 
+//		System.out.println(member_id+"현재로그인정보");
+		ArrayList<Company_InfoVO> cList = mypageService.c_code(member_id);
+		System.out.println(cList);
+		model.addAttribute("cList",cList);
+//		String board_type = (String)request.getSession().getAttribute("board_type");
+	
 		return "mypage/mypageSellerSales";
 	}
-
+	//mypageSeller Json사용
+	@ResponseBody
+	@RequestMapping(value = "/mypageSellerSales",method =RequestMethod.POST)
+	public JSONArray cList(HttpServletRequest request){
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		ArrayList<Company_InfoVO> list = mypageService.c_code(member_id);
+//		System.out.println("dd"+list.get(1).getSum());
+//		System.out.println("ss"+list.get(1).getMonth());
+//		System.out.println(list.get(1));
+//		System.out.println(list);
+		JSONArray jArray = new JSONArray();
+		for(int i=0; i<list.size(); i++) {
+			JSONObject json = new JSONObject();
+			json.put("sum",list.get(i).getSum());
+			json.put("month",list.get(i).getMonth());
+			jArray.add(json);
+		}
+		System.out.println(jArray);
+		
+		return jArray;
+	}
 	// mypageSeller 회원탈퇴 가기
 	@RequestMapping(value = "mypageSellerDelete", method = RequestMethod.GET)
 	public String mypageSellerDelete(Model model) {
