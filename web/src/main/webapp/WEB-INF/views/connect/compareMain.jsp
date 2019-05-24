@@ -9,6 +9,12 @@
 	<%-- 각 도의 시목록 api 키값 끝 --%>
 
 	<!-- Web Wrapper -->
+	<style>
+		#content{
+			margin:auto;
+			max-width:70%;
+		}
+	</style>
     <div class="compare-wrap">
         <!-- recommanded posts -->
         <div class="compare-recommand">
