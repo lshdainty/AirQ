@@ -14,21 +14,20 @@
 		<association property="staravg" column="product_code" select="getStaravg"/>
 		<association property="companyVO" column="company_code" select="getCompany"/>
 		<collection property="areaVO" column="product_code" javaType="java.util.ArrayList" ofType="com.yjc.airq.domain.AreaVO" select="getAreaByCode"/>
+<!-- 		<collection property="matterVO" column="product_code" javaType="java.util.ArrayList" ofType="com.yjc.airq.domain.MatterVO" select="getMatterByCode"/> -->
 	</resultMap>
 	
 	<select id="recommendList" resultMap="ProductVO">
-		select *
-		from product
-		where product_code in(
-    		select product_code
-    		from (
+		select p.*
+		from (
        			select p.product_code,count(p.product_code) as count
         		from product p, demand d
         		where p.product_code = d.product_code
-        		and d.d_addr_dong = #{dong}
+        		and d.d_zipcode = #{zipcode}
         		group by p.product_code
-        		order by count desc)
-    		where <![CDATA[rownum <= 3]]>)
+        		order by count desc) a, product p
+    	where p.product_code = a.product_code
+    	and <![CDATA[rownum <= 3]]>
 	</select>
 	
 	<select id="productList" resultMap="ProductVO">
@@ -75,6 +74,12 @@
 		from area a, p_possible_area pa 
 		where a.area_code = pa.area_code and pa.product_code=#{product_code}
 	</select>
+	
+<!-- 	<select id="getMatterByCode" resultType="com.yjc.airq.domain.MatterVO">
+		select m.*,pm.product_code 
+		from matter m, p_measure_matter pm 
+		where m.matter_code = pm.matter_code and pm.product_code=#{product_code}
+	</select> -->
 	
 	<select id="getSellnum" resultType="String">
 		select to_char(count(*)) as sellnum
@@ -176,7 +181,7 @@
 	</select>
 
 	<insert id="productInsert" parameterType="com.yjc.airq.domain.ProductVO">
-		insert into product values(#{product_code},#{product_name},#{product_detail},#{product_price},#{p_space},#{measure_point},#{company_code})
+		insert into product(product_code,product_name,product_detail,product_price,p_space,measure_point,company_code) values(#{product_code},#{product_name},#{product_detail},#{product_price},#{p_space},#{measure_point},#{company_code})
 	</insert>
 	
 	<update id="productUpdate" parameterType="com.yjc.airq.domain.ProductVO">

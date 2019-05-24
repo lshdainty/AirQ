@@ -267,16 +267,16 @@ public class ConnectServiceImplement implements ConnectService {
 		return bidMapper.tenderBid(tender_code, member_id);
 	}
 	
-	// 사용자가 사는 동 가져오기
+	// 사용자가 사는 곳의 우편번호 가져오기
 	@Override
-	public String selectDong(@Param("member_id") String member_id) {
-		return memberMapper.selectDong(member_id);
+	public String selectZipcode(@Param("member_id") String member_id) {
+		return memberMapper.selectZipcode(member_id);
 	}
 	
 	// 사용자가 사는곳에서 많이 팔린 제품 리스트
 	@Override
-	public ArrayList<ProductVO> recommendList(@Param("dong") String dong) {
-		return productMapper.recommendList(dong);
+	public ArrayList<ProductVO> recommendList(@Param("zipcode") String zipcode) {
+		return productMapper.recommendList(zipcode);
 	}
 
 	// 상품 리스트 출력

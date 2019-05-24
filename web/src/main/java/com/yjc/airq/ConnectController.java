@@ -3,6 +3,7 @@ package com.yjc.airq;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -84,10 +85,10 @@ public class ConnectController {
 		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
 		
 		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-		String dong = connectService.selectDong(member_id);
+		String zipcode = connectService.selectZipcode(member_id);
 		
 		//사용자가 사는곳에서 많이 팔린 제품리스트
-		ArrayList<ProductVO> recommend = connectService.recommendList(dong);
+		ArrayList<ProductVO> recommend = connectService.recommendList(zipcode);
 		
 		//전체 상품리스트
 		ArrayList<ProductVO> pList = connectService.productList(sort,criteria.getStartnum(),criteria.getEndnum());
@@ -743,7 +744,7 @@ public class ConnectController {
 	// 분석/비교 서비스 - 결제정보 insert
 	@RequestMapping(value = "cOrder", method = RequestMethod.POST)
 	@ResponseBody
-	public String cOrder(Model model, HttpServletRequest request, DemandVO demandVO, PaymentVO paymentVO) {
+	public String cOrder(Model model, HttpServletRequest request, DemandVO demandVO ,PaymentVO paymentVO) {
 		//주문 코드,결제 코드 생성
 		Date today = new Date();
 		SimpleDateFormat date = new SimpleDateFormat("yyMMdd");

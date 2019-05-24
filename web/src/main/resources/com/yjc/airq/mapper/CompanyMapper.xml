@@ -4,8 +4,8 @@
 <mapper namespace="com.yjc.airq.mapper.CompanyMapper">
 	<!-- 회원 가입 -->
 	<insert id="sellerList">
-		insert into COMPANY_INFO(COMPANY_CODE, COMPANY_NAME, COMPANY_TEL, C_ADDR_DO, C_ADDR_SI, C_ADDR_DONG, C_ADDR_DETAIL, MEMBER_ID)
-		values(#{company_code}, #{company_name}, #{company_tel}, '부산광역시', '자갈치', '시장', '336-33', #{member_id})
+		insert into COMPANY_INFO(COMPANY_CODE, COMPANY_NAME, COMPANY_TEL, COMPANY_EMAIL, C_ZIPCODE, C_ROAD_ADDR, C_ADDR, C_ADDR_DETAIL, MEMBER_ID)
+		values(#{company_code}, #{company_name}, #{company_tel}, #{company_email}, #{c_zipcode}, #{c_road_addr}, #{c_addr}, #{c_addr_detail}, #{member_id})
 	</insert>
 	
 	<!-- 투찰 작성 -->

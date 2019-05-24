@@ -80,7 +80,7 @@
 			$("#tenderContentDiv").append(tenderHtml);
 			
 			var tenderHtml2='<tr><td>입찰자 명</td><td>'+tenderVo.tender_name+'</td></tr>'
-			+'<tr><td>주소</td><td>'+tenderVo.t_addr_do+tenderVo.t_addr_si+tenderVo.t_addr_dong+tenderVo.t_addr_detail+'</td></tr>'
+			+'<tr><td>주소</td><td>'+tenderVo.t_road_addr+" "+tenderVo.t_addr_detail+'</td></tr>'
 			+'<tr><td>평수</td><td>'+tenderVo.t_space+'</td></tr>'
 			+'<tr><td>층수</td><td>'+tenderVo.floor_number+'</td></tr>'
 			+'<tr><td>서비스 일자</td><td>'+tenderVo.service_date+'</td></tr>'

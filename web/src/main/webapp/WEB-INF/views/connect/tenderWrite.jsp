@@ -7,12 +7,6 @@
 <link href="resources/css/connect/tenderWrite.css" rel="stylesheet" />
 
 <%--입찰 공고 작성 테이블 시작 --%>
-<input type="hidden" id="sido_key" value="12685d425f1af0872d756c" />
-<input type="hidden" id="sigoon_key" value="b0888bae39fbd0463a9252" />
-<input type="hidden" id="dong_key" value="91afccaa8d7f499151ee3b" />
-<input type="hidden" name="apiKey"
-	value="E4A59B05-0CF4-3654-BD0C-A169F70CCB34" />
-
 <h1 id="tenderWriteTitle">입찰 작성</h1>
 <form action="/tenderWriteComplete" method="POST">
 	<table id="tenderWriteTbl">
@@ -29,16 +23,13 @@
 		<tr>
 			<td>주소</td>
 			<td>
-				<select id="t_addr_do_">
-					<option>선택</option>
-				</select><input type="hidden" id="t_addr_do" name="t_addr_do" />
-				<select id="t_addr_si_">
-					<option>선택</option>
-				</select><input type="hidden" id="t_addr_si" name="t_addr_si" />
-				<select id="t_addr_dong_">
-					<option>선택</option>
-				</select><input type="hidden" id="t_addr_dong" name="t_addr_dong" />
-					<button>입력완료</button>
+				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+				<input type="text" id="sample4_postcode" name="t_zipcode" placeholder="우편번호">
+				<input type="text" id="sample4_roadAddress" name="t_road_addr" placeholder="도로명주소"><br>
+				<input type="text" id="sample4_jibunAddress" name="t_addr" placeholder="지번주소">
+				<span id="guide" style="color:#999;display:none"></span>
+				<input type="text" id="sample4_detailAddress" name="t_addr_detail" placeholder="상세주소">
+				<input type="text" id="sample4_extraAddress" placeholder="참고항목">
 			</td>
 		</tr>
 		<tr>
@@ -86,6 +77,6 @@
 
 
 <%--입찰 공고 작성 테이블 끝 --%>
-
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/resources/js/connect/tenderWrite.js"></script>
 <%@include file="../include/footer.jsp"%>

@@ -49,12 +49,12 @@
 	
 	<!-- 입찰공고 작성 -->
 	<insert id="addTenderboard" parameterType="com.yjc.airq.domain.TenderVO">
-		insert into tender values(#{tender_code},#{tender_title},systimestamp,#{service_date},#{tender_deadline},${calculate_period},${t_space},${floor_number},#{requirement},#{t_addr_do},#{t_addr_si},#{t_addr_dong},#{t_addr_detail},#{member_id},#{tender_name})
+		insert into tender(tender_code,tender_title,t_creation_date,service_date,tender_deadline,calculate_period,t_space,floor_number,requirement,t_zipcode,t_road_addr,t_addr,t_addr_detail,member_id,tender_name) values(#{tender_code},#{tender_title},systimestamp,#{service_date},#{tender_deadline},${calculate_period},${t_space},${floor_number},#{requirement},#{t_zipcode},#{t_road_addr},#{t_addr},#{t_addr_detail},#{member_id},#{tender_name})
 	</insert>
 	
 	<!-- 입찰 리스트 세부내용 -->
 	<select id="tenderContent" parameterType="String" resultType="com.yjc.airq.domain.TenderVO">
-		select tender_code,tender_title, t_creation_date,to_char(t_creation_date,'yyyy-MM-dd HH:mm') as tcreationdate, to_char(service_date,'yyyy-MM-dd') as service_date,  to_char(tender_deadline,'yyyy-MM-dd') as tender_deadline, calculate_period,t_space, floor_number,requirement, t_addr_do,t_addr_si, t_addr_dong, t_addr_detail, member_id, tender_name
+		select tender_code,tender_title, t_creation_date,to_char(t_creation_date,'yyyy-MM-dd HH:mm') as tcreationdate, to_char(service_date,'yyyy-MM-dd') as service_date,  to_char(tender_deadline,'yyyy-MM-dd') as tender_deadline, calculate_period,t_space, floor_number,requirement, t_zipcode, t_road_addr, t_addr, t_addr_detail, member_id, tender_name
 		from tender 
 		where tender_code=#{tender_code}
 	</select>

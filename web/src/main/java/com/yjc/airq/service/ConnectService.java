@@ -110,10 +110,10 @@ public interface ConnectService {
 	
 	public int tenderBid(@Param("tender_code") String tender_code, @Param("member_id") String member_id);	
 
-	// 사용자가 사는 동 가져오기
-	public String selectDong(@Param("member_id") String member_id);
+	// 사용자가 사는 곳의 우편번호 가져오기
+	public String selectZipcode(@Param("member_id") String member_id);
 	// 사용자가 사는곳에서 많이 팔린 제품 리스트
-	public ArrayList<ProductVO> recommendList(@Param("dong") String dong);
+	public ArrayList<ProductVO> recommendList(@Param("zipcode") String zipcode);
 	// 제품 목록
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
 	// 사용자가 선택한 도,시,평수에 해당하는 제품목록

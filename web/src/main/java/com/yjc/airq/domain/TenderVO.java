@@ -1,6 +1,5 @@
 package com.yjc.airq.domain;
 
-import java.sql.Timestamp;
 import lombok.Data;
 
 @Data
@@ -17,9 +16,9 @@ public class TenderVO {
 	private int t_space;
 	private int floor_number;
 	private String requirement;
-	private String t_addr_do;
-	private String t_addr_si;
-	private String t_addr_dong;
+	private String t_zipcode;
+	private String t_road_addr;
+	private String t_addr;
 	private String t_addr_detail;
 	
 	//조인 할 속성
