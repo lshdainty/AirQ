@@ -39,10 +39,22 @@ public interface MypageService {
 	public void deletePostsPost(@Param("post_code") String post_code);
 	//마이페이지 관리자 글관리 - 글삭제
 //	public void deletePostsPost1(@Param("post_code") String post_code);	
-	// 마이페이지 - 관리자 포스트 리스트 조회
-	public ArrayList<PostVO> postMP();
-	// 마이페이지- 관리자 프로덕트 리스트 조회
+	
+	// 마이페이지 메인 - 관리자 상품추천 조회
+	public ArrayList<PostVO> postMPrec();
+	// 마이페이지 메인 - 관리자 공기질 향상방법 조회
+	public ArrayList<PostVO> postMPimp();
+	// 마이페이지 메인 - 관리자 자유게시판 조회
+	public ArrayList<PostVO> postMPlib();
+	// 마이페이지 메인 - 관리자 건강지킴이 조회
+	public ArrayList<PostVO> postMPhea();
+	// 마이페이지 메인 - 관리자 대기오염물질정보 조회
+	public ArrayList<PostVO> postMPmet();
+	//마이페이지 메인 관리자 - 글가져오기
+	public ArrayList<TenderVO> tenderMP();
+	// 마이페이지 메인 - 관리자 프로덕트 리스트 조회
 	public ArrayList<ProductVO> productMP();
+	
 	//마이페이지 관리자 글관리 - 글수정
 	public void deletePostsProduct(@Param("product_code") String product_code);
 	//마이페이지 관리자 글관리 - 글삭제

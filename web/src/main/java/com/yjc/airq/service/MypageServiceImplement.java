@@ -89,10 +89,29 @@ public class MypageServiceImplement implements MypageService{
 //		postMapper.deletePostsPost1(post_code);
 //	}
 	@Override
-	public ArrayList<PostVO> postMP() {
-		return postMapper.postMP();
+	public ArrayList<PostVO> postMPrec() {
+		return postMapper.postMPrec();
 	}
-
+	@Override
+	public ArrayList<PostVO> postMPimp() {
+		return postMapper.postMPimp();
+	}
+	@Override
+	public ArrayList<PostVO> postMPlib() {
+		return postMapper.postMPlib();
+	}
+	@Override
+	public ArrayList<PostVO> postMPhea() {
+		return postMapper.postMPhea();
+	}
+	@Override
+	public ArrayList<PostVO> postMPmet() {
+		return postMapper.postMPmet();
+	}	
+	@Override
+	public ArrayList<TenderVO> tenderMP() {
+		return tenderMapper.tenderMP();
+	}	
 	@Override
 	public ArrayList<ProductVO> productMP() {
 		return productMapper.productMP();

@@ -40,4 +40,6 @@ public interface TenderMapper {
 //	public void deletePosts1(@Param("tender_code") String tender_code);
 	//마이페이지 일반 글관리 - 글삭제
 	public ArrayList<TenderVO> tenderNMP(@Param("member_id")String member_id);
+	//마이페이지 메인 관리자 - 글가져오기
+	public ArrayList<TenderVO> tenderMP();
 }

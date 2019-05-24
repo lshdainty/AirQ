@@ -16,8 +16,16 @@ public interface PostMapper {
 	public void viewCount(String post_code);
 	public void postVote(String post_code);
 	public int postCount(String board_code);
-	// 마이페이지 - 관리자 포스트 리스트 조회
-	public ArrayList<PostVO> postMP();
+	// 마이페이지 메인 - 관리자 상품추천 조회
+	public ArrayList<PostVO> postMPrec();
+	// 마이페이지 메인 - 관리자 공기질향상방법 조회
+	public ArrayList<PostVO> postMPimp();
+	// 마이페이지 메인 - 관리자 자유게시판 조회
+	public ArrayList<PostVO> postMPlib();
+	// 마이페이지 메인 - 관리자 건강지킴이 조회
+	public ArrayList<PostVO> postMPhea();
+	// 마이페이지 메인 - 관리자 대기오염물질정보 조회
+	public ArrayList<PostVO> postMPmet();	
 	//마이페이지 관리자 글관리 - 글 상세
 	public void deletePostsPost(@Param("post_code") String post_code);
 	//마이페이지 일반 글관리 -글삭제

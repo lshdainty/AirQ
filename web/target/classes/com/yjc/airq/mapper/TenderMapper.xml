@@ -119,4 +119,10 @@
    		from tender
    		where member_id=#{member_id}
 	</select>
+	
+<!-- 	마이페이지 메인 관리자 최신글 -->
+	<select id="tenderMP" resultType="com.yjc.airq.domain.TenderVO">
+		select * from tender
+		order by T_CREATION_DATE desc
+	</select>
 </mapper>
