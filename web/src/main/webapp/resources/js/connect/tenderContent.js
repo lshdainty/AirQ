@@ -20,7 +20,7 @@
 					var html='<button id="bidWrite">투찰하기</button>'
 					+'<button id="bidComplete">작성완료</button>'
 					+'<button id="bidDelete">삭제하기</button>'
-					+'<button id="bidModify" onclick="return confirm(&#39수정하시겠습니까?&#39);">수정하기</button>';
+					/*+'<button id="bidModify">수정하기</button>'*/;
 					
 					var html2='<span>|</span>'
 						+'<a id="reportButton" href="#">신고</a>';
@@ -356,6 +356,10 @@ $(document).ready(function(){
 		});
 	});
 	
+	function bidModify(){
+		
+	}
+	
 	$(document).on('click','#tenderModifyA',function(){
 		var c=confirm('수정하시겠습니까?');
 		var tender_code=$("#tcode").val();
@@ -375,10 +379,6 @@ $(document).ready(function(){
 			return false;
 		}
 	});
-	
-	function bidModify(){
-		
-	}
 	
 	/*신고하기*/
 	$(document).on('click','#reportButton',function(){

@@ -28,6 +28,7 @@ import com.yjc.airq.service.LoginService;
 import com.yjc.airq.service.MypageService;
 
 import lombok.AllArgsConstructor;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -43,7 +44,37 @@ public class MypageController {
 	// mypageMain 가기
 	@RequestMapping(value = "mypageMain", method = RequestMethod.GET)
 	public String mypageMain(Model model) {
+		model.addAttribute("postMPrec", mypageService.postMPrec());
+		model.addAttribute("postMPimp", mypageService.postMPimp());
+		model.addAttribute("postMPlib", mypageService.postMPlib());
+		model.addAttribute("postMPhea", mypageService.postMPhea());
+		model.addAttribute("postMPmet", mypageService.postMPmet());
+		model.addAttribute("tenderMP", mypageService.tenderMP());
+		model.addAttribute("productMP", mypageService.productMP());
+
 		return "mypage/mypageMain";
+	}
+	
+	// mypageMain tender 해당 글 가기 클릭 이벤트
+	
+	@RequestMapping(value = "/tenderContent/${tender_code}", method = RequestMethod.GET)
+	public String goTender(@PathVariable String tender_code) {
+		mypageService.deletePosts(tender_code);
+		return "redirect:/tenderContent/${tender_code}";
+	}
+	
+	// mypageMain product 해당 글 가기 클릭 이벤트
+	@RequestMapping(value = "/product?product_code=${product_code}", method = RequestMethod.GET)
+	public String goProduct(@PathVariable String product_code) {
+		mypageService.deletePostsProduct(product_code);
+		return "redirect:/product?product_code=${product_code}";
+	}
+	
+	// mypageMain post 해당 글 가기 클릭 이벤트
+	@RequestMapping(value = "/postDetail?post_code=${post_code}", method = RequestMethod.GET)
+	public String goPost(@PathVariable String post_code) {
+		mypageService.deletePostsPost(post_code);
+		return "redirect:/postDetail?post_code=${post_code}";
 	}
 
 	// mypageMainComment 가기
@@ -165,27 +196,7 @@ public class MypageController {
 	return "";
 	}
 
-	// mypageMainPosts tender 글 수정 버튼 클릭 이벤트
-	
-	@RequestMapping(value = "/tenderContent/${tenderList.tender_code}", method = RequestMethod.GET)
-	public String deletePosts(@PathVariable String tender_code) {
-		mypageService.deletePosts(tender_code);
-		return "redirect:/tenderContent/${tenderList.tender_code }";
-	}
-	
-	// mypageMainPosts product 글 수정 버튼 클릭 이벤트
-	@RequestMapping(value = "/product?product_code=${productMP.product_code }", method = RequestMethod.GET)
-	public String deletePostsProduct(@PathVariable String product_code) {
-		mypageService.deletePostsProduct(product_code);
-		return "redirect:/product?product_code=${productMP.product_code }";
-	}
-	
-	// mypageMainPosts post 글 수정 버튼 클릭 이벤트
-	@RequestMapping(value = "/postDetail?post_code=${postMP.post_code }", method = RequestMethod.GET)
-	public String deletePostsPost(@PathVariable String post_code) {
-		mypageService.deletePostsPost(post_code);
-		return "redirect:/postDetail?post_code=${postMP.post_code }";
-	}
+
 
 //	// mypageMainPosts tender 글 삭제 버튼 클릭 이벤트
 //	@RequestMapping(value = "/mypageMainPosts/{tender_code}", method = RequestMethod.GET)
@@ -431,32 +442,11 @@ public class MypageController {
 
 	// mypageSeller 가기
 	@RequestMapping(value = "mypageSeller", method = RequestMethod.GET)
-	public String mypageSeller(Model model,HttpSession session, HttpServletRequest request,Company_InfoVO company_InfoVO){
-		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id(); 
-//		System.out.println(member_id+"현재로그인정보");
-		ArrayList<Company_InfoVO> cList = mypageService.c_code(member_id);
-//		System.out.println(cList);
-		model.addAttribute("cList",cList);
-//		String board_type = (String)request.getSession().getAttribute("board_type");
-		
+	public String mypageSeller(Model model){
+	
 		return "mypage/mypageSeller";
 	}
-	//mypageSeller Json사용
-	@ResponseBody
-	@RequestMapping(value = "/mypageSeller",method =RequestMethod.POST)
-	public JSONObject cList(HttpServletRequest request){
-		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
-		ArrayList<Company_InfoVO> list = mypageService.c_code(member_id);
-//		System.out.println("dd"+list.get(1).getSum());
-//		System.out.println("ss"+list.get(1).getMonth());
-//		System.out.println(list.get(1));
-//		System.out.println(list);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		JSONObject json = JSONObject.fromObject(map);
-		return json;
-		
-	}
+
 	// mypageSeller 글관리 가기
 	@RequestMapping(value = "mypageSellerPosts", method = RequestMethod.GET)
 	public String mypageSellerPosts(Model model, HttpServletRequest request) {
@@ -577,10 +567,37 @@ public class MypageController {
 
 	// mypageSeller 판매내역 가기
 	@RequestMapping(value = "mypageSellerSales", method = RequestMethod.GET)
-	public String mypageSellerSales(Model model) {
+	public String mypageSellerSales(Model model,HttpSession session, HttpServletRequest request,Company_InfoVO company_InfoVO) {
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id(); 
+//		System.out.println(member_id+"현재로그인정보");
+		ArrayList<Company_InfoVO> cList = mypageService.c_code(member_id);
+		System.out.println(cList);
+		model.addAttribute("cList",cList);
+//		String board_type = (String)request.getSession().getAttribute("board_type");
+	
 		return "mypage/mypageSellerSales";
 	}
-
+	//mypageSeller Json사용
+	@ResponseBody
+	@RequestMapping(value = "/mypageSellerSales",method =RequestMethod.POST)
+	public JSONArray cList(HttpServletRequest request){
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		ArrayList<Company_InfoVO> list = mypageService.c_code(member_id);
+//		System.out.println("dd"+list.get(1).getSum());
+//		System.out.println("ss"+list.get(1).getMonth());
+//		System.out.println(list.get(1));
+//		System.out.println(list);
+		JSONArray jArray = new JSONArray();
+		for(int i=0; i<list.size(); i++) {
+			JSONObject json = new JSONObject();
+			json.put("sum",list.get(i).getSum());
+			json.put("month",list.get(i).getMonth());
+			jArray.add(json);
+		}
+		System.out.println(jArray);
+		
+		return jArray;
+	}
 	// mypageSeller 회원탈퇴 가기
 	@RequestMapping(value = "mypageSellerDelete", method = RequestMethod.GET)
 	public String mypageSellerDelete(Model model) {

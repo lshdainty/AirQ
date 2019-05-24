@@ -196,7 +196,9 @@
 	
 	
 	<select id="productMP" resultMap="ProductVO">
-		select * from product
+		select * from product pr, company_info c
+        where pr.COMPANY_CODE = c.COMPANY_CODE
+        order by ROWNUM desc
 	</select>
 	
 	<select id="productSMP" resultMap="ProductVO">

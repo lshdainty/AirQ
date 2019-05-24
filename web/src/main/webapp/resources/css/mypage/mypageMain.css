@@ -21,8 +21,6 @@
 /*             border:5px solid red; */
 /*         } */
 .container .content {
-	padding-left: 200px;
-	padding-right: 150px;
 	overflow: hidden;
 }
 
@@ -33,7 +31,21 @@
 }
 
 .container .content main {
-	width: 100%;
+	display: inline-block;
+
+}
+
+.container .content .row{
+	display: inline-block;
+	margin:0px;
+	margin-bottom: 5px;
+            
+}
+
+.container .content .row .col-md-4{
+	width:33%;
+	display: inline-block;
+	padding: 5px;
 }
 
 .container .content nav {

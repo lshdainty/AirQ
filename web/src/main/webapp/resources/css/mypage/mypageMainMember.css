@@ -100,6 +100,11 @@
 	display: inline-block;
 }
 
+.container .form3 .btn {
+	font-size: 15px;
+	width: 15%;
+}
+
 .container .content {
 	overflow: hidden;
 }
