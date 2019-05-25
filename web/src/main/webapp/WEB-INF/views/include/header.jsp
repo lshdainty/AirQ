@@ -27,7 +27,7 @@
 
     <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
         <div class="container-fluid">
-            <div class="d-flex align-items-center"><a href="#" class="navbar-brand py-1"><img
+            <div class="d-flex align-items-center"><a href="/" class="navbar-brand py-1"><img
                         src="https://d19m59y37dris4.cloudfront.net/directory/1-2/img/logo.svg" alt="Directory logo"></a>
             </div>
             <button type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
@@ -39,7 +39,6 @@
                     <li class="nav-item"><a href="/" class="nav-link">HOME</a></li>
                     <li class="nav-item dropdown"><a id="communityDropdownMenuLink" href="#" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle ">
-
                             업체연결 서비스</a>
                         <div aria-labelledby="connectDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
                             <h6 class="dropdown-header font-weight-normal">개인 사용자</h6>
@@ -68,6 +67,22 @@
                             <a href="/thumbnailBoardMain?board_code=bd_met&pagenum=1" class="dropdown-item">대기오염 물질정보</a>
                             <a href="/thumbnailBoardMain?board_code=bd_imp&pagenum=1" class="dropdown-item">공기질 향상방법</a>
                             <a href="/thumbnailBoardMain?board_code=bd_hea&pagenum=1" class="dropdown-item">건강지킴이</a>
+                        </div>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a id="communityDropdownMenuLink" href="#" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" class="nav-link dropdown-toggle ">
+                            공기질 관리
+                        </a>
+                        <div aria-labelledby="communityDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+                            <h6 class="dropdown-header font-weight-normal">모니터링</h6>
+                            <a href="/monitoringMain" class="dropdown-item">공기질 모니터링 </a>
+                            <div class="dropdown-divider"></div>
+
+
+                            <h6 class="dropdown-header font-weight-normal">IoT</h6>
+                            <a href="/remoteMain" class="dropdown-item">IOT 원격제어</a>
                         </div>
                     </li>
                     

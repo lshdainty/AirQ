@@ -49,8 +49,11 @@
 				<option value="10">91~100</option>
 				<option value="11">100~</option>
             </select>
-            <select name="measure" id="measure" class="order-option">
-                <option value="">측정 물질</option>
+            <select name="matter" id="matter" class="order-option">
+                <option value="측정 물질">측정 물질</option>
+                <c:forEach var="matterList" items="${matterList }">
+                	<option value="${matterList.matter_code }">${matterList.matter_name }</option>
+                </c:forEach>
             </select>
         </div>
         <ul class="compare-category">
@@ -82,14 +85,13 @@
 												<c:when test="${pList.p_space == '10'}">91~100평</c:when>
 												<c:when test="${pList.p_space == '11'}">100~평</c:when>
 											</c:choose>
-										</span> / <br/>
-						측정 지점 : <span>${pList.measure_point}</span> / <br/>
-						만족도 평균 : <span>${pList.staravg}</span> / <br/>
-						판매 건수 : <span>${pList.sellnum}</span> / <br/>
-						측정 물질 : 
-							<c:forEach var="mList" items="${pList.matterVO }">
-								<span>${mList.matter_name } </span>
-							</c:forEach>
+										</span><br/>
+						측정 지점 : <span>${pList.measure_point}</span><br/>
+						만족도 평균 : <span>${pList.staravg}</span><br/>
+						판매 건수 : <span>${pList.sellnum}</span><br/>
+						측정 물질 : <c:forEach var="mList" items="${pList.matterVO }" varStatus="status">
+										<span>${mList.matter_name }<c:if test="${!status.last}">, </c:if></span>
+									</c:forEach>
                     </div>
                     <div class="compare__price"><span>${pList.product_price}</span>원</div>
                 </div>
