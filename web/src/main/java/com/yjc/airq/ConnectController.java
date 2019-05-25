@@ -87,6 +87,7 @@ public class ConnectController {
 		
 		//사용자가 사는곳에서 많이 팔린 제품리스트
 		ArrayList<ProductVO> recommend = connectService.recommendList(zipcode);
+		System.out.println(recommend);
 		
 		//전체 상품리스트
 		ArrayList<ProductVO> pList = connectService.productList(sort,criteria.getStartnum(),criteria.getEndnum());

@@ -14,7 +14,7 @@
 		<association property="staravg" column="product_code" select="getStaravg"/>
 		<association property="companyVO" column="company_code" select="getCompany"/>
 		<collection property="areaVO" column="product_code" javaType="java.util.ArrayList" ofType="com.yjc.airq.domain.AreaVO" select="getAreaByCode"/>
-<!-- 		<collection property="matterVO" column="product_code" javaType="java.util.ArrayList" ofType="com.yjc.airq.domain.MatterVO" select="getMatterByCode"/> -->
+		<collection property="matterVO" column="product_code" javaType="java.util.ArrayList" ofType="com.yjc.airq.domain.MatterVO" select="getMatterByCode"/>
 	</resultMap>
 	
 	<select id="recommendList" resultMap="ProductVO">
@@ -75,11 +75,11 @@
 		where a.area_code = pa.area_code and pa.product_code=#{product_code}
 	</select>
 	
-<!-- 	<select id="getMatterByCode" resultType="com.yjc.airq.domain.MatterVO">
+	<select id="getMatterByCode" resultType="com.yjc.airq.domain.MatterVO">
 		select m.*,pm.product_code 
 		from matter m, p_measure_matter pm 
 		where m.matter_code = pm.matter_code and pm.product_code=#{product_code}
-	</select> -->
+	</select>
 	
 	<select id="getSellnum" resultType="String">
 		select to_char(count(*)) as sellnum
