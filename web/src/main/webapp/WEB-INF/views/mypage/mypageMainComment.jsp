@@ -1,9 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypageMainComment.css" />
+
     <div class="container">
-        <p></p>
+        <div class="page-header">
+			<h3>마이페이지 - 댓글관리</h3>
+		</div>
 <form id="form1">
         <section class="content">
             <main>
@@ -46,7 +50,7 @@
             
             <div class="reply_content">${Reply.reply_content }</div>
             <div class="member_id">${Reply.member_id }</div> 
-            <div class="r_creation_date">${Reply.r_creation_date }</div>
+            <div class="r_creation_date">${fn:substring(Reply.r_creation_date,0,10) }</div>
             <c:choose>
             	<c:when test="${Reply.post_code eq null }">
             		<a href="<c:url value='/product?product_code=${Reply.product_code }' />" class="btn btn-primary">상세정보</a>        
@@ -66,7 +70,7 @@
             <div class="name_title">${ReplyPost.post_title }</div>
             <div class="reply_content">${ReplyPost.reply_content }</div>
             <div class="member_id">${ReplyPost.member_id }</div> 
-            <div class="r_creation_date">${ReplyPost.r_creation_date }</div>
+            <div class="r_creation_date">${fn:substring(ReplyPost.r_creation_date,0,10) }</div>
             <a href="<c:url value='/postDetail?post_code=${ReplyPost.post_code }' />" class="btn btn-primary">상세정보</a>        
 			<a href="<c:url value='/mypageMainComment/${ReplyPost.reply_code }' />" class="btn btn-lg btn-danger">삭제</a>
         </div>
@@ -78,7 +82,7 @@
             <div class="name_title">${ReplyProduct.product_name }</div>
             <div class="reply_content">${ReplyProduct.reply_content }</div>
             <div class="member_id">${ReplyProduct.member_id }</div> 
-            <div class="r_creation_date">${ReplyProduct.r_creation_date }</div>
+            <div class="r_creation_date">${fn:substring(ReplyProduct.r_creation_date,0,10) }</div>
             <a href="<c:url value='/product?product_code=${ReplyProduct.product_code }' />" class="btn btn-primary">상세정보</a>        
 			<a href="<c:url value='/mypageMainComment/${ReplyProduct.reply_code }' />" class="btn btn-lg btn-danger">삭제</a>
         </div>

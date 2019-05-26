@@ -3,15 +3,18 @@
 	box-sizing: border-box;
 	justify-content: space-between;
 }
-
-.container .form1 {
-	box-shadow: 5px 5px 5px rgba(0.5,0.5,0.5,0.5);
-	background-color: #80bfff;
-	font-size: 14px;
+.container .page-header {
+	padding: 20px 40px;
+	border-bottom: 4px solid #ccc;
+	color: #999;
 	text-transform: uppercase;
-	letter-spacing: 0.03em;
-	border-radius: 3px;
-	padding: 25px 30px;
+}
+.container .form1 {
+	padding: 20px 40px;
+	margin-top: 9px;
+	line-height: 17px;
+	font-size: 14px;
+	color: #7b858e;
 }
 
 .container .form1 .A_select {
@@ -36,20 +39,18 @@
 
 .container .form1 .A_date {
 	display: inline-block;
-	width: 15%;
 }
 
 .container .form1 .C {
-	height:25px;
+	line-height: 17px;
+	font-size: 14px;
 	float: right;
 }
 
 .container .form2 {
-	background-color: #ffffff;
-	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
-	padding: 25px 30px;
-	margin-bottom: 10px;
-	border-style: outset;
+	border-top: 1px solid #ebeef1;
+	padding: 12px 0;
+	border-bottom: 1px solid #ebeef1;
 }
 
 .container .form2 .board {
@@ -57,6 +58,7 @@
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
+	text-align: center;	
 }
 
 .container .form2 .name_title {
@@ -64,6 +66,7 @@
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
+	text-align: center;
 }
 
 .container .form2 .reply_content {
@@ -72,6 +75,7 @@
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
+	text-align: center;
 }
 
 .container .form2 .member_id {
@@ -81,20 +85,19 @@
 
 .container .form2 .r_creation_date{
 	display: inline-block;
-	width: 20%;
-}
-
-.container .form2 .btn{
-	font-size: 15px;
 	width: 15%;
 }
 
+.container .form2 .btn{
+
+	font-size: 15px;
+	width: 10%;
+}
+
 .container .form3 {
-	background-color: #ffffff;
-	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
-	padding: 25px 30px;
-	margin-bottom: 10px;
-	border-style: outset;
+	border-top: 1px solid #ebeef1;
+	padding: 12px 0;
+	border-bottom: 1px solid #ebeef1;
 }
 
 .container .form3 .board {
@@ -102,6 +105,7 @@
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
+	text-align: center;
 }
 
 .container .form3 .name_title {
@@ -109,6 +113,7 @@
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
+	text-align: center;
 }
 
 .container .form3 .reply_content {
@@ -117,6 +122,7 @@
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
+	text-align: center;
 }
 
 .container .form3 .member_id {
@@ -126,20 +132,18 @@
 
 .container .form3 .r_creation_date{
 	display: inline-block;
-	width: 20%;
+	width: 15%;
 }
 
 .container .form3 .btn{
 	font-size: 15px;
-	width: 15%;
+	width: 10%;
 }
 
 .container .form4 {
-	background-color: #ffffff;
-	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
-	padding: 25px 30px;
-	margin-bottom: 10px;
-	border-style: outset;
+	border-top: 1px solid #ebeef1;
+	padding: 12px 0;
+	border-bottom: 1px solid #ebeef1;
 }
 
 .container .form4 .board {
@@ -147,6 +151,7 @@
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
+	text-align: center;
 }
 
 .container .form4 .name_title {
@@ -154,6 +159,7 @@
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
+	text-align: center;
 }
 
 .container .form4 .reply_content {
@@ -162,6 +168,7 @@
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
+	text-align: center;
 }
 
 .container .form4 .member_id {
@@ -171,12 +178,12 @@
 
 .container .form4 .r_creation_date{
 	display: inline-block;
-	width: 20%;
+	width: 15%;
 }
 
 .container .form4 .btn{
 	font-size: 15px;
-	width: 15%;
+	width: 10%;
 }
 
 .container .content {
