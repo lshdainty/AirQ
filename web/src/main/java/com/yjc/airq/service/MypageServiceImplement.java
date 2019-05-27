@@ -218,4 +218,9 @@ public class MypageServiceImplement implements MypageService{
 	public ArrayList<PaymentVO> reviewList() {
 		return paymentMapper.reviewList();
 	}
+
+	@Override
+	public void deleteSelf(String member_id, String member_pw) {
+		 memberMapper.deleteSelf(member_id, member_pw);
+	}
 }

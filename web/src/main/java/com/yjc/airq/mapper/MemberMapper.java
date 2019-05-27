@@ -31,4 +31,7 @@ public interface MemberMapper {
 	
 	// 사용자가 사는 곳의 우편번호 가져오기
 	public String selectZipcode(@Param("member_id") String member_id);
+	
+	//마이페이지 회원탈퇴
+	public void deleteSelf(@Param("member_id")String member_id, @Param("member_pw")String member_pw);
 }
