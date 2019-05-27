@@ -1,8 +1,3 @@
-#content{
-	margin:auto;
-	max-width:70%;
-}
-
 * {
 	margin: 0;
 	padding: 0;
@@ -10,10 +5,11 @@
 }
 
 .compare-wrap {
+	margin:auto;
 	margin-top:1rem;
 	width: 100%;
 	min-width:992px;
-	max-width:1180px;
+	max-width:1140px;
 }
 
 .compare-wrap div {
@@ -124,7 +120,7 @@
 	font-size: 0.8rem;
 	vertical-align: middle;
 	padding: 0.2rem 0rem 0.2rem 1rem;
-	border: 1px solid #00275c;
+	border: 1px solid #ddd;
 	border-bottom:1px solid #00275c;
 	border-left: none;
 	color: #929191;
@@ -153,7 +149,7 @@
 	cursor:pointer;
 	width: 100%;
 	padding: 1rem;
-	border-top:1px solid #00275c;
+	border-bottom:1px solid #ddd;
 }
 .post-item:hover {
 	transition: 0.2s;

@@ -197,7 +197,9 @@ footer .text-sm {
 
 
 #content {
-	min-height: 100vh;	
+	margin:auto;
+	min-height: 100vh;
+	max-width:1180px;
 }
 
 .load-gate {
