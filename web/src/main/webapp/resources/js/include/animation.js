@@ -3,6 +3,9 @@ var init = function() {
         $('.load-gate').remove();
     }});
 };
+var pAnimation = function(){
+	TweenMax.staggerFrom($('.post-item'),1,{autoAlpha:0,x:-150,ease:Power1.easeOut},0.1);
+}
 
 $(document).ready(function(){
 	if (document.readyState == 'complete') {
@@ -10,8 +13,7 @@ $(document).ready(function(){
 	} else {
 	    $(window).on('load',init);
 	};
-	TweenMax.staggerFrom($('.post-item'),1,{autoAlpha:0,x:-100,ease:Power1.easeOut},0.1);
+	pAnimation();
 	$(document).bind("ajaxComplete", function(){
-		TweenMax.staggerFrom($('.post-item'),1,{autoAlpha:0,x:-100,ease:Power1.easeOut},0.1);
 	 });
 });

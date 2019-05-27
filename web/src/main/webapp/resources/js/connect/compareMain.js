@@ -143,6 +143,7 @@ function ajax(idx,sort){
 				$(".pagination").prepend(page);
 				$("html, body").animate({ scrollTop: 0 }, 1);
 			}	//else
+			pAnimation();
 		}	//success
 	});	//ajax
 }	//function
