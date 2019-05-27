@@ -212,4 +212,10 @@ public class MypageServiceImplement implements MypageService{
 	public ArrayList<ReplyVO> mypageReplysNSProduct(@Param("member_id") String member_id) {
 		return replyMapper.mypageReplysNSProduct(member_id);
 	}
+	
+	//리뷰 안 한 목록 리스트
+	@Override
+	public ArrayList<PaymentVO> reviewList() {
+		return paymentMapper.reviewList();
+	}
 }

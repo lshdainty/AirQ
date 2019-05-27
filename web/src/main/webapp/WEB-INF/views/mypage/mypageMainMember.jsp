@@ -3,9 +3,9 @@
 <%@include file="../include/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypageMainMember.css" />
     <div class="container">
-    <div class="Member">
-		<p></p>    
-        </div>
+        <div class="page-header">
+			<h3>마이페이지 - 회원 관리</h3>
+		</div>
         <section class="content">
             <main>
         <div class="form1">
@@ -28,7 +28,7 @@
             <div class="member_name">${getMemberList.member_name }</div> 
             <div class="member_tel">${getMemberList.member_tel }</div>
             <div class="member_email">${getMemberList.member_email }</div>
-            <div class="m_addr_do">${getMemberList.m_addr_do }</div>
+            <div class="m_addr_do">${getMemberList.m_road_addr }</div>
             <div class="member_devision">${getMemberList.member_devision}</div>
             <a href="<c:url value='/mypageMainMember/${getMemberList.member_id }' />" class="btn btn-lg btn-danger">회원 삭제</a>
         </div>

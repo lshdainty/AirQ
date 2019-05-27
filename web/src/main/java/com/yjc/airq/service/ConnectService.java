@@ -8,6 +8,7 @@ import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.DemandVO;
+import com.yjc.airq.domain.MatterVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.ReplyVO;
@@ -116,6 +117,8 @@ public interface ConnectService {
 	public ArrayList<ProductVO> recommendList(@Param("zipcode") String zipcode);
 	// 제품 목록
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
+	// 측정 물질 리스트 가져오기
+	public ArrayList<MatterVO> matterList();
 	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
 	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("space") int space, @Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
 	// 상품 상세 페이지

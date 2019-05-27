@@ -4,9 +4,9 @@
 <%@include file="../include/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypageMainPosts.css" />
     <div class="container">
-    <div class="Posts">
-        <p></p>
-    </div >
+        <div class="page-header">
+			<h3>마이페이지 - 신고글 관리</h3>
+		</div>
 <div id="form1">
         <section class="content">
             <main>

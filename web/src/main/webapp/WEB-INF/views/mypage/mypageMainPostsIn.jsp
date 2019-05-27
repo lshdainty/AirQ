@@ -14,7 +14,7 @@
             	            <div class="report_title">${mypageMainRIn.report_title }</div>
             	            <div class="member_id">${mypageMainRIn.member_id }</div> 
             	            <div class="report_date">${mypageMainRIn.report_date}</div>
-            	            <div class="report_count">신고된 횟수:${mypageMainRIn.report_count}</div>
+
             	        </div>
             	        	신고 내용 
             	        	<br>
