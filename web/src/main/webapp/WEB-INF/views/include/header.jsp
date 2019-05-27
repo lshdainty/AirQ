@@ -92,6 +92,7 @@
 			                            <a href="/mypageNormalPosts" class="dropdown-item">글 관리</a>
 			                            <a href="/mypageNormalComment" class="dropdown-item">댓글 관리</a>
 			                            <a href="/mypageNormalPay" class="dropdown-item">결제 내역</a>
+			                            <a href="/mypageNormalDelete" class="dropdown-item">회원탈퇴</a>			                            
 			                            <div class="dropdown-divider"></div>
 			                        </div>
 			                    </li>
@@ -108,9 +109,10 @@
 			                        <div aria-labelledby="communityDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
 			                            <h6 class="dropdown-header font-weight-normal">내 정보</h6>
 			                            <a href="/mypageSeller" class="dropdown-item">MyPage</a>
-			                            <a href="/mypageSellerPost" class="dropdown-item">글 관리</a>
+			                            <a href="/mypageSellerPosts" class="dropdown-item">글 관리</a>
 			                            <a href="/mypageSellerComment" class="dropdown-item">댓글 관리</a>
-			                            <a href="/mypageSellerPay" class="dropdown-item">결제 내역</a>
+			                            <a href="/mypageSellerSales" class="dropdown-item">결제 내역</a>
+			                            <a href="/mypageSellerDelete" class="dropdown-item">회원탈퇴</a>			                            
 			                            <div class="dropdown-divider"></div>
 			                        </div>
 			                    </li>
@@ -127,9 +129,9 @@
 			                        <div aria-labelledby="communityDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
 			                            <h6 class="dropdown-header font-weight-normal">내 정보</h6>
 			                            <a href="/mypageMain" class="dropdown-item">MyPage</a>
-			                            <a href="/mypageMainPost" class="dropdown-item">글 관리</a>
+			                            <a href="/mypageMainPosts" class="dropdown-item">신고글 관리</a>
 			                            <a href="/mypageMainComment" class="dropdown-item">댓글 관리</a>
-			                            <a href="/mypageMainPay" class="dropdown-item">결제 내역</a>
+			                            <a href="/mypageMainMember" class="dropdown-item">회원 관리</a>
 			                            <div class="dropdown-divider"></div>
 			                        </div>
 			                    </li>
