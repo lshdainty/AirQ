@@ -23,4 +23,6 @@ public class ProductVO {
 	private String report_count;
 	private int reply_count;
 	private String member_id;
+	
+	private String d_service_date;
 }

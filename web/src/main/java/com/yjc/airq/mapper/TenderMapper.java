@@ -42,4 +42,7 @@ public interface TenderMapper {
 	public ArrayList<TenderVO> tenderNMP(@Param("member_id")String member_id);
 	//마이페이지 메인 관리자 - 글가져오기
 	public ArrayList<TenderVO> tenderMP();
+	
+	//리뷰 안 한 목록 리스트
+	public ArrayList<TenderVO> reviewTenderList(String member_id);
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -17,11 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
+import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.service.ConnectService;
@@ -683,15 +684,24 @@ public class MypageController {
 	// 리뷰 페이지
 	@RequestMapping(value="reviewList", method=RequestMethod.POST)
 	@ResponseBody
-	public ArrayList<PaymentVO> reviewList() {
-		ArrayList<PaymentVO> reviewList=mypageService.reviewList();
+	public String reviewList(HttpServletRequest request, HttpServletResponse response) {
+		response.setContentType("text/html;charset=UTF-8");
 		
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		ArrayList<ProductVO> reviewCompareList=mypageService.reviewCompareList(member_id);
+		ArrayList<TenderVO> reviewTenderList=mypageService.reviewTenderList(member_id);
 		
-		/*JSONArray reviewArr=JSONArray.fromObject(reviewList); 
-		 Map<String, Object>map=new HashMap<String, Object>(); map.put("reviewList", reviewArr);
-		 * JSONObject json=JSONObject.fromObject(map); System.out.println(json);
-		 */
-		return reviewList;
+		JSONArray reviewCompareArr=JSONArray.fromObject(reviewCompareList); 
+		JSONArray reviewTenderArr=JSONArray.fromObject(reviewTenderList);
+		
+		Map<String, Object>map=new HashMap<String, Object>(); 
+		map.put("reviewCompareList", reviewCompareArr);
+		map.put("reviewTenderList",reviewTenderArr);
+		JSONObject json=JSONObject.fromObject(map);
+		System.out.println(json);
+		String jsonString=json.toString();
+		
+		return jsonString;
 	}
 	
 	@RequestMapping(value="reviewWrite",method=RequestMethod.GET)

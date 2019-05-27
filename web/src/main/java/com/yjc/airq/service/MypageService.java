@@ -107,5 +107,6 @@ public interface MypageService {
 	public void deleteSelf(@Param("member_id")String member_id, @Param("member_pw")String member_pw);
 	
 	// 리뷰 안 한 목록 리스트
-	public ArrayList<PaymentVO> reviewList();
+	public ArrayList<ProductVO> reviewCompareList(String member_id);
+	public ArrayList<TenderVO> reviewTenderList(String member_id);
 }

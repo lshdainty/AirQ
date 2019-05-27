@@ -215,8 +215,12 @@ public class MypageServiceImplement implements MypageService{
 	
 	//리뷰 안 한 목록 리스트
 	@Override
-	public ArrayList<PaymentVO> reviewList() {
-		return paymentMapper.reviewList();
+	public ArrayList<ProductVO> reviewCompareList(String member_id) {
+		return productMapper.reviewCompareList(member_id);
+	}
+	@Override
+	public ArrayList<TenderVO> reviewTenderList(String member_id) {
+		return tenderMapper.reviewTenderList(member_id);
 	}
 
 	@Override

@@ -35,4 +35,7 @@ public interface ProductMapper {
 //	public void deletePostsProduct1(@Param("product_code") String product_code);
 	//마이페이지 판매자 글관리 -글삭제
 	public ArrayList<ProductVO> productSMP(@Param("member_id")String member_id);
+
+	// 리뷰 안 한 목록 리스트
+	public ArrayList<ProductVO> reviewCompareList(String member_id);
 }

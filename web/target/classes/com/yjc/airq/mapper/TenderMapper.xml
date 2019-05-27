@@ -125,4 +125,12 @@
 		select * from tender
 		order by T_CREATION_DATE desc
 	</select>
+	
+	<!-- 리뷰 안한 목록 리스트 -->
+	<select id="reviewTenderList" resultType="com.yjc.airq.domain.TenderVO">
+	    select t.tender_code, t.member_id, t.tender_title, t.t_space, t.floor_number, t.service_date, p.payment_code, p.star_score
+    	from payment p,tender t
+    	where t.tender_code=p.tender_code and p.refund_whether='n' and p.star_score is null and t.member_id=#{member_id}
+   		order by p.payment_date
+	</select>
 </mapper>
