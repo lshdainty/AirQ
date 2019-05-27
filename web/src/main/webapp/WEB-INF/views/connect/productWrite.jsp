@@ -40,6 +40,13 @@
 					<button id="areaAdd" type="button">가능지역 추가하기</button><br/>
 					<div id="p_possible_area">
 					</div>
+					<label for="measure_matter">측정 가능 물질 : </label>
+					<select name="matter" id="matter" class="order-option">
+                		<option value="측정 물질">측정 물질</option>
+           			</select>
+           			<button id="matterAdd" type="button">측정물질 추가하기</button><br/>
+					<div id="p_measure_matter">
+					</div>
 					<label for="p_space">측정 적절 평수 : </label>
 					<select id="p_space" name="p_space" class="select">
 						<option>선택</option>

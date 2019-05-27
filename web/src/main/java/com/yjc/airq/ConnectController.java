@@ -94,7 +94,6 @@ public class ConnectController {
 		ArrayList<ProductVO> pList = connectService.productList(sort,criteria.getStartnum(),criteria.getEndnum());
 		// 측정 물질리스트 가져오기
 		ArrayList<MatterVO> matterList = connectService.matterList();
-		System.out.println(matterList);
 		
 		model.addAttribute("recommend",recommend);
 		model.addAttribute("pList",pList);
@@ -533,8 +532,6 @@ public class ConnectController {
 		Date d = cal.getTime();
 		String period_day = dt.format(d);
 		
-		
-		
 		// 건수
 		int bidNum = connectService.bidNumber(c_info.getCompany_code(),period_day);
 		if (bidNum != 0) {
@@ -734,6 +731,18 @@ public class ConnectController {
 		JSONArray aJson = JSONArray.fromObject(aList);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("aList", aJson);
+		JSONObject json = JSONObject.fromObject(map);
+		return json;
+	}
+	
+	// 분석/비교 서비스 - 물질 목록 가져오기
+	@RequestMapping(value = "matterList", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject matterList() {
+		ArrayList<MatterVO> matterList = connectService.matterList();
+		JSONArray mJson = JSONArray.fromObject(matterList);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("matterList", mJson);
 		JSONObject json = JSONObject.fromObject(map);
 		return json;
 	}

@@ -15,6 +15,23 @@
 		error: function(xhr, stat, err) {}
 });
 
+$.ajax({
+	type: "get",
+	url: "/matterList",
+	async: false,
+	dataType: 'json',
+	success: function(data) {
+		console.log(data);
+		var html = "<option value='측정 물질'>측정 물질</option>";
+	
+		for(var i=0;i<data.matterList.length;i++){ 
+			html +="<option value='"+data.matterList[i].matter_code+"'>"+data.matterList[i].matter_name+"</option>"
+		}
+		$('#matter').html(html);
+	},
+	error: function(xhr, stat, err) {}
+});
+
 $(document).on("change","#sido_code",function(){
 	var thisVal = $(this).val();
 	

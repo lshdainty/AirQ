@@ -46,9 +46,9 @@
 				</div>
 				<div class="product-page-info-section brewery">
 					<h2 class="product-page-h2-heading" itemprop="type">
-						<span class="product-page-heading-type">서비스 가능지역</span> : 
-						<c:forEach var="aList" items="${productContent.areaVO }">
-							${aList.area_si }
+						<span class="product-page-heading-type">측정 물질</span> : 
+						<c:forEach var="mList" items="${productContent.matterVO }" varStatus="status">
+							<span>${mList.matter_name }<c:if test="${!status.last}">, </c:if></span>
 						</c:forEach>
 					</h2>
 				</div>
