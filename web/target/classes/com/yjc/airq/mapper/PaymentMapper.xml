@@ -102,4 +102,14 @@
 	<insert id="tendering">
 		insert into payment(payment_code,payment_price,tender_code,payment_date) values(#{payment_code},${payment_price},#{tender_code},systimestamp)
 	</insert>
+	
+	<!-- 리뷰 안한 목록 리스트 -->
+	<select id="reviewList" resultType="com.yjc.airq.domain.PaymentVO">
+		select rownum,p.*
+		from(select * 
+  			 from payment
+   			 where refund_whether='n' and star_score is null
+   			 order by payment_date) p
+		order by rownum desc
+	</select>
 </mapper>

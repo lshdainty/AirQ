@@ -4,11 +4,12 @@
 	justify-content: space-between;
 }
 
-.container .page-header {
-	padding: 20px 40px;
-	border-bottom: 4px solid #ccc;
-	color: #999;
-	text-transform: uppercase;
+#commentH1 {
+	color: #747474;
+	font-weight: 300;
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 30px;
 }
 .container .form1 {
 	padding: 20px 40px;
@@ -35,9 +36,10 @@
 
 .container .form1 .A_date {
 	display: inline-block;
+	width: 20%;
 }
 
-.container .form1 .C {
+.container .C {
 	line-height: 17px;
 	font-size: 14px;
 	float: right;

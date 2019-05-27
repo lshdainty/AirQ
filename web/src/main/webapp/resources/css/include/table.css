@@ -1,6 +1,7 @@
 
 .tableList {
 	padding-inline-start: 0px;
+	border-bottom: 3px solid #428bca;
 }
 
 .tableCol-10-1 {
@@ -30,9 +31,10 @@
 
 .tableListHeader {
 	color: #747474;
-	font-size: 14px;
+	font-size: 16px;
 	letter-spacing: 0.03em;
-	border-bottom: 2px #D5D5D5 solid;
+	/* border-bottom: 2px #D5D5D5 solid; */
+	border-bottom: 3px solid #428bca;
 }
 
 .tableListContent {

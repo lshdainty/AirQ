@@ -10,7 +10,7 @@ nav{
     font-weight: bold;
 }
 nav li {
-    padding :0 0.5rem 0 0.5rem;
+    padding : 0;
 }
 .navbar{
     padding : 1rem 1rem !important;
@@ -197,8 +197,9 @@ footer .text-sm {
 
 
 #content {
+	margin:auto;
 	min-height: 100vh;
-	overflow: hidden;
+	max-width:1180px;
 }
 
 .load-gate {

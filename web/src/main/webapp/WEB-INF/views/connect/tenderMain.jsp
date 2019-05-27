@@ -9,7 +9,7 @@
 <%--입찰 공고 테이블 시작 --%>
 <form action="/tenderboardWrite" method="post">
 	<div id="tenderContainer">
-		<h1 id="tenderTitle" class="tenderTitle">입찰 공고</h1>
+		<h2 id="tenderTitle" class="tenderTitle">입찰 공고</h2>
 		<div id="tenderSelectDiv" class="tenderSelectDiv">
 		</div>
 		<ul class="tableList">

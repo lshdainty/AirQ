@@ -127,7 +127,7 @@ function ajax(idx,sort){
 						case 10: space="91~100평"; break;
 						case 11: space="101평~"; break;
 					}
-					result += '<div class="compare-post" id="'+data.pList[i].product_code+'">';
+					result += '<div class="compare-post post-item" id="'+data.pList[i].product_code+'">';
 					result += '<div class="compare-thumb"><img src="'+"resources/images/800490.png"+'" alt="이미지X"></div>'
 					result += '<div class="compare-info"><div class="compare__title"><span>'+data.pList[i].product_name+'</span></div>'
 					result += '<div class="compare__content">측정 적절 평수 : <span>'+space+'</span><br/>';
@@ -160,6 +160,7 @@ function ajax(idx,sort){
 				$(".pagination").prepend(page);
 				$("html, body").animate({ scrollTop: 0 }, 1);
 			}	//else
+			pAnimation();
 		}	//success
 	});	//ajax
 }	//function
