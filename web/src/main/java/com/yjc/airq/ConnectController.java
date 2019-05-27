@@ -88,16 +88,12 @@ public class ConnectController {
 		
 		// 사용자가 사는곳에서 많이 팔린 제품리스트
 		ArrayList<ProductVO> recommend = connectService.recommendList(zipcode);
-		System.out.println(recommend);
 		
 		// 전체 상품리스트
 		ArrayList<ProductVO> pList = connectService.productList(sort,criteria.getStartnum(),criteria.getEndnum());
-		// 측정 물질리스트 가져오기
-		ArrayList<MatterVO> matterList = connectService.matterList();
 		
 		model.addAttribute("recommend",recommend);
 		model.addAttribute("pList",pList);
-		model.addAttribute("matterList",matterList);
 		model.addAttribute("criteria",criteria);
 
 		return "connect/compareMain";
@@ -827,6 +823,12 @@ public class ConnectController {
 		for(int i=0; i<area_code.length; i++) {
 			connectService.productAreaInsert(area_code[i],product_code);
 		}
+		
+		//측정 가능한 물질 insert
+		String[] matter_code = request.getParameterValues("matter_code");
+		for(int i=0; i<matter_code.length; i++) {
+			connectService.productMatterInsert(matter_code[i],product_code);
+		}
 			
 		//이미지 정보 insert
 		Document doc = Jsoup.parse(request.getParameter("product_detail"));
@@ -863,6 +865,11 @@ public class ConnectController {
 				
 				//업로드
 				String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/images/");
+				
+				File uploadFold = new File(uploadFolder);
+				if(!uploadFold.exists()) {
+					uploadFold.mkdirs();
+				}
 				
 				try {
 					File saveFile = new File(uploadFolder, file_name);
@@ -910,6 +917,13 @@ public class ConnectController {
 		String[] area_code = request.getParameterValues("area_code");
 		for(int i=0; i<area_code.length; i++) {
 			connectService.productAreaInsert(area_code[i],product_code);
+		}	
+		
+		//측정 가능한 물질 삭제후 insert
+		connectService.productMatterDelete(product_code);
+		String[] matter_code = request.getParameterValues("matter_code");
+		for(int i=0; i<matter_code.length; i++) {
+			connectService.productMatterInsert(matter_code[i],product_code);
 		}
 		
 		//상품 사진 삭제 후 insert
@@ -959,6 +973,12 @@ public class ConnectController {
 						
 				//업로드
 				String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/images/");
+				
+				File uploadFold = new File(uploadFolder);
+				if(!uploadFold.exists()) {
+					uploadFold.mkdirs();
+				}
+				
 				try {
 					File saveFile = new File(uploadFolder, file_name);
 					
@@ -975,6 +995,7 @@ public class ConnectController {
 	@RequestMapping(value = "productDelete", method = RequestMethod.GET)
 	public String productDelete(@RequestParam("product_code") String product_code) {
 		connectService.productAreaDelete(product_code);
+		connectService.productMatterDelete(product_code);
 		connectService.productImageDelete(product_code);
 		connectService.productPaymentDelete(product_code);
 		connectService.productDemandDelete(product_code);

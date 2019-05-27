@@ -137,6 +137,8 @@ public interface ConnectService {
 	public void productInsert(ProductVO productVO);
 	// 서비스 가능 지역 등록
 	public void productAreaInsert(@Param("area_code") String area_code,@Param("product_code") String product_code);
+	// 측정 가능한 물질 등록
+	public void productMatterInsert(@Param("matter_code") String matter_code,@Param("product_code") String product_code);
 	// 서비스 제품 사진 등록
 	public void productImageUpload(UploadVO uploadVO);
 	// 서비스 제품 썸네일 등록
@@ -145,6 +147,8 @@ public interface ConnectService {
 	public void productUpdate(ProductVO productVO);
 	// 서비스 가능 지역 삭제
 	public void productAreaDelete(@Param("product_code") String product_code);
+	// 측정 가능 물질 삭제
+	public void productMatterDelete(@Param("product_code") String product_code);
 	// 서비스 제품 사진 삭제
 	public void productImageDelete(@Param("product_code") String product_code);
 	// 서비스 제품 결제 삭제
