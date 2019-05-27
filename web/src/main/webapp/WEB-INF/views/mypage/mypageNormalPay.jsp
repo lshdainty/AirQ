@@ -5,6 +5,9 @@
 <h1> </h1>
 
     <div class="container">
+        <div class="page-header">
+			<h3>마이페이지 - 결제 내역</h3>
+		</div>
 <div id="form1">
         <section class="content">
             <main>

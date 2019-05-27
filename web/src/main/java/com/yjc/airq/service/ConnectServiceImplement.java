@@ -9,6 +9,7 @@ import com.yjc.airq.domain.AreaVO;
 import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.DemandVO;
+import com.yjc.airq.domain.MatterVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.ReplyVO;
@@ -18,6 +19,7 @@ import com.yjc.airq.mapper.AreaMapper;
 import com.yjc.airq.mapper.BidMapper;
 import com.yjc.airq.mapper.CompanyMapper;
 import com.yjc.airq.mapper.DemandMapper;
+import com.yjc.airq.mapper.MatterMapper;
 import com.yjc.airq.mapper.MemberMapper;
 import com.yjc.airq.mapper.PaymentMapper;
 import com.yjc.airq.mapper.ProductMapper;
@@ -40,6 +42,7 @@ public class ConnectServiceImplement implements ConnectService {
 	private DemandMapper demandMapper;
 	private PaymentMapper paymentMapper;
 	private ReplyMapper replyMapper;
+	private MatterMapper matterMapper;
 	
 	//회원 이름 가져오기
 	@Override
@@ -284,6 +287,11 @@ public class ConnectServiceImplement implements ConnectService {
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum) {
 		return productMapper.productList(sort,startnum, endnum);
 	}
+	
+	// 측정 물질 리스트 가져오기
+	public ArrayList<MatterVO> matterList(){
+		return matterMapper.matterList();
+	};
 
 	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
 	@Override

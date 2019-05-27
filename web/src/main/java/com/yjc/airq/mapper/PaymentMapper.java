@@ -35,4 +35,7 @@ public interface PaymentMapper {
 
 	// 입찰 신청 결제
 	public void tendering(PaymentVO paymentVo);
+	
+	// 리뷰 안 한 목록 리스트
+	public ArrayList<PaymentVO> reviewList();
 }

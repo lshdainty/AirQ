@@ -102,4 +102,7 @@ public interface MypageService {
 	ArrayList<ReplyVO> mypageReplysNSPost(@Param("member_id") String member_id);	
 	//댓글 일반사용자,판매자 Product
 	ArrayList<ReplyVO> mypageReplysNSProduct(@Param("member_id") String member_id);
+	
+	// 리뷰 안 한 목록 리스트
+	public ArrayList<PaymentVO> reviewList();
 }

@@ -39,6 +39,7 @@ import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.Criteria;
 import com.yjc.airq.domain.DemandVO;
+import com.yjc.airq.domain.MatterVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
@@ -85,13 +86,19 @@ public class ConnectController {
 		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
 		String zipcode = connectService.selectZipcode(member_id);
 		
-		//사용자가 사는곳에서 많이 팔린 제품리스트
+		// 사용자가 사는곳에서 많이 팔린 제품리스트
 		ArrayList<ProductVO> recommend = connectService.recommendList(zipcode);
+		System.out.println(recommend);
 		
-		//전체 상품리스트
+		// 전체 상품리스트
 		ArrayList<ProductVO> pList = connectService.productList(sort,criteria.getStartnum(),criteria.getEndnum());
+		// 측정 물질리스트 가져오기
+		ArrayList<MatterVO> matterList = connectService.matterList();
+		System.out.println(matterList);
+		
 		model.addAttribute("recommend",recommend);
 		model.addAttribute("pList",pList);
+		model.addAttribute("matterList",matterList);
 		model.addAttribute("criteria",criteria);
 
 		return "connect/compareMain";

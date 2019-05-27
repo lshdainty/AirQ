@@ -249,8 +249,7 @@ var markerClustering = new MarkerClustering({
 });
 
 //infowindow 생성/삭제
-$('img').on('click',function(e) {
-	alert("test");
+$('.pin_s_img').on('click',function(e) {
 	var infowindow = $(this).parent().parent().find('.infowindow');
 	if(infowindow.css('display')=="block"){
 		infowindow.hide();
@@ -260,11 +259,11 @@ $('img').on('click',function(e) {
 });
 
 //마우스 올라가면 툴팁 보이게 하기
-$('img').on('mouseenter',function(e) {
+$('.pin_s_img').on('mouseenter',function(e) {
 	$(this).parent().parent().find('.pins_s_tooltip').show();
 });
 
 //마우스 내려가면 툴팁 안보이게 하기
-$('img').on('mouseout',function(e) {
+$('.pin_s_img').on('mouseout',function(e) {
 	$(this).parent().parent().find('.pins_s_tooltip').hide();
 });

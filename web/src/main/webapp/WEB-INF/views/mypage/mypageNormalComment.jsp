@@ -1,11 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@include file="../include/header.jsp"%>
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/mypage/mypageNormalComment.css" />
-<div class="container">
-	<h2 id="commentH1">댓글관리</h2>
 	<form id="form1">
 		<select class="C" id="change">
 			<option value="1">모든 댓글 보기</option>
@@ -22,6 +14,20 @@
 				
 			</div>
 			<%--상단 부분 끝 --%> <br>
+            
+            <div class="reply_content">${ReplyN.reply_content }</div>
+            <div class="r_creation_date">${ReplyN.r_creation_date }</div>
+            <c:choose>
+            	<c:when test="${ReplyN.post_code eq null }">
+            		<a href="<c:url value='/product?product_code=${ReplyN.product_code }' />" class="btn btn-primary">상세정보</a>        
+                </c:when>
+                <c:when test="${ReplyN.product_code eq null }">
+            		<a href="<c:url value='/postDetail?post_code=${ReplyN.post_code }' />" class="btn btn-primary">상세정보</a>        
+                </c:when>
+           	</c:choose>			
+           	<a href="<c:url value='/mypageNormalComment/${ReplyN.reply_code }' />" class="btn btn-lg btn-danger">삭제</a>
+        </div>
+        </c:forEach>
 
 			<%-- 하단부분 시작 --%> 
 			<c:forEach var="ReplyN" items="${ReplyN}">

@@ -3,6 +3,8 @@ package com.yjc.airq;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -656,5 +658,24 @@ public class MypageController {
 		mypageService.insertReport(reportVO);
 		
 		return "success";
+	}
+	
+	// 리뷰 페이지
+	@RequestMapping(value="reviewList", method=RequestMethod.POST)
+	@ResponseBody
+	public ArrayList<PaymentVO> reviewList() {
+		ArrayList<PaymentVO> reviewList=mypageService.reviewList();
+		
+		
+		/*JSONArray reviewArr=JSONArray.fromObject(reviewList); 
+		 Map<String, Object>map=new HashMap<String, Object>(); map.put("reviewList", reviewArr);
+		 * JSONObject json=JSONObject.fromObject(map); System.out.println(json);
+		 */
+		return reviewList;
+	}
+	
+	@RequestMapping(value="reviewWrite",method=RequestMethod.GET)
+	public String reviewWrite() {
+		return "mypage/mypageNormalReview";
 	}
 }
