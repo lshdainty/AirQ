@@ -108,7 +108,7 @@
 			                            <a href="/mypageNormalPosts" class="dropdown-item">글 관리</a>
 			                            <a href="/mypageNormalComment" class="dropdown-item">댓글 관리</a>
 			                            <a href="/mypageNormalPay" class="dropdown-item">결제 내역</a>
-			                            <a href="/mypageNormalDelete" class="dropdown-item">회원탈퇴</a>			                            
+			                            <a href="/mypageNormalDelete" class="dropdown-item">회원 탈퇴</a>			                            
 			                            <div class="dropdown-divider"></div>
 			                        </div>
 			                    </li>
@@ -127,8 +127,8 @@
 			                            <a href="/mypageSeller" class="dropdown-item">MyPage</a>
 			                            <a href="/mypageSellerPosts" class="dropdown-item">글 관리</a>
 			                            <a href="/mypageSellerComment" class="dropdown-item">댓글 관리</a>
-			                            <a href="/mypageSellerSales" class="dropdown-item">결제 내역</a>
-			                            <a href="/mypageSellerDelete" class="dropdown-item">회원탈퇴</a>			                            
+			                            <a href="/mypageSellerSales" class="dropdown-item">매출 관리</a>
+			                            <a href="/mypageSellerDelete" class="dropdown-item">회원 탈퇴</a>			                            
 			                            <div class="dropdown-divider"></div>
 			                        </div>
 			                    </li>

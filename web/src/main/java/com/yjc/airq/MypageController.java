@@ -444,8 +444,6 @@ public class MypageController {
 	public String deleteNormalB(Model model,HttpServletRequest request, @RequestParam String pw, HttpSession session) {
 		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
 		String member_pw = ((MemberVO)request.getSession().getAttribute("user")).getMember_pw();
-		System.out.println(pw);
-		System.out.println(member_pw);
 		model.addAttribute("member_id",member_id);
 		model.addAttribute("member_pw",member_pw);
 		if(member_pw.equals(pw)) {
@@ -460,6 +458,7 @@ public class MypageController {
 	}
 ///////////////////////////////////판매자//////////////////////////////////////////////////////////
 
+	
 	// mypageSeller 가기
 	@RequestMapping(value = "mypageSeller", method = RequestMethod.GET)
 	public String mypageSeller(Model model){
@@ -624,6 +623,23 @@ public class MypageController {
 		return "mypage/mypageSellerDelete";
 	}
 	
+	// mypageSellerDelete 
+	@RequestMapping(value = "B", method = RequestMethod.GET)
+	public String deleteSellerB(Model model,HttpServletRequest request, @RequestParam String pw, HttpSession session) {
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		String member_pw = ((MemberVO)request.getSession().getAttribute("user")).getMember_pw();
+		model.addAttribute("member_id",member_id);
+		model.addAttribute("member_pw",member_pw);
+		if(member_pw.equals(pw)) {
+		mypageService.deleteSelf(member_id, member_pw);
+		System.out.println("성공");
+		session.invalidate();
+		return "home";
+		}else {
+			System.out.println("잘못됨");
+		return "mypage/mypageSellerDelete";
+		}
+	}
 ///////////////////////////////////////////////신고하기////////////////////////////////////////////////////////
 	// 분석비교/입찰/게시글 - 기존에 신고한 내용이 있는지 확인
 	@RequestMapping(value = "checkReport", method = RequestMethod.GET)
