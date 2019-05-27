@@ -11,4 +11,7 @@ $(document).ready(function(){
 	    $(window).on('load',init);
 	};
 	TweenMax.staggerFrom($('.post-item'),1,{autoAlpha:0,x:-100,ease:Power1.easeOut},0.1);
+	$(document).bind("ajaxComplete", function(){
+		TweenMax.staggerFrom($('.post-item'),1,{autoAlpha:0,x:-100,ease:Power1.easeOut},0.1);
+	 });
 });

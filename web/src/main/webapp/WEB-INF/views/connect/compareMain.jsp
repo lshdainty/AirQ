@@ -64,7 +64,7 @@
         </ul>
         <div class="compare-list">
         	<c:forEach var="pList" items="${pList }">
-            <div class="compare-post" id="${pList.product_code}">
+            <div class="compare-post post-item" id="${pList.product_code}">
                 <div class="compare-thumb">
                     <img src="resources/images/800490.png" alt="이미지X">
                 </div>

@@ -11,6 +11,8 @@
 
 .compare-wrap {
 	width: 100%;
+	min-width:992px;
+	max-width:1180px;
 }
 
 .compare-wrap div {
