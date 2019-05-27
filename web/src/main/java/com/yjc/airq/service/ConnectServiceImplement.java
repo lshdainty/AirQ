@@ -347,6 +347,12 @@ public class ConnectServiceImplement implements ConnectService {
 		areaMapper.productAreaInsert(area_code,product_code);
 	}
 	
+	// 측정 가능한 물질 등록
+	@Override
+	public void productMatterInsert(@Param("matter_code") String matter_code,@Param("product_code") String product_code) {
+		matterMapper.productMatterInsert(matter_code,product_code);
+	}
+	
 	// 서비스 제품 사진 등록
 	@Override
 	public void productImageUpload(UploadVO uploadVO) {
@@ -369,6 +375,12 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public void productAreaDelete(@Param("product_code") String product_code) {
 		areaMapper.productAreaDelete(product_code);
+	}
+	
+	// 측정 가능 물질 삭제
+	@Override
+	public void productMatterDelete(@Param("product_code") String product_code) {
+		matterMapper.productMatterDelete(product_code);
 	}
 		
 	// 서비스 제품 사진 삭제

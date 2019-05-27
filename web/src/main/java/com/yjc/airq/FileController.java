@@ -70,7 +70,7 @@ public class FileController {
             
             json.addProperty("uploaded",1);
             json.addProperty("fileName",file_name);
-            json.addProperty("url",IP+fileUrl);
+            json.addProperty("url",fileUrl);
             
             printWriter.println(json);
             

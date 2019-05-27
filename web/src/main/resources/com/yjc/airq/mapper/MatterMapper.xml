@@ -6,4 +6,10 @@
 	<select id="matterList" resultType="com.yjc.airq.domain.MatterVO">
 		select * from matter
 	</select>
+	<insert id="productMatterInsert" parameterType="String">
+		insert into p_measure_matter(matter_code,product_code) values(#{matter_code},#{product_code})
+	</insert>
+	<delete id="productMatterDelete" parameterType="String">
+		delete from p_measure_matter where product_code = #{product_code}
+	</delete>
 </mapper>

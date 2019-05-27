@@ -92,6 +92,7 @@
         t.floor_number, t.member_id, count(re.original_code) as report_count 
         from (select * from tender order by t_creation_date asc) t , report re
         where t.tender_code = re.ORIGINAL_CODE(+)
+        and t.member_id = #{member_id}
         group by t.tender_code, t.tender_title, to_date(t.t_creation_date,'YY-MM-DD HH24:MI:SS'), t.service_date, t.tender_deadline, t.floor_number, t.member_id
 	</select>
 	
