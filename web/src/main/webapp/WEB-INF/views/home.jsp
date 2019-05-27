@@ -3,6 +3,11 @@
 	pageEncoding="UTF-8"%>
 <%@include file="include/header.jsp"%>
 <link rel="stylesheet" href="/resources/css/include/swiper.css">
+<style>
+	#content{
+		max-width:100% !important;
+	}
+</style>
     <!--  body content start  -->
 
     <section class="hero-home">

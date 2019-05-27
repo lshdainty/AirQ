@@ -51,9 +51,6 @@
             </select>
             <select name="matter" id="matter" class="order-option">
                 <option value="측정 물질">측정 물질</option>
-                <c:forEach var="matterList" items="${matterList }">
-                	<option value="${matterList.matter_code }">${matterList.matter_name }</option>
-                </c:forEach>
             </select>
         </div>
         <ul class="compare-category">
@@ -64,7 +61,7 @@
         </ul>
         <div class="compare-list">
         	<c:forEach var="pList" items="${pList }">
-            <div class="compare-post" id="${pList.product_code}">
+            <div class="compare-post post-item" id="${pList.product_code}">
                 <div class="compare-thumb">
                     <img src="resources/images/800490.png" alt="이미지X">
                 </div>

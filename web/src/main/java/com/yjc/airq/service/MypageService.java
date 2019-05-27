@@ -103,6 +103,9 @@ public interface MypageService {
 	//댓글 일반사용자,판매자 Product
 	ArrayList<ReplyVO> mypageReplysNSProduct(@Param("member_id") String member_id);
 	
+	//마이페이지 회원탈퇴
+	public void deleteSelf(@Param("member_id")String member_id, @Param("member_pw")String member_pw);
+	
 	// 리뷰 안 한 목록 리스트
 	public ArrayList<PaymentVO> reviewList();
 }

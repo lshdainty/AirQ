@@ -88,7 +88,6 @@ h2.price {
 .product-page-heading-type:after {
 	content: "";
 	float: left;
-	background: skyblue;
 	width: 105%;
 	height: 5%;
 	border-radius: 50px;

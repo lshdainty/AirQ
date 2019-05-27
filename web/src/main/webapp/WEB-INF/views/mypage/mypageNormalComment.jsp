@@ -1,3 +1,4 @@
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
@@ -78,24 +79,17 @@
 							<div class="name_title">${ReplyN.post_title }</div>
 						</c:when>
 					</c:choose>
-
 					<div class="reply_content">${ReplyN.reply_content }</div>
-					<div class="r_creation_date">${ReplyN.r_creation_date }</div>
+						<div class="r_creation_date">${ReplyN.r_creation_date }</div>
 					<c:choose>
 						<c:when test="${ReplyN.post_code eq null }">
-							<a
-								href="<c:url value='/product?product_code=${ReplyN.product_code }' />"
-								class="btn btn-primary">상세정보</a>
+							<a href="<c:url value='/product?product_code=${ReplyN.product_code }' />"class="btn btn-primary">상세정보</a>
 						</c:when>
 						<c:when test="${ReplyN.product_code eq null }">
-							<a
-								href="<c:url value='/postDetail?post_code=${ReplyN.post_code }' />"
-								class="btn btn-primary">상세정보</a>
+							<a href="<c:url value='/postDetail?post_code=${ReplyN.post_code }' />"class="btn btn-primary">상세정보</a>
 						</c:when>
 					</c:choose>
-					<a
-						href="<c:url value='/mypageNormalComment/${ReplyN.reply_code }' />"
-						class="btn btn-lg btn-danger">삭제</a>
+					<a href="<c:url value='/mypageNormalComment/${ReplyN.reply_code }' />"class="btn btn-lg btn-danger">삭제</a>
 				</div>
 			</c:forEach> 
 			<c:forEach var="ReplyNPost" items="${ReplyNPost}">
@@ -104,11 +98,8 @@
 					<div class="name_title">${ReplyNPost.post_title }</div>
 					<div class="reply_content">${ReplyNPost.reply_content }</div>
 					<div class="r_creation_date">${ReplyNPost.r_creation_date }</div>
-					<a
-						href="<c:url value='/postDetail?post_code=${ReplyNPost.post_code }' />"
-						class="btn btn-primary">상세정보</a> <a
-						href="<c:url value='/mypageNormalComment/${ReplyNPost.reply_code }' />"
-						class="btn btn-lg btn-danger">삭제</a>
+					<a href="<c:url value='/postDetail?post_code=${ReplyNPost.post_code }' />"class="btn btn-primary">상세정보</a> 
+					<a href="<c:url value='/mypageNormalComment/${ReplyNPost.reply_code }' />"class="btn btn-lg btn-danger">삭제</a>
 				</div>
 			</c:forEach> 
 			<c:forEach var="ReplyNProduct" items="${ReplyNProduct}">
@@ -117,19 +108,14 @@
 					<div class="name_title">${ReplyNProduct.product_name }</div>
 					<div class="reply_content">${ReplyNProduct.reply_content }</div>
 					<div class="r_creation_date">${ReplyNProduct.r_creation_date }</div>
-					<a
-						href="<c:url value='/product?product_code=${ReplyNProduct.product_code }' />"
-						class="btn btn-primary">상세정보</a> <a
-						href="<c:url value='/mypageNormalComment/${ReplyNProduct.reply_code }' />"
-						class="btn btn-lg btn-danger">삭제</a>
+					<a href="<c:url value='/product?product_code=${ReplyNProduct.product_code }' />"class="btn btn-primary">상세정보</a>
+					<a href="<c:url value='/mypageNormalComment/${ReplyNProduct.reply_code }' />"class="btn btn-lg btn-danger">삭제</a>
 				</div>
 			</c:forEach> <%--하단부분 끝 --%> </main>
 		</section>
 	</form>
 	<footer> </footer>
 </div>
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src='/resources/js/mypage/mypageNormalComment.js'></script>
 <%@include file="../include/footer.jsp"%>

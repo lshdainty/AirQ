@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.MemberVO;
@@ -438,6 +439,25 @@ public class MypageController {
 		return "mypage/mypageNormalDelete";
 	}
 
+	// mypageNormalDelete 
+	@RequestMapping(value = "A", method = RequestMethod.GET)
+	public String deleteNormalB(Model model,HttpServletRequest request, @RequestParam String pw, HttpSession session) {
+		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		String member_pw = ((MemberVO)request.getSession().getAttribute("user")).getMember_pw();
+		System.out.println(pw);
+		System.out.println(member_pw);
+		model.addAttribute("member_id",member_id);
+		model.addAttribute("member_pw",member_pw);
+		if(member_pw.equals(pw)) {
+		mypageService.deleteSelf(member_id, member_pw);
+		System.out.println("성공");
+		session.invalidate();
+		return "home";
+		}else {
+			System.out.println("잘못됨");
+		return "mypage/mypageNormalDelete";
+		}
+	}
 ///////////////////////////////////판매자//////////////////////////////////////////////////////////
 
 	// mypageSeller 가기

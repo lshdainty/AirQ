@@ -53,6 +53,7 @@ function ajax(idx,sort){
 			$(".pagination").empty();
 			$(".pagination").prepend(page);
 			$("html, body").animate({ scrollTop: 0 }, 1);
+			pAnimation();
 		}
 	});
 }

@@ -10,12 +10,12 @@
 
 <%-- 방문자 수 그래프 시작 --%>
 <div class="container">
-	<div class="login-main-text">
+<!-- 	<div class="login-main-text"> -->
 
-		<br> <br>
-	</div>
-<%-- 방문자 수 그래프 끝 --%>
-<div id="chartdiv"></div>
+<!-- 		<br> <br> -->
+<!-- 	</div> -->
+ <%-- 방문자 수 그래프 끝 --%>
+<!-- <div id="chartdiv"></div> -->
 
 	<section class="content">
 		<main>
