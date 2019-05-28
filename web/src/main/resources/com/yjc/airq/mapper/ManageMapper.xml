@@ -8,8 +8,9 @@
 		select * from IOT
 	</select> -->
 
+	<!-- 원격 메인화면에 뿌려주기 -->
 	<select id="iotMain" resultType="com.yjc.airq.domain.IotInfoVO">
-		select m.member_id, mo.model_name, i.place_name
+		select i.iot_id, m.member_id, mo.model_name, i.place_name
 		from iot_info i, model mo, member m
 		where m.member_id = #{member_id}
 		and m.member_id = i.member_id
@@ -19,10 +20,25 @@
 	<!-- 원격 제어 등록 -->
 	<insert id="iotInfoInsert" parameterType="com.yjc.airq.domain.IotInfoVO">
 		insert into iot_info(iot_id, out_whether, place_name, measure_cycle, location_x, location_y, ip, port, member_id, model_id)
-		values('admin2', 'y', #{place_name}, 1, '100', '100', '39.127.7.68', 80, #{member_id}, #{model_id})
+		values(#{iot_id}, 'y', #{place_name}, 1, '100', '100', '39.127.7.68', 80, #{member_id}, #{model_id})
 	</insert>
 	
-<!-- 	<insert id="modelInsert" parameterType="com.yjc.airq.domain.IotInfoVO">
+	<!-- 자신 원격제품 고유 닉네임 중복 체크 -->
+	<select id="nCheck" resultType="com.yjc.airq.domain.IotInfoVO">
+ 		select iot_id from iot_info where iot_id = #{alias}
+	</select>
+	
+	<!-- 미세먼지 측정 데이터 저장 -->
+	<insert id="measureData" parameterType="map">
+		insert into measure_data
+		values(to_number(to_char(systimestamp,'YYMMDD')||to_char(data_code.nextval,'fm0000')),
+		#{msd.measure_value},
+		to_timestamp(#{time},'YY-MM-DD HH24:MI:SS'),
+		#{msd.iot_id},
+		'PM10')
+	</insert>
+	
+<!-- <insert id="modelInsert" parameterType="com.yjc.airq.domain.IotInfoVO">
 		
 	</insert> -->
 	
