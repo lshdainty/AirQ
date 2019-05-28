@@ -22,20 +22,47 @@
             </select>
         </div>
             <br>
+            <%--             <a href="<c:url value='/mypageMainMember/${getMemberList.member_id }' />" class="btn btn-lg btn-danger">회원 삭제</a> --%>
+            
         <c:forEach var="getMemberList" items="${getMemberList}">
-        <div class="form3" id="select0">
+        	<c:if test= "${getMemberList.member_devision eq 'no' || getMemberList.member_devision eq 'se'}">
+        <div class="form2" id="${getMemberList}" >
             <div class="member_id">${getMemberList.member_id }</div>
             <div class="member_name">${getMemberList.member_name }</div> 
             <div class="member_tel">${getMemberList.member_tel }</div>
             <div class="member_email">${getMemberList.member_email }</div>
             <div class="m_addr_do">${getMemberList.m_road_addr }</div>
             <div class="member_devision">${getMemberList.member_devision}</div>
-            <a href="<c:url value='/mypageMainMember/${getMemberList.member_id }' />" class="btn btn-lg btn-danger">회원 삭제</a>
         </div>
+            </c:if>
+
+        	<c:if test= "${getMemberList.member_devision eq 'no'}">
+        <div class="form3" id="${getMemberList}" >
+            <div class="member_id">${getMemberList.member_id }</div>
+            <div class="member_name">${getMemberList.member_name }</div> 
+            <div class="member_tel">${getMemberList.member_tel }</div>
+            <div class="member_email">${getMemberList.member_email }</div>
+            <div class="m_addr_do">${getMemberList.m_road_addr }</div>
+            <div class="member_devision">${getMemberList.member_devision}</div>
+        </div>
+            </c:if>
+
+        	<c:if test= "${getMemberList.member_devision eq 'se'}">
+        <div class="form4" id="${getMemberList}" >
+            <div class="member_id">${getMemberList.member_id }</div>
+            <div class="member_name">${getMemberList.member_name }</div> 
+            <div class="member_tel">${getMemberList.member_tel }</div>
+            <div class="member_email">${getMemberList.member_email }</div>
+            <div class="m_addr_do">${getMemberList.m_road_addr }</div>
+            <div class="member_devision">${getMemberList.member_devision}</div>
+        </div>
+            </c:if>
         </c:forEach>
 
+
+
             </main>
-            </section>
+            </section> 
         </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src='/resources/js/mypage/mypageMainMember.js'></script>
