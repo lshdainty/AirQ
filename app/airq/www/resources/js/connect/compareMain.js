@@ -1,4 +1,4 @@
-﻿var ip = "http://39.127.7.94";
+﻿var ip = "http://192.168.2.8";
 //var member_id = sessionStorage.getItem("member_id");
 var member_id = "test";
 
@@ -44,7 +44,7 @@ $(function(){
             				'</div>' + 
           				'</div>';
 			}
-			$(".connect-posts").append(content);
+			$("#comparePosts").append(content);
 			if(data.criteria.prev){
 				page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.startPage-1)+');" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'
 			}
@@ -182,7 +182,7 @@ function ajax(idx,sort){
 			var page="";
 			if(data.pList.length==0){
 				alert("검색결과가 없습니다.");
-				$(".connect-posts").empty();
+				$("#comparePosts").empty();
 				$(".pagination").empty();
 			}else{
 				$(".pCount").text(data.criteria.totalcount);
@@ -198,8 +198,8 @@ function ajax(idx,sort){
 											'</div>' + 
 										'</div>';
 				}
-				$(".connect-posts").empty();
-				$(".connect-posts").append(content);
+				$("#comparePosts").empty();
+				$("#comparePosts").append(content);
 				if(data.criteria.prev){
 					page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.startPage-1)+');" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'
 				}
