@@ -99,7 +99,7 @@
             </c:forEach>
         </div>
     </div>
-	<div>
+	<div class="productWriteDiv">
 		<c:if test="${sessionScope.user.member_devision == 'se' }">
 			<button id="productWrite">상품등록</button>
 		</c:if>
