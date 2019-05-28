@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../../www/resources/css/bootstrap.css">
+    <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="../../../www/resources/js/bootstrap.js"></script>
+    
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
+                <div class="container-fluid">
+                  <div class="d-flex align-items-center"><a href="index.html" class="navbar-brand py-1"><img src="https://d19m59y37dris4.cloudfront.net/directory/1-2/img/logo.svg" alt="Directory logo"></a>
+                    <form action="#" id="search" class="form-inline d-none d-sm-flex">
+                      <div class="input-label-absolute input-label-absolute-left input-reset input-expand ml-lg-2 ml-xl-3"> 
+                        <label for="search_search" class="label-absolute"><i class="fa fa-search"></i><span class="sr-only">What are you looking for?</span></label>
+                        <input id="search_search" placeholder="Search" aria-label="Search" class="form-control form-control-sm border-0 shadow-0 bg-gray-200">
+                        <button type="reset" class="btn btn-reset btn-sm"><i class="fa-times fas"></i></button>
+                      </div>
+                    </form>
+                  </div>
+                  <button type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right"><i class="fa fa-bars"></i></button>
+                  <!-- Navbar Collapse -->
+                  <div id="navbarCollapse" class="collapse navbar-collapse">
+                    <form action="#" id="searchcollapsed" class="form-inline mt-4 mb-2 d-sm-none">
+                      <div class="input-label-absolute input-label-absolute-left input-reset w-100">
+                        <label for="searchcollapsed_search" class="label-absolute"><i class="fa fa-search"></i><span class="sr-only">What are you looking for?</span></label>
+                        <input id="searchcollapsed_search" placeholder="Search" aria-label="Search" class="form-control form-control-sm border-0 shadow-0 bg-gray-200">
+                        <button type="reset" class="btn btn-reset btn-sm"><i class="fa-times fas">           </i></button>
+                      </div>
+                    </form>
+                    <ul class="navbar-nav ml-auto">
+                      <li class="nav-item dropdown"><a id="homeDropdownMenuLink" href="index.html" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle active">
+                           
+                          Home</a>
+                        <div aria-labelledby="homeDropdownMenuLink" class="dropdown-menu" style="display: none; transform: translateY(30px);"><a href="index.html" class="dropdown-item">Rooms</a><a href="index-2.html" class="dropdown-item">Restaurants</a></div>
+                      </li>
+                      <!-- Megamenu-->
+                      <li class="nav-item dropdown position-static"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle" aria-expanded="false">Template</a>
+                        <div class="dropdown-menu megamenu py-lg-0" style="display: none; transform: translateY(30px);">
+                          <div class="row">
+                            <div class="col-lg-9">
+                              <div class="row p-3 pr-lg-0 pl-lg-5 pt-lg-5">
+                                <div class="col-lg-3">
+                                  <!-- Megamenu list-->
+                                  <h6 class="text-uppercase">Homepage</h6>
+                                  <ul class="megamenu-list list-unstyled">
+                                    <li class="megamenu-list-item"><a href="index.html" class="megamenu-list-link">Rooms   </a></li>
+                                    <li class="megamenu-list-item"><a href="index-2.html" class="megamenu-list-link">Restaurants   </a></li>
+                                  </ul>
+                                  <!-- Megamenu list-->
+                                  <h6 class="text-uppercase">Restaurants</h6>
+                                  <ul class="megamenu-list list-unstyled">
+                                    <li class="megamenu-list-item"><a href="category.html" class="megamenu-list-link">Category - Map on the top   </a></li>
+                                    <li class="megamenu-list-item"><a href="category-2.html" class="megamenu-list-link">Category - Map on the right   </a></li>
+                                    <li class="megamenu-list-item"><a href="category-3.html" class="megamenu-list-link">Category - no map   </a></li>
+                                    <li class="megamenu-list-item"><a href="detail.html" class="megamenu-list-link">Restaurant detail   </a></li>
+                                  </ul>
+                                </div>
+                                <div class="col-lg-3">
+                                  <!-- Megamenu list-->
+                                  <h6 class="text-uppercase">Rooms</h6>
+                                  <ul class="megamenu-list list-unstyled">
+                                    <li class="megamenu-list-item"><a href="category-rooms.html" class="megamenu-list-link">Category - Map on the top   </a></li>
+                                    <li class="megamenu-list-item"><a href="category-2-rooms.html" class="megamenu-list-link">Category - Map on the right   </a></li>
+                                    <li class="megamenu-list-item"><a href="category-3-rooms.html" class="megamenu-list-link">Category - no map   </a></li>
+                                    <li class="megamenu-list-item"><a href="detail-rooms.html" class="megamenu-list-link">Room detail   </a></li>
+                                  </ul>
+                                  <!-- Megamenu list-->
+                                  <h6 class="text-uppercase">Blog</h6>
+                                  <ul class="megamenu-list list-unstyled">
+                                    <li class="megamenu-list-item"><a href="blog.html" class="megamenu-list-link">Blog   </a></li>
+                                    <li class="megamenu-list-item"><a href="post.html" class="megamenu-list-link">Post   </a></li>
+                                  </ul>
+                                </div>
+                                <div class="col-lg-3">
+                                  <!-- Megamenu list-->
+                                  <h6 class="text-uppercase">Pages</h6>
+                                  <ul class="megamenu-list list-unstyled">
+                                    <li class="megamenu-list-item"><a href="contact.html" class="megamenu-list-link">Contact   </a></li>
+                                    <li class="megamenu-list-item"><a href="pricing.html" class="megamenu-list-link">Pricing   </a></li>
+                                    <li class="megamenu-list-item"><a href="text.html" class="megamenu-list-link">Text page   </a></li>
+                                    <li class="megamenu-list-item"><a href="faq.html" class="megamenu-list-link">F.A.Q.s  <span class="badge badge-info ml-1">New</span>   </a></li>
+                                    <li class="megamenu-list-item"><a href="coming-soon.html" class="megamenu-list-link">Coming soon   </a></li>
+                                  </ul>
+                                </div>
+                                <div class="col-lg-3">
+                                  <!-- Megamenu list-->
+                                  <h6 class="text-uppercase">User</h6>
+                                  <ul class="megamenu-list list-unstyled">
+                                    <li class="megamenu-list-item"><a href="login.html" class="megamenu-list-link">Sign in   </a></li>
+                                    <li class="megamenu-list-item"><a href="signup.html" class="megamenu-list-link">Sign up   </a></li>
+                                    <li class="megamenu-list-item"><a href="user-booking-1.html" class="megamenu-list-link">Booking process - 4 pages <span class="badge badge-warning ml-1">New</span>   </a></li>
+                                    <li class="megamenu-list-item"><a href="user-grid.html" class="megamenu-list-link">Bookings — grid view <span class="badge badge-warning ml-1">New</span>   </a></li>
+                                    <li class="megamenu-list-item"><a href="user-booking-detail.html" class="megamenu-list-link">Booking detail <span class="badge badge-warning ml-1">New</span>   </a></li>
+                                  </ul>
+                                  <!-- Megamenu list-->
+                                  <h6 class="text-uppercase">Host</h6>
+                                  <ul class="megamenu-list list-unstyled">
+                                    <li class="megamenu-list-item"><a href="user-add-0.html" class="megamenu-list-link">Add new listing - 6 pages   </a></li>
+                                    <li class="megamenu-list-item"><a href="user-list.html" class="megamenu-list-link">Bookings — list view <span class="badge badge-warning ml-1">New</span>   </a></li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div class="row megamenu-services d-none d-lg-flex pl-lg-5">
+                                <div class="col-xl-3 col-lg-6 d-flex">
+                                  <div class="megamenu-services-item">
+                                    <svg class="svg-icon megamenu-services-icon">
+                                      <use xlink:href="#destination-map-1"> </use>
+                                    </svg>
+                                    <div>
+                                      <h6 class="text-uppercase">Best rentals</h6>
+                                      <p class="mb-0 text-muted text-sm">Find the perfect place</p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-6 d-flex">
+                                  <div class="megamenu-services-item">
+                                    <svg class="svg-icon megamenu-services-icon">
+                                      <use xlink:href="#money-box-1"> </use>
+                                    </svg>
+                                    <div>
+                                      <h6 class="text-uppercase">Earn points</h6>
+                                      <p class="mb-0 text-muted text-sm">And get great rewards</p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-6 d-flex">
+                                  <div class="megamenu-services-item">
+                                    <svg class="svg-icon megamenu-services-icon">
+                                      <use xlink:href="#customer-support-1"> </use>
+                                    </svg>
+                                    <div>
+                                      <h6 class="text-uppercase">020-800-456-747</h6>
+                                      <p class="mb-0 text-muted text-sm">24/7 Available Support</p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-6 d-flex">
+                                  <div class="megamenu-services-item">
+                                    <svg class="svg-icon megamenu-services-icon">
+                                      <use xlink:href="#secure-payment-1"> </use>
+                                    </svg>
+                                    <div>
+                                      <h6 class="text-uppercase">Secure Payment</h6>
+                                      <p class="mb-0 text-muted text-sm">Secure Payment</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-3 d-none d-lg-block"><img src="https://d19m59y37dris4.cloudfront.net/directory/1-2/img/photo/photo-1521170665346-3f21e2291d8b.jpg" alt="" class="bg-image"></div>
+                          </div>
+                        </div>
+                      </li>
+                      <!-- /Megamenu end-->
+                      <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a>
+                      </li>
+                      <li class="nav-item dropdown"><a id="docsDropdownMenuLink" href="index.html" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle ">
+                           
+                          Docs</a>
+                        <div aria-labelledby="docsDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+                          <h6 class="dropdown-header font-weight-normal">Documentation</h6><a href="docs/docs-introduction.html" class="dropdown-item">Introduction </a><a href="docs/docs-directory-structure.html" class="dropdown-item">Directory structure </a><a href="docs/docs-gulp.html" class="dropdown-item">Gulp </a><a href="docs/docs-customizing-css.html" class="dropdown-item">Customizing CSS </a><a href="docs/docs-credits.html" class="dropdown-item">Credits </a><a href="docs/docs-changelog.html" class="dropdown-item">Changelog </a>
+                          <div class="dropdown-divider"></div>
+                          <h6 class="dropdown-header font-weight-normal">Components</h6><a href="docs/components-bootstrap.html" class="dropdown-item">Bootstrap </a><a href="docs/components-directory.html" class="dropdown-item">Theme </a>
+                        </div>
+                      </li>
+                      <li class="nav-item"><a href="login.html" class="nav-link">Sign in</a></li>
+                      <li class="nav-item"><a href="signup.html" class="nav-link">Sign up</a></li>
+                      <li class="nav-item mt-3 mt-lg-0 ml-lg-3 d-lg-none d-xl-inline-block"><a href="user-add-0.html" class="btn btn-primary">Add a listing</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+</body>
+</html>

@@ -1,35 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="../../../www/resources/css/comunity/comunity.css">
     <link rel="stylesheet" href="../../../www/resources/css/bootstrap.css">
-    <link rel="stylesheet" href="../../../www/resources/css/include/header.css">
-    <link rel="stylesheet" href="../../../www/resources/css/include/table.css">
+    <link rel="stylesheet" href="../../../www/resources/css/index/index.css">
     <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
     <script src="../../../www/resources/js/bootstrap.js"></script>
     <script src="../../../www/resources/js/TweenLite.js"></script>
     <script src="../../../www/resources/js/TweenMax.js"></script>
-    <script src="../../../www/resources/js/animation.js"></script>
+
 </head>
-
 <body>
-    <div id="header"></div>
-    <div id="content"></div>
-    <div id="footer"></div>
-    <script>
-        $(document).ready(function () {
-            var init = function () {
-                $('#header').load('../../../www/views/include/header.html');
-                $('#footer').load('../../../www/views/include/footer.jsp');
-            };
-            init();
-        });
-    </script>
+    <div class="load-gate"></div>
+    <div class="index-container">
+        <div class="bg-image"></div>
+        <div class="logo">
+                <img src="../../../www/resources/images/logo.png">
+            </div>
+    </div>
+<script src="../../../www/resources/js/index/excuteAnimation.js"></script>
 </body>
-
 </html>

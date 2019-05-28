@@ -20,4 +20,7 @@ public class PostVO {
 	private int reply_count;
 	private int start_num;
 	private int end_num;
+	
+	private String board_name;
+	private String report_count;
 }

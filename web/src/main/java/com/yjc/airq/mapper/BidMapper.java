@@ -2,6 +2,8 @@ package com.yjc.airq.mapper;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.yjc.airq.domain.BidVO;
 
 public interface BidMapper {
@@ -23,9 +25,20 @@ public interface BidMapper {
 	public String bUpload_code(BidVO bidVo);
 	
 	// 투찰 점수 - 건수
-	public ArrayList<BidVO> bidNumScore(String tender_code);
+	public ArrayList<BidVO> bidNumScore(@Param("tender_code") String tender_code,@Param("period_day") String period_day);
 	// 투찰 점수 - 별점
-	public ArrayList<BidVO> bidStarScore(String tender_code);
+	public ArrayList<BidVO> bidStarScore(@Param("tender_code") String tender_code,@Param("period_day") String period_day);
 	// 투찰 점수 - 별점
 	public ArrayList<BidVO> bidPriceScore(String tender_code);
+	
+	// 투찰 점수 부여
+	public int bid_ppt_score(BidVO bidVo);
+	
+	// 투찰 가격
+	public int bid_price(@Param("tender_code") String tender_code, @Param("company_code") String company_code);
+	
+	//입찰 여부
+	public void win_bid_whether(@Param("tender_code") String tender_code, @Param("company_code") String company_code);
+
+	public int tenderBid(@Param("tender_code") String tender_code, @Param("member_id") String member_id);
 }

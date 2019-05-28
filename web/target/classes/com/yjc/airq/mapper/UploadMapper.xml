@@ -51,10 +51,22 @@
 		insert into upload(upload_code,original_name,file_name,upload_date,product_code) values(#{upload_code},#{original_name},#{file_name},systimestamp,#{product_code})
 	</insert>
 	
-	<!-- 서비스 제품 사진 등록 -->
+	<!-- 서비스 제품 썸네일 등록 -->
+	<insert id="productThumbnailUpload" parameterType="com.yjc.airq.domain.UploadVO">
+		insert into upload(upload_code,original_name,file_name,upload_date,product_code,thumbnail_whether) values(#{upload_code},#{original_name},#{file_name},systimestamp,#{product_code},'y')
+	</insert>
+	
+	<!-- 서비스 제품 사진 삭제 -->
 	<delete id="productImageDelete" parameterType="String">
 		delete
 		from upload
 		where product_code=#{product_code}
 	</delete>
+	
+	<!-- 업로드 다운받기(filename가져오기) -->
+	<select id="filename" resultType="String">
+		select file_name
+		from upload
+		where upload_code=#{upload_code}
+	</select>
 </mapper>

@@ -7,9 +7,32 @@
 		select rownum,t.* 
 		from (select * from tender order by t_creation_date asc) t 
 		order by rownum desc
-		
 	</select>
-	
+	<select id="tenderMain" resultType="com.yjc.airq.domain.TenderVO">
+  	      select x.* 
+   		  from(select rownum as rnum,a.*
+  	 		   from(select rownum,t.* 
+  	        		from (select * 
+        	    		  from tender
+             	  		  order by t_creation_date asc) t 
+            		order by rownum desc) a
+    			where <![CDATA[rownum <= #{endnum}]]> ) x
+    	  where <![CDATA[x.rnum>=#{startnum}]]>
+	</select>
+	<select id="selectTender" resultType="com.yjc.airq.domain.TenderVO">
+  	      select x.* 
+   		  from(select rownum as rnum,a.*
+  	 		   from(select rownum,t.* 
+  	        		from (select * 
+        	    		  from tender
+        	    		  <if test="sort.equals('mTender')">
+            		 		  where member_id=#{member_id}
+            	  		  </if>
+             	  		  order by t_creation_date asc) t 
+            		order by rownum desc) a
+    			where <![CDATA[rownum <= #{endnum}]]> ) x
+    	  where <![CDATA[x.rnum>=#{startnum}]]>
+	</select>
 	<!-- 참여 업체 수 -->
 	<select id="company_count" parameterType="String" resultType="int">
 		select count(*)
@@ -26,12 +49,12 @@
 	
 	<!-- 입찰공고 작성 -->
 	<insert id="addTenderboard" parameterType="com.yjc.airq.domain.TenderVO">
-		insert into tender values(#{tender_code},#{tender_title},sysdate,#{service_date},#{tender_deadline},${calculate_period},${t_space},${floor_number},#{requirement},#{t_addr_do},#{t_addr_si},#{t_addr_dong},#{t_addr_detail},#{member_id},#{tender_name})
+		insert into tender(tender_code,tender_title,t_creation_date,service_date,tender_deadline,calculate_period,t_space,floor_number,requirement,t_zipcode,t_road_addr,t_addr,t_addr_detail,member_id,tender_name) values(#{tender_code},#{tender_title},systimestamp,#{service_date},#{tender_deadline},${calculate_period},${t_space},${floor_number},#{requirement},#{t_zipcode},#{t_road_addr},#{t_addr},#{t_addr_detail},#{member_id},#{tender_name})
 	</insert>
 	
 	<!-- 입찰 리스트 세부내용 -->
 	<select id="tenderContent" parameterType="String" resultType="com.yjc.airq.domain.TenderVO">
-		select tender_code,tender_title, t_creation_date,to_char(t_creation_date,'yyyy-MM-dd HH:mm') as tcreationdate, to_char(service_date,'yyyy-MM-dd') as service_date,  to_char(tender_deadline,'yyyy-MM-dd') as tender_deadline, calculate_period,t_space, floor_number,requirement, t_addr_do,t_addr_si, t_addr_dong, t_addr_detail, member_id, tender_name
+		select tender_code,tender_title, t_creation_date,to_char(t_creation_date,'yyyy-MM-dd HH:mm') as tcreationdate, to_char(service_date,'yyyy-MM-dd') as service_date,  to_char(tender_deadline,'yyyy-MM-dd') as tender_deadline, calculate_period,t_space, floor_number,requirement, t_zipcode, t_road_addr, t_addr, t_addr_detail, member_id, tender_name
 		from tender 
 		where tender_code=#{tender_code}
 	</select>
@@ -54,8 +77,61 @@
 		from tender
 		where tender_code=#{tender_code}
 	</select>
+	<!-- 마이페이지 글관리- 글 상세정보 -->
+	<select id="deletePosts" parameterType="String">
+		select tender_code from tender where tender_code=#{tender_code}
+	</select>
+<!-- 	 	마이페이지 글관리 글 삭제 -->
+<!-- 	<delete id="deletePosts1" parameterType="String"> -->
+<!-- 		delete from tender where tender_code=#{tender_code} -->
+<!-- 	</delete> -->
 	
-	<delete id="deletePosts" parameterType="String">
-		delete from tender where tender_code=#{tender_code}
-	</delete>
+	<!-- 마이페이지 글관리 - 리스트 뽑기 -->
+	<select id="tenderNMP" resultType="com.yjc.airq.domain.TenderVO">
+		select t.tender_code, t.tender_title, to_date(t.t_creation_date,'YY-MM-DD HH24:MI:SS') as t_creation_date, t.service_date, t.tender_deadline,
+        t.floor_number, t.member_id, count(re.original_code) as report_count 
+        from (select * from tender order by t_creation_date asc) t , report re
+        where t.tender_code = re.ORIGINAL_CODE(+)
+        and t.member_id = #{member_id}
+        group by t.tender_code, t.tender_title, to_date(t.t_creation_date,'YY-MM-DD HH24:MI:SS'), t.service_date, t.tender_deadline, t.floor_number, t.member_id
+	</select>
+	
+	<!-- 투찰 기간 설정 -->
+	<select id="calculate_period" resultType="int">
+		select calculate_period
+		from tender
+		where tender_code=#{tender_code}
+	</select>
+	
+	<!-- 입찰 확인 여부 -->
+	<select id="tenderCheck" resultType="int">
+		select count(*)
+		from tender t, bid b
+		where t.tender_code=b.tender_code and t.tender_code=#{tender_code} and win_bid_whether='y'
+	</select>
+	
+	<!-- 입찰 페이징 -->
+	<select id="tenderCount" resultType="int">
+		select count(*)
+		from tender
+	</select>
+	<select id="selectCount" resultType="int">
+		select count(*)
+   		from tender
+   		where member_id=#{member_id}
+	</select>
+	
+<!-- 	마이페이지 메인 관리자 최신글 -->
+	<select id="tenderMP" resultType="com.yjc.airq.domain.TenderVO">
+		select * from tender
+		order by T_CREATION_DATE desc
+	</select>
+	
+	<!-- 리뷰 안한 목록 리스트 -->
+	<select id="reviewTenderList" resultType="com.yjc.airq.domain.TenderVO">
+	    select t.tender_code, t.member_id, t.tender_title, t.t_space, t.floor_number, t.service_date, p.payment_code, p.star_score
+    	from payment p,tender t
+    	where t.tender_code=p.tender_code and p.refund_whether='n' and p.star_score is null and t.member_id=#{member_id}
+   		order by p.payment_date
+	</select>
 </mapper>

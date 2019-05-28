@@ -68,12 +68,63 @@
 	<delete id="deletePost" parameterType="String">
 		DELETE FROM POST WHERE POST_CODE=#{post_code}
 	</delete>
-	
-	<select id="postMP" resultType="com.yjc.airq.domain.PostVO">
-		select * from post
+<!-- 	마이페이지 관리자 메인 상품추천 -->
+	<select id="postMPrec" resultType="com.yjc.airq.domain.PostVO">
+		select *
+		from post p, board b
+		where p.board_code = b.board_code
+		and p.board_code = 'bd_rec'
+		order by p.P_CREATION_DATE desc
 	</select>
+	<!-- 	마이페이지 관리자 메인 공기질향상방법 -->
+	<select id="postMPimp" resultType="com.yjc.airq.domain.PostVO">
+		select *
+		from post p, board b
+		where p.board_code = b.board_code
+		and p.board_code = 'bd_imp'
+		order by p.P_CREATION_DATE desc
+	</select>
+	<!-- 	마이페이지 관리자 메인 자유게시판 -->
+	<select id="postMPlib" resultType="com.yjc.airq.domain.PostVO">
+		select *
+		from post p, board b
+		where p.board_code = b.board_code
+		and p.board_code = 'bd_lib'
+		order by p.P_CREATION_DATE desc
+	</select>
+	<!-- 	마이페이지 관리자 메인 건강지킴이 -->
+	<select id="postMPhea" resultType="com.yjc.airq.domain.PostVO">
+		select *
+		from post p, board b
+		where p.board_code = b.board_code
+		and p.board_code = 'bd_hea'
+		order by p.P_CREATION_DATE desc
+	</select>
+	<!-- 	마이페이지 관리자 메인 대기오염물질정보 -->
+	<select id="postMPmet" resultType="com.yjc.airq.domain.PostVO">
+		select *
+		from post p, board b
+		where p.board_code = b.board_code
+		and p.board_code = 'bd_met'
+		order by p.P_CREATION_DATE desc
+	</select>
+	<select id="postNMP" resultType="com.yjc.airq.domain.PostVO">
+		select p.post_code,p.POST_TITLE,to_char(p.POST_CONTENT) as post_content,p.P_CREATION_DATE,p.VIEW_NUM,p.RECOMMEND_NUM,p.MEMBER_ID,b.BOARD_NAME ,count(r.reply_code) as reply_count, count(re.original_code) as report_count
+		from post p, board b, reply r,report re
+		where p.member_id = #{member_id}
+        and p.board_code = b.board_code 
+		and p.post_code = r.post_code(+)
+        and p.post_code = re.original_code(+)
+		group by p.POST_CODE,p.POST_TITLE,to_char(p.POST_CONTENT),p.P_CREATION_DATE,p.VIEW_NUM,p.RECOMMEND_NUM,p.MEMBER_ID,b.BOARD_NAME
+	</select>
+<!-- 	마이페이지 글관리 글수정 -->
+	<select id="deletePostsPost" parameterType="String">
+		select post_code from post where post_code=#{post_code}
+	</select>
+<!-- 	마이페이지 글관리 글삭제 --> 
+<!-- 	<delete id="deletePostsPost1" parameterType="String"> -->
+<!-- 		delete from post where post_code=#{post_code} -->
+<!-- 	</delete> -->
+
 	
-	<delete id="deletePostsPost" parameterType="String">
-		delete from post where post_code=#{post_code}
-	</delete>
 </mapper>

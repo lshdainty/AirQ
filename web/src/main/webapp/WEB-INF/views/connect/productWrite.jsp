@@ -7,7 +7,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 order-md-4">
-			<form class="needs-validation" enctype="multipart/form-data" action="productInsert" method="get" novalidate >
+			<form class="needs-validation" enctype="multipart/form-data" action="productInsert" method="post" novalidate >
 				<%-- 상품 이름 시작 --%>
 				<div class="row">
 					<div style="width: 100%">
@@ -17,6 +17,14 @@
 					</div>
 				</div>
 				<%-- 상품 이름 끝 --%>
+				<%--썸네일 추가 시작 --%>
+				<div id="divImage" style="display:none;">
+					<img id="div_inner_img" src="" alt="이미지를 넣어주세요" width="250px" height="250px">
+				</div>
+				<div id="thumbnailDiv">
+					<input id="fileImage" type="file" name="thumbnail" multiple>
+				</div>
+				<%--썸네일 추가 끝 --%>
 				<%--상품 기본 정보 선택 시작 --%>
 				<div class="product_info">
 					<label for="product_info">서비스 상품 상세 정보</label><br/>
@@ -31,6 +39,13 @@
 					</select>
 					<button id="areaAdd" type="button">가능지역 추가하기</button><br/>
 					<div id="p_possible_area">
+					</div>
+					<label for="measure_matter">측정 가능 물질 : </label>
+					<select name="matter" id="matter" class="order-option">
+                		<option value="측정 물질">측정 물질</option>
+           			</select>
+           			<button id="matterAdd" type="button">측정물질 추가하기</button><br/>
+					<div id="p_measure_matter">
 					</div>
 					<label for="p_space">측정 적절 평수 : </label>
 					<select id="p_space" name="p_space" class="select">

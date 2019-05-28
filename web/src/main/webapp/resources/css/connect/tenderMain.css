@@ -4,7 +4,7 @@
 	color: #747474;
 	font-weight: 300;
 	text-align: center;
-	margin-bottom: 15px;
+	margin-top: 15px;
 }
 
 .tenderSelectDiv {
@@ -17,13 +17,20 @@
 	height: 30px;
 }
 
-
 .tenderWriteDiv {
 	height: 50px;
 }
 
-.tenderWriteBtn {
+#tenderWrite {
+	border-radius: 2px;
 	float: right;
 	height: 40px;
 	width: 90px;
+	background-color: transparent;
+	color: #428bca;
+	border: 1px solid #428bca;
+}
+#tenderWrite:hover {
+    background-color: #428bca;
+    color: white;
 }

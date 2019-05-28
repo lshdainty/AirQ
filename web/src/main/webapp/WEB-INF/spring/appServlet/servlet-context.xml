@@ -59,24 +59,7 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="10485760" />	10mb 제한
 	</beans:bean> -->
-
-		<!-- Chat 2019.04.24 웹소켓 테스트 -->
-	<beans:bean id="ChatController" class="web.ChatController" />
 	
-	<websocket:handlers>
-		<websocket:mapping handler="echoHandler" path="/echo"/>
-		<websocket:sockjs />
-	</websocket:handlers>
-    
-	<beans:bean id="echoHandler" class="chat.EchoHandler" />
-	
-	
-	<!-- WebSocket handler -->
-	<!-- <websocket:handlers>
-		<websocket:mapping handler="echoHandler" path="/WebSocket"/>
-		<websocket:sockjs />
-	</websocket:handlers>
-	<beans:bean id="echoHandler" class="com.yjc.airq.handler.echoHandler" /> -->	<!-- mapping -->
 	
 	<!-- WebSocket을 정의 할 때 속성 정의가 필요한데 그것이 handler, path값 이다.
 	handler는 웹소켓이 처리(handling) 할 로직이 있는 부분

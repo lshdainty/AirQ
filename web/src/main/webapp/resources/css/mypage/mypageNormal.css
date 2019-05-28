@@ -1,0 +1,48 @@
+@charset "UTF-8";
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.reviewCompareList div {
+	display: inline-block;
+}
+
+.reviewCompareList {
+	display: block;
+	width: 100%;
+	margin: auto;
+	border: 1px solid #ddd;
+}
+
+.compareThumb img {
+	width: 130px;
+    height: 130px;
+}
+
+.compareTitle {
+	font-weight: bold;
+	display: block !important;
+}
+
+.reviewInfo {
+	vertical-align: top;
+	width: 80%;
+	padding-left: 3rem;
+}
+
+.reviewPost {
+	cursor:pointer;
+	width: 100%;
+	padding: 1rem;
+	border-bottom:1px solid #ddd;
+}
+
+.comparePrice {
+	vertical-align:top;
+	padding-top: 2rem;
+	float: right;
+	font-weight: bold;
+	color: #3d59fc;
+}

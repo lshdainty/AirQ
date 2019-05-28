@@ -23,6 +23,12 @@ public interface UploadMapper {
 	// 서비스 제품 사진 등록
 	public void productImageUpload(UploadVO uploadVO);
 	
+	// 서비스 제품 썸네일 등록
+	public void productThumbnailUpload(UploadVO uploadVO);
+	
 	// 서비스 제품 사진 삭제
 	public void productImageDelete(@Param("product_code") String product_code);
+	
+	// 업로드 다운받기(filename가져오기)
+	public String filename(String upload_code);
 }

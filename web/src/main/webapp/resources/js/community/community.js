@@ -89,4 +89,23 @@ $(document).ready(function() {
 		var post_code = $(this).children('input').val();
 		window.location.href="postDetail?post_code="+post_code;
 	});
+	
+	$("#post-report").click(function(){
+    	var post_code = $("#post_code").val();
+    	//기존에 신고한 내용이 있는지 확인
+    	$.ajax({
+    		type: "get",
+    		url: "/checkReport",
+    		data : {original_code : post_code},
+    		async: false,
+    		success: function(data) {
+    			if(data=="success"){
+    				windowObj = window.open("/report?original_code="+post_code,"report","width=570px, height=600px");
+    			}else{
+    				alert("신고는 한번만 가능합니다.");
+    			}
+    		},
+    		error: function(xhr, stat, err) {}
+    	});
+    });
 });

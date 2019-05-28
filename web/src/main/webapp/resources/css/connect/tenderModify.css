@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+#content{
+	margin:auto;
+	max-width:70%;
+}
+
 #tenderModifyTitle {
 	color: #747474;
 	font-weight: 300;

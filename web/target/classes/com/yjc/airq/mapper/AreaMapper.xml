@@ -7,7 +7,7 @@
 	</select>
 	
 	<insert id="productAreaInsert" parameterType="String">
-		insert into p_possible_area values(#{area_code},#{product_code})
+		insert into p_possible_area(area_code,product_code) values(#{area_code},#{product_code})
 	</insert>
 	
 	<delete id="productAreaDelete" parameterType="String">

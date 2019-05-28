@@ -4,8 +4,8 @@
 <mapper namespace="com.yjc.airq.mapper.CompanyMapper">
 	<!-- 회원 가입 -->
 	<insert id="sellerList">
-		insert into COMPANY_INFO(COMPANY_CODE, COMPANY_NAME, COMPANY_TEL, C_ADDR_DO, C_ADDR_SI, C_ADDR_DONG, C_ADDR_DETAIL, MEMBER_ID)
-		values(#{company_code}, #{company_name}, #{company_tel}, '부산광역시', '자갈치', '시장', '336-33', #{member_id})
+		insert into COMPANY_INFO(COMPANY_CODE, COMPANY_NAME, COMPANY_TEL, COMPANY_EMAIL, C_ZIPCODE, C_ROAD_ADDR, C_ADDR, C_ADDR_DETAIL, MEMBER_ID)
+		values(#{company_code}, #{company_name}, #{company_tel}, #{company_email}, #{c_zipcode}, #{c_road_addr}, #{c_addr}, #{c_addr_detail}, #{member_id})
 	</insert>
 	
 	<!-- 투찰 작성 -->
@@ -14,38 +14,61 @@
 		from member m,company_info c
 		where m.member_id=c.member_id and m.member_devision = 'se' and m.member_id=#{member_id}
 	</select>
+	
 	<!-- 건수 계산 -->
 	<select id="bidNumber" parameterType="String" resultType="int">
 		select count(*)
 		from(select obj.*, b.win_bid_whether, b.company_code
-    		 from(select t.tender_code, p.refund_whether
+    		 from(select t.tender_code, p.refund_whether,p.payment_date
      		      from tender t, payment p
      	   		  where t.tender_code = p.tender_code and p.refund_whether = 'n') obj, bid b
  	   		 where obj.tender_code = b.tender_code and b.win_bid_whether = 'y') o
  		where o.company_code = #{company_code}
+ 		<if test='!period_day.equals("0")'>
+			 and o.payment_date between to_date(#{period_day},'yyyy-MM-dd') and sysdate
+		</if>
 	</select>
+	
 	<!-- 별점 계산 -->
 	<select id="star_score_avg" parameterType="String" resultType="double">
-		select to_char(avg(star_score),'99.9') star_score_avg
+		select to_char(avg(star_score),99.9) star_score_avg
 		from(select obj.*, b.win_bid_whether, b.company_code
-     		 from(select t.tender_code, p.refund_whether,p.star_score
-         		  from tender t, payment p
-       			  where t.tender_code = p.tender_code and p.refund_whether = 'n') obj, bid b
-   			 where obj.tender_code = b.tender_code and b.win_bid_whether = 'y') o
+  		     from(select t.tender_code, p.refund_whether,p.star_score,p.payment_date
+   		          from tender t, payment p
+   		   		  where t.tender_code = p.tender_code and p.refund_whether = 'n') obj, bid b
+  			 where obj.tender_code = b.tender_code and b.win_bid_whether = 'y') o
 		where o.company_code = #{company_code}
+		<if test='!period_day.equals("0")'>
+			 and o.payment_date between to_date(#{period_day},'yyyy-MM-dd') and sysdate
+		</if>
 	</select>
+	
 	<!-- 사업자번호 -->
 	<select id="company_code" parameterType="String" resultType="String">
 		select company_code from company_info where member_id=#{member_id}
 	</select>
+	
 	<!-- 업체 이름 -->
 	<select id="company_name" parameterType="String" resultType="String">
 		select company_name from company_info where company_code=#{company_code}
 	</select>
+	
 	<!-- 아이디 -->
 	<select id="member_id" parameterType="String" resultType="String">
 		select member_id from company_info where company_code=#{company_code}
 	</select>
+	
+	<!-- 건수 -->
+	<select id="bidTotalNum" resultType="int">
+		select count(*)
+		from(select obj.*, b.win_bid_whether, b.company_code
+ 		    from(select t.tender_code, p.refund_whether
+ 		         from tender t, payment p
+    		    where t.tender_code = p.tender_code and p.refund_whether = 'n') obj, bid b
+   			 where obj.tender_code = b.tender_code and b.win_bid_whether = 'y') o
+		where o.company_code = #{company_code}
+	</select>
+	
 		<!-- 마이페이지 판매자 그래프 -->
 	<select id="c_code" resultType="com.yjc.airq.domain.Company_InfoVO">
 		select c.company_code,m.member_id, to_char(d.demand_date,'yy-mm') as month, sum(P.payment_price) as sum

@@ -1,0 +1,174 @@
+
+* {
+	box-sizing: border-box;
+	justify-content: space-between;
+}
+
+.container .page-header {
+	padding: 20px 40px;
+	border-bottom: 4px solid #ccc;
+	color: #999;
+	text-transform: uppercase;
+}
+.container .form1 {
+	padding: 20px 0px;
+	margin-top: 9px;
+	line-height: 17px;
+	font-size: 14px;
+	color: #7b858e;
+}
+
+
+.container .form1 .A {
+	width: 15%;
+	display: inline-block;
+}
+.container .form1 .AA {
+	width: 10%;
+	display: inline-block;
+}
+
+.container .form1 .B {
+	display: inline-block;
+	margin-left: 10%;
+}
+
+.container .form1 .C {
+	float: right;
+	height: 25px;
+}
+
+.container .form3 {
+	border-top: 1px solid #ebeef1;
+	padding: 12px 0;
+	border-bottom: 1px solid #ebeef1;
+}
+
+.container .form3 .product_ {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form3 .product_name {
+	width: 20%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+/* 	height: 50px; */
+/* 	text-overflow: clip; */
+/* 	overflow:auto; */
+/* 	overflow-x:hidden; */
+/* 	-webkit-line-clamp:3; */
+	display: inline-block;
+/* 	margin: 0px; */
+/* 	-webkit-transition: height 2s; */
+/*   	transition: height 2s; */
+}
+
+/* .container .form3 .product_name:hover { */
+/*  	height: 150px; */
+/* } */
+
+.container .form3 .product_A {
+	width: 60%;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+
+.container .form4 {
+	border-top: 1px solid #ebeef1;
+	padding: 12px 0;
+	border-bottom: 1px solid #ebeef1;
+}
+
+.container .form4 .post_name {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form4 .post_title {
+	width: 20%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+/* 	height: 50px; */
+/* 	text-overflow: clip; */
+/* 	overflow:auto; */
+/* 	overflow-x:hidden; */
+/* 	-webkit-line-clamp:3; */
+	display: inline-block;
+	margin: 0px;
+/* 	-webkit-transition: height 2s; */
+/*   	transition: height 2s; */
+}
+
+/* .container .form4 .post_title:hover { */
+/*  	height: 150px; */
+/* } */
+
+.container .form4 .post_A {
+	width: 30%;	
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.container .form4 .p_creation_date {
+	width: 30%;
+	height: 30px;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: inherit;
+}
+
+.container .content {
+	overflow: hidden;
+}
+
+.container .content>* {
+	float: left;
+	padding-bottom: 2000px;
+	margin-bottom: -2000px;
+}
+
+.container .content main {
+	width: 100%;
+}
+
+/*float 지정 해제 해줌*/
+.container footer {
+	clear: both;
+}
+/*599px보다 웹페이지를 줄이면 일렬로 나타나게*/
+@media ( max-width :1400px) {
+	.container>.content>* {
+		background-color: #f8f9fa;
+	}
+	.container .content {
+		padding-left: 0px;
+		padding-right: 0px;
+		overflow: visible;
+	}
+	.container .content>* {
+		float: none;
+		padding-bottom: 0px;
+		margin-bottom: 0px;
+	}
+	.container .content main {
+		width: 100%;
+	}
+	.container .content nav {
+		width: auto;
+		margin-left: 0;
+		left: 0;
+		position: relative;
+	}
+	.container .content aside {
+		width: auto;
+		margin-right: 0;
+	}
+}

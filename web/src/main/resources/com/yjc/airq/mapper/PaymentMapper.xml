@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjc.airq.mapper.PaymentMapper">
 	<insert id="pInsertPayment" parameterType="com.yjc.airq.domain.PaymentVO">
-		insert into payment(payment_code,payment_price,demand_code) values(#{payment_code},#{payment_price},#{demand_code})
+		insert into payment(payment_code,payment_price,demand_code,payment_date) values(#{payment_code},#{payment_price},#{demand_code},systimestamp)
 	</insert>
 	
 	<delete id="productPaymentDelete" parameterType="String">
@@ -18,48 +18,90 @@
 	</delete>
 	
 	<select id="mypay" resultType="com.yjc.airq.domain.PaymentVO">
-		select d.member_id, d.demand_code, p.star_score , p.payment_code, to_char(d.demand_date,'yyyy-mm-dd') as day, c.company_name, c.MEMBER_ID as company_id,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1) as product_detail
-		from payment p, demand d, member m, product pr, company_info c
+		select  p.payment_code,p.payment_price,t.tender_title,p.star_score , to_char(d.demand_date,'yyyy-mm-dd') as day, c.company_name, c.MEMBER_ID as company_id,pr.PRODUCT_NAME
+		from payment p, demand d, member m, product pr, company_info c, tender t
 		where m.member_id = d.member_id
+        and t.tender_code(+) = p.tender_code
 		and d.demand_code = p.demand_code
 		and d.product_code = pr.product_code
 		and pr.company_code = c.company_code
 		and m.member_id = #{member_id}
 		and p.REFUND_WHETHER ='n'
-		GROUP by d.MEMBER_ID,p.STAR_SCORE,d.DEMAND_CODE, p.payment_code, to_char(d.demand_date,'yyyy-mm-dd'), c.company_name, c.MEMBER_ID,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1)
+		GROUP by p.payment_code,p.payment_price,t.tender_title,p.STAR_SCORE, to_char(d.demand_date,'yyyy-mm-dd'), c.company_name, c.MEMBER_ID,pr.PRODUCT_NAME
 		order by to_char(d.demand_date,'yyyy-mm-dd') desc
 	</select>
 	
 	<select id="mypayNotNull" resultType="com.yjc.airq.domain.PaymentVO">
-		select d.member_id, d.demand_code, p.star_score , p.payment_code, to_char(d.demand_date,'yyyy-mm-dd') as day, c.company_name, c.MEMBER_ID as company_id,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1) as product_detail
-		from payment p, demand d, member m, product pr, company_info c
+		select  p.payment_code,p.payment_price,t.tender_title,p.star_score , to_char(d.demand_date,'yyyy-mm-dd') as day, c.company_name, c.MEMBER_ID as company_id,pr.PRODUCT_NAME
+		from payment p, demand d, member m, product pr, company_info c, tender t
 		where m.member_id = d.member_id
+        and t.tender_code(+) = p.tender_code
 		and d.demand_code = p.demand_code
 		and d.product_code = pr.product_code
 		and pr.company_code = c.company_code
 		and m.member_id = #{member_id}
 		and not p.star_score is null
 		and p.REFUND_WHETHER ='n'
-		GROUP by d.MEMBER_ID,p.STAR_SCORE,d.DEMAND_CODE, p.payment_code, to_char(d.demand_date,'yyyy-mm-dd'), c.company_name, c.MEMBER_ID,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1)
+		GROUP by p.payment_code,p.payment_price,t.tender_title,p.STAR_SCORE, to_char(d.demand_date,'yyyy-mm-dd'), c.company_name, c.MEMBER_ID,pr.PRODUCT_NAME
 		order by to_char(d.demand_date,'yyyy-mm-dd') desc
 	</select>
 	
 	<select id="mypayNull" resultType="com.yjc.airq.domain.PaymentVO">
-		select d.member_id, d.demand_code, p.star_score , p.payment_code, to_char(d.demand_date,'yyyy-mm-dd') as day, c.company_name, c.MEMBER_ID as company_id,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1) as product_detail
-		from payment p, demand d, member m, product pr, company_info c
+		select  p.payment_code,p.payment_price,t.tender_title,p.star_score , to_char(d.demand_date,'yyyy-mm-dd') as day, c.company_name, c.MEMBER_ID as company_id,pr.PRODUCT_NAME
+		from payment p, demand d, member m, product pr, company_info c, tender t
 		where m.member_id = d.member_id
+        and t.tender_code(+) = p.tender_code
 		and d.demand_code = p.demand_code
 		and d.product_code = pr.product_code
 		and pr.company_code = c.company_code
 		and m.member_id = #{member_id}
 		and p.star_score is null
 		and p.REFUND_WHETHER ='n'
-		GROUP by d.MEMBER_ID,p.STAR_SCORE,d.DEMAND_CODE, p.payment_code, to_char(d.demand_date,'yyyy-mm-dd'), c.company_name, c.MEMBER_ID,pr.PRODUCT_NAME, DBMS_LOB.SUBSTR(pr.product_detail,4000,1)
+		GROUP by p.payment_code,p.payment_price,t.tender_title,p.STAR_SCORE, to_char(d.demand_date,'yyyy-mm-dd'), c.company_name, c.MEMBER_ID,pr.PRODUCT_NAME
 		order by to_char(d.demand_date,'yyyy-mm-dd') desc
 	</select>
 	
+	<select id="mypayT" resultType="com.yjc.airq.domain.PaymentVO">
+	    select  p.tender_code,p.payment_code,p.payment_price,t.tender_title as product_name,p.star_score,t.member_id as company_id, to_char(t_creation_date,'yyyy-mm-dd') as day
+        from payment p,  member m, tender t
+		where m.member_id = t.member_id
+        and t.tender_code = p.tender_code
+		and m.member_id = #{member_id}
+		and p.REFUND_WHETHER ='n'
+		GROUP by  p.tender_code,p.payment_code,p.payment_price,t.tender_title,p.star_score, to_char(t_creation_date,'yyyy-mm-dd'),t.member_id
+		order by to_char(t_creation_date,'yyyy-mm-dd') desc
+	</select>
+	<select id="mypayNotNullT" resultType="com.yjc.airq.domain.PaymentVO">
+	    select  p.tender_code,p.payment_code,p.payment_price,t.tender_title as product_name,p.star_score,t.member_id as company_id, to_char(t_creation_date,'yyyy-mm-dd') as day
+        from payment p,  member m, tender t
+		where m.member_id = t.member_id
+        and t.tender_code = p.tender_code
+		and m.member_id = #{member_id}
+		and p.REFUND_WHETHER ='n'
+		and not p.star_score is null
+		GROUP by  p.tender_code,p.payment_code,p.payment_price,t.tender_title,p.star_score, to_char(t_creation_date,'yyyy-mm-dd'),t.member_id
+		order by to_char(t_creation_date,'yyyy-mm-dd') desc	
+	</select>
+	<select id="mypayNullT" resultType="com.yjc.airq.domain.PaymentVO">
+	    select  p.tender_code,p.payment_code,p.payment_price,t.tender_title as product_name,p.star_score,t.member_id as company_id, to_char(t_creation_date,'yyyy-mm-dd') as day
+        from payment p,  member m, tender t
+		where m.member_id = t.member_id
+        and t.tender_code = p.tender_code
+		and m.member_id = #{member_id}
+		and p.REFUND_WHETHER ='n'
+		and p.star_score is null
+		GROUP by  p.tender_code,p.payment_code,p.payment_price,t.tender_title,p.star_score, to_char(t_creation_date,'yyyy-mm-dd'),t.member_id
+		order by to_char(t_creation_date,'yyyy-mm-dd') desc
+	</select>
 	<update id="mypayStarUp" parameterType="com.yjc.airq.domain.PaymentVO">
 		UPDATE payment set star_score = #{star_score}
 		where payment_code = #{payment_code}
 	</update>
+	
+	<!-- 입찰 신청 결제 -->
+	<insert id="tendering">
+		insert into payment(payment_code,payment_price,tender_code,payment_date) values(#{payment_code},${payment_price},#{tender_code},systimestamp)
+	</insert>
+	
+	
 </mapper>

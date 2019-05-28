@@ -2,8 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/join/nRegister.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/join/nRegister.css" />
 
 <%--일반 사용자 회원가입 시작 --%>
 <div class="form">
@@ -42,6 +41,17 @@
 					<label>E-mail</label>
 					<input type="email" id="email" name="Member_email" required autocomplete="off" />
 				</div>
+				
+				<div class="field-wrap">
+					<label>우편번호</label>
+					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+					<input type="text" id="sample4_postcode" name="m_zipcode" placeholder="우편번호">
+					<input type="text" id="sample4_roadAddress" name="m_road_addr" placeholder="도로명주소"><br>
+					<input type="text" id="sample4_jibunAddress" name="m_addr" placeholder="지번주소">
+					<span id="guide" style="color:#999;display:none"></span>
+					<input type="text" id="sample4_detailAddress" name="m_addr_detail" placeholder="상세주소">
+					<input type="text" id="sample4_extraAddress" placeholder="참고항목">
+				</div>
 
 				<!--<div class="field-wrap">
             <label>
@@ -58,6 +68,6 @@
 </div>
 <!-- /form -->
 <%--일반 사용자 회원가입 끝 --%>
-<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src='resources/js/join/register2.js'></script>
 <%@include file="../include/footer.jsp"%>

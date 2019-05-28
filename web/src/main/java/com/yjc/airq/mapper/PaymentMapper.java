@@ -21,9 +21,20 @@ public interface PaymentMapper {
 	
 	//마이페이지 일반사용자 결제내역(별점안준거)
 	public ArrayList<PaymentVO> mypayNull(@Param("member_id")String member_id);
+	//마이페이지 일반사용자 결제내역
+	public ArrayList<PaymentVO> mypayT(@Param("member_id")String member_id);
+	
+	//마이페이지 일반사용자 결제내역(별점준거)
+	public ArrayList<PaymentVO> mypayNotNullT(@Param("member_id")String member_id);
+	
+	//마이페이지 일반사용자 결제내역(별점안준거)
+	public ArrayList<PaymentVO> mypayNullT(@Param("member_id")String member_id);
 	
 	//마이페이지 일반사용자 결제내역 별점 업데이트
 	public int mypayStarUp(PaymentVO paymentVO);
 
+	// 입찰 신청 결제
+	public void tendering(PaymentVO paymentVo);
 	
+
 }

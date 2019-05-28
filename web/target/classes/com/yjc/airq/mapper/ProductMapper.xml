@@ -12,9 +12,24 @@
 		<result property="company_code" column="company_code"></result>
 		<association property="sellnum" column="product_code" select="getSellnum"/>
 		<association property="staravg" column="product_code" select="getStaravg"/>
+		<association property="file_name" column="product_code" select="getThumbnail"/>
 		<association property="companyVO" column="company_code" select="getCompany"/>
 		<collection property="areaVO" column="product_code" javaType="java.util.ArrayList" ofType="com.yjc.airq.domain.AreaVO" select="getAreaByCode"/>
+		<collection property="matterVO" column="product_code" javaType="java.util.ArrayList" ofType="com.yjc.airq.domain.MatterVO" select="getMatterByCode"/>
 	</resultMap>
+	
+	<select id="recommendList" resultMap="ProductVO">
+		select p.*
+		from (
+       			select p.product_code,count(p.product_code) as count
+        		from product p, demand d
+        		where p.product_code = d.product_code
+        		and d.d_zipcode = #{zipcode}
+        		group by p.product_code
+        		order by count desc) a, product p
+    	where p.product_code = a.product_code
+    	and <![CDATA[rownum <= 3]]>
+	</select>
 	
 	<select id="productList" resultMap="ProductVO">
 		select X.rnum, X.* 
@@ -61,6 +76,12 @@
 		where a.area_code = pa.area_code and pa.product_code=#{product_code}
 	</select>
 	
+	<select id="getMatterByCode" resultType="com.yjc.airq.domain.MatterVO">
+		select m.*,pm.product_code 
+		from matter m, p_measure_matter pm 
+		where m.matter_code = pm.matter_code and pm.product_code=#{product_code}
+	</select>
+	
 	<select id="getSellnum" resultType="String">
 		select to_char(count(*)) as sellnum
 		from product p, demand d, payment pa
@@ -71,6 +92,10 @@
 		select nvl(to_char(avg(pa.STAR_SCORE),99.9),'0.0') as staravg
 		from product p, demand d, payment pa
 		where p.product_code = d.product_code and d.demand_code = pa.demand_code and p.product_code=#{product_code} and refund_whether='n'
+	</select>
+	
+	<select id="getThumbnail" resultType="String">
+		select file_name from upload where product_code = #{product_code} and thumbnail_whether = 'y'
 	</select>
 	
 	<select id="selectList" resultMap="ProductVO">
@@ -161,7 +186,7 @@
 	</select>
 
 	<insert id="productInsert" parameterType="com.yjc.airq.domain.ProductVO">
-		insert into product values(#{product_code},#{product_name},#{product_detail},#{product_price},#{p_space},#{measure_point},#{company_code})
+		insert into product(product_code,product_name,product_detail,product_price,p_space,measure_point,company_code) values(#{product_code},#{product_name},#{product_detail},#{product_price},#{p_space},#{measure_point},#{company_code})
 	</insert>
 	
 	<update id="productUpdate" parameterType="com.yjc.airq.domain.ProductVO">
@@ -179,11 +204,37 @@
 		delete from product where product_code = #{product_code}
 	</delete>
 	
-	<select id="productMP" resultType="com.yjc.airq.domain.ProductVO">
-		select * from product
+	
+	<select id="productMP" resultMap="ProductVO">
+		select * from product pr, company_info c
+        where pr.COMPANY_CODE = c.COMPANY_CODE
+        order by ROWNUM desc
 	</select>
 	
-	<delete id="deletePostsProduct" parameterType="String">
-		delete from product where product_code=#{product_code}
-	</delete>
+	<select id="productSMP" resultMap="ProductVO">
+        select p.PRODUCT_CODE, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.P_SPACE, p.MEASURE_POINT, p.COMPANY_CODE, count(re.original_code) as report_count 
+        from product p ,company_info c, report re
+        where p.company_code = c.company_code
+        and p.product_code = re.ORIGINAL_CODE(+)
+		and c.member_id = #{member_id}
+        group by p.PRODUCT_CODE, p.PRODUCT_NAME, p.PRODUCT_PRICE, p.P_SPACE, p.MEASURE_POINT, p.COMPANY_CODE
+	</select>
+	
+<!-- 	마이페이지 글관리 글수정하기 -->
+	<select id="deletePostsProduct" parameterType="String">
+		select product_code from product where product_code = #{product_code}
+	</select>
+<!-- 	마이페이지 글관리 글삭제 --> 
+<!-- 	<delete id="deletePostsProduct1" parameterType="String"> -->
+<!-- 		delete from product where product_code = #{product_code} -->
+<!-- 	</delete> -->
+
+
+	<!-- 리뷰 안한 목록 리스트 -->
+	<select id="reviewCompareList" resultType="com.yjc.airq.domain.ProductVO">
+		select t.product_code,t.product_name,t.product_price, t.p_space, t.measure_point, p.star_score, d.member_id, to_char(d.d_service_date,'yyyy-MM-dd hh:mm') d_service_date
+		from payment p,demand d,product t
+		where p.demand_code=d.demand_code and d.product_code=t.product_code and p.refund_whether='n' and p.star_score is null and d.member_id=#{member_id}
+		order by payment_date
+	</select>
 </mapper>

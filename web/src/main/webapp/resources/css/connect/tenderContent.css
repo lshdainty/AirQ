@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+#content{
+	margin:auto;
+	max-width:70%;
+}
+
 #tenderTitle,#tenderParticipationList {
 	color: #747474;
 	font-weight: 300;
@@ -14,6 +19,10 @@
 #tenderDeadline {
 	float: right;
 	margin-right:10px;
+}
+
+#periodSpan {
+	font-size:16px;
 }
 
 hr {
@@ -60,12 +69,11 @@ hr {
 }
 
 #tenderParticipationTbl th {
-	background-color: #1d96b2;
-	color: white;
+	color:#747474;
 }
 
 #tenderParticipationTbl tr {
-	background-color: #f8f8f8;
+	background-color: transparent;
 	border: 1px solid #ddd;
 }
 
@@ -97,13 +105,11 @@ hr {
 		border-bottom: 0;
 	}
 	#tenderParticipationTbl tbody td[scope="row"] {
-		background-color: #1d96b2;
-		color: white;
 		display: flex;
 	}
 }
 
-#tenderApplicationBtn {
+#tendering {
 	float: right;
 	height: 40px;
 	width: 90px;

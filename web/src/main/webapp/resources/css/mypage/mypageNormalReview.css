@@ -1,0 +1,44 @@
+#reviewForm{
+  height:86%;
+  width:100%;
+  box-sizing:border-box;
+  padding:20px;
+}
+
+#reviewContent{
+  height:100px;
+  width:100%;
+  border-radius:3px;
+  border:rgba(0,0,0,0.3) 2px solid;
+  box-sizing:border-box;
+  padding:10px;
+  margin-bottom:10px;
+}
+
+.reviewTextbox:focus{
+  outline:none;
+   border:rgba(24,149,215,1) 2px solid;
+   color:rgba(24,149,215,1);
+}
+
+#reportButton{
+  width:28%;
+  height:30px;
+  border-radius:3px;
+  border:rgba(0,0,0,.3) 0px solid;
+  box-sizing:border-box;
+  background:#90c843;
+  color:#FFF;
+  font-weight:bold;
+  font-size: 12pt;
+}
+
+#reportButton:hover{
+  background:#80b438;
+  
+}
+
+#reviewStar {
+  height:30px;
+  width:70%;
+}

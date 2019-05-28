@@ -1,6 +1,24 @@
 ﻿var editorConfig = {
 		filebrowserUploadUrl : "imageUpload", //이미지 업로드
 };
+
+//Thumbnail preview보기
+function readURL(input){
+	if(input.files&&input.files[0]){
+		var reader = new FileReader();
+		reader.onload = function(e){
+			$('#div_inner_img').prop('src',e.target.result);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+
+//Thumbnail을 업로드하면 함수실행
+$("#fileImage").change(function(){
+	readURL(this);
+	$("#divImage").show();
+});
+
 $(function() {
 	CKEDITOR.replace(
 					'product_detail',
@@ -35,6 +53,23 @@ $(function() {
 				html +="<option value='"+data.admVOList.admVOList[i].lowestAdmCodeNm+"'>"+data.admVOList.admVOList[i].lowestAdmCodeNm+"</option>"
 			}
 			$('#sido_code').html(html);
+		},
+		error: function(xhr, stat, err) {}
+	});
+	
+	$.ajax({
+		type: "get",
+		url: "/matterList",
+		async: false,
+		dataType: 'json',
+		success: function(data) {
+			console.log(data);
+			var html = "<option value='측정 물질'>측정 물질</option>";
+		
+			for(var i=0;i<data.matterList.length;i++){ 
+				html +="<option value='"+data.matterList[i].matter_code+"'>"+data.matterList[i].matter_name+"</option>"
+			}
+			$('#matter').html(html);
 		},
 		error: function(xhr, stat, err) {}
 	});
@@ -82,6 +117,25 @@ $("#areaAdd").click(function(){
 		$("#p_possible_area").append(html);
 		$("#sido_code").val("광역시/도").prop("selected", true);
 		$("#sigoon_code").val("시/구").prop("selected", true);
+	}
+});
+
+$("#matterAdd").click(function(){
+	if($("#matter option:selected").val()=="측정 물질"){
+		alert("측정 물질을 선택해주세요");
+		return false;
+	}else{
+		var matter_code = $("#matter option:selected").val();
+		var matter_name = $("#matter option:selected").text();
+		var html = [
+			"<div class='mPossible'>",
+				"<label for='matter_code'>"+matter_name+"</label>",
+				"<input type='hidden' id='matter_code' name='matter_code' value='"+matter_code+"' />",
+				"<input type='button' class='removeBtn' value='삭제하기' />",
+			"</div>"
+		].join("");
+		$("#p_measure_matter").append(html);
+		$("#matter").val("측정 물질").prop("selected", true);
 	}
 });
 

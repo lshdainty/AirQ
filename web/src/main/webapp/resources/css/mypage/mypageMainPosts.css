@@ -1,129 +1,183 @@
 
 * {
 	box-sizing: border-box;
+	justify-content: space-between;
 }
-
+.container .page-header {
+	padding: 20px 40px;
+	border-bottom: 4px solid #ccc;
+	color: #999;
+	text-transform: uppercase;
+}
 .container .form1 {
-	box-shadow: 5px 5px 5px rgba(0.5,0.5,0.5,0.5);
+	padding: 20px 0px;
+	margin-top: 9px;
+	line-height: 17px;
+	font-size: 14px;
+	color: #7b858e;
+	
 }
 
 .container .form1 .A {
 	width: 15%;
+	display: inline-block;
+}
+.container .form1 .AA {
+	width: 15%;
+	display: inline-block;
+}
+.container .form1 .AAA {
+	width: 20%;
+	display: inline-block;
+}
+/* .container .form1 .AAAA { */
+/* 	width: 10%; */
+/* 	display: inline-block; */
+/* } */
+.container .form1 .AAAAA {
+	width: 15%;
+	display: inline-block;
+}
+.container .form1 .B {
+	width: 10%;
+	display: inline-block;
+}
+.container .form1 .AAAAAA {
+	width: 10%;
+	display: inline-block;
 }
 
-.container .form1 .B {
-	display: inline-block;
-	margin-left: 28%;
-}
+
 
 .container .form1 .C {
 	float: right;
-}
-
-.container .form1 .check {
-	display: inline-block;
-	width: 10%;
+	height: 25px;
 }
 
 .container .form2 {
-		column-gap: 15px;
-		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
-		border-style: outset;
-		margin-bottom: 15px;
+	cursor: pointer;	
+	border-top: 1px solid #ebeef1;
+	padding: 12px 0;
+	border-bottom: 1px solid #ebeef1;
+		
 }
 
-.container .form2 .tender_title {
+.container .form2:hover{
+		background-color: #ecf6f9
+}
+
+
+.container .form2 .report_title {
 	width: 15%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
 }
 
-.container .form2 .requirement {
-	width: 40%;
-	height: 50px;
+.container .form2 .member_id {
+	width: 15%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
+
 }
 
-.container .form2 .tender_name {
-	width: 15%;
-	height: 50px;
+
+.container .form2 .original_code {
+	width: 20%;
 	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: hidden;	
 }
 
-.container .form2 .t_creation_date {
+.container .form2 .report_date {
+	width: 15%;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: inherit;
+}
+.container .form2 .report_count {
 	width: 10%;
-	height: 30px;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: inherit;
+}
+.container .form2 .delete_whether {
+	width: 10%;
 	display: inline-block;
 	text-overflow: ellipsis;
 	overflow: inherit;
 }
 
-.container .form2 .selection {
-	display: inline-block;
-}
-
-.container .form2 .check {
-	display: inline-block;
-	width: 10%;
-}
-
+/* --- */
 .container .form3 {
-		column-gap: 15px;
-		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
-		border-style: outset;
-		margin-bottom: 15px;
+	border-top: 1px solid #ebeef1;
+	padding: 12px 0;
+	border-bottom: 1px solid #ebeef1;
+	cursor: pointer;	
 }
 
-.container .form3 .product_code {
+.container .form3:hover{
+		background-color: #ecf6f9
+}
+
+
+.container .form3 .report_title {
 	width: 15%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
 }
 
-.container .form3 .product_detail {
-	width: 40%;
-	height: 50px;
+.container .form3 .member_id {
+	width: 15%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
+
 }
 
-.container .form3 .product_name {
+
+.container .form3 .original_code {
+	width: 20%;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: hidden;	
+}
+
+.container .form3 .report_date {
 	width: 15%;
-	height: 50px;
 	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: inherit;
 }
-
-.container .form3 .selection {
-	display: inline-block;
-}
-
-.container .form3 .check {
-	display: inline-block;
+.container .form3 .report_count {
 	width: 10%;
-}
-
-.container .form4 {
-		column-gap: 15px;
-		box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
-		border-style: outset;
-		margin-bottom: 15px;
-}
-
-.container .form4 .post_title {
-	width: 15%;
-	text-overflow: ellipsis;
-	overflow: hidden;
 	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: inherit;
+}
+.container .form3 .delete_whether {
+	width: 10%;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: inherit;
 }
 
-.container .form4 .post_content {
-	width: 40%;
-	height: 50px;
+/* --- */
+.container .form4 {
+	border-top: 1px solid #ebeef1;
+	padding: 12px 0;
+	border-bottom: 1px solid #ebeef1;
+	cursor: pointer;	
+}
+.container .form4:hover{
+		background-color: #ecf6f9
+}
+
+
+.container .form4 .report_title {
+	width: 15%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inline-block;
@@ -131,22 +185,39 @@
 
 .container .form4 .member_id {
 	width: 15%;
-	height: 50px;
+	text-overflow: ellipsis;
+	overflow: hidden;
 	display: inline-block;
+
 }
 
-.container .form4 .p_creation_date {
+
+.container .form4 .original_code {
+	width: 20%;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: hidden;	
+}
+
+.container .form4 .report_date {
+	width: 15%;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: inherit;
+}
+.container .form4 .report_count {
 	width: 10%;
-	height: 30px;
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: inherit;
+}
+.container .form4 .delete_whether {
+	width: 10%;
 	display: inline-block;
 	text-overflow: ellipsis;
 	overflow: inherit;
 }
 
-.container .form4 .check {
-	display: inline-block;
-	width: 10%;
-}
 
 .container .content {
 	overflow: hidden;

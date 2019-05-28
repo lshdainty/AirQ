@@ -3,10 +3,18 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjc.airq.mapper.DemandMapper">
 	<insert id="pInsertDemand" parameterType="com.yjc.airq.domain.DemandVO">
-		insert into demand values(#{demand_code},systimestamp,#{d_addr_do},#{d_addr_si},#{d_addr_dong},#{d_addr_detail},#{member_id},#{product_code},#{d_service_date})
+		insert into demand(demand_code,demand_date,d_zipcode,d_road_addr,d_addr,d_addr_detail,member_id,product_code,d_service_date) values(#{demand_code},systimestamp,#{d_zipcode},#{d_road_addr},#{d_addr},#{d_addr_detail},#{member_id},#{product_code},#{d_service_date})
 	</insert>
 	
 	<delete id="productDemandDelete" parameterType="String">
 		delete from demand where product_code = #{product_code}
 	</delete>
+	
+	<select id="checkPayment" resultType="int">
+		select count(d.demand_code) as count from demand d, payment p
+		where d.demand_code = p.demand_code
+		and p.refund_whether = 'n'
+		and d.product_code = #{product_code}
+		and d.member_id = #{member_id}
+	</select>
 </mapper>

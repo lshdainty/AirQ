@@ -1,5 +1,7 @@
+
 .tableList {
 	padding-inline-start: 0px;
+	border-bottom: 3px solid #428bca;
 }
 
 .tableCol-10-1 {
@@ -12,25 +14,32 @@
 
 .tableCol-15 {
 	flex-basis: 15%;
+	
+	/* overflow setting start */
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	/* overflow setting end */
+	
 }
 
 .tableList li {
-	border-radius: 3px;
-	padding: 25px 30px;
+	padding: 25px 10px;
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 10px;
 }
 
 .tableListHeader {
-	background-color: #80bfff;
-	font-size: 14px;
+	color: #747474;
+	font-size: 16px;
 	letter-spacing: 0.03em;
+	/* border-bottom: 2px #D5D5D5 solid; */
+	border-bottom: 3px solid #428bca;
 }
 
 .tableListContent {
 	background-color: #ffffff;
-	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+	border-bottom: 1px #D5D5D5 solid;
 }
 
 @media all and (max-width: 768px) {
@@ -42,6 +51,7 @@
 	}
 	.tableList li {
 		display: block;
+		border-radius: 3px;
 	}
 	.tableColumn {
 		flex-basis: 100%;
@@ -55,6 +65,9 @@
 		flex-basis: 50%;
 		text-align: right;
 	}
+	.tableListContent {
+	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.2);
+}
 }
 
 .tableListContent:hover {

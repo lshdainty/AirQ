@@ -33,10 +33,10 @@ public class LoginController {
 	@ResponseBody
 	public String loginMain(MemberVO member, HttpSession session, Model model,@RequestParam String id, @RequestParam String password) {
 		MemberVO result = memberService.login(id);
-		
 		if(result!=null) {
 			if(password.equals(result.getMember_pw())) {
 			session.setAttribute("user",result);
+			
 			//session.setAttribute("devision", memberService.getDevision(id));
 			return "success";
 			}

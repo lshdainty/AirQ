@@ -1,0 +1,228 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+div {
+  display: inline-block;
+}
+
+.place-area {
+  margin-top: 0.2rem;
+  width: 100%;
+  border: 1px solid #000;
+  margin-bottom: 1rem;
+  display: none;
+}
+
+.place-area li {
+  border-bottom: 1px solid #000;
+}
+
+.place-area li select {
+  width: 45%;
+}
+
+.place-area li:last-child {
+  border-bottom: none;
+}
+
+.option-info {
+  width: 45%;
+  padding: 0.2rem 1rem 0.2rem 1rem;
+}
+
+.option-info:last-child {
+  border: none;
+}
+
+.compare-wrap__app {
+  display: block;
+}
+
+.compare-wrap__app .top-cat__app {
+  display: block;
+  border: 1px solid #000;
+  width: 100%;
+  padding: 0.2rem;
+  text-align: center;
+}
+
+.compare-wrap__app .top-cat__app .cat-content {
+  width: 45%;
+  font-size: 1rem;
+}
+
+.compare-wrap__app .top-cat__app .cat-active {
+  font-weight: bold;
+  border-bottom: 1.5px solid #000;
+}
+
+.compare-wrap__app .product-cats {
+  display: block;
+}
+
+.compare-wrap__app .product-cats .product-count {
+  font-size: 1rem;
+  margin: 0.4rem 0rem 0.4rem 1rem;
+}
+
+.compare-wrap__app .product-cats .product-count .pCount {
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding-right: 1rem;
+  border-right: 1px solid #000;
+}
+
+.compare-wrap__app .product-cats .product-cat {
+  float: right;
+  margin: 0.4rem 2.5rem 0.4rem 1rem;
+}
+
+.compare-wrap__app .product-cats .product-cat select {
+  width: 45%;
+}
+
+.compare-wrap__app .product-cats .product-cat button {
+  width: 45%;
+}
+
+.compare-wrap__app .smart-recommand {
+  display: block;
+  border: 1px solid #000;
+}
+
+.compare-wrap__app .smart-recommand .qMark img {
+  margin-left: 0.3rem;
+  width: 0.6rem;
+  height: 0.6rem;
+}
+
+.compare-wrap__app .smart-recommand .smart-explain {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding-left: 1rem;
+}
+
+.compare-wrap__app .smart-recommand .smart-posts {
+  border-top: 1px solid #000;
+  width: 100%;
+}
+
+.compare-wrap__app .smart-recommand .smart-posts .smart-post {
+  padding: 0.7rem;
+  width: 100%;
+}
+
+.compare-wrap__app .smart-recommand .smart-posts .smart-post .post-thumb {
+  border: 1px solid #000;
+  width: 20%;
+  height: 50px;
+  text-align: center;
+}
+
+.compare-wrap__app .smart-recommand .smart-posts .smart-post .post-thumb img {
+  margin: auto;
+  padding: 10px;
+  width: 50px;
+  max-width: 100%;
+  height: 50px;
+}
+
+.compare-wrap__app .smart-recommand .smart-posts .smart-post .post-explain {
+  width: 70%;
+  height: 50px;
+  overflow: hidden;
+}
+
+.compare-wrap__app .smart-recommand .smart-posts .smart-post .post-explain .post-title {
+  max-width: 70%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  font-weight: bold;
+}
+
+.compare-wrap__app .smart-recommand .smart-posts .smart-post .post-explain .post-content {
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 70%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 0.7rem;
+}
+
+.compare-wrap__app .smart-recommand .smart-posts .smart-post .post-explain .post-price {
+  float: right;
+  font-size: 0.8rem;
+  font-weight: bold;
+  vertical-align: middle;
+  color: #3450f0;
+}
+
+.compare-wrap__app .compare-posts {
+  margin-top: 1rem;
+  border: 1px solid #000;
+  width: 100%;
+}
+
+.compare-wrap__app .compare-posts .compare-post:first-child {
+  border: none;
+}
+
+.compare-wrap__app .compare-posts .compare-post {
+  padding: 0.7rem;
+  width: 100%;
+  border-top: 1px solid #000;
+}
+
+.compare-wrap__app .compare-posts .compare-post .post-thumb {
+  border: 1px solid #000;
+  width: 20%;
+  height: 50px;
+  text-align: center;
+}
+
+.compare-wrap__app .compare-posts .compare-post .post-thumb img {
+  margin: auto;
+  padding: 10px;
+  width: 50px;
+  max-width: 100%;
+  height: 50px;
+}
+
+.compare-wrap__app .compare-posts .compare-post .post-explain {
+  width: 70%;
+  height: 50px;
+  overflow: hidden;
+}
+
+.compare-wrap__app .compare-posts .compare-post .post-explain .post-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  font-weight: bold;
+}
+
+.compare-wrap__app .compare-posts .compare-post .post-explain .post-content {
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 70%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 0.7rem;
+}
+
+.compare-wrap__app .compare-posts .compare-post .post-explain .post-price {
+  float: right;
+  font-size: 0.8rem;
+  font-weight: bold;
+  vertical-align: middle;
+  color: #3450f0;
+}
+/*# sourceMappingURL=compare__app.css.map */

@@ -5,7 +5,7 @@
 <%--지도를 나타내주는 곳  시작--%>
 <div id="map" style="width:100%; height:800px;"></div>
 <%--지도를 나타내주는 곳  끝--%>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tpllhjh4tl"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tpllhjh4tl&submodules=geocoder"></script>
 <script type="text/javascript" src="https://navermaps.github.io/maps.js.ncp/docs/js/MarkerClustering.js"></script>
 <script src="resources/js/manage/monitoringMain.js"></script>
 <%@include file="../include/footer.jsp"%>

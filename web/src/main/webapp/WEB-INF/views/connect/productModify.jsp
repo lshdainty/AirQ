@@ -7,7 +7,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 order-md-4">
-			<form class="needs-validation" enctype="multipart/form-data" action="/productUpdate" method="get" novalidate >
+			<form class="needs-validation" enctype="multipart/form-data" action="/productUpdate" method="post" novalidate >
 				<input type="hidden" name="product_code" value="${productContent.product_code}"/>
 				<%-- 상품 이름 시작 --%>
 				<div class="row">
@@ -18,6 +18,15 @@
 					</div>
 				</div>
 				<%-- 상품 이름 끝 --%>
+				<%--썸네일 추가 시작 --%>
+				<div id="divImage" style="display:block;">
+					<img id="div_inner_img" src="resources/uploadFile/images/${productContent.file_name}" alt="이미지를 넣어주세요" width="250px" height="250px">
+				</div>
+				<input type="hidden" name="ori_thumbnail" value="${productContent.file_name}" />
+				<div id="thumbnailDiv">
+					<input id="fileImage" type="file" name="thumbnail" multiple>
+				</div>
+				<%--썸네일 추가 끝 --%>
 				<%--상품 기본 정보 선택 시작 --%>
 				<div class="product_info">
 					<label for="product_info">서비스 상품 상세 정보</label><br/>
@@ -37,6 +46,20 @@
 								<label for='area_code'>${aList.area_do }:${aList.area_si }</label>
 								<input type='hidden' id='area_code' name='area_code' value='${aList.area_code }' />
 								<input type='button' class='removeBtn' value='삭제하기'>
+							</div>
+						</c:forEach>
+					</div>
+					<label for="measure_matter">측정 가능 물질 : </label>
+					<select name="matter" id="matter" class="order-option">
+                		<option value="측정 물질">측정 물질</option>
+           			</select>
+           			<button id="matterAdd" type="button">측정물질 추가하기</button><br/>
+					<div id="p_measure_matter">
+						<c:forEach var="mList" items="${productContent.matterVO }">
+							<div class='mPossible'>
+								<label for="matter_code">${mList.matter_name }</label>
+								<input type="hidden" id="matter_code" name="matter_code" value="${mList.matter_code }" />
+								<input type="button" class="removeBtn" value="삭제하기">
 							</div>
 						</c:forEach>
 					</div>

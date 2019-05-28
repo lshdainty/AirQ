@@ -27,24 +27,8 @@ $(document).ready(function(){
 			data : query,
 			success : function(data){
 				console.log(data);
-//				var figure = '<figure>'
-//					+'<div class="switch">'
-//					+'<img class="boiler" src="resources/images/boiler.png" /><br/>'
-//					+'<div class="local">보일러 원격제어 <br/>위치: 보일러실</div>'
-//					+'<div class="on_off">'
-//					+'<label class="rocker rocker-small">'
-//					+'<input type="checkbox">'
-//					+'<span class="switch-left">ON</span><span class="switch-right">OFF</span></label>'
-//					+'<label class="rocker rocker-small">'
-//					+'<input type="checkbox">'
-//					+'<span class="switch-left">자동</span><span class="switch-right">수동</span></label>'
-//					+'</div></div>'
-				if(data == "boiler"){
-					location.href="remoteMain";
-//					$(".container2").append(figure);
 
-				}
-				
+				location.href="remoteMain"
 			}
 		}); // ajax
 	}); //btn-reg 클릭

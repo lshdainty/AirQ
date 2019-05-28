@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import com.yjc.airq.domain.ProductVO;
 
 public interface ProductMapper {
+	// 사용자가 사는곳에서 많이 팔린 제품 리스트
+	public ArrayList<ProductVO> recommendList(@Param("zipcode") String zipcode);
 	// 상품리스트 조회
 	public ArrayList<ProductVO> productList(@Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
 	// 상품 전체 개수 조회
@@ -25,8 +27,15 @@ public interface ProductMapper {
 	public void productUpdate(ProductVO productVO);
 	// 서비스 제품 삭제
 	public void productDelete(@Param("product_code") String product_code);
-	// 마이페이지- 관리자 프로덕트 리스트 조회
+	// 마이페이지 메인 - 관리자 프로덕트 리스트 조회
 	public ArrayList<ProductVO> productMP();
-	//마이페이지 관리자 글관리 - 글삭제
+	//마이페이지 관리자 글관리 - 글수정
 	public void deletePostsProduct(@Param("product_code") String product_code);
+	//마이페이지 관리자 글관리 - 글삭제
+//	public void deletePostsProduct1(@Param("product_code") String product_code);
+	//마이페이지 판매자 글관리 -글삭제
+	public ArrayList<ProductVO> productSMP(@Param("member_id")String member_id);
+
+	// 리뷰 안 한 목록 리스트
+	public ArrayList<ProductVO> reviewCompareList(String member_id);
 }
