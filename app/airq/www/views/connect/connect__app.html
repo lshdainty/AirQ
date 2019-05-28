@@ -7,9 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
     <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="../../../www/resources/css/bootstrap.css">
     <link rel="stylesheet" href="../../../www/resources/css/connect/swiper.css">
     <link rel="stylesheet" href="../../../www/resources/css/connect/connect__app.css">
     <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="../../../www/resources/js/bootstrap.js"></script>
     <!-- Demo styles -->
     <style>
         html,
@@ -77,213 +79,78 @@
         <!-- Add Scrollbar -->
         <div class="swiper-scrollbar"></div>
         <div class="swiper-wrapper">
+            <!-- 상품 비교분석 시작-->
             <div class="swiper-slide">
                 <div class="connect-wrap__app">
-
                     <div class="product-cats">
-
-                        <div class="product-count">상품수<span class="pCount">(11)</span></div>
-
+                        <div class="product-count">상품수<span class="pCount"></span></div>
                         <div class="product-cat">
-                            <select name="" id="">
-                                <option value="">option1</option>
-                                <option value="">option1</option>
-                                <option value="">option1</option>
-                                <option value="">option1</option>
+                            <select name="sort" id="sort">
+                                <option value="sellnum">판매순</option>
+                                <option value="hprice">가격 높은 순</option>
+                                <option value="lprice">가격 낮은 순</option>
+                                <option value="staravg">만족도 평균순</option>
                             </select>
-                            <button class="select-place">지역선택</button>
+                            <button class="select-place">옵션선택</button>
                         </div>
                         <div class="place-area">
                             <ul class="place-info">
                                 <li class="do">
                                     <div class="option-info">광역시/도</div>
-                                    <select name="" id="">
-                                        <option value="">option1</option>
+                                    <select name="sido_code" id="sido_code">
+                                        <option value="광역시/도">광역시/도</option>
                                     </select>
                                 </li>
                                 <li class="si">
-                                    <div class="option-info">구</div>
-                                    <select name="" id="">
-                                        <option value="">option1</option>
+                                    <div class="option-info">시/구</div>
+                                    <select name="sigoon_code" id="sigoon_code">
+                                        <option value="선택">선택</option>
                                     </select>
                                 </li>
                                 <li class="floor">
                                     <div class="option-info">평수 선택</div>
-                                    <select name="" id="">
-                                        <option value="">option1</option>
+                                    <select name="space" id="space">
+                                        <option value="0">평수 선택</option>
+                                        <option value="1">1~10</option>
+                                        <option value="2">11~20</option>
+                                        <option value="3">21~30</option>
+                                        <option value="4">31~40</option>
+                                        <option value="5">41~50</option>
+                                        <option value="6">51~60</option>
+                                        <option value="7">61~70</option>
+                                        <option value="8">71~80</option>
+                                        <option value="9">81~90</option>
+                                        <option value="10">91~100</option>
+                                        <option value="11">100~</option>
                                     </select>
                                 </li>
                                 <li class="material">
                                     <div class="option-info">측정 물질</div>
-                                    <select name="" id="">
-                                        <option value="">option1</option>
+                                    <select name="matter" id="matter">
+                                        <option value="측정 물질">측정 물질</option>
                                     </select>
                                 </li>
                             </ul>
                         </div>
-
                     </div>
-
                     <div class="smart-recommand">
                         <div class="smart-explain">
                             SMART추천<span class="qMark"><img src="../../../www/resources/images/qMark.png" alt=""></span>
                         </div>
                         <div class="smart-posts">
-                            <div class="smart-post">
-                                <div class="post-thumb">
-                                    <img src="../../../www/resources/images/800490.png" alt="">
-                                </div>
-                                <div class="post-explain">
-                                    <div class="post-title">상품이름상품이름상품이름상품이름상품이름상품이름상품이름상품이름상품이름상품이름상품이름</div>
-                                    <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /
-                                    </div>
-                                    <div class="post-price">845,000원</div>
-                                </div>
-
-                            </div>
-                            <div class="smart-post">
-                                <div class="post-thumb">
-                                    <img src="../../../www/resources/images/800490.png" alt="">
-                                </div>
-                                <div class="post-explain">
-                                    <div class="post-title">상품이름</div>
-                                    <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /
-                                    </div>
-                                    <div class="post-price">845,000원</div>
-                                </div>
-
-                            </div>
-                            <div class="smart-post">
-                                <div class="post-thumb">
-                                    <img src="../../../www/resources/images/800490.png" alt="">
-                                </div>
-                                <div class="post-explain">
-                                    <div class="post-title">상품이름</div>
-                                    <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /
-                                    </div>
-                                    <div class="post-price">845,000원</div>
-                                </div>
-
-                            </div>
                         </div>
                     </div>
                     <div class="connect-posts">
-                        <div class="connect-post">
-                            <div class="post-thumb">
-                                <img src="../../../www/resources/images/800490.png" alt="">
-                            </div>
-                            <div class="post-explain">
-                                <div class="post-title">상품이름</div>
-                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
-                                <div class="post-price">845,000원</div>
-                            </div>
-                        </div>
-
-                        <div class="connect-post">
-                            <div class="post-thumb">
-                                <img src="../../../www/resources/images/800490.png" alt="">
-                            </div>
-                            <div class="post-explain">
-                                <div class="post-title">상품이름</div>
-                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
-                                <div class="post-price">845,000원</div>
-                            </div>
-                        </div>
-
-                        <div class="connect-post">
-                            <div class="post-thumb">
-                                <img src="../../../www/resources/images/800490.png" alt="">
-                            </div>
-                            <div class="post-explain">
-                                <div class="post-title">상품이름</div>
-                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
-                                <div class="post-price">845,000원</div>
-                            </div>
-                        </div>
-
-                        <div class="connect-post">
-                            <div class="post-thumb">
-                                <img src="../../../www/resources/images/800490.png" alt="">
-                            </div>
-                            <div class="post-explain">
-                                <div class="post-title">상품이름</div>
-                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
-                                <div class="post-price">845,000원</div>
-                            </div>
-                        </div>
-                        <div class="connect-post">
-                            <div class="post-thumb">
-                                <img src="../../../www/resources/images/800490.png" alt="">
-                            </div>
-                            <div class="post-explain">
-                                <div class="post-title">상품이름</div>
-                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
-                                <div class="post-price">845,000원</div>
-                            </div>
-                        </div>
-                        <div class="connect-post">
-                            <div class="post-thumb">
-                                <img src="../../../www/resources/images/800490.png" alt="">
-                            </div>
-                            <div class="post-explain">
-                                <div class="post-title">상품이름</div>
-                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
-                                <div class="post-price">845,000원</div>
-                            </div>
-                        </div>
-                        <div class="connect-post">
-                            <div class="post-thumb">
-                                <img src="../../../www/resources/images/800490.png" alt="">
-                            </div>
-                            <div class="post-explain">
-                                <div class="post-title">상품이름</div>
-                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
-                                <div class="post-price">845,000원</div>
-                            </div>
-                        </div>
-                        <div class="connect-post">
-                            <div class="post-thumb">
-                                <img src="../../../www/resources/images/800490.png" alt="">
-                            </div>
-                            <div class="post-explain">
-                                <div class="post-title">상품이름</div>
-                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
-                                <div class="post-price">845,000원</div>
-                            </div>
-                        </div>
-                        <div class="connect-post">
-                            <div class="post-thumb">
-                                <img src="../../../www/resources/images/800490.png" alt="">
-                            </div>
-                            <div class="post-explain">
-                                <div class="post-title">상품이름</div>
-                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
-                                <div class="post-price">845,000원</div>
-                            </div>
-                        </div>
-
-                        <div class="connect-post">
-                            <div class="post-thumb">
-                                <img src="../../../www/resources/images/800490.png" alt="">
-                            </div>
-                            <div class="post-explain">
-                                <div class="post-title">상품이름</div>
-                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
-                                <div class="post-price">845,000원</div>
-                            </div>
-
-                        </div>
                     </div>
                 </div>
             </div>
+            <!-- 상품 비교분석 끝-->
+            <!-- 입찰 시작-->
             <div class="swiper-slide">
                 <div class="connect-wrap__app">
-
                     <div class="product-cats">
-
                         <div class="product-count">입찰가능<span class="pCount">15</span>/<span class="pCount">20</span>
                         </div>
-
                         <div class="product-cat">
                             <select name="">
                                 <option value="">option1</option>
@@ -294,8 +161,8 @@
                             <button class="connectWriteBtn">작성하기</button>
                         </div>
                     </div>
-
                     <div class="connect-posts">
+                        <!--입찰게시글 한세트 시작-->
                         <div class="post-info">
                             <div class="connect-post">
                                 <div class="post-explain">
@@ -323,97 +190,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="post-info">
-                            <div class="connect-post">
-                                <div class="post-explain">
-                                    <div class="post-subPost">
-                                        <div class="post-subTitle">요청일</div>
-                                        <div class="post-subContent">2019/05/28</div>
-                                    </div>
-                                    <div class="post-subPost">
-                                        <div class="post-subTitle">입찰명</div>
-                                        <div class="post-subContent">영진전문대 공기질 측정</div>
-                                    </div>
-                                </div>
-                                <button class="post-detailBtn"></button>
-                            </div>
-                            <div class="post-detail">
-                                <div class="detail-info">
-                                    <div class="detail-subPost">
-                                        <div class="detail-subTitle">입찰번호</div>
-                                        <div class="detail-subContent">1401285</div>
-                                    </div>
-                                    <div class="detail-subPost">
-                                        <div class="detail-subTitle">입찰자</div>
-                                        <div class="detail-subContent">TEST</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="post-info">
-                            <div class="connect-post">
-                                <div class="post-explain">
-                                    <div class="post-subPost">
-                                        <div class="post-subTitle">요청일</div>
-                                        <div class="post-subContent">2019/05/28</div>
-                                    </div>
-                                    <div class="post-subPost">
-                                        <div class="post-subTitle">입찰명</div>
-                                        <div class="post-subContent">영진전문대 공기질 측정</div>
-                                    </div>
-                                </div>
-                                <button class="post-detailBtn"></button>
-                            </div>
-                            <div class="post-detail">
-                                <div class="detail-info">
-                                    <div class="detail-subPost">
-                                        <div class="detail-subTitle">입찰번호</div>
-                                        <div class="detail-subContent">1401285</div>
-                                    </div>
-                                    <div class="detail-subPost">
-                                        <div class="detail-subTitle">입찰자</div>
-                                        <div class="detail-subContent">TEST</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="post-info">
-                            <div class="connect-post">
-                                <div class="post-explain">
-                                    <div class="post-subPost">
-                                        <div class="post-subTitle">요청일</div>
-                                        <div class="post-subContent">2019/05/28</div>
-                                    </div>
-                                    <div class="post-subPost">
-                                        <div class="post-subTitle">입찰명</div>
-                                        <div class="post-subContent">영진전문대 공기질 측정</div>
-                                    </div>
-                                </div>
-                                <button class="post-detailBtn"></button>
-                            </div>
-                            <div class="post-detail">
-                                <div class="detail-info">
-                                    <div class="detail-subPost">
-                                        <div class="detail-subTitle">입찰번호</div>
-                                        <div class="detail-subContent">1401285</div>
-                                    </div>
-                                    <div class="detail-subPost">
-                                        <div class="detail-subTitle">입찰자</div>
-                                        <div class="detail-subContent">TEST</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!--입찰게시글 한세트 끝-->
                     </div>
                 </div>
             </div>
-
+            <!-- 입찰 끝-->
         </div>
+        <nav aria-label="Page navigation example">
+            <div class="d-flex justify-content-center">
+                <ul class="pagination">
+                </ul>
+            </div>
+        </nav>
     </div>
-
     <!-- Swiper JS -->
     <script src="../../../www/resources/js/connect/swiper.js"></script>
     <script src="../../../www/resources/js/connect/connect__app.js"></script>
+    <script src="../../../www/resources/js/connect/compareMain.js"></script>
 </body>
 
 </html>

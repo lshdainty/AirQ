@@ -21,7 +21,6 @@ $.ajax({
 	async: false,
 	dataType: 'json',
 	success: function(data) {
-		console.log(data);
 		var html = "<option value='측정 물질'>측정 물질</option>";
 	
 		for(var i=0;i<data.matterList.length;i++){ 
