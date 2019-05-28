@@ -111,6 +111,10 @@ public interface ConnectService {
 	
 	public int tenderBid(@Param("tender_code") String tender_code, @Param("member_id") String member_id);	
 
+	// 상품 전체 개수 조회
+	public int productCount();
+	// 항목 선택후 항목에 맞는 상품 개수 조회
+	public int selectCount(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space,@Param("matter") String matter);
 	// 사용자가 사는 곳의 우편번호 가져오기
 	public String selectZipcode(@Param("member_id") String member_id);
 	// 사용자가 사는곳에서 많이 팔린 제품 리스트
@@ -120,7 +124,7 @@ public interface ConnectService {
 	// 측정 물질 리스트 가져오기
 	public ArrayList<MatterVO> matterList();
 	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
-	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("space") int space, @Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
+	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("space") int space, @Param("matter") String matter, @Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
 	// 상품 상세 페이지
 	public ProductVO productContent(String product_code);
 	// 상품 댓글

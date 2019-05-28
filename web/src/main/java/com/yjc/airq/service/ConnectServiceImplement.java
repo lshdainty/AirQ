@@ -270,6 +270,18 @@ public class ConnectServiceImplement implements ConnectService {
 		return bidMapper.tenderBid(tender_code, member_id);
 	}
 	
+	// 상품 전체 개수 조회
+	@Override
+	public int productCount() {
+		return productMapper.productCount();
+	}
+	
+	// 항목 선택후 항목에 맞는 상품 개수 조회
+	@Override
+	public int selectCount(@Param("sido") String sido,@Param("sigoon") String sigoon,@Param("space") int space,@Param("matter") String matter) {
+		return productMapper.selectCount(sido, sigoon, space, matter);
+	}
+	
 	// 사용자가 사는 곳의 우편번호 가져오기
 	@Override
 	public String selectZipcode(@Param("member_id") String member_id) {
@@ -295,8 +307,8 @@ public class ConnectServiceImplement implements ConnectService {
 
 	// 사용자가 선택한 도,시,평수에 해당하는 제품목록
 	@Override
-	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("space") int space, @Param("sort") String sort, @Param("startnum") int startnum,  @Param("endnum") int endnum){
-		return productMapper.selectList(sido,sigoon,space,sort,startnum,endnum);
+	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("space") int space, @Param("matter") String matter, @Param("sort") String sort, @Param("startnum") int startnum,  @Param("endnum") int endnum){
+		return productMapper.selectList(sido,sigoon,space,matter,sort,startnum,endnum);
 	}
 	
 	// 상품 상세 페이지

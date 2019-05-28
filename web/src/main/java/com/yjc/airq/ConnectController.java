@@ -62,7 +62,6 @@ import net.sf.json.JSONObject;
 @AllArgsConstructor
 public class ConnectController {
 	private ConnectService connectService;
-	private ProductMapper productMapper;
 	private UploadService uploadService;
 	private MypageService mypageService;
 	
@@ -73,7 +72,7 @@ public class ConnectController {
 		int pagenum = 1;
 		String sort = "sellnum";
 
-		criteria.setTotalcount(productMapper.productCount());	//전체 게시글 개수를 지정
+		criteria.setTotalcount(connectService.productCount());	//전체 게시글 개수를 지정
 		criteria.setPagenum(pagenum);	//현재 페이지를 페이지 객체에 지정
 		criteria.setStartnum(pagenum);	//컨텐츠 시작 번호 지정
 		criteria.setEndnum(pagenum);	//컨텐츠 끈 번호 지정 
@@ -666,21 +665,22 @@ public class ConnectController {
 		return json;
 	}
 	
-	// 업체 분석/비교 도,시,평수 선택완료
+	// 업체 분석/비교 도,시,평수,물질 선택완료
 	@RequestMapping(value = "selectCompare", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject selectCompare(Model model, HttpServletRequest request) {
 		String sido = request.getParameter("sido");
 		String sigoon = request.getParameter("sigoon");
 		int space = Integer.parseInt(request.getParameter("space"));
+		String matter = request.getParameter("matter");
 		String sort = request.getParameter("sort");
 
 		Criteria criteria = new Criteria();
 		int pagenum = Integer.parseInt(request.getParameter("pagenum"));
-		if (sido.equals("광역시/도") && sigoon.equals("선택") && space == 0) {
-			criteria.setTotalcount(productMapper.productCount()); // 전체 게시글 개수를 지정
+		if (sido.equals("광역시/도") && sigoon.equals("선택") && space == 0 && matter.equals("측정 물질")) {
+			criteria.setTotalcount(connectService.productCount()); // 전체 게시글 개수를 지정
 		} else {
-			criteria.setTotalcount(productMapper.selectCount(sido, sigoon, space)); // 전체 게시글 개수를 지정
+			criteria.setTotalcount(connectService.selectCount(sido, sigoon, space, matter)); // 전체 게시글 개수를 지정
 		}
 		criteria.setPagenum(pagenum); // 현재 페이지를 페이지 객체에 지정
 		criteria.setStartnum(pagenum); // 컨텐츠 시작 번호 지정
@@ -692,10 +692,10 @@ public class ConnectController {
 		criteria.setEndPage(criteria.getLastblock(), criteria.getCurrentblock()); // 마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
 
 		ArrayList<ProductVO> pList;
-		if (sido.equals("광역시/도") && sigoon.equals("선택") && space == 0) {
+		if (sido.equals("광역시/도") && sigoon.equals("선택") && space == 0 && matter.equals("측정 물질")) {
 			pList = connectService.productList(sort,criteria.getStartnum(), criteria.getEndnum());
 		} else {
-			pList = connectService.selectList(sido, sigoon, space, sort,criteria.getStartnum(), criteria.getEndnum());
+			pList = connectService.selectList(sido, sigoon, space, matter, sort,criteria.getStartnum(), criteria.getEndnum());
 		}
 		JSONArray pJson = JSONArray.fromObject(pList);
 		Map<String, Object> map = new HashMap<String, Object>();
