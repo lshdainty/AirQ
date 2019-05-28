@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="order-address">
-            <select name="sido_code" id="sido_code" class="order-option">
+            <select name="sido_code" id="sido_code" class="order-option ">
                 <option value="광역시/도">광역시/도</option>
             </select>
             <select name="sigoon_code" id="sigoon_code" class="order-option">
@@ -51,6 +51,9 @@
             </select>
             <select name="matter" id="matter" class="order-option">
                 <option value="측정 물질">측정 물질</option>
+                <c:forEach var="matterList" items="${matterList }">
+                	<option value="${matterList.matter_code }">${matterList.matter_name }</option>
+                </c:forEach>
             </select>
         </div>
         <ul class="compare-category">

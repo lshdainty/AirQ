@@ -14,6 +14,4 @@ $(document).ready(function(){
 	    $(window).on('load',init);
 	};
 	pAnimation();
-	$(document).bind("ajaxComplete", function(){
-	 });
 });

@@ -7,7 +7,7 @@ $(function(){
         $( ".place-area" ).animate({
             opacity: "toggle",
             height: "toggle"
-          }, 1000, function() {
+          }, 200, function() {
             // Animation complete.
           });
     });

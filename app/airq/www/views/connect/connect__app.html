@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Swiper demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="../../../www/resources/css/connect/swiper.css">
+    <link rel="stylesheet" href="../../../www/resources/css/connect/connect__app.css">
+    <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
+    <!-- Demo styles -->
+    <style>
+        html,
+        body {
+            position: relative;
+        }
+
+        body {
+            background: #eee;
+            margin: 0;
+            padding: 0;
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .connect_topNav {
+            display: block;
+            background: #fff;
+            height: 2.5rem;
+            text-align: center;
+            padding-top: .25rem;
+        }
+
+        .connect_topNav button {
+            height: 100%;
+            width: 45%;
+            background: none;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .connect_active {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Swiper -->
+    <div class="swiper-container">
+        <div class="connect_topNav">
+            <button class="connect__topNav connect_active" id="comCatBtn">업체 분석 비교</button>
+            <button class="tender__topNav" id="tenCatBtn">입찰 서비스</button>
+        </div>
+        <!-- Add Scrollbar -->
+        <div class="swiper-scrollbar"></div>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="connect-wrap__app">
+
+                    <div class="product-cats">
+
+                        <div class="product-count">상품수<span class="pCount">(11)</span></div>
+
+                        <div class="product-cat">
+                            <select name="" id="">
+                                <option value="">option1</option>
+                                <option value="">option1</option>
+                                <option value="">option1</option>
+                                <option value="">option1</option>
+                            </select>
+                            <button class="select-place">지역선택</button>
+                        </div>
+                        <div class="place-area">
+                            <ul class="place-info">
+                                <li class="do">
+                                    <div class="option-info">광역시/도</div>
+                                    <select name="" id="">
+                                        <option value="">option1</option>
+                                    </select>
+                                </li>
+                                <li class="si">
+                                    <div class="option-info">구</div>
+                                    <select name="" id="">
+                                        <option value="">option1</option>
+                                    </select>
+                                </li>
+                                <li class="floor">
+                                    <div class="option-info">평수 선택</div>
+                                    <select name="" id="">
+                                        <option value="">option1</option>
+                                    </select>
+                                </li>
+                                <li class="material">
+                                    <div class="option-info">측정 물질</div>
+                                    <select name="" id="">
+                                        <option value="">option1</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div class="smart-recommand">
+                        <div class="smart-explain">
+                            SMART추천<span class="qMark"><img src="../../../www/resources/images/qMark.png" alt=""></span>
+                        </div>
+                        <div class="smart-posts">
+                            <div class="smart-post">
+                                <div class="post-thumb">
+                                    <img src="../../../www/resources/images/800490.png" alt="">
+                                </div>
+                                <div class="post-explain">
+                                    <div class="post-title">상품이름상품이름상품이름상품이름상품이름상품이름상품이름상품이름상품이름상품이름상품이름</div>
+                                    <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /
+                                    </div>
+                                    <div class="post-price">845,000원</div>
+                                </div>
+
+                            </div>
+                            <div class="smart-post">
+                                <div class="post-thumb">
+                                    <img src="../../../www/resources/images/800490.png" alt="">
+                                </div>
+                                <div class="post-explain">
+                                    <div class="post-title">상품이름</div>
+                                    <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /
+                                    </div>
+                                    <div class="post-price">845,000원</div>
+                                </div>
+
+                            </div>
+                            <div class="smart-post">
+                                <div class="post-thumb">
+                                    <img src="../../../www/resources/images/800490.png" alt="">
+                                </div>
+                                <div class="post-explain">
+                                    <div class="post-title">상품이름</div>
+                                    <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /
+                                    </div>
+                                    <div class="post-price">845,000원</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="connect-posts">
+                        <div class="connect-post">
+                            <div class="post-thumb">
+                                <img src="../../../www/resources/images/800490.png" alt="">
+                            </div>
+                            <div class="post-explain">
+                                <div class="post-title">상품이름</div>
+                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
+                                <div class="post-price">845,000원</div>
+                            </div>
+                        </div>
+
+                        <div class="connect-post">
+                            <div class="post-thumb">
+                                <img src="../../../www/resources/images/800490.png" alt="">
+                            </div>
+                            <div class="post-explain">
+                                <div class="post-title">상품이름</div>
+                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
+                                <div class="post-price">845,000원</div>
+                            </div>
+                        </div>
+
+                        <div class="connect-post">
+                            <div class="post-thumb">
+                                <img src="../../../www/resources/images/800490.png" alt="">
+                            </div>
+                            <div class="post-explain">
+                                <div class="post-title">상품이름</div>
+                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
+                                <div class="post-price">845,000원</div>
+                            </div>
+                        </div>
+
+                        <div class="connect-post">
+                            <div class="post-thumb">
+                                <img src="../../../www/resources/images/800490.png" alt="">
+                            </div>
+                            <div class="post-explain">
+                                <div class="post-title">상품이름</div>
+                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
+                                <div class="post-price">845,000원</div>
+                            </div>
+                        </div>
+                        <div class="connect-post">
+                            <div class="post-thumb">
+                                <img src="../../../www/resources/images/800490.png" alt="">
+                            </div>
+                            <div class="post-explain">
+                                <div class="post-title">상품이름</div>
+                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
+                                <div class="post-price">845,000원</div>
+                            </div>
+                        </div>
+                        <div class="connect-post">
+                            <div class="post-thumb">
+                                <img src="../../../www/resources/images/800490.png" alt="">
+                            </div>
+                            <div class="post-explain">
+                                <div class="post-title">상품이름</div>
+                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
+                                <div class="post-price">845,000원</div>
+                            </div>
+                        </div>
+                        <div class="connect-post">
+                            <div class="post-thumb">
+                                <img src="../../../www/resources/images/800490.png" alt="">
+                            </div>
+                            <div class="post-explain">
+                                <div class="post-title">상품이름</div>
+                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
+                                <div class="post-price">845,000원</div>
+                            </div>
+                        </div>
+                        <div class="connect-post">
+                            <div class="post-thumb">
+                                <img src="../../../www/resources/images/800490.png" alt="">
+                            </div>
+                            <div class="post-explain">
+                                <div class="post-title">상품이름</div>
+                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
+                                <div class="post-price">845,000원</div>
+                            </div>
+                        </div>
+                        <div class="connect-post">
+                            <div class="post-thumb">
+                                <img src="../../../www/resources/images/800490.png" alt="">
+                            </div>
+                            <div class="post-explain">
+                                <div class="post-title">상품이름</div>
+                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
+                                <div class="post-price">845,000원</div>
+                            </div>
+                        </div>
+
+                        <div class="connect-post">
+                            <div class="post-thumb">
+                                <img src="../../../www/resources/images/800490.png" alt="">
+                            </div>
+                            <div class="post-explain">
+                                <div class="post-title">상품이름</div>
+                                <div class="post-content">인텔/코어i5-8세대/ 위스키레이크 / i5-8265U 1.6GHz(3.9GHz) / 쿼드 코어 /</div>
+                                <div class="post-price">845,000원</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">Slide 2</div>
+
+        </div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="../../../www/resources/js/connect/swiper.js"></script>
+    <script src="../../../www/resources/js/connect/connect__app.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+        var page = 'connect';
+        var slidePage = 0;
+        var slideCategory = ['connect','tender'];
+        var swiper = new Swiper('.swiper-container', {
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                hide: false,
+            },
+            effect : 'coverflow'
+        });
+        swiper.on('slideNextTransitionStart', function () {
+            page='tender';
+            console.log(slidePage);
+            console.log(page);
+        });
+        swiper.on('slidePrevTransitionStart',function(){
+            page='comapare';
+            console.log(slidePage);
+            console.log(page);
+        });
+        $('#comCatBtn').click(function(){
+            swiper.slideNext(); 
+        });
+        $('#tenCatBtn').click(function(){
+            swiper.slidePrev(); 
+        });
+    </script>
+</body>
+
+</html>

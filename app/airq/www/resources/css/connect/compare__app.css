@@ -38,11 +38,13 @@ div {
   border: none;
 }
 
-.compare-wrap__app {
+.connect-wrap__app {
   display: block;
+  max-width: 100%;
+  margin-top: .5rem;
 }
 
-.compare-wrap__app .top-cat__app {
+.top-cat__app {
   display: block;
   border: 1px solid #000;
   width: 100%;
@@ -50,81 +52,87 @@ div {
   text-align: center;
 }
 
-.compare-wrap__app .top-cat__app .cat-content {
+.cat-content {
   width: 45%;
   font-size: 1rem;
 }
 
-.compare-wrap__app .top-cat__app .cat-active {
+.cat-active {
   font-weight: bold;
   border-bottom: 1.5px solid #000;
 }
 
-.compare-wrap__app .product-cats {
+.product-cats {
   display: block;
 }
 
-.compare-wrap__app .product-cats .product-count {
+.product-cats .product-count {
   font-size: 1rem;
   margin: 0.4rem 0rem 0.4rem 1rem;
 }
 
-.compare-wrap__app .product-cats .product-count .pCount {
+.product-cats .product-count .pCount {
   font-size: 0.7rem;
   font-weight: bold;
   padding-right: 1rem;
   border-right: 1px solid #000;
 }
 
-.compare-wrap__app .product-cats .product-cat {
+.product-cats .product-cat {
   float: right;
   margin: 0.4rem 2.5rem 0.4rem 1rem;
 }
 
-.compare-wrap__app .product-cats .product-cat select {
+.product-cats .product-cat select {
+  height: 1.5rem;
   width: 45%;
 }
 
-.compare-wrap__app .product-cats .product-cat button {
+.product-cats .product-cat button {
+  height: 1.5rem;
   width: 45%;
+  font-size: .7rem;
+  vertical-align: middle;
+  box-shadow: 1r
 }
 
-.compare-wrap__app .smart-recommand {
+.smart-recommand {
   display: block;
   border: 1px solid #000;
 }
 
-.compare-wrap__app .smart-recommand .qMark img {
+.smart-recommand .qMark img {
   margin-left: 0.3rem;
   width: 0.6rem;
   height: 0.6rem;
 }
 
-.compare-wrap__app .smart-recommand .smart-explain {
+.smart-recommand .smart-explain {
   display: block;
   font-size: 0.8rem;
   font-weight: bold;
   padding-left: 1rem;
 }
 
-.compare-wrap__app .smart-recommand .smart-posts {
+.smart-recommand .smart-posts {
   border-top: 1px solid #000;
+  overflow: scroll;
   width: 100%;
 }
 
-.compare-wrap__app .smart-recommand .smart-posts .smart-post {
+.smart-recommand .smart-posts .smart-post {
   padding: 0.7rem;
   width: 100%;
 }
 
-.compare-wrap__app .smart-recommand .smart-posts .smart-post .post-thumb {
+.smart-recommand .smart-posts .smart-post .post-thumb {
   border: 1px solid #000;
   width: 20%;
   height: 50px;
   text-align: center;
 }
 
-.compare-wrap__app .smart-recommand .smart-posts .smart-post .post-thumb img {
+.smart-recommand .smart-posts .smart-post .post-thumb img {
   margin: auto;
   padding: 10px;
   width: 50px;
@@ -132,13 +140,13 @@ div {
   height: 50px;
 }
 
-.compare-wrap__app .smart-recommand .smart-posts .smart-post .post-explain {
+.smart-recommand .smart-posts .smart-post .post-explain {
   width: 70%;
   height: 50px;
   overflow: hidden;
 }
 
-.compare-wrap__app .smart-recommand .smart-posts .smart-post .post-explain .post-title {
+.connect-wrap__app .smart-recommand .smart-posts .smart-post .post-explain .post-title {
   max-width: 70%;
   overflow: hidden;
   white-space: nowrap;
@@ -147,7 +155,7 @@ div {
   font-weight: bold;
 }
 
-.compare-wrap__app .smart-recommand .smart-posts .smart-post .post-explain .post-content {
+.connect-wrap__app .smart-recommand .smart-posts .smart-post .post-explain .post-content {
   display: inline-block;
   white-space: nowrap;
   max-width: 70%;
@@ -156,7 +164,7 @@ div {
   font-size: 0.7rem;
 }
 
-.compare-wrap__app .smart-recommand .smart-posts .smart-post .post-explain .post-price {
+.connect-wrap__app .smart-recommand .smart-posts .smart-post .post-explain .post-price {
   float: right;
   font-size: 0.8rem;
   font-weight: bold;
@@ -164,30 +172,30 @@ div {
   color: #3450f0;
 }
 
-.compare-wrap__app .compare-posts {
+.connect-wrap__app .connect-posts {
   margin-top: 1rem;
   border: 1px solid #000;
   width: 100%;
 }
 
-.compare-wrap__app .compare-posts .compare-post:first-child {
+.connect-wrap__app .connect-posts .connect-post:first-child {
   border: none;
 }
 
-.compare-wrap__app .compare-posts .compare-post {
+.connect-wrap__app .connect-posts .connect-post {
   padding: 0.7rem;
   width: 100%;
   border-top: 1px solid #000;
 }
 
-.compare-wrap__app .compare-posts .compare-post .post-thumb {
+.connect-wrap__app .connect-posts .connect-post .post-thumb {
   border: 1px solid #000;
   width: 20%;
   height: 50px;
   text-align: center;
 }
 
-.compare-wrap__app .compare-posts .compare-post .post-thumb img {
+.connect-wrap__app .connect-posts .connect-post .post-thumb img {
   margin: auto;
   padding: 10px;
   width: 50px;
@@ -195,13 +203,13 @@ div {
   height: 50px;
 }
 
-.compare-wrap__app .compare-posts .compare-post .post-explain {
+.connect-wrap__app .connect-posts .connect-post .post-explain {
   width: 70%;
   height: 50px;
   overflow: hidden;
 }
 
-.compare-wrap__app .compare-posts .compare-post .post-explain .post-title {
+.connect-wrap__app .connect-posts .connect-post .post-explain .post-title {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -209,7 +217,7 @@ div {
   font-weight: bold;
 }
 
-.compare-wrap__app .compare-posts .compare-post .post-explain .post-content {
+.connect-wrap__app .connect-posts .connect-post .post-explain .post-content {
   display: inline-block;
   white-space: nowrap;
   max-width: 70%;
@@ -218,11 +226,11 @@ div {
   font-size: 0.7rem;
 }
 
-.compare-wrap__app .compare-posts .compare-post .post-explain .post-price {
+.connect-wrap__app .connect-posts .connect-post .post-explain .post-price {
   float: right;
   font-size: 0.8rem;
   font-weight: bold;
   vertical-align: middle;
   color: #3450f0;
 }
-/*# sourceMappingURL=compare__app.css.map */
+/*# sourceMappingURL=connect__app.css.map */
