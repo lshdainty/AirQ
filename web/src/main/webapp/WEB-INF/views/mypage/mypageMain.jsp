@@ -161,11 +161,6 @@
 	</c:forEach>
 	</div>					
 		</main>
-		<nav>
-			<ul>
-			</ul>
-		</nav>
-		<aside></aside>
 
 	</section>
 </div>
