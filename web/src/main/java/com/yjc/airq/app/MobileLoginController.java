@@ -21,7 +21,7 @@ import net.sf.json.JSONObject;
 
 @Controller
 @AllArgsConstructor
-public class mobileLoginController {
+public class MobileLoginController {
 	private LoginService memberService;
 	
 	
