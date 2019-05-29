@@ -178,36 +178,90 @@ public class ManageController {
 	public String remoteReg(Model model, IotInfoVO iif, HttpServletRequest request, HttpSession session) {
 		
 		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
+		
+		String iot_id = request.getParameter("alias");
 		String ModelName = request.getParameter("remote");
 		String PlaceName = request.getParameter("location");
-		String boi_3jo = "boi_3jo";
 		
+		System.out.println("iot_Id: " + iot_id);
 		System.out.println("원격 장치(): " + ModelName);
 		System.out.println("장소: " + PlaceName);
 		
-
-		
 		// 혹시나 장치 추가할거면,,
 		// manageService.modelInsert(ModelName);
-		
 		if(ModelName.equals("보일러")) {
-			System.out.println("여기까지옴?");
-			System.out.println(PlaceName);
+			System.out.println("======================");
+			System.out.println("보일러 추가");
+			System.out.println(PlaceName + " 추가");
 			
+			iif.setIot_id(iot_id);
 			iif.setMember_id(member_id);
 			iif.setPlace_name(PlaceName);
 			iif.setModel_id("boi_3jo");
 			
+			System.out.println(iif);
 			manageService.iotInfoInsert(iif);
-			System.out.println("durl");
-		}else if(ModelName.equals("window")) {
+			System.out.println("======================");
+		}else if(ModelName.equals("창문")) {
+			System.out.println("======================");
+			System.out.println("창문 추가");
+			System.out.println(PlaceName + " 추가");
 			
-		}else if(ModelName.equals("aircleaner")) {
+			iif.setIot_id(iot_id);
+			iif.setMember_id(member_id);
+			iif.setPlace_name(PlaceName);
+			iif.setModel_id("win_3jo");
 			
-		}else if(ModelName.equals("ventilator")) {
+			System.out.println(iif);
+			manageService.iotInfoInsert(iif);
+			System.out.println("======================");
+		}else if(ModelName.equals("공기청정기")) {
+			System.out.println("======================");
+			System.out.println("공기청정기 추가");
+			System.out.println(PlaceName + " 추가");
 			
+			iif.setIot_id(iot_id);
+			iif.setMember_id(member_id);
+			iif.setPlace_name(PlaceName);
+			iif.setModel_id("air_3jo");
+			
+			System.out.println(iif);
+			manageService.iotInfoInsert(iif);
+			System.out.println("======================");
+		}else if(ModelName.equals("환풍기")) {
+			System.out.println("======================");
+			System.out.println("환풍기 추가");
+			System.out.println(PlaceName + " 추가");
+			
+			iif.setIot_id(iot_id);
+			iif.setMember_id(member_id);
+			iif.setPlace_name(PlaceName);
+			iif.setModel_id("ven_3jo");
+			
+			System.out.println(iif);
+			manageService.iotInfoInsert(iif);
+			System.out.println("======================");
+		}else {
+			System.out.println("원격 제어 등록 오류입니다.");
 		}
 		
 		return "manage/remoteRegist";
 	}
+	
+	// 별명 중복 체크
+	@ResponseBody
+	@RequestMapping(value = "/nicknameCheck", method = RequestMethod.GET)
+	public String nicknameCheck(Model model, HttpServletRequest request) {
+		
+		String alias = request.getParameter("alias");
+		System.out.println("alias넘어옴: " + alias);
+		
+		IotInfoVO nCheck = manageService.nCheck(alias);
+		System.out.println("nCheck: " + nCheck);
+		
+		if(nCheck != null) {
+			return "No";
+		}
+		return "Yes";
+		}
 }

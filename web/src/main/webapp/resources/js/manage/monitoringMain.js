@@ -168,6 +168,7 @@ var map = new naver.maps.Map('map', mapOptions);
 //2. HTML 마커
 //JSON 데이터부분
 var marker_position = test;
+console.log(marker_position.result.length);
 
 var htmlMarkers = [];
 

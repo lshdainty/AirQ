@@ -21,7 +21,6 @@ $.ajax({
 	async: false,
 	dataType: 'json',
 	success: function(data) {
-		console.log(data);
 		var html = "<option value='측정 물질'>측정 물질</option>";
 	
 		for(var i=0;i<data.matterList.length;i++){ 
@@ -86,6 +85,12 @@ $("#space").change(function(){
 });
 //평수 선택 끝
 
+//물질 선택 시작
+$("#matter").change(function(){
+	ajax(1,sortdata());
+});
+//물질 선택 끝
+
 //paging 시작
 function page(idx){
 	ajax(idx,sortdata());
@@ -98,6 +103,7 @@ function ajax(idx,sort){
 		sido : $("#sido_code option:selected").val(),
 		sigoon : $("#sigoon_code option:selected").val(),
 		space : $("#space option:selected").val(),
+		matter : $("#matter option:selected").val(),
 		sort : sort
 	}
 	$.ajax({

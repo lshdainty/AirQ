@@ -1,4 +1,4 @@
-package com.yjc.airq;
+package com.yjc.airq.app;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -24,6 +24,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,46 +61,14 @@ import net.sf.json.JSONObject;
  */
 @Controller
 @AllArgsConstructor
-public class ConnectController {
+public class MobileConnectController {
 	private ConnectService connectService;
 	private UploadService uploadService;
 	private MypageService mypageService;
-	
-	// 업체 분석/비교 메인페이지로 가기
-	@RequestMapping(value = "compareMain", method = RequestMethod.GET)
-	public String compareMain(Model model, HttpServletRequest request) {
-		Criteria criteria = new Criteria();
-		int pagenum = 1;
-		String sort = "sellnum";
-
-		criteria.setTotalcount(connectService.productCount());	//전체 게시글 개수를 지정
-		criteria.setPagenum(pagenum);	//현재 페이지를 페이지 객체에 지정
-		criteria.setStartnum(pagenum);	//컨텐츠 시작 번호 지정
-		criteria.setEndnum(pagenum);	//컨텐츠 끈 번호 지정 
-		criteria.setCurrentblock(pagenum);	//현재 페이지 블록이 몇번인지 현재 페이지 번호 통해 지정
-		criteria.setLastblock(criteria.getTotalcount());	//마지막 블록 번호를 전체 게시글 수를 통해 정함
-		criteria.prevnext(pagenum);	//현재 페이지 번호로 화살표를 나타낼지 정함
-		criteria.setStartPage(criteria.getCurrentblock());	//시작 페이지를 페이지 블록번호로 정함
-		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
-		
-		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-		String zipcode = connectService.selectZipcode(member_id);
-		
-		// 사용자가 사는곳에서 많이 팔린 제품리스트
-		ArrayList<ProductVO> recommend = connectService.recommendList(zipcode);
-		
-		// 전체 상품리스트
-		ArrayList<ProductVO> pList = connectService.productList(sort,criteria.getStartnum(),criteria.getEndnum());
-		
-		model.addAttribute("recommend",recommend);
-		model.addAttribute("pList",pList);
-		model.addAttribute("criteria",criteria);
-
-		return "connect/compareMain";
-	}
 
 	// 입찰 서비스 메인페이지로 가기
-	@RequestMapping(value = "tenderMain", method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.tenderMain", method = RequestMethod.GET)
 	public String tenderMain(Model model, TenderVO tenderVo) {
 		Criteria criteria = new Criteria();
 		int pagenum = 1;
@@ -145,7 +114,8 @@ public class ConnectController {
 	}
 	
 	// 입찰 서비스 - 페이징
-	@RequestMapping(value="selectTender", method=RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value="m.selectTender", method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject selectTender(HttpServletRequest request) {
 		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
@@ -203,7 +173,8 @@ public class ConnectController {
 	} 
 	
 	// 입찰 서비스 - 입찰 공고 열람 권한 체크
-	@RequestMapping(value="tMemberCheck", method=RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value="m.tMemberCheck", method=RequestMethod.POST)
 	@ResponseBody
 	public String tMembercheck(String tcode, HttpServletRequest request) {
 		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
@@ -218,7 +189,8 @@ public class ConnectController {
 	}
 	
 	// 입찰 서비스 - 메인페이지 멤버체크
-	@RequestMapping(value="tCheck", method=RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value="m.tCheck", method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject tCheck(HttpServletRequest request) {
 		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
@@ -232,13 +204,15 @@ public class ConnectController {
 	}
 
 	// 입찰 서비스 - 리스트에서 글쓰기로 가기
-	@RequestMapping(value = "tenderboardWrite", method = RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.tenderboardWrite", method = RequestMethod.POST)
 	public String tenderWrite() {
 		return "connect/tenderWrite";
 	}
 
 	// 입찰 서비스 - 글쓰기 작성 후 리스트로 가기
-	@RequestMapping(value = "tenderWriteComplete", method = RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.tenderWriteComplete", method = RequestMethod.POST)
 	public String tenderList(TenderVO tenderVo, HttpServletRequest request) {
 		tenderVo.setMember_id(((MemberVO) request.getSession().getAttribute("user")).getMember_id());
 		
@@ -260,14 +234,16 @@ public class ConnectController {
 		return "redirect: /tenderMain";
 	}
 	
-	@RequestMapping(value = "tenderContent/{tender_code}", method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.tenderContent/{tender_code}", method = RequestMethod.GET)
 	public String tenderContentGo(@PathVariable String tender_code, Model model) {
 		model.addAttribute("tender_code",tender_code);
 		return "connect/tenderContent";
 	}
 	
 	// 입찰 서비스 - 리스트에서 입찰 세부 내용으로 가기
-	@RequestMapping(value = "tenderContentGo/{tender_code}", method = RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.tenderContentGo/{tender_code}", method = RequestMethod.POST)
 	@ResponseBody
 	public JSONObject tenderContent(@PathVariable String tender_code,BidVO bidVo, HttpServletRequest request) {
 		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
@@ -393,7 +369,8 @@ public class ConnectController {
 		return json;
 	}
 	
-	@GetMapping(value="/download", produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@CrossOrigin(origins = "*")
+	@GetMapping(value="m.download", produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	@ResponseBody
 	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName, String upload_code, HttpServletRequest request){
 
@@ -429,7 +406,8 @@ public class ConnectController {
 	}
 	
 	// 입찰 서비스 - 입찰 공고 삭제 후 리스트로 가기
-	@RequestMapping(value = "tenderDelete/{tender_code}", method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.tenderDelete/{tender_code}", method = RequestMethod.GET)
 	public String tenderDelete(@PathVariable String tender_code, Model model) {
 		
 		ArrayList<BidVO> arr = connectService.findUploadCode(tender_code); // 투찰에 있던 파일 찾기
@@ -450,14 +428,16 @@ public class ConnectController {
 	}
 
 	// 입찰 서비스 - 입찰 공고 수정 페이지로 가기
-	@RequestMapping(value = "tenderModify/{tender_code}", method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.tenderModify/{tender_code}", method = RequestMethod.GET)
 	public String tenderModify(@PathVariable String tender_code, Model model) {
 		model.addAttribute("tenderModify", connectService.tenderContent(tender_code));
 		return "connect/tenderModify";
 	}
 
 	// 입찰 서비스- 입찰 공고 수정 완료
-	@RequestMapping(value = "tenderModifyComplete", method = RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.tenderModifyComplete", method = RequestMethod.POST)
 	public String tenderModifyComplete(TenderVO tenderVo, Model model) {
 		int s = connectService.tenderModify(tenderVo);
 		String tender_code = tenderVo.getTender_code();
@@ -465,14 +445,16 @@ public class ConnectController {
 	}
 	
 	// 입찰 서비스 - ppt점수 부여
-	@RequestMapping(value="bid_ppt_score", method=RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value="m.bid_ppt_score", method=RequestMethod.POST)
 	@ResponseBody
 	public void bid_ppt_score(BidVO bidVo) {
 		connectService.bid_ppt_score(bidVo);
 	}
 	
 	// 입찰 서비스 - 입찰 신청
-	@RequestMapping(value="tendering",method=RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value="m.tendering",method=RequestMethod.POST)
 	@ResponseBody
 	public void tendering(PaymentVO paymentVo, String tender_code, String company_code) {
 		//주문 코드,결제 코드 생성
@@ -493,7 +475,8 @@ public class ConnectController {
 	}
 	
 	// 입찰 서비스 - 투찰 작성 권한 체크(한 번만 등록 가능)
-	@RequestMapping(value="BidPCheck/{tender_code}", method=RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value="m.BidPCheck/{tender_code}", method=RequestMethod.POST)
 	@ResponseBody
 	public String BidPrivilegeCheck(@PathVariable String tender_code, HttpServletRequest request) {
 		ArrayList<BidVO> bidPCheck=connectService.bidPCheck(tender_code);
@@ -509,7 +492,8 @@ public class ConnectController {
 	}
 
 	// 입찰 서비스 - 투찰 작성
-	@RequestMapping(value = "addBid/{tender_code}", method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.addBid/{tender_code}", method = RequestMethod.GET)
 	@ResponseBody
 	public Company_InfoVO addBid(@PathVariable String tender_code, Company_InfoVO c_info, HttpServletRequest request) {
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
@@ -544,7 +528,8 @@ public class ConnectController {
 	}
 	
 	// 입찰 서비스 - 투찰 작성 완료
-	@PostMapping(value = "/addBidComplete/{tender_code}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@CrossOrigin(origins = "*")
+	@PostMapping(value = "m.addBidComplete/{tender_code}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public void addBidComplete(@PathVariable String tender_code,MultipartFile[] uploadFile, String sBid_price, UploadVO uploadVo, BidVO bidVo , HttpServletRequest request, Model model) {
 		// 기간 설정
@@ -613,7 +598,8 @@ public class ConnectController {
 	}
 	
 	// 입찰서비스 - 투찰 삭제 
-	@RequestMapping(value="bidDelete", method=RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value="m.bidDelete", method=RequestMethod.POST)
 	@ResponseBody
 	public String bidDelete(BidVO bidVo ,String company_code, String tender_code, HttpServletRequest request) {
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
@@ -634,7 +620,8 @@ public class ConnectController {
 	}
 	
 	// 입찰서비스 - 투찰 수정 
-	@RequestMapping(value="bidModify", method=RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value="m.bidModify", method=RequestMethod.POST)
 	@ResponseBody
 	public String bidModify(String tender_code, String company_code, HttpServletRequest request) {
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
@@ -649,7 +636,8 @@ public class ConnectController {
 		
 	}
 	
-	@RequestMapping(value="member_devision/{tender_code}",method=RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value="m.member_devision/{tender_code}",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject member_devision(HttpServletRequest request, @PathVariable String tender_code) {
 		Map<String,String> map = new HashMap<String, String>();
@@ -665,10 +653,51 @@ public class ConnectController {
 		return json;
 	}
 	
-	// 업체 분석/비교 도,시,평수,물질 선택완료
-	@RequestMapping(value = "selectCompare", method = RequestMethod.GET)
+	// 업체 분석/비교 메인페이지 데이터 가져오기
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.compareMain", method = RequestMethod.GET)
 	@ResponseBody
-	public JSONObject selectCompare(Model model, HttpServletRequest request) {
+	public JSONObject compareMain(HttpServletRequest request) {
+		Criteria criteria = new Criteria();
+		int pagenum = 1;
+		String sort = "sellnum";
+		String member_id = request.getParameter("member_id");
+
+		criteria.setTotalcount(connectService.productCount());	//전체 게시글 개수를 지정
+		criteria.setPagenum(pagenum);	//현재 페이지를 페이지 객체에 지정
+		criteria.setStartnum(pagenum);	//컨텐츠 시작 번호 지정
+		criteria.setEndnum(pagenum);	//컨텐츠 끈 번호 지정 
+		criteria.setCurrentblock(pagenum);	//현재 페이지 블록이 몇번인지 현재 페이지 번호 통해 지정
+		criteria.setLastblock(criteria.getTotalcount());	//마지막 블록 번호를 전체 게시글 수를 통해 정함
+		criteria.prevnext(pagenum);	//현재 페이지 번호로 화살표를 나타낼지 정함
+		criteria.setStartPage(criteria.getCurrentblock());	//시작 페이지를 페이지 블록번호로 정함
+		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
+		
+		//String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String zipcode = connectService.selectZipcode(member_id);
+		
+		// 사용자가 사는곳에서 많이 팔린 제품리스트
+		ArrayList<ProductVO> recommend = connectService.recommendList(zipcode);
+		
+		// 전체 상품리스트
+		ArrayList<ProductVO> pList = connectService.productList(sort,criteria.getStartnum(),criteria.getEndnum());
+
+		JSONArray rJson = JSONArray.fromObject(recommend);
+		JSONArray pJson = JSONArray.fromObject(pList);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("recommend", rJson);
+		map.put("pList", pJson);
+		map.put("criteria", criteria);
+		JSONObject json = JSONObject.fromObject(map);
+		
+		return json;
+	}
+	
+	// 업체 분석/비교 도,시,평수,물질 선택완료
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.selectCompare", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject selectCompare(HttpServletRequest request) {
 		String sido = request.getParameter("sido");
 		String sigoon = request.getParameter("sigoon");
 		int space = Integer.parseInt(request.getParameter("space"));
@@ -707,7 +736,8 @@ public class ConnectController {
 	}
 
 	// 분석/비교 서비스 - 리스트에서 서비스상품 세부 내용으로 가기
-	@RequestMapping(value = "product", method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.product", method = RequestMethod.GET)
 	public String productDetail(@RequestParam("product_code") String product_code, Model model) {
 		ProductVO productContent = connectService.productContent(product_code);
 		ArrayList<ReplyVO> productReply = connectService.productReply(product_code);
@@ -720,7 +750,8 @@ public class ConnectController {
 	}
 	
 	// 분석/비교 서비스 - 광역시/도를 선택시 해당하는 시,구 목록출력
-	@RequestMapping(value = "areasido", method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.areasido", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject areasido(Model model, AreaVO areaVO) {
 		ArrayList<AreaVO> aList = connectService.selectSigoon(areaVO);
@@ -732,7 +763,8 @@ public class ConnectController {
 	}
 	
 	// 분석/비교 서비스 - 물질 목록 가져오기
-	@RequestMapping(value = "matterList", method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.matterList", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject matterList() {
 		ArrayList<MatterVO> matterList = connectService.matterList();
@@ -744,7 +776,8 @@ public class ConnectController {
 	}
 	
 	// 분석/비교 서비스 - 결제창으로 이동
-	@RequestMapping(value = "cPayment", method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.cPayment", method = RequestMethod.GET)
 	public String cPayment(@RequestParam("product_code") String product_code, Model model) {
 		model.addAttribute("productContent", connectService.productContent(product_code));
 		
@@ -752,7 +785,8 @@ public class ConnectController {
 	}
 	
 	// 분석/비교 서비스 - 결제정보 insert
-	@RequestMapping(value = "cOrder", method = RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.cOrder", method = RequestMethod.POST)
 	@ResponseBody
 	public String cOrder(Model model, HttpServletRequest request, DemandVO demandVO ,PaymentVO paymentVO) {
 		//주문 코드,결제 코드 생성
@@ -777,13 +811,15 @@ public class ConnectController {
 	}
 	
 	// 분석/비교 서비스 - 상품 등록 페이지로 가기
-	@RequestMapping(value = "productWrite", method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.productWrite", method = RequestMethod.GET)
 	public String productWrite() {
 		return "connect/productWrite";
 	}
 	
 	// 분석/비교 서비스 - 작성글 수정,삭제 권한 체크
-	@RequestMapping(value = "permissionCheck", method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.permissionCheck", method = RequestMethod.GET)
 	@ResponseBody
 	public String permissionCheck(HttpServletRequest request) {
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
@@ -797,7 +833,8 @@ public class ConnectController {
 	}
 		
 	// 분석/비교 서비스 - 상품 등록 insert
-	@RequestMapping(value = "productInsert", method = RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.productInsert", method = RequestMethod.POST)
 	public String productInsert(Model model,HttpServletRequest request,MultipartFile[] thumbnail) {
 		ProductVO productVO = new ProductVO();
 		UploadVO uploadVO = new UploadVO();
@@ -885,7 +922,8 @@ public class ConnectController {
 	}
 		
 	// 분석/비교 서비스 - 상품 등록 update넘어가기
-	@RequestMapping(value = "productModify", method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.productModify", method = RequestMethod.GET)
 	public String productModify(Model model,@RequestParam("product_code") String product_code) {
 		model.addAttribute("productContent", connectService.productContent(product_code));
 			
@@ -893,7 +931,8 @@ public class ConnectController {
 	}
 		
 	// 분석/비교 서비스 - 상품 정보 update
-	@RequestMapping(value = "productUpdate", method = RequestMethod.POST)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.productUpdate", method = RequestMethod.POST)
 	public String productUpdate(Model model,HttpServletRequest request,@RequestParam("product_code") String product_code, MultipartFile[] thumbnail, String ori_thumbnail) {
 		ProductVO productVO = new ProductVO();
 		UploadVO uploadVO = new UploadVO();
@@ -992,7 +1031,8 @@ public class ConnectController {
 	}
 		
 	// 분석/비교 서비스 - 상품 정보 delete
-	@RequestMapping(value = "productDelete", method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.productDelete", method = RequestMethod.GET)
 	public String productDelete(@RequestParam("product_code") String product_code) {
 		connectService.productAreaDelete(product_code);
 		connectService.productMatterDelete(product_code);
@@ -1007,7 +1047,8 @@ public class ConnectController {
 	}
 	
 	// 분석/비교 서비스 - 상품 댓글 insert
-	@RequestMapping(value = "productReplyInsert", method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.productReplyInsert", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject productReplyInsert(ReplyVO replyVO,HttpServletRequest request) {
 		int count = connectService.checkPayment(replyVO.getMember_id(),replyVO.getProduct_code());
@@ -1038,7 +1079,8 @@ public class ConnectController {
 	}
 	
 	// 분석/비교 서비스 - 본인 댓글 삭제
-	@RequestMapping(value = "productReplyDelete", method = RequestMethod.GET)
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.productReplyDelete", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject productReplyDelete(ReplyVO replyVO,HttpServletRequest request) {
 		connectService.deletePReply(replyVO.getReply_code());

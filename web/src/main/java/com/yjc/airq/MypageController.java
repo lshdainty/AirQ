@@ -146,28 +146,33 @@ public class MypageController {
 	@RequestMapping(value = "mypageMainMember", method = RequestMethod.GET)
 	public String mypageMainMember(Model model) {
 		model.addAttribute("getMemberList", memberService.getMemberList());
+		
 		return "mypage/mypageMainMember";
 	}
-	
-	// mypageMainMember 회원 삭제 버튼 클릭 이벤트
-	@RequestMapping(value = "/mypageMainMember/{member_id}", method = RequestMethod.GET)
-	public String deleteMember(@PathVariable String member_id) {
-		mypageService.deleteMember(member_id);
-		return "redirect:/mypageMainMember";
+	//mypageMainMember 셀렉트 옵션에 따른 페이지 ajax변환
+	@RequestMapping(value ="mypageMainMemberAjax", method = RequestMethod.POST)
+	@ResponseBody
+	public String mypageMainMemberOption(Model model,@RequestParam String selected) {
+			 if(selected.equals("0")) {
+				 return "0";
+			 }
+			 if(selected.equals("1")) {
+				return "no";
+			 }		 
+			 if(selected.equals("2")){
+				 return "se";
+			 }
+	return "";
 	}
+
+
 
 
 	// mypageMainPosts 가기
 	@RequestMapping(value = "mypageMainPosts", method = RequestMethod.GET)
 	public String mypageMainPosts(Model model, ServletRequest request) {
-//		ArrayList<TenderVO> tenderList=connectService.tenderList();
 		ArrayList<ReportVO> mypageMainR = mypageService.mypageMainR();
-
-//		model.addAttribute("tenderList", tenderList);
-//		model.addAttribute("productMP", mypageService.productMP());
-//		model.addAttribute("postMP", mypageService.postMP());
 		model.addAttribute("mypageMainR", mypageMainR);
-//		System.out.println(mypageMainR);
 		return "mypage/mypageMainPosts";
 	}
 	
@@ -175,7 +180,6 @@ public class MypageController {
 	@RequestMapping(value = "mypageMainPostsIn", method = RequestMethod.GET)
 	public String mypageMainPostsIn(@RequestParam("report_code") String report_code, Model model) {
 		model.addAttribute("mypageMainRIn", mypageService.mypageMainRIn(report_code));
-//		System.out.println(mypageService.mypageMainRIn(report_code));
 		return "mypage/mypageMainPostsIn";
 	}
 
@@ -199,27 +203,6 @@ public class MypageController {
 	}
 
 
-
-//	// mypageMainPosts tender 글 삭제 버튼 클릭 이벤트
-//	@RequestMapping(value = "/mypageMainPosts/{tender_code}", method = RequestMethod.GET)
-//	public String deletePosts1(@PathVariable String tender_code) {
-//		mypageService.deletePosts1(tender_code);
-//		return "redirect:/mypageMainPosts";
-//	}
-//	
-//	// mypageMainPosts product 글 삭제 버튼 클릭 이벤트
-//	@RequestMapping(value = "/mypageMainPostsProduct/{product_code}", method = RequestMethod.GET)
-//	public String deletePostsProduct1(@PathVariable String product_code) {
-//		mypageService.deletePostsProduct1(product_code);
-//		return "redirect:/mypageMainPosts";
-//	}
-//	
-//	// mypageMainPosts post 글 삭제 버튼 클릭 이벤트
-//	@RequestMapping(value = "/mypageMainPostsPost/{post_code}", method = RequestMethod.GET)
-//	public String deletePostsPost1(@PathVariable String post_code) {
-//		mypageService.deletePostsPost1(post_code);
-//		return "redirect:/mypageMainPosts";
-//	}
 
 //////////////////////////////////일반 사용자//////////////////////////////////////////////////////////
 
@@ -285,26 +268,6 @@ public class MypageController {
 		return "redirect:/tenderContent/${tenderNMP.tender_code }";
 	}
 	
-//	// mypageMainPosts post 글 수정 버튼 클릭 이벤트 ( 판매자 쪽에서 만들어져 있어서 필요x)
-//	@RequestMapping(value = "/postDetail?post_code=${postNMP.post_code }", method = RequestMethod.GET)
-//	public String deletePostsNormalPost(@PathVariable String post_code) {
-//		mypageService.deletePostsPost(post_code);
-//		return "redirect:/postDetail?post_code=${postNMP.post_code }";
-//	}
-//	// mypageNormalPosts tender 글 삭제 버튼 클릭 이벤트
-//	
-//	@RequestMapping(value = "/mypageNormalPosts/{tender_code}", method = RequestMethod.GET)
-//	public String deleteNormalPosts(@PathVariable String tender_code) {
-//		mypageService.deletePosts(tender_code);
-//		return "redirect:/mypageNormalPosts";
-//	}
-//	
-//	// mypageNormalPosts post 글 삭제 버튼 클릭 이벤트
-//	@RequestMapping(value = "/mypageNormalPostsPost/{post_code}", method = RequestMethod.GET)
-//	public String deleteNormalPostsPost(@PathVariable String post_code) {
-//		mypageService.deletePostsPost(post_code);
-//		return "redirect:/mypageNormalPosts";
-//	}
 
 	// mypageNormalComment 가기
 	@RequestMapping(value = "mypageNormalComment", method = RequestMethod.GET)

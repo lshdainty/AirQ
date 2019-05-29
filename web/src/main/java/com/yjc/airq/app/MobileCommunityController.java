@@ -37,15 +37,15 @@ import net.sf.json.JSONObject;
  */
 @Controller
 @AllArgsConstructor
-public class mobileCommunityController {
+public class MobileCommunityController {
 	
 	private CommunityService postService;
 	private UploadService uploadService;
-	private final static String IP_ADDRESS = "http://39.127.7.69/";
+	private final static String IP_ADDRESS = "http://13.209.87.1/";
 	//테이블 형식 레이아웃 메인페이지
 	@ResponseBody
 	@CrossOrigin(origins = "*")
-	@RequestMapping(value = "m.getPosts", method = RequestMethod.GET)
+	@RequestMapping(value =  "m.getPosts", method = RequestMethod.GET)
 	public JSONObject tableBoardMain(Model model,HttpServletRequest request) {
 		String board_code =request.getParameter("board_code");
 		

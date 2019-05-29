@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="order-address">
-            <select name="sido_code" id="sido_code" class="order-option">
+            <select name="sido_code" id="sido_code" class="order-option ">
                 <option value="광역시/도">광역시/도</option>
             </select>
             <select name="sigoon_code" id="sigoon_code" class="order-option">
@@ -96,7 +96,7 @@
             </c:forEach>
         </div>
     </div>
-	<div>
+	<div class="productWriteDiv">
 		<c:if test="${sessionScope.user.member_devision == 'se' }">
 			<button id="productWrite">상품등록</button>
 		</c:if>

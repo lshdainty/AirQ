@@ -124,6 +124,13 @@
                              												and area_si like '%전체'))
 											</if>)
 					</if>
+					<if test="!matter.equals('측정 물질')">
+						and product_code in (
+											select p.product_code 
+											from product p, p_measure_matter pm
+											where p.product_code = pm.product_code
+											and pm.matter_code = #{matter})
+					</if>
 				</where>
 				<choose>
 					<when test="sort.equals('sellnum')">
@@ -169,6 +176,13 @@
                              												where area_do = #{sido} 
                              												and area_si like '%전체'))
 										</if>)
+			</if>
+			<if test="!matter.equals('측정 물질')">
+				and product_code in (
+										select p.product_code 
+										from product p, p_measure_matter pm
+										where p.product_code = pm.product_code
+										and pm.matter_code = #{matter})
 			</if>
 		</where>
 	</select>
