@@ -44,16 +44,17 @@ public class HomeController {
 	}
 	
 	// 홈화면 도착 후 광역시/도 미세먼지 수치 가져오기
-	@RequestMapping(value = "/homedustdata", method = RequestMethod.GET)
+	@RequestMapping(value = "/homematterdata", method = RequestMethod.GET)
 	@ResponseBody
-	public JSONObject homeDustData() {
+	public JSONObject homeMatterData(HttpServletRequest request) {
 		BufferedReader br = null;
-		JSONObject json = new JSONObject();
-		String matterList[] = {"SO2", "CO", "O3", "NO2", "PM10", "PM25"};
+		JSONObject json = new JSONObject();	//최종 json
+		JSONArray jArray = new JSONArray();	//최종 jsonArray
+		String matter = request.getParameter("matter");
 		try {
 			String urlstr = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnMesureLIst?"
         			+ "serviceKey=ih2Gzic0JjfHpYSWXRXk4QNjcf9DaJo6F6hMKgBRQpn4T7YiXPelW%2B8Z%2BJCqkH1%2FSeeNJa%2BROW54XiWGBQmKTg%3D%3D"
-        			+ "&numOfRows=10&pageNo=1&itemCode="+URLEncoder.encode(matterList[4],"UTF-8")+"&dataGubun=HOUR&_returnType=json";
+        			+ "&numOfRows=10&pageNo=1&itemCode="+URLEncoder.encode(matter,"UTF-8")+"&dataGubun=HOUR&_returnType=json";
 			URL url = new URL(urlstr);
             HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
             urlconnection.setRequestMethod("GET");
@@ -62,7 +63,20 @@ public class HomeController {
             String line = "";
             while((line = br.readLine()) != null) {
                 result = result + line + "\n";
-                System.out.println("result : "+ result);
+                String kName[] = {"서울","부산","대구"};
+                String eName[] = {"seoul","busan","daegu"};
+                JSONObject jsonObj = JSONObject.fromObject(result);	//json으로 변환
+                JSONArray jsonArr = JSONArray.fromObject(jsonObj.get("list"));	//json안에 list배열만 가져오기
+                JSONObject convertJSON = jsonArr.getJSONObject(0);	//list배열안에 최신 평균값을 가져오기위해 index0번째 가져오기
+                json.put("itemCode",convertJSON.getString("itemCode"));	//최종 반환되는 json에 물질코드 넣기
+                json.put("dataTime",convertJSON.getString("dataTime"));	//최종 반환되는 json에 시간값 넣기
+                for(int i=0; i<kName.length; i++) {
+                	JSONObject resultJSON = new JSONObject();
+                	resultJSON.put("name",kName[i]);
+            		resultJSON.put("data",convertJSON.getString(eName[i]));
+            		jArray.add(resultJSON);
+                }
+                json.put("result",jArray);	//최종 반환되는 json에 광역시의 이름과 측정값 넣기
             }
             br.close();
             urlconnection.disconnect();
