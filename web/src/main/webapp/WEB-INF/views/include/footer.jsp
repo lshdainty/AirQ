@@ -4,7 +4,7 @@
 <!-- footer start -->
     <footer class="position-relative z-index-10 d-print-none">
             <!-- Main block - menus, subscribe form-->
-            <div class="py-6 bg-gray-200 text-muted"> 
+            <div class="py-2 bg-gray-200 text-muted"> 
               <div class="container">
                 <div class="row">
                   <div class="col-lg-4 mb-5 mb-lg-0">
@@ -46,7 +46,7 @@
               </div>
             </div>
             <!-- Copyright section of the footer-->
-            <div class="py-4 font-weight-light bg-gray-800 text-gray-300">
+            <div class="py-2 font-weight-light bg-gray-800 text-gray-300">
               <div class="container">
                 <div class="row align-items-center">
                   <div class="col-md-6 text-center text-md-left">

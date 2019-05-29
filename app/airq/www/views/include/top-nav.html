@@ -1,41 +1,48 @@
-<link rel="stylesheet" href="../../../www/resources/css/include/mainFrame.css">
-<script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
-<script src="../../../www/resources/js/TweenLite.js"></script>
-<script src="../../../www/resources/js/TweenMax.js"></script>
-<nav class="app-top navbar-fixed bg-white">
-    <div class="img-logo">
-        <img src="../../../www/resources/images/logo.png" alt="">
-    </div>
-    <button class="top-menu menu-color__black">
-        <span class="toggler-icon"></span>
-    </button>
-</nav>
 
-<div class="sidebar-wrap">
-    <div class="items">
-        <div href="#" class="menu-title">
-            <button class="side-menu menu-color__black">
-                <span class="close-icon"></span>
-            </button>
-            MENU
-        </div>
-        <div href="#" class="item">글관리</div>
-        <div href="#" class="item">댓글관리</div>
-        <div href="#" class="item">결제내역</div>
-        <div href="#" class="item">로그아웃</div>
+<nav class="navbar navbar-expand-lg fixed-top text-white navbar-dark"
+style="background-image: linear-gradient(94deg, #1ea1f7, #46cfa7);">
+<div class="container">
+    <a class="navbar-brand" href="#">AirQ</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07"
+        aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigatvion">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample07">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"><a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="../../../www/views/service/introMain.html">서비스
+                    소개</a></li>
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="dropdown06" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">업체연결
+                    서비스</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown06">
+                    <a class="dropdown-item" href="/compareMain">업체 분석/비교</a> <a class="dropdown-item"
+                        href="/tenderMain">입찰 서비스</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="dropdown07" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">커뮤니티</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown07">
+                    <a class="dropdown-item" href="../../../www/views/community/thumbnailBoardMain.html?board_code=bd_rec">상품추천</a>
+                    <a class="dropdown-item" href="../../../www/views/community/tableBoardMain.html?board_code=bd_lib">자유게시판</a>
+                    <a class="dropdown-item" href="../../../www/views/community/thumbnailBoardMain.html?board_code=bd_met">대기오염 물질정보</a>
+                    <a class="dropdown-item" href="../../../www/views/community/thumbnailBoardMain.html?board_code=bd_imp">공기질 향상방법</a>
+                    <a class="dropdown-item" href="../../../www/views/community/thumbnailBoardMain.html?board_code=bd_hea">건강지킴이</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="dropdown08" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">공기질 관리</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown08">
+                    <a class="dropdown-item" href="/monitoringMain">공기질 모니터링</a>
+                    <a class="dropdown-item" href="/remoteMain">IOT 원격제어</a>
+                    <a class="dropdown-item" href="/mypageMain">MyPage</a>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
-
-<script>
-$(function(){
-    var toggler_icon = $('.toggler-icon');
-    var close_icon = $('.close-icon');
-    var side_bar = $('.sidebar-wrap');
-    close_icon.click(function(){
-        TweenLite.to(side_bar, 1, {x: '100%'});
-    });
-    toggler_icon.click(function(){
-        TweenLite.to(side_bar,1,{x:'0%'});
-    });
-});
-</script>
+</nav>

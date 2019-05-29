@@ -1,4 +1,4 @@
-﻿var ip = "http://192.168.2.8";
+﻿var ip = "http://39.127.7.69";
 //var member_id = sessionStorage.getItem("member_id");
 var member_id = "test";
 
