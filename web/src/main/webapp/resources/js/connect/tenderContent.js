@@ -145,9 +145,9 @@ $(document).ready(function(){
 				data:query,
 				url:"/tendering",
 				success:function(){
-					var confirm=confirm("결제 내역으로 이동하시겠습니까?")
+					var confirm=confirm("결제 내역으로 이동하시겠습니까?");
 					if(confirm){
-						window.location.href="/mypageNormalPay"
+						window.location.href="/mypageNormalPay";
 					}else{
 						window.location.reload();
 					}

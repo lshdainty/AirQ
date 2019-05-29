@@ -5,28 +5,51 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/mypage/mypageNormal.css" />
 <h1 id="h1">일반 사용자-메인 페이지 입니다.</h1>
-<button id="btn">button</button>
-
-<div class="reviewCompareList">
-	<div class="reviewPost">
-		<div class="compareThumb">
-			<img src="resources/images/800490.png" alt="이미지">
-		</div>
-		<div class="reviewInfo">
-			<div class="compareTitle">
-				<span>에어체크업 방문측정</span>
-			</div>
-			<div class="compareContent">
-				측정 평수 : <span>ㅇㅇ</span><br/>
-				측정 지점 : <span>ㅇㅇ</span><br/>
-				측정 물질 : <span>ㅇㅇ</span><br/>
-				서비스 받은 날짜 : <span>ㅇㅇ</span>
-			</div>
-			<div class="comparePrice">
-				<span>dd</span>
-			</div>
-		</div>
-	</div>
+<div id="memberInfo">
+	<p class="infoTitle">회원 정보</p>
+	<table id="memberInfoTbl">
+		<tr>
+			<td class="memberIdTd">아이디</td>
+			<td class="memberIdTd">kimgoeun</td>
+		</tr>
+		<tr>
+			<td>이름</td>
+			<td>김고은</td>
+		</tr>
+		<tr>
+			<td>전화번호</td>
+			<td>01087224235</td>
+		</tr>
+		<tr>
+			<td>주소</td>
+			<td>복현동 북2길 5</td>
+		</tr>
+		<tr>
+			<td>이메일</td>
+			<td>zmxn4235@naver.com</td>
+		</tr>
+		<tr>
+			<td>회원 구분</td>
+			<td>일반 사용자</td>
+		</tr>
+	</table>
 </div>
+<div id="newPost" class="reviewDiv">
+	<p class="infoTitle">최신 글</p>
+
+</div>
+<div id="newReply" class="reviewDiv">
+	<p class="infoTitle">최신 댓글</p>
+</div>
+<div id="newPayment" class="reviewDiv">
+	<p class="infoTitle">최근 결제 내역</p>
+</div>
+<div id="reviewList" class="reviewDiv">
+	<ul id="reviewCategory">
+		<li class="rCategoryOption rOptionActive">업체 연결 서비스</li>
+		<li class="rCategoryOption">입/투찰 서비스</li>
+	</ul>
+</div>
+<button id="btn">button</button>
 <script src='/resources/js/mypage/mypageNormal.js'></script>
 <%@include file="../include/footer.jsp"%>

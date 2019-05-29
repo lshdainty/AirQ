@@ -698,10 +698,9 @@ public class MypageController {
 	}
 	
 	// 리뷰 페이지
-	@RequestMapping(value="reviewList", method=RequestMethod.POST)
+	@RequestMapping(value="reviewList", method=RequestMethod.POST, produces="application/text; charset=utf8")
 	@ResponseBody
 	public String reviewList(HttpServletRequest request, HttpServletResponse response) {
-		response.setContentType("text/html;charset=UTF-8");
 		
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
 		ArrayList<ProductVO> reviewCompareList=mypageService.reviewCompareList(member_id);
@@ -715,7 +714,7 @@ public class MypageController {
 		map.put("reviewTenderList",reviewTenderArr);
 		JSONObject json=JSONObject.fromObject(map);
 		System.out.println(json);
-		String jsonString=json.toString();
+		String jsonString = json.toString();
 		
 		return jsonString;
 	}

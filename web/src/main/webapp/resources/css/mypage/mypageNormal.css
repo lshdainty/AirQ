@@ -5,11 +5,54 @@
 	box-sizing: border-box;
 }
 
-.reviewCompareList div {
+#memberInfo {
+	width:100%;
+	height:350px;
+	border:1px dotted black;
+}
+
+.infoTitle {
+	color: #747474;
+	font-size: 20px;
+	margin-bottom: 5px;
+}
+
+#memberInfoTbl {
+	width :100%;
+	height: 300px;
+}
+
+#memberInfoTbl td {
+	padding: 1% 1%;
+	border-bottom: 1px #D5D5D5 solid;
+}
+
+#memberInfoTbl tr td:first-child {
+	border-right: 1px #D5D5D5 solid;
+	width: 15%;
+	float: center;
+}
+
+.memberIdTd{
+	border-top: 1px #D5D5D5 solid;
+}
+
+.reviewDiv {
+	width:47%;
+	height: 300px;
+	border:1px dotted black;
 	display: inline-block;
 }
 
-.reviewCompareList {
+#newReply {
+	float:right;
+}
+
+#reviewList div {
+	display: inline-block;
+}
+
+#reviewList {
 	display: block;
 	width: 100%;
 	margin: auto;
@@ -21,7 +64,7 @@
     height: 130px;
 }
 
-.compareTitle {
+.reviewTitle {
 	font-weight: bold;
 	display: block !important;
 }
@@ -39,10 +82,42 @@
 	border-bottom:1px solid #ddd;
 }
 
-.comparePrice {
+.reviewPrice {
 	vertical-align:top;
 	padding-top: 2rem;
 	float: right;
 	font-weight: bold;
 	color: #3d59fc;
+}
+
+#reviewCategory {
+	margin-top: 1rem;
+    width: 100%;
+    border-bottom: 1px solid #00275c;
+    height: 2rem;
+}
+
+.rCategoryOption {
+    cursor: pointer;
+    float: left;
+    width: 10rem;
+    height: 2rem;
+    display: inline-flex;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    vertical-align: middle;
+    padding: 0.2rem 0rem 0.2rem 1rem;
+    border: 1px solid #ddd;
+    border-bottom: 1px solid #00275c;
+    border-left: none;
+    color: #929191;
+}
+
+.rOptionActive {
+	font-weight: bold;
+    border: 1px solid #00275c;
+    border-bottom: none;
+    font-size: 1rem;
+    color: #000;
+    background: #fff;
 }
