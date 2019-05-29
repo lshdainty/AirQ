@@ -58,11 +58,17 @@
 
 .recommanded-thumbnail {
 	display: block !important;
+	width:150px;
+	height:150px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
+
 .recommanded-thumbnail img{
 	width:100%;
-	padding : 1rem;
 }
+
 .recommanded-title {
 	max-width:100%;
 	white-space:normal !important;
@@ -80,8 +86,6 @@
 	display: flex;
 	margin: auto;
 	flex-wrap: wrap;
-	width: 180px;
-	height: 180px;
 }
 
 .order-address {

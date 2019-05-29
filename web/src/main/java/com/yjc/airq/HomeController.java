@@ -1,14 +1,11 @@
 package com.yjc.airq;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.nio.charset.Charset;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +23,8 @@ import com.yjc.airq.domain.MeasureDataVO;
 import com.yjc.airq.service.ManageService;
 
 import lombok.AllArgsConstructor;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * home화면을 관리하는 controller
@@ -42,6 +41,35 @@ public class HomeController {
 	public String home(Model model) {
 
 		return "home";
+	}
+	
+	// 홈화면 도착 후 광역시/도 미세먼지 수치 가져오기
+	@RequestMapping(value = "/homedustdata", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject homeDustData() {
+		BufferedReader br = null;
+		JSONObject json = new JSONObject();
+		String matterList[] = {"SO2", "CO", "O3", "NO2", "PM10", "PM25"};
+		try {
+			String urlstr = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnMesureLIst?"
+        			+ "serviceKey=ih2Gzic0JjfHpYSWXRXk4QNjcf9DaJo6F6hMKgBRQpn4T7YiXPelW%2B8Z%2BJCqkH1%2FSeeNJa%2BROW54XiWGBQmKTg%3D%3D"
+        			+ "&numOfRows=10&pageNo=1&itemCode="+URLEncoder.encode(matterList[4],"UTF-8")+"&dataGubun=HOUR&_returnType=json";
+			URL url = new URL(urlstr);
+            HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+            urlconnection.setRequestMethod("GET");
+            br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
+            String result = "";
+            String line = "";
+            while((line = br.readLine()) != null) {
+                result = result + line + "\n";
+                System.out.println("result : "+ result);
+            }
+            br.close();
+            urlconnection.disconnect();
+		}catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+		return json;
 	}
 
 	// 미세먼지 측정

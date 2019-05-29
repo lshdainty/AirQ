@@ -49,7 +49,7 @@
 	
 	<!-- 입찰공고 작성 -->
 	<insert id="addTenderboard" parameterType="com.yjc.airq.domain.TenderVO">
-		insert into tender(tender_code,tender_title,t_creation_date,service_date,tender_deadline,calculate_period,t_space,floor_number,requirement,t_zipcode,t_road_addr,t_addr,t_addr_detail,member_id,tender_name) values(#{tender_code},#{tender_title},systimestamp,#{service_date},#{tender_deadline},${calculate_period},${t_space},${floor_number},#{requirement},#{t_zipcode},#{t_road_addr},#{t_addr},#{t_addr_detail},#{member_id},#{tender_name})
+		insert into tender(tender_code,tender_title,t_creation_date,service_date,tender_deadline,calculate_period,t_space,floor_number,requirement,t_zipcode,t_road_addr,t_addr,t_addr_detail,member_id,tender_name) values(#{tender_code},#{tender_title},systimestamp,to_date(#{service_date},'YY-MM-DD'),to_date(#{tender_deadline},'YY-MM-DD'),${calculate_period},${t_space},${floor_number},#{requirement},#{t_zipcode},#{t_road_addr},#{t_addr},#{t_addr_detail},#{member_id},#{tender_name})
 	</insert>
 	
 	<!-- 입찰 리스트 세부내용 -->
