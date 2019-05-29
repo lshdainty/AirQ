@@ -68,6 +68,7 @@ public class HomeController {
                 JSONObject jsonObj = JSONObject.fromObject(result);	//json으로 변환
                 JSONArray jsonArr = JSONArray.fromObject(jsonObj.get("list"));	//json안에 list배열만 가져오기
                 JSONObject convertJSON = jsonArr.getJSONObject(0);	//list배열안에 최신 평균값을 가져오기위해 index0번째 가져오기
+                System.out.println(convertJSON);
                 json.put("itemCode",convertJSON.getString("itemCode"));	//최종 반환되는 json에 물질코드 넣기
                 json.put("dataTime",convertJSON.getString("dataTime"));	//최종 반환되는 json에 시간값 넣기
                 for(int i=0; i<kName.length; i++) {

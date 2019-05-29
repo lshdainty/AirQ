@@ -47,6 +47,14 @@
 
 <div class="measure-container">
 </div>
+<ul style="float:right;">
+	<li class="matter" value="PM10">미세먼지</li>
+	<li class="matter" value="PM25">초미세먼지</li>
+	<li class="matter" value="NO2">이산화질소</li>
+	<li class="matter" value="O3">오존</li>
+	<li class="matter" value="CO">일산화탄소</li>
+	<li class="matter" value="SO2">아황산가스</li>
+</ul>
 <!--  body content end  -->
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140827148-1"></script>
