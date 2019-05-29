@@ -1,7 +1,7 @@
-					$(".form3").children().hide();
-					$(".form3").hide();
-					$(".form4").children().hide();
-					$(".form4").hide();
+$(".form3").children().hide();
+$(".form3").hide();
+$(".form4").children().hide();
+$(".form4").hide();
 $(document).ready(function(){
 	$("#change") .click(function(){
 		var query = {
