@@ -12,6 +12,7 @@
 }
 .measure-container{
 	text-align:center;
+	justify-content:space-between;
 }
 .aqi-container{
     flex-direction: column;

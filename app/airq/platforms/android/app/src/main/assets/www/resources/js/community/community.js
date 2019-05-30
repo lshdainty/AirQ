@@ -5,7 +5,7 @@ function getThumbnailPosts(board_code, pagenum) {
 			crossDomain: true,
 			type: "GET",
 			contentType: "application/json; charset=utf-8",
-			url: "http://192.168.2.8/m.getPosts", // 로그인 페이지 경로
+			url: sessionStorage.getItem('IP_ADDRESS')+"/m.getPosts", // 로그인 페이지 경로
 			headers: { "Access-Control-Allow-Origin": "*" },
 			data: data,
 			dataType: "json", //also tried "jsonp"

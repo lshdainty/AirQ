@@ -101,14 +101,12 @@ $(document).ready(function () {
 					if(isChecked){
 						localStorage.setItem("user",JSON.stringify(data.userInfo));
 						sessionStorage.setItem("user",JSON.stringify(data.userInfo));
-						window.location.href= "../../../www/views/service/introMain.html";
 					}
 					else{
 						sessionStorage.setItem("user",JSON.stringify(data.userInfo));
-						window.location.href= "../../../www/views/service/introMain.html";
-
 					}
 				}
+				window.location.href= "../../../www/views/community/thumbnailBoardMain.html?board_code=bd_rec";
 			}
 		}) // ajax 로그인 버튼 끝
 	});
