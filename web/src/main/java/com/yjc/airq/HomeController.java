@@ -43,7 +43,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	// 홈화면 
+	// 홈화면 광역시/도 카드 데이터 만들기
 	@RequestMapping(value = "/homematterdata", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject homeMatterData(HttpServletRequest request) {
@@ -108,7 +108,7 @@ public class HomeController {
 		return json;
 	}
 	
-	// 홈화면 도착 후 광역시/도 미세먼지 수치 가져오기
+	// 홈화면 선택된 광역시/도의 24시간 물질 수치 가져오기
 	@RequestMapping(value = "/homematterdatadetail", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject homeMatterDataDetail(HttpServletRequest request) {

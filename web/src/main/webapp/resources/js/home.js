@@ -2,8 +2,11 @@ measure("PM10");
 measureDetail("seoul","PM10");
 
 $("#currentArea").text("seoul");
+$(".mattername").text("미세먼지");
+$(".areaname").text("서울");
 
 $(document).on("click",".matter",function(){
+	$(".mattername").text($(this).text());
 	var area = $("#currentArea").text();
 	var matter = $(this).attr("value");
 	measure(matter);
@@ -12,6 +15,7 @@ $(document).on("click",".matter",function(){
 
 $(document).on("click",".city-forecast",function(){
 	$("#currentArea").text($(this).attr("id"));
+	$(".areaname").text($(this).find(".kname").text());
 	var area = $("#currentArea").text();
 	var matter = $(this).find(".matter_code").text();
 	measureDetail(area,matter);
@@ -42,7 +46,7 @@ function measure(matter){
 								'<a class="city-forecast-link">' +
 									'<div class="city-forecast-header">' +
 										'<div style="flex: 1 1 0%; box-sizing: border-box;">' +
-											'<span>'+data.result[i].kname+'</span>' +
+											'<span class="kname">'+data.result[i].kname+'</span>' +
 										'</div>' +
 									'</div>' +
 									'<div class="city-forecast-body aqi-bg-light-yellow aqi-yellow" style="place-content: stretch space-between; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex; flex: 1 1 auto;">' +

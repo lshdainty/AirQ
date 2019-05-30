@@ -59,6 +59,7 @@
 </section>
 <div>
 	<div class="measure-container"></div>
+	<div><span class="areaname"></span>의 <span class="mattername"></span>수치</div>
 	<div id="chartdiv"></div>
 </div>
 <div style="display:flex; flex-wrap:wrap;">
