@@ -9,6 +9,19 @@
 #content {
 	max-width: 100% !important;
 }
+
+.measure-container{
+	display: flex;
+	text-align:center;
+	margin: auto;
+	justify-content: space-around;
+	width: 60%;
+}
+
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
 </style>
 <!--  body content start  -->
 
@@ -44,19 +57,26 @@
 		</div>
 	</div>
 </section>
-
-<div class="measure-container">
+<div>
+	<div class="measure-container"></div>
+	<div id="chartdiv"></div>
 </div>
-<ul style="float:right;">
-	<li class="matter" value="PM10">미세먼지</li>
-	<li class="matter" value="PM25">초미세먼지</li>
-	<li class="matter" value="NO2">이산화질소</li>
-	<li class="matter" value="O3">오존</li>
-	<li class="matter" value="CO">일산화탄소</li>
-	<li class="matter" value="SO2">아황산가스</li>
-</ul>
+<div style="display:flex; flex-wrap:wrap;">
+	<ul style="float:right;text-align:right;width:100%;">
+		<li class="matter" value="PM10">미세먼지</li>
+		<li class="matter" value="PM25">초미세먼지</li>
+		<li class="matter" value="NO2">이산화질소</li>
+		<li class="matter" value="O3">오존</li>
+		<li class="matter" value="CO">일산화탄소</li>
+		<li class="matter" value="SO2">아황산가스</li>
+	</ul>
+</div>
+<span id="currentArea" style="display:none"></span>
 <!--  body content end  -->
 <!-- Global site tag (gtag.js) - Google Analytics -->
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140827148-1"></script>
 <script src="resources/js/home.js"></script>
 <script>
