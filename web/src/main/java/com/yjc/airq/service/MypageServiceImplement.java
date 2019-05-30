@@ -1,11 +1,13 @@
 package com.yjc.airq.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.yjc.airq.domain.Company_InfoVO;
+import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ProductVO;
@@ -226,5 +228,26 @@ public class MypageServiceImplement implements MypageService{
 	@Override
 	public void deleteSelf(String member_id, String member_pw) {
 		 memberMapper.deleteSelf(member_id, member_pw);
+	}
+	
+	//일반 회원 - 회원 정보
+	@Override
+	public MemberVO memberInfo(String member_id) {
+		return memberMapper.memberInfo(member_id);
+	}
+	//mypageNormal - 최신 글
+	@Override
+	public ArrayList<Map<String, Object>> normalNewPost(String member_id) {
+		return postMapper.normalNewPost(member_id);
+	}
+	//mypageNormal - 최신 댓글
+	@Override
+	public ArrayList<Map<String, Object>> normalNewReply(String memeber_id) {
+		return replyMapper.normalNewReply(memeber_id);
+	}
+	//mypageNormal - 최신 결제 내역
+	@Override
+	public ArrayList<Map<String, Object>> normalNewPayment(String member_id) {
+		return paymentMapper.normalNewPayment(member_id);
 	}
 }

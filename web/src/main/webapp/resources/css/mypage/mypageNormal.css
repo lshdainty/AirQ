@@ -8,7 +8,6 @@
 #memberInfo {
 	width:100%;
 	height:350px;
-	border:1px dotted black;
 }
 
 .infoTitle {
@@ -17,9 +16,64 @@
 	margin-bottom: 5px;
 }
 
+#newPost .infoTitle {
+	color: #4c7737;
+}
+
+#newPost thead {
+	background-color: rgba(76,119,55,0.2);
+}
+
+#newReply .infoTitle {
+	color: #ffbb42;
+}
+
+#newReply thead {
+	background-color: rgba(255,187,66,0.2);
+}
+
+#newPayment .infoTitle {
+	color: #e13c4c;
+}
+
+#newPayment thead {
+	background-color: rgba(255,60,76,0.2);
+}
+
+#reviewList .infoTitle {
+	color: #3f4bb8;
+}
+
+#newPayment thead {
+	background-color: rgba(255,60,76,0.2);
+}
+
 #memberInfoTbl {
 	width :100%;
 	height: 300px;
+}
+
+.reviewDiv {
+	width:47%;
+	height: 300px;
+	display: inline-block;
+}
+
+#newPost {
+	
+}
+
+#newReply {
+	float:right;
+}
+
+.reviewTbl {
+	width:100%;
+	height:250px;
+}
+
+.reviewTbl tbody tr{
+	border-bottom:1px solid #ddd;
 }
 
 #memberInfoTbl td {
@@ -37,31 +91,18 @@
 	border-top: 1px #D5D5D5 solid;
 }
 
-.reviewDiv {
-	width:47%;
-	height: 300px;
-	border:1px dotted black;
-	display: inline-block;
-}
-
-#newReply {
-	float:right;
-}
-
 #reviewList div {
 	display: inline-block;
 }
 
 #reviewList {
-	display: block;
-	width: 100%;
-	margin: auto;
-	border: 1px solid #ddd;
+	float: right;
+	overflow-y: scroll;
 }
 
 .compareThumb img {
-	width: 130px;
-    height: 130px;
+	width: 50px;
+    height: 50px;
 }
 
 .reviewTitle {
@@ -71,11 +112,13 @@
 
 .reviewInfo {
 	vertical-align: top;
-	width: 80%;
+	width: 70%;
 	padding-left: 3rem;
 }
 
 .reviewPost {
+	display: flex !important;
+	flex-wrap: wrap;
 	cursor:pointer;
 	width: 100%;
 	padding: 1rem;
@@ -84,16 +127,15 @@
 
 .reviewPrice {
 	vertical-align:top;
-	padding-top: 2rem;
+	margin: auto;
 	float: right;
 	font-weight: bold;
 	color: #3d59fc;
 }
 
 #reviewCategory {
-	margin-top: 1rem;
     width: 100%;
-    border-bottom: 1px solid #00275c;
+    border-bottom: 1px solid #747474;
     height: 2rem;
 }
 
@@ -108,16 +150,16 @@
     vertical-align: middle;
     padding: 0.2rem 0rem 0.2rem 1rem;
     border: 1px solid #ddd;
-    border-bottom: 1px solid #00275c;
+    border-bottom: 1px solid #747474;
     border-left: none;
     color: #929191;
 }
 
 .rOptionActive {
 	font-weight: bold;
-    border: 1px solid #00275c;
-    border-bottom: none;
+    border: 1px solid #747474;
+    border-bottom: 1px solid #fff;
     font-size: 1rem;
     color: #000;
-    background: #fff;
+    background: rgba(63,75,184,0.2);
 }

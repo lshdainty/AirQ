@@ -1,10 +1,12 @@
 package com.yjc.airq.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.yjc.airq.domain.Company_InfoVO;
+import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ProductVO;
@@ -34,6 +36,15 @@ public interface MypageService {
 	
 	//마이페이지 일반사용자 결제내역(별점안준거)
 	public ArrayList<PaymentVO> mypayNullT(@Param("member_id")String member_id);
+	
+	//일반 회원 - 회원 정보
+	public MemberVO memberInfo(String member_id);
+	//mypageNormal - 최신 글
+	public ArrayList<Map<String,Object>> normalNewPost(String member_id);
+	//mypageNormal - 최신 댓글
+	public ArrayList<Map<String,Object>> normalNewReply(String memeber_id);
+	//mypageNormal - 최신 결제 내역
+	public ArrayList<Map<String,Object>> normalNewPayment(String member_id);
 	
 	//마이페이지 관리자 글관리 - 글수정
 	public void deletePostsPost(@Param("post_code") String post_code);

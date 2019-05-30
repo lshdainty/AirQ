@@ -1,6 +1,7 @@
 package com.yjc.airq.mapper;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -36,5 +37,6 @@ public interface PaymentMapper {
 	// 입찰 신청 결제
 	public void tendering(PaymentVO paymentVo);
 	
-
+	//mypageNormal - 최신 결제 내역
+	public ArrayList<Map<String,Object>> normalNewPayment(String member_id);
 }

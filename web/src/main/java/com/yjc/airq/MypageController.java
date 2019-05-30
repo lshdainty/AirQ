@@ -211,6 +211,37 @@ public class MypageController {
 	public String mypageNormal(Model model) {
 		return "mypage/mypageNormal";
 	}
+	
+	@RequestMapping(value = "mypageNormalPage", method = RequestMethod.POST, produces="application/text; charset=utf8")
+	@ResponseBody
+	public String mypageNormalPage(HttpServletRequest request, HttpServletResponse response) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		
+		MemberVO memberInfo=mypageService.memberInfo(member_id);
+		ArrayList<ProductVO> reviewCompareList=mypageService.reviewCompareList(member_id);
+		ArrayList<Map<String, Object>> newPost=mypageService.normalNewPost(member_id);
+		ArrayList<Map<String, Object>> newReply=mypageService.normalNewReply(member_id);
+		ArrayList<Map<String, Object>> newPayment=mypageService.normalNewPayment(member_id);
+		
+		JSONArray reviewCompareArr=JSONArray.fromObject(reviewCompareList); 
+		JSONArray newPostArr=JSONArray.fromObject(newPost);
+		JSONArray newReplyArr=JSONArray.fromObject(newReply);
+		JSONArray newPaymentArr=JSONArray.fromObject(newPayment);
+		
+		Map<String, Object>map=new HashMap<String, Object>(); 
+		
+		map.put("memberInfo",memberInfo);
+		map.put("reviewCompareList", reviewCompareArr);
+		map.put("newPostList", newPostArr);
+		map.put("newReplyList", newReplyArr);
+		map.put("newPaymentList", newPaymentArr);
+		
+		JSONObject json=JSONObject.fromObject(map);
+		
+		String jsonString = json.toString();
+		
+		return jsonString;
+	}
 
 	// mypageNormalPosts 가기
 	@RequestMapping(value = "mypageNormalPosts", method = RequestMethod.GET)
@@ -676,14 +707,20 @@ public class MypageController {
 		map.put("reviewCompareList", reviewCompareArr);
 		map.put("reviewTenderList",reviewTenderArr);
 		JSONObject json=JSONObject.fromObject(map);
-		System.out.println(json);
 		String jsonString = json.toString();
 		
 		return jsonString;
 	}
 	
 	@RequestMapping(value="reviewWrite",method=RequestMethod.GET)
-	public String reviewWrite() {
+	public String reviewWrite(HttpServletRequest request) {
+		String code=request.getParameter("code");
+		String devision=code.substring(0,2);
+		
+		if(devision.equals("pd")) {
+			System.out.println(devision);
+		}
+		
 		return "mypage/mypageNormalReview";
 	}
 }

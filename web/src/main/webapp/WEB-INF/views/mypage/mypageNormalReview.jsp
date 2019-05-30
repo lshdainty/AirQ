@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/mypage/mypageNormalReview.css" />
+<script src='/resources/js/mypage/mypageNormalReview.js'></script>
 </head>
 <body>
 	<form id="reviewForm">
