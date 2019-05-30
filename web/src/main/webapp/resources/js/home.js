@@ -41,6 +41,32 @@ function measure(matter){
 			}
 			$(".measure-container").empty();
 			for(var i=0; i<data.result.length; i++){
+				var forecastColor,forecastStauts;
+				if (data.result[i].data >= data.dataGubun[0]) {
+					forecastStatus="최악";
+					forecastColor = "#BDBDBD";
+				}else if(data.result[i].data >= data.dataGubun[1]){
+					forecastStatus="매우 나쁨";
+					forecastColor = "#FFA7A7";
+				}else if(data.result[i].data >= data.dataGubun[2]){
+					forecastStatus="상당히 나쁨";
+					forecastColor = "#FFC19E";
+				}else if(data.result[i].data >= data.dataGubun[3]){
+					forecastStatus="나쁨";
+					forecastColor = "#FAED7D";
+				}else if(data.result[i].data >= data.dataGubun[4]){
+					forecastStatus="보통";
+					forecastColor = "#CEF279";
+				}else if(data.result[i].data >= data.dataGubun[5]){
+					forecastStatus="양호";
+					forecastColor = "#B2EBF4";
+				}else if(data.result[i].data >= data.dataGubun[6]){
+					forecastStatus="좋음";
+					forecastColor = "#B2CCFF";
+				}else {
+					forecastStatus="최고";
+					forecastColor = "#B5B2FF";
+				}
 				result += '<div class="city-forecast" id="'+data.result[i].ename+'">' +
 							'<div class="ng-star-inserted">' +
 								'<a class="city-forecast-link">' +
@@ -49,13 +75,13 @@ function measure(matter){
 											'<span class="kname">'+data.result[i].kname+'</span>' +
 										'</div>' +
 									'</div>' +
-									'<div class="city-forecast-body aqi-bg-light-yellow aqi-yellow" style="place-content: stretch space-between; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex; flex: 1 1 auto;">' +
+									'<div class="city-forecast-body" style="background:'+forecastColor+';place-content: stretch space-between; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex; flex: 1 1 auto;">' +
 										'<div style="place-content: stretch space-between; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex; flex: 1 1 0%;">' +
 											'<div class="aqi-container">' +
 												'<span class="aqi">'+data.result[i].data+'</span><span class="pollutant" fxlayoutalign="center center">'+unit+'</span>' +
 											'</div>' +
 											'<div style="flex-direction: column; box-sizing: border-box; display: flex; place-content: stretch space-between; align-items: stretch; flex: 1 1 124px; max-width: 124px; min-width: 124px; margin: auto">' +
-												'<span class="status"></span>' +
+												'<span class="status">'+forecastStatus+'</span>' +
 											'</div>' +
 										'</div>' +
 									'</div>' +
@@ -63,23 +89,6 @@ function measure(matter){
 							'</div>' +
 						'</div>';
 				$(".measure-container").append(result);
-				if (data.result[i].data >= data.dataGubun[0]) {
-					$(".status").text("최악");
-				}else if(data.result[i].data >= data.dataGubun[1]){
-					$(".status").text("매우 나쁨");
-				}else if(data.result[i].data >= data.dataGubun[2]){
-					$(".status").text("상당히 나쁨");
-				}else if(data.result[i].data >= data.dataGubun[3]){
-					$(".status").text("나쁨");
-				}else if(data.result[i].data >= data.dataGubun[4]){
-					$(".status").text("보통");
-				}else if(data.result[i].data >= data.dataGubun[5]){
-					$(".status").text("양호");
-				}else if(data.result[i].data >= data.dataGubun[6]){
-					$(".status").text("좋음");
-				}else {
-					$(".status").text("최고");
-				}
 				result = "";
 			}	
 		}
@@ -127,22 +136,22 @@ function measureDetail(area,matter){
 				series.name = "data";
 				series.columns.template.tooltipText = data.matter_code+" : [bold]{valueY}[/]" + data.unit;
 				series.columns.template.fillOpacity = 1;	//투명도
-				series.columns.template.fill = am4core.color("#0000FF");	//기본 색상
+				series.columns.template.fill = am4core.color("#B5B2FF");	//기본 색상
 				series.columns.template.adapter.add("fill", function(fill, target) {
 					if (target.dataItem.valueY >= data.dataGubun[0]) {
-						return am4core.color("#000000");
+						return am4core.color("#BDBDBD");
 					}else if(target.dataItem.valueY >= data.dataGubun[1]){
-						return am4core.color("#FF0000");
+						return am4core.color("#FFA7A7");
 					}else if(target.dataItem.valueY >= data.dataGubun[2]){
-						return am4core.color("#FF4000");
+						return am4core.color("#FFC19E");
 					}else if(target.dataItem.valueY >= data.dataGubun[3]){
-						return am4core.color("#FFBF00");
+						return am4core.color("#FAED7D");
 					}else if(target.dataItem.valueY >= data.dataGubun[4]){
-						return am4core.color("#00FF00");
+						return am4core.color("#CEF279");
 					}else if(target.dataItem.valueY >= data.dataGubun[5]){
-						return am4core.color("#00FFFF");
+						return am4core.color("#B2EBF4");
 					}else if(target.dataItem.valueY >= data.dataGubun[6]){
-						return am4core.color("#00BFFF");
+						return am4core.color("#B2CCFF");
 					}else {
 						return fill;
 					}

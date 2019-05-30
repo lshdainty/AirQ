@@ -11,6 +11,7 @@
     margin-bottom: 50px!important;
 }
 .measure-container{
+	display:flex;
 	text-align:center;
 	justify-content:space-between;
 }

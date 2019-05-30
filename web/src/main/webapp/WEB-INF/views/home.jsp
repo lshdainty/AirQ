@@ -9,18 +9,31 @@
 #content {
 	max-width: 100% !important;
 }
-
-.measure-container{
-	display: flex;
+.matter-box{
+	display:flex;
+	flex-wrap:wrap;
+}
+.matter-box ul{
+	display:flex;
+	flex-direction:column;
+	justify-content:space-around;
 	text-align:center;
-	margin: auto;
-	justify-content: space-around;
-	width: 60%;
+}
+.matter-box ul li{
+	padding:1rem;
+	background:#ddd;
+	font-weight:bold;
 }
 
+
 #chartdiv {
-  width: 100%;
+  width: 86%;
   height: 500px;
+}
+.areaBox{
+	text-align:center !important;
+	font-size:1.5rem;
+	padding-top:1.5rem !important;
 }
 </style>
 <!--  body content start  -->
@@ -57,13 +70,13 @@
 		</div>
 	</div>
 </section>
-<div>
+<div style="width:75%; margin:auto; max-width:900px">
 	<div class="measure-container"></div>
-	<div><span class="areaname"></span>의 <span class="mattername"></span>수치</div>
+	<div class="areaBox"><span class="areaname"></span>의 <span class="mattername"></span>수치</div>
+	<div style="display:flex;">
 	<div id="chartdiv"></div>
-</div>
-<div style="display:flex; flex-wrap:wrap;">
-	<ul style="float:right;text-align:right;width:100%;">
+	<div class="matter-box">
+	<ul>
 		<li class="matter" value="PM10">미세먼지</li>
 		<li class="matter" value="PM25">초미세먼지</li>
 		<li class="matter" value="NO2">이산화질소</li>
@@ -71,6 +84,8 @@
 		<li class="matter" value="CO">일산화탄소</li>
 		<li class="matter" value="SO2">아황산가스</li>
 	</ul>
+</div>
+	</div>
 </div>
 <span id="currentArea" style="display:none"></span>
 <!--  body content end  -->
