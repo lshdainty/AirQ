@@ -34,6 +34,7 @@
 			<exclude-mapping path="/resources/**" />
 			<exclude-mapping path="/" />
 			<exclude-mapping path="/homematterdata" />
+			<exclude-mapping path="/homematterdatadetail" />
 			<exclude-mapping path="/test/**" />
 			<exclude-mapping path="/loginMain" />
 			<exclude-mapping path="/login" />
