@@ -10,6 +10,7 @@ var swiper = new Swiper('.swiper-container', {
   effect: 'coverflow'
 });
 swiper.on('slideNextTransitionEnd', function () {
+  $("html, body").animate({ scrollTop: 0 }, 1);
   var slideActive = $('swiper-slide-active');
   console.log(slideActive.css('background',"black"));
   slidePage++;
@@ -18,29 +19,24 @@ swiper.on('slideNextTransitionEnd', function () {
   console.log(page);
 });
 swiper.on('slidePrevTransitionEnd', function () {
+  $("html, body").animate({ scrollTop: 0 }, 1);
   var slideActive = $('swiper-slide-active');
   console.log(slideActive);
   slidePage--
   page = 'compare';
   console.log(slidePage);
   console.log(page);
-});
-$('#comCatBtn').click(function (e) {
-  if (this.isSwipe(swipeThreshold) && e.cancelable) {
-    e.preventDefault();
-    e.stopPropagation();
-    swiping = true;
- }
-  swiper.slidePrev();
   
 });
+$('#comCatBtn').click(function (e) {
+
+  swiper.slidePrev();
+  $("html, body").animate({ scrollTop: 0 }, 1);
+});
 $('#tenCatBtn').click(function (e) {
-  if (this.isSwipe(swipeThreshold) && e.cancelable) {
-   e.preventDefault();
-   e.stopPropagation();
-   swiping = true;
-}
+
   swiper.slideNext();
+  $("html, body").animate({ scrollTop: 0 }, 1);
 });
 
 

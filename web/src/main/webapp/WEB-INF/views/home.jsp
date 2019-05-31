@@ -44,9 +44,6 @@
 		<div class="swiper-wrapper dark-overlay"
 			style="transition-duration: 0ms;">
 			<div
-				style="background-image: url(&quot;https://d19m59y37dris4.cloudfront.net/directory/1-2/img/photo/photo-1501621965065-c6e1cf6b53e2.jpg&quot;); width: 1903px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"
-				class="swiper-slide swiper-slide-prev"></div>
-			<div
 				style="background-image: url(&quot;https://d19m59y37dris4.cloudfront.net/directory/1-2/img/photo/photo-1519974719765-e6559eac2575.jpg&quot;); width: 1903px; opacity: 1; transform: translate3d(-1903px, 0px, 0px); transition-duration: 0ms;"
 				class="swiper-slide swiper-slide-active"></div>
 			<div

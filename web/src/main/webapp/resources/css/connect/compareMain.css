@@ -158,7 +158,7 @@
 .post-item:hover {
 	transition: 0.2s;
 	background: #e1f6ff;
-	transform:scale(1.2);
+	transform:scale(1.05);
 }
 .compare-thumb img {
 	width: 130px;
