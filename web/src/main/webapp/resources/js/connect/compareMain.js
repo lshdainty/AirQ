@@ -164,9 +164,9 @@ function ajax(idx,sort){
 				}
 				$(".pagination").empty();
 				$(".pagination").prepend(page);
-				$("html, body").animate({ scrollTop: 0 }, 1);
+				//$("html, body").animate({ scrollTop: 0 }, 1);
 			}	//else
-			pAnimation();
+			//pAnimation();
 		}	//success
 	});	//ajax
 }	//function
