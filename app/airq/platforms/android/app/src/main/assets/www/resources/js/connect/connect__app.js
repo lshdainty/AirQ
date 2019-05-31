@@ -43,8 +43,6 @@ $('#tenCatBtn').click(function (e) {
   swiper.slideNext();
 });
 
-
-
 $(function () {
   $('.cat-content').click(function () {
     $(".cat-active").removeClass("cat-active");

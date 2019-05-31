@@ -47,7 +47,6 @@ import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.ReplyVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
-import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.service.ConnectService;
 import com.yjc.airq.service.MypageService;
 import com.yjc.airq.service.UploadService;

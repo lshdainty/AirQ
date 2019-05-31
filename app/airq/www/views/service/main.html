@@ -1,125 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="../../../www/resources/css/bootstrap.css">
+    <style>
+        .main-wrapper {
+            justify-content: space-between;
+            width: 100%;
+            padding: 80px 0;
+            min-height: 100vh;
+            background: #fff;
+        }
+        .map-wrap {
+            width: 90%;
+            display: flex;
+            justify-content: space-around;
+            margin: auto;
+        }
+    
+        .map-container {
+            width: 100%;
+            height: 20rem;
+            border: 1px solid #000;
+        }
+    
+    
+        .matter_info {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            text-align: left;
+        }
+    
+        .matter_container {
+            background: #ddd;
+            border-radius: 1.5rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 45.5%;
+            padding: 0.3rem 1.5rem;
+            vertical-align: middle;
+            margin-top: 1.25rem;
+        }
+    
+        .matter_division {
+            clear: both;
+            height: 100%;
+            border-right: 2px solid #fff;
+        }
+    
+        .location_info {
+            margin: 1rem 0;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
     <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="../../../www/resources/js/cordova.js"></script>
     <script src="../../../www/resources/js/bootstrap.js"></script>
     <script src="../../../www/resources/js/home.js"></script>
 </head>
-
-<style>
-    .main-wrapper {
-        justify-content: space-between;
-        width: 100%;
-        padding: 80px 0;
-        min-height: 100vh;
-        background: #fff;
-    }
-    .map-wrap {
-        width: 80%;
-        display: flex;
-        justify-content: space-around;
-        margin: auto;
-    }
-
-    .map-container {
-        width: 100%;
-        height: 10rem;
-        border: 1px solid #000;
-    }
-
-
-    .matter_info {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        text-align: left;
-    }
-
-    .matter_container {
-        background: #ddd;
-        border-radius: 1.5rem;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 45.5%;
-        padding: 0.3rem 1.5rem;
-        vertical-align: middle;
-        margin-top: 1.25rem;
-    }
-
-    .matter_division {
-        clear: both;
-        height: 100%;
-        border-right: 2px solid #fff;
-    }
-
-    .location_info {
-        margin: 1rem 0;
-        display: block;
-        width: 100%;
-        text-align: center;
-    }
-</style>
-
 <body>
     <div id="header"></div>
     <div class="main-wrapper">
         <div class="location_info"> 대구광역시 북구 복현동</div>
         <div class="map-wrap">
-            <div class="map-container"></div>
+            <div id="map" class="map-container"></div>
         </div>
         <div class="matter_info">
-            <div class="matter_container">
-                <div class="matter_title">미세먼지</div>
-                <span class="matter_division"></span>
-                <div class="matter_value"><span class="mesure_value">10</span><span class="mesure_numerical">
-                        µg/m³</span></div>
-            </div>
-            <div class="matter_container">
-                <div class="matter_title">미세먼지</div>
-                <div class="matter_value"><span class="mesure_value">10</span><span class="mesure_numerical">
-                        µg/m³</span></div>
-            </div>
-            <div class="matter_container">
-                <div class="matter_title">미세먼지</div>
-                <div class="matter_value"><span class="mesure_value">10</span><span class="mesure_numerical">
-                        µg/m³</span></div>
-            </div>
-            <div class="matter_container">
-                <div class="matter_title">미세먼지</div>
-                <div class="matter_value"><span class="mesure_value">10</span><span class="mesure_numerical">
-                        µg/m³</span></div>
-            </div>
-            <div class="matter_container">
-                <div class="matter_title">미세먼지</div>
-                <div class="matter_value"><span class="mesure_value">10</span><span class="mesure_numerical">
-                        µg/m³</span></div>
-            </div>
-            <div class="matter_container">
-                <div class="matter_title">미세먼지</div>
-                <div class="matter_value"><span class="mesure_value">10</span><span class="mesure_numerical">
-                        µg/m³</span></div>
-            </div>
-            <div class="matter_container">
-                <div class="matter_title">미세먼지</div>
-                <div class="matter_value"><span class="mesure_value">10</span><span class="mesure_numerical">
-                        µg/m³</span></div>
-            </div>
-            <div class="matter_container">
-                <div class="matter_title">미세먼지</div>
-                <div class="matter_value"><span class="mesure_value">10</span><span class="mesure_numerical">
-                        µg/m³</span></div>
-            </div>
         </div>
     </div>
     <div id="footer"></div>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tpllhjh4tl&submodules=geocoder"></script>
+    <script type="text/javascript" src="https://navermaps.github.io/maps.js.ncp/docs/js/MarkerClustering.js"></script>
+    <script src="../../../www/resources/js/service/main.js"></script>
 </body>
-
 </html>

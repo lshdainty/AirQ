@@ -75,7 +75,7 @@ function measure(matter){
 											'<span class="kname">'+data.result[i].kname+'</span>' +
 										'</div>' +
 									'</div>' +
-									'<div class="city-forecast-body" style="background:'+forecastColor+';place-content: stretch space-between; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex; flex: 1 1 auto;">' +
+									'<div class="city-forecast-body" style="background:'+forecastColor+'; place-content: stretch space-between; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex; flex: 1 1 auto;">' +
 										'<div style="place-content: stretch space-between; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex; flex: 1 1 0%;">' +
 											'<div class="aqi-container">' +
 												'<span class="aqi">'+data.result[i].data+'</span><span class="pollutant" fxlayoutalign="center center">'+unit+'</span>' +

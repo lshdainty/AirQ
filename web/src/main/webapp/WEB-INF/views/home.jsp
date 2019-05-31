@@ -24,8 +24,6 @@
 	background:#ddd;
 	font-weight:bold;
 }
-
-
 #chartdiv {
   width: 86%;
   height: 500px;

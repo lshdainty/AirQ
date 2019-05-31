@@ -1,0 +1,57 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-fcm-with-dependecy-updated": {
+      "PACKAGE_NAME": "com.yjc.airq"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.yjc.airq"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "com.yjc.airq"
+    },
+    "cordova-plugin-permission": {
+      "PACKAGE_NAME": "com.yjc.airq"
+    },
+    "cordova.plugins.diagnostic": {
+      "PACKAGE_NAME": "com.yjc.airq"
+    }
+  },
+  "dependent_plugins": {},
+  "modules": [
+    {
+      "file": "plugins/cordova-plugin-fcm-with-dependecy-updated/www/FCMPlugin.js",
+      "id": "cordova-plugin-fcm-with-dependecy-updated.FCMPlugin",
+      "pluginId": "cordova-plugin-fcm-with-dependecy-updated",
+      "clobbers": [
+        "FCMPlugin"
+      ]
+    },
+    {
+      "file": "plugins/cordova-plugin-permission/www/index.js",
+      "id": "cordova-plugin-permission.Permission",
+      "pluginId": "cordova-plugin-permission",
+      "clobbers": [
+        "window.plugins.Permission"
+      ]
+    },
+    {
+      "file": "plugins/cordova-plugin-permission/tests/index.spec.js",
+      "id": "cordova-plugin-permission.tests",
+      "pluginId": "cordova-plugin-permission"
+    }
+  ],
+  "plugin_metadata": {
+    "cordova-plugin-fcm-with-dependecy-updated": "2.4.0",
+    "cordova-plugin-whitelist": "1.3.3",
+    "cordova-plugin-geolocation": "4.0.1",
+    "cordova-plugin-permission": "0.1.0",
+    "cordova.plugins.diagnostic": "4.0.12"
+  }
+}
