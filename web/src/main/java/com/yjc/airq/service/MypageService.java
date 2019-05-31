@@ -1,10 +1,12 @@
 package com.yjc.airq.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.yjc.airq.domain.Company_InfoVO;
+import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.PostVO;
 import com.yjc.airq.domain.ProductVO;
@@ -34,6 +36,15 @@ public interface MypageService {
 	
 	//마이페이지 일반사용자 결제내역(별점안준거)
 	public ArrayList<PaymentVO> mypayNullT(@Param("member_id")String member_id);
+	
+	//일반 회원 - 회원 정보
+	public MemberVO memberInfo(String member_id);
+	//mypageNormal - 최신 글
+	public ArrayList<Map<String,Object>> normalNewPost(String member_id);
+	//mypageNormal - 최신 댓글
+	public ArrayList<Map<String,Object>> normalNewReply(String memeber_id);
+	//mypageNormal - 최신 결제 내역
+	public ArrayList<Map<String,Object>> normalNewPayment(String member_id);
 	
 	//마이페이지 관리자 글관리 - 글수정
 	public void deletePostsPost(@Param("post_code") String post_code);
@@ -109,4 +120,24 @@ public interface MypageService {
 	// 리뷰 안 한 목록 리스트
 	public ArrayList<ProductVO> reviewCompareList(String member_id);
 	public ArrayList<TenderVO> reviewTenderList(String member_id);
+	
+	//주문에 대한 상품 코드
+	public String dProduct_code(@Param("demand_code") String demand_code, @Param("member_id") String member_id);
+	
+	//상품에 대한 리뷰 insert
+	public void pReviewInsert(ReplyVO replyVo);
+	
+	//입찰에 대한 리뷰 insert
+	public void tReviewInsert(ReplyVO replyVo);
+	
+	//상품에 대한 별점 update
+	public void pStarScoreupdate(@Param("star_score")int star_score, @Param("demand_code")String demand_code);
+	
+	//입찰에 대한 별점 update
+	public void tStarScoreupdate(@Param("star_score")int star_score, @Param("tender_code")String tender_code);
+	
+	//입찰된 투찰의 사업자번호
+	public String tBidCompayCode(String tender_code);
+	
+	
 }

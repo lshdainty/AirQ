@@ -103,5 +103,33 @@
 		insert into payment(payment_code,payment_price,tender_code,payment_date) values(#{payment_code},${payment_price},#{tender_code},systimestamp)
 	</insert>
 	
+	<!-- mypageNormal - 최신 결제 내역 -->
+	<select id="normalNewPayment" resultType="map">
+		select rownum, o.*, case when o.code like 'td%' then '입/투찰 서비스'
+                        		 when o.code like 'pd%' then '업체연결 서비스'
+                       		     end as devision
+		from (select t.tender_code as code, t.tender_title as title, b.bid_price as price, to_char(p.payment_date,'yyyy-MM-dd hh24:mi') as p_date, p.payment_code
+     		  from tender t, bid b, payment p
+      		  where t.tender_code=b.tender_code and b.win_bid_whether='y' and member_id=#{member_id} and t.tender_code=p.tender_code
+      		  union all
+      		  select p.product_code as code, p.product_name as title, p.product_price as price, to_char(p.payment_date,'yyyy-MM-dd hh24:mi') as p_date, p.payment_code
+      		  from product p,demand d, payment p
+      		  where p.product_code=d.product_code and d.member_id=#{member_id} and d.demand_code=p.demand_code
+      		  order by p_date desc) o
+		where <![CDATA[rownum <= 5]]>
+	</select>
 	
+	<!-- 상품에 대한 별점 update -->
+	<update id="pStarScoreupdate">
+		update payment
+		set star_score=${star_score}
+		where demand_code=#{demand_code}
+	</update>
+	
+	<!-- 입찰에 대한 별점 update -->
+	<update id="tStarScoreupdate">
+		update payment
+		set star_score=${star_score}
+		where tender_code=#{tender_code}
+	</update>
 </mapper>

@@ -32,4 +32,7 @@ public class TenderVO {
 	private String tcreationdate;
 	
 	private String report_count;
+	
+	
+	private int payment_price;
 }

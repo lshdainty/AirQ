@@ -17,4 +17,11 @@
 		and d.product_code = #{product_code}
 		and d.member_id = #{member_id}
 	</select>
+	
+	<!-- 주문에 대한 상품 코드 -->
+	<select id="dProduct_code" resultType="String">
+		select product_code
+		from demand
+		where demand_code=#{demand_code} and member_id=#{member_id}
+	</select>
 </mapper>
