@@ -2,66 +2,6 @@
 //var member_id = sessionStorage.getItem("member_id");
 var member_id = "test";
 
-//페이지 들어왔을때 상품리스트 가져오기
-$(function(){
-	var query = {
-		member_id : member_id
-	}
-	$.ajax({
-		type: "get",
-		url: ip+"/m.compareMain",
-		data : query,
-		async: false,
-		dataType: 'json',
-		success: function(data) {
-			console.log(data);
-			var recommend = "";
-			var content = "";
-			var page = "";
-			$(".pCount").text(data.criteria.totalcount);
-			for(var i=0; i<data.recommend.length; i++){
-				recommend+= '<div class="smart-post">' + 
-											'<div class="post-thumb">' + 
-												'<img src="../../../www/resources/images/800490.png" alt="">' + 
-            					'</div>' + 
-            					'<div class="post-explain">' + 
-            						'<div class="post-title">'+data.recommend[i].product_name+'</div>' + 
-              					'<div class="post-content">'+"판매수:"+data.recommend[i].sellnum+", 만족도 평균:"+data.recommend[i].staravg+'</div>' + 
-              					'<div class="post-price">'+data.recommend[i].product_price+"원"+'</div>' + 
-            					'</div>' + 
-          					'</div>';
-			}
-			$(".smart-posts").append(recommend);
-			for(var i=0; i<data.pList.length; i++){
-				content+= '<div class="connect-post">' + 
-										'<div class="post-thumb">' + 
-											'<img src="../../../www/resources/images/800490.png" alt="">' + 
-            				'</div>' + 
-            				'<div class="post-explain">' + 
-            					'<div class="post-title">'+data.pList[i].product_name+'</div>' + 
-              				'<div class="post-content">'+"판매수:"+data.pList[i].sellnum+", 만족도 평균:"+data.pList[i].staravg+'</div>' + 
-              				'<div class="post-price">'+data.pList[i].product_price+"원"+'</div>' + 
-            				'</div>' + 
-          				'</div>';
-			}
-			$("#comparePosts").append(content);
-			if(data.criteria.prev){
-				page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.startPage-1)+');" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'
-			}
-			for(var i=data.criteria.startPage; i<=data.criteria.endPage; i++){
-				page += '<li class="page-item"><a class="page-link" href="javascript:page('+i+');">'+i+'</a></li>'
-			}
-			if(data.criteria.next){
-				page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.endPage+1)+');" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'
-			}
-			$(".pagination").empty();
-			$(".pagination").prepend(page);
-			$("html, body").animate({ scrollTop: 0 }, 1);
-		},
-		error: function(xhr, stat, err) {}
-	});
-});
-
 //광역시/도 목록 가져오기
 $.ajax({
 	type: "get",
@@ -201,13 +141,13 @@ function ajax(idx,sort){
 				$("#comparePosts").empty();
 				$("#comparePosts").append(content);
 				if(data.criteria.prev){
-					page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.startPage-1)+');" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'
+					page += '<li class="page-item"><a class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'
 				}
 				for(var i=data.criteria.startPage; i<=data.criteria.endPage; i++){
-					page += '<li class="page-item"><a class="page-link" href="javascript:page('+i+');">'+i+'</a></li>'
+					page += '<li class="page-item"><a class="page-link">'+i+'</a></li>'
 				}
 				if(data.criteria.next){
-					page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.endPage+1)+');" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'
+					page += '<li class="page-item"><a class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'
 				}
 				$(".pagination").empty();
 				$(".pagination").prepend(page);
@@ -217,7 +157,10 @@ function ajax(idx,sort){
 	});	//ajax
 }	//function
 //ajax 함수 끝
-
+$(document).on('click','.page-item',function(){
+	var pageNum = ($(this).text());
+	ajax(pageNum,sortdata());
+});
 //추천 상품 클릭시 상품 상세페이지 시작
 $(".compare-recommand__post").click(function(){
 	var product_code = $(this).attr("id");
@@ -237,3 +180,65 @@ $("#productWrite").click(function(){
 	//window.location.href="/productWrite";
 });
 //상품 등록페이지 끝
+
+
+
+//페이지 들어왔을때 상품리스트 가져오기
+$(function(){
+	var query = {
+		member_id : member_id
+	}
+	$.ajax({
+		type: "get",
+		url: ip+"/m.compareMain",
+		data : query,
+		async: false,
+		dataType: 'json',
+		success: function(data) {
+			console.log(data);
+			var recommend = "";
+			var content = "";
+			var page = "";
+			$(".pCount").text(data.criteria.totalcount);
+			for(var i=0; i<data.recommend.length; i++){
+				recommend+= '<div class="smart-post">' + 
+											'<div class="post-thumb">' + 
+												'<img src="../../../www/resources/images/800490.png" alt="">' + 
+            					'</div>' + 
+            					'<div class="post-explain">' + 
+            						'<div class="post-title">'+data.recommend[i].product_name+'</div>' + 
+              					'<div class="post-content">'+"판매수:"+data.recommend[i].sellnum+", 만족도 평균:"+data.recommend[i].staravg+'</div>' + 
+              					'<div class="post-price">'+data.recommend[i].product_price+"원"+'</div>' + 
+            					'</div>' + 
+          					'</div>';
+			}
+			$(".smart-posts").append(recommend);
+			for(var i=0; i<data.pList.length; i++){
+				content+= '<div class="connect-post">' + 
+										'<div class="post-thumb">' + 
+											'<img src="../../../www/resources/images/800490.png" alt="">' + 
+            				'</div>' + 
+            				'<div class="post-explain">' + 
+            					'<div class="post-title">'+data.pList[i].product_name+'</div>' + 
+              				'<div class="post-content">'+"판매수:"+data.pList[i].sellnum+", 만족도 평균:"+data.pList[i].staravg+'</div>' + 
+              				'<div class="post-price">'+data.pList[i].product_price+"원"+'</div>' + 
+            				'</div>' + 
+          				'</div>';
+			}
+			$("#comparePosts").append(content);
+			if(data.criteria.prev){
+				page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.startPage-1)+');" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'
+			}
+			for(var i=data.criteria.startPage; i<=data.criteria.endPage; i++){
+				page += '<li class="page-item"><a class="page-link" href="javascript:page('+i+');">'+i+'</a></li>'
+			}
+			if(data.criteria.next){
+				page += '<li class="page-item"><a class="page-link" href="javascript:page('+(data.criteria.endPage+1)+');" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'
+			}
+			$(".pagination").empty();
+			$(".pagination").prepend(page);
+			$("html, body").animate({ scrollTop: 0 }, 1);
+		},
+		error: function(xhr, stat, err) {}
+	});
+});

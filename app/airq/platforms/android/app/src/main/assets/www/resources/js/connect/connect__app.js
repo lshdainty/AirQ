@@ -1,3 +1,4 @@
+
 var page = 'connect';
 var slidePage = 0;
 var slideCategory = ['connect', 'tender'];
@@ -9,21 +10,36 @@ var swiper = new Swiper('.swiper-container', {
   effect: 'coverflow'
 });
 swiper.on('slideNextTransitionEnd', function () {
+  var slideActive = $('swiper-slide-active');
+  console.log(slideActive.css('background',"black"));
   slidePage++;
   page = 'tender';
   console.log(slidePage);
   console.log(page);
 });
 swiper.on('slidePrevTransitionEnd', function () {
+  var slideActive = $('swiper-slide-active');
+  console.log(slideActive);
   slidePage--
   page = 'compare';
   console.log(slidePage);
   console.log(page);
 });
-$('#comCatBtn').click(function () {
+$('#comCatBtn').click(function (e) {
+  if (this.isSwipe(swipeThreshold) && e.cancelable) {
+    e.preventDefault();
+    e.stopPropagation();
+    swiping = true;
+ }
   swiper.slidePrev();
+  
 });
-$('#tenCatBtn').click(function () {
+$('#tenCatBtn').click(function (e) {
+  if (this.isSwipe(swipeThreshold) && e.cancelable) {
+   e.preventDefault();
+   e.stopPropagation();
+   swiping = true;
+}
   swiper.slideNext();
 });
 
