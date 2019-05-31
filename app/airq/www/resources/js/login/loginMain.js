@@ -106,7 +106,7 @@ $(document).ready(function () {
 						sessionStorage.setItem("user",JSON.stringify(data.userInfo));
 					}
 				}
-				window.location.href= "../../../www/views/community/thumbnailBoardMain.html?board_code=bd_rec";
+				window.location.href= "../../../www/views/service/main.html";
 			}
 		}) // ajax 로그인 버튼 끝
 	});
