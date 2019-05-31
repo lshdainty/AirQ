@@ -55,7 +55,7 @@ $(function () {
     });
   });
   $(function () {
-    $('.post-detailBtn').click(function () {
+    $('.connect-post').click(function () {
       var selectPost = $($(this).parent().parent().find('.post-detail'));
       selectPost.animate({
         opacity: "toggle",

@@ -107,14 +107,14 @@ $(document).ready(function () {
 	//패스워드에 커서를 두고 엔터키를 누르면 로그인 함
 	$("#PASS").keydown(function (key) {
 		if (key.keyCode == 13) {
-			$("#logintest").click();
+			$(".login__btn").click();
 		}
 	});
 
 	//아이디에 커서를 두고 엔터키를 누르면 로그인 함
 	$("#ID").keydown(function (key) {
 		if (key.keyCode == 13) {
-			$("#logintest").click();
+			$(".login__btn").click();
 		}
 	});
 

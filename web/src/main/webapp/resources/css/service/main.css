@@ -30,6 +30,7 @@
     max-width: 18rem;
 }
 .city-forecast{
+	cursor:pointer;
 	display:inline-block !important;
 	padding: 2rem 1rem 0rem 1rem;
     flex-direction: row; 

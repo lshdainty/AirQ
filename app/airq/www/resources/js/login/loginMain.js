@@ -105,22 +105,27 @@ $(document).ready(function () {
 					else{
 						sessionStorage.setItem("user",JSON.stringify(data.userInfo));
 					}
-				}
 				window.location.href= "../../../www/views/service/main.html";
+				}
+				else{
+					$('.member-input__state').addClass('member-input__state--wrong');
+					$('.member-input-wrong-message').css("display","inherit");
+					$('.member-input-wrong-message').text('Account ID and Password do not match. Please try again.');
+				}
 			}
 		}) // ajax 로그인 버튼 끝
 	});
 	//패스워드에 커서를 두고 엔터키를 누르면 로그인 함
-	$("#pw").keydown(function (key) {
+	$("#PASS").keydown(function (key) {
 		if (key.keyCode == 13) {
-			$("#logintest").click();
+			$(".login__btn").click();
 		}
 	});
 
 	//아이디에 커서를 두고 엔터키를 누르면 로그인 함
-	$("#id").keydown(function (key) {
+	$("#ID").keydown(function (key) {
 		if (key.keyCode == 13) {
-			$("#logintest").click();
+			$(".login__btn").click();
 		}
 	});
 
