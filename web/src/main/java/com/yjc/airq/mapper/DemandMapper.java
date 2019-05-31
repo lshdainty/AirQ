@@ -13,4 +13,7 @@ public interface DemandMapper {
 	
 	// 사용자가 상품을 구매했는지 확인
 	public int checkPayment(@Param("member_id") String member_id,@Param("product_code") String product_code);
+	
+	//주문에 대한 상품 코드
+	public String dProduct_code(@Param("demand_code") String demand_code, @Param("member_id") String member_id);
 }

@@ -33,5 +33,10 @@ public interface ReplyMapper {
 
 	//mypageNormal - 최신 댓글
 	public ArrayList<Map<String,Object>> normalNewReply(String memeber_id);
-
+	
+	//상품에 대한 리뷰 insert
+	public void pReviewInsert(ReplyVO replyVo);
+	
+	//입찰에 대한 리뷰 insert
+	public void tReviewInsert(ReplyVO replyVo);
 }

@@ -114,4 +114,14 @@
      	where <![CDATA[rownum <= 5]]>
 	    and p.board_code=b.board_code and r.post_code=p.post_code
 	</select>
+	
+	<!-- 상품에 대한 리뷰 insert -->
+	<insert id="pReviewInsert" parameterType="com.yjc.airq.domain.ReplyVO">
+		insert into reply(reply_code,reply_content,r_creation_date,member_id,product_code) values(#{reply_code},#{reply_content},systimestamp,#{member_id},#{product_code})
+	</insert>
+	
+	<!-- 입찰에 대한 리뷰 insert -->
+	<insert id="tReviewInsert" parameterType="com.yjc.airq.domain.ReplyVO">
+		insert into reply(reply_code,reply_content,r_creation_date,member_id,company_code) values(#{reply_code},#{reply_content},systimestamp,#{member_id},#{company_code})
+	</insert>
 </mapper>

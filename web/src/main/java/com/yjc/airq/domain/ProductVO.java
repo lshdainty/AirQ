@@ -25,4 +25,6 @@ public class ProductVO {
 	private String member_id;
 	
 	private String d_service_date;
+	
+	private String demand_code;
 }

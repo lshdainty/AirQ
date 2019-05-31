@@ -246,7 +246,7 @@
 
 	<!-- 리뷰 안한 목록 리스트 -->
 	<select id="reviewCompareList" resultType="com.yjc.airq.domain.ProductVO">
-		select t.product_code,t.product_name,t.product_price, t.p_space, t.measure_point, p.star_score, d.member_id, to_char(d.d_service_date,'yyyy-MM-dd hh24:mi') d_service_date
+		select t.product_code,t.product_name,t.product_price, t.p_space, t.measure_point, p.star_score, d.member_id, to_char(d.d_service_date,'yyyy-MM-dd hh24:mi') d_service_date, d.demand_code
 		from payment p,demand d,product t
 		where sysdate>=d.d_service_date and p.demand_code=d.demand_code and d.product_code=t.product_code and p.refund_whether='n' and p.star_score is null and d.member_id=#{member_id}
 		order by payment_date

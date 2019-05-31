@@ -57,7 +57,7 @@
 			$("#newPaymentTbl").append(newPayment);
 			
 			for(var i=0;i<data.reviewCompareList.length;i++){
-				reviewList+='<div class="reviewPost" id="'+data.reviewCompareList[i].product_code+'">'
+				reviewList+='<div class="reviewPost" id="'+data.reviewCompareList[i].demand_code+'">'
 						+'<div class="compareThumb">'
 							+'<img src="resources/images/800490.png" alt="이미지">'
 						+'</div>'
@@ -116,7 +116,7 @@ $(document).ready(function(){
 				}
 				}else {
 					for(var i=0;i<data.reviewCompareList.length;i++){
-						html+='<div class="reviewPost" id="'+data.reviewCompareList[i].product_code+'">'
+						html+='<div class="reviewPost" id="'+data.reviewCompareList[i].demand_code+'">'
 								+'<div class="compareThumb">'
 									+'<img src="resources/images/800490.png" alt="이미지">'
 								+'</div>'

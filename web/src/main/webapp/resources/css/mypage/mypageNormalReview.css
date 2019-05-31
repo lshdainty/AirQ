@@ -21,7 +21,7 @@
    color:rgba(24,149,215,1);
 }
 
-#reportButton{
+#reviewButton{
   width:28%;
   height:30px;
   border-radius:3px;
@@ -33,7 +33,7 @@
   font-size: 12pt;
 }
 
-#reportButton:hover{
+#reviewButton:hover{
   background:#80b438;
   
 }

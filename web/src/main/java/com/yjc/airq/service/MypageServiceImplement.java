@@ -14,14 +14,16 @@ import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.ReplyVO;
 import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
+import com.yjc.airq.mapper.BidMapper;
 import com.yjc.airq.mapper.CompanyMapper;
+import com.yjc.airq.mapper.DemandMapper;
 import com.yjc.airq.mapper.MemberMapper;
 import com.yjc.airq.mapper.PaymentMapper;
 import com.yjc.airq.mapper.PostMapper;
 import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.mapper.ReplyMapper;
-import com.yjc.airq.mapper.TenderMapper;
 import com.yjc.airq.mapper.ReportMapper;
+import com.yjc.airq.mapper.TenderMapper;
 
 import lombok.AllArgsConstructor;
 
@@ -36,6 +38,8 @@ public class MypageServiceImplement implements MypageService{
 	private ReplyMapper replyMapper;
 	private TenderMapper tenderMapper;
 	private ReportMapper reportMapper;
+	private DemandMapper demandMapper;
+	private BidMapper bidMapper;
 	
 	@Override
 	public ArrayList<Company_InfoVO> c_code( String member_id) {
@@ -249,5 +253,41 @@ public class MypageServiceImplement implements MypageService{
 	@Override
 	public ArrayList<Map<String, Object>> normalNewPayment(String member_id) {
 		return paymentMapper.normalNewPayment(member_id);
+	}
+	
+	//주문에 대한 상품 코드
+	@Override
+	public String dProduct_code(String demand_code, String member_id) {
+		return demandMapper.dProduct_code(demand_code, member_id);
+	}
+	
+	//상품에 대한 리뷰 insert
+	@Override
+	public void pReviewInsert(ReplyVO replyVo) {
+		replyMapper.pReviewInsert(replyVo);
+	}
+	
+	//입찰에 대한 리뷰 insert
+	@Override
+	public void tReviewInsert(ReplyVO replyVo) {
+		replyMapper.tReviewInsert(replyVo);
+	}
+	
+	//상품에 대한 별점 update
+	@Override
+	public void pStarScoreupdate(int star_score, String demand_code) {
+		paymentMapper.pStarScoreupdate(star_score, demand_code);
+	}
+	
+	//입찰에 대한 별점 update
+	@Override
+	public void tStarScoreupdate(int star_score, String tender_code) {
+		paymentMapper.tStarScoreupdate(star_score, tender_code);
+	}
+	
+	//입찰된 투찰의 사업자번호
+	@Override
+	public String tBidCompayCode(String tender_code) {
+		return bidMapper.tBidCompayCode(tender_code);
 	}
 }

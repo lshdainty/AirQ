@@ -6,10 +6,12 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/mypage/mypageNormalReview.css" />
-<script src='/resources/js/mypage/mypageNormalReview.js'></script>
+	<script src="/resources/js/include/jquery-3.3.1.min.js"></script>
+
 </head>
 <body>
-	<form id="reviewForm">
+	<input type="text" id="code" name="code" value="${code }">
+	<div id="reviewForm">
 		<h3 id="reviewTitle">Review</h3>
 		<textarea placeholder="Review Content" id="reviewContent"></textarea>
 		<select id="reviewStar">
@@ -25,7 +27,8 @@
 			<option value="1">1점 - ★☆☆☆☆☆☆☆☆☆</option>
 			<option value="0">0점 - ☆☆☆☆☆☆☆☆☆☆</option>
 		</select>
-		<button id="reportButton">리뷰등록하기</button>
-	</form>
+		<button id="reviewButton">리뷰등록하기</button>
+	</div>
+	<script src='/resources/js/mypage/mypageNormalReview.js'></script>
 </body>
 </html>
