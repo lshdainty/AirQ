@@ -41,4 +41,7 @@ public interface BidMapper {
 	public void win_bid_whether(@Param("tender_code") String tender_code, @Param("company_code") String company_code);
 
 	public int tenderBid(@Param("tender_code") String tender_code, @Param("member_id") String member_id);
+	
+	//입찰된 투찰의 사업자번호
+	public String tBidCompayCode(String tender_code);
 }

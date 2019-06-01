@@ -1,0 +1,27 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-fcm-with-dependecy-updated": {
+      "PACKAGE_NAME": "com.yjc.airq"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.yjc.airq"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "com.yjc.airq"
+    },
+    "cordova-plugin-permission": {
+      "PACKAGE_NAME": "com.yjc.airq"
+    },
+    "cordova.plugins.diagnostic": {
+      "PACKAGE_NAME": "com.yjc.airq"
+    }
+  },
+  "dependent_plugins": {}
+}

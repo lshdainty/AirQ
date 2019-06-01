@@ -21,7 +21,6 @@ $.ajax({
 	async: false,
 	dataType: 'json',
 	success: function(data) {
-		console.log(data);
 		var html = "<option value='측정 물질'>측정 물질</option>";
 	
 		for(var i=0;i<data.matterList.length;i++){ 
@@ -86,6 +85,12 @@ $("#space").change(function(){
 });
 //평수 선택 끝
 
+//물질 선택 시작
+$("#matter").change(function(){
+	ajax(1,sortdata());
+});
+//물질 선택 끝
+
 //paging 시작
 function page(idx){
 	ajax(idx,sortdata());
@@ -98,6 +103,7 @@ function ajax(idx,sort){
 		sido : $("#sido_code option:selected").val(),
 		sigoon : $("#sigoon_code option:selected").val(),
 		space : $("#space option:selected").val(),
+		matter : $("#matter option:selected").val(),
 		sort : sort
 	}
 	$.ajax({
@@ -128,7 +134,7 @@ function ajax(idx,sort){
 						case 11: space="101평~"; break;
 					}
 					result += '<div class="compare-post post-item" id="'+data.pList[i].product_code+'">';
-					result += '<div class="compare-thumb"><img src="'+"resources/images/800490.png"+'" alt="이미지X"></div>'
+					result += '<div class="compare-thumb"><img src="'+"/resources/uploadFile/images/"+data.pList[i].file_name+'" alt="이미지X"></div>'
 					result += '<div class="compare-info"><div class="compare__title"><span>'+data.pList[i].product_name+'</span></div>'
 					result += '<div class="compare__content">측정 적절 평수 : <span>'+space+'</span><br/>';
 					result += '측정 지점 : <span>'+data.pList[i].measure_point+'</span><br/>';
@@ -158,9 +164,9 @@ function ajax(idx,sort){
 				}
 				$(".pagination").empty();
 				$(".pagination").prepend(page);
-				$("html, body").animate({ scrollTop: 0 }, 1);
+				//$("html, body").animate({ scrollTop: 0 }, 1);
 			}	//else
-			pAnimation();
+			//pAnimation();
 		}	//success
 	});	//ajax
 }	//function

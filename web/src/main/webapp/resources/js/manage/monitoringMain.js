@@ -27,8 +27,6 @@
 //	    anchor: N.Point(20, 20)
 //	};
 //
-////gps를 사용하여 좌표값 가져오기     
-////Geolocation API에 액세스할 수 있는지를 확인
 //if (navigator.geolocation) {
 //	//위치 정보를 얻기
 //	navigator.geolocation.getCurrentPosition (function(pos) {
@@ -168,6 +166,7 @@ var map = new naver.maps.Map('map', mapOptions);
 //2. HTML 마커
 //JSON 데이터부분
 var marker_position = test;
+console.log(marker_position.result.length);
 
 var htmlMarkers = [];
 

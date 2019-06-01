@@ -34,4 +34,7 @@ public interface MemberMapper {
 	
 	//마이페이지 회원탈퇴
 	public void deleteSelf(@Param("member_id")String member_id, @Param("member_pw")String member_pw);
+
+	//회원 정보
+	public MemberVO memberInfo(String member_id);
 }

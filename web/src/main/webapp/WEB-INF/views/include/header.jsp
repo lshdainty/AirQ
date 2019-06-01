@@ -31,8 +31,7 @@
                         src="https://d19m59y37dris4.cloudfront.net/directory/1-2/img/logo.svg" alt="Directory logo"></a>
             </div>
             <button type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
-                aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right"><i
-                    class="fa fa-bars"></i></button>
+                aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button>
             <!-- Navbar Collapse -->
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">

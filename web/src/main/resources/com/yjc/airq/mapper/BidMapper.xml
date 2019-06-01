@@ -122,4 +122,11 @@
 		from bid b,company_info c
 		where b.company_code=c.company_code and b.tender_code=#{tender_code} and c.member_id=#{member_id}
 	</select>
+	
+	<!-- 입찰된 투찰의 사업자번호 -->
+	<select id="tBidCompayCode" resultType="String">
+		select company_code
+		from bid
+		where tender_code=#{tender_code} and win_bid_whether='y'
+	</select>
 </mapper>

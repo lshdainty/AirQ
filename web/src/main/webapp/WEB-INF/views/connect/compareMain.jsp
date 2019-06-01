@@ -20,7 +20,7 @@
                 <div class="compare-recommand__post" id="${recommend.product_code}">
                     <!-- post thumbnail -->
                     <div class="recommanded-thumbnail">
-                        <img src="resources/images/800490.png" alt="이미지X">
+                        <img src="/resources/uploadFile/images/${recommend.file_name }" alt="이미지X">
                     </div>
                     <!-- post title -->
                     <div class="recommanded-title"><span>${recommend.product_name}</span></div>
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="order-address">
-            <select name="sido_code" id="sido_code" class="order-option">
+            <select name="sido_code" id="sido_code" class="order-option ">
                 <option value="광역시/도">광역시/도</option>
             </select>
             <select name="sigoon_code" id="sigoon_code" class="order-option">
@@ -63,7 +63,7 @@
         	<c:forEach var="pList" items="${pList }">
             <div class="compare-post post-item" id="${pList.product_code}">
                 <div class="compare-thumb">
-                    <img src="resources/images/800490.png" alt="이미지X">
+                    <img src="/resources/uploadFile/images/${pList.file_name }" alt="이미지X">
                 </div>
                 <div class="compare-info">
                     <div class="compare__title"><span>${pList.product_name}</span></div>
@@ -96,7 +96,7 @@
             </c:forEach>
         </div>
     </div>
-	<div>
+	<div class="productWriteDiv">
 		<c:if test="${sessionScope.user.member_devision == 'se' }">
 			<button id="productWrite">상품등록</button>
 		</c:if>

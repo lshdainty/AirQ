@@ -106,18 +106,18 @@ public class CommunityController {
 		criteria.setStartPage(criteria.getCurrentblock());	//시작 페이지를 페이지 블록번호로 정함
 		criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
 			
-		/*
-		 * System.out.println("TotalCount:"+criteria.getTotalcount());
-		 * System.out.println("PageNum:"+criteria.getPagenum());
-		 * System.out.println("StartNum:"+criteria.getStartnum());
-		 * System.out.println("EndNum:"+criteria.getEndnum());
-		 * System.out.println("Currentblock:"+criteria.getCurrentblock());
-		 * System.out.println("LastBlock:"+criteria.getLastblock());
-		 * System.out.println("PreventNext:"+criteria.isPrev());
-		 * System.out.println("Next:"+criteria.isNext());
-		 * System.out.println("StartPaget:"+criteria.getStartPage());
-		 * System.out.println("EndPage:"+criteria.getEndPage());
-		 */
+		
+//		System.out.println("TotalCount:"+criteria.getTotalcount());
+//		System.out.println("PageNum:"+criteria.getPagenum());
+//		System.out.println("StartNum:"+criteria.getStartnum());
+//		System.out.println("EndNum:"+criteria.getEndnum());
+//		System.out.println("Currentblock:"+criteria.getCurrentblock());
+//		System.out.println("LastBlock:"+criteria.getLastblock());
+//		System.out.println("PreventNext:"+criteria.isPrev());
+//		System.out.println("Next:"+criteria.isNext());
+//		System.out.println("StartPaget:"+criteria.getStartPage());
+//		System.out.println("EndPage:"+criteria.getEndPage());
+		
 			
 			
 		// 데이터베이스에서 모든 포스트를 불러옴

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Swiper demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="../../../www/resources/css/connect/swiper.css">
+    <link rel="stylesheet" href="../../../www/resources/css/connect/connect__app.css">
+    <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="../../../www/resources/js/TweenLite.js"></script>
+
+    <script src="../../../www/resources/js/bootstrap.js"></script>
+    <script src="../../../www/resources/js/home.js"></script>
+    <script src="../../../www/resources/js/animation.js"></script>
+    <!-- Demo styles -->
+    <style>
+        .load-gate {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: #fff;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            z-index: 3000;
+        }
+
+        html,
+        body {
+            position: relative;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .connect_topNav {
+            display: block;
+            background: #fff;
+            height: 2.5rem;
+            text-align: center;
+            padding-top: .25rem;
+        }
+
+        .connect_topNav button {
+            height: 100%;
+            width: 45%;
+            background: none;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .connect_active {
+            font-weight: bold;
+        }
+
+        .inside-container {
+            width: 100%;
+            text-align: center;
+        }
+
+        .myIot {
+            padding: 0 1rem;
+            font-weight: bold;
+        }
+
+        .chart-container {
+            width: 100%;
+            border: 1px solid #000;
+            margin-top: 1.5rem;
+            height: 10rem;
+        }
+
+        .met-container {
+            font-size: .5rem;
+            width: 100%;
+            margin: auto;
+        }
+
+        .met-line {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        .met-box::before{
+            border-left: 2px solid #000;
+        }
+        .met-box {
+            min-width: 45%;
+            margin-top: .5rem;
+            background: #dfd8df;
+            padding: .25rem;
+            font-weight: bold;
+            border-radius: .5rem;
+            justify-content: space-around;
+            display: flex;
+        }
+        .division-line{
+            border-right: 2px solid #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="load-gate" style="padding: 20px;">Now Loading. . .</div>
+    <div id="header"></div>
+    <!-- Swiper -->
+    <div class="swiper-container" style="margin:28.75px 0 28.75px 0">
+        <div class="connect_topNav">
+            <button class="connect__topNav connect_active" id="comCatBtn">내부</button>
+            <button class="connect__topNav" id="tenCatBtn">외부</button>
+        </div>
+        <!-- Add Scrollbar -->
+        <div class="swiper-scrollbar"></div>
+        <div class="swiper-wrapper">
+            <!-- 상품 비교분석 시작-->
+            <div class="swiper-slide">
+                <div class="inside-container">
+                    <div class="myIot">내기기 목록</div>
+                    <div class="inside-cat">
+                        <select name="" id="">
+                            <option value="">option1</option>
+                            <option value="">option1</option>
+                            <option value="">option1</option>
+                            <option value="">option1</option>
+
+                        </select>
+                    </div>
+                    <div class="chart-container">
+
+                    </div>
+                    <div class="met-container">
+                        <div class="met-line">
+                            <div class="met-box">
+                                <div class="met-title">미세먼지</div>
+                                <span class="division-line"></span>
+                                <div class="met-value">10µg/m³</div>
+                            </div>
+                            <div class="met-box">
+                                <div class="met-title">미세먼지</div>
+                                <span class="division-line"></span>
+                                <div class="met-value">10µg/m³</div>
+                            </div>
+                        </div>
+                        <div class="met-line">
+                            <div class="met-box">
+                                <div class="met-title">미세먼지</div>
+                                <span class="division-line"></span>
+                                <div class="met-value">10µg/m³</div>
+                            </div>
+                            <div class="met-box">
+                                <div class="met-title">미세먼지</div>
+                                <span class="division-line"></span>
+                                <div class="met-value">10µg/m³</div>
+                            </div>
+                        </div>
+                        <div class="met-line">
+                            <div class="met-box">
+                                <div class="met-title">미세먼지</div>
+                                <span class="division-line"></span>
+                                <div class="met-value">10µg/m³</div>
+                            </div>
+                            <div class="met-box">
+                                <div class="met-title">미세먼지</div>
+                                <span class="division-line"></span>
+                                <div class="met-value">10µg/m³</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 상품 비교분석 끝-->
+            <!-- 입찰 시작-->
+            <div class="swiper-slide">
+            </div>
+            <!-- 입찰 끝-->
+        </div>
+    </div>
+    <div id="footer"></div>
+    <!-- Swiper JS -->
+    <script src="../../../www/resources/js/connect/swiper.js"></script>
+    <script src="../../../www/resources/js/connect/connect__app.js"></script>
+    <script src="../../../www/resources/js/connect/compareMain.js"></script>
+
+</body>
+
+</html>

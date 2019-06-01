@@ -1,6 +1,7 @@
 package com.yjc.airq.mapper;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -32,4 +33,7 @@ public interface PostMapper {
 //	public void deletePostsPost1(@Param("post_code") String post_code);
 	//마이페이지 일반 글관리 
 	public ArrayList<PostVO> postNMP(@Param("member_id")String member_id);
+
+	//mypageNormal - 최신 글
+	public ArrayList<Map<String,Object>> normalNewPost(String member_id);
 }

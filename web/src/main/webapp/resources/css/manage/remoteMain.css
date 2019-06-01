@@ -122,7 +122,7 @@ button {
 	height: 0;
 }
 
-.switch-left, .switch-right {
+.switch-left, .switch-right, .switch-auto, .switch-manual {
 	cursor: pointer;
 	position: absolute;
 	display: flex;
@@ -133,7 +133,7 @@ button {
 	transition: 0.2s;
 }
 
-.switch-left {
+.switch-left, .switch-auto {
 	height: 2.4em;
 	width: 2.75em;
 	left: 0.85em;
@@ -142,14 +142,14 @@ button {
 	transform: rotate(15deg) skewX(15deg);
 }
 
-.switch-right {
+.switch-right, .switch-manual {
 	right: 0.5em;
 	bottom: 0;
 	background-color: #bd5757;
 	color: #fff;
 }
 
-.switch-left::before, .switch-right::before {
+.switch-left::before, .switch-right::before, .switch-auto::before, .switch-manual::before {
 	content: "";
 	position: absolute;
 	width: 0.4em;
@@ -159,11 +159,11 @@ button {
 	transform: skewY(-65deg);
 }
 
-.switch-left::before {
+.switch-left::before, .switch-auto::before {
 	left: -0.4em;
 }
 
-.switch-right::before {
+.switch-right::before, .switch-manual::before {
 	right: -0.375em;
 	background-color: transparent;
 	transform: skewY(65deg);
@@ -178,8 +178,21 @@ input:checked+.switch-left {
 	width: 3em;
 	transform: rotate(0deg) skewX(0deg);
 }
+input:checked+.switch-auto {
+	background-color: #0084d0;
+	color: #fff;
+	bottom: 0px;
+	left: 0.5em;
+	height: 2.5em;
+	width: 3em;
+	transform: rotate(0deg) skewX(0deg);
+}
 
 input:checked+.switch-left::before {
+	background-color: transparent;
+	width: 3.0833em;
+}
+input:checked+.switch-auto::before {
 	background-color: transparent;
 	width: 3.0833em;
 }
@@ -193,8 +206,20 @@ input:checked+.switch-left+.switch-right {
 	width: 2.75em;
 	transform: rotate(-15deg) skewX(-15deg);
 }
+input:checked+.switch-auto+.switch-manual {
+	background-color: #ddd;
+	color: #888;
+	bottom: 0.4em;
+	right: 0.8em;
+	height: 2.4em;
+	width: 2.75em;
+	transform: rotate(-15deg) skewX(-15deg);
+}
 
 input:checked+.switch-left+.switch-right::before {
+	background-color: #ccc;
+}
+input:checked+.switch-auto+.switch-manual::before {
 	background-color: #ccc;
 }
 
@@ -202,15 +227,27 @@ input:checked+.switch-left+.switch-right::before {
 input:focus+.switch-left {
 	color: #333;
 }
+input:focus+.switch-auto {
+	color: #333;
+}
 
 input:checked:focus+.switch-left {
+	color: #fff;
+}
+input:checked:focus+.switch-auto {
 	color: #fff;
 }
 
 input:focus+.switch-left+.switch-right {
 	color: #fff;
 }
+input:focus+.switch-auto+.switch-manual {
+	color: #fff;
+}
 
 input:checked:focus+.switch-left+.switch-right {
+	color: #333;
+}
+input:checked:focus+.switch-auto+.switch-manual {
 	color: #333;
 }

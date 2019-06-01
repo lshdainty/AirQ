@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src="../../../www/resources/js/community/postDetail.js"></script>
+	<link rel="stylesheet" href="../../../www/resources/css/comunity/comunity.css">
+	<link rel="stylesheet" href="../../../www/resources/css/bootstrap.css">
+	<link rel="stylesheet" href="../../../www/resources/css/include/header.css">
+	<link rel="stylesheet" href="../../../www/resources/css/include/table.css">
+	<script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="../../../www/resources/js/bootstrap.js"></script>
+	<script src="../../../www/resources/js/home.js"></script>
+	<script src="../../../www/resources/js/TweenLite.js"></script>
+	<script src="../../../www/resources/js/TweenMax.js"></script>
+	<script src="../../../www/resources/js/animation.js"></script>
+	<script src="../../../www/resources/js/community/postDetail.js"></script>
+</head>
+
+<body>
+	<link rel="stylesheet" href="resources/css/comunity/comunity.css">
+	<div id="header"></div>
+	<div id="content">
+		<div class="article">
+		</div>
+
+		<div id="comment">
+			<div class="comment-wrap">
+
+
+				<div class="comment-header">
+					<h2 class="comment__title">댓글</h2>
+				</div>
+
+				<div class="comment-write">
+					<div class="comment-write-inner">
+						<div class="comment-write__content">
+							<textarea name="reply_content"
+								placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다."
+								style="overflow: hidden; overflow-wrap: break-word; height: 44px;"
+								id="reply_content"></textarea>
+						</div>
+						<div class="comment-write-footer">
+							<div class="comment-write-submit">
+								<button class="button button--blue" id="reply-insert">작성</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="comment-sort">
+					<ul class="comment-sort__list">
+						<li class="comment-sort__item comment-sort__item--active"><button type="button">최신순</button>
+						</li>
+					</ul>
+				</div>
+
+				<div id="replys">
+					<div class="comment-list">
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<a class="btn btn-primary" id="postDelete"
+			onclick="return confirm('삭제하시겠습니까?');">삭제</a>
+		<a class="btn btn-primary" id="postModify"
+			onclick="return confirm('수정하시겠습니까?');">수정</a>
+	</div>
+	<div id="footer"></div>
+</body>
+
+</html>

@@ -1,52 +1,68 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="../include/header.jsp" %>
-<link rel="stylesheet" type="text/css" href="/resources/css/login/loginMain.css"/>
-	<c:if test="${sessionScope.user == null }">
-	<div class="container">
-		<section class="content">
-			<main>
-			<%-- 로그인 비밀번호 작성 시작부분 --%>
-				<div class="login-form">
-						<div class="form-group">
-						<label>User ID</label> <input type="text" id="id" class="form-control-1" placeholder="User ID">
-						</div>
-						<p class="txt_message" >
-                       		<span id="noid"class="msg" >없는 아이디 입니다. </span>
-                     	</p>	
-						<div class="form-group">
-						<label>Password</label> <input type="password" id="pw" class="form-control-2" placeholder="Password">
-						</div>
-						<p class="txt_message" >
-                       		<span id="nopw"class="msg" >틀린 비밀번호 입니다. </span>
-                     	</p>
-						<button type="submit" id="logintest" class="btn btn-login">로그인</button><br>
-						<input type="checkbox" id="remember"class="loginCheckbox" checked>
-						<label for="remember">Remember me</label>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@include file="../include/header.jsp"%>
+<link rel="stylesheet" type="text/css"
+	href="/resources/css/login/loginMain.css" />
+<div id="fullBg">
+	<div class="app">
+		<div class="member-card-layout">
+			<div class="member-card-layout__container">
+				<div class="member-card-layout__inner">
+					<h1 class="member-card-layout__logo">
+						<img class="member-card-layout__logo-image"
+							src="https://member.op.gg/img_opgglogo.0c8876d1.svg" alt="OP.GG">
+					</h1>
+					<div class="login">
+						<form>
+							<h2 class="login__email-title">Login</h2>
+							<div class="member-input">
+								<div class="member-input__state">
+									<input id="ID" class="member-input__box" type="text"
+										autocomplete="off" name="email" value=""> <label
+										for="memberInput2562" class="member-input__label">ID</label> <span
+										class="member-input__valid-wrapper"></span>
+								</div>
+							</div>
+							<div class="member-input">
+								<div class="member-input__state">
+									<input id="PASS" class="member-input__box" type="password"
+										autocomplete="off" name="password" value=""> <label
+										for="memberInput797" class="member-input__label">
+										PASSWORD </label> <span class="member-input__valid-wrapper"></span>
+								</div>
+							</div>
+							<div class="member-input-wrong-message" style="display:none;"></div>
+							<div class="login__l">
+								<div class="login__checkbox">
+									<div class="member-checkbox">
+										<span class="member-checkbox__state"> <input
+											id="memberCheckbox6277" type="checkbox"
+											class="member-checkbox__input">
+										</span> <label for="memberCheckbox6277"
+											class="member-checkbox__label"> Remember Me </label>
+									</div>
+								</div>
+								<span class="login__find-password-btn"><a
+									class="member-link" href="/find/reset-password/send-email">Forgot
+										Password?</a></span>
+							</div>
+							<button type="button" class="member-button login__btn"
+								disabled="">LOGIN</button>
+							<div class="login__l-sign-up">
+								Don’t have an account?<span class="login__sign-up-link"><a
+									class="member-link" href="/register/agree?idType=OPGG">Sign
+										Up</a></span>
+							</div>
+						</form>
+					</div>
 				</div>
-			<%-- 로그인 비밀번호 작성 끝부분 --%>
-			</main>
-			<nav></nav>
-			<aside></aside>
-			
-			<footer>
-				<%-- 아아디찾기,비밀번호찾기,회원가입 링크 시작부분 --%>
-				<div class="submit-wrap">
-
-					<a href="findId" class="btn btn-id">아이디 찾기</a> 
-					<a href="findPw" class="btn btn-pw">비밀번호 찾기</a> 
-					<a href="joinMain" class="btn btn-register">회원가입</a>
-				</div>
-			<%-- 아아디찾기,비밀번호찾기,회원가입 링크 끝부분 --%>
-			</footer>
-		</section>
+			</div>
+		</div>
 	</div>
-	
-	</c:if>
+</div>
 
-	<c:if test="${sessionScope.user != null}">
-		<a href="logout">logout</a>
-	</c:if>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src='/resources/js/login/loginMain.js'></script>
-<%@include file="../include/footer.jsp" %>
+<%@include file="../include/footer.jsp"%>

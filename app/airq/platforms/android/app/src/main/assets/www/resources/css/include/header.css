@@ -1,6 +1,6 @@
-#content {
-	min-height: 100vh;
-	overflow: hidden;
+#content{
+	background: #fff;
+	margin: 57.5px 0 57.5px 0;
 }
 
 .load-gate {
@@ -16,19 +16,4 @@
 	letter-spacing: 0.2em;
 	padding: 20px;
 	z-index:3000;
-}
-
-@media ( min-width : 768px) {
-	#content {
-		max-width: 70%;
-		margin: 56px auto auto auto;
-		background: #fff;
-	}
-}
-
-@media ( max-width : 768px) {
-	#content {
-		margin: 56px 0 0 0;
-		background: #fff;
-	}
 }

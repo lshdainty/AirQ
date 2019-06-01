@@ -3,12 +3,7 @@
 <%@include file="../include/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="/resources/css/manage/remoteMain.css" />
 	<div class="container2">
-	
-<%-- 	<c:forEach var="myiot" items="${myIot}">
-		${myiot.member_id}
-		${myiot.model_name}
-		${myiot.place_name}
-	</c:forEach> --%>
+
 	<c:forEach var="myiot" items="${myIot}">
 		<figure>
 			<div class="switch">
@@ -33,72 +28,31 @@
 				<img class="window" src="resources/images/airclean.jpg" /><br/>
 			</c:if>
 			
+			<div class="nickName">
+				<b>${myiot.iot_id }</b>
+			</div>
+			
 	        <div class="local">
 	           	 ${myiot.model_name } 원격제어 <br/> 위치: ${myiot.place_name}
 	        </div>
+	        
 	        <div class="on_off">
 	            <label class="rocker rocker-small">
-	                <input type="checkbox">
+	                <input type="checkbox" class="onOff" value="check">
 	                <span class="switch-left">ON</span>
 	                <span class="switch-right">OFF</span>
 	            </label>
 	  
 	            <label class="rocker rocker-small">
-	                <input type="checkbox">
-	                <span class="switch-left">자동</span>
-	                <span class="switch-right">수동</span>
+	                <input type="checkbox" class="autoManual">
+	                <span class="switch-auto">자동</span>
+	                <span class="switch-manual">수동</span>
 	            </label>
 	        </div>
 	        </div>
         </figure>
 	</c:forEach>
-		
-        
-        <!-- <figure>
-	        <div class="switch">
-	        <img class="boiler" src="resources/images/boiler.png" /><br/>
-	        <div class="local">
-	     	       보일러 원격제어 <br/> 위치: 보일러실
-	        </div>
-	        <div class="on_off">
-	            <label class="rocker rocker-small">
-	                <input type="checkbox">
-	                <span class="switch-left">ON</span>
-	                <span class="switch-right">OFF</span>
-	            </label>
-	  
-	            <label class="rocker rocker-small">
-	                <input type="checkbox">
-	                <span class="switch-left">자동</span>
-	                <span class="switch-right">수동</span>
-	            </label>
-	        </div>
-	        </div>
-        </figure>
-        
-        <figure>
-	        <div class="switch">
-	        <img class="airclean" src="resources/images/airclean.jpg" /><br/>
-	        <div class="local">
-				공기청정기 원격제어 <br/> 위치: 거실
-	        </div>
-	        <div class="on_off">
-	            <label class="rocker rocker-small">
-	                <input type="checkbox">
-	                <span class="switch-left">ON</span>
-	                <span class="switch-right">OFF</span>
-	            </label>
-	  
-	            <label class="rocker rocker-small">
-	                <input type="checkbox">
-	                <span class="switch-left">자동</span>
-	                <span class="switch-right">수동</span>
-	            </label>
-	        </div>
-	        </div>
-        </figure> -->
-        
-        
+	        
         <button id="btn-reg">IoT 제품 제어 등록</button>
     </div>
     
