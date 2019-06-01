@@ -5,7 +5,6 @@ $(document).ready(function () {
         //gps값 가져오기
         if (navigator.geolocation) {
             //위치 정보를 얻기
-            alert("돌아가긴하냐22");
             navigator.geolocation.getCurrentPosition(function (position) {
                 var x = position.coords.latitude;
                 var y = position.coords.longitude;
@@ -24,6 +23,23 @@ $(document).ready(function () {
                     position: new naver.maps.LatLng(x,y),
                     map: map
                 });
+
+                naver.maps.Service.reverseGeocode({
+                    coords: latlng,
+                    orders: [
+                        naver.maps.Service.OrderType.ADDR,
+                        naver.maps.Service.OrderType.ROAD_ADDR
+                    ].join(',')
+                }, function(status, response) {
+                    var items = response.v2.results,
+                    address = '',
+                    htmlAddresses = [];
+        
+                    for (var i=0, ii=items.length, item, addrType; i<ii; i++) {
+                        item = items[i];
+                        $(".location_info").text(item.region.area1.name+" "+item.region.area2.name+" "+item.region.area3.name+" "+item.region.area4.name);
+                    }
+                });        
 
                 var utmk = naver.maps.TransCoord.fromLatLngToUTMK(latlng); // 위/경도 -> UTMKa
                 var query = {

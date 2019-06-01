@@ -12,12 +12,27 @@
     <link rel="stylesheet" href="../../../www/resources/css/include/table.css">
     <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
     <script src="../../../www/resources/js/bootstrap.js"></script>
-    <script src="../../../www/resources/js/TweenLite.js"></script>
-    <script src="../../../www/resources/js/TweenMax.js"></script>
-    <script src="../../../www/resources/js/animation.js"></script>
+    <style>
+        .load-gate {
+        padding: 20px;
+        position: absolute;
+        top: 0;
+        height: 100%;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: #fff;
+        font-family: sans-serif;
+        text-transform: uppercase;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        z-index: 3000;
+    }
+    </style>
 </head>
 
 <body>
+    <div class="load-gate">Now Loading. . .</div>
     <div id="header"></div>
     <div class="load-gate">Loading...</div>
     <div id="header"></div>

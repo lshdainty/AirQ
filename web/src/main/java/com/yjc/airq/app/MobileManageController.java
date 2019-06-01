@@ -1,6 +1,7 @@
 package com.yjc.airq.app;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -35,13 +36,6 @@ import net.sf.json.JSONObject;
 public class MobileManageController {
 	
 	private ManageService manageService;
-
-	// 공기질 모니터링 메인페이지로 가기
-	@CrossOrigin(origins = "*")
-	@RequestMapping(value = "m.monitoringMain", method = RequestMethod.GET)
-	public String monitoringMain(Model model) {
-		return "manage/monitoringMain";
-	}
 	
 	// 각 시/도 미세먼지 수치 가져오기
 	@CrossOrigin(origins = "*")
@@ -50,7 +44,7 @@ public class MobileManageController {
 	public JSONObject dustData(Model model, HttpServletRequest request) {
 		String x = request.getParameter("x");
 		String y = request.getParameter("y");
-		
+	
 		//각 물질마다의 분류기준값
 		float pm10Value[] = {151,101,76,51,41,31,16};
 		float pm25Value[] = {76,51,38,26,21,16,9};

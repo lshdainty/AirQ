@@ -42,6 +42,7 @@ div {
   display: block;
   max-width: 100%;
   margin-top: .5rem;
+  width: 100%;
 }
 
 .top-cat__app {
@@ -119,6 +120,7 @@ div {
 }
 
 .smart-recommand .smart-posts .smart-post {
+  display: flex;
   padding: 0.7rem;
   width: 100%;
 }

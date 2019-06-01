@@ -5,7 +5,6 @@ $(document).ready(function () {
         //gps값 가져오기
         if (navigator.geolocation) {
             //위치 정보를 얻기
-            alert("돌아가긴하냐22");
             navigator.geolocation.getCurrentPosition(function (position) {
                 var x = position.coords.latitude;
                 var y = position.coords.longitude;
@@ -25,6 +24,27 @@ $(document).ready(function () {
                     map: map
                 });
 
+                naver.maps.Service.reverseGeocode({
+                    coords: latlng,
+                    orders: [
+                        naver.maps.Service.OrderType.ADDR,
+                        naver.maps.Service.OrderType.ROAD_ADDR
+                    ].join(',')
+                }, function(status, response) {
+                    var items = response.v2.results,
+                    address = '',
+                    htmlAddresses = [];
+        
+                    for (var i=0, ii=items.length, item, addrType; i<ii; i++) {
+                        item = items[i];
+                        $(".location_info").text(item.region.area1.name+" "+item.region.area2.name+" "+item.region.area3.name+" "+item.region.area4.name);
+                        console.log(item.region.area1.name);
+                        console.log(item.region.area2.name);
+                        console.log(item.region.area3.name);
+                        console.log(item.region.area4.name);
+                    }
+                });        
+
                 var utmk = naver.maps.TransCoord.fromLatLngToUTMK(latlng); // 위/경도 -> UTMKa
                 var query = {
                     x: utmk.x,
@@ -38,9 +58,27 @@ $(document).ready(function () {
                     async: false,
                     success: function (data) {
                         console.log(data);
-                        $(".matter_info").empty(); 
+                        $(".matter_info").empty();
                         for(var i=0; i<data.result.length; i++){
-                            var result = '<div class="matter_container">'+
+                            var forecastColor;
+				            if (data.result[i].grade >= 8) {
+					            forecastColor = "#BDBDBD";
+				            }else if(data.result[i].grade >= 7){
+					            forecastColor = "#FFA7A7";
+				            }else if(data.result[i].grade >= 6){
+					            forecastColor = "#FFC19E";
+				            }else if(data.result[i].grade >= 5){
+					            forecastColor = "#FAED7D";
+				            }else if(data.result[i].grade >= 4){
+					            forecastColor = "#CEF279";
+				            }else if(data.result[i].grade >= 3){
+					            forecastColor = "#B2EBF4";
+				            }else if(data.result[i].grade >= 2){
+					            forecastColor = "#B2CCFF";
+				            }else {
+					            forecastColor = "#B5B2FF";
+				            }
+                            var result = '<div class="matter_container" style="background:'+forecastColor+'";>'+
                                             '<div class="matter_title">'+data.result[i].name+'</div>'+
                                             '<div class="matter_value">'+
                                                 '<span class="mesure_value">'+data.result[i].data+'</span>'+
@@ -57,24 +95,4 @@ $(document).ready(function () {
             alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.");
         }
     });
-});
-
-//infowindow 생성/삭제
-$('.pin_s_img').on('click',function(e) {
-	var infowindow = $(this).parent().parent().find('.infowindow');
-	if(infowindow.css('display')=="block"){
-		infowindow.hide();
-	}else{
-		infowindow.show();
-	}
-});
-
-//마우스 올라가면 툴팁 보이게 하기
-$('.pin_s_img').on('mouseenter',function(e) {
-	$(this).parent().parent().find('.pins_s_tooltip').show();
-});
-
-//마우스 내려가면 툴팁 안보이게 하기
-$('.pin_s_img').on('mouseout',function(e) {
-	$(this).parent().parent().find('.pins_s_tooltip').hide();
 });

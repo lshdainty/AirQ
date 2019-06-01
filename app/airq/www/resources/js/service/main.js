@@ -24,6 +24,23 @@ $(document).ready(function () {
                     map: map
                 });
 
+                naver.maps.Service.reverseGeocode({
+                    coords: latlng,
+                    orders: [
+                        naver.maps.Service.OrderType.ADDR,
+                        naver.maps.Service.OrderType.ROAD_ADDR
+                    ].join(',')
+                }, function(status, response) {
+                    var items = response.v2.results,
+                    address = '',
+                    htmlAddresses = [];
+        
+                    for (var i=0, ii=items.length, item, addrType; i<ii; i++) {
+                        item = items[i];
+                        $(".location_info").text(item.region.area1.name+" "+item.region.area2.name+" "+item.region.area3.name+" "+item.region.area4.name);
+                    }
+                });        
+
                 var utmk = naver.maps.TransCoord.fromLatLngToUTMK(latlng); // 위/경도 -> UTMKa
                 var query = {
                     x: utmk.x,
