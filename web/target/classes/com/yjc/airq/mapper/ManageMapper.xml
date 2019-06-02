@@ -14,7 +14,7 @@
 		from iot_info i, model mo, member m
 		where m.member_id = #{member_id}
 		and m.member_id = i.member_id
-		and i.model_id = mo.model_id  
+		and i.model_id = mo.model_id
 	</select>
 
 	<!-- 원격 제어 등록 -->

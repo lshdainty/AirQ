@@ -33,7 +33,9 @@
 			<exclude-mapping path="/imageUpload" />
 			<exclude-mapping path="/resources/**" />
 			<exclude-mapping path="/" />
-			<exclude-mapping path="/test/**" />
+			<exclude-mapping path="/iotOnOff/**" /> <!-- test -->
+			<exclude-mapping path="/dustData/**" /> <!-- 미세먼지 측정 -->
+			<exclude-mapping path="/control/**" />  <!-- 센서 제어 -->
 			<exclude-mapping path="/loginMain" />
 			<exclude-mapping path="/login" />
 			<exclude-mapping path="/findId" />

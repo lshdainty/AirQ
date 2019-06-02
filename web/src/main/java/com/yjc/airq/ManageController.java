@@ -152,7 +152,7 @@ public class ManageController {
 		return json;
 	}
 
-	// IoT 원격제어 메인페이지로 가기
+	// 원격제어 메인페이지로 가기
 	@RequestMapping(value = "remoteMain", method = RequestMethod.GET)
 	public String remoteMain(Model model, IotInfoVO iif, HttpServletRequest request, HttpSession session) {
 		String member_id = ((MemberVO)request.getSession().getAttribute("user")).getMember_id();
@@ -263,5 +263,12 @@ public class ManageController {
 			return "No";
 		}
 		return "Yes";
+	}
+	
+	// 공기질 모니터링 메인페이지로 가기
+	@RequestMapping(value = "control", method = RequestMethod.GET)
+	public String control(Model model) {
+		System.out.println("sensorControl 컨트롤러");
+		return "manage/control";
 		}
 }

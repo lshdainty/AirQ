@@ -13,10 +13,10 @@ $(document).ready(function(){
 		$.ajax({
 			type : "POST",
 			contentType: "application/json;charset=UTF-8",
-			url : "/DataControl",
-			data : {
+			url : "/iotOnOff",
+			data : JSON.stringify({
 				switch : $(this).is(":checked")
-			},
+			}),
 			dataType : "json",
 			success : function(data){
 				console.log(data);
