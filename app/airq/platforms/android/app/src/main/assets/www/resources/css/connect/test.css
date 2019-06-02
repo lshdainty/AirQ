@@ -1,0 +1,16 @@
+
+
+.navbar__bottom{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+}
+.img-logo img{
+    height: 30px;
+}
+.shadow-top {
+    box-shadow: 0 -0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}

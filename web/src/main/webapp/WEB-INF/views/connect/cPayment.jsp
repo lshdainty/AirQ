@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="/resources/js/jquery-3.3.1.min.js"></script>
+<script src="/resources/js/include/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 	<%--광역시/도/시/구/동 선택 api키값 시작 --%>

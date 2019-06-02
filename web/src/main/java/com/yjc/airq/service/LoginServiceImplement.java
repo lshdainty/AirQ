@@ -18,7 +18,6 @@ public class LoginServiceImplement implements LoginService{
 	public ArrayList<MemberVO> getMemberList(){
 		return mapper.getMemberList();
 	}
-
 	@Override
 	public MemberVO login(String id) {
 		// TODO Auto-generated method stub

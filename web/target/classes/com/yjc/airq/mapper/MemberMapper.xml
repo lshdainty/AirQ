@@ -60,4 +60,9 @@
 	<select id="selectZipcode" resultType="String">
 		select m_zipcode from member where member_id = #{member_id}
 	</select>
+	
+	<!-- 회원 정보 -->
+	<select id="memberInfo" resultType="com.yjc.airq.domain.MemberVO">
+		select * from member where member_id=#{member_id}
+	</select>
 </mapper>

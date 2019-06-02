@@ -1,6 +1,7 @@
 package com.yjc.airq.mapper;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -29,4 +30,13 @@ public interface ReplyMapper {
 	public ArrayList<ReplyVO> mypageReplysNS(@Param("member_id") String member_id);
 	public ArrayList<ReplyVO> mypageReplysNSPost(@Param("member_id") String member_id);
 	public ArrayList<ReplyVO> mypageReplysNSProduct(@Param("member_id") String member_id);
+
+	//mypageNormal - 최신 댓글
+	public ArrayList<Map<String,Object>> normalNewReply(String memeber_id);
+	
+	//상품에 대한 리뷰 insert
+	public void pReviewInsert(ReplyVO replyVo);
+	
+	//입찰에 대한 리뷰 insert
+	public void tReviewInsert(ReplyVO replyVo);
 }

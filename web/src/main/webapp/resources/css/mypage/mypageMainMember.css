@@ -41,14 +41,52 @@
 	display: inline-block;
 }
 
-.container .form1 .B {
-	display: inline-block;
-	margin-left: 23%;
-}
-
 .container .form1 .C {
 	float: right;
 	height: 25px;
+}
+
+.container .form2 {
+	border-top: 1px solid #ebeef1;
+	padding: 12px 0;
+	border-bottom: 1px solid #ebeef1;
+}
+
+.container .form2 .member_id {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+.container .form2 .member_name {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+.container .form2 .member_tel {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+.container .form2 .member_email {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+.container .form2 .m_addr_do {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+.container .form2 .member_devision {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
 }
 
 .container .form3 {
@@ -94,11 +132,48 @@
 	display: inline-block;
 }
 
-.container .form3 .btn {
-	font-size: 15px;
-	width: 10%;
+.container .form4 {
+	border-top: 1px solid #ebeef1;
+	padding: 12px 0;
+	border-bottom: 1px solid #ebeef1;
 }
 
+.container .form4 .member_id {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+.container .form4 .member_name {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+.container .form4 .member_tel {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+.container .form4 .member_email {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+.container .form4 .m_addr_do {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
+.container .form4 .member_devision {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: inline-block;
+}
 .container .content {
 	overflow: hidden;
 }

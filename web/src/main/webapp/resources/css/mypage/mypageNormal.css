@@ -5,44 +5,161 @@
 	box-sizing: border-box;
 }
 
-.reviewCompareList div {
+#memberInfo {
+	width:100%;
+	height:350px;
+}
+
+.infoTitle {
+	color: #747474;
+	font-size: 20px;
+	margin-bottom: 5px;
+}
+
+#newPost .infoTitle {
+	color: #4c7737;
+}
+
+#newPost thead {
+	background-color: rgba(76,119,55,0.2);
+}
+
+#newReply .infoTitle {
+	color: #ffbb42;
+}
+
+#newReply thead {
+	background-color: rgba(255,187,66,0.2);
+}
+
+#newPayment .infoTitle {
+	color: #e13c4c;
+}
+
+#newPayment thead {
+	background-color: rgba(255,60,76,0.2);
+}
+
+#reviewList .infoTitle {
+	color: #3f4bb8;
+}
+
+#newPayment thead {
+	background-color: rgba(255,60,76,0.2);
+}
+
+#memberInfoTbl {
+	width :100%;
+	height: 300px;
+}
+
+.reviewDiv {
+	width:47%;
+	height: 300px;
 	display: inline-block;
 }
 
-.reviewCompareList {
-	display: block;
-	width: 100%;
-	margin: auto;
-	border: 1px solid #ddd;
+#newPost {
+	
+}
+
+#newReply {
+	float:right;
+}
+
+.reviewTbl {
+	width:100%;
+	height:250px;
+}
+
+.reviewTbl tbody tr{
+	border-bottom:1px solid #ddd;
+}
+
+#memberInfoTbl td {
+	padding: 1% 1%;
+	border-bottom: 1px #D5D5D5 solid;
+}
+
+#memberInfoTbl tr td:first-child {
+	border-right: 1px #D5D5D5 solid;
+	width: 15%;
+	float: center;
+}
+
+.memberIdTd{
+	border-top: 1px #D5D5D5 solid;
+}
+
+#reviewList div {
+	display: inline-block;
+}
+
+#reviewList {
+	float: right;
+	overflow-y: scroll;
 }
 
 .compareThumb img {
-	width: 130px;
-    height: 130px;
+	width: 50px;
+    height: 50px;
 }
 
-.compareTitle {
+.reviewTitle {
 	font-weight: bold;
 	display: block !important;
 }
 
 .reviewInfo {
 	vertical-align: top;
-	width: 80%;
+	width: 70%;
 	padding-left: 3rem;
 }
 
 .reviewPost {
+	display: flex !important;
+	flex-wrap: wrap;
 	cursor:pointer;
 	width: 100%;
 	padding: 1rem;
 	border-bottom:1px solid #ddd;
 }
 
-.comparePrice {
+.reviewPrice {
 	vertical-align:top;
-	padding-top: 2rem;
+	margin: auto;
 	float: right;
 	font-weight: bold;
 	color: #3d59fc;
+}
+
+#reviewCategory {
+    width: 100%;
+    border-bottom: 1px solid #747474;
+    height: 2rem;
+}
+
+.rCategoryOption {
+    cursor: pointer;
+    float: left;
+    width: 10rem;
+    height: 2rem;
+    display: inline-flex;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    vertical-align: middle;
+    padding: 0.2rem 0rem 0.2rem 1rem;
+    border: 1px solid #ddd;
+    border-bottom: 1px solid #747474;
+    border-left: none;
+    color: #929191;
+}
+
+.rOptionActive {
+	font-weight: bold;
+    border: 1px solid #747474;
+    border-bottom: 1px solid #fff;
+    font-size: 1rem;
+    color: #000;
+    background: rgba(63,75,184,0.2);
 }

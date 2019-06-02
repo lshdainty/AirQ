@@ -126,5 +126,17 @@
 <!-- 		delete from post where post_code=#{post_code} -->
 <!-- 	</delete> -->
 
-	
+	<!-- mypageNormal - 최신 글 -->
+	<select id="normalNewPost" resultType="map">
+		select rownum,o.*, case when o.total_code like 'td%' then '입찰서비스'
+                 when o.total_code like 'ps%' then '커뮤니티' end as division
+		from (select member_id,tender_code as total_code, to_char(t_creation_date,'yyyy-MM-dd hh24:mi') as nal, tender_title as title
+      		  from tender
+      		  union all
+      		  select member_id,post_code as total_code, to_char(p_creation_date,'yyyy-MM-dd hh24:mi') as nal, post_title as title
+      		  from post
+      		  where member_id=#{member_id}
+      		  order by nal desc) o
+		where <![CDATA[rownum <= 5]]>
+	</select>
 </mapper>

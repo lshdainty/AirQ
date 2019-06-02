@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="/resources/js/include/jquery-3.3.1.min.js"></script>
 	<link href="/resources/css/Report.css" rel="stylesheet" />
 </head>
 <body>

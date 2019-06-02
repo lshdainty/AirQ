@@ -45,7 +45,7 @@ public class MobileCommunityController {
 	//테이블 형식 레이아웃 메인페이지
 	@ResponseBody
 	@CrossOrigin(origins = "*")
-	@RequestMapping(value = "m.getPosts", method = RequestMethod.GET)
+	@RequestMapping(value =  "m.getPosts", method = RequestMethod.GET)
 	public JSONObject tableBoardMain(Model model,HttpServletRequest request) {
 		String board_code =request.getParameter("board_code");
 		

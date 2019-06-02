@@ -4,8 +4,8 @@ public class Criteria {
 	private int totalcount;	//전체 게시물 개수
 	private int pagenum;	//현재 페이지 번호
 	private int contentnum=10;	//한 페이지에 몇개를 표시하는가
-	private int startPage=1;	//현재 페이지 블록의 시작 페이지
-	private int endPage=10;	//현재 페이지 블록의 마지막 페이지
+	private int startPage;	//현재 페이지 블록의 시작 페이지
+	private int endPage;	//현재 페이지 블록의 마지막 페이지
 	private int startnum;	//현재 페이지의 컨텐츠 시작 번호
 	private int endnum;	//현재 페이지의 컨텐츠 끝 번호
 	private boolean prev=false;	//이전 페이지로 가는 화살표
@@ -14,7 +14,7 @@ public class Criteria {
 	private int lastblock;	//마지막 페이지 블록
 	
 	public void prevnext(int pagenum) {
-		if(getLastblock()==1&&pagenum<11) {
+		if(getLastblock()==0||getLastblock()==1&&pagenum<11) {
 			setPrev(false);
 			setNext(false);
 		}
@@ -98,7 +98,10 @@ public class Criteria {
 	}
 	public void setEndPage(int getlastblock,int getcurrentblock) {
 		//getlastblock 마지막 페이지 블록 번호 / getcurrentblock 현재 페이지 블록 번호
-		if(getlastblock == getcurrentblock) {
+		if(getlastblock == 0) {
+			this.endPage = 0;
+		}
+		else if(getlastblock == getcurrentblock) {
 			this.endPage = calcpage(getTotalcount(),getContentnum());
 		}
 		else {
@@ -136,7 +139,7 @@ public class Criteria {
 		}
 	}
 	
-	//마지막 페이지 블록	: 사용하는 이유 -> 현재 페이지 블록이 마지막 페이지 블록이면 다음 화살표를 보이지 않도록 하기 위해
+	//마지막 페이지 블록	: 사용하는 이유 -> 현재 페이지 블록이 마지막 페이지 블록이면 다음 화살표가 보이지 않도록 하기 위해
 	public int getLastblock() {
 		return lastblock;
 	}
