@@ -21,7 +21,7 @@ $(document).ready(function () {
                 var latlng = map.getCenter();
 
                 var defaultMarker = new naver.maps.Marker({
-                    position: new naver.maps.LatLng(x,y),
+                    position: latlng,
                     map: map,
                     icon: {
                         content: ['<span class="pin_point">',
@@ -29,9 +29,7 @@ $(document).ready(function () {
                                         '<span class="station_name"></span>', 
                                         '<span class="figure level2"></span>',
                                     '</span>', 
-                                '</span>'].join(""),
-                        size: new naver.maps.Size(22, 35),
-                        anchor: new naver.maps.Point(11, 35)
+                                '</span>'].join("")
                     }
                 });
 

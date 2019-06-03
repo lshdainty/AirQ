@@ -20,8 +20,13 @@ $(document).ready(function () {
                 var map = new naver.maps.Map('map', mapOptions);
                 var latlng = map.getCenter();
 
+                var marker = new naver.maps.Marker({
+                    position: latlng,
+                    map: map
+                });
+
                 var defaultMarker = new naver.maps.Marker({
-                    position: new naver.maps.LatLng(x,y),
+                    position: latlng,
                     map: map,
                     icon: {
                         content: ['<span class="pin_point">',
@@ -29,9 +34,7 @@ $(document).ready(function () {
                                         '<span class="station_name"></span>', 
                                         '<span class="figure level2"></span>',
                                     '</span>', 
-                                '</span>'].join(""),
-                        size: new naver.maps.Size(22, 35),
-                        anchor: new naver.maps.Point(11, 35)
+                                '</span>'].join("")
                     }
                 });
 
@@ -132,8 +135,6 @@ $(document).on("click",".matter_container",function(){
     var background = $(this).css("backgroundColor");
     var changeNum = $(this).find(".changeNum").text();
     var condition = $(this).find(".condition").text();
-    console.log(changeNum);
-    console.log(condition);
     $(".station_a").css("background",background);
     $(".station_a").removeClass("changed1");
     $(".station_a").removeClass("changed2");
