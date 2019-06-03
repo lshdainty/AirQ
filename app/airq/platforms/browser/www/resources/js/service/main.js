@@ -38,10 +38,6 @@ $(document).ready(function () {
                     for (var i=0, ii=items.length, item, addrType; i<ii; i++) {
                         item = items[i];
                         $(".location_info").text(item.region.area1.name+" "+item.region.area2.name+" "+item.region.area3.name+" "+item.region.area4.name);
-                        console.log(item.region.area1.name);
-                        console.log(item.region.area2.name);
-                        console.log(item.region.area3.name);
-                        console.log(item.region.area4.name);
                     }
                 });        
 

@@ -425,18 +425,6 @@ public class ConnectServiceImplement implements ConnectService {
 		productMapper.productDelete(product_code);
 	}
 	
-	// 사용자가 상품을 구매했는지 확인
-	@Override
-	public int checkPayment(@Param("member_id") String member_id,@Param("product_code") String product_code) {
-		return demandMapper.checkPayment(member_id,product_code);
-	}
-	
-	// 상품 댓글 insert
-	@Override
-	public void insertPReply(ReplyVO replyVO) {
-		replyMapper.insertPReply(replyVO);
-	}
-	
 	// 본인 댓글 delete
 	@Override
 	public void deletePReply(@Param("reply_code") String reply_code) {

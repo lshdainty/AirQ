@@ -1006,37 +1006,6 @@ public class ConnectController {
 		return "redirect: /compareMain";
 	}
 	
-	// 분석/비교 서비스 - 상품 댓글 insert
-	@RequestMapping(value = "productReplyInsert", method = RequestMethod.GET)
-	@ResponseBody
-	public JSONObject productReplyInsert(ReplyVO replyVO,HttpServletRequest request) {
-		int count = connectService.checkPayment(replyVO.getMember_id(),replyVO.getProduct_code());
-		if(count>0) {
-			Date today = new Date();
-			SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
-			String day = date.format(today);
-			String random=String.format("%04d",(int)(Math.random()*10000));
-			String reply_code="rp"+day+random;
-			replyVO.setReply_code(reply_code);
-			connectService.insertPReply(replyVO);
-			
-			ArrayList<ReplyVO> productReply = connectService.productReply(replyVO.getProduct_code());
-			JSONArray rJson = JSONArray.fromObject(productReply);
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("productReply", rJson);
-			map.put("reply_count",productReply.size());
-			map.put("result","success");
-			map.put("member_id",((MemberVO) request.getSession().getAttribute("user")).getMember_id());
-			JSONObject json = JSONObject.fromObject(map);
-			return json;
-		}else {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("result","fail");
-			JSONObject json = JSONObject.fromObject(map);
-			return json;
-		}
-	}
-	
 	// 분석/비교 서비스 - 본인 댓글 삭제
 	@RequestMapping(value = "productReplyDelete", method = RequestMethod.GET)
 	@ResponseBody
