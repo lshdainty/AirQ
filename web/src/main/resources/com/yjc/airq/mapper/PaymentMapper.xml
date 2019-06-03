@@ -2,10 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjc.airq.mapper.PaymentMapper">
+	<!-- 상품 결제정보 등록 -->
 	<insert id="pInsertPayment" parameterType="com.yjc.airq.domain.PaymentVO">
 		insert into payment(payment_code,payment_price,demand_code,payment_date) values(#{payment_code},#{payment_price},#{demand_code},systimestamp)
 	</insert>
 	
+	<!-- 상품 결제정보 삭제하기 -->
 	<delete id="productPaymentDelete" parameterType="String">
 		delete 
 		from payment 
@@ -71,6 +73,7 @@
 		GROUP by  p.tender_code,p.payment_code,p.payment_price,t.tender_title,p.star_score, to_char(t_creation_date,'yyyy-mm-dd'),t.member_id
 		order by to_char(t_creation_date,'yyyy-mm-dd') desc
 	</select>
+	
 	<select id="mypayNotNullT" resultType="com.yjc.airq.domain.PaymentVO">
 	    select  p.tender_code,p.payment_code,p.payment_price,t.tender_title as product_name,p.star_score,t.member_id as company_id, to_char(t_creation_date,'yyyy-mm-dd') as day
         from payment p,  member m, tender t
@@ -82,6 +85,7 @@
 		GROUP by  p.tender_code,p.payment_code,p.payment_price,t.tender_title,p.star_score, to_char(t_creation_date,'yyyy-mm-dd'),t.member_id
 		order by to_char(t_creation_date,'yyyy-mm-dd') desc	
 	</select>
+	
 	<select id="mypayNullT" resultType="com.yjc.airq.domain.PaymentVO">
 	    select  p.tender_code,p.payment_code,p.payment_price,t.tender_title as product_name,p.star_score,t.member_id as company_id, to_char(t_creation_date,'yyyy-mm-dd') as day
         from payment p,  member m, tender t
@@ -93,6 +97,7 @@
 		GROUP by  p.tender_code,p.payment_code,p.payment_price,t.tender_title,p.star_score, to_char(t_creation_date,'yyyy-mm-dd'),t.member_id
 		order by to_char(t_creation_date,'yyyy-mm-dd') desc
 	</select>
+	
 	<update id="mypayStarUp" parameterType="com.yjc.airq.domain.PaymentVO">
 		UPDATE payment set star_score = #{star_score}
 		where payment_code = #{payment_code}

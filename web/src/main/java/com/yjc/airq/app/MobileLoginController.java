@@ -27,7 +27,7 @@ public class MobileLoginController {
 	
 	@ResponseBody
 	@CrossOrigin(origins = "*")
-	@RequestMapping(value = "m.login", method = RequestMethod.GET)
+	@RequestMapping(value = "/m.login", method = RequestMethod.GET)
 	public JSONObject loginMain(MemberVO member, HttpSession session, Model model,@RequestParam String id, @RequestParam String password) {
 		MemberVO result = memberService.login(id);
 		Map<String, Object> map = new HashMap<String, Object>();

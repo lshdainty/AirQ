@@ -60,56 +60,6 @@
     	});
     });
     
-    $("#reply-insert").click(function(){
-    	var product_code = $("#product_code").text().split(':');
-    	var query = {
-    			member_id : $("#member_id").text(),
-    			reply_content : $("#reply_content").val(),
-    			product_code : product_code[1].trim()
-    	}
-    	$.ajax({
-    		type: "get",
-    		url: "/productReplyInsert",
-    		data : query,
-    		async: false,
-    		dataType: "json",
-    		success: function(data) {
-    			if(data.result=="success"){
-    				$("#reply_count").text(data.reply_count);
-    				var html = "";
-    				for(var i=0; i<data.productReply.length; i++){
-    					var r_creation_date = getTimeStamp(data.productReply[i].r_creation_date.time);
-    					html = html + '<div class="comment-list">'+
-										'<div class="comment-l">'+
-											'<div class="comment">'+
-												'<div class="comment-meta">'+
-													'<span class="comment__name"><a href="#">'+data.productReply[i].member_id+'</a></span>'+
-													'<span class="comment__date"> '+r_creation_date+'</span>'+
-												'</div>'+
-												'<div class="comment-content">'+
-													'<div><p><br>'+data.productReply[i].reply_content+'</p></div>'+
-												'</div>';
-    											if(data.member_id==data.productReply[i].member_id){
-    												html = html + '<div class="comment-button">'+
-																	'<button class="comment__button comment__button--red reply-delete">삭제</button>'+
-																	'<input type="hidden" class="reply_code" value="'+data.productReply[i].reply_code+'">'+
-																   '</div>';
-    											}
-    						html = html + '</div>'+
-										'</div>'+
-									'</div>';
-    				}
-    				$("#replys").empty();
-    				$("#reply_content").val("");
-    				$("#replys").append(html);
-    			}else{
-    				alert("상품을 구매한 사람만 작성 가능합니다.");
-    			}
-    		},
-    		error: function(xhr, stat, err) {}
-    	});
-    });
-    
     $(document).on("click",".reply-delete",function(){
     	var product_code = $("#product_code").text().split(':');
     	var reply_code = $(this).next().val();

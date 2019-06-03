@@ -88,18 +88,17 @@
 		delete from reply where reply_code=#{reply_code}
 	</delete>
 	
+	<!-- 상품에 대한 리뷰 가져오기 -->
 	<select id="productReply" resultType="com.yjc.airq.domain.ReplyVO">
 		select * from reply where product_code = #{product_code} order by r_creation_date desc
 	</select>
 	
+	<!-- 상품 삭제시 댓글도 같이 삭제하기 -->
 	<delete id="productReplyDelete" parameterType="String">
 		delete from reply where product_code = #{product_code}
 	</delete>
 	
-	<insert id="insertPReply" parameterType="com.yjc.airq.domain.ReplyVO">
-		insert into reply(reply_code,reply_content,r_creation_date,member_id,product_code) values(#{reply_code},#{reply_content},systimestamp,#{member_id},#{product_code})
-	</insert>
-	
+	<!-- 상품에서 본인 댓글 삭제하기 -->
 	<delete id="deletePReply" parameterType="String">
 		delete from reply where reply_code = #{reply_code}
 	</delete>
