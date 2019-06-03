@@ -22,4 +22,5 @@ public class Company_InfoVO {
 	private String member_name;
 	private String sum;
 	private String month;
+	private int reviewNum;
 }

@@ -23,4 +23,7 @@ public interface CompanyMapper {
 	
 	//마이페이지 셀러 그래프
 	public ArrayList<Company_InfoVO> c_code(@Param("member_id")String member_id);
+	
+	//리뷰에서 보여줄 별점
+	public double rStarScore(String company_code);
 }
