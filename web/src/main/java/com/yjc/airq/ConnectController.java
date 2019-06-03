@@ -46,7 +46,6 @@ import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.ReplyVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
-import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.service.ConnectService;
 import com.yjc.airq.service.MypageService;
 import com.yjc.airq.service.UploadService;
@@ -1050,6 +1049,35 @@ public class ConnectController {
 		map.put("reply_count",productReply.size());
 		map.put("member_id",((MemberVO) request.getSession().getAttribute("user")).getMember_id());
 		JSONObject json = JSONObject.fromObject(map);
+		return json;
+	}
+	
+	@RequestMapping(value="companyReviewGo",method=RequestMethod.GET)
+	public String companyReview(HttpServletRequest request, Model model) {
+		String company_code=request.getParameter("company_code");
+		model.addAttribute("company_code",company_code);
+		return "connect/companyReview";
+	}
+	
+	@RequestMapping(value="companyReview",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject companyReview(Company_InfoVO company_infoVo ,HttpServletRequest request) {
+		String company_code=request.getParameter("company_code");
+		
+		company_infoVo.setStar_score_avg(connectService.rStarScore(company_code));
+		company_infoVo.setCompany_name(connectService.company_name(company_code));
+		company_infoVo.setReviewNum(connectService.reviewNum(company_code));
+		
+		ArrayList<Map<String, Object>> companyReview=connectService.companyReview(company_code);
+		
+		JSONArray company_review=JSONArray.fromObject(companyReview);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("companyReview",company_review);
+		map.put("company_info",company_infoVo);
+		
+		JSONObject json=JSONObject.fromObject(map);
+		
 		return json;
 	}
 }

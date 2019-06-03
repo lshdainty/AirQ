@@ -4,7 +4,6 @@
 <%@include file="../include/header.jsp"%>
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/mypage/mypageNormal.css" />
-<h1 id="h1">일반 사용자-메인 페이지 입니다.</h1>
 <div id="memberInfo">
 	<p class="infoTitle">회원 정보</p>
 	<table id="memberInfoTbl">

@@ -39,4 +39,10 @@ public interface ReplyMapper {
 	
 	//입찰에 대한 리뷰 insert
 	public void tReviewInsert(ReplyVO replyVo);
+	
+	//회사별 리뷰
+	public ArrayList<Map<String,Object>> companyReview(String company_code);
+
+	//리뷰 개수
+	public int reviewNum(String company_code);
 }

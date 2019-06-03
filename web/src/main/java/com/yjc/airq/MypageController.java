@@ -748,8 +748,8 @@ public class MypageController {
 			mypageService.pStarScoreupdate(reviewStar, code);
 			mypageService.pReviewInsert(replyVo);
 		}else {
-			String company_code=mypageService.tBidCompayCode(code);
-			replyVo.setCompany_code(company_code);
+			//String company_code=mypageService.tBidCompayCode(code);
+			replyVo.setTender_code(code);
 			mypageService.tStarScoreupdate(reviewStar, code);
 			mypageService.tReviewInsert(replyVo);
 		}

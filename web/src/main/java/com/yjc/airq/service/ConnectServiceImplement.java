@@ -1,6 +1,7 @@
 package com.yjc.airq.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
@@ -268,6 +269,24 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public int tenderBid(String tender_code, String member_id) {
 		return bidMapper.tenderBid(tender_code, member_id);
+	}
+	
+	//회사별 리뷰
+	@Override
+	public ArrayList<Map<String, Object>> companyReview(String company_code) {
+		return replyMapper.companyReview(company_code);
+	}
+	
+	//리뷰에서 보여줄 별점
+	@Override
+	public double rStarScore(String company_code) {
+		return companyMapper.rStarScore(company_code);
+	}
+	
+	//리뷰개수
+	@Override
+	public int reviewNum(String company_code) {
+		return replyMapper.reviewNum(company_code);
 	}
 	
 	// 상품 전체 개수 조회
