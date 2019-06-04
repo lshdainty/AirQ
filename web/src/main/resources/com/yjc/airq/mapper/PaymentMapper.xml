@@ -137,4 +137,13 @@
 		set star_score=${star_score}
 		where tender_code=#{tender_code}
 	</update>
+	
+	<!-- 판매자 월별 매출 차트 - 상품서비스 -->
+	<select id="productSales" resultType="map">
+		select sum(p.payment_price),to_char(p.payment_date,'yy-mm')
+		from payment p, demand d, product t
+		where p.demand_code is not null and p.demand_code=d.demand_code and d.product_code = t.product_code 
+    		and t.company_code = (select company_code from company_info where company_code=#{company_code})
+		group by to_char(p.payment_date,'yy-mm')
+	</select>
 </mapper>

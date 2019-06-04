@@ -45,4 +45,7 @@ public interface PaymentMapper {
 	
 	//입찰에 대한 별점 update
 	public void tStarScoreupdate(@Param("star_score")int star_score, @Param("tender_code")String tender_code);
+	
+	//판매자 월별 매출 차트 - 상품서비스
+	
 }
