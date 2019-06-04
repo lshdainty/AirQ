@@ -33,6 +33,11 @@ public class ManageServiceImplement implements ManageService{
 	public int measureData(Map<String, Object> m) {
 		return mapper.measureData(m);
 	}
+
+	// inside Chart
+	public ArrayList<MeasureDataVO> insideChart(String member_id) {
+		return mapper.insideChart(member_id);
+	}
 	
 //	@Override
 //	public String modelInsert(String ModelName) {

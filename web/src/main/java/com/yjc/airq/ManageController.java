@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.IotInfoVO;
+import com.yjc.airq.domain.MeasureDataVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.service.ManageService;
 
@@ -165,7 +166,37 @@ public class ManageController {
 		
 		return "manage/remoteMain";
 	}
-
+	
+	// 실내 모니터링에서 차트
+	@ResponseBody
+	@RequestMapping(value = "/insideChart", method = RequestMethod.POST)
+	public JSONArray insideChart(Model model, HttpServletRequest request) {
+		System.out.println("insideChart 들어옴");
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		
+		ArrayList<MeasureDataVO> list = manageService.insideChart(member_id);
+		System.out.println("list : "+list);
+		
+		JSONArray jArray = new JSONArray();
+		for(int i = 0; i < list.size(); i++) {
+			JSONObject json = new JSONObject();
+			json.put("measure", list.get(i).getMeasure());
+			json.put("measuretime", list.get(i).getMeasuretime());
+			System.out.println("json : " + json);
+			jArray.add(json);
+		}
+		System.out.println("jArray : "+jArray);
+		return jArray;
+	}
+	
+	// 실외 모니터링 페이지 이동
+	@RequestMapping(value = "outside", method = RequestMethod.GET)
+	public String outside(Model model) {
+		return "manage/monitoringMain";
+	}
+	
+	
+	
 	// IoT 원격제어 제품 등록 페이지로 가기
 	@RequestMapping(value = "remoteRegist", method = RequestMethod.GET)
 	public String remoteRegist(Model model) {

@@ -11,4 +11,7 @@ public class MeasureDataVO {
 	private Timestamp measure_time;
 	private String iot_id;
 	private String matter_code;
+	
+	private String measure; // 차트 들어가는 측정 값
+	private String measuretime; // 차트 들어가는 측정 시간
 }
