@@ -8,7 +8,6 @@
 	<input type="hidden" id="sigoon_key" value="b0888bae39fbd0463a9252" />
 	<%-- 각 도의 시목록 api 키값 끝 --%>
 	<!-- Web Wrapper -->
-	<a href="compareMain_grid">GRID</a>
     <div class="compare-wrap">
         <!-- recommanded posts -->
         <div class="compare-recommand">
@@ -60,13 +59,13 @@
             <li class="category-option" value="lprice">가격 낮은 순</li>
             <li class="category-option" value="staravg">만족도 평균순</li>
         </ul>
-        <div class="compare-list">
+        <div class="compare-list_grid">
         	<c:forEach var="pList" items="${pList }">
-            <%-- <div class="compare-post post-item" id="${pList.product_code}">
-                <div class="compare-thumb">
+            <div class="compare-post_grid post-item" id="${pList.product_code}">
+                <div class="compare-thumb_grid">
                     <img src="/resources/uploadFile/images/${pList.file_name }" alt="이미지X">
                 </div>
-                <div class="compare-info">
+                <div class="compare-info_grid">
                     <div class="compare__title"><span>${pList.product_name}</span></div>
                     <div class="compare__content">
                     	측정 적절 평수 : <span>
@@ -93,7 +92,7 @@
                     </div>
                     <div class="compare__price"><span>${pList.product_price}</span>원</div>
                 </div>
-            </div> --%>
+            </div>
             </c:forEach>
         </div>
     </div>

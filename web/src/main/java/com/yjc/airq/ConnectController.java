@@ -97,6 +97,39 @@ public class ConnectController {
 		return "connect/compareMain";
 	}
 
+	
+	// 업체 분석/비교 메인페이지로 가기
+		@RequestMapping(value = "compareMain_grid", method = RequestMethod.GET)
+		public String compareGrid(Model model, HttpServletRequest request) {
+			Criteria criteria = new Criteria();
+			int pagenum = 1;
+			String sort = "sellnum";
+
+			criteria.setTotalcount(connectService.productCount());	//전체 게시글 개수를 지정
+			criteria.setPagenum(pagenum);	//현재 페이지를 페이지 객체에 지정
+			criteria.setStartnum(pagenum);	//컨텐츠 시작 번호 지정
+			criteria.setEndnum(pagenum);	//컨텐츠 끈 번호 지정 
+			criteria.setCurrentblock(pagenum);	//현재 페이지 블록이 몇번인지 현재 페이지 번호 통해 지정
+			criteria.setLastblock(criteria.getTotalcount());	//마지막 블록 번호를 전체 게시글 수를 통해 정함
+			criteria.prevnext(pagenum);	//현재 페이지 번호로 화살표를 나타낼지 정함
+			criteria.setStartPage(criteria.getCurrentblock());	//시작 페이지를 페이지 블록번호로 정함
+			criteria.setEndPage(criteria.getLastblock(),criteria.getCurrentblock());	//마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
+			
+			String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+			String zipcode = connectService.selectZipcode(member_id);
+			
+			// 사용자가 사는곳에서 많이 팔린 제품리스트
+			ArrayList<ProductVO> recommend = connectService.recommendList(zipcode);
+			
+			// 전체 상품리스트
+			ArrayList<ProductVO> pList = connectService.productList(sort,criteria.getStartnum(),criteria.getEndnum());
+			
+			model.addAttribute("recommend",recommend);
+			model.addAttribute("pList",pList);
+			model.addAttribute("criteria",criteria);
+
+			return "connect/compare_grid";
+		}
 	// 입찰 서비스 메인페이지로 가기
 	@RequestMapping(value = "tenderMain", method = RequestMethod.GET)
 	public String tenderMain(Model model, TenderVO tenderVo) {
