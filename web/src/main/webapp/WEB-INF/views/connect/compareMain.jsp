@@ -59,11 +59,11 @@
 		<li class="category-option" value="staravg">만족도 평균순</li>
 		<li class="sort-item">
 			<ul class="sort_type">
-				<li id="list" class="type_list">
-					<a href="#" data-filter-name="viewType" data-filter-value="list" title="리스트형 보기" data-filter-action="noFirst"><em>리스트형</em></a>
-				</li>
 				<li id="thumb" class="type_thumb">
 					<a href="#" data-filter-name="viewType" data-filter-value="thumb" title="섬네일형 보기" data-filter-action="noFirst"><em>섬네일형</em></a>
+				</li>
+				<li id="list" class="type_list">
+					<a href="#" data-filter-name="viewType" data-filter-value="list" title="리스트형 보기" data-filter-action="noFirst"><em>리스트형</em></a>
 				</li>
 			</ul>
 		</li>
