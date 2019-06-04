@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../../www/resources/css/manage/remoteMain.css">
+    <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="../../../www/resources/js/home.js"></script>
+</head>
+<style>
+    .iot-wrap {
+        margin: 57.5px 0 57.5px 0;
+    }
+
+    .iot-box {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        border: 1px solid #000;
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+
+    .iot-controller {
+        margin: auto;
+    }
+
+    .iot-img {
+        border: 1px solid #000;
+        border-radius: 1rem;
+        overflow: hidden;
+        margin: 1rem;
+    }
+
+    .iot-img img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .iot-info {
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+    }
+
+    .iot-title {
+        border-top: 1px solid #000;
+        background: #ddd;
+    }
+
+    .load-gate {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: #fff;
+        font-family: sans-serif;
+        text-transform: uppercase;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        padding: 20px;
+        z-index: 3000;
+    }
+</style>
+
+<body>
+    <div class="load-gate">Now Loading. . .</div>
+    <div id="header"></div>
+    <div class="iot-wrap">
+        <div class="iot-container">
+            <div class="iot-box">
+                <div class="iot-img">
+                    <img src="../../../www/resources/images/800490.png" alt="">
+                </div>
+                <div class="iot-controller">
+                    <div class="on_off">
+                        <label class="rocker rocker-small">
+                            <input type="checkbox" class="onOff" value="check">
+                            <span class="switch-left">ON</span>
+                            <span class="switch-right">OFF</span>
+                        </label>
+
+                        <label class="rocker rocker-small">
+                            <input type="checkbox" class="autoManual">
+                            <span class="switch-left">자동</span>
+                            <span class="switch-right">수동</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="iot-info">
+                    <div class="iot-title">
+                        기기이름
+                    </div>
+                    <div class="iot-title">
+                        기기종류
+                    </div>
+                    <div class="iot-title">
+                        기기위치
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer"></div>
+</body>
+
+</html>
