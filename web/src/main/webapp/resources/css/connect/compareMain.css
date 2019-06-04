@@ -216,3 +216,32 @@
     background-color: #428bca;
     color: white;
 }
+
+.compare-list_grid{
+	display: flex !important;
+	flex-wrap: wrap;
+	flex-direction: row;
+}
+.compare-post_grid{
+	width: 24%;
+	display: flex !important;
+	flex-direction: column;
+	padding: 1rem;
+}
+
+.compare-thumb_grid{
+	margin: auto;
+	width:130px;
+	height:130px;
+}
+.compare-thumb_grid img {
+	width: 130px;
+	height: 130px;
+}
+
+.compare-info_grid {
+	vertical-align: top;
+	width: 80%;
+	display:flex !important;
+	flex-direction:column;
+}
