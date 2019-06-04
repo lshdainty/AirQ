@@ -106,7 +106,7 @@
 						</c:choose>
                     </strong></dd>
                     <dt class="final">상품코드</dt>
-                    <dd> <strong class="">${productContent.product_code}</strong></dd>
+                    <dd> <strong class="" id="product_code">${productContent.product_code}</strong></dd>
                     <dt class="final">측정지점</dt>
                     <dd> <strong class="">${productContent.measure_point}곳</strong></dd>
                     <dt class="final">측정물질</dt>

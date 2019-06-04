@@ -1,21 +1,21 @@
 ﻿$(document).ready(function() {
 	var windowObj;
     $("#paymentButton").click(function(){
-    	var product_code = $("#product_code").text().split(':');
-    	windowObj = window.open("/cPayment?product_code="+product_code[1].trim(),"payment","width=570, height=350");
+    	var product_code = $("#product_code").text();
+    	windowObj = window.open("/cPayment?product_code="+product_code.trim(),"payment","width=570, height=350");
     });
     
     $("#reportButton").click(function(){
-    	var product_code = $("#product_code").text().split(':');
+    	var product_code = $("#product_code").text();
     	//기존에 신고한 내용이 있는지 확인
     	$.ajax({
     		type: "get",
     		url: "/checkReport",
-    		data : {original_code : product_code[1].trim()},
+    		data : {original_code : product_code.trim()},
     		async: false,
     		success: function(data) {
     			if(data=="success"){
-    				windowObj = window.open("/report?original_code="+product_code[1].trim(),"report","width=570px, height=600px");
+    				windowObj = window.open("/report?original_code="+product_code.trim(),"report","width=570px, height=600px");
     			}else{
     				alert("신고는 한번만 가능합니다.");
     			}
@@ -25,15 +25,15 @@
     });
     
     $("#productModify").click(function(){
-    	var product_code = $("#product_code").text().split(':');
+    	var product_code = $("#product_code").text();
     	$.ajax({
     		type: "get",
     		url: "/permissionCheck",
-    		data : {product_code : product_code[1].trim()},
+    		data : {product_code : product_code.trim()},
     		async: false,
     		success: function(data) {
     			if(data=="success"){
-    				window.location.href="/productModify?product_code="+product_code[1].trim();
+    				window.location.href="/productModify?product_code="+product_code.trim();
     			}else{
     				alert("권한이 없습니다.");
     			}
@@ -43,15 +43,15 @@
     });
     
     $("#productDelete").click(function(){
-    	var product_code = $("#product_code").text().split(':');
+    	var product_code = $("#product_code").text();
     	$.ajax({
     		type: "get",
     		url: "/permissionCheck",
-    		data : {product_code : product_code[1].trim()},
+    		data : {product_code : product_code.trim()},
     		async: false,
     		success: function(data) {
     			if(data=="success"){
-    				window.location.href="/productDelete?product_code="+product_code[1].trim();
+    				window.location.href="/productDelete?product_code="+product_code.trim();
     			}else{
     				alert("권한이 없습니다.");
     			}
@@ -61,10 +61,10 @@
     });
     
     $(document).on("click",".reply-delete",function(){
-    	var product_code = $("#product_code").text().split(':');
+    	var product_code = $("#product_code").text();
     	var reply_code = $(this).next().val();
     	var query = {
-    			product_code : product_code[1].trim(),
+    			product_code : product_code.trim(),
     			reply_code : reply_code
     	}
     	$.ajax({
