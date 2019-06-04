@@ -1,6 +1,7 @@
 package com.yjc.airq.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -110,7 +111,16 @@ public interface ConnectService {
 	public int selectCount(String member_id);
 	
 	public int tenderBid(@Param("tender_code") String tender_code, @Param("member_id") String member_id);	
-
+	
+	//회사별 리뷰
+	public ArrayList<Map<String,Object>> companyReview(String company_code);
+	
+	//리뷰에서 보여줄 별점
+	public double rStarScore(String company_code);
+	
+	//리뷰 개수
+	public int reviewNum(String company_code);
+	
 	// 상품 전체 개수 조회
 	public int productCount();
 	// 항목 선택후 항목에 맞는 상품 개수 조회
@@ -164,10 +174,6 @@ public interface ConnectService {
 	// 서비스 제품 삭제
 	public void productDelete(@Param("product_code") String product_code);
 	
-	// 사용자가 상품을 구매했는지 확인
-	public int checkPayment(@Param("member_id") String member_id,@Param("product_code") String product_code);
-	// 상품 댓글 insert
-	public void insertPReply(ReplyVO replyVO);
 	// 본인 댓글 delete
 	public void deletePReply(@Param("reply_code") String reply_code);
 	

@@ -93,20 +93,6 @@
 			<h2 class="comment__title">상품평</h2>
 			<span class="comment__count">총 <em id="reply_count">${productContent.reply_count}</em>개</span>
 		</div>
-		<div class="comment-write">
-			<div class="comment-write-inner">
-				<div class="comment-write__name" id="member_id">${user.member_id}</div>
-				<div class="comment-write__content">
-					<textarea name="reply_content" placeholder="주제와 무관한 댓글, 타인의 권리를 침해하거나 명예를 훼손하는 게시물은 별도의 통보 없이 제재를 받을 수 있습니다."
-					style="overflow: hidden; overflow-wrap: break-word; height: 44px;" id="reply_content"></textarea>
-				</div>
-				<div class="comment-write-footer">
-					<div class="comment-write-submit">
-						<button class="button button--blue" id="reply-insert">작성</button>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div>
 			<div id="replys">
 				<c:forEach var="reply" items="${productReply}">

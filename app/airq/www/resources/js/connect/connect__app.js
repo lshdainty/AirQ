@@ -1,4 +1,3 @@
-
 var page = 'connect';
 var slidePage = 0;
 var slideCategory = ['connect', 'tender'];

@@ -46,7 +46,6 @@ import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.ReplyVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.domain.UploadVO;
-import com.yjc.airq.mapper.ProductMapper;
 import com.yjc.airq.service.ConnectService;
 import com.yjc.airq.service.MypageService;
 import com.yjc.airq.service.UploadService;
@@ -73,6 +72,7 @@ public class ConnectController {
 		String sort = "sellnum";
 
 		criteria.setTotalcount(connectService.productCount());	//전체 게시글 개수를 지정
+		criteria.setContentnum(12);
 		criteria.setPagenum(pagenum);	//현재 페이지를 페이지 객체에 지정
 		criteria.setStartnum(pagenum);	//컨텐츠 시작 번호 지정
 		criteria.setEndnum(pagenum);	//컨텐츠 끈 번호 지정 
@@ -674,6 +674,7 @@ public class ConnectController {
 		int space = Integer.parseInt(request.getParameter("space"));
 		String matter = request.getParameter("matter");
 		String sort = request.getParameter("sort");
+		String typeCheck = request.getParameter("typeCheck");
 
 		Criteria criteria = new Criteria();
 		int pagenum = Integer.parseInt(request.getParameter("pagenum"));
@@ -681,6 +682,9 @@ public class ConnectController {
 			criteria.setTotalcount(connectService.productCount()); // 전체 게시글 개수를 지정
 		} else {
 			criteria.setTotalcount(connectService.selectCount(sido, sigoon, space, matter)); // 전체 게시글 개수를 지정
+		}
+		if(typeCheck.equals("thumb")) {
+			criteria.setContentnum(12);
 		}
 		criteria.setPagenum(pagenum); // 현재 페이지를 페이지 객체에 지정
 		criteria.setStartnum(pagenum); // 컨텐츠 시작 번호 지정
@@ -1006,37 +1010,6 @@ public class ConnectController {
 		return "redirect: /compareMain";
 	}
 	
-	// 분석/비교 서비스 - 상품 댓글 insert
-	@RequestMapping(value = "productReplyInsert", method = RequestMethod.GET)
-	@ResponseBody
-	public JSONObject productReplyInsert(ReplyVO replyVO,HttpServletRequest request) {
-		int count = connectService.checkPayment(replyVO.getMember_id(),replyVO.getProduct_code());
-		if(count>0) {
-			Date today = new Date();
-			SimpleDateFormat date = new SimpleDateFormat("yyMMdd");
-			String day = date.format(today);
-			String random=String.format("%04d",(int)(Math.random()*10000));
-			String reply_code="rp"+day+random;
-			replyVO.setReply_code(reply_code);
-			connectService.insertPReply(replyVO);
-			
-			ArrayList<ReplyVO> productReply = connectService.productReply(replyVO.getProduct_code());
-			JSONArray rJson = JSONArray.fromObject(productReply);
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("productReply", rJson);
-			map.put("reply_count",productReply.size());
-			map.put("result","success");
-			map.put("member_id",((MemberVO) request.getSession().getAttribute("user")).getMember_id());
-			JSONObject json = JSONObject.fromObject(map);
-			return json;
-		}else {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("result","fail");
-			JSONObject json = JSONObject.fromObject(map);
-			return json;
-		}
-	}
-	
 	// 분석/비교 서비스 - 본인 댓글 삭제
 	@RequestMapping(value = "productReplyDelete", method = RequestMethod.GET)
 	@ResponseBody
@@ -1050,6 +1023,35 @@ public class ConnectController {
 		map.put("reply_count",productReply.size());
 		map.put("member_id",((MemberVO) request.getSession().getAttribute("user")).getMember_id());
 		JSONObject json = JSONObject.fromObject(map);
+		return json;
+	}
+	
+	@RequestMapping(value="companyReviewGo",method=RequestMethod.GET)
+	public String companyReview(HttpServletRequest request, Model model) {
+		String company_code=request.getParameter("company_code");
+		model.addAttribute("company_code",company_code);
+		return "connect/companyReview";
+	}
+	
+	@RequestMapping(value="companyReview",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject companyReview(Company_InfoVO company_infoVo ,HttpServletRequest request) {
+		String company_code=request.getParameter("company_code");
+		
+		company_infoVo.setStar_score_avg(connectService.rStarScore(company_code));
+		company_infoVo.setCompany_name(connectService.company_name(company_code));
+		company_infoVo.setReviewNum(connectService.reviewNum(company_code));
+		
+		ArrayList<Map<String, Object>> companyReview=connectService.companyReview(company_code);
+		
+		JSONArray company_review=JSONArray.fromObject(companyReview);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("companyReview",company_review);
+		map.put("company_info",company_infoVo);
+		
+		JSONObject json=JSONObject.fromObject(map);
+		
 		return json;
 	}
 }

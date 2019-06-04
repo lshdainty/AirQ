@@ -109,3 +109,7 @@ hr {
 	height: 40px;
 	width: 90px;
 }
+
+#company_name {
+	cursor: pointer;
+}

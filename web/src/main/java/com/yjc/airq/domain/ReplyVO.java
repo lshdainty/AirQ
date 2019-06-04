@@ -12,7 +12,7 @@ public class ReplyVO {
 	private String member_id;
 	private String post_code;
 	private String product_code;
-	private String company_code;
+	private String tender_code;
 	
 	private String board_name;
 	private String product_name;

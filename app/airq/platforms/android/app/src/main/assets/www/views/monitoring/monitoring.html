@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="../../../www/resources/css/connect/connect__app.css">
     <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
     <script src="../../../www/resources/js/TweenLite.js"></script>
-
     <script src="../../../www/resources/js/bootstrap.js"></script>
     <script src="../../../www/resources/js/home.js"></script>
     <script src="../../../www/resources/js/animation.js"></script>
@@ -103,7 +102,7 @@
         }
 
         .met-container {
-            font-size: .5rem;
+            font-size: .8rem;
             width: 100%;
             margin: auto;
         }
@@ -115,9 +114,11 @@
             flex-direction: row;
             justify-content: space-around;
         }
+
         .met-box::before{
             border-left: 2px solid #000;
         }
+
         .met-box {
             min-width: 45%;
             margin-top: .5rem;
@@ -128,8 +129,22 @@
             justify-content: space-around;
             display: flex;
         }
+
         .division-line{
             border-right: 2px solid #fff;
+        }
+
+        .map-wrap {
+            width: 90%;
+            display: flex;
+            justify-content: space-around;
+            margin: auto;
+        }
+        
+        .map-container {
+            width: 100%;
+            height: 20rem;
+            border: 1px solid #000;
         }
     </style>
 </head>
@@ -146,7 +161,7 @@
         <!-- Add Scrollbar -->
         <div class="swiper-scrollbar"></div>
         <div class="swiper-wrapper">
-            <!-- 상품 비교분석 시작-->
+            <!-- 실내 공기질 모니터링 시작-->
             <div class="swiper-slide">
                 <div class="inside-container">
                     <div class="myIot">내기기 목록</div>
@@ -203,19 +218,24 @@
                 </div>
             </div>
 
-            <!-- 상품 비교분석 끝-->
-            <!-- 입찰 시작-->
+            <!-- 실내 공기질 모니터링 시작-->
+            <!-- 실외 공기질 모니터링 시작-->
             <div class="swiper-slide">
+                <div class="map-wrap">
+                    <div id="map" class="map-container"></div>
+                </div>
+                <div class="matter_info">
+                </div>
             </div>
-            <!-- 입찰 끝-->
+            <!-- 실외 공기질 모니터링 끝-->
         </div>
     </div>
     <div id="footer"></div>
     <!-- Swiper JS -->
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tpllhjh4tl&submodules=geocoder"></script>
+    <script type="text/javascript" src="https://navermaps.github.io/maps.js.ncp/docs/js/MarkerClustering.js"></script>
     <script src="../../../www/resources/js/connect/swiper.js"></script>
     <script src="../../../www/resources/js/connect/connect__app.js"></script>
-    <script src="../../../www/resources/js/connect/compareMain.js"></script>
-
+    <script src="../../../www/resources/js/monitoring/monitoring.js"></script>
 </body>
-
 </html>

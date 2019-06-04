@@ -88,12 +88,12 @@
 	
 	<!-- 마이페이지 글관리 - 리스트 뽑기 -->
 	<select id="tenderNMP" resultType="com.yjc.airq.domain.TenderVO">
-		select t.tender_code, t.tender_title, to_date(t.t_creation_date,'YY-MM-DD HH24:MI:SS') as t_creation_date, t.service_date, t.tender_deadline,
+		select t.tender_code, t.tender_title, t.t_creation_date, t.service_date, t.tender_deadline,
         t.floor_number, t.member_id, count(re.original_code) as report_count 
         from (select * from tender order by t_creation_date asc) t , report re
         where t.tender_code = re.ORIGINAL_CODE(+)
         and t.member_id = #{member_id}
-        group by t.tender_code, t.tender_title, to_date(t.t_creation_date,'YY-MM-DD HH24:MI:SS'), t.service_date, t.tender_deadline, t.floor_number, t.member_id
+        group by t.tender_code, t.tender_title, t.t_creation_date, t.service_date, t.tender_deadline, t.floor_number, t.member_id
 	</select>
 	
 	<!-- 투찰 기간 설정 -->

@@ -88,18 +88,17 @@
 		delete from reply where reply_code=#{reply_code}
 	</delete>
 	
+	<!-- 상품에 대한 리뷰 가져오기 -->
 	<select id="productReply" resultType="com.yjc.airq.domain.ReplyVO">
 		select * from reply where product_code = #{product_code} order by r_creation_date desc
 	</select>
 	
+	<!-- 상품 삭제시 댓글도 같이 삭제하기 -->
 	<delete id="productReplyDelete" parameterType="String">
 		delete from reply where product_code = #{product_code}
 	</delete>
 	
-	<insert id="insertPReply" parameterType="com.yjc.airq.domain.ReplyVO">
-		insert into reply(reply_code,reply_content,r_creation_date,member_id,product_code) values(#{reply_code},#{reply_content},systimestamp,#{member_id},#{product_code})
-	</insert>
-	
+	<!-- 상품에서 본인 댓글 삭제하기 -->
 	<delete id="deletePReply" parameterType="String">
 		delete from reply where reply_code = #{reply_code}
 	</delete>
@@ -122,6 +121,25 @@
 	
 	<!-- 입찰에 대한 리뷰 insert -->
 	<insert id="tReviewInsert" parameterType="com.yjc.airq.domain.ReplyVO">
-		insert into reply(reply_code,reply_content,r_creation_date,member_id,company_code) values(#{reply_code},#{reply_content},systimestamp,#{member_id},#{company_code})
+		insert into reply(reply_code,reply_content,r_creation_date,member_id,tender_code) values(#{reply_code},#{reply_content},systimestamp,#{member_id},#{tender_code})
 	</insert>
+	
+	<!-- 회사별 리뷰 -->
+	<select id="companyReview" resultType="map">
+		select t.tender_code, t.member_id, b.company_code, p.star_score,r.reply_content, to_char(r.r_creation_date,'yyyy.MM.dd hh:mi:ss') r_creation_date
+		from tender t, bid b, payment p, reply r
+		where t.tender_code=b.tender_code and b.win_bid_whether='y' 
+		and t.tender_code=p.tender_code and b.company_code=#{company_code} and t.tender_code=r.tender_code
+		order by r_creation_date desc
+	</select>
+	
+	<!-- 리뷰 개수 -->
+	<select id="reviewNum" resultType="int">
+		select count(*)
+		from(select t.tender_code, t.member_id, b.company_code, c.company_name, p.star_score,r.reply_content, to_char(r.r_creation_date,'yyyy.MM.dd hh:mi:ss') r_creation_date
+			from tender t, bid b, payment p, reply r, company_info c
+			where t.tender_code=b.tender_code and b.win_bid_whether='y' 
+			and t.tender_code=p.tender_code and b.company_code=#{company_code} and t.tender_code=r.tender_code and b.company_code=c.company_code
+			order by r_creation_date) o
+	</select>
 </mapper>

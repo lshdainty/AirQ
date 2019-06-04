@@ -39,7 +39,7 @@ public class MobileManageController {
 	
 	// 각 시/도 미세먼지 수치 가져오기
 	@CrossOrigin(origins = "*")
-	@RequestMapping(value = "m.dustData", method = RequestMethod.GET)
+	@RequestMapping(value = "/m.dustData", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject dustData(Model model, HttpServletRequest request) {
 		String x = request.getParameter("x");
