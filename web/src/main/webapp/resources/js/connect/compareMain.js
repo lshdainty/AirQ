@@ -1,13 +1,15 @@
-﻿$('.type_thumb').addClass('on');
+$('.type_thumb').addClass('on');
 
 $('.type_thumb').click(function(){
 	$('.type_list').removeClass('on');
 	$(this).addClass('on');
+	window.location.href="/compareMain_grid";
 });
 
 $('.type_list').click(function(){
 	$('.type_thumb').removeClass('on');
 	$(this).addClass('on');
+	window.location.href="/compareMain";
 });
 
 $.ajax({

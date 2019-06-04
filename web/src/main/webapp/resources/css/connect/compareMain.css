@@ -170,6 +170,10 @@
 	width: 130px;
 	height: 130px;
 }
+.compare-thumb img{
+	width:100%;
+	height:100%;
+}
 
 .compare-thumb img{
 	width:100%;
@@ -232,7 +236,7 @@
 	display: flex !important;
 	flex-wrap: wrap;
 	flex-direction: row;
-	justify-content:space-around;
+	justify-content:space-evenly;
 }
 .compare-post_grid{
 	width: 24%;
