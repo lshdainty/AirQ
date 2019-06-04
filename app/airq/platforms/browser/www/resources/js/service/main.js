@@ -10,7 +10,7 @@ $(document).ready(function () {
                 var y = position.coords.longitude;
                 var mapOptions = {
                     center: new naver.maps.LatLng(x, y),
-                    zoom: 10,
+                    zoom: 12,
                     scaleControl: false,
                     logoControl: false,
                     mapDataControl: false,
@@ -19,11 +19,6 @@ $(document).ready(function () {
                 };
                 var map = new naver.maps.Map('map', mapOptions);
                 var latlng = map.getCenter();
-
-                var marker = new naver.maps.Marker({
-                    position: latlng,
-                    map: map
-                });
 
                 var defaultMarker = new naver.maps.Marker({
                     position: latlng,

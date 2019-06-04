@@ -254,6 +254,7 @@
 .figure {
     display: block;
     position: relative;
+    word-wrap:break-word;
     font-size: 18px;
     line-height: 30px;
     font-weight: bold;

@@ -10,7 +10,7 @@ $(document).ready(function () {
                 var y = position.coords.longitude;
                 var mapOptions = {
                     center: new naver.maps.LatLng(x, y),
-                    zoom: 10,
+                    zoom: 12,
                     scaleControl: false,
                     logoControl: false,
                     mapDataControl: false,
