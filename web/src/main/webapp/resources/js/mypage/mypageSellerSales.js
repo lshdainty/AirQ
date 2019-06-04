@@ -1,4 +1,3 @@
-
 	$.ajax({
 		url:"mypageSellerSales",
 		type:"POST",
