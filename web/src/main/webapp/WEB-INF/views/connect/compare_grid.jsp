@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 <link rel="stylesheet" href="/resources/css/connect/compareMain.css">
 <link rel="stylesheet" href="/resources/css/include/table.css">
@@ -20,7 +21,8 @@
 				<div class="compare-recommand__post" id="${recommend.product_code}">
 					<!-- post thumbnail -->
 					<div class="recommanded-thumbnail">
-						<img src="/resources/uploadFile/images/${recommend.file_name }" alt="이미지X">
+						<img src="/resources/uploadFile/images/${recommend.file_name }"
+							alt="이미지X">
 					</div>
 					<!-- post title -->
 					<div class="recommanded-title">
@@ -59,10 +61,10 @@
 		<li class="category-option" value="staravg">만족도 평균순</li>
 		<li class="sort-item">
 			<ul class="sort_type">
-				<li id="list" class="type_list">
+				<li class="type_list">
 					<a href="#" data-filter-name="viewType" data-filter-value="list" title="리스트형 보기" data-filter-action="noFirst"><em>리스트형</em></a>
 				</li>
-				<li id="thumb" class="type_thumb">
+				<li class="type_thumb">
 					<a href="#" data-filter-name="viewType" data-filter-value="thumb" title="섬네일형 보기" data-filter-action="noFirst"><em>섬네일형</em></a>
 				</li>
 			</ul>
@@ -119,21 +121,19 @@
 	<div class="d-flex justify-content-center">
 		<ul class="pagination">
 			<c:if test="${criteria.prev}">
-				<li class="page-item">
-					<a class="page-link" href="javascript:page(${criteria.getStartPage()-1});" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-					</a>
-				</li>
+				<li class="page-item"><a class="page-link"
+					href="javascript:page(${criteria.getStartPage()-1});"
+					aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
 			</c:if>
-			<c:forEach begin="${criteria.getStartPage() }" end="${criteria.getEndPage() }" var="idx">
-				<li class="page-item"><a class="page-link" href="javascript:page(${idx });">${idx}</a></li>
+			<c:forEach begin="${criteria.getStartPage() }"
+				end="${criteria.getEndPage() }" var="idx">
+				<li class="page-item"><a class="page-link"
+					href="javascript:page(${idx });">${idx}</a></li>
 			</c:forEach>
 			<c:if test="${criteria.next}">
-				<li class="page-item">
-					<a class="page-link" href="javascript:page(${criteria.getEndPage()+1});" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-					</a>
-				</li>
+				<li class="page-item"><a class="page-link"
+					href="javascript:page(${criteria.getEndPage()+1});"
+					aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 			</c:if>
 		</ul>
 	</div>

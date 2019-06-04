@@ -1,4 +1,18 @@
-﻿$.ajax({
+$('.type_thumb').addClass('on');
+
+$('.type_thumb').click(function(){
+	$('.type_list').removeClass('on');
+	$(this).addClass('on');
+	window.location.href="/compareMain_grid";
+});
+
+$('.type_list').click(function(){
+	$('.type_thumb').removeClass('on');
+	$(this).addClass('on');
+	window.location.href="/compareMain";
+});
+
+$.ajax({
 		type: "get",
 		url: "http://openapi.nsdi.go.kr/nsdi/eios/service/rest/AdmService/admCodeList.json",
 		data : {authkey : $('#sido_key').val()},
@@ -52,6 +66,12 @@ $(document).on("change","#sido_code",function(){
 	});
 });
 
+//list형식인지 thumb형식인지 확인 시작
+function typeCheck(){
+	console.log($(document).find(".on").attr("id"));
+}
+//list형식인지 thumb형식인지 확인 끝
+
 //정렬값 확인 함수 시작
 function sortdata(){
 	var sort = $(".option-active").attr("value");
@@ -63,7 +83,7 @@ function sortdata(){
 $('.category-option').click(function(){
     $(".option-active").removeClass("option-active");
     $('.compare-category').find(this).addClass("option-active");
-    ajax(1,sortdata());
+    ajax(1,sortdata(),typeCheck());
 });
 //정렬 선택 끝
 
@@ -98,7 +118,7 @@ function page(idx){
 //paging 끝
 
 //ajax 함수 시작
-function ajax(idx,sort){
+function ajax(idx,sort,typeCheck){
 	var data = {
 		sido : $("#sido_code option:selected").val(),
 		sigoon : $("#sigoon_code option:selected").val(),
@@ -164,9 +184,8 @@ function ajax(idx,sort){
 				}
 				$(".pagination").empty();
 				$(".pagination").prepend(page);
-				//$("html, body").animate({ scrollTop: 0 }, 1);
+				$("html, body").animate({ scrollTop: 0 }, 1);
 			}	//else
-			//pAnimation();
 		}	//success
 	});	//ajax
 }	//function
