@@ -45,8 +45,6 @@ public class ManageController {
 	@RequestMapping(value = "dustData", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject dustData(Model model, HttpServletRequest request) {
-		System.out.println(request.getParameter("x"));
-		System.out.println(request.getParameter("y"));
 		BufferedReader br = null;
 		//String sidoName[] = {"서울", "부산", "대구", "인천", "광주", "대전", "울산", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주", "세종"};
 		String sidoName1[] = {"대구"};
