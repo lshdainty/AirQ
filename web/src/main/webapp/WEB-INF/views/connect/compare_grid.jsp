@@ -61,12 +61,12 @@
 		<li class="category-option" value="staravg">만족도 평균순</li>
 		<li class="sort-item">
 			<ul class="sort_type">
-				<li class="type_list"><a href="#" data-filter-name="viewType"
-					data-filter-value="list" title="리스트형 보기"
-					data-filter-action="noFirst"><em>리스트형</em></a> <!-- N=a:opv.list --></li>
-				<li class="type_thumb"><a href="#" data-filter-name="viewType"
-					data-filter-value="thumb" title="섬네일형 보기"
-					data-filter-action="noFirst"><em>섬네일형</em></a> <!-- N=a:opv.image --></li>
+				<li class="type_list">
+					<a href="#" data-filter-name="viewType" data-filter-value="list" title="리스트형 보기" data-filter-action="noFirst"><em>리스트형</em></a>
+				</li>
+				<li class="type_thumb">
+					<a href="#" data-filter-name="viewType" data-filter-value="thumb" title="섬네일형 보기" data-filter-action="noFirst"><em>섬네일형</em></a>
+				</li>
 			</ul>
 		</li>
 	</ul>
@@ -74,32 +74,33 @@
 		<c:forEach var="pList" items="${pList }">
 			<div class="compare-post_grid post-item" id="${pList.product_code}">
 				<div class="compare-thumb_grid">
-					<img src="/resources/uploadFile/images/${pList.file_name }"
-						alt="이미지X">
+					<img src="/resources/uploadFile/images/${pList.file_name }" alt="이미지X">
 				</div>
 				<div class="compare-info_grid">
 					<div class="compare__title">
 						<span>${pList.product_name}</span>
 					</div>
 					<div class="compare__content">
-						측정 적절 평수 : <span> <c:choose>
-								<c:when test="${pList.p_space == '1'}">1~10평</c:when>
-								<c:when test="${pList.p_space == '2'}">11~20평</c:when>
-								<c:when test="${pList.p_space == '3'}">21~30평</c:when>
-								<c:when test="${pList.p_space == '4'}">31~40평</c:when>
-								<c:when test="${pList.p_space == '5'}">41~50평</c:when>
-								<c:when test="${pList.p_space == '6'}">51~60평</c:when>
-								<c:when test="${pList.p_space == '7'}">61~70평</c:when>
-								<c:when test="${pList.p_space == '8'}">71~80평</c:when>
-								<c:when test="${pList.p_space == '9'}">81~90평</c:when>
-								<c:when test="${pList.p_space == '10'}">91~100평</c:when>
-								<c:when test="${pList.p_space == '11'}">100~평</c:when>
-							</c:choose>
-						</span><br /> 측정 지점 : <span>${pList.measure_point}</span><br /> 만족도 평균 :
-						<span>${pList.staravg}</span><br /> 판매 건수 : <span>${pList.sellnum}</span><br />
+						측정 적절 평수 : <span> 
+											<c:choose>
+												<c:when test="${pList.p_space == '1'}">1~10평</c:when>
+												<c:when test="${pList.p_space == '2'}">11~20평</c:when>
+												<c:when test="${pList.p_space == '3'}">21~30평</c:when>
+												<c:when test="${pList.p_space == '4'}">31~40평</c:when>
+												<c:when test="${pList.p_space == '5'}">41~50평</c:when>
+												<c:when test="${pList.p_space == '6'}">51~60평</c:when>
+												<c:when test="${pList.p_space == '7'}">61~70평</c:when>
+												<c:when test="${pList.p_space == '8'}">71~80평</c:when>
+												<c:when test="${pList.p_space == '9'}">81~90평</c:when>
+												<c:when test="${pList.p_space == '10'}">91~100평</c:when>
+												<c:when test="${pList.p_space == '11'}">100~평</c:when>
+											</c:choose>
+										</span><br /> 
+						측정 지점 : <span>${pList.measure_point}</span><br /> 
+						만족도 평균 : <span>${pList.staravg}</span><br /> 
+						판매 건수 : <span>${pList.sellnum}</span><br />
 						측정 물질 :
-						<c:forEach var="mList" items="${pList.matterVO }"
-							varStatus="status">
+						<c:forEach var="mList" items="${pList.matterVO }" varStatus="status">
 							<span>${mList.matter_name }<c:if test="${!status.last}">, </c:if></span>
 						</c:forEach>
 					</div>

@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 <link rel="stylesheet" href="/resources/css/connect/compareMain.css">
 <link rel="stylesheet" href="/resources/css/include/table.css">
@@ -21,8 +20,7 @@
 				<div class="compare-recommand__post" id="${recommend.product_code}">
 					<!-- post thumbnail -->
 					<div class="recommanded-thumbnail">
-						<img src="/resources/uploadFile/images/${recommend.file_name }"
-							alt="이미지X">
+						<img src="/resources/uploadFile/images/${recommend.file_name }" alt="이미지X">
 					</div>
 					<!-- post title -->
 					<div class="recommanded-title">
@@ -61,47 +59,46 @@
 		<li class="category-option" value="staravg">만족도 평균순</li>
 		<li class="sort-item">
 			<ul class="sort_type">
-				<li class="type_list"><a href="#" data-filter-name="viewType"
-					data-filter-value="list" title="리스트형 보기"
-					data-filter-action="noFirst"><em>리스트형</em></a>
-				<!-- N=a:opv.list --></li>
-				<li class="type_thumb"><a href="#" data-filter-name="viewType"
-					data-filter-value="thumb" title="섬네일형 보기"
-					data-filter-action="noFirst"><em>섬네일형</em></a>
-				<!-- N=a:opv.image --></li>
+				<li id="list" class="type_list">
+					<a href="#" data-filter-name="viewType" data-filter-value="list" title="리스트형 보기" data-filter-action="noFirst"><em>리스트형</em></a>
+				</li>
+				<li id="thumb" class="type_thumb">
+					<a href="#" data-filter-name="viewType" data-filter-value="thumb" title="섬네일형 보기" data-filter-action="noFirst"><em>섬네일형</em></a>
+				</li>
 			</ul>
 		</li>
 	</ul>
-	<div class="compare-list">
+	<div class="compare-list_grid">
 		<c:forEach var="pList" items="${pList }">
-			<div class="compare-post post-item" id="${pList.product_code}">
-				<div class="compare-thumb">
-					<img src="/resources/uploadFile/images/${pList.file_name }"
-						alt="이미지X">
+			<div class="compare-post_grid post-item" id="${pList.product_code}">
+				<div class="compare-thumb_grid">
+					<img src="/resources/uploadFile/images/${pList.file_name }" alt="이미지X">
 				</div>
-				<div class="compare-info">
+				<div class="compare-info_grid">
 					<div class="compare__title">
 						<span>${pList.product_name}</span>
 					</div>
 					<div class="compare__content">
-						측정 적절 평수 : <span> <c:choose>
-								<c:when test="${pList.p_space == '1'}">1~10평</c:when>
-								<c:when test="${pList.p_space == '2'}">11~20평</c:when>
-								<c:when test="${pList.p_space == '3'}">21~30평</c:when>
-								<c:when test="${pList.p_space == '4'}">31~40평</c:when>
-								<c:when test="${pList.p_space == '5'}">41~50평</c:when>
-								<c:when test="${pList.p_space == '6'}">51~60평</c:when>
-								<c:when test="${pList.p_space == '7'}">61~70평</c:when>
-								<c:when test="${pList.p_space == '8'}">71~80평</c:when>
-								<c:when test="${pList.p_space == '9'}">81~90평</c:when>
-								<c:when test="${pList.p_space == '10'}">91~100평</c:when>
-								<c:when test="${pList.p_space == '11'}">100~평</c:when>
-							</c:choose>
-						</span><br /> 측정 지점 : <span>${pList.measure_point}</span><br /> 만족도 평균
-						: <span>${pList.staravg}</span><br /> 판매 건수 : <span>${pList.sellnum}</span><br />
+						측정 적절 평수 : <span> 
+											<c:choose>
+												<c:when test="${pList.p_space == '1'}">1~10평</c:when>
+												<c:when test="${pList.p_space == '2'}">11~20평</c:when>
+												<c:when test="${pList.p_space == '3'}">21~30평</c:when>
+												<c:when test="${pList.p_space == '4'}">31~40평</c:when>
+												<c:when test="${pList.p_space == '5'}">41~50평</c:when>
+												<c:when test="${pList.p_space == '6'}">51~60평</c:when>
+												<c:when test="${pList.p_space == '7'}">61~70평</c:when>
+												<c:when test="${pList.p_space == '8'}">71~80평</c:when>
+												<c:when test="${pList.p_space == '9'}">81~90평</c:when>
+												<c:when test="${pList.p_space == '10'}">91~100평</c:when>
+												<c:when test="${pList.p_space == '11'}">100~평</c:when>
+											</c:choose>
+										</span><br /> 
+						측정 지점 : <span>${pList.measure_point}</span><br /> 
+						만족도 평균 : <span>${pList.staravg}</span><br /> 
+						판매 건수 : <span>${pList.sellnum}</span><br />
 						측정 물질 :
-						<c:forEach var="mList" items="${pList.matterVO }"
-							varStatus="status">
+						<c:forEach var="mList" items="${pList.matterVO }" varStatus="status">
 							<span>${mList.matter_name }<c:if test="${!status.last}">, </c:if></span>
 						</c:forEach>
 					</div>
@@ -122,19 +119,21 @@
 	<div class="d-flex justify-content-center">
 		<ul class="pagination">
 			<c:if test="${criteria.prev}">
-				<li class="page-item"><a class="page-link"
-					href="javascript:page(${criteria.getStartPage()-1});"
-					aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+				<li class="page-item">
+					<a class="page-link" href="javascript:page(${criteria.getStartPage()-1});" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</li>
 			</c:if>
-			<c:forEach begin="${criteria.getStartPage() }"
-				end="${criteria.getEndPage() }" var="idx">
-				<li class="page-item"><a class="page-link"
-					href="javascript:page(${idx });">${idx}</a></li>
+			<c:forEach begin="${criteria.getStartPage() }" end="${criteria.getEndPage() }" var="idx">
+				<li class="page-item"><a class="page-link" href="javascript:page(${idx });">${idx}</a></li>
 			</c:forEach>
 			<c:if test="${criteria.next}">
-				<li class="page-item"><a class="page-link"
-					href="javascript:page(${criteria.getEndPage()+1});"
-					aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+				<li class="page-item">
+					<a class="page-link" href="javascript:page(${criteria.getEndPage()+1});" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
 			</c:if>
 		</ul>
 	</div>

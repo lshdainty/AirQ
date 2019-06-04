@@ -250,54 +250,6 @@ public class MobileManageController {
         }
 		return json;
 	}
-	
-	// 미세먼지 테스트
-	@CrossOrigin(origins = "*")
-	@RequestMapping(value = "m.test", method = RequestMethod.GET)
-	public String test() {
-		BufferedReader br = null;
-		String sidoName[] = {"서울", "부산", "대구", "인천", "광주", "대전", "울산", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주", "세종"};
-		try{
-        	//미세먼지 목록 가져오기
-        	for(int i=0; i<sidoName.length; i++) {
-        		String urlstr = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?"
-            			+ "serviceKey=ih2Gzic0JjfHpYSWXRXk4QNjcf9DaJo6F6hMKgBRQpn4T7YiXPelW%2B8Z%2BJCqkH1%2FSeeNJa%2BROW54XiWGBQmKTg%3D%3D"
-            			+ "&numOfRows=999&sidoName="+URLEncoder.encode(sidoName[i],"UTF-8")+"&ver=1.3&_returnType=json";
-                URL url = new URL(urlstr);
-                HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
-                urlconnection.setRequestMethod("GET");
-                br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
-                String result = "";
-                String line = "";
-                while((line = br.readLine()) != null) {
-                    result = result + line + "\n";
-                    System.out.println("미세먼지 result : "+result);
-                }
-                br.close();
-                urlconnection.disconnect();
-        	}
-        	for(int i=0; i<sidoName.length; i++) {
-        		String urlstr = "http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/getMsrstnList?"
-            			+ "serviceKey=ih2Gzic0JjfHpYSWXRXk4QNjcf9DaJo6F6hMKgBRQpn4T7YiXPelW%2B8Z%2BJCqkH1%2FSeeNJa%2BROW54XiWGBQmKTg%3D%3D"
-            			+ "&numOfRows=999&addr="+URLEncoder.encode(sidoName[i],"UTF-8")+"&_returnType=json";
-                URL url = new URL(urlstr);
-                HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
-                urlconnection.setRequestMethod("GET");
-                br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
-                String result = "";
-                String line = "";
-                while((line = br.readLine()) != null) {
-                    result = result + line + "\n";
-                    System.out.println("측정소 result : "+result);
-                }
-                br.close();
-                urlconnection.disconnect();
-        	}
-		}catch(Exception e) {
-			
-		}
-		return "";
-	}
 
 	// IoT 원격제어 메인페이지로 가기
 	@CrossOrigin(origins = "*")

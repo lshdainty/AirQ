@@ -42,7 +42,7 @@
                             업체연결 서비스</a>
                         <div aria-labelledby="connectDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
                             <h6 class="dropdown-header font-weight-normal">개인 사용자</h6>
-                            <a href="/compareMain_grid" class="dropdown-item">업체 연결 서비스 </a>
+                            <a href="/compareMain" class="dropdown-item">업체 연결 서비스 </a>
                             <div class="dropdown-divider"></div>
 
 
