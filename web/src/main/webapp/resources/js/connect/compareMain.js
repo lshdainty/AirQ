@@ -1,4 +1,13 @@
-﻿$.ajax({
+﻿$('.type_thumb').addClass('on');
+$('.type_thumb').click(function(){
+	$('.type_list').removeClass('on');
+	$(this).addClass('on');
+});
+$('.type_list').click(function(){
+	$('.type_thumb').removeClass('on');
+	$(this).addClass('on');
+});
+$.ajax({
 		type: "get",
 		url: "http://openapi.nsdi.go.kr/nsdi/eios/service/rest/AdmService/admCodeList.json",
 		data : {authkey : $('#sido_key').val()},

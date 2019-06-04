@@ -106,6 +106,7 @@ public class ConnectController {
 			String sort = "sellnum";
 
 			criteria.setTotalcount(connectService.productCount());	//전체 게시글 개수를 지정
+			criteria.setContentnum(12);
 			criteria.setPagenum(pagenum);	//현재 페이지를 페이지 객체에 지정
 			criteria.setStartnum(pagenum);	//컨텐츠 시작 번호 지정
 			criteria.setEndnum(pagenum);	//컨텐츠 끈 번호 지정 
