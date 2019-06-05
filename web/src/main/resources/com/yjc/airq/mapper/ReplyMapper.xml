@@ -110,7 +110,11 @@
 	
 	<!-- 상품 삭제시 댓글도 같이 삭제하기 -->
 	<delete id="productReplyDelete" parameterType="String">
-		delete from reply where product_code = #{product_code}
+		delete from reply where payment_code in(
+												select payment_code
+												from payment p, demand d
+												where p.demand_code = d.demand_code
+												and d.product_code = #{product_code})
 	</delete>
 	
 	<!-- 상품에서 본인 댓글 삭제하기 -->
@@ -129,7 +133,7 @@
 	    and p.board_code=b.board_code and r.post_code=p.post_code
 	</select>
 	
-	<!-- 상품에 대한 리뷰 insert -->
+	<!-- 상품,입찰 리뷰 insert -->
 	<insert id="reviewInsert" parameterType="com.yjc.airq.domain.ReplyVO">
 		insert into reply(reply_code,reply_content,r_creation_date,member_id,payment_code) values(#{reply_code},#{reply_content},systimestamp,#{member_id},#{payment_code})
 	</insert>

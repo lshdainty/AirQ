@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="/resources/css/connect/product.css" rel="stylesheet" />
@@ -97,20 +96,21 @@
 </article>
 </main>
 <div class="cont_review">
-
 	<div class="info-tab">
 		<div class="detail_tab">상품정보</div>
 		<div class="review_tab active">상품후기</div>
 	</div>
-
 	<div id="replys">
 		<c:forEach var="reply" items="${productReply}">
-			<div class="companyReview">
+			<div class="companyReview" id="${reply.reply_code}">
 				<p class="reviewId">
 					${reply.member_id}<span class="reviewDate">${reply.r_creation_date}</span>
 				</p>
 				<p class="memberStar">
-					별점7<span class="star">★★★★★★★</span>
+					별점${reply.star_score}
+					<span class="star">
+						<c:forEach begin="1" end="${reply.star_score}">★</c:forEach>
+					</span>
 				</p>
 				<div class="reviewText">
 					<p>${reply.reply_content}</p>
@@ -118,43 +118,12 @@
 				<c:if test="${sessionScope.user.member_id==reply.member_id}">
 					<div class="comment-button">
 						<button class="comment__button comment__button--red reply-delete">삭제</button>
-						<input type="hidden" class="reply_code"
-							value="${reply.reply_code}">
+						<input type="hidden" class="reply_code" value="${reply.reply_code}">
 					</div>
 				</c:if>
-				<input type="hidden" class="reply_code" value="${reply.reply_code}">
 			</div>
 		</c:forEach>
 	</div>
 </div>
-
-<!-- end of product-page-product-details-section-->
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script>
-	function fnMove(seq) {
-		var offset = $("#div" + seq).offset();
-		$('html, body').animate({
-			scrollTop : offset.top
-		}, 400);
-	}
-
-	$(function() {
-		$('.detail_tab').click(function() {
-			var offset = $('.cont_product').offset();
-			console.log(offset);
-			$('html, body').animate({
-				scrollTop : offset.top - 66
-			});
-		});
-		$('.review_tab').click(function() {
-			var offset = $('.cont_review').offset();
-			console.log(offset);
-			$('html, body').animate({
-				scrollTop : offset.top - 66
-			});
-		});
-	});
-</script>
-<!-- end of product-page-product-details-section-->
 <script src="/resources/js/connect/productContent.js"></script>
 <%@include file="../include/footer.jsp"%>
