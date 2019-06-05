@@ -35,56 +35,63 @@
 	
 	<!-- 마이페이지 관리자 댓글관리 댓글 정보 가져오기 -->
 	<select id="mypageReplys" resultType="com.yjc.airq.domain.ReplyVO" parameterType="String">
-		select * from reply, product, post, board
+		select * from reply, payment, post, board, demand
 		where reply.post_code = post.post_code(+)
 		and post.board_code = board.board_code(+)
-		and reply.product_code = product.product_code(+)
+		and reply.payment_code = payment.payment_code(+)
+		and payment.demand_code = demand.demand_code(+)
 	</select>
 	
 	<!-- 마이페이지 관리자 댓글관리 post쪽 정보 가져오기 -->
 	<select id="mypageReplysPost" resultType="com.yjc.airq.domain.ReplyVO" parameterType="String">
-		select * from reply, product, post, board
+		select * from reply, payment, post, board, demand
 		where reply.post_code = post.post_code(+)
 		and post.board_code = board.board_code(+)
-		and reply.product_code = product.product_code(+)
+		and reply.payment_code = payment.payment_code(+)
+		and payment.demand_code = demand.demand_code(+)
 		and reply.post_code != 'null'
 	</select>
 	
 	<!-- 마이페이지 관리자 댓글관리 product쪽 정보 가져오기 -->
 	<select id="mypageReplysProduct" resultType="com.yjc.airq.domain.ReplyVO" parameterType="String">
-		select * from reply, product, post, board
+		select * from reply, payment, post, board, demand
 		where reply.post_code = post.post_code(+)
 		and post.board_code = board.board_code(+)
-		and reply.product_code = product.product_code(+)
-		and reply.product_code != 'null'
+		and reply.payment_code = payment.payment_code(+)
+		and payment.demand_code = demand.demand_code(+)
+		and reply.payment_code != 'null'
 	</select>
 	
 	<!-- 마이페이지 일반 사용자 댓글관리 댓글 정보 가져오기 -->
 	<select id="mypageReplysNS" resultType="com.yjc.airq.domain.ReplyVO" parameterType="String">
-		select * from reply, product, post, board
+		select * from reply, payment, post, board, demand
 		where reply.post_code = post.post_code(+)
 		and post.board_code = board.board_code(+)
-		and reply.product_code = product.product_code(+)
+		and reply.payment_code = payment.payment_code(+)
+		and payment.demand_code = demand.demand_code(+)
 		and reply.member_id = #{member_id}
 	</select>
 	
 	<!-- 마이페이지  일반 사용자  댓글관리 post쪽 정보 가져오기 -->
 	<select id="mypageReplysNSPost" resultType="com.yjc.airq.domain.ReplyVO" parameterType="String">
-		select * from reply, product, post, board
+		select * from reply, payment, post, board, demand
 		where reply.post_code = post.post_code(+)
 		and post.board_code = board.board_code(+)
-		and reply.product_code = product.product_code(+)
+		and reply.payment_code = payment.payment_code(+)
+		and payment.demand_code = demand.demand_code(+)
 		and reply.member_id = #{member_id}
 		and reply.post_code != 'null'
 	</select>
-		<!-- 마이페이지  일반 사용자  댓글관리 product쪽 정보 가져오기 -->
+	
+	<!-- 마이페이지  일반 사용자  댓글관리 product쪽 정보 가져오기 -->
 	<select id="mypageReplysNSProduct" resultType="com.yjc.airq.domain.ReplyVO" parameterType="String">
-		select * from reply, product, post, board
+		select * from reply, payment, post, board, demand
 		where reply.post_code = post.post_code(+)
 		and post.board_code = board.board_code(+)
-		and reply.product_code = product.product_code(+)
+		and reply.payment_code = payment.payment_code(+)
+		and payment.demand_code = demand.demand_code(+)
 		and reply.member_id = #{member_id}		
-		and reply.product_code != 'null'
+		and reply.payment_code != 'null'
 	</select>
 	
 	<!-- 마이페이지 댓글 삭제 -->
