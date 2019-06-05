@@ -14,4 +14,7 @@ public class MeasureDataVO {
 	
 	private String measure; // 차트 들어가는 측정 값
 	private String measuretime; // 차트 들어가는 측정 시간
+	private String TODAY; // 차트 세부내용 들어가는 현재 날짜
+	private String iotID; // 차트 세부내용 들어가는 측정 기기
+	private String CODE; // 차트 세부내용 들어가는 측정 코드
 }

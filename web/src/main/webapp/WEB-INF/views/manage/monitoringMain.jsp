@@ -4,12 +4,43 @@
 <%@include file="../include/header.jsp"%>
 <link rel="stylesheet" href="resources/css/manage/monitoringMain.css">
 
+<style>
+	table {
+	width: 100%;
+	}
+	table, th, td {
+	border: 1px solid #bcbcbc;
+	}
+   </style>
 
 <div id="airCheck">
 	<button id="in" class="button btn-inside">실내</button>
 	<button id="out" class="button btn-outside">실외</button>
 </div>
-	
+
+<div id="inside" style="display:none">	
+	<%-- AmChart 시작 --%>
+	<div id="chartdiv"></div>
+	<%-- AmChart 끝 --%>
+
+	<div id="chartList">
+		<div class="pp"></div>
+			<table border="1">
+			<tbody class="chartList-list">
+				<th>Today</th>
+				<th>측정 값</th>
+				<th>기기 ID</th>
+				<th>측정 코드</th>
+				</tbody>
+			</table>
+	</div>
+
+	<script src="resources/js/core.js"></script>
+	<script src="resources/js/charts.js"></script>
+	<script src="https://www.amcharts.com/lib/4/themes/spiritedaway.js"></script>
+	<script src="resources/js/manage/inside.js"></script>
+</div>
+
 <div id="outside">
 	<%--지도를 나타내주는 곳  시작--%>
 	<h1>실외 모니터링 페이지 입니다.</h1>
@@ -27,20 +58,6 @@
 	height: 500px;
 }
 </style>
-
-<div id="inside" style="display:none">
-	<%-- AmChart 부분 시작 --%>
-	<h1>실내 모니터링 페이지 입니다.</h1>
-	
-	<div id="chartdiv"></div>
-
-	
-	<script src="resources/js/core.js"></script>
-	<script src="resources/js/charts.js"></script>
-	<script src="https://www.amcharts.com/lib/4/themes/spiritedaway.js"></script>
-	<script src="resources/js/manage/inside.js"></script>
-	<%-- AmChart 부분 끝 --%>
-</div>
 
 <script src="resources/js/manage/monitoringMain.js"></script>
 <%@include file="../include/footer.jsp"%>

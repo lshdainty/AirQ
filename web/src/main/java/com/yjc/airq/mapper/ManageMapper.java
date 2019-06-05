@@ -24,7 +24,7 @@ public interface ManageMapper {
 
 	// inside Chart
 	public ArrayList<MeasureDataVO> insideChart(String member_id);
-	
-	// Model 테이블에 Insert
-	//public String modelInsert(@Param("modelName") String ModelName);
+
+	// 차트 세부내용
+	public ArrayList<MeasureDataVO> chartValue(String member_id);
 };
