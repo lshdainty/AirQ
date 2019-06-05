@@ -1,6 +1,6 @@
 /**
  * 
- */
+ *//*
 $(document).ready(function(){
 	$("#btn-reg").click(function(){
 		location.href="remoteRegist";
@@ -8,7 +8,7 @@ $(document).ready(function(){
 	
 	// ON, OFF 클릭시
 	$(".onOff").click(function(){
-		alert($(this).is(":checked"));
+//		alert($(this).is(":checked"));
 
 		$.ajax({
 			type : "POST",
@@ -32,4 +32,4 @@ $(document).ready(function(){
 		});
 		
 	});
-});	// document
+});	// document*/

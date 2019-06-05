@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.IotInfoVO;
+import com.yjc.airq.domain.MeasureDataVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.service.ManageService;
 
@@ -45,8 +46,6 @@ public class ManageController {
 	@RequestMapping(value = "dustData", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject dustData(Model model, HttpServletRequest request) {
-		System.out.println(request.getParameter("x"));
-		System.out.println(request.getParameter("y"));
 		BufferedReader br = null;
 		//String sidoName[] = {"서울", "부산", "대구", "인천", "광주", "대전", "울산", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주", "세종"};
 		String sidoName1[] = {"대구"};
@@ -68,7 +67,6 @@ public class ManageController {
                 String line = "";
                 while((line = br.readLine()) != null) {
                     result = result + line + "\n";
-                    System.out.println("미세먼지 result : "+result);
                     JSONObject jsonObj = JSONObject.fromObject(result);
                     JSONArray jsonArr = JSONArray.fromObject(jsonObj.get("list"));
                     for(int j=0; j<jsonArr.size(); j++) {
@@ -78,7 +76,6 @@ public class ManageController {
                 br.close();
                 urlconnection.disconnect();
         	}
-        	System.out.println(dustDataArray);
         	
         	//미세먼지 측정소 목록 가져오기
         	for(int i=0; i<sidoName1.length; i++) {
@@ -93,7 +90,6 @@ public class ManageController {
                 String line = "";
                 while((line = br.readLine()) != null) {
                     result = result + line + "\n";
-                    System.out.println("측정소 result : "+result);
                     JSONObject jsonObj = JSONObject.fromObject(result);
                     JSONArray jsonArr = JSONArray.fromObject(jsonObj.get("list"));
                     for(int j=0; j<jsonArr.size(); j++) {
@@ -103,7 +99,6 @@ public class ManageController {
                 br.close();
                 urlconnection.disconnect();
         	}
-        	System.out.println(areaDataArray);
         	
         	//미세먼지수치,측정소 좌표값 합치기
         	for(int i=0; i<dustDataArray.size(); i++) {
@@ -140,7 +135,6 @@ public class ManageController {
         			}
         		}
         	}
-        	System.out.println("json변환 끝");
         	
         	Map<String, Object> map = new HashMap<String, Object>();
     		map.put("result", resultArray);
@@ -148,7 +142,7 @@ public class ManageController {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        System.out.println("실행 다했다...");
+        
 		return json;
 	}
 
@@ -165,7 +159,37 @@ public class ManageController {
 		
 		return "manage/remoteMain";
 	}
-
+	
+	// 실내 모니터링에서 차트
+	@ResponseBody
+	@RequestMapping(value = "/insideChart", method = RequestMethod.POST)
+	public JSONArray insideChart(Model model, HttpServletRequest request) {
+		System.out.println("insideChart 들어옴");
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		
+		ArrayList<MeasureDataVO> list = manageService.insideChart(member_id);
+		System.out.println("list : "+list);
+		
+		JSONArray jArray = new JSONArray();
+		for(int i = 0; i < list.size(); i++) {
+			JSONObject json = new JSONObject();
+			json.put("measure", list.get(i).getMeasure());
+			json.put("measuretime", list.get(i).getMeasuretime());
+			System.out.println("json : " + json);
+			jArray.add(json);
+		}
+		System.out.println("jArray : "+jArray);
+		return jArray;
+	}
+	
+	// 실외 모니터링 페이지 이동
+	@RequestMapping(value = "outside", method = RequestMethod.GET)
+	public String outside(Model model) {
+		return "manage/monitoringMain";
+	}
+	
+	
+	
 	// IoT 원격제어 제품 등록 페이지로 가기
 	@RequestMapping(value = "remoteRegist", method = RequestMethod.GET)
 	public String remoteRegist(Model model) {
