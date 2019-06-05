@@ -694,7 +694,7 @@ public class ConnectController {
 		criteria.prevnext(pagenum); // 현재 페이지 번호로 화살표를 나타낼지 정함
 		criteria.setStartPage(criteria.getCurrentblock()); // 시작 페이지를 페이지 블록번호로 정함
 		criteria.setEndPage(criteria.getLastblock(), criteria.getCurrentblock()); // 마지막 페이지를 마지막 페이지 블록과 현재 페이지 블록으로 정함
-
+		
 		ArrayList<ProductVO> pList;
 		if (sido.equals("광역시/도") && sigoon.equals("선택") && space == 0 && matter.equals("측정 물질")) {
 			pList = connectService.productList(sort,criteria.getStartnum(), criteria.getEndnum());
