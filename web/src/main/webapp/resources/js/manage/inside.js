@@ -27,11 +27,11 @@ $.ajax({
 			valueAxis.title.text = "미세먼지 측정 값(㎍/㎥)";
 
 			dateAxis.baseInterval = {
-				"timeUnit" : "minute",
+				"timeUnit" : "second",
 				"count" : 1
 			};
 			dateAxis.tooltipDateFormat = "yyyy MMMM dd hh:mm a";
-
+			dateAxis.dateFormats.setKey("second", "hh:mm:ss a");
 			
 			// Create series
 			var series = chart.series.push(new am4charts.LineSeries());

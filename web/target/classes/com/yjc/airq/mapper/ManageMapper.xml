@@ -38,12 +38,14 @@
 		'PM10')
 	</insert>
 	
+	<!-- 오늘 날짜의 데이터 보여주는거 -->
 	<select id="insideChart" resultType="com.yjc.airq.domain.MeasureDataVO">
-		select MD.MEASURE_VALUE as measure, to_char(MD.MEASURE_TIME, 'yyyy-mm-dd hh:mi') as measuretime
+		select MD.MEASURE_VALUE as measure, to_char(MD.MEASURE_TIME, 'yyyy-mm-dd HH24:MI') as measuretime
 		from MEASURE_DATA MD, IOT_INFO I, MEMBER M
 		where M.member_id = #{member_id}
 		and M.member_id = I.member_id
 		and I.iot_id = MD.iot_id
+		and to_char(MD.MEASURE_TIME, 'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd')
 		order by MD.MEASURE_TIME
 	</select>
 	
