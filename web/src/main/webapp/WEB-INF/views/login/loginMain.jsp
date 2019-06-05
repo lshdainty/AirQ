@@ -44,8 +44,7 @@
 									</div>
 								</div>
 								<span class="login__find-password-btn"><a
-									class="member-link" href="/find/reset-password/send-email">Forgot
-										Password?</a></span>
+									class="member-link" href="/find/reset-password/send-email">Forgot Password?</a></span>
 							</div>
 							<button type="button" class="member-button login__btn"
 								disabled="">LOGIN</button>
