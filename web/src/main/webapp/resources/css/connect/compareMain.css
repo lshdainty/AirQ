@@ -191,8 +191,13 @@
 .compare__title {
 	display: block !important;
 	font-weight: bold;
+	/* overflow setting start */
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	/* overflow setting end */
+	
 }
-
 .compare__content {
 	
 	/* overflow setting start */
@@ -238,11 +243,10 @@
 	display: flex !important;
 	flex-wrap: wrap;
 	flex-direction: row;
-	justify-content:space-evenly;
 }
 
 .compare-post_grid{
-	width: 24%;
+	width: 25%;
 	display: flex !important;
 	flex-direction: column;
 	padding: 1rem;
@@ -251,6 +255,7 @@
 .compare-thumb_grid{
 	width:200px;
 	height:200px;
+	margin:auto;
 }
 .compare-thumb_grid img {
 	margin:auto;
@@ -262,7 +267,16 @@
 	vertical-align: top;
 	width: 80%;
 	display:flex !important;
+	margin:auto;
 	flex-direction:column;
+}
+.compare-info_grid .compare__price{
+    vertical-align: top;
+    padding-top: 2rem;
+    float: right;
+    font-weight: bold;
+    color: #3d59fc;
+    text-align:center;
 }
 .sort-item{
 	float:right;

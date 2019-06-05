@@ -67,7 +67,6 @@ public class ManageController {
                 String line = "";
                 while((line = br.readLine()) != null) {
                     result = result + line + "\n";
-                    System.out.println("미세먼지 result : "+result);
                     JSONObject jsonObj = JSONObject.fromObject(result);
                     JSONArray jsonArr = JSONArray.fromObject(jsonObj.get("list"));
                     for(int j=0; j<jsonArr.size(); j++) {
@@ -77,7 +76,6 @@ public class ManageController {
                 br.close();
                 urlconnection.disconnect();
         	}
-        	System.out.println(dustDataArray);
         	
         	//미세먼지 측정소 목록 가져오기
         	for(int i=0; i<sidoName1.length; i++) {
@@ -92,7 +90,6 @@ public class ManageController {
                 String line = "";
                 while((line = br.readLine()) != null) {
                     result = result + line + "\n";
-                    System.out.println("측정소 result : "+result);
                     JSONObject jsonObj = JSONObject.fromObject(result);
                     JSONArray jsonArr = JSONArray.fromObject(jsonObj.get("list"));
                     for(int j=0; j<jsonArr.size(); j++) {
@@ -102,7 +99,6 @@ public class ManageController {
                 br.close();
                 urlconnection.disconnect();
         	}
-        	System.out.println(areaDataArray);
         	
         	//미세먼지수치,측정소 좌표값 합치기
         	for(int i=0; i<dustDataArray.size(); i++) {
@@ -139,7 +135,6 @@ public class ManageController {
         			}
         		}
         	}
-        	System.out.println("json변환 끝");
         	
         	Map<String, Object> map = new HashMap<String, Object>();
     		map.put("result", resultArray);
@@ -147,7 +142,7 @@ public class ManageController {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        System.out.println("실행 다했다...");
+        
 		return json;
 	}
 

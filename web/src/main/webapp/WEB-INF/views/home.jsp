@@ -90,7 +90,7 @@
 <script src="https://www.amcharts.com/lib/4/charts.js"></script>
 <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140827148-1"></script>
-<script src="resources/js/home.js"></script>
+<script src="/resources/js/home.js"></script>
 <script>
 	window.dataLayer = window.dataLayer || [];
 	function gtag() {

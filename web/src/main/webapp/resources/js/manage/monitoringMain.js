@@ -114,24 +114,24 @@
 //}
 //
 ////infowindow 생성/삭제
-//$('img').on('click',function(e) {
-//   alert("test");
-//   var infowindow = $(this).parent().parent().find('.infowindow');
-//   if(infowindow.css('display')=="block"){
-//      infowindow.hide();
-//   }else{
-//      infowindow.show();
-//   }
+//$('.pin_s_img').on('click',function(e) {
+//	alert("test");
+//	var infowindow = $(this).parent().parent().find('.infowindow');
+//	if(infowindow.css('display')=="block"){
+//		infowindow.hide();
+//	}else{
+//		infowindow.show();
+//	}
 //});
 //
 ////마우스 올라가면 툴팁 보이게 하기
-//$('img').on('mouseenter',function(e) {
-//   $(this).parent().parent().find('.pins_s_tooltip').show();
+//$('.pin_s_img').on('mouseenter',function(e) {
+//	$(this).parent().parent().find('.pins_s_tooltip').show();
 //});
 //
 ////마우스 내려가면 툴팁 안보이게 하기
-//$('img').on('mouseout',function(e) {
-//   $(this).parent().parent().find('.pins_s_tooltip').hide();
+//$('.pin_s_img').on('mouseout',function(e) {
+//	$(this).parent().parent().find('.pins_s_tooltip').hide();
 //});
 //모바일 지도부분 코드 끝
 
