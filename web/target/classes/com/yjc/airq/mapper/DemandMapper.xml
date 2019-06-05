@@ -11,11 +11,4 @@
 	<delete id="productDemandDelete" parameterType="String">
 		delete from demand where product_code = #{product_code}
 	</delete>
-	
-	<!-- 주문에 대한 상품 코드 -->
-	<select id="dProduct_code" resultType="String">
-		select product_code
-		from demand
-		where demand_code=#{demand_code} and member_id=#{member_id}
-	</select>
 </mapper>

@@ -82,9 +82,7 @@
 	<h3 class="s_out">상품상세정보</h3>
 	<div class="imgs on_w">
 		<div class="visual">
-			<a href="#largeviewLayer" data-type="largeviewlayer"
-				class="custom_cursor"> <img alt=""
-				src="resources/uploadFile/images/${productContent.file_name}" />
+			<a href="#largeviewLayer" data-type="largeviewlayer" class="custom_cursor"><img src="/resources/uploadFile/images/${productContent.file_name}" />
 			</a>
 		</div>
 	</div>
@@ -119,8 +117,8 @@
 			</dd>
 			<dt class="final">측정물질</dt>
 			<dd>
-				<strong class="" style="white-space: nowrap;"> <c:forEach
-						var="mList" items="${productContent.matterVO }" varStatus="status">
+				<strong class="" style="white-space: nowrap;">
+					<c:forEach var="mList" items="${productContent.matterVO }" varStatus="status">
 						<span>${mList.matter_name }<c:if test="${!status.last}">, </c:if></span>
 					</c:forEach>
 				</strong>
@@ -145,18 +143,17 @@
 				<ul class="option_list"></ul>
 				<!---->
 			</div>
-			<div class="btns clear">
-				<button type="button" id="paymentButton" class="btn_add large">구매하기</button>
-				<button type="button" id="reportButton" class="btn_buy dark large">신고하기</button>
-			</div>
-
-			<c:if
-				test="${(sessionScope.user.member_devision == 'se') ||  (sessionScope.user.member_devision == 'ma')}">
+			<c:if test="${(sessionScope.user.member_devision == 'no')}">
 				<div class="btns clear">
-					<button id="productModify" type="button" 
-						class="btn_add large">상품수정</button>
-					<button id="productDelete" type="button" 
-						class="btn_buy dark large">상품삭제</button>
+					<button type="button" id="paymentButton" class="btn_add large">구매하기</button>
+					<button type="button" id="reportButton" class="btn_buy dark large">신고하기</button>
+				</div>
+			</c:if>
+
+			<c:if test="${(sessionScope.user.member_devision == 'se') ||  (sessionScope.user.member_devision == 'ma')}">
+				<div class="btns clear">
+					<button id="productModify" type="button" class="btn_add large">상품수정</button>
+					<button id="productDelete" type="button" class="btn_buy dark large">상품삭제</button>
 				</div>
 			</c:if>
 		</div>
@@ -166,8 +163,6 @@
 <article class="cont_product lc_e5 view">
 	${productContent.product_detail}</article>
 </main>
-
-
 
 <!-- end of product-page-product-details-section-->
 <script src="/resources/js/connect/productContent.js"></script>

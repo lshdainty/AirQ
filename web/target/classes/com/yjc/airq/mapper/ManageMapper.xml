@@ -39,7 +39,7 @@
 	</insert>
 	
 	<select id="insideChart" resultType="com.yjc.airq.domain.MeasureDataVO">
-		select MD.MEASURE_VALUE as measure, to_char(MD.MEASURE_TIME, 'yyyy-mm-dd hh:mi') as measuretime
+		select MD.MEASURE_VALUE as measure, to_char(MD.MEASURE_TIME, 'yyyy-mm-dd HH24:mi') as measuretime
 		from MEASURE_DATA MD, IOT_INFO I, MEMBER M
 		where M.member_id = #{member_id}
 		and M.member_id = I.member_id

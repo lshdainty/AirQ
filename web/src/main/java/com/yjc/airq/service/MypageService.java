@@ -121,20 +121,11 @@ public interface MypageService {
 	public ArrayList<ProductVO> reviewCompareList(String member_id);
 	public ArrayList<TenderVO> reviewTenderList(String member_id);
 	
-	//주문에 대한 상품 코드
-	public String dProduct_code(@Param("demand_code") String demand_code, @Param("member_id") String member_id);
+	//상품,입찰 리뷰 insert
+	public void reviewInsert(ReplyVO replyVo);
 	
-	//상품에 대한 리뷰 insert
-	public void pReviewInsert(ReplyVO replyVo);
-	
-	//입찰에 대한 리뷰 insert
-	public void tReviewInsert(ReplyVO replyVo);
-	
-	//상품에 대한 별점 update
-	public void pStarScoreupdate(@Param("star_score")int star_score, @Param("demand_code")String demand_code);
-	
-	//입찰에 대한 별점 update
-	public void tStarScoreupdate(@Param("star_score")int star_score, @Param("tender_code")String tender_code);
+	//상품,입찰 별점 update
+	public void starScoreupdate(@Param("star_score")int star_score, @Param("payment_code")String payment_code);
 	
 	//입찰된 투찰의 사업자번호
 	public String tBidCompayCode(String tender_code);

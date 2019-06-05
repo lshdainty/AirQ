@@ -1011,20 +1011,20 @@ public class ConnectController {
 	}
 	
 	// 분석/비교 서비스 - 본인 댓글 삭제
-	@RequestMapping(value = "productReplyDelete", method = RequestMethod.GET)
-	@ResponseBody
-	public JSONObject productReplyDelete(ReplyVO replyVO,HttpServletRequest request) {
-		connectService.deletePReply(replyVO.getReply_code());
-		
-		ArrayList<ReplyVO> productReply = connectService.productReply(replyVO.getProduct_code());
-		JSONArray rJson = JSONArray.fromObject(productReply);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("productReply", rJson);
-		map.put("reply_count",productReply.size());
-		map.put("member_id",((MemberVO) request.getSession().getAttribute("user")).getMember_id());
-		JSONObject json = JSONObject.fromObject(map);
-		return json;
-	}
+//	@RequestMapping(value = "productReplyDelete", method = RequestMethod.GET)
+//	@ResponseBody
+//	public JSONObject productReplyDelete(ReplyVO replyVO,HttpServletRequest request) {
+//		connectService.deletePReply(replyVO.getReply_code());
+//		
+//		ArrayList<ReplyVO> productReply = connectService.productReply(replyVO.getProduct_code());
+//		JSONArray rJson = JSONArray.fromObject(productReply);
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("productReply", rJson);
+//		map.put("reply_count",productReply.size());
+//		map.put("member_id",((MemberVO) request.getSession().getAttribute("user")).getMember_id());
+//		JSONObject json = JSONObject.fromObject(map);
+//		return json;
+//	}
 	
 	@RequestMapping(value="companyReviewGo",method=RequestMethod.GET)
 	public String companyReview(HttpServletRequest request, Model model) {

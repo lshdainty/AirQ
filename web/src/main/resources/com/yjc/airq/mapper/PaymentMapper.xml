@@ -124,18 +124,11 @@
 		where <![CDATA[rownum <= 5]]>
 	</select>
 	
-	<!-- 상품에 대한 별점 update -->
-	<update id="pStarScoreupdate">
-		update payment
-		set star_score=${star_score}
-		where demand_code=#{demand_code}
-	</update>
-	
 	<!-- 입찰에 대한 별점 update -->
-	<update id="tStarScoreupdate">
+	<update id="starScoreupdate">
 		update payment
 		set star_score=${star_score}
-		where tender_code=#{tender_code}
+		where payment_code=#{payment_code}
 	</update>
 	
 	<!-- 판매자 월별 매출 차트 - 상품서비스 -->
