@@ -19,7 +19,7 @@ $.ajax({
 			chart.data = data;
 			console.log(chart.data);
 
-//			// Set input format for the dates
+			// Set input format for the dates
 			chart.dateFormatter.inputDateFormat = "yyyy MMMM dd hh:mm a";
 
 			// Create axes

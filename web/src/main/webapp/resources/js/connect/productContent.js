@@ -61,50 +61,45 @@
     });
     
     $(document).on("click",".reply-delete",function(){
-    	var product_code = $("#product_code").text();
+    	var removeTarget = $(this).parent().parent();
     	var reply_code = $(this).next().val();
     	var query = {
-    			product_code : product_code.trim(),
     			reply_code : reply_code
     	}
     	$.ajax({
     		type: "get",
     		url: "/productReplyDelete",
     		data : query,
-    		async: false,
-    		dataType: "json",
-    		success: function(data) {
-    			$("#reply_count").text(data.reply_count);
-    			var html = "";
-    			for(var i=0; i<data.productReply.length; i++){
-    				var r_creation_date = getTimeStamp(data.productReply[i].r_creation_date.time);
-    				html = html + '<div class="comment-list">'+
-									'<div class="comment-l">'+
-										'<div class="comment">'+
-											'<div class="comment-meta">'+
-												'<span class="comment__name"><a href="#">'+data.productReply[i].member_id+'</a></span>'+
-												'<span class="comment__date"> '+r_creation_date+'</span>'+
-											'</div>'+
-											'<div class="comment-content">'+
-												'<div><p><br>'+data.productReply[i].reply_content+'</p></div>'+
-											'</div>';
-    										if(data.member_id==data.productReply[i].member_id){
-    											html = html + '<div class="comment-button">'+
-																'<button class="comment__button comment__button--red reply-delete">삭제</button>'+
-																'<input type="hidden" class="reply_code" value="'+data.productReply[i].reply_code+'">'+
-															   '</div>';
-    										}
-    					html = html + '</div>'+
-									'</div>'+
-								'</div>';
-    			}
-    			$("#replys").empty();
-    			$("#replys").append(html);
+    		success: function(data) {	
+    			removeTarget.remove();
     		},
     		error: function(xhr, stat, err) {}
     	});
     });
+    
+    $('.detail_tab').click(function() {
+		var offset = $('.cont_product').offset();
+		console.log(offset);
+		$('html, body').animate({
+			scrollTop : offset.top - 66
+		});
+	});
+    
+	$('.review_tab').click(function() {
+		var offset = $('.cont_review').offset();
+		console.log(offset);
+		$('html, body').animate({
+			scrollTop : offset.top - 66
+		});
+	});
 });
+
+function fnMove(seq) {
+	var offset = $("#div" + seq).offset();
+	$('html, body').animate({
+		scrollTop : offset.top
+	}, 400);
+}
 
 // object인 timestamp 타입변환하는 함수 시작
 function getTimeStamp(time) {

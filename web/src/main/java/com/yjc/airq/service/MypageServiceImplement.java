@@ -90,10 +90,7 @@ public class MypageServiceImplement implements MypageService{
 	public void deletePostsProduct(String product_code) {
 		productMapper.deletePostsProduct(product_code);
 	}	
-//	@Override
-//	public void deletePostsPost1(String post_code) {
-//		postMapper.deletePostsPost1(post_code);
-//	}
+
 	@Override
 	public ArrayList<PostVO> postMPrec() {
 		return postMapper.postMPrec();
@@ -123,11 +120,6 @@ public class MypageServiceImplement implements MypageService{
 		return productMapper.productMP();
 	}
 
-
-//	@Override
-//	public void deletePostsProduct1(String product_code) {
-//		productMapper.deletePostsProduct1(product_code);
-//	}
 	@Override
 	public void deleteComment(String reply_code) {
 		replyMapper.deleteComment(reply_code);
@@ -138,10 +130,6 @@ public class MypageServiceImplement implements MypageService{
 		tenderMapper.deletePosts(tender_code);
 	}
 
-//	@Override
-//	public void deletePosts1(String tender_code) {
-//		tenderMapper.deletePosts1(tender_code);
-//	}
 	@Override
 	public void mypayStarUp(PaymentVO paymentVO) {
 		paymentMapper.mypayStarUp(paymentVO);
@@ -162,8 +150,6 @@ public class MypageServiceImplement implements MypageService{
 		return productMapper.productSMP(member_id);
 	}
 
-
-	
 	// 상품,입찰,게시글 삭제에 따른 신고테이블 삭제여부 update
 	@Override
 	public void reportUpdate(@Param("original_code") String original_code) {
@@ -255,34 +241,16 @@ public class MypageServiceImplement implements MypageService{
 		return paymentMapper.normalNewPayment(member_id);
 	}
 	
-	//주문에 대한 상품 코드
+	//상품,입찰 리뷰 insert
 	@Override
-	public String dProduct_code(String demand_code, String member_id) {
-		return demandMapper.dProduct_code(demand_code, member_id);
+	public void reviewInsert(ReplyVO replyVo) {
+		replyMapper.reviewInsert(replyVo);
 	}
 	
-	//상품에 대한 리뷰 insert
+	//상품,입찰 별점 update
 	@Override
-	public void pReviewInsert(ReplyVO replyVo) {
-		replyMapper.pReviewInsert(replyVo);
-	}
-	
-	//입찰에 대한 리뷰 insert
-	@Override
-	public void tReviewInsert(ReplyVO replyVo) {
-		replyMapper.tReviewInsert(replyVo);
-	}
-	
-	//상품에 대한 별점 update
-	@Override
-	public void pStarScoreupdate(int star_score, String demand_code) {
-		paymentMapper.pStarScoreupdate(star_score, demand_code);
-	}
-	
-	//입찰에 대한 별점 update
-	@Override
-	public void tStarScoreupdate(int star_score, String tender_code) {
-		paymentMapper.tStarScoreupdate(star_score, tender_code);
+	public void starScoreupdate(int star_score, String payment_code) {
+		paymentMapper.starScoreupdate(star_score, payment_code);
 	}
 	
 	//입찰된 투찰의 사업자번호

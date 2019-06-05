@@ -31,7 +31,7 @@
 	
 	<!-- 별점 계산 -->
 	<select id="star_score_avg" parameterType="String" resultType="double">
-		select to_char(avg(star_score),99.9) star_score_avg
+		select nvl(to_char(avg(star_score),99.9),'0.0') star_score_avg
 		from(select obj.*, b.win_bid_whether, b.company_code
   		     from(select t.tender_code, p.refund_whether,p.star_score,p.payment_date
    		          from tender t, payment p
@@ -84,7 +84,7 @@
 	
 	<!-- 리뷰에서 보여줄 별점 -->
 	<select id="rStarScore" resultType="double">
-		select to_char(avg(star_score),99.9) star_score_avg
+		select nvl(to_char(avg(star_score),99.9),'0.0') star_score_avg
 		from(select obj.*, b.win_bid_whether, b.company_code
   		     from(select t.tender_code, p.refund_whether,p.star_score,p.payment_date
    		          from tender t, payment p
