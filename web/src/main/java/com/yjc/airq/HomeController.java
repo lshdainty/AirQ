@@ -186,7 +186,6 @@ public class HomeController {
 		System.out.println("iotId: " + info.get("iotId"));
 		System.out.println("dust_val: " + info.get("dust_val"));
 		System.out.println("현재 시간(mtime): " + info.get("mtime"));
-		System.out.println("========================================");
 
 		// 현재 날짜 생성
 		Date date = new Date();
@@ -216,7 +215,9 @@ public class HomeController {
 
 		manageService.measureData(m);
 		System.out.println("msd: " + msd);
-
+		
+		System.out.println("========================================");
+		
 		retVal.put("result", "success!!");
 		System.out.println("retVal: " + retVal);
 		

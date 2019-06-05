@@ -175,7 +175,6 @@ public class ManageController {
 			JSONObject json = new JSONObject();
 			json.put("measure", list.get(i).getMeasure());
 			json.put("measuretime", list.get(i).getMeasuretime());
-			System.out.println("json : " + json);
 			jArray.add(json);
 		}
 		System.out.println("jArray : "+jArray);
