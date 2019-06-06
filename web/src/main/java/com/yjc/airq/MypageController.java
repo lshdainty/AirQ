@@ -730,7 +730,7 @@ public class MypageController {
 	@ResponseBody
 	public void reviewWriteComplete(ReplyVO replyVo,String code, String reviewContent, int reviewStar, HttpServletRequest request) {
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-		String devision = code.substring(0, 2);
+//		String devision = code.substring(0, 2);
 		
 		// 댓글 코드 생성
 		Date today = new Date();
@@ -742,17 +742,20 @@ public class MypageController {
 		replyVo.setReply_code(reply_code);
 		replyVo.setReply_content(reviewContent);
 		replyVo.setMember_id(member_id);
+		replyVo.setPayment_code(code);
+		mypageService.starScoreupdate(reviewStar, code);
+		mypageService.reviewInsert(replyVo);
 		
-		if (devision.equals("dm")) {
-			replyVo.setProduct_code(mypageService.dProduct_code(code, member_id));
-			mypageService.pStarScoreupdate(reviewStar, code);
-			mypageService.pReviewInsert(replyVo);
-		}else {
-			String company_code=mypageService.tBidCompayCode(code);
-			replyVo.setCompany_code(company_code);
-			mypageService.tStarScoreupdate(reviewStar, code);
-			mypageService.tReviewInsert(replyVo);
-		}
-		System.out.println(replyVo);
+//		if (devision.equals("dm")) {
+//			replyVo.setProduct_code(mypageService.dProduct_code(code, member_id));
+//			mypageService.pStarScoreupdate(reviewStar, code);
+//			mypageService.pReviewInsert(replyVo);
+//		}else {
+//			//String company_code=mypageService.tBidCompayCode(code);
+//			replyVo.setTender_code(code);
+//			mypageService.tStarScoreupdate(reviewStar, code);
+//			mypageService.tReviewInsert(replyVo);
+//		}
+//		System.out.println(replyVo);
 	}
 }

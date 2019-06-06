@@ -21,13 +21,10 @@ public interface ManageService {
 
 	// 미세먼지 측정 데이터
 	public int measureData(Map<String, Object> m);
-	
-	
 
-	
-	
-	
-	
-	// Model 테이블에 Insert
-	//public String modelInsert(@Param("modelName") String ModelName);
+	// inside Chart
+	public ArrayList<MeasureDataVO> insideChart(String member_id);
+
+	// 차트 세부내용
+	public ArrayList<MeasureDataVO> chartValue(String member_id);
 }

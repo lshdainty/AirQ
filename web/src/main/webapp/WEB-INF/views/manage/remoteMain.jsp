@@ -2,8 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="/resources/css/manage/remoteMain.css" />
+	
 	<div class="container2">
-
+	
 	<c:forEach var="myiot" items="${myIot}">
 		<figure>
 			<div class="switch">
@@ -39,14 +40,14 @@
 	        <div class="on_off">
 	            <label class="rocker rocker-small">
 	                <input type="checkbox" class="onOff" value="check">
-	                <span class="switch-left">ON</span>
-	                <span class="switch-right">OFF</span>
+	                <span id="11" class="switch-left choice">ON</span>
+	                <span id="12" class="switch-right choice">OFF</span>
 	            </label>
 	  
 	            <label class="rocker rocker-small">
 	                <input type="checkbox" class="autoManual">
-	                <span class="switch-auto">자동</span>
-	                <span class="switch-manual">수동</span>
+	                <span class="switch-auto choice">자동</span>
+	                <span class="switch-manual choice">수동</span>
 	            </label>
 	        </div>
 	        </div>
@@ -55,6 +56,19 @@
 	        
         <button id="btn-reg">IoT 제품 제어 등록</button>
     </div>
+    
+    <script type="text/javascript">
+		$(document).ready(function() {
+			$(".choice").click(function() {
+				var p = $(this).attr('id'); // get id value (i.e. pin13, pin12, or pin11)
+				alert($(this).attr('id'));
+			
+				// send HTTP GET request to the IP address with the parameter "pin" and value "p", then execute the function
+			$.get("http://172.20.3.228:90/", {pin : p}); // execute get request (아두이노 웹서버 IP 주소로 고쳐 준다)
+				alert("pin: " + pin);
+			});
+		});
+	</script>
     
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <script src='resources/js/manage/remoteMain.js'></script>

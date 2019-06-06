@@ -16,8 +16,6 @@ public interface ReplyMapper {
 	public ArrayList<ReplyVO> productReply(String product_code);
 	//서비스 제품 댓글 삭제
 	public void productReplyDelete(@Param("product_code") String product_code);
-	//상품 댓글 insert
-	public void insertPReply(ReplyVO replyVO);
 	//본인 댓글 delete
 	public void deletePReply(@Param("reply_code") String reply_code);
 	//마이페이지 관리자 댓글관리 - 댓글삭제
@@ -34,9 +32,12 @@ public interface ReplyMapper {
 	//mypageNormal - 최신 댓글
 	public ArrayList<Map<String,Object>> normalNewReply(String memeber_id);
 	
-	//상품에 대한 리뷰 insert
-	public void pReviewInsert(ReplyVO replyVo);
+	//상품,입찰 리뷰 insert
+	public void reviewInsert(ReplyVO replyVo);
 	
-	//입찰에 대한 리뷰 insert
-	public void tReviewInsert(ReplyVO replyVo);
+	//회사별 리뷰
+	public ArrayList<Map<String,Object>> companyReview(String company_code);
+
+	//리뷰 개수
+	public int reviewNum(String company_code);
 }

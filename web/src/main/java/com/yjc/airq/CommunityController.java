@@ -179,11 +179,11 @@ public class CommunityController {
 		String reply_content = request.getParameter("reply_content");
 		Timestamp r_creation_date = new Timestamp(System.currentTimeMillis());
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-    	String product_code=request.getParameter("product_code");
+//    	String product_code=request.getParameter("product_code");
     	String post_code=request.getParameter("post_code");
     	
-	    if(product_code==null)
-	    	product_code="";
+//	    if(product_code==null)
+//	    	product_code="";
 	    if(post_code==null)
 	    	post_code="";
 	    	
@@ -192,7 +192,7 @@ public class CommunityController {
 		replyVO.setR_creation_date(r_creation_date);
 		replyVO.setMember_id(member_id);
 		replyVO.setPost_code(post_code);
-		replyVO.setProduct_code(product_code);
+		//replyVO.setProduct_code(product_code);
 		postService.insertReply(replyVO);
 
 		return replyVO;

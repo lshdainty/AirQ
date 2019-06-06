@@ -92,7 +92,7 @@
 					var bidHtml='<tr class="bidTr">'
 						+'<td scope="row"><input type="radio" value='+bidArr[i].company_code+' name="bidContent" ></td>'
 						+'<td class="listC" data-label="순위">'+(i+1)+'</td>'
-						+'<td id="company_name" name="company_name" class="listC" data-label="업체명">'+bidArr[i].company_name+'</td>'
+						+'<td id="company_name" name="company_name" class="listC" data-label="업체명">'+bidArr[i].company_name+'</a></td>'
 						+'<td id="member_id" name="member_id" class="listC" data-label="대표자">'+bidArr[i].member_id+'</td>'
 						+'<td id="bid_price" name="bid_price" data-label="금액">'+bidArr[i].bid_price+'</td>'
 						+'<td data-label="건수">'+bidArr[i].bidNum+'</td>'
@@ -400,4 +400,8 @@ $(document).ready(function(){
     	});
 	});
 	
+	$(document).on('click','#company_name',function(){
+		var company_code=$(this).parent().children("td").children("input").val();
+		window.open("/companyReviewGo?company_code="+company_code,"company_review","width=500px, height=600px");
+	});
 });

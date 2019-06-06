@@ -18,6 +18,7 @@
 		<collection property="matterVO" column="product_code" javaType="java.util.ArrayList" ofType="com.yjc.airq.domain.MatterVO" select="getMatterByCode"/>
 	</resultMap>
 	
+	<!-- 사용자가 사는 지역에서 판매순위 1~3위까지의 상품 가져오기 -->
 	<select id="recommendList" resultMap="ProductVO">
 		select p.*
 		from (
@@ -31,6 +32,7 @@
     	and <![CDATA[rownum <= 3]]>
 	</select>
 	
+	<!-- 상품 전체 리스트 가져오기 -->
 	<select id="productList" resultMap="ProductVO">
 		select X.rnum, X.* 
 		from(
@@ -62,42 +64,50 @@
 		where <![CDATA[X.rnum >= #{startnum}]]>
 	</select>
 	
+	<!-- 상품 전체 리스트의 개수 가져오기 -->
 	<select id="productCount" resultType="int">
 		select count(*) from product
 	</select>
 	
+	<!-- 각 상품을 올린 회사정보 가져오기 -->
 	<select id="getCompany" resultType="com.yjc.airq.domain.Company_InfoVO">
 		select * from company_info where company_code = #{company_code}
 	</select>
 	
+	<!-- 서비스 가능한 상품지역 가져오기 -->
 	<select id="getAreaByCode" resultType="com.yjc.airq.domain.AreaVO">
 		select a.*,pa.product_code 
 		from area a, p_possible_area pa 
 		where a.area_code = pa.area_code and pa.product_code=#{product_code}
 	</select>
 	
+	<!-- 서비스 가능한 물질코드 가져오기 -->
 	<select id="getMatterByCode" resultType="com.yjc.airq.domain.MatterVO">
 		select m.*,pm.product_code 
 		from matter m, p_measure_matter pm 
 		where m.matter_code = pm.matter_code and pm.product_code=#{product_code}
 	</select>
 	
+	<!-- 상품의 판매수 가져오기 -->
 	<select id="getSellnum" resultType="String">
 		select to_char(count(*)) as sellnum
 		from product p, demand d, payment pa
 		where p.product_code = d.product_code and d.demand_code = pa.demand_code and p.product_code=#{product_code} and refund_whether='n'
 	</select>
 	
+	<!-- 상품의 만족도 점수 가져오기 -->
 	<select id="getStaravg" resultType="String">
 		select nvl(to_char(avg(pa.STAR_SCORE),99.9),'0.0') as staravg
 		from product p, demand d, payment pa
 		where p.product_code = d.product_code and d.demand_code = pa.demand_code and p.product_code=#{product_code} and refund_whether='n'
 	</select>
 	
+	<!-- 상품의 썸네일 파일명 가져오기 -->
 	<select id="getThumbnail" resultType="String">
 		select file_name from upload where product_code = #{product_code} and thumbnail_whether = 'y'
 	</select>
 	
+	<!-- 사용자가 선택한 조건에 해당하는 상품 리스트 가져오기 -->
 	<select id="selectList" resultMap="ProductVO">
 		select X.rnum,X.* 
 		from(
@@ -156,6 +166,7 @@
 		where <![CDATA[X.rnum >= #{startnum}]]>
 	</select>
 	
+	<!-- 사용자가 선택한 조건에 해당하는 상품 개수 가져오기 -->
 	<select id="selectCount" resultType="int">
 		select count(*)
 		from product
@@ -187,10 +198,12 @@
 		</where>
 	</select>
 	
+	<!-- 사용자가 선택한 상품 정보 가져오기 -->
 	<select id="productContent" resultMap="ProductVO">
 		select * from product where product_code = #{product_code}
 	</select>
 	
+	<!-- 상품을 올린 회사가 맞는지 체크하기 -->
 	<select id="writePersonCheck" resultType="String">
 		select m.member_id 
 		from product p, company_info c, member m
@@ -199,10 +212,12 @@
 		and p.product_code=#{product_code}
 	</select>
 
+	<!-- 상품 등록하기 -->
 	<insert id="productInsert" parameterType="com.yjc.airq.domain.ProductVO">
 		insert into product(product_code,product_name,product_detail,product_price,p_space,measure_point,company_code) values(#{product_code},#{product_name},#{product_detail},#{product_price},#{p_space},#{measure_point},#{company_code})
 	</insert>
 	
+	<!-- 상품 update하기 -->
 	<update id="productUpdate" parameterType="com.yjc.airq.domain.ProductVO">
 		update product 
 		set product_name = #{product_name}, 
@@ -214,10 +229,10 @@
 		where product_code = #{product_code}
 	</update>
 	
+	<!--상품 삭제하기 -->
 	<delete id="productDelete" parameterType="String">
 		delete from product where product_code = #{product_code}
 	</delete>
-	
 	
 	<select id="productMP" resultMap="ProductVO">
 		select * from product pr, company_info c
@@ -238,15 +253,10 @@
 	<select id="deletePostsProduct" parameterType="String">
 		select product_code from product where product_code = #{product_code}
 	</select>
-<!-- 	마이페이지 글관리 글삭제 --> 
-<!-- 	<delete id="deletePostsProduct1" parameterType="String"> -->
-<!-- 		delete from product where product_code = #{product_code} -->
-<!-- 	</delete> -->
-
 
 	<!-- 리뷰 안한 목록 리스트 -->
 	<select id="reviewCompareList" resultType="com.yjc.airq.domain.ProductVO">
-		select t.product_code,t.product_name,t.product_price, t.p_space, t.measure_point, p.star_score, d.member_id, to_char(d.d_service_date,'yyyy-MM-dd hh24:mi') d_service_date, d.demand_code
+		select t.product_code,t.product_name,t.product_price, t.p_space, t.measure_point, p.star_score, d.member_id, to_char(d.d_service_date,'yyyy-MM-dd hh24:mi') d_service_date, d.demand_code, p.payment_code
 		from payment p,demand d,product t
 		where sysdate>=d.d_service_date and p.demand_code=d.demand_code and d.product_code=t.product_code and p.refund_whether='n' and p.star_score is null and d.member_id=#{member_id}
 		order by payment_date

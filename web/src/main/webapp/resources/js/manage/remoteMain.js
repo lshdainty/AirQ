@@ -1,6 +1,6 @@
 /**
  * 
- */
+ *//*
 $(document).ready(function(){
 	$("#btn-reg").click(function(){
 		location.href="remoteRegist";
@@ -8,15 +8,15 @@ $(document).ready(function(){
 	
 	// ON, OFF 클릭시
 	$(".onOff").click(function(){
-		alert($(this).is(":checked"));
+//		alert($(this).is(":checked"));
 
 		$.ajax({
 			type : "POST",
 			contentType: "application/json;charset=UTF-8",
-			url : "/DataControl",
-			data : {
+			url : "/iotOnOff",
+			data : JSON.stringify({
 				switch : $(this).is(":checked")
-			},
+			}),
 			dataType : "json",
 			success : function(data){
 				console.log(data);
@@ -32,4 +32,4 @@ $(document).ready(function(){
 		});
 		
 	});
-});	// document
+});	// document*/

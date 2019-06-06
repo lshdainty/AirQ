@@ -67,6 +67,7 @@
 
 .recommanded-thumbnail img{
 	width:100%;
+	height:100%;
 }
 
 .recommanded-title {
@@ -99,6 +100,7 @@
 	width: 13rem;
 	font-size: 0.8rem;
 }
+
 .order-option:hover{
 	transition:.2s;
 	transform:scale(1.05);
@@ -112,6 +114,10 @@
 	width: 100%;
 	border-bottom: 1px solid #00275c;
 	height: 2rem;
+}
+
+.compare-category li {
+	list-style:none;
 }
 
 .category-option {
@@ -155,14 +161,25 @@
 	padding: 1rem;
 	border-bottom:1px solid #ddd;
 }
+
 .post-item:hover {
 	transition: 0.2s;
 	background: #e1f6ff;
 	transform:scale(1.05);
 }
-.compare-thumb img {
+
+.compare-thumb {
 	width: 130px;
 	height: 130px;
+}
+.compare-thumb img{
+	width:100%;
+	height:100%;
+}
+
+.compare-thumb img{
+	width:100%;
+	height:100%;
 }
 
 .compare-info {
@@ -174,8 +191,13 @@
 .compare__title {
 	display: block !important;
 	font-weight: bold;
+	/* overflow setting start */
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	/* overflow setting end */
+	
 }
-
 .compare__content {
 	
 	/* overflow setting start */
@@ -215,4 +237,109 @@
 #productWrite:hover {
     background-color: #428bca;
     color: white;
+}
+
+.compare-list_grid{
+	display: flex !important;
+	flex-wrap: wrap;
+	flex-direction: row;
+}
+
+.compare-post_grid{
+	width: 25%;
+	display: flex !important;
+	flex-direction: column;
+	padding: 1rem;
+}
+
+.compare-thumb_grid{
+	width:200px;
+	height:200px;
+	margin:auto;
+}
+.compare-thumb_grid img {
+	margin:auto;
+	width: 100%;
+	height: 100%;
+}
+
+.compare-info_grid {
+	vertical-align: top;
+	width: 80%;
+	display:flex !important;
+	margin:auto;
+	flex-direction:column;
+}
+.compare-info_grid .compare__price{
+    vertical-align: top;
+    padding-top: 2rem;
+    float: right;
+    font-weight: bold;
+    color: #3d59fc;
+    text-align:center;
+}
+.sort-item{
+	float:right;
+}
+.sort_type {
+    overflow: hidden;
+    right: 0;
+    top: 0;
+    width: 51px;
+    height: 2rem;
+    border: 1px solid #d5d5d5;
+    border-bottom:1px solid #000;
+    display:flex;
+    flex-direction:row;
+}
+
+.sort_type li:first-child {
+    border-left: 0;
+}
+.sort_type li {
+    float: left;
+    width: 25px;
+    height: 24px;
+    border-left: 1px solid #eee;
+}
+
+.sort_type li:first-child {
+    border-left: 0;
+}
+
+.sort_type li {
+    float: left;
+    width: 25px;
+    height: 2rem;
+    border-left: 1px solid #eee;
+}
+
+.sort_type li a {
+    display: block;
+    width: 100%;
+    height: 17px;
+    padding-top: 7px;
+    text-align: center;
+}
+.sort_type .type_list:hover em, .sort_type .type_list.on em {
+    background-position: -0px -175px;
+}
+.sort_type .type_list em {
+    background-position: 0 -160px;
+}
+.sort_type li em {
+    display: inline-block;
+    overflow: hidden;
+    width: 11px;
+    height: 11px;
+    background: url(https://ssl.pstatic.net/imgshopping/static/pc-real-2017/img/search/sp_search_v4.png) no-repeat;
+    line-height: 9999px;
+    vertical-align: top;
+    cursor: pointer;
+}
+.sort_type .type_thumb:hover em, .sort_type .type_thumb.on em {
+    background-position: -20px -175px;
+}
+.sort_type .type_thumb em {
+    background-position: -20px -160px;
 }

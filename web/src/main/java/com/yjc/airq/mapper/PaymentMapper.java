@@ -40,9 +40,9 @@ public interface PaymentMapper {
 	//mypageNormal - 최신 결제 내역
 	public ArrayList<Map<String,Object>> normalNewPayment(String member_id);
 
-	//상품에 대한 별점 update
-	public void pStarScoreupdate(@Param("star_score")int star_score, @Param("demand_code")String demand_code);
+	//상품,입찰 별점 update
+	public void starScoreupdate(@Param("star_score")int star_score, @Param("payment_code")String payment_code);
 	
-	//입찰에 대한 별점 update
-	public void tStarScoreupdate(@Param("star_score")int star_score, @Param("tender_code")String tender_code);
+	//판매자 월별 매출 차트 - 상품서비스
+	
 }

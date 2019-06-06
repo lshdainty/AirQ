@@ -19,8 +19,12 @@ public interface ManageMapper {
 	// 자신 원격 제품 고유 별명 중복 체크
 	public IotInfoVO nCheck(String alias);
 
+	// 미세먼지 측정값 insert
 	public int measureData(Map<String, Object> m);
-	
-	// Model 테이블에 Insert
-	//public String modelInsert(@Param("modelName") String ModelName);
+
+	// inside Chart
+	public ArrayList<MeasureDataVO> insideChart(String member_id);
+
+	// 차트 세부내용
+	public ArrayList<MeasureDataVO> chartValue(String member_id);
 };

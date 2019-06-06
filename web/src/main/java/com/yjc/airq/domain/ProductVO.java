@@ -27,4 +27,5 @@ public class ProductVO {
 	private String d_service_date;
 	
 	private String demand_code;
+	private String payment_code;
 }
