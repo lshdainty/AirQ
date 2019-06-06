@@ -1,9 +1,11 @@
+/*차트 불러오는거 시작*/
 $.ajax({
 	url : "/insideChart",
 	type : "POST",
 	dataType : "json",
 	async : false,
 	success : function(data){
+		console.log(data);
 		am4core.ready(function() {
 
 			// Themes begin
@@ -17,7 +19,7 @@ $.ajax({
 			chart.data = data;
 			console.log(chart.data);
 
-//			// Set input format for the dates
+			// Set input format for the dates
 			chart.dateFormatter.inputDateFormat = "yyyy MMMM dd hh:mm a";
 
 			// Create axes
@@ -27,11 +29,11 @@ $.ajax({
 			valueAxis.title.text = "미세먼지 측정 값(㎍/㎥)";
 
 			dateAxis.baseInterval = {
-				"timeUnit" : "minute",
+				"timeUnit" : "second",
 				"count" : 1
 			};
 			dateAxis.tooltipDateFormat = "yyyy MMMM dd hh:mm a";
-
+			dateAxis.dateFormats.setKey("second", "hh:mm:ss a");
 			
 			// Create series
 			var series = chart.series.push(new am4charts.LineSeries());
@@ -81,8 +83,41 @@ $.ajax({
 			}); // end am4core.ready()
 		}); // 차트 끝
 		
+		var today = "";
+		for(var j = 0; j < 1; j++){
+			today += '<h1>☆Detail☆ ' + '</h1>';
+		}
+		$(".pp").append(today);
+		
+		var list = "";
+		for(var i = 0; i < data.length; i++){
+			list += '<tr>'
+				+'<td>' + data[i].measuretime + '</td>'
+				+'<td>' + data[i].measure + '</td>'
+				+'<td>' + data[i].iotID + '</td>'
+				+'<td>' + data[i].CODE + '</td>'
+				+'</tr>';
+		}
+		$(".chartList-list").append(list);
 	}, // SUCCESS
 	error : function(){
 		console.log("연결 실패");
 	}
 });
+/*차트 불러오는거 끝*/
+
+/*차트 표 불러오는거 시작*/
+/*$.ajax({
+	url : "/insideChart",
+	type : "POST",
+	dataType : "json",
+	async : false,
+	success : function(data){
+		console.log(data);
+		
+	}, // SUCCESS
+	error : function(){
+		console.log("차트 표 불러오기 실패");
+	}
+});*/
+/*차트 불러오는거 끝*/

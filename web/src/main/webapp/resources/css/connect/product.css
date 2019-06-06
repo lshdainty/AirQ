@@ -61,8 +61,7 @@ dd, dl, h1, h2, h3, h4, h5, input, p, pre {
 .viewdetail .imgs .visual a {
     display: block;
     width: 100%;
-    height: 0;
-    padding-top: 100%;
+    height: 580px;
     position: relative;
 }
 a {
@@ -71,7 +70,7 @@ a {
 }
 .viewdetail .imgs .thumbnails a img, .viewdetail .imgs .visual img {
     height: 100%;
-    width: auto;
+    width: 100%;
 }
 .btn_arr:before, .input_text button:before, .pos_center, .pos_center_after:after, .pos_center_before:before {
     position: absolute;
@@ -211,3 +210,113 @@ button {
 .dark[class*=btn_], .flag.new, .lnb.white .list_lnb, .lnb.white .list_lnb .dep2, .lnb.white .tit_lnb, .out, .tc_f {
     color: #fff;
 }
+
+.info-tab{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	background: rgb(168, 168, 168);
+	justify-content: space-around;
+	height: 3rem;
+}
+.info-tab div{
+	cursor: pointer;
+	width: 50%;
+	text-align: center;
+	color: rgb(248, 245, 245);
+	line-height: 3rem;
+	font-size: 20px;
+	font-weight: bold;
+}
+.info-tab .active{
+	background: #555;
+}
+
+#companyName {
+	text-align: center;
+	font-size: 25px;
+	color: #747474;
+	margin-bottom: 5px;
+  }
+  
+  #reviewAndStar {
+	text-align: center;
+	font-size: 18px;
+	color: #747474;
+	margin-top: 5px;
+  }
+  
+  hr {
+	color: gray;
+  }
+  
+  .companyReview {
+	margin:1rem;
+	padding: 1rem;
+  }  
+  
+  .reviewId {
+	font-weight: bold;
+	font-size: 20px;
+	margin: 0px !important;
+  }
+  
+  .reviewDate {
+	font-size: 12px;
+	font-weight: normal;
+	color: gray;
+  }
+  
+  .memberStar {
+	color: gray;
+	margin: 0px !important;
+  }
+  
+  .star {
+	color: #FFE400;
+  }
+  
+  
+  .reviewText {
+	position:relative;
+	padding:15px;
+	margin:1em 0;
+	border:5px solid #5a8f00;
+	color:#333;
+	background:#fff;
+	/* css3 */
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	border-radius:10px;
+  }
+  
+  .reviewText:before {
+	content:"";
+	position:absolute;
+	border-width:20px 20px 0;
+	border-style:solid;
+	border-color:#5a8f00 transparent;
+	/* reduce the damage in FF3.0 */
+	display:block;
+	width:0;
+	top:-20px; /* value = - border-top-width - border-bottom-width */
+	left: 20px;
+	 /* controls horizontal position */
+	border-width:0 20px 20px;
+  
+  }
+  
+  /* creates the smaller  triangle */
+  .reviewText:after {
+	content:"";
+	position:absolute;
+	border-width:13px 13px 0;
+	border-style:solid;
+	border-color:#fff transparent;
+	/* reduce the damage in FF3.0 */
+	display:block;
+	width:0;
+	top:-13px; /* value = - border-top-width - border-bottom-width */
+	left: 27px; /* value = (:before right) + (:before border-right) - (:after border-right) */
+	border-width:0 13px 13px;
+  }

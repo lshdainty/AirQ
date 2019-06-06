@@ -64,7 +64,7 @@
 				alert($(this).attr('id'));
 			
 				// send HTTP GET request to the IP address with the parameter "pin" and value "p", then execute the function
-			$.get("http://172.26.3.67:90/", {pin : p}); // execute get request (아두이노 웹서버 IP 주소로 고쳐 준다)
+			$.get("http://172.20.3.228:90/", {pin : p}); // execute get request (아두이노 웹서버 IP 주소로 고쳐 준다)
 				alert("pin: " + pin);
 			});
 		});

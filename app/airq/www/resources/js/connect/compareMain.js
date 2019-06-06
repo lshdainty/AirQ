@@ -1,6 +1,6 @@
 ﻿var ip = sessionStorage.getItem('IP_ADDRESS');
-//var member_id = sessionStorage.getItem("member_id");
-var member_id = "test";
+var user = JSON.parse(sessionStorage.getItem("user"))
+var member_id = user.member_id;
 
 //광역시/도 목록 가져오기
 $.ajax({
@@ -129,7 +129,7 @@ function ajax(idx,sort){
 				for(var i=0; i<data.pList.length; i++){
 					content+= '<div class="connect-post">' + 
 											'<div class="post-thumb">' + 
-												'<img src="../../../www/resources/images/800490.png" alt="">' + 
+												'<img src="'+ip+'/resources/uploadFile/images/'+data.pList[i].file_name+'" alt="">' + 
 											'</div>' + 
 											'<div class="post-explain">' + 
 												'<div class="post-title">'+data.pList[i].product_name+'</div>' + 
@@ -181,8 +181,6 @@ $("#productWrite").click(function(){
 });
 //상품 등록페이지 끝
 
-
-
 //페이지 들어왔을때 상품리스트 가져오기
 $(function(){
 	var query = {
@@ -202,8 +200,8 @@ $(function(){
 			$(".pCount").text(data.criteria.totalcount);
 			for(var i=0; i<data.recommend.length; i++){
 				recommend+= '<div class="smart-post">' + 
-											'<div class="post-thumb">' + 
-												'<img src="../../../www/resources/images/800490.png" alt="">' + 
+								'<div class="post-thumb">' + 
+								'<img src="'+ip+'/resources/uploadFile/images/'+data.recommend[i].file_name+'" alt="">' +
             					'</div>' + 
             					'<div class="post-explain">' + 
             						'<div class="post-title">'+data.recommend[i].product_name+'</div>' + 
@@ -215,8 +213,8 @@ $(function(){
 			$(".smart-posts").append(recommend);
 			for(var i=0; i<data.pList.length; i++){
 				content+= '<div class="connect-post">' + 
-										'<div class="post-thumb">' + 
-											'<img src="../../../www/resources/images/800490.png" alt="">' + 
+							'<div class="post-thumb">' + 
+								'<img src="'+ip+'/resources/uploadFile/images/'+data.pList[i].file_name+'" alt="">' + 
             				'</div>' + 
             				'<div class="post-explain">' + 
             					'<div class="post-title">'+data.pList[i].product_name+'</div>' + 

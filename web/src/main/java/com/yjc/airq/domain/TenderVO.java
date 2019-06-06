@@ -33,6 +33,6 @@ public class TenderVO {
 	
 	private String report_count;
 	
-	
 	private int payment_price;
+	private String payment_code;
 }
