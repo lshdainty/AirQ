@@ -23,8 +23,8 @@ public interface ManageMapper {
 	public int measureData(Map<String, Object> m);
 
 	// inside Chart
-	public ArrayList<MeasureDataVO> insideChart(String member_id);
+	public ArrayList<MeasureDataVO> insideChart(@Param("member_id") String member_id, @Param("date") String date);
 
 	// 차트 세부내용
-	public ArrayList<MeasureDataVO> chartValue(String member_id);
+//	public ArrayList<MeasureDataVO> chartValue(String member_id, String date);
 };

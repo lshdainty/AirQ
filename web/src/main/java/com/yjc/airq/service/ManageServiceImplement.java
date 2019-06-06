@@ -3,6 +3,7 @@ package com.yjc.airq.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.yjc.airq.domain.IotInfoVO;
@@ -35,14 +36,13 @@ public class ManageServiceImplement implements ManageService{
 	}
 
 	// inside Chart
-	public ArrayList<MeasureDataVO> insideChart(String member_id) {
-		return mapper.insideChart(member_id);
+	public ArrayList<MeasureDataVO> insideChart(@Param("member_id") String member_id, @Param("date") String date) {
+		return mapper.insideChart(member_id, date);
 	}
 
 	// 차트 세부내용
-	public ArrayList<MeasureDataVO> chartValue(String member_id) {
-		// TODO Auto-generated method stub
-		return mapper.chartValue(member_id);
-	}
-
+//	public ArrayList<MeasureDataVO> chartValue(String member_id, String date) {
+//		// TODO Auto-generated method stub
+//		return mapper.chartValue(member_id, date);
+//	}
 }
