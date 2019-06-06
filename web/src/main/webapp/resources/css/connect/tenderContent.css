@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-#tenderTitle,#tenderParticipationList {
+/* #tenderTitle,#tenderParticipationList {
 	color: #747474;
 	font-weight: 300;
 	margin-bottom: 10px;
@@ -16,9 +16,7 @@
 	margin-right:10px;
 }
 
-#periodSpan {
-	font-size:16px;
-}
+
 
 hr {
 	color: gray;
@@ -36,11 +34,96 @@ hr {
 	border-right: 1px #D5D5D5 solid;
 	width: 15%;
 	text-align: center;
+}*/
+
+#periodSpan {
+	font-size:16px;
 }
 
 #tenderADiv {
 	height: 50px;
 	width: 100%;
+} 
+
+#tenderTitle {
+  color: #747474;
+  font-weight: 300;
+  text-align: center;
+  margin-top: 15px;
+}
+
+#tenderBoard {
+  border-top: 3px solid #84a7cc;
+  width:100%;
+}
+
+.tBoard {
+  display: inline-block;
+}
+
+#tenderContent {
+  width: 79%;
+}
+
+#tenderSituation {
+  float: right;
+  width: 20%;
+}
+
+#tenderTbl {
+  width: 100%;
+}
+
+#tenderTbl td{
+  padding: 1%;
+  border-bottom:1px solid #ddd;
+  border-right:1px solid #ddd;
+}
+
+#tenderTbl th {
+  background: #f5f5f5;
+  text-align: center;
+  width: 150px;
+  border-bottom:1px solid #ddd;
+}
+
+#tenderST {
+  margin: 10px 1px 10px 0;;
+  font-size: 20px;
+  color: gray;
+}
+
+.p {
+  text-align: center;
+  margin: 8px 0 8px 0;
+}
+
+.tenderD {
+  background: #84a7cc;
+  border: 1px solid #7C96C9;
+  padding: 4%;
+  color: #fff;
+  margin: 0;
+}
+
+#requirement {
+  height:100px;
+  /* display: flex;
+  overflow-y: scroll; */
+}
+
+#tenderParticipationTbl th {
+	background:#cdd5e1;
+	color:#747474;
+}
+
+.tenderP {
+  text-align: center;
+  font-size:20px;
+}
+
+#group_name {
+  font-weight: bold;
 }
 
 #tenderADiv a,#tenderADiv span {
@@ -104,10 +187,18 @@ hr {
 	}
 }
 
-#tendering {
+.btn {
+	border-radius: 2px;
 	float: right;
 	height: 40px;
 	width: 90px;
+	background-color: transparent;
+	color: #428bca;
+	border: 1px solid #428bca;
+}
+.btn:hover {
+    background-color: #428bca;
+    color: white;
 }
 
 #company_name {

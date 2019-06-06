@@ -121,6 +121,12 @@ public interface ConnectService {
 	//리뷰 개수
 	public int reviewNum(String company_code);
 	
+	//입찰 마감
+	public int tender_deadline(String tender_code);
+	
+	//낙찰하기
+	public int bid_open_date(String tender_code);
+	
 	// 상품 전체 개수 조회
 	public int productCount();
 	// 항목 선택후 항목에 맞는 상품 개수 조회

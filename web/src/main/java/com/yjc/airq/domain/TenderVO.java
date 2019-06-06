@@ -9,12 +9,16 @@ public class TenderVO {
 	private String tender_code;
 	private String tender_title;
 	private String tender_name;
+	private String group_name;
 	private String t_creation_date;
 	private String service_date;
 	private String tender_deadline;
+	private String bid_open_date;
+	private int budget;
 	private int calculate_period;
 	private int t_space;
 	private int floor_number;
+	private String winning_bid_way;
 	private String requirement;
 	private String t_zipcode;
 	private String t_road_addr;
@@ -29,7 +33,7 @@ public class TenderVO {
 	// 마감기한 D-day
 	private String d_day;
 	
-	private String tcreationdate;
+	//private String tcreationdate;
 	
 	private String report_count;
 	

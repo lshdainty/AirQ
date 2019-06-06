@@ -45,4 +45,10 @@ public interface TenderMapper {
 	
 	//리뷰 안 한 목록 리스트
 	public ArrayList<TenderVO> reviewTenderList(String member_id);
+	
+	//입찰 마감
+	public int tender_deadline(String tender_code);
+	
+	//낙찰하기
+	public int bid_open_date(String tender_code);
 }

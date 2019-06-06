@@ -49,12 +49,13 @@
 	
 	<!-- 입찰공고 작성 -->
 	<insert id="addTenderboard" parameterType="com.yjc.airq.domain.TenderVO">
-		insert into tender(tender_code,tender_title,t_creation_date,service_date,tender_deadline,calculate_period,t_space,floor_number,requirement,t_zipcode,t_road_addr,t_addr,t_addr_detail,member_id,tender_name) values(#{tender_code},#{tender_title},systimestamp,to_date(#{service_date},'YY-MM-DD'),to_date(#{tender_deadline},'YY-MM-DD'),${calculate_period},${t_space},${floor_number},#{requirement},#{t_zipcode},#{t_road_addr},#{t_addr},#{t_addr_detail},#{member_id},#{tender_name})
+		insert into tender(tender_code,tender_title,group_name,t_creation_date,service_date,tender_deadline,bid_open_date,budget,calculate_period,t_space,floor_number,winning_bid_way,requirement,t_zipcode,t_road_addr,t_addr,t_addr_detail,member_id,tender_name)
+		values(#{tender_code},#{tender_title},#{group_name},systimestamp,to_date(#{service_date},'YY-MM-DD'),to_date(#{tender_deadline},'YY-MM-DD'),to_date(#{bid_open_date},'YY-MM-DD'),${budget},${calculate_period},${t_space},${floor_number},#{winning_bid_way},#{requirement},#{t_zipcode},#{t_road_addr},#{t_addr},#{t_addr_detail},#{member_id},#{tender_name})
 	</insert>
 	
 	<!-- 입찰 리스트 세부내용 -->
 	<select id="tenderContent" parameterType="String" resultType="com.yjc.airq.domain.TenderVO">
-		select tender_code,tender_title, t_creation_date,to_char(t_creation_date,'yyyy-MM-dd HH:mm') as tcreationdate, to_char(service_date,'yyyy-MM-dd') as service_date,  to_char(tender_deadline,'yyyy-MM-dd') as tender_deadline, calculate_period,t_space, floor_number,requirement, t_zipcode, t_road_addr, t_addr, t_addr_detail, member_id, tender_name
+		select tender_code,tender_title, group_name, to_char(t_creation_date,'yyyy-mm-dd hh24:mi') as t_creation_date, to_char(service_date,'yyyy-MM-dd') as service_date, to_char(tender_deadline,'yyyy-MM-dd') as tender_deadline, to_char(bid_open_date,'yyyy-MM-dd') as bid_open_date, budget, calculate_period,t_space, floor_number, winning_bid_way, requirement, t_zipcode, t_road_addr, t_addr, t_addr_detail, member_id, tender_name
 		from tender 
 		where tender_code=#{tender_code}
 	</select>
@@ -129,5 +130,19 @@
 		from payment p,tender t
 		where sysdate>=t.service_date and t.tender_code=p.tender_code and p.refund_whether='n' and p.star_score is null and t.member_id=#{member_id}
 		order by p.payment_date
+	</select>
+	
+	<!-- 입찰 마감 -->
+	<select id="tender_deadline" resultType="int">
+		select count(*)
+		from tender
+		where tender_code=#{tender_code} and tender_deadline>=to_date(sysdate,'yy/mm/dd')
+	</select>
+	
+	<!-- 낙찰하기 -->
+	<select id="bid_open_date" resultType="int">
+		select count(*)
+		from tender
+		where tender_code=#{tender_code} and bid_open_date>=to_date(sysdate,'yy/mm/dd')
 	</select>
 </mapper>

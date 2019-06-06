@@ -289,6 +289,18 @@ public class ConnectServiceImplement implements ConnectService {
 		return replyMapper.reviewNum(company_code);
 	}
 	
+	//입찰 마감
+	@Override
+	public int tender_deadline(String tender_code) {
+		return tenderMapper.tender_deadline(tender_code);
+	}
+	
+	//낙찰하기
+	@Override
+	public int bid_open_date(String tender_code) {
+		return tenderMapper.bid_open_date(tender_code);
+	}
+	
 	// 상품 전체 개수 조회
 	@Override
 	public int productCount() {
