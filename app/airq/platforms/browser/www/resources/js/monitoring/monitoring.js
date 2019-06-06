@@ -55,20 +55,37 @@ if (navigator.geolocation) {
 			async: false,
 			success: function(data) {
 				var marker_position = data;
+				console.log(marker_position);
 				//마커찍는 부분
 				for(var i=0; i<marker_position.result.length; i++){
 									
 					//html기반 마커찍기
 					var markerContent = [
 						'<div style="position:absolute;">',
-							'<div class="infowindow">',
-								'<div>미세먼지(pm10) : '+marker_position.result[i].pm10Value+'</div>',
-								'<div class="info_tri1"></div>',
-								'<div class="info_tri2"></div>',
-							'</div>',
+							'<span class="pin_point">',
+								'<span class="station_a">',
+									'<div>',
+										'<span class="station_name">'+marker_position.result[i].stationName+'</span>',
+										'<span class="matter_value">'+marker_position.result[i].dataTime+'</span>',
+									'</div>',
+									'<div>',
+										'<span class="station_name">미세먼지</span>',
+										'<span class="matter_value">'+marker_position.result[i].pm10Value+'µg/m³</span>',
+										'<span class="station_name">초미세먼지</span>',
+										'<span class="matter_value">'+marker_position.result[i].pm25Value+'µg/m³</span>',
+										'<span class="station_name">이산화질소</span>',
+										'<span class="matter_value">'+marker_position.result[i].no2Value+'ppm</span>',
+										'<span class="station_name">오존</span>',
+										'<span class="matter_value">'+marker_position.result[i].o3Value+'ppm</span>',
+										'<span class="station_name">일산화탄소</span>',
+										'<span class="matter_value">'+marker_position.result[i].coValue+'ppm</span>',
+										'<span class="station_name">아황산가스</span>',
+										'<span class="matter_value">'+marker_position.result[i].so2Value+'ppm</span>',
+									'</div>',
+                                '</span>', 
+                            '</span>',
 							'<div class="pin_s">',
 								'<img class="pin_s_img" src="https://ssl.pstatic.net/static/maps/mantle/1x/marker-default.png" alt="">',
-								'<div class="pins_s_tooltip">'+marker_position.result[i].addr+'</div>',
 							'</div>',
 						'</div>'
 					].join('');
@@ -113,22 +130,11 @@ if (navigator.geolocation) {
 }
 
 //infowindow 생성/삭제
-$('img').on('click',function(e) {
-	alert("test");
-	var infowindow = $(this).parent().parent().find('.infowindow');
+$(document).on('click',".pin_s_img",function(e) {
+	var infowindow = $(this).parent().parent().find('.pin_point');
 	if(infowindow.css('display')=="block"){
-		infowindow.hide();
+	   infowindow.hide();
 	}else{
-		infowindow.show();
+	   infowindow.show();
 	}
-});
-
-//마우스 올라가면 툴팁 보이게 하기
-$('img').on('mouseenter',function(e) {
-	$(this).parent().parent().find('.pins_s_tooltip').show();
-});
-
-//마우스 내려가면 툴팁 안보이게 하기
-$('img').on('mouseout',function(e) {
-	$(this).parent().parent().find('.pins_s_tooltip').hide();
 });
