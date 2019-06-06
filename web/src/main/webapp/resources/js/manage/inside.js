@@ -1,123 +1,122 @@
-/*차트 불러오는거 시작*/
-$.ajax({
-	url : "/insideChart",
-	type : "POST",
-	dataType : "json",
-	async : false,
-	success : function(data){
-		console.log(data);
-		am4core.ready(function() {
+/*날짜 선택하기 시작*/
+function measureDate(object) {
+	console.log(object.value); // 20xx-xx-xx 형식으로 리턴됨
+	var date = object.value;
+	
+	chartDetail(date);
+}
+/* 날짜 선택하기 끝 */
 
-			// Themes begin
-			am4core.useTheme(am4themes_spiritedaway);
-			// Themes end
+/* 현재 날짜 세팅하기 시작 */
+document.getElementById('measureDate').value = new Date().toISOString().substring(0, 10);
+var date = document.getElementById('measureDate').value;
 
-			// Create chart instance
-			var chart = am4core.create("chartdiv", am4charts.XYChart);
+chartDetail(date);
 
-			// Add data
-			chart.data = data;
-			console.log(chart.data);
+/* 현재 날짜 세팅하기 끝 */
 
-			// Set input format for the dates
-			chart.dateFormatter.inputDateFormat = "yyyy MMMM dd hh:mm a";
+/* 차트 불러오는거 시작 */
+function chartDetail(date) {
+	$.ajax({
+		type : "GET",
+		url : "/insideChart?date="+date,
+		dataType : "json",
+		async : false,
+		success : function(data) {
+			console.log(data);
+			am4core.ready(function() {
 
-			// Create axes
-			var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-			var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-			valueAxis.tooltip.disabled = true;
-			valueAxis.title.text = "미세먼지 측정 값(㎍/㎥)";
+				// Themes begin
+				am4core.useTheme(am4themes_spiritedaway);
+				// Themes end
 
-			dateAxis.baseInterval = {
-				"timeUnit" : "second",
-				"count" : 1
-			};
-			dateAxis.tooltipDateFormat = "yyyy MMMM dd hh:mm a";
-			dateAxis.dateFormats.setKey("second", "hh:mm:ss a");
-			
-			// Create series
-			var series = chart.series.push(new am4charts.LineSeries());
-			series.dataFields.valueY = "measure";
-			series.dataFields.dateX = "measuretime";
-			series.tooltipText = "{measuretime}"
-			series.strokeWidth = 2;
-			series.minBulletDistance = 15;
+				// Create chart instance
+				var chart = am4core.create("chartdiv", am4charts.XYChart);
 
-			// Drop-shaped tooltips
-			series.tooltip.background.cornerRadius = 20;
-			series.tooltip.background.strokeOpacity = 0;
-			series.tooltip.pointerOrientation = "vertical";
-			series.tooltip.label.minWidth = 40;
-			series.tooltip.label.minHeight = 40;
-			series.tooltip.label.textAlign = "middle";
-			series.tooltip.label.textValign = "middle";
+				// Add data
+				chart.data = data;
+				console.log(chart.data);
 
-			// Make bullets grow on hover
-			var bullet = series.bullets.push(new am4charts.CircleBullet());
-			bullet.circle.strokeWidth = 2;
-			bullet.circle.radius = 4;
-			bullet.circle.fill = am4core.color("#fff");
+				// Set input format for the dates
+				chart.dateFormatter.inputDateFormat = "yyyy MMMM dd hh:mm a";
 
-			var bullethover = bullet.states.create("hover");
-			bullethover.properties.scale = 1.3;
+				// Create axes
+				var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+				var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+				valueAxis.tooltip.disabled = true;
+				valueAxis.title.text = "미세먼지 측정 값(㎍/㎥)";
 
-			// Make a panning cursor
-			chart.cursor = new am4charts.XYCursor();
-			chart.cursor.behavior = "none";
-			chart.cursor.xAxis = dateAxis;
-			chart.cursor.snapToSeries = series;
+				dateAxis.baseInterval = {
+					"timeUnit" : "second",
+					"count" : 1
+				};
+				dateAxis.tooltipDateFormat = "yyyy MMMM dd hh:mm a";
+				dateAxis.dateFormats.setKey("second", "hh:mm:ss a");
 
-			// Create vertical scrollbar and place it before the value axis
-			chart.scrollbarY = new am4core.Scrollbar();
-			chart.scrollbarY.parent = chart.leftAxesContainer;
-			chart.scrollbarY.toBack();
+				// Create series
+				var series = chart.series.push(new am4charts.LineSeries());
+				series.dataFields.valueY = "measure";
+				series.dataFields.dateX = "measuretime";
+				series.tooltipText = "{measure}"
+				series.strokeWidth = 2;
+				series.minBulletDistance = 15;
 
-			// Create a horizontal scrollbar with previe and place it underneath the
-			// date axis
-			chart.scrollbarX = new am4charts.XYChartScrollbar();
-			chart.scrollbarX.series.push(series);
-			chart.scrollbarX.parent = chart.bottomAxesContainer;
+				// Drop-shaped tooltips
+				series.tooltip.background.cornerRadius = 20;
+				series.tooltip.background.strokeOpacity = 0;
+				series.tooltip.pointerOrientation = "vertical";
+				series.tooltip.label.minWidth = 40;
+				series.tooltip.label.minHeight = 40;
+				series.tooltip.label.textAlign = "middle";
+				series.tooltip.label.textValign = "middle";
 
-			chart.events.on("ready", function() {
-				// dateAxis.zoom({start:0.79, end:1});
-			}); // end am4core.ready()
-		}); // 차트 끝
-		
-		var today = "";
-		for(var j = 0; j < 1; j++){
-			today += '<h1>☆Detail☆ ' + '</h1>';
+				// Make bullets grow on hover
+				var bullet = series.bullets.push(new am4charts.CircleBullet());
+				bullet.circle.strokeWidth = 2;
+				bullet.circle.radius = 4;
+				bullet.circle.fill = am4core.color("#fff");
+
+				var bullethover = bullet.states.create("hover");
+				bullethover.properties.scale = 1.3;
+
+				// Make a panning cursor
+				chart.cursor = new am4charts.XYCursor();
+				chart.cursor.behavior = "none";
+				chart.cursor.xAxis = dateAxis;
+				chart.cursor.snapToSeries = series;
+
+				// Create vertical scrollbar and place it before the value axis
+//				chart.scrollbarY = new am4core.Scrollbar();
+//				chart.scrollbarY.parent = chart.leftAxesContainer;
+//				chart.scrollbarY.toBack();
+
+				// Create a horizontal scrollbar with previe and place it
+				// underneath the
+				// date axis
+//				chart.scrollbarX = new am4charts.XYChartScrollbar();
+//				chart.scrollbarX.series.push(series);
+//				chart.scrollbarX.parent = chart.bottomAxesContainer;
+
+				chart.events.on("ready", function() {
+					// dateAxis.zoom({start:0.79, end:1});
+				}); // end am4core.ready()
+			}); // 차트 끝
+
+
+			var list = "";
+			for (var i = 0; i < data.length; i++) {
+				list += '<tr class="table__row">'
+					+ '<td class="table__content">' + data[i].measuretime + '</td>'
+					+ '<td class="table__content">' + data[i].measure + '<sub>(㎍/㎥)</sub></td>'
+					+ '<td class="table__content">' + data[i].iotID + '</td>'
+					+ '<td class="table__content">' + data[i].CODE + '</td>'
+					+ '</tr>';
+			}
+			$(".chartList-list td").remove();		
+			$(".chartList-list").append(list);
+		}, // SUCCESS
+		error : function() {
+			console.log("연결 실패");
 		}
-		$(".pp").append(today);
-		
-		var list = "";
-		for(var i = 0; i < data.length; i++){
-			list += '<tr>'
-				+'<td>' + data[i].measuretime + '</td>'
-				+'<td>' + data[i].measure + '</td>'
-				+'<td>' + data[i].iotID + '</td>'
-				+'<td>' + data[i].CODE + '</td>'
-				+'</tr>';
-		}
-		$(".chartList-list").append(list);
-	}, // SUCCESS
-	error : function(){
-		console.log("연결 실패");
-	}
-});
-/*차트 불러오는거 끝*/
-
-/*차트 표 불러오는거 시작*/
-/*$.ajax({
-	url : "/insideChart",
-	type : "POST",
-	dataType : "json",
-	async : false,
-	success : function(data){
-		console.log(data);
-		
-	}, // SUCCESS
-	error : function(){
-		console.log("차트 표 불러오기 실패");
-	}
-});*/
-/*차트 불러오는거 끝*/
+	});
+}

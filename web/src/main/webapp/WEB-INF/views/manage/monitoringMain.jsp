@@ -2,36 +2,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 <link rel="stylesheet" href="resources/css/manage/monitoringMain.css">
-<style>
-	#chartdiv {
-	width: 100%;
-	height: 500px;
-	}
-	table {
-	width: 100%;
-	}
-	table, th, td {
-	border: 1px solid #bcbcbc;
-	}
-</style>
+
 <div id="airCheck">
 	<button id="in" class="button btn-inside">실내</button>
 	<button id="out" class="button btn-outside">실외</button>
 </div>
 
-<div id="inside">	
+<div id="inside">
 	<%-- AmChart 시작 --%>
 	<div id="chartdiv"></div>
 	<%-- AmChart 끝 --%>
+	<%-- 달력 선택 시작 --%>
+	<input type="date" id="measureDate" onchange="measureDate(this)" />
+	<%-- 달력 선택 끝 --%>
 	<div id="chartList">
-		<div class="pp"></div>
-			<table border="1">
-			<tbody class="chartList-list">
-				<th>Today</th>
-				<th>측정 값</th>
-				<th>기기 ID</th>
-				<th>측정 코드</th>
-				</tbody>
+		<h3>측정 상세 정보</h3>
+			<table class="table">
+			<th class="table__heading">Today</th>
+				<th class="table__heading">측정 값<sub>(㎍/㎥)</sub></th>
+				<th class="table__heading">기기 ID</th>
+				<th class="table__heading">측정 코드</th>
+			<tbody class="chartList-list"></tbody>
 			</table>
 	</div>
 </div>
