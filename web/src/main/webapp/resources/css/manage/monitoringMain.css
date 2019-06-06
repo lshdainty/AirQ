@@ -1,5 +1,75 @@
 @charset "UTF-8";
 
+:root {
+  --yellow: #ffc842;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+}
+
+body {
+  font-weight: 400;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+    sans-serif;
+}
+
+td,
+th {
+  padding: 0.5rem;
+}
+th {
+  text-align: left;
+  font-weight: 300;
+  font-size: 1.25rem;
+}
+
+.table {
+  width: 100%;
+  padding: 1rem;
+}
+h3{
+	text-align: center;
+}
+.table__heading {
+  border-bottom: 2px solid var(--yellow);
+}
+
+@media (max-width: 32rem) {
+  .table__heading {
+    display: none;
+  }
+
+  .table__content {
+    display: block;
+    padding: 0.5rem 0;
+  }
+
+  .table__row {
+    margin: 0.25rem 1rem;
+    padding: 0.5rem 0;
+    display: block;
+    border-bottom: 2px solid var(--yellow);
+  }
+
+  .table__content:before {
+    content: attr(data-heading);
+    display: inline-block;
+    width: 5rem;
+    margin-right: 0.5rem;
+    color: #999;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+}
+/* /////////////////////////////////////////////// */
+
 #airCheck {
 	text-align: center;
 	margin-top: 20px;
@@ -9,6 +79,14 @@
 	width: 100%;
 	height: 500px;
 }
+
+table {
+	width: 100%;
+}
+
+/* table, th, td {
+	border: 1px solid #bcbcbc;
+} */
 
 .button {
 	display: inline-block;
@@ -26,161 +104,161 @@
 }
 
 /* 지도 시작 */
-#outside{
-	 display:none;
+#outside {
+	display: none;
 }
 
-#map{
+#map {
 	width: 100%;
 	height: 800px;
 }
 
-.infowindow{
-	display:block;
-	position:absolute;
-	width:200px;
-	top:-50px;
-	left:-90px;
-	background-color:white;
-	text-align:center;
-	z-index:1;
-	border:1px solid black;
-	margin:0;
-	padding:0;
+.infowindow {
+	display: block;
+	position: absolute;
+	width: 200px;
+	top: -50px;
+	left: -90px;
+	background-color: white;
+	text-align: center;
+	z-index: 1;
+	border: 1px solid black;
+	margin: 0;
+	padding: 0;
 }
 
-.info_tri1{
-	margin: 0px; 
-	padding: 0px; 
-	width: 0px; 
-	height: 0px; 
-	position: absolute; 
-	border-width: 24px 10px 0px; 
-	border-style: solid; 
-	border-color: rgb(51, 51, 51) transparent; 
-	border-image: initial; 
-	pointer-events: none; 
-	box-sizing: content-box !important; 
-	transform-origin: right bottom 0px; 
-	transform: skewX(0deg); 
-	bottom: -25px; 
+.info_tri1 {
+	margin: 0px;
+	padding: 0px;
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	border-width: 24px 10px 0px;
+	border-style: solid;
+	border-color: rgb(51, 51, 51) transparent;
+	border-image: initial;
+	pointer-events: none;
+	box-sizing: content-box !important;
+	transform-origin: right bottom 0px;
+	transform: skewX(0deg);
+	bottom: -25px;
 	left: 90px;
 }
 
-.info_tri2{
-	margin: 0px; 
-	padding: 0px; 
-	width: 0px; 
-	height: 0px; 
-	position: absolute; 
-	border-width: 24px 10px 0px; 
-	border-style: solid; 
-	border-color: rgb(255, 255, 255) transparent; 
-	border-image: initial; 
-	pointer-events: none; 
-	box-sizing: content-box !important; 
-	transform-origin: right bottom 0px; 
-	transform: skewX(0deg); 
-	bottom: -22px; 
+.info_tri2 {
+	margin: 0px;
+	padding: 0px;
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	border-width: 24px 10px 0px;
+	border-style: solid;
+	border-color: rgb(255, 255, 255) transparent;
+	border-image: initial;
+	pointer-events: none;
+	box-sizing: content-box !important;
+	transform-origin: right bottom 0px;
+	transform: skewX(0deg);
+	bottom: -22px;
 	left: 90px;
 }
 
-.pin_s{
-	cursor: pointer; 
-	width: 22px; 
+.pin_s {
+	cursor: pointer;
+	width: 22px;
 	height: 30px;
 }
 
-.pin_s_img{
-	margin: 0px; 
-	padding: 0px; 
-	border: 0px solid transparent; 
-	display: block; 
-	user-select: none; 
-	-webkit-user-drag: none; 
-	box-sizing: content-box !important; 
-	max-width: none !important; 
-	max-height: none !important; 
-	min-width: 0px !important; 
-	min-height: 0px !important; 
-	position: absolute; 
-	cursor: inherit; 
-	width: 22px; 
-	height: 33px; 
-	left: 0px; 
+.pin_s_img {
+	margin: 0px;
+	padding: 0px;
+	border: 0px solid transparent;
+	display: block;
+	user-select: none;
+	-webkit-user-drag: none;
+	box-sizing: content-box !important;
+	max-width: none !important;
+	max-height: none !important;
+	min-width: 0px !important;
+	min-height: 0px !important;
+	position: absolute;
+	cursor: inherit;
+	width: 22px;
+	height: 33px;
+	left: 0px;
 	top: 0px;
 }
 
-.pins_s_tooltip{
-	display:none;
-	width:150px;
-	height:20px;
-	position:absolute;
-	top:5px;
-	left:25px;
+.pins_s_tooltip {
+	display: none;
+	width: 150px;
+	height: 20px;
+	position: absolute;
+	top: 5px;
+	left: 25px;
 }
 
-#htmlMarker1{
-	cursor:pointer;
-	width:40px;
-	height:40px;
-	line-height:42px;
-	font-size:10px;
-	color:white;
-	text-align:center;
-	font-weight:bold;
-	background:url(/resources/images/cluster-marker-1.png);
-	background-size:contain;
+#htmlMarker1 {
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	line-height: 42px;
+	font-size: 10px;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	background: url(/resources/images/cluster-marker-1.png);
+	background-size: contain;
 }
 
-#htmlMarker2{
-	cursor:pointer;
-	width:40px;
-	height:40px;
-	line-height:42px;
-	font-size:10px;
-	color:white;
-	text-align:center;
-	font-weight:bold;
-	background:url(/resources/images/cluster-marker-2.png);
-	background-size:contain;
+#htmlMarker2 {
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	line-height: 42px;
+	font-size: 10px;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	background: url(/resources/images/cluster-marker-2.png);
+	background-size: contain;
 }
 
-#htmlMarker3{
-	cursor:pointer;
-	width:40px;
-	height:40px;
-	line-height:42px;
-	font-size:10px;
-	color:white;
-	text-align:center;
-	font-weight:bold;
-	background:url(/resources/images/cluster-marker-3.png);
-	background-size:contain;
+#htmlMarker3 {
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	line-height: 42px;
+	font-size: 10px;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	background: url(/resources/images/cluster-marker-3.png);
+	background-size: contain;
 }
 
-#htmlMarker4{
-	cursor:pointer;
-	width:40px;
-	height:40px;
-	line-height:42px;
-	font-size:10px;
-	color:white;
-	text-align:center;
-	font-weight:bold;
-	background:url(/resources/images/cluster-marker-4.png);
-	background-size:contain;
+#htmlMarker4 {
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	line-height: 42px;
+	font-size: 10px;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	background: url(/resources/images/cluster-marker-4.png);
+	background-size: contain;
 }
 
-#htmlMarker5{
-	cursor:pointer;
-	width:40px;
-	height:40px;
-	line-height:42px;
-	font-size:10px;
-	color:white;
-	text-align:center;
-	font-weight:bold;
-	background:url(/resources/images/cluster-marker-5.png);
-	background-size:contain;
+#htmlMarker5 {
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	line-height: 42px;
+	font-size: 10px;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	background: url(/resources/images/cluster-marker-5.png);
+	background-size: contain;
 }

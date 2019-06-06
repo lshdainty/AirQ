@@ -165,12 +165,16 @@ public class ManageController {
 
 	// 실내 모니터링에서 차트
 	@ResponseBody
-	@RequestMapping(value = "/insideChart", method = RequestMethod.POST)
+	@RequestMapping(value = "/insideChart", method = RequestMethod.GET)
 	public JSONArray insideChart(Model model, HttpServletRequest request, HttpSession session) {
 		System.out.println("insideChart 들어옴");
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-
-		ArrayList<MeasureDataVO> list = manageService.insideChart(member_id);
+		System.out.println(member_id);
+		
+		String date = request.getParameter("date");
+		System.out.println("date: " + date);
+		
+		ArrayList<MeasureDataVO> list = manageService.insideChart(member_id, date);
 		System.out.println("list : " + list);
 		model.addAttribute("list" + list);
 
@@ -187,21 +191,6 @@ public class ManageController {
 		System.out.println("jArray : " + jArray);
 		return jArray;
 	}
-
-	// 실내 모니터링에서 차트 세부 내용
-//	@ResponseBody
-//	@RequestMapping(value = "/insideChart", method = RequestMethod.GET)
-//	public String chartValue(Model model, HttpServletRequest request, HttpSession session) {
-//		System.out.println("chartValue 들어옴");
-//		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-//
-//		ArrayList<MeasureDataVO> cVal = manageService.chartValue(member_id);
-//		System.out.println("cVal : " + cVal);
-//		
-//		session.setAttribute("cVal", cVal);
-//
-//		return "manage/monitoringMain";
-//	}
 
 	// 실외 모니터링 페이지 이동
 	@RequestMapping(value = "outside", method = RequestMethod.GET)
