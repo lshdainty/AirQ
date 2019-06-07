@@ -10,6 +10,7 @@ import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.MatterVO;
+import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.ReplyVO;
@@ -137,6 +138,8 @@ public interface ConnectService {
 	public ArrayList<ProductVO> selectList(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("space") int space, @Param("matter") String matter, @Param("sort") String sort, @Param("startnum") int startnum, @Param("endnum") int endnum);
 	// 상품 상세 페이지
 	public ProductVO productContent(String product_code);
+	// 결제 페이지 - 주소 자동 입력
+	public MemberVO memberAddr(String member_id);
 	// 상품 댓글
 	public ArrayList<ReplyVO> productReply(String product_code);
 	// 광역시/도를 선택시 해당하는 시,구 목록출력

@@ -749,8 +749,10 @@ public class ConnectController {
 	
 	// 분석/비교 서비스 - 결제창으로 이동
 	@RequestMapping(value = "cPayment", method = RequestMethod.GET)
-	public String cPayment(@RequestParam("product_code") String product_code, Model model) {
+	public String cPayment(@RequestParam("product_code") String product_code, Model model, HttpServletRequest request) {
 		model.addAttribute("productContent", connectService.productContent(product_code));
+		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		model.addAttribute("addr",connectService.memberAddr(member_id));
 		
 		return "connect/cPayment";
 	}

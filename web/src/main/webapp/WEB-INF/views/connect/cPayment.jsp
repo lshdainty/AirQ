@@ -22,27 +22,13 @@
 		<input type="text" id="company_name" value="${productContent.companyVO.company_name}" readonly><br/>
 		<label for="payment_price">가격 : </label>
 		<input type="text" id="payment_price" value="${productContent.product_price}" readonly><br/>
-		<!-- <select id="sido_code" class="select">
-			<option>선택</option>
-		</select>
-		<input type="hidden" id="d_addr_do" name="d_addr_do" />
-		<select id="sigoon_code" class="select">
-			<option>선택</option>
-		</select>
-		<input type="hidden" id="d_addr_si" name="d_addr_si" />
-		<select id="sidong_code" class="select">
-			<option>선택</option>
-		</select>
-		<input type="hidden" id="d_addr_dong" name="d_addr_dong" />
-		<input type="text" id="d_addr_detail" name="d_addr_detail">
-		<br/> -->
 		<label>우편번호</label>
 		<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-		<input type="text" id="d_zipcode" name="d_zipcode" placeholder="우편번호">
-		<input type="text" id="d_road_addr" name="d_road_addr" placeholder="도로명주소"><br>
-		<input type="text" id="d_addr" name="d_addr" placeholder="지번주소">
+		<input type="text" id="d_zipcode" name="d_zipcode" value="${addr.m_zipcode}" placeholder="우편번호">
+		<input type="text" id="d_road_addr" name="d_road_addr" value="${addr.m_road_addr}" placeholder="도로명주소"><br>
+		<input type="text" id="d_addr" name="d_addr" value="${addr.m_addr}" placeholder="지번주소">
 		<span id="guide" style="color:#999;display:none"></span>
-		<input type="text" id="d_addr_detail" name="d_addr_detail" placeholder="상세주소">
+		<input type="text" id="d_addr_detail" name="d_addr_detail" value="${addr.m_addr_detail}" placeholder="상세주소">
 		<input type="text" id="sample4_extraAddress" placeholder="참고항목"><br>
 		
 		<label for="d_service_date">서비스 날짜선택 : </label>

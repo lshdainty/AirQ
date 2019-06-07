@@ -11,6 +11,7 @@ import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.MatterVO;
+import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.ReplyVO;
@@ -334,6 +335,12 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public ProductVO productContent(String product_code) {
 		return productMapper.productContent(product_code);
+	}
+	
+	// 결제 페이지 - 주소 자동 입력
+	@Override
+	public MemberVO memberAddr(String member_id) {
+		return memberMapper.memberAddr(member_id);
 	}
 	
 	// 상품 댓글

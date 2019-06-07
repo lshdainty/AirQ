@@ -20,9 +20,6 @@ public interface MemberMapper {
 	//마이페이지 관리자 회원관리 - 회원삭제
 	public void deleteMember(String member_id);
 	
-	// 파일 업로드
-	// public String fileDB(FileTestVO fDB);
-	
 	// 회원 이름 가져오기
 	public String member_name(String member_id);
 	
@@ -37,4 +34,7 @@ public interface MemberMapper {
 
 	//회원 정보
 	public MemberVO memberInfo(String member_id);
+	
+	// 결제 페이지 - 주소 자동 입력
+	public MemberVO memberAddr(@Param("member_id")String member_id);
 }
