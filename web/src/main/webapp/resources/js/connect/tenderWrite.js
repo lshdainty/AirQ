@@ -53,3 +53,43 @@ function sample4_execDaumPostcode() {
         }
     }).open();
 }
+
+
+$(document).on('click','#tenderWriteBtn',function(){
+	var tender_title=$("#tender_title").val();
+	var tender_name=$("#tender_name").val();
+	var group_name=$("#group_name").val();
+	var t_zipcode=$("#sample4_postcode").val();
+	var t_road_addr=$("#sample4_roadAddress").val();
+	var t_addr=$("#sample4_jibunAddress").val();
+	var t_addr_detail=$("#sample4_detailAddress").val();
+	var service_date=$("#service_date").val();
+	var tender_deadline=$("#tender_deadline").val();
+	var bid_open_date=$("#bid_open_date").val();
+	var budget=$("#budget").val();
+	var t_space=$("#t_space").val();
+	var floor_number=$("#floor_number").val();
+	var calculate_period=$("#calculate_period").val();
+	var winning_bid_way=$("#winning_bid_way").val();
+	var requirement=$("#requirement").val();
+	
+	var query={
+			tender_title:tender_title,tender_name:tender_name,
+			group_name:group_name,t_zipcode:t_zipcode,
+			t_road_addr:t_road_addr,t_addr:t_addr,
+			t_addr_detail:t_addr_detail,service_date:service_date,
+			tender_deadline:tender_deadline,bid_open_date:bid_open_date,
+			budget:budget,t_space:t_space,floor_number:floor_number,
+			calculate_period:calculate_period,winning_bid_way:winning_bid_way,
+			requirement:requirement
+	};
+	
+	$.ajax({
+		type:"post",
+		url:"/tenderWriteComplete",
+		data:query,
+		success:function(data){
+			window.location.href="/tenderMain";
+		}
+	});
+});

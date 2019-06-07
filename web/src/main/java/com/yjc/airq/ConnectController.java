@@ -239,7 +239,8 @@ public class ConnectController {
 
 	// 입찰 서비스 - 글쓰기 작성 후 리스트로 가기
 	@RequestMapping(value = "tenderWriteComplete", method = RequestMethod.POST)
-	public String tenderList(TenderVO tenderVo, HttpServletRequest request) {
+	@ResponseBody
+	public void tenderList(TenderVO tenderVo, HttpServletRequest request) {
 		tenderVo.setMember_id(((MemberVO) request.getSession().getAttribute("user")).getMember_id());
 		
 		// 코드 앞에 날짜 6자리
@@ -254,10 +255,8 @@ public class ConnectController {
 		// VO에 생성한 코드 set하기
 		tenderVo.setTender_code(tender_code);
 		
-		// insert에 영향을 받은 행의 갯수
-		int s = connectService.addTenderboard(tenderVo);
 		
-		return "redirect: /tenderMain";
+		connectService.addTenderboard(tenderVo);
 	}
 	
 	@RequestMapping(value = "tenderContent/{tender_code}", method = RequestMethod.GET)
@@ -271,13 +270,13 @@ public class ConnectController {
 	@ResponseBody
 	public JSONObject tenderContent(@PathVariable String tender_code,BidVO bidVo, HttpServletRequest request) {
 		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		
 		int check=connectService.tenderBid(tender_code, member_id);
 		String member_devision=connectService.member_devision(member_id);
 		
 		//입찰
 		TenderVO tender = connectService.tenderContent(tender_code);
-		//model.addAttribute("tenderContent", connectService.tenderContent(tender_code));
-		
+		MemberVO memberVo=mypageService.memberInfo(tender.getMember_id());
 		//투찰 리스트
 		ArrayList<BidVO> bidArr=connectService.bidContent(tender_code);
 		
@@ -318,14 +317,10 @@ public class ConnectController {
 			
 			Resource resource = new FileSystemResource("/resources/uploadFile/ppt/"+bidArr.get(i).getBid_ppt_name());
 			String resourceName = resource.getFilename(); //bid_ppt_name
-			
-			//System.out.println(resource);
-			//System.out.println(resourceName);
 
 			HttpHeaders headers = new HttpHeaders();
 			try {
 				headers.add("Content-Disposition","attachment; filename="+new String(resourceName.getBytes("UTF-8"),"ISO-8859-1"));
-				//System.out.println(headers);
 			} catch(UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
@@ -385,10 +380,9 @@ public class ConnectController {
 		aMap.put("bidArr", bidJson);
 		aMap.put("check",check);
 		aMap.put("member_devision",member_devision);
-		aMap.put("member_id",member_id);
+		aMap.put("memberVo",memberVo);
 		
 		JSONObject json = JSONObject.fromObject(aMap);
-		//model.addAttribute("bidContent", bidArr);
 		
 		return json;
 	}
@@ -655,11 +649,18 @@ public class ConnectController {
 		Map<String,String> map = new HashMap<String, String>();
 		
 		int check = connectService.tenderCheck(tender_code);
+		int deadline = connectService.tender_deadline(tender_code);
+		int bid_open=connectService.bid_open_date(tender_code);
 		String tenderCheck=Integer.toString(check);
+		String tenderDeadline=Integer.toString(deadline);
+		String bid_open_date=Integer.toString(bid_open);
 		String member_devision = ((MemberVO) request.getSession().getAttribute("user")).getMember_devision();
 		
 		map.put("member_devision",member_devision);
 		map.put("tenderCheck",tenderCheck);
+		map.put("deadline",tenderDeadline);
+		map.put("bid_open_date",bid_open_date);
+		
 		JSONObject json = JSONObject.fromObject(map);
 		
 		return json;
