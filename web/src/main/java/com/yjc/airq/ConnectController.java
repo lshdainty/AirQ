@@ -3,6 +3,7 @@ package com.yjc.airq;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -255,7 +256,6 @@ public class ConnectController {
 		// VO에 생성한 코드 set하기
 		tenderVo.setTender_code(tender_code);
 		
-		
 		connectService.addTenderboard(tenderVo);
 	}
 	
@@ -392,7 +392,6 @@ public class ConnectController {
 	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName, String upload_code, HttpServletRequest request){
 
 		fileName=connectService.filename(upload_code);
-		System.out.println(fileName);
 		Resource resource = new FileSystemResource(request.getServletContext().getRealPath("/resources/uploadFile/ppt/")+fileName);
 		
 		if(resource.exists() == false) {
@@ -568,7 +567,6 @@ public class ConnectController {
 		 
 		//업로드
 		String uploadFolder=request.getServletContext().getRealPath("/resources/uploadFile/ppt/");
-		System.out.println(uploadFolder);
 		// make folder
 		File uploadPath = new File(uploadFolder);
 		
@@ -753,7 +751,14 @@ public class ConnectController {
 	public String cPayment(@RequestParam("product_code") String product_code, Model model, HttpServletRequest request) {
 		model.addAttribute("productContent", connectService.productContent(product_code));
 		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-		model.addAttribute("addr",connectService.memberAddr(member_id));
+		MemberVO member = connectService.memberAddr(member_id);
+		String first_num = member.getMember_tel().substring(0,3);
+		String middle_num = member.getMember_tel().substring(3,7);
+		String last_num = member.getMember_tel().substring(7,11);
+		model.addAttribute("member",member);
+		model.addAttribute("first_num",first_num);
+		model.addAttribute("middle_num",middle_num);
+		model.addAttribute("last_num",last_num);
 		
 		return "connect/cPayment";
 	}
@@ -771,9 +776,13 @@ public class ConnectController {
 		String demand_code="dm"+day+random;
 		String payment_code="pm"+day+random1;
 		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String dateValue = request.getParameter("dateValue");
+		String timeValue = request.getParameter("timeValue");
+		String d_service_date = dateValue+" "+timeValue+":00";
 		
 		demandVO.setDemand_code(demand_code);
 		demandVO.setMember_id(member_id);
+		demandVO.setService_date(d_service_date);
 		paymentVO.setPayment_code(payment_code);
 		paymentVO.setDemand_code(demand_code);
 		

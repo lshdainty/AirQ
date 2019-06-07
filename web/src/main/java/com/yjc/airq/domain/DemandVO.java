@@ -15,4 +15,6 @@ public class DemandVO {
 	private String member_id;
 	private String product_code;
 	private Timestamp d_service_date;
+	
+	private String service_date;
 }

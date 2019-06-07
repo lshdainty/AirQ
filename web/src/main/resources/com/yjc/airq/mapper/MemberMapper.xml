@@ -64,6 +64,6 @@
 	
 	<!-- 결제 페이지 - 주소 자동 입력 -->
 	<select id="memberAddr" resultType="com.yjc.airq.domain.MemberVO">
-		select m_zipcode, m_road_addr, m_addr, m_addr_detail from member where member_id=#{member_id}
+		select member_name, member_tel, m_zipcode, m_road_addr, m_addr, m_addr_detail from member where member_id=#{member_id}
 	</select>
 </mapper>
