@@ -143,6 +143,6 @@
 	<select id="bid_open_date" resultType="int">
 		select count(*)
 		from tender
-		where tender_code=#{tender_code} and bid_open_date>=to_date(sysdate,'yy/mm/dd')
+		where tender_code=#{tender_code} and bid_open_date>to_date(sysdate,'yy/mm/dd')
 	</select>
 </mapper>

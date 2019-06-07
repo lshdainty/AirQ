@@ -55,6 +55,7 @@ hr {
 #tenderBoard {
   border-top: 3px solid #84a7cc;
   width:100%;
+  min-width:1120px;
 }
 
 .tBoard {
@@ -108,15 +109,28 @@ hr {
 
 #requirement {
   height:100px;
-  /* display: flex;
-  overflow-y: scroll; */
+  display: flex;
+  overflow-y: scroll;
 }
 
 #tenderParticipationTbl th {
 	background:#cdd5e1;
 	color:#747474;
 }
-
+#tenderTbl{
+	display:flex;
+	flex-direction:column;
+}
+#tenderTbl tr{
+	display:flex;
+	width:100%;
+}
+#tenderTbl td{
+	width:770px;
+}
+.w_200{
+	width:310px !important;
+}
 .tenderP {
   text-align: center;
   font-size:20px;
