@@ -173,6 +173,10 @@
 					name="winning_bid_way" required autocomplete="off"></textarea></td>
 		</tr>
 		<tr>
+			<td>참고 파일</td>
+			<td><input type="file" id="tender_upload" name="tender_upload"></td>
+		</tr>
+		<tr>
 			<td>요구사항</td>
 			<td><textarea rows="8" cols="50" id="requirement"
 					name="requirement" required autocomplete="off"></textarea></td>
@@ -181,8 +185,6 @@
 	<div id="tenderWriteBtnDiv">
 		<button id="tenderWriteBtn">작성완료</button>
 	</div>
-
-
 
 <%--입찰 공고 작성 테이블 끝 --%>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>

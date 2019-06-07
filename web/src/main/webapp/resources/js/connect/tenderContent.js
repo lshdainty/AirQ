@@ -58,8 +58,11 @@
 			var bidArr=data.bidArr;
 			var tenderVo=data.tenderVo;
 			var member_devision=data.member_devision;
-			var check=data.check;
-			var memberVo=data.memberVo;
+			var check=data.check; //입찰 확인 여부
+			var memberVo=data.memberVo; //글쓴이의 정보
+			var member_id=data.member_id;
+			var uploadVo=data.uploadVo;
+			
 			bidArr.sort(function(a,b){
 				return a.totalScore > b.totalScore ? -1 : a.totalScore < b.totalScore ? 1 : 0;
 			});
@@ -87,7 +90,7 @@
 			+'<tr><td>서비스 일자</td><td>'+tenderVo.service_date+'</td></tr>'
 			+'<tr><td>요구사항</td><td>'+tenderVo.requirement+'</td></tr>';
 			$("#tenderTbl").append(tenderHtml2);*/
-			
+
 			var tenderHtml='<div id="tenderContent" class="tBoard">'
 							+'<table id="tenderTbl"><tbody>'
 								+'<tr>'
@@ -108,7 +111,9 @@
 								+'</tr>'
 								+'<tr>'
 									+'<th>주소</th>'
-									+'<td colspan="3">'+tenderVo.t_road_addr+" "+tenderVo.t_addr_detail+'</td>'
+									+'<td class="w_200">'+tenderVo.t_road_addr+" "+tenderVo.t_addr_detail+'</td>'
+									+'<th>첨부파일</th>'
+									+'<td class="w_200"><a href="/download?fileName='+uploadVo.original_name+'&upload_code='+uploadVo.upload_code+'">'+uploadVo.original_name+'</a></td>'
 								+'</tr>'
 								+'<tr>'
 									+'<th>평수</th>'
@@ -158,7 +163,8 @@
 						+'</tr>';
 					$("#tenderParticipationTbl tbody").append(bidHtml);
 				}
-			} else if(member_devision=="se" && check==1 ){
+			} else if(member_devision=="se"/* && check==1 */){
+				
 				for(var i=0; i<bidArr.length; i++){
 					if(bidArr[i].member_id==member_id){
 						var bidHtml='<tr class="bidTr">'

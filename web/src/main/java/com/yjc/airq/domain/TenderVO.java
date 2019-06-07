@@ -24,6 +24,7 @@ public class TenderVO {
 	private String t_road_addr;
 	private String t_addr;
 	private String t_addr_detail;
+	private String upload_code;
 	
 	//조인 할 속성
 	private String member_id;

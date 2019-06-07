@@ -31,4 +31,7 @@ public interface UploadMapper {
 	
 	// 업로드 다운받기(filename가져오기)
 	public String filename(String upload_code);
+	
+	// 업로드 정보
+	public UploadVO uploadInfo(String upload_code);
 }

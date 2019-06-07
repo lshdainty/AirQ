@@ -25,6 +25,12 @@ public class UploadServiceImplement implements UploadService {
 		mapper.deletePostUpload(post_code);
 	}
 	
+	// 업로드 정보
+	@Override
+	public UploadVO uploadInfo(String upload_code) {
+		return mapper.uploadInfo(upload_code);
+	}
+	
 	//투찰에 있던 파일 삭제
 	@Override
 	public void deleteBidUpload(ArrayList<String> uploadArr) {
