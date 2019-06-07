@@ -1,0 +1,85 @@
+.cPayment-wrap {
+	
+}
+
+.product-info {
+	padding: 1rem;
+	border: 1px solid #000;
+	background: #fff;
+	margin-bottom: 1rem;
+}
+
+.location-info {
+	padding: 1rem;
+	border: 1px solid #000;
+	background: #fff;
+}
+
+.info-title {
+	font-size: 1.5rem;
+	font-weight: bold;
+	padding: .5rem;
+}
+
+.info-title span {
+	font-size: 0.75rem;
+	font-weight: 400;
+	color: rgb(131, 131, 131);
+	text-transform: uppercase;
+}
+
+.cPayment-title {
+	background: #fff;
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+	padding: 16px;
+}
+
+.cPayment-wrap form {
+	border: 1px solid #000;
+	border-radius: 1rem;
+	overflow: hidden;
+	background: #ddd;
+	padding: 16px;
+}
+
+.cPayment-box {
+	display: flex;
+	border: 1px solid #000;
+	border-bottom: none;
+	padding: .25rem;
+}
+
+.cPayment-box:last-child {
+	border-bottom: 1px solid #000;
+}
+
+.cPayment-subTitle {
+	padding: 0 1rem;
+	font-weight: bold;
+	min-width: 8rem;
+	text-align: center;
+	margin: auto 0;
+}
+
+.cPayment-subContent {
+	padding: 0 1rem;
+	border-left: 1px solid #000;
+}
+
+.phone-number {
+	width: 3rem;
+	height: 1.5rem;
+}
+
+.order-btn{
+	text-align:center;
+	padding: 1rem;
+}
+
+#cOrder {
+	width: 10rem;
+	font-size:16px;
+	height:2.5rem;
+}
