@@ -1,4 +1,42 @@
-﻿$(function() {
+﻿var date = new Date();
+
+function formatDateToString(date){
+	// 01, 02, 03, ... 29, 30, 31
+	var dd = (date.getDay() < 10 ? '0' : '') + (date.getDay() + 3);
+	// 01, 02, 03, ... 10, 11, 12
+	var MM = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+	// 1970, 1971, ... 2015, 2016, ...
+	var yyyy = date.getFullYear();
+	// create the format you want
+	return (yyyy + "/" + MM + "/" + dd);
+}
+
+$('#datepicker').val(formatDateToString(date));
+
+$.datepicker.setDefaults({
+	dateFormat : 'yymmdd',
+	prevText : '이전 달',
+	nextText : '다음 달',
+	monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+			'9월', '10월', '11월', '12월' ],
+	monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+			'9월', '10월', '11월', '12월' ],
+	dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+	dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+	dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+	showMonthAfterYear : true,
+	yearSuffix : '년'
+});
+
+$("#datepicker").datepicker({dateFormat : "yy/mm/dd",});
+$("#timepicker").wickedpicker({
+	title : '시간 선택',
+	now:"09:00",
+	twentyFour: true, 
+	timeSeparator: ':'
+});
+
+$(function() {
 	$("#cOrder").click(function(){
 		if($("#d_zipcode").val()==""||$("#d_zipcode").val()==null){
 			alert("우편번호를 검색해주세요");
@@ -12,19 +50,19 @@
 		}else if($("#d_addr_detail").val()==""||$("#d_addr_detail").val()==null){
 			alert("상세 주소를 검색해주세요");
 			return false;
-		}else if($("#d_service_date").val()<$("#d_service_date").attr("min")){
+		}else if($("#datepicker").val()<date){
 			alert("예약은 오늘 기준 다음날부터 가능합니다.");
 			return false;
 		}else{
-			console.log($("#d_service_date").val());
 			var query = {
 					product_code : $("#product_code").val(),
-					payment_price : $("#payment_price").val(),
+					payment_price : $("#payment_price").text(),
 					d_zipcode : $("#d_zipcode").val(),
 					d_road_addr : $("#d_road_addr").val(),
 					d_addr : $("#d_addr").val(),
 					d_addr_detail : $("#d_addr_detail").val(),
-					d_service_date : $("#d_service_date").val().replace("T"," ")+':00.0',
+					dateValue : $("#datepicker").val(),
+					timeValue : $("#timepicker").val()
 			}
 			$.ajax({
 				type: "post",
