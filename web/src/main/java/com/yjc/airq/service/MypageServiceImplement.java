@@ -258,4 +258,15 @@ public class MypageServiceImplement implements MypageService{
 	public String tBidCompayCode(String tender_code) {
 		return bidMapper.tBidCompayCode(tender_code);
 	}
+
+	@Override
+	public ArrayList<Map<String, Object>> getReservation(String company_code) {
+		
+		return productMapper.reservationInfo(company_code);
+	}
+
+	@Override
+	public ArrayList<Map<String, Object>> getHotItems(String company_code) {
+		return productMapper.hotItemInfo(company_code);
+	}
 }

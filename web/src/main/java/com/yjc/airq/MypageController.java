@@ -455,8 +455,13 @@ public class MypageController {
 
 	// mypageSeller 가기
 	@RequestMapping(value = "mypageSeller", method = RequestMethod.GET)
-	public String mypageSeller(Model model) {
-
+	public String mypageSeller(HttpServletRequest request,Model model) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		ArrayList<Map<String,Object>> reservation=mypageService.getReservation(connectService.company_code(member_id));
+		ArrayList<Map<String,Object>> hotItems=mypageService.getHotItems(connectService.company_code(member_id));
+		model.addAttribute("reservation",reservation);
+		model.addAttribute("hotItems",hotItems);
+		System.out.println(hotItems);
 		return "mypage/mypageSeller";
 	}
 
@@ -757,5 +762,16 @@ public class MypageController {
 //			mypageService.tReviewInsert(replyVo);
 //		}
 //		System.out.println(replyVo);
+	}
+	@ResponseBody
+	@RequestMapping(value = "reservationInfo", method = RequestMethod.GET ,produces = "application/text; charset=utf8")
+	public String getReservation(HttpServletRequest request, Model model) {
+		ArrayList<Map<String,Object>> reservation=mypageService.getReservation("6118128001");
+		System.out.println(reservation);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("reservation", reservation);
+		JSONObject json = JSONObject.fromObject(map);
+		String jsonString = json.toString();
+		return jsonString;
 	}
 }
