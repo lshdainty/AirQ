@@ -167,23 +167,16 @@
 
 			</div>
 		</div>
-		<script>
-			const x = new Date().getFullYear();
-			let date = document.getElementById('date');
-			date.innerHTML = '&copy; ' + x + date.innerHTML;
-		</script>
+
 	</div>
 </div>
 <!--   Core JS Files   -->
-<script src="resources/js/mypage/asset/popper.min.js"></script>
-<script src="resources/js/mypage/asset/bootstrap-material-design.min.js"></script>
-<script src="https://unpkg.com/default-passive-events"></script>
+
 <script src="resources/js/mypage/asset/perfect-scrollbar.jquery.min.js"></script>
 <script src="resources/js/mypage/mypageSeller.js"></script>
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!-- Chartist JS -->
 <script src="resources/js/mypage/asset/chartist.min.js"></script>
 <!--  Notifications Plugin    -->
