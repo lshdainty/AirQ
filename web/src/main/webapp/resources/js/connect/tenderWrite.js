@@ -53,7 +53,7 @@ function sample4_execDaumPostcode() {
         }
     }).open();
 }
-
+$(document).ready(function(){
 
 $(document).on('click','#tenderWriteBtn',function(){
 	var tender_title=$("#tender_title").val();
@@ -72,6 +72,7 @@ $(document).on('click','#tenderWriteBtn',function(){
 	var calculate_period=$("#calculate_period").val();
 	var winning_bid_way=$("#winning_bid_way").val();
 	var requirement=$("#requirement").val();
+	var tender_upload=$("#tender_upload").val();
 	
 	var query={
 			tender_title:tender_title,tender_name:tender_name,
@@ -84,12 +85,66 @@ $(document).on('click','#tenderWriteBtn',function(){
 			requirement:requirement
 	};
 	
+	if(tender_upload == ""){
+		alert("입력 양식을 다 채워주세요");
+		return false;
+	}
+	
+	var formData = new FormData();
+	var inputFile=$("input[name='tender_upload']");
+	var files=inputFile[0].files;
+	
+	for(var i = 0; i < files.length; i++){
+		if(!checkExtension(files[i].name, files[i].size) ){
+			return false;
+		}
+		formData.append("uploadFile",files[i]);
+	}
+	formData.append("tender_title",tender_title);
+	formData.append("tender_name",tender_name);
+	formData.append("group_name",group_name);
+	formData.append("t_zipcode",t_zipcode);
+	formData.append("t_road_addr",t_road_addr);
+	formData.append("t_addr",t_addr);
+	formData.append("t_addr_detail",t_addr_detail);
+	formData.append("service_date",service_date);
+	formData.append("tender_deadline",tender_deadline);
+	formData.append("bid_open_date",bid_open_date);
+	formData.append("budget",budget);
+	formData.append("t_space",t_space);
+	formData.append("floor_number",floor_number);
+	formData.append("calculate_period",calculate_period);
+	formData.append("winning_bid_way",winning_bid_way);
+	formData.append("requirement",requirement);
+	
 	$.ajax({
 		type:"post",
 		url:"/tenderWriteComplete",
-		data:query,
+		data:formData,
+		processData:false,
+		contentType:false,
 		success:function(data){
 			window.location.href="/tenderMain";
 		}
 	});
+});
+
+
+
+	/*파일 업로드 확장자 체크*/
+	var regex = new RegExp("(.*?)\.(exe|sh|alz)$");
+	var maxSize=10485760; //10MB
+	
+	function checkExtension(fileName, fileSize) {
+		if(fileSize >= maxSize){
+			alert("파일 사이즈 초과");
+			return false;
+		}
+		if(regex.test(fileName)){
+			alert("해당 종류의 파일은 업로드할 수 없습니다.");
+			return false;
+		}
+		
+		return true;
+	}
 });
