@@ -21,6 +21,7 @@ td,
 th {
   padding: 0.5rem;
 }
+
 th {
   text-align: left;
   font-weight: 300;
@@ -31,9 +32,11 @@ th {
   width: 100%;
   padding: 1rem;
 }
+
 h3{
 	text-align: center;
 }
+
 .table__heading {
   border-bottom: 2px solid var(--yellow);
 }
@@ -109,93 +112,126 @@ table {
 }
 
 #map {
-	width: 100%;
-	height: 800px;
+	width: 1180px;
+	height: 400px;
 }
 
-.infowindow {
-	display: block;
-	position: absolute;
-	width: 200px;
-	top: -50px;
-	left: -90px;
-	background-color: white;
-	text-align: center;
-	z-index: 1;
-	border: 1px solid black;
-	margin: 0;
-	padding: 0;
+.pin_point {
+    position: absolute;
+    display: none;
+    top: 50%;
+   	margin: 0 0 0 -50px;
+    transform: translate(0, -100%);
+    -webkit-transform: translate(0, -100%);
 }
 
-.info_tri1 {
-	margin: 0px;
-	padding: 0px;
-	width: 0px;
-	height: 0px;
-	position: absolute;
-	border-width: 24px 10px 0px;
-	border-style: solid;
-	border-color: rgb(51, 51, 51) transparent;
-	border-image: initial;
-	pointer-events: none;
-	box-sizing: content-box !important;
-	transform-origin: right bottom 0px;
-	transform: skewX(0deg);
-	bottom: -25px;
-	left: 90px;
+#area {
+    padding-top: 6px;
 }
 
-.info_tri2 {
-	margin: 0px;
-	padding: 0px;
-	width: 0px;
-	height: 0px;
-	position: absolute;
-	border-width: 24px 10px 0px;
-	border-style: solid;
-	border-color: rgb(255, 255, 255) transparent;
-	border-image: initial;
-	pointer-events: none;
-	box-sizing: content-box !important;
-	transform-origin: right bottom 0px;
-	transform: skewX(0deg);
-	bottom: -22px;
-	left: 90px;
+#value {
+    padding-bottom: 6px;
+    padding-left: 4px;
+    text-align: left !important;
+}
+
+.station_a {
+    position: relative;
+    display: block;
+    width: 125px;
+    margin-bottom: 25px;
+    min-height: 51px;
+    padding: 0 0 0px 0;
+    background: #fff;
+    border-radius: 2px;
+    -webkit-border-radius: 5px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    font-size: 11px;
+    text-align: center;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.station_a:before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 45%;
+    width: 11px;
+    height: 11px;
+    background: #fff;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    z-index: 10;
+}
+
+.station_name {
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: #323232;
+    font-weight: 500;
+    white-space: normal;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.matter_name {
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: #323232;
+    font-weight: 500;
+    white-space: normal;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.matter_value {
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: #323232;
+    font-weight: 500;
+    white-space: normal;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 
 .pin_s {
-	cursor: pointer;
-	width: 22px;
-	height: 30px;
+    cursor: pointer;
+    width: 22px;
+    height: 30px;
 }
 
 .pin_s_img {
-	margin: 0px;
-	padding: 0px;
-	border: 0px solid transparent;
-	display: block;
-	user-select: none;
-	-webkit-user-drag: none;
-	box-sizing: content-box !important;
-	max-width: none !important;
-	max-height: none !important;
-	min-width: 0px !important;
-	min-height: 0px !important;
-	position: absolute;
-	cursor: inherit;
-	width: 22px;
-	height: 33px;
-	left: 0px;
-	top: 0px;
-}
-
-.pins_s_tooltip {
-	display: none;
-	width: 150px;
-	height: 20px;
-	position: absolute;
-	top: 5px;
-	left: 25px;
+    margin: 0px;
+    padding: 0px;
+    border: 0px solid transparent;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    box-sizing: content-box !important;
+    max-width: none !important;
+    max-height: none !important;
+    min-width: 0px !important;
+    min-height: 0px !important;
+    position: absolute;
+    cursor: inherit;
+    width: 22px;
+    height: 33px;
+    left: 0px;
+    top: 0px;
 }
 
 #htmlMarker1 {
