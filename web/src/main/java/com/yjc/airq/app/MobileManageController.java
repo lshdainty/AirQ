@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.IotInfoVO;
+import com.yjc.airq.domain.MeasureDataVO;
 import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.service.ManageService;
 
@@ -472,4 +473,34 @@ public class MobileManageController {
 		}
 		return "Yes";
 		}
+	
+	// 실내 모니터링에서 차트
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "/m.insideChart", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONArray insideChart(Model model, HttpServletRequest request, HttpSession session) {
+		System.out.println("insideChart 들어옴");
+		String member_id = request.getParameter("member_id");
+		System.out.println(member_id);
+			
+		String date = request.getParameter("date");
+		System.out.println("date: " + date);
+			
+		ArrayList<MeasureDataVO> list = manageService.insideChart(member_id, date);
+		System.out.println("list : " + list);
+		model.addAttribute("list" + list);
+
+		JSONArray jArray = new JSONArray();
+		for (int i = 0; i < list.size(); i++) {
+			JSONObject json = new JSONObject();
+			json.put("measure", list.get(i).getMeasure()); // 측정 값
+			json.put("TODAY", list.get(i).getTODAY()); // 현재 날짜
+			json.put("measuretime", list.get(i).getMeasuretime()); // 측정 시간
+			json.put("CODE", list.get(i).getCODE()); // 측정 코드
+			json.put("iotID", list.get(i).getIotID()); // 기기 ID
+			jArray.add(json);
+		}
+		System.out.println("jArray : " + jArray);
+		return jArray;
+	}	
 }

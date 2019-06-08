@@ -149,9 +149,8 @@
 
         .pin_point {
             position: absolute;
-            display: block;
+            display: none;
             top: 50%;
-            left: 50%;
             margin: 0 0 0 -50px;
             transform: translate(0, -100%);
             -webkit-transform: translate(0, -100%);
@@ -163,12 +162,14 @@
 
         #value {
             margin-bottom: 6px;
+            margin-left: 2px;
+            text-align: left !important;
         }
 
         .station_a {
             position: relative;
             display: block;
-            width: 100px;
+            width: 125px;
             margin-bottom: 25px;
             min-height: 51px;
             padding: 0 0 0px 0;
@@ -369,51 +370,18 @@
 
                         </select>
                     </div>
+                    <!-- Chart 시작 -->
                     <div class="chart-container">
+                        <div id="chartdiv"></div>
+                    </div>
+                    <!-- Chart 끝 -->
+                    <input type="date" id="measureDate" onchange="measureDate(this)" />
 
-                    </div>
-                    <div class="met-container">
-                        <div class="met-line">
-                            <div class="met-box">
-                                <div class="met-title">미세먼지</div>
-                                <span class="division-line"></span>
-                                <div class="met-value">10µg/m³</div>
-                            </div>
-                            <div class="met-box">
-                                <div class="met-title">미세먼지</div>
-                                <span class="division-line"></span>
-                                <div class="met-value">10µg/m³</div>
-                            </div>
-                        </div>
-                        <div class="met-line">
-                            <div class="met-box">
-                                <div class="met-title">미세먼지</div>
-                                <span class="division-line"></span>
-                                <div class="met-value">10µg/m³</div>
-                            </div>
-                            <div class="met-box">
-                                <div class="met-title">미세먼지</div>
-                                <span class="division-line"></span>
-                                <div class="met-value">10µg/m³</div>
-                            </div>
-                        </div>
-                        <div class="met-line">
-                            <div class="met-box">
-                                <div class="met-title">미세먼지</div>
-                                <span class="division-line"></span>
-                                <div class="met-value">10µg/m³</div>
-                            </div>
-                            <div class="met-box">
-                                <div class="met-title">미세먼지</div>
-                                <span class="division-line"></span>
-                                <div class="met-value">10µg/m³</div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- 여기에 표 넣어야 됨-->
                 </div>
             </div>
 
-            <!-- 실내 공기질 모니터링 시작-->
+            <!-- 실내 공기질 모니터링 끝-->
             <!-- 실외 공기질 모니터링 시작-->
             <div class="swiper-slide">
                 <div class="map-wrap">
@@ -430,8 +398,15 @@
     <script type="text/javascript"
         src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tpllhjh4tl&submodules=geocoder"></script>
     <script type="text/javascript" src="https://navermaps.github.io/maps.js.ncp/docs/js/MarkerClustering.js"></script>
+    <!-- Chart Resources -->
+    <script src="../../../www/resources/js/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <!--------------------->
     <script src="../../../www/resources/js/connect/swiper.js"></script>
     <script src="../../../www/resources/js/connect/connect__app.js"></script>
+    <script src="../../../www/resources/js/monitoring/inside.js"></script>
     <script src="../../../www/resources/js/monitoring/monitoring.js"></script>
 </body>
 
