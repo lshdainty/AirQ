@@ -8,11 +8,11 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 <!-- CSS Files -->
-<link href="resources/css/mypage/asset/material-dashboard.css"
+<link href="/resources/css/mypage/asset/material-dashboard.css"
 	rel="stylesheet" />
 <div class="wrapper ">
 	<div class="sidebar" data-color="purple" data-background-color="black"
-		data-image="resources/images/sidebar-2.jpg">
+		data-image="/resources/images/sidebar-2.jpg">
 		<!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -145,9 +145,9 @@
 							<div class="card-body table-responsive">
 								<table class="table table-hover">
 									<thead class="text-warning">
-										<th>구매자</th>
-										<th>상품명</th>
-										<th>서비스일자</th>
+										<th>싱픔명</th>
+										<th>판매량</th>
+										<th>평균별점</th>
 									</thead>
 									<tbody>
 										<c:forEach var="item" items="${hotItems}" begin="0" end="5">
@@ -172,17 +172,17 @@
 </div>
 <!--   Core JS Files   -->
 
-<script src="resources/js/mypage/asset/perfect-scrollbar.jquery.min.js"></script>
-<script src="resources/js/mypage/mypageSeller.js"></script>
+<script src="/resources/js/mypage/asset/perfect-scrollbar.jquery.min.js"></script>
+<script src="/resources/js/mypage/mypageSeller.js"></script>
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!--  Google Maps Plugin    -->
 <!-- Chartist JS -->
-<script src="resources/js/mypage/asset/chartist.min.js"></script>
+<script src="/resources/js/mypage/asset/chartist.min.js"></script>
 <!--  Notifications Plugin    -->
-<script src="resources/js/mypage/asset/bootstrap-notify.js"></script>
+<script src="/resources/js/mypage/asset/bootstrap-notify.js"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="resources/js/mypage/asset/material-dashboard.js"></script>
+<script src="/resources/js/mypage/asset/material-dashboard.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script>
 	$(document).ready(function() {
