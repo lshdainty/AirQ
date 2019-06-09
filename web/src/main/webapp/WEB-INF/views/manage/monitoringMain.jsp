@@ -12,9 +12,11 @@
 	<%-- AmChart 시작 --%>
 	<div id="chartdiv"></div>
 	<%-- AmChart 끝 --%>
+	
 	<%-- 달력 선택 시작 --%>
 	<input type="date" id="measureDate" onchange="measureDate(this)" />
 	<%-- 달력 선택 끝 --%>
+	
 	<div id="chartList">
 		<h3>측정 상세 정보</h3>
 			<table class="table">
