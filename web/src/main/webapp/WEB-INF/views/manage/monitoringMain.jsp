@@ -29,8 +29,9 @@
 
 <div id="outside">
 	<%--지도를 나타내주는 곳  시작--%>
-	<div id="map"></div>
+	<%--<div id="map"></div> --%>
 	<%-- 지도 부분 끝 --%>
+	<div id="outchartdiv"></div>
 </div>
 <script src="resources/js/core.js"></script>
 <script src="resources/js/charts.js"></script>
