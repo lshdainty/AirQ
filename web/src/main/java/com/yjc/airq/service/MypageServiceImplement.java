@@ -17,6 +17,7 @@ import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.mapper.BidMapper;
 import com.yjc.airq.mapper.CompanyMapper;
 import com.yjc.airq.mapper.DemandMapper;
+import com.yjc.airq.mapper.MatterMapper;
 import com.yjc.airq.mapper.MemberMapper;
 import com.yjc.airq.mapper.PaymentMapper;
 import com.yjc.airq.mapper.PostMapper;
@@ -40,6 +41,7 @@ public class MypageServiceImplement implements MypageService{
 	private ReportMapper reportMapper;
 	private DemandMapper demandMapper;
 	private BidMapper bidMapper;
+	private MatterMapper matterMapper;
 	
 	@Override
 	public ArrayList<Company_InfoVO> c_code( String member_id) {
@@ -268,5 +270,11 @@ public class MypageServiceImplement implements MypageService{
 	@Override
 	public ArrayList<Map<String, Object>> getHotItems(String company_code) {
 		return productMapper.hotItemInfo(company_code);
+	}
+	
+	//예약자 모니터링
+	@Override
+	public ArrayList<Map<String, Object>> reservation(String member_id) {
+		return matterMapper.reservation(member_id);
 	}
 }

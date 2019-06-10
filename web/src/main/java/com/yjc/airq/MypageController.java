@@ -461,8 +461,34 @@ public class MypageController {
 		ArrayList<Map<String,Object>> hotItems=mypageService.getHotItems(connectService.company_code(member_id));
 		model.addAttribute("reservation",reservation);
 		model.addAttribute("hotItems",hotItems);
+
 		return "mypage/mypageSeller";
 	}
+	
+	//예약자 모니터링 페이지
+	@RequestMapping(value="reservation", method=RequestMethod.GET)
+	public String reservation(HttpServletRequest request, Model model) {
+		String memberId=request.getParameter("member_id");
+		model.addAttribute("memberId",memberId);
+		
+		return "mypage/reservation";
+	}
+	
+	@RequestMapping(value="mReservation", method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject mReservation(String member_id) {
+		ArrayList<Map<String,Object>> reservation=mypageService.reservation(member_id);
+		
+		JSONArray rArr=JSONArray.fromObject(reservation);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("reservation", rArr);
+		JSONObject json=JSONObject.fromObject(map);
+		System.out.println(json);
+		
+		return json;
+	}
+	
+	
 
 	// mypageSeller 글관리 가기
 	@RequestMapping(value = "mypageSellerPosts", method = RequestMethod.GET)

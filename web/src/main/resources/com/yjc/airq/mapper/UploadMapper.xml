@@ -76,4 +76,6 @@
 		from upload
 		where upload_code=#{upload_code}
 	</select>
+	
+	
 </mapper>
