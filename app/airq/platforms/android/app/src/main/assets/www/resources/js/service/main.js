@@ -67,7 +67,12 @@ $(document).ready(function () {
                             var forecastColor;
                             var changeNum;
                             var condition;
-				            if (data.result[i].grade >= 8) {
+                            if (data.result[i].grade == "-") {
+                                forecastColor = "#c8c8c8";
+                                changeNum = "changed0";
+                                condition = "없음";
+				            }
+				            else if (data.result[i].grade >= 8) {
                                 forecastColor = "#BDBDBD";
                                 changeNum = "changed1";
                                 condition = "최악";
@@ -131,6 +136,7 @@ $(document).on("click",".matter_container",function(){
     var changeNum = $(this).find(".changeNum").text();
     var condition = $(this).find(".condition").text();
     $(".station_a").css("background",background);
+    $(".station_a").removeClass("changed0");
     $(".station_a").removeClass("changed1");
     $(".station_a").removeClass("changed2");
     $(".station_a").removeClass("changed3");

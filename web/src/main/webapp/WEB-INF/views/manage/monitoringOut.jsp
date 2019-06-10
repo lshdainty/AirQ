@@ -14,21 +14,42 @@
 	<ul class="category-container__border">
 		<li class="category-option option-active" value="sellnum">
 			<select name="sido_code" id="sido_code" class="order-option ">
-				<option value="광역시/도">광역시/도</option>
+				<option value="서울">서울</option>
+				<option value="부산">부산</option>
+				<option value="대구">대구</option>
+				<option value="인천">인천</option>
+				<option value="광주">광주</option>
+				<option value="대전">대전</option>
+				<option value="울산">울산</option>
+				<option value="경기">경기</option>
+				<option value="강원">강원</option>
+				<option value="충북">충북</option>
+				<option value="충남">충남</option>
+				<option value="전북">전북</option>
+				<option value="전남">전남</option>
+				<option value="경북">경북</option>
+				<option value="경남">경남</option>
+				<option value="제주">제주</option>
+				<option value="세종">세종</option>
 			</select>
 		</li>
 		<li class="category-option" value="hprice">
 			<select name="sigoon_code" id="sigoon_code" class="order-option">
-				<option value="선택">시/군</option>
 			</select>
 		</li>
 		<li class="category-option" value="lprice">
 			<select name="matter" id="matter" class="order-option">
-				<option value="측정 물질">측정 물질</option>
+				<option value="pm10Value">미세먼지</option>
+				<option value="pm25Value">초미세먼지</option>
+				<option value="o3Value">오존</option>
+				<option value="no2Value">이산화질소</option>
+				<option value="coValue">일산화탄소</option>
+				<option value="so2Value">아황산가스</option>
 			</select>
 		</li>
 	</ul>
 	<div class="table-container">
+	<input id="areaName" type="hidden"/>
 		<table class="measure-table">
 			<caption>측정자료 검색 결과</caption>
 			<colgroup>
@@ -48,7 +69,7 @@
 			</colgroup>
 			<thead>
 				<tr>
-					<th rowspan="2">날짜<br>(월-일:시)
+					<th rowspan="2">날짜<br>(년-월-일 시:분)
 					</th>
 					<th colspan="2">PM<sub>10</sub><br>(㎍/㎥)
 					</th>
@@ -65,21 +86,6 @@
 				</tr>
 			</thead>
 			<tbody id="tbody">
-				<tr>
-					<th>06-10:20</th>
-					<td><img src="https://www.airkorea.or.kr/web/images/sub/item01.png" alt="등급"></td>
-					<td>15</td>
-					<td><img src="https://www.airkorea.or.kr/web/images/sub/item01.png" alt="등급"></td>
-					<td>9</td>
-					<td><img src="https://www.airkorea.or.kr/web/images/sub/item01.png" alt="등급"></td>
-					<td>0.023</td>
-					<td><img src="https://www.airkorea.or.kr/web/images/sub/item01.png" alt="등급"></td>
-					<td>0.029</td>
-					<td><img src="https://www.airkorea.or.kr/web/images/sub/item01.png" alt="등급"></td>
-					<td>0.4</td>
-					<td><img src="https://www.airkorea.or.kr/web/images/sub/item01.png" alt="등급"></td>
-					<td>0.003</td>
-				</tr>
 			</tbody>
 		</table>
 	</div>
@@ -87,7 +93,7 @@
 </div>
 <script src="resources/js/core.js"></script>
 <script src="resources/js/charts.js"></script>
-<script src="https://www.amcharts.com/lib/4/themes/spiritedaway.js"></script>
+<script src="resources/js/include/animated.js"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tpllhjh4tl&submodules=geocoder"></script>
 <script type="text/javascript" src="https://navermaps.github.io/maps.js.ncp/docs/js/MarkerClustering.js"></script>
 <script src="resources/js/manage/monitoringOut.js"></script>
