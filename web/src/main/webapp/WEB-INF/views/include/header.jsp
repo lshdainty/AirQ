@@ -77,8 +77,8 @@
                         </a>
                         <div aria-labelledby="communityDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
                             <h6 class="dropdown-header font-weight-normal">모니터링</h6>
-                            <a href="/monitoringMain" class="dropdown-item">내부 공기질 모니터링 </a>
-                            <a href="/monitoringOut" class="dropdown-item">외부 공기질 모니터링 </a>
+                            <a href="/monitoringIn" class="dropdown-item">내부 모니터링 </a>
+                            <a href="/monitoringOut" class="dropdown-item">외부 모니터링 </a>
                             <div class="dropdown-divider"></div>
 
 

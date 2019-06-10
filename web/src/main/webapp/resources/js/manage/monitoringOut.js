@@ -1,18 +1,7 @@
 ajaxChart("신암동","pm10Value");
 ajaxTable("신암동");
 
-$(document).ready(function(){
-	$("#in").click(function(){
-		$("#inside").show();
-		$("#outside").hide();
-	});
-	
-	$("#out").click(function(){
-		$("#outside").show();
-		$("#inside").hide();
-	});
-});
-
+//차트 변경
 function ajaxChart(area,matter){
 	$.ajax({
 		type : "GET",
@@ -25,6 +14,7 @@ function ajaxChart(area,matter){
 	});
 }
 
+//테이블 변경
 function ajaxTable(area){
 	$.ajax({
 		type : "GET",
@@ -33,6 +23,24 @@ function ajaxTable(area){
 		async : false,
 		success : function(data) {
 			console.log(data);
+			var result="";
+			for(var i=0; i<data.result.length; i++){
+//				<tr>
+//				<th>06-10:20</th>
+//				<td><img src="https://www.airkorea.or.kr/web/images/sub/item01.png" alt="등급"></td>
+//				<td>15</td>
+//				<td><img src="https://www.airkorea.or.kr/web/images/sub/item01.png" alt="등급"></td>
+//				<td>9</td>
+//				<td><img src="https://www.airkorea.or.kr/web/images/sub/item01.png" alt="등급"></td>
+//				<td>0.023</td>
+//				<td><img src="https://www.airkorea.or.kr/web/images/sub/item01.png" alt="등급"></td>
+//				<td>0.029</td>
+//				<td><img src="https://www.airkorea.or.kr/web/images/sub/item01.png" alt="등급"></td>
+//				<td>0.4</td>
+//				<td><img src="https://www.airkorea.or.kr/web/images/sub/item01.png" alt="등급"></td>
+//				<td>0.003</td>
+//				</tr>
+			}
 		}
 	});
 };

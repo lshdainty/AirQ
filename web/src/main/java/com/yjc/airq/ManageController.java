@@ -36,13 +36,13 @@ public class ManageController {
 
 	private ManageService manageService;
 
-	// 공기질 모니터링 메인페이지로 가기
-	@RequestMapping(value = "monitoringMain", method = RequestMethod.GET)
-	public String monitoringMain(Model model) {
-		return "manage/monitoringMain";
+	// 내부 모니터링 메인페이지로 가기
+	@RequestMapping(value = "monitoringIn", method = RequestMethod.GET)
+	public String monitoringIn(Model model) {
+		return "manage/monitoringIn";
 	}
 
-	// 공기질 모니터링 메인페이지로 가기
+	// 외부 모니터링 메인페이지로 가기
 	@RequestMapping(value = "monitoringOut", method = RequestMethod.GET)
 	public String monitoringOut(Model model) {
 		return "manage/monitoringOut";
@@ -394,10 +394,8 @@ public class ManageController {
 	@RequestMapping(value = "remoteMain", method = RequestMethod.GET)
 	public String remoteMain(Model model, IotInfoVO iif, HttpServletRequest request, HttpSession session) {
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-		System.out.println("로그인 ID: " + member_id);
 
 		ArrayList<IotInfoVO> myIot = manageService.iotMain(member_id);
-		System.out.println("myIot: " + myIot);
 		
 		model.addAttribute("myIot", myIot);
 		session.setAttribute("myIot", myIot);
@@ -409,15 +407,11 @@ public class ManageController {
 	@ResponseBody
 	@RequestMapping(value = "/insideChart", method = RequestMethod.GET)
 	public JSONArray insideChart(Model model, HttpServletRequest request, HttpSession session) {
-		System.out.println("insideChart 들어옴");
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-		System.out.println(member_id);
 		
 		String date = request.getParameter("date");
-		System.out.println("date: " + date);
 		
 		ArrayList<MeasureDataVO> list = manageService.insideChart(member_id, date);
-		System.out.println("list : " + list);
 		model.addAttribute("list" + list);
 
 		JSONArray jArray = new JSONArray();
@@ -430,7 +424,6 @@ public class ManageController {
 			json.put("iotID", list.get(i).getIotID()); // 기기 ID
 			jArray.add(json);
 		}
-		System.out.println("jArray : " + jArray);
 		return jArray;
 	}
 
