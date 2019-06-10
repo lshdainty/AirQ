@@ -179,7 +179,7 @@ md = {
       /* ----------==========     Daily Sales Chart initialization    ==========---------- */
 
       dataDailySalesChart = {
-        labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+        labels: ['월', '화', '수', '목', '금', '토', '일'],
         series: [
           [12, 17, 7, 17, 23, 18, 38]
         ]
@@ -236,7 +236,7 @@ md = {
       /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
 
       var dataWebsiteViewsChart = {
-        labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
+        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
         series: [
           [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
 
