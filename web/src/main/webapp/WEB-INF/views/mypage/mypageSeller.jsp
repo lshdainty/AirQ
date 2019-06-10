@@ -71,7 +71,7 @@
 								<div class="ct-chart" id="dailySalesChart"></div>
 							</div>
 							<div class="card-body">
-								<h4 class="card-title">이번주 판매량</h4>
+								<h4 class="card-title">저번주 판매량</h4>
 								<p class="card-category">
 									<span class="text-success"><i
 										class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.
@@ -85,7 +85,7 @@
 								<div class="ct-chart" id="websiteViewsChart"></div>
 							</div>
 							<div class="card-body">
-								<h4 class="card-title">이번달 판매량</h4>
+								<h4 class="card-title">월별 판매량</h4>
 								<p class="card-category">Last Campaign Performance</p>
 							</div>
 						</div>

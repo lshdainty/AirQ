@@ -461,7 +461,6 @@ public class MypageController {
 		ArrayList<Map<String,Object>> hotItems=mypageService.getHotItems(connectService.company_code(member_id));
 		model.addAttribute("reservation",reservation);
 		model.addAttribute("hotItems",hotItems);
-		System.out.println(hotItems);
 		return "mypage/mypageSeller";
 	}
 

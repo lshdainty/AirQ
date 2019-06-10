@@ -218,6 +218,7 @@ button {
 	background: rgb(168, 168, 168);
 	justify-content: space-around;
 	height: 3rem;
+	margin:3rem;
 }
 .info-tab div{
 	cursor: pointer;
