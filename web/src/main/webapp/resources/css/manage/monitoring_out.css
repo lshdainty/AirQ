@@ -1,0 +1,59 @@
+
+/*================================OutSide CSS==============================*/
+.category-container__border {
+	margin-top: 1rem;
+	width: 100%;
+	border-bottom: 1px solid #00275c;
+	height: 2.25rem;
+}
+
+.category-container__border .category-option {
+	cursor: pointer;
+	float: left;
+	width: 10rem;
+	height: 2.25rem;
+	display: inline-flex;
+	flex-wrap: wrap;
+	font-size: 0.8rem;
+	vertical-align: middle;
+	padding: 0;
+	border: 1px solid #000;
+	border-left: none;
+	color: #929191;
+}
+
+.category-container__border .category-option:first-child {
+	border-left: 1px solid #000;
+}
+
+.category-container__border .category-option  select {
+	width: 100%;
+	border: none;
+}
+
+.quality-grade {
+	width: 20px;
+	background-image:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='20' width='20'%3E%3Ccircle cx='10' cy='10' r='10'  fill='red' /%3E%3C/svg%3E");
+	background-size: cover;
+}
+
+.table-container{
+	margin:0;
+	padding:0;
+	display:flex;
+	justify-content:space-around;
+}
+.measure-table{
+	width: 100%;
+	border:1px solid #000;
+	text-align:center;
+}
+.measure-table th{
+	padding: 0.25rem 0;
+	border:1px solid #000;
+}
+.measure-table td{
+	border:1px solid #000;
+}
+/*=========================================================================*/
