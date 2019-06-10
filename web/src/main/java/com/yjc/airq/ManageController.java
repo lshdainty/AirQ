@@ -146,12 +146,58 @@ public class ManageController {
 //
 //		return json;
 //	}
-
+	
 	@RequestMapping(value = "outsideChart", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject outSideChart(Model model, HttpServletRequest request) {
 		String area = request.getParameter("area");
-		System.out.println(area);
+		String matter = request.getParameter("matter");
+		
+		BufferedReader br = null;
+		JSONObject outsideChartJson = new JSONObject();
+		JSONArray jArray = new JSONArray();
+		
+		try {
+			//측정소에서 측정한 측정 데이터 가져오기
+	        String urlstr = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?"
+	        			+ "serviceKey=ih2Gzic0JjfHpYSWXRXk4QNjcf9DaJo6F6hMKgBRQpn4T7YiXPelW%2B8Z%2BJCqkH1%2FSeeNJa%2BROW54XiWGBQmKTg%3D%3D"
+	        			+ "&numOfRows=999&stationName="+URLEncoder.encode(area,"UTF-8")+"&dataTerm=DAILY&ver=1.0&_returnType=json";
+	        URL url = new URL(urlstr);
+	        HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+	        urlconnection.setRequestMethod("GET");
+	        br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
+	        String result = "";
+	        String line = "";
+	        while((line = br.readLine()) != null) {
+	        	result = result + line + "\n";
+	        	JSONObject jsonObj = JSONObject.fromObject(result);
+                JSONArray jsonArr = JSONArray.fromObject(jsonObj.get("list"));
+                for(int i=0; i<jsonArr.size(); i++) {
+                	JSONObject resultJson = (JSONObject)jsonArr.get(i);
+                	JSONObject dataJson = new JSONObject();
+                	dataJson.put("dataTime",resultJson.getString("dataTime"));
+                	dataJson.put("data",resultJson.getString(matter));
+                	jArray.add(dataJson);
+                }
+	        }
+	        br.close();
+        	urlconnection.disconnect();
+        	
+        	Map<String, Object> map = new HashMap<String, Object>();
+    		map.put("result",jArray);
+    		outsideChartJson = JSONObject.fromObject(map);
+    		System.out.println(outsideChartJson);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return outsideChartJson;
+	}
+	
+	@RequestMapping(value = "outsideTable", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject outSideTable(Model model, HttpServletRequest request) {
+		String area = request.getParameter("area");
 		
 		//각 물질마다의 분류기준값
 		float pm10Value[] = {151,101,76,51,41,31,16};
@@ -162,7 +208,7 @@ public class ManageController {
 		float so2Value[] = {(float)0.6,(float)0.15,(float)0.1,(float)0.05,(float)0.04,(float)0.02,(float)0.01};
 		
 		BufferedReader br = null;
-		JSONObject json = new JSONObject();
+		JSONObject outsideTableJson = new JSONObject();
 		JSONArray jArray = new JSONArray();
 		
 		try {
@@ -331,12 +377,12 @@ public class ManageController {
         	
         	Map<String, Object> map = new HashMap<String, Object>();
     		map.put("result",jArray);
-    		json = JSONObject.fromObject(map);
+    		outsideTableJson = JSONObject.fromObject(map);
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
 		
-		return json;
+		return outsideTableJson;
 	}
 	
 	// 원격제어 메인페이지로 가기
