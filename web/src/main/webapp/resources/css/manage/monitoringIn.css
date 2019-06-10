@@ -1,70 +1,75 @@
 @charset "UTF-8";
 
-:root { -
-	-yellow: #ffc842;
+:root {
+  --yellow: #ffc842;
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
 }
 
 body {
-	font-weight: 400;
-	font-family: system-ui, -apple-system, BlinkMacSystemFont,
-		"Helvetica Neue", sans-serif;
+  font-weight: 400;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+    sans-serif;
 }
 
-td, th {
-	padding: 0.5rem;
+td,
+th {
+  padding: 0.5rem;
 }
 
 th {
-	text-align: left;
-	font-weight: 300;
-	font-size: 1.25rem;
+  text-align: left;
+  font-weight: 300;
+  font-size: 1.25rem;
 }
 
 .table {
-	width: 100%;
-	padding: 1rem;
+  width: 100%;
+  padding: 1rem;
 }
 
-h3 {
+h3{
 	text-align: center;
 }
 
 .table__heading {
-	border-bottom: 2px solid var(- -yellow);
+  border-bottom: 2px solid var(--yellow);
 }
 
-@media ( max-width : 32rem) {
-	.table__heading {
-		display: none;
-	}
-	.table__content {
-		display: block;
-		padding: 0.5rem 0;
-	}
-	.table__row {
-		margin: 0.25rem 1rem;
-		padding: 0.5rem 0;
-		display: block;
-		border-bottom: 2px solid var(- -yellow);
-	}
-	.table__content:before {
-		content: attr(data-heading);
-		display: inline-block;
-		width: 5rem;
-		margin-right: 0.5rem;
-		color: #999;
-		font-size: 0.75rem;
-		font-weight: 700;
-		font-family: inherit;
-		text-transform: uppercase;
-		letter-spacing: 2px;
-	}
+@media (max-width: 32rem) {
+  .table__heading {
+    display: none;
+  }
+
+  .table__content {
+    display: block;
+    padding: 0.5rem 0;
+  }
+
+  .table__row {
+    margin: 0.25rem 1rem;
+    padding: 0.5rem 0;
+    display: block;
+    border-bottom: 2px solid var(--yellow);
+  }
+
+  .table__content:before {
+    content: attr(data-heading);
+    display: inline-block;
+    width: 5rem;
+    margin-right: 0.5rem;
+    color: #999;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
 }
 /* /////////////////////////////////////////////// */
 #airCheck {
@@ -75,6 +80,7 @@ h3 {
 #chartdiv {
 	width: 100%;
 	height: 500px;
+	margin-top: 50px;
 }
 
 table {
