@@ -43,6 +43,7 @@ public class HomeController {
 
 		return "home";
 	}
+	
 	// 홈화면 광역시/도 카드 데이터 만들기
 	@RequestMapping(value = "/homematterdata", method = RequestMethod.GET)
 	@ResponseBody
