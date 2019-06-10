@@ -61,50 +61,46 @@
       </div>
    </div>
    <div class="main-panel">
-
-      <div class="content">
-         <div class="container-fluid">
-            <div class="row">
-               <div class="col-xl-4 col-lg-12">
-                  <div class="card card-chart">
-                     <div class="card-header card-header-success">
-                        <div class="ct-chart" id="dailySalesChart"></div>
-                     </div>
-                     <div class="card-body">
-                        <h4 class="card-title">이번주 판매량</h4>
-                        <p class="card-category">
-                           <span class="text-success"><i
-                              class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.
-                        </p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-xl-4 col-lg-12">
-                  <div class="card card-chart">
-                     <div class="card-header card-header-warning">
-                        <div class="ct-chart" id="websiteViewsChart"></div>
-                     </div>
-                     <div class="card-body">
-                        <h4 class="card-title">이번달 판매량</h4>
-                        <p class="card-category">Last Campaign Performance</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-xl-4 col-lg-12">
-                  <div class="card card-chart">
-                     <div class="card-header card-header-danger">
-                        <div class="ct-chart" id="completedTasksChart"></div>
-                     </div>
-                     <div class="card-body">
-                        <h4 class="card-title">별점 변화 추이</h4>
-                        <p class="card-category">Last Campaign Performance</p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-
-
-
+		<div class="content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xl-4 col-lg-12">
+						<div class="card card-chart">
+							<div class="card-header card-header-success">
+								<div class="ct-chart" id="dailySalesChart"></div>
+							</div>
+							<div class="card-body">
+								<h4 class="card-title">저번주 판매량</h4>
+								<p class="card-category">
+									<span class="text-success"><i
+										class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-lg-12">
+						<div class="card card-chart">
+							<div class="card-header card-header-warning">
+								<div class="ct-chart" id="websiteViewsChart"></div>
+							</div>
+							<div class="card-body">
+								<h4 class="card-title">월별 판매량</h4>
+								<p class="card-category">Last Campaign Performance</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-lg-12">
+						<div class="card card-chart">
+							<div class="card-header card-header-danger">
+								<div class="ct-chart" id="completedTasksChart"></div>
+							</div>
+							<div class="card-body">
+								<h4 class="card-title">별점 변화 추이</h4>
+								<p class="card-category">Last Campaign Performance</p>
+							</div>
+						</div>
+					</div>
+				</div>
             <div class="row">
                <div class="col-lg-12 col-md-12">
                   <div class="card">

@@ -93,9 +93,7 @@
 		<div class="review_tab">상품후기</div>
 	</div>
 	${productContent.product_detail}
-</article>
-</main>
-<div class="cont_review">
+	<div class="cont_review">
 	<div class="info-tab">
 		<div class="detail_tab">상품정보</div>
 		<div class="review_tab active">상품후기</div>
@@ -125,5 +123,8 @@
 		</c:forEach>
 	</div>
 </div>
+</article>
+</main>
+
 <script src="/resources/js/connect/productContent.js"></script>
 <%@include file="../include/footer.jsp"%>

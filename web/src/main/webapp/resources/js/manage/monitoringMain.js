@@ -1,4 +1,4 @@
-ajax("");
+ajax("신암동");
 
 $(document).ready(function(){
 	$("#in").click(function(){
@@ -10,26 +10,17 @@ $(document).ready(function(){
 		$("#outside").show();
 		$("#inside").hide();
 	});
-	
-//	$.ajax({
-//		type: "get",
-//		url: "/dustData",
-//		dataType:"json",
-//		success: function(data) {
-//			initMap(data);
-//		}
-//	});
 });
 
-function ajax(){
+function ajax(area){
 	$.ajax({
 		type : "GET",
-		url : "/outsideChart",
+		url : "/outsideChart?area="+area,
 		dataType : "json",
 		async : false,
 		success : function(data) {
-			console.log(data);
 			am4core.ready(function() {
+
 				// Themes begin
 				am4core.useTheme(am4themes_spiritedaway);
 				// Themes end
@@ -39,7 +30,6 @@ function ajax(){
 
 				// Add data
 				chart.data = data;
-				console.log(chart.data);
 
 				// Set input format for the dates
 				chart.dateFormatter.inputDateFormat = "yyyy MMMM dd hh:mm a";
@@ -48,11 +38,11 @@ function ajax(){
 				var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
 				var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 				valueAxis.tooltip.disabled = true;
-				valueAxis.title.text = "미세먼지 측정 값(㎍/㎥)";
+				valueAxis.title.text = "측정 데이터";
 
 				dateAxis.baseInterval = {
-						"timeUnit" : "second",
-						"count" : 1
+					"timeUnit" : "second",
+					"count" : 1
 				};
 				dateAxis.tooltipDateFormat = "yyyy MMMM dd hh:mm a";
 				dateAxis.dateFormats.setKey("second", "hh:mm:ss a");
@@ -62,7 +52,7 @@ function ajax(){
 				series.dataFields.valueY = "measure";
 				series.dataFields.dateX = "measuretime";
 				series.tooltipText = "{measure}"
-					series.strokeWidth = 2;
+				series.strokeWidth = 2;
 				series.minBulletDistance = 15;
 
 				// Drop-shaped tooltips
@@ -89,12 +79,21 @@ function ajax(){
 				chart.cursor.xAxis = dateAxis;
 				chart.cursor.snapToSeries = series;
 			}); // 차트 끝
-		}, // SUCCESS
-		error : function() {
-			console.log("연결 실패");
 		}
 	});
 };
+
+//네이버 지도 소스 시작
+//document.ready안에 넣기 시작
+//$.ajax({
+//type: "get",
+//url: "/dustData",
+//dataType:"json",
+//success: function(data) {
+//	initMap(data);
+//}
+//});
+//document.ready안에 넣기 끝
 
 //function initMap(data){
 //	// 네이버 지도 자바 스크립트 시작
