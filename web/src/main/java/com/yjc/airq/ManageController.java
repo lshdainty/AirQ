@@ -42,6 +42,11 @@ public class ManageController {
 		return "manage/monitoringMain";
 	}
 
+	// 공기질 모니터링 메인페이지로 가기
+	@RequestMapping(value = "monitoringOut", method = RequestMethod.GET)
+	public String monitoringOut(Model model) {
+		return "manage/monitoringOut";
+	}
 	// 각 시/도 미세먼지 수치 가져오기 지도부분 코드 
 //	@RequestMapping(value = "dustData", method = RequestMethod.GET)
 //	@ResponseBody
