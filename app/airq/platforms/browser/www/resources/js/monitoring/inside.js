@@ -1,4 +1,6 @@
 var ip = sessionStorage.getItem('IP_ADDRESS');
+var user = JSON.parse(sessionStorage.getItem("user"));
+var member_id = user.member_id;
 
 /*날짜 선택하기 시작*/
 function measureDate(object) {
@@ -20,8 +22,11 @@ chartDetail(date);
 /* 차트 불러오는거 시작 */
 function chartDetail(date) {
 	$.ajax({
+		crossDomain: true,
 		type : "GET",
-		url : ip+"/m.insideChart?date="+date,
+		contentType: "application/json; charset=utf-8",
+		url : ip+"/m.insideChart?date="+date+"&member_id="+member_id,
+		headers: { "Access-Control-Allow-Origin": "*" },
 		dataType : "json",
 		async : false,
 		success : function(data) {

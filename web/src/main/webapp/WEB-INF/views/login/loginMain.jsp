@@ -11,7 +11,7 @@
 				<div class="member-card-layout__inner">
 					<h1 class="member-card-layout__logo">
 						<img class="member-card-layout__logo-image"
-							src="/resources/images/airqWebLogo2.png" alt="AirQ" style="height:50px; width:143px;">
+							src="/resources/images/airqWebLogo.png" alt="AirQ" style="height:50px; width:143px;">
 					</h1>
 					<div class="login">
 						<form>
