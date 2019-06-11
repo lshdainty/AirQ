@@ -36,13 +36,13 @@ public class ManageController {
 
 	private ManageService manageService;
 
-	// 공기질 모니터링 메인페이지로 가기
-	@RequestMapping(value = "monitoringMain", method = RequestMethod.GET)
-	public String monitoringMain(Model model) {
-		return "manage/monitoringMain";
+	// 내부 모니터링 메인페이지로 가기
+	@RequestMapping(value = "monitoringIn", method = RequestMethod.GET)
+	public String monitoringIn(Model model) {
+		return "manage/monitoringIn";
 	}
 
-	// 공기질 모니터링 메인페이지로 가기
+	// 외부 모니터링 메인페이지로 가기
 	@RequestMapping(value = "monitoringOut", method = RequestMethod.GET)
 	public String monitoringOut(Model model) {
 		return "manage/monitoringOut";
@@ -151,12 +151,59 @@ public class ManageController {
 //
 //		return json;
 //	}
-
+	
+	// 외부 모니터링 차트 데이터 가져오기
 	@RequestMapping(value = "outsideChart", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject outSideChart(Model model, HttpServletRequest request) {
 		String area = request.getParameter("area");
-		System.out.println(area);
+		String matter = request.getParameter("matter");
+		
+		BufferedReader br = null;
+		JSONObject outsideChartJson = new JSONObject();
+		JSONArray jArray = new JSONArray();
+		
+		try {
+			//측정소에서 측정한 측정 데이터 가져오기
+	        String urlstr = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?"
+	        			+ "serviceKey=ih2Gzic0JjfHpYSWXRXk4QNjcf9DaJo6F6hMKgBRQpn4T7YiXPelW%2B8Z%2BJCqkH1%2FSeeNJa%2BROW54XiWGBQmKTg%3D%3D"
+	        			+ "&numOfRows=999&stationName="+URLEncoder.encode(area,"UTF-8")+"&dataTerm=DAILY&ver=1.0&_returnType=json";
+	        URL url = new URL(urlstr);
+	        HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+	        urlconnection.setRequestMethod("GET");
+	        br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
+	        String result = "";
+	        String line = "";
+	        while((line = br.readLine()) != null) {
+	        	result = result + line + "\n";
+	        	JSONObject jsonObj = JSONObject.fromObject(result);
+                JSONArray jsonArr = JSONArray.fromObject(jsonObj.get("list"));
+                for(int i=jsonArr.size()-1; i>=0; i--) {
+                	JSONObject resultJson = (JSONObject)jsonArr.get(i);
+                	JSONObject dataJson = new JSONObject();
+                	dataJson.put("dataTime",resultJson.getString("dataTime"));
+                	dataJson.put("data",resultJson.getString(matter));
+                	jArray.add(dataJson);
+                }
+	        }
+	        br.close();
+        	urlconnection.disconnect();
+        	
+        	Map<String, Object> map = new HashMap<String, Object>();
+    		map.put("result",jArray);
+    		outsideChartJson = JSONObject.fromObject(map);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return outsideChartJson;
+	}
+	
+	// 외부 모니터링 테이블 데이터 가져오기
+	@RequestMapping(value = "outsideTable", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject outSideTable(Model model, HttpServletRequest request) {
+		String area = request.getParameter("area");
 		
 		//각 물질마다의 분류기준값
 		float pm10Value[] = {151,101,76,51,41,31,16};
@@ -167,7 +214,7 @@ public class ManageController {
 		float so2Value[] = {(float)0.6,(float)0.15,(float)0.1,(float)0.05,(float)0.04,(float)0.02,(float)0.01};
 		
 		BufferedReader br = null;
-		JSONObject json = new JSONObject();
+		JSONObject outsideTableJson = new JSONObject();
 		JSONArray jArray = new JSONArray();
 		
 		try {
@@ -196,22 +243,26 @@ public class ManageController {
                 	dataJson.put("pm10name","미세먼지");
                 	dataJson.put("pm10unit","µg/m³");
                 	dataJson.put("pm10data",resultJson.getString("pm10Value"));
-                	if (Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[0]) {
-                		dataJson.put("pm10grade",8);
-                	}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[1]){
-                		dataJson.put("pm10grade",7);
-                	}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[2]){
-                		dataJson.put("pm10grade",6);
-                	}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[3]){
-                		dataJson.put("pm10grade",5);
-                	}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[4]){
-                		dataJson.put("pm10grade",4);
-                	}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[5]){
-                		dataJson.put("pm10grade",3);
-                	}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[6]){
-                		dataJson.put("pm10grade",2);
+                	if(resultJson.getString("pm10Value").equals("-")) {
+                		dataJson.put("pm10grade","-");
                 	}else {
-                		dataJson.put("pm10grade",1);
+                    	if (Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[0]) {
+                    		dataJson.put("pm10grade",8);
+                    	}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[1]){
+                    		dataJson.put("pm10grade",7);
+                    	}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[2]){
+                    		dataJson.put("pm10grade",6);
+                    	}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[3]){
+                    		dataJson.put("pm10grade",5);
+                    	}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[4]){
+                    		dataJson.put("pm10grade",4);
+                    	}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[5]){
+                    		dataJson.put("pm10grade",3);
+                    	}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[6]){
+                    		dataJson.put("pm10grade",2);
+                    	}else {
+                    		dataJson.put("pm10grade",1);
+                    	}
                 	}
         		
                 	//초미세먼지
@@ -219,22 +270,26 @@ public class ManageController {
                 	dataJson.put("pm25name","초미세먼지");
                 	dataJson.put("pm25unit","µg/m³");
                 	dataJson.put("pm25data",resultJson.getString("pm25Value"));
-                	if (Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[0]) {
-                		dataJson.put("pm25grade",8);
-                	}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[1]){
-                		dataJson.put("pm25grade",7);
-                	}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[2]){
-                		dataJson.put("pm25grade",6);
-                	}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[3]){
-                		dataJson.put("pm25grade",5);
-                	}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[4]){
-                		dataJson.put("pm25grade",4);
-                	}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[5]){
-                		dataJson.put("pm25grade",3);
-                	}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[6]){
-                		dataJson.put("pm25grade",2);
+                	if(resultJson.getString("pm25Value").equals("-")) {
+                		dataJson.put("pm25grade","-");
                 	}else {
-                		dataJson.put("pm25grade",1);
+                    	if (Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[0]) {
+                    		dataJson.put("pm25grade",8);
+                    	}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[1]){
+                    		dataJson.put("pm25grade",7);
+                    	}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[2]){
+                    		dataJson.put("pm25grade",6);
+                    	}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[3]){
+                    		dataJson.put("pm25grade",5);
+                    	}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[4]){
+                    		dataJson.put("pm25grade",4);
+                    	}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[5]){
+                    		dataJson.put("pm25grade",3);
+                    	}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[6]){
+                    		dataJson.put("pm25grade",2);
+                    	}else {
+                    		dataJson.put("pm25grade",1);
+                    	}
                 	}
         		
                 	//이산화질소
@@ -242,45 +297,54 @@ public class ManageController {
                 	dataJson.put("no2name","이산화질소");
                 	dataJson.put("no2unit","ppm");
                 	dataJson.put("no2data",resultJson.getString("no2Value"));
-                	if (Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[0]) {
-                		dataJson.put("no2grade",8);
-                	}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[1]){
-                		dataJson.put("no2grade",7);
-                	}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[2]){
-                		dataJson.put("no2grade",6);
-                	}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[3]){
-                		dataJson.put("no2grade",5);
-                	}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[4]){
-                		dataJson.put("no2grade",4);
-                	}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[5]){
-                		dataJson.put("no2grade",3);
-                	}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[6]){
-                		dataJson.put("no2grade",2);
+                	if(resultJson.getString("no2Value").equals("-")) {
+                		dataJson.put("no2grade","-");
                 	}else {
-                		dataJson.put("no2grade",1);
+                		if (Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[0]) {
+                    		dataJson.put("no2grade",8);
+                    	}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[1]){
+                    		dataJson.put("no2grade",7);
+                    	}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[2]){
+                    		dataJson.put("no2grade",6);
+                    	}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[3]){
+                    		dataJson.put("no2grade",5);
+                    	}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[4]){
+                    		dataJson.put("no2grade",4);
+                    	}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[5]){
+                    		dataJson.put("no2grade",3);
+                    	}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[6]){
+                    		dataJson.put("no2grade",2);
+                    	}else {
+                    		dataJson.put("no2grade",1);
+                    	}
                 	}
-        		
+                	
+                	
                 	//오존
                 	dataJson.put("o3code","O3");
                 	dataJson.put("o3name","오존");
                 	dataJson.put("o3unit","ppm");
                 	dataJson.put("o3data",resultJson.getString("o3Value"));
-                	if (Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[0]) {
-                		dataJson.put("o3grade",8);
-                	}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[1]){
-                		dataJson.put("o3grade",7);
-                	}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[2]){
-                		dataJson.put("o3grade",6);
-                	}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[3]){
-                		dataJson.put("o3grade",5);
-                	}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[4]){
-                		dataJson.put("o3grade",4);
-                	}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[5]){
-                		dataJson.put("o3grade",3);
-                	}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[6]){
-                		dataJson.put("o3grade",2);
+                	if(resultJson.getString("o3Value").equals("-")) {
+                		dataJson.put("o3grade","-");
                 	}else {
-                		dataJson.put("o3grade",1);
+                    	if (Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[0]) {
+                    		dataJson.put("o3grade",8);
+                    	}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[1]){
+                    		dataJson.put("o3grade",7);
+                    	}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[2]){
+                    		dataJson.put("o3grade",6);
+                    	}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[3]){
+                    		dataJson.put("o3grade",5);
+                    	}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[4]){
+                    		dataJson.put("o3grade",4);
+                    	}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[5]){
+                    		dataJson.put("o3grade",3);
+                    	}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[6]){
+                    		dataJson.put("o3grade",2);
+                    	}else {
+                    		dataJson.put("o3grade",1);
+                    	}
                 	}
         		
                 	//일산화탄소
@@ -288,22 +352,26 @@ public class ManageController {
                 	dataJson.put("coname","일산화탄소");
                 	dataJson.put("counit","ppm");
                 	dataJson.put("codata",resultJson.getString("coValue"));
-                	if (Float.parseFloat((String)resultJson.get("coValue")) >= coValue[0]) {
-                		dataJson.put("cograde",8);
-                	}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[1]){
-                		dataJson.put("cograde",7);
-                	}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[2]){
-                		dataJson.put("cograde",6);
-                	}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[3]){
-                		dataJson.put("cograde",5);
-                	}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[4]){
-                		dataJson.put("cograde",4);
-                	}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[5]){
-                		dataJson.put("cograde",3);
-                	}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[6]){
-                		dataJson.put("cograde",2);
+                	if(resultJson.getString("coValue").equals("-")) {
+                		dataJson.put("cograde","-");
                 	}else {
-                		dataJson.put("cograde",1);
+                    	if (Float.parseFloat((String)resultJson.get("coValue")) >= coValue[0]) {
+                    		dataJson.put("cograde",8);
+                    	}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[1]){
+                    		dataJson.put("cograde",7);
+                    	}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[2]){
+                    		dataJson.put("cograde",6);
+                    	}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[3]){
+                    		dataJson.put("cograde",5);
+                    	}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[4]){
+                    		dataJson.put("cograde",4);
+                    	}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[5]){
+                    		dataJson.put("cograde",3);
+                    	}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[6]){
+                    		dataJson.put("cograde",2);
+                    	}else {
+                    		dataJson.put("cograde",1);
+                    	}
                 	}
         		
                 	//아황산가스
@@ -311,24 +379,71 @@ public class ManageController {
                 	dataJson.put("so2name","아황산가스");
                 	dataJson.put("so2unit","ppm");
                 	dataJson.put("so2data",resultJson.getString("so2Value"));
-                	if (Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[0]) {
-                		dataJson.put("so2grade",8);
-                	}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[1]){
-                		dataJson.put("so2grade",7);
-                	}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[2]){
-                		dataJson.put("so2grade",6);
-                	}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[3]){
-                		dataJson.put("so2grade",5);
-                	}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[4]){
-                		dataJson.put("so2grade",4);
-                	}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[5]){
-                		dataJson.put("so2grade",3);
-                	}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[6]){
-                		dataJson.put("so2grade",2);
+                	if(resultJson.getString("so2Value").equals("-")) {
+                		dataJson.put("so2grade","-");
                 	}else {
-                		dataJson.put("so2grade",1);
+                    	if (Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[0]) {
+                    		dataJson.put("so2grade",8);
+                    	}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[1]){
+                    		dataJson.put("so2grade",7);
+                    	}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[2]){
+                    		dataJson.put("so2grade",6);
+                    	}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[3]){
+                    		dataJson.put("so2grade",5);
+                    	}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[4]){
+                    		dataJson.put("so2grade",4);
+                    	}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[5]){
+                    		dataJson.put("so2grade",3);
+                    	}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[6]){
+                    		dataJson.put("so2grade",2);
+                    	}else {
+                    		dataJson.put("so2grade",1);
+                    	}
                 	}
                 	jArray.add(dataJson);
+                }
+        	}
+        	br.close();
+        	urlconnection.disconnect();
+        	
+        	Map<String, Object> map = new HashMap<String, Object>();
+    		map.put("result",jArray);
+    		outsideTableJson = JSONObject.fromObject(map);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return outsideTableJson;
+	}
+	
+	// 외부 모니터링 지역 선택하기
+	@RequestMapping(value = "outAreaList", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject outAreaList(Model model, HttpServletRequest request) {
+		String area = request.getParameter("area");
+		
+		BufferedReader br = null;
+		JSONObject json = new JSONObject();
+		JSONArray jArray = new JSONArray();
+		
+		try {
+			//측정소에서 측정한 측정 데이터 가져오기
+        	String urlstr = "http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/getMsrstnList?"
+        			+ "serviceKey=ih2Gzic0JjfHpYSWXRXk4QNjcf9DaJo6F6hMKgBRQpn4T7YiXPelW%2B8Z%2BJCqkH1%2FSeeNJa%2BROW54XiWGBQmKTg%3D%3D"
+        			+ "&numOfRows=999&addr="+URLEncoder.encode(area,"UTF-8")+"&_returnType=json";
+        	URL url = new URL(urlstr);
+        	HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+        	urlconnection.setRequestMethod("GET");
+        	br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
+        	String result = "";
+        	String line = "";
+        	while((line = br.readLine()) != null) {
+        		result = result + line + "\n";
+        		JSONObject jsonObj = JSONObject.fromObject(result);
+                JSONArray jsonArr = JSONArray.fromObject(jsonObj.get("list"));
+                for(int i=0; i<jsonArr.size(); i++) {
+                	JSONObject resultJson = (JSONObject)jsonArr.get(i);
+                	jArray.add(resultJson.getString("stationName"));
                 }
         	}
         	br.close();
@@ -348,10 +463,8 @@ public class ManageController {
 	@RequestMapping(value = "remoteMain", method = RequestMethod.GET)
 	public String remoteMain(Model model, IotInfoVO iif, HttpServletRequest request, HttpSession session) {
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-		System.out.println("로그인 ID: " + member_id);
 
 		ArrayList<IotInfoVO> myIot = manageService.iotMain(member_id);
-		System.out.println("myIot: " + myIot);
 		
 		model.addAttribute("myIot", myIot);
 		session.setAttribute("myIot", myIot);
@@ -363,15 +476,11 @@ public class ManageController {
 	@ResponseBody
 	@RequestMapping(value = "/insideChart", method = RequestMethod.GET)
 	public JSONArray insideChart(Model model, HttpServletRequest request, HttpSession session) {
-		System.out.println("insideChart 들어옴");
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-		System.out.println(member_id);
 		
 		String date = request.getParameter("date");
-		System.out.println("date: " + date);
 		
 		ArrayList<MeasureDataVO> list = manageService.insideChart(member_id, date);
-		System.out.println("list : " + list);
 		model.addAttribute("list" + list);
 
 		JSONArray jArray = new JSONArray();
@@ -384,7 +493,6 @@ public class ManageController {
 			json.put("iotID", list.get(i).getIotID()); // 기기 ID
 			jArray.add(json);
 		}
-		System.out.println("jArray : " + jArray);
 		return jArray;
 	}
 

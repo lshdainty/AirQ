@@ -1,5 +1,5 @@
 ﻿var ip = sessionStorage.getItem('IP_ADDRESS');
-var user = JSON.parse(sessionStorage.getItem("user"))
+var user = JSON.parse(sessionStorage.getItem("user"));
 var member_id = user.member_id;
 
 //광역시/도 목록 가져오기

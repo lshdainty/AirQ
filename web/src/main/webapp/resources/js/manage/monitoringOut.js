@@ -1,57 +1,93 @@
-ajax("신암동");
+//페이지 들어왔을때 초기화 하기
+ajaxChart("신암동","pm10Value");
+ajaxTable("신암동");
+ajaxArea("대구");
+$("#areaName").val("신암동");
+$("#sido_code").val("대구").prop("selected", true);
+$("#sigoon_code").val("신암동").prop("selected", true);
+$("#matter").val("pm10Value").prop("selected", true);
+//페이지 들어왔을때 초기화 하기
 
 $(document).ready(function(){
-	$("#in").click(function(){
-		$("#inside").show();
-		$("#outside").hide();
-	});
+	$("#sido_code").change(function(){
+		ajaxArea($("#sido_code option:selected").val());
+	});//sido_code
 	
-	$("#out").click(function(){
-		$("#outside").show();
-		$("#inside").hide();
-	});
-});
+	$("#sigoon_code").change(function(){
+		var sigoon = $("#sigoon_code option:selected").val();
+		var matter = $("#matter option:selected").val();
+		ajaxChart(sigoon,matter);
+		ajaxTable(sigoon);
+		$("#areaName").val(sigoon);
+	});//sigoon_code
+	
+	$("#matter").change(function(){
+		var sigoon = $("#sigoon_code option:selected").val();
+		var matter = $("#matter option:selected").val();
+		ajaxChart(sigoon,matter);
+	});//matter
+});//document
 
-function ajax(area){
+//지역 변경 함수
+function ajaxArea(area){
 	$.ajax({
 		type : "GET",
-		url : "/outsideChart?area="+area,
+		url : "/outAreaList?area="+area,
+		dataType : "json",
+		async : false,
+		success : function(data) {
+			console.log(data.result);
+			var result="";
+			for(var i=0; i<data.result.length; i++){
+				result+="<option value='"+data.result[i]+"'>"+data.result[i]+"</option>";
+			}
+			$("#sigoon_code").empty();
+			$("#sigoon_code").append(result);
+		}
+	});//ajax
+}
+
+//차트 변경 함수
+function ajaxChart(area,matter){
+	$.ajax({
+		type : "GET",
+		url : "/outsideChart?area="+area+"&matter="+matter,
 		dataType : "json",
 		async : false,
 		success : function(data) {
 			am4core.ready(function() {
 
 				// Themes begin
-				am4core.useTheme(am4themes_spiritedaway);
+				am4core.useTheme(am4themes_animated);
 				// Themes end
 
 				// Create chart instance
 				var chart = am4core.create("outchartdiv", am4charts.XYChart);
 
 				// Add data
-				chart.data = data;
+				chart.data = data.result;
 
 				// Set input format for the dates
-				chart.dateFormatter.inputDateFormat = "yyyy MMMM dd hh:mm a";
+				chart.dateFormatter.inputDateFormat = "yyyy-MM-dd HH:mm";
 
 				// Create axes
 				var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
 				var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 				valueAxis.tooltip.disabled = true;
-				valueAxis.title.text = "측정 데이터";
+				valueAxis.title.text = "측정 값";
 
 				dateAxis.baseInterval = {
 					"timeUnit" : "second",
 					"count" : 1
 				};
-				dateAxis.tooltipDateFormat = "yyyy MMMM dd hh:mm a";
-				dateAxis.dateFormats.setKey("second", "hh:mm:ss a");
+				dateAxis.tooltipDateFormat = "yyyy-MM-dd HH:mm";
+				dateAxis.dateFormats.setKey("second", "HH:mm:ss");
 
 				// Create series
 				var series = chart.series.push(new am4charts.LineSeries());
-				series.dataFields.valueY = "measure";
-				series.dataFields.dateX = "measuretime";
-				series.tooltipText = "{measure}"
+				series.dataFields.valueY = "data";
+				series.dataFields.dateX = "dataTime";
+				series.tooltipText = "{data}"
 				series.strokeWidth = 2;
 				series.minBulletDistance = 15;
 
@@ -79,6 +115,38 @@ function ajax(area){
 				chart.cursor.xAxis = dateAxis;
 				chart.cursor.snapToSeries = series;
 			}); // 차트 끝
+		}
+	});
+}
+
+//테이블 변경 함수
+function ajaxTable(area){
+	$.ajax({
+		type : "GET",
+		url : "/outsideTable?area="+area,
+		dataType : "json",
+		async : false,
+		success : function(data) {
+			var result="";
+			$("#tbody").empty();
+			for(var i=0; i<data.result.length; i++){
+				result = "<tr>"+
+							"<th>"+data.result[i].dataTime+"</th>" +
+							"<td><img class='point' src='"+"/resources/images/point_"+data.result[i].pm10grade+".png"+"' alt='"+data.result[i].pm10grade+"'></td>" + 
+							"<td>"+data.result[i].pm10data+"</td>" + 
+							"<td><img class='point' src='"+"/resources/images/point_"+data.result[i].pm25grade+".png"+"' alt='"+data.result[i].pm25grade+"'></td>" + 
+							"<td>"+data.result[i].pm25data+"</td>" + 
+							"<td><img class='point' src='"+"/resources/images/point_"+data.result[i].o3grade+".png"+"' alt='"+data.result[i].o3grade+"'></td>" + 
+							"<td>"+data.result[i].o3data+"</td>" + 
+							"<td><img class='point' src='"+"/resources/images/point_"+data.result[i].no2grade+".png"+"' alt='"+data.result[i].no2grade+"'></td>" + 
+							"<td>"+data.result[i].no2data+"</td>" + 
+							"<td><img class='point' src='"+"/resources/images/point_"+data.result[i].cograde+".png"+"' alt='"+data.result[i].cograde+"'></td>" + 
+							"<td>"+data.result[i].codata+"</td>" + 
+							"<td><img class='point' src='"+"/resources/images/point_"+data.result[i].so2grade+".png"+"' alt='"+data.result[i].so2grade+"'></td>" + 
+							"<td>"+data.result[i].so2data+"</td>" + 
+						"</tr>"
+				$("#tbody").append(result);
+			}
 		}
 	});
 };

@@ -8,7 +8,11 @@
 
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="../../../www/resources/css/connect/swiper.css">
+    <!--
+    <link rel="stylesheet" href="../../../www/resources/css/manage/insideChart.css">
+    -->
     <link rel="stylesheet" href="../../../www/resources/css/connect/connect__app.css">
+
     <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
     <script src="../../../www/resources/js/TweenLite.js"></script>
     <script src="../../../www/resources/js/bootstrap.js"></script>
@@ -361,23 +365,25 @@
             <div class="swiper-slide">
                 <div class="inside-container">
                     <div class="myIot">내기기 목록</div>
-                    <div class="inside-cat">
-                        <select name="" id="">
-                            <option value="">option1</option>
-                            <option value="">option1</option>
-                            <option value="">option1</option>
-                            <option value="">option1</option>
 
-                        </select>
-                    </div>
-                    <!-- Chart 시작 -->
-                    <div class="chart-container">
-                        <div id="chartdiv"></div>
-                    </div>
-                    <!-- Chart 끝 -->
                     <input type="date" id="measureDate" onchange="measureDate(this)" />
+                    
+                    <!-- Chart 시작 -->
+                        <div id="chartdiv"></div>
+                    <!-- Chart 끝 -->
 
-                    <!-- 여기에 표 넣어야 됨-->
+                    <!-- Chart Detail 시작-->
+                    <div id="chartList">
+                        <h3>측정 상세 정보</h3>
+                            <table class="table">
+                            <th class="table__heading">Today</th>
+                                <th class="table__heading">측정 값<sub>(㎍/㎥)</sub></th>
+                                <th class="table__heading">기기 ID</th>
+                                <th class="table__heading">측정 코드</th>
+                            <tbody class="chartList-list"></tbody>
+                            </table>
+                    </div>
+                    <!-- Chart Detail 끝-->
                 </div>
             </div>
 
@@ -399,10 +405,9 @@
         src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tpllhjh4tl&submodules=geocoder"></script>
     <script type="text/javascript" src="https://navermaps.github.io/maps.js.ncp/docs/js/MarkerClustering.js"></script>
     <!-- Chart Resources -->
+    <script src="../../../www/resources/js/core.js"></script>
     <script src="../../../www/resources/js/charts.js"></script>
-    <script src="https://www.amcharts.com/lib/4/core.js"></script>
-    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
-    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/spiritedaway.js"></script>
     <!--------------------->
     <script src="../../../www/resources/js/connect/swiper.js"></script>
     <script src="../../../www/resources/js/connect/connect__app.js"></script>

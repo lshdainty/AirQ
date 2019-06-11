@@ -101,23 +101,27 @@ public class MobileManageController {
                 dataJson.put("name","미세먼지");
                 dataJson.put("unit","µg/m³");
                 dataJson.put("data",resultJson.getString("pm10Value"));
-        		if (Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[0]) {
-        			dataJson.put("grade",8);
-        		}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[1]){
-        			dataJson.put("grade",7);
-        		}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[2]){
-        			dataJson.put("grade",6);
-        		}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[3]){
-        			dataJson.put("grade",5);
-        		}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[4]){
-        			dataJson.put("grade",4);
-        		}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[5]){
-        			dataJson.put("grade",3);
-        		}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[6]){
-        			dataJson.put("grade",2);
-        		}else {
-        			dataJson.put("grade",1);
-        		}
+                if(resultJson.getString("pm10Value").equals("-")) {
+                	dataJson.put("grade","-");
+                }else {
+                	if (Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[0]) {
+            			dataJson.put("grade",8);
+            		}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[1]){
+            			dataJson.put("grade",7);
+            		}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[2]){
+            			dataJson.put("grade",6);
+            		}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[3]){
+            			dataJson.put("grade",5);
+            		}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[4]){
+            			dataJson.put("grade",4);
+            		}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[5]){
+            			dataJson.put("grade",3);
+            		}else if(Float.parseFloat((String)resultJson.get("pm10Value")) >= pm10Value[6]){
+            			dataJson.put("grade",2);
+            		}else {
+            			dataJson.put("grade",1);
+            		}
+                }
         		jArray.add(dataJson);
         		
         		//초미세먼지
@@ -125,23 +129,27 @@ public class MobileManageController {
         		dataJson.put("name","초미세먼지");
                 dataJson.put("unit","µg/m³");
                 dataJson.put("data",resultJson.getString("pm25Value"));
-        		if (Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[0]) {
-        			dataJson.put("grade",8);
-        		}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[1]){
-        			dataJson.put("grade",7);
-        		}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[2]){
-        			dataJson.put("grade",6);
-        		}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[3]){
-        			dataJson.put("grade",5);
-        		}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[4]){
-        			dataJson.put("grade",4);
-        		}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[5]){
-        			dataJson.put("grade",3);
-        		}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[6]){
-        			dataJson.put("grade",2);
-        		}else {
-        			dataJson.put("grade",1);
-        		}
+                if(resultJson.getString("pm25Value").equals("-")) {
+                	dataJson.put("grade","-");
+                }else {
+                	if (Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[0]) {
+            			dataJson.put("grade",8);
+            		}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[1]){
+            			dataJson.put("grade",7);
+            		}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[2]){
+            			dataJson.put("grade",6);
+            		}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[3]){
+            			dataJson.put("grade",5);
+            		}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[4]){
+            			dataJson.put("grade",4);
+            		}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[5]){
+            			dataJson.put("grade",3);
+            		}else if(Float.parseFloat((String)resultJson.get("pm25Value")) >= pm25Value[6]){
+            			dataJson.put("grade",2);
+            		}else {
+            			dataJson.put("grade",1);
+            		}
+                }
         		jArray.add(dataJson);
         		
         		//이산화질소
@@ -149,23 +157,27 @@ public class MobileManageController {
         		dataJson.put("name","이산화질소");
                 dataJson.put("unit","ppm");
                 dataJson.put("data",resultJson.getString("no2Value"));
-        		if (Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[0]) {
-        			dataJson.put("grade",8);
-        		}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[1]){
-        			dataJson.put("grade",7);
-        		}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[2]){
-        			dataJson.put("grade",6);
-        		}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[3]){
-        			dataJson.put("grade",5);
-        		}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[4]){
-        			dataJson.put("grade",4);
-        		}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[5]){
-        			dataJson.put("grade",3);
-        		}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[6]){
-        			dataJson.put("grade",2);
-        		}else {
-        			dataJson.put("grade",1);
-        		}
+                if(resultJson.getString("no2Value").equals("-")) {
+                	dataJson.put("grade","-");
+                }else {
+                	if (Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[0]) {
+            			dataJson.put("grade",8);
+            		}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[1]){
+            			dataJson.put("grade",7);
+            		}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[2]){
+            			dataJson.put("grade",6);
+            		}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[3]){
+            			dataJson.put("grade",5);
+            		}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[4]){
+            			dataJson.put("grade",4);
+            		}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[5]){
+            			dataJson.put("grade",3);
+            		}else if(Float.parseFloat((String)resultJson.get("no2Value")) >= no2Value[6]){
+            			dataJson.put("grade",2);
+            		}else {
+            			dataJson.put("grade",1);
+            		}
+                }
         		jArray.add(dataJson);
         		
         		//오존
@@ -173,23 +185,27 @@ public class MobileManageController {
         		dataJson.put("name","오존");
                 dataJson.put("unit","ppm");
                 dataJson.put("data",resultJson.getString("o3Value"));
-        		if (Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[0]) {
-        			dataJson.put("grade",8);
-        		}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[1]){
-        			dataJson.put("grade",7);
-        		}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[2]){
-        			dataJson.put("grade",6);
-        		}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[3]){
-        			dataJson.put("grade",5);
-        		}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[4]){
-        			dataJson.put("grade",4);
-        		}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[5]){
-        			dataJson.put("grade",3);
-        		}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[6]){
-        			dataJson.put("grade",2);
-        		}else {
-        			dataJson.put("grade",1);
-        		}
+                if(resultJson.getString("o3Value").equals("-")) {
+                	dataJson.put("grade","-");
+                }else {
+                	if (Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[0]) {
+            			dataJson.put("grade",8);
+            		}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[1]){
+            			dataJson.put("grade",7);
+            		}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[2]){
+            			dataJson.put("grade",6);
+            		}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[3]){
+            			dataJson.put("grade",5);
+            		}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[4]){
+            			dataJson.put("grade",4);
+            		}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[5]){
+            			dataJson.put("grade",3);
+            		}else if(Float.parseFloat((String)resultJson.get("o3Value")) >= o3Value[6]){
+            			dataJson.put("grade",2);
+            		}else {
+            			dataJson.put("grade",1);
+            		}
+                }
         		jArray.add(dataJson);
         		
         		//일산화탄소
@@ -197,23 +213,27 @@ public class MobileManageController {
         		dataJson.put("name","일산화탄소");
                 dataJson.put("unit","ppm");
                 dataJson.put("data",resultJson.getString("coValue"));
-        		if (Float.parseFloat((String)resultJson.get("coValue")) >= coValue[0]) {
-        			dataJson.put("grade",8);
-        		}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[1]){
-        			dataJson.put("grade",7);
-        		}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[2]){
-        			dataJson.put("grade",6);
-        		}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[3]){
-        			dataJson.put("grade",5);
-        		}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[4]){
-        			dataJson.put("grade",4);
-        		}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[5]){
-        			dataJson.put("grade",3);
-        		}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[6]){
-        			dataJson.put("grade",2);
-        		}else {
-        			dataJson.put("grade",1);
-        		}
+                if(resultJson.getString("coValue").equals("-")) {
+                	dataJson.put("grade","-");
+                }else {
+                	if (Float.parseFloat((String)resultJson.get("coValue")) >= coValue[0]) {
+            			dataJson.put("grade",8);
+            		}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[1]){
+            			dataJson.put("grade",7);
+            		}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[2]){
+            			dataJson.put("grade",6);
+            		}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[3]){
+            			dataJson.put("grade",5);
+            		}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[4]){
+            			dataJson.put("grade",4);
+            		}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[5]){
+            			dataJson.put("grade",3);
+            		}else if(Float.parseFloat((String)resultJson.get("coValue")) >= coValue[6]){
+            			dataJson.put("grade",2);
+            		}else {
+            			dataJson.put("grade",1);
+            		}
+                }
         		jArray.add(dataJson);
         		
         		//아황산가스
@@ -221,23 +241,27 @@ public class MobileManageController {
         		dataJson.put("name","아황산가스");
                 dataJson.put("unit","ppm");
                 dataJson.put("data",resultJson.getString("so2Value"));
-        		if (Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[0]) {
-        			dataJson.put("grade",8);
-        		}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[1]){
-        			dataJson.put("grade",7);
-        		}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[2]){
-        			dataJson.put("grade",6);
-        		}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[3]){
-        			dataJson.put("grade",5);
-        		}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[4]){
-        			dataJson.put("grade",4);
-        		}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[5]){
-        			dataJson.put("grade",3);
-        		}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[6]){
-        			dataJson.put("grade",2);
-        		}else {
-        			dataJson.put("grade",1);
-        		}
+                if(resultJson.getString("so2Value").equals("-")) {
+                	dataJson.put("grade","-");
+                }else {
+                	if (Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[0]) {
+            			dataJson.put("grade",8);
+            		}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[1]){
+            			dataJson.put("grade",7);
+            		}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[2]){
+            			dataJson.put("grade",6);
+            		}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[3]){
+            			dataJson.put("grade",5);
+            		}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[4]){
+            			dataJson.put("grade",4);
+            		}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[5]){
+            			dataJson.put("grade",3);
+            		}else if(Float.parseFloat((String)resultJson.get("so2Value")) >= so2Value[6]){
+            			dataJson.put("grade",2);
+            		}else {
+            			dataJson.put("grade",1);
+            		}
+                }
         		jArray.add(dataJson);
         	}
         	br.close();

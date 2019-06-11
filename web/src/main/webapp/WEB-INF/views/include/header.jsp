@@ -28,7 +28,7 @@
     <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
         <div class="container-fluid">
             <div class="d-flex align-items-center"><a href="/" class="navbar-brand py-1"><img
-                        src="/resources/images/airqWebLogo2.png" alt="Directory logo" style="height:35px;"></a>
+                        src="/resources/images/airqWebLogo.png" alt="Directory logo" style="height:35px;"></a>
             </div>
             <button type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
                 aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button>
@@ -77,8 +77,8 @@
                         </a>
                         <div aria-labelledby="communityDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
                             <h6 class="dropdown-header font-weight-normal">모니터링</h6>
-                            <a href="/monitoringMain" class="dropdown-item">내부 공기질 모니터링 </a>
-                            <a href="/monitoringOut" class="dropdown-item">외부 공기질 모니터링 </a>
+                            <a href="/monitoringIn" class="dropdown-item">내부 모니터링 </a>
+                            <a href="/monitoringOut" class="dropdown-item">외부 모니터링 </a>
                             <div class="dropdown-divider"></div>
 
 
