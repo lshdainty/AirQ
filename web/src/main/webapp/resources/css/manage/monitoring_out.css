@@ -1,10 +1,10 @@
-
 /*================================OutSide CSS==============================*/
 .category-container__border {
-	margin-top: 1rem;
 	width: 100%;
-	border-bottom: 1px solid #00275c;
 	height: 2.25rem;
+	margin: 0;
+	padding: 0;
+	border-bottom: none;
 }
 
 .category-container__border .category-option {
@@ -19,18 +19,19 @@
 	padding: 0;
 	border: 1px solid #000;
 	border-left: none;
+	border-bottom: none;
 	color: #929191;
 }
 
 #outchartdiv {
 	width: 100%;
 	height: 500px;
-	margin-top : 50px;
+	margin-top: 50px;
 }
 
-.point{
-	height : 25px;
-	width : 25px;
+.point {
+	height: 25px;
+	width: 25px;
 }
 
 .category-container__border .category-option:first-child {
@@ -42,23 +43,47 @@
 	border: none;
 }
 
+.table-container {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
 
-.table-container{
-	margin:0;
-	padding:0;
-	display:flex;
-	justify-content:space-around;
-}
-.measure-table{
+.grade-table {
 	width: 100%;
-	border:1px solid #000;
-	text-align:center;
+	display: flex;
+	justify-content: space-around;
+	border: 1px solid #000;
+	margin-bottom: 1rem;
 }
-.measure-table th{
+
+.grade-table .grade-box:last-child {
+	border-right: none;
+}
+
+.grade-box {
+	display: flex;
+	width: 100%;
+	margin: 0;
+	list-style: none;
+	border-right: 1px solid #000;
+	justify-content: space-around;
+}
+
+.measure-table {
+	width: 100%;
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.measure-table th {
 	padding: 0.25rem 0;
-	border:1px solid #000;
+	border: 1px solid #000;
 }
-.measure-table td{
-	border:1px solid #000;
+
+.measure-table td {
+	border: 1px solid #000;
 }
 /*=========================================================================*/

@@ -791,7 +791,8 @@ public class MypageController {
 	@ResponseBody
 	@RequestMapping(value = "reservationInfo", method = RequestMethod.GET ,produces = "application/text; charset=utf8")
 	public String getReservation(HttpServletRequest request, Model model) {
-		ArrayList<Map<String,Object>> reservation=mypageService.getReservation("6118128001");
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		ArrayList<Map<String,Object>> reservation=mypageService.getReservation(connectService.company_code(member_id));
 		System.out.println(reservation);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("reservation", reservation);
