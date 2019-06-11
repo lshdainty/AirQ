@@ -45,22 +45,6 @@
 		<!-- Red : https://www.airkorea.or.kr/web/images/sub/item04.png  -->
 		<%-------------%>
 		<table class="measure-table">
-			<caption>측정자료 검색 결과</caption>
-			<colgroup>
-				<col style="width: 100px">
-				<col style="width: 35px">
-				<col style="width: 65px">
-				<col style="width: 35px">
-				<col style="width: 65px">
-				<col style="width: 35px">
-				<col style="width: 65px">
-				<col style="width: 35px">
-				<col style="width: 65px">
-				<col style="width: 35px">
-				<col style="width: 65px">
-				<col style="width: 35px">
-				<col style="width: 65px">
-			</colgroup>
 			<thead>
 				<tr>
 					<th rowspan="2">날짜<br>(월-일:시)

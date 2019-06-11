@@ -8,7 +8,7 @@
 <link rel="stylesheet"
    href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 <!-- CSS Files -->
-<link href="resources/css/mypage/asset/material-dashboard.css"
+<link href="/resources/css/mypage/asset/material-dashboard.css"
    rel="stylesheet" />
 <div class="wrapper ">
    <div class="sidebar" data-color="purple" data-background-color="black"
