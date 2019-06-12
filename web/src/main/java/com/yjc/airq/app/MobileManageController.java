@@ -527,4 +527,97 @@ public class MobileManageController {
 		System.out.println("jArray : " + jArray);
 		return jArray;
 	}	
+	
+		// 외부 모니터링 차트 데이터 가져오기
+		@CrossOrigin(origins = "*")
+		@RequestMapping(value = "m.outsideChart", method = RequestMethod.GET)
+		@ResponseBody
+		public JSONObject outSideChart(Model model, HttpServletRequest request) {
+			String area = request.getParameter("area");
+			String matter = request.getParameter("matter");
+			
+			BufferedReader br = null;
+			JSONObject outsideChartJson = new JSONObject();
+			JSONArray jArray = new JSONArray();
+			
+			try {
+				//측정소에서 측정한 측정 데이터 가져오기
+		        String urlstr = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?"
+		        			+ "serviceKey=ih2Gzic0JjfHpYSWXRXk4QNjcf9DaJo6F6hMKgBRQpn4T7YiXPelW%2B8Z%2BJCqkH1%2FSeeNJa%2BROW54XiWGBQmKTg%3D%3D"
+		        			+ "&numOfRows=999&stationName="+URLEncoder.encode(area,"UTF-8")+"&dataTerm=DAILY&ver=1.0&_returnType=json";
+		        URL url = new URL(urlstr);
+		        HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+		        urlconnection.setRequestMethod("GET");
+		        br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
+		        String result = "";
+		        String line = "";
+		        while((line = br.readLine()) != null) {
+		        	result = result + line + "\n";
+		        	JSONObject jsonObj = JSONObject.fromObject(result);
+	                JSONArray jsonArr = JSONArray.fromObject(jsonObj.get("list"));
+	                for(int i=jsonArr.size()-1; i>=0; i--) {
+	                	JSONObject resultJson = (JSONObject)jsonArr.get(i);
+	                	JSONObject dataJson = new JSONObject();
+	                	dataJson.put("dataTime",resultJson.getString("dataTime"));
+	                	dataJson.put("data",resultJson.getString(matter));
+	                	jArray.add(dataJson);
+	                }
+		        }
+		        br.close();
+	        	urlconnection.disconnect();
+	        	
+	        	Map<String, Object> map = new HashMap<String, Object>();
+	    		map.put("result",jArray);
+	    		outsideChartJson = JSONObject.fromObject(map);
+			}catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
+			return outsideChartJson;
+		}
+		
+		// 외부 모니터링 지역 선택하기
+		@CrossOrigin(origins = "*")
+		@RequestMapping(value = "m.outAreaList", method = RequestMethod.GET)
+		@ResponseBody
+		public JSONObject outAreaList(Model model, HttpServletRequest request) {
+			String area = request.getParameter("area");
+			
+			BufferedReader br = null;
+			JSONObject json = new JSONObject();
+			JSONArray jArray = new JSONArray();
+			
+			try {
+				//측정소에서 측정한 측정 데이터 가져오기
+	        	String urlstr = "http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/getMsrstnList?"
+	        			+ "serviceKey=ih2Gzic0JjfHpYSWXRXk4QNjcf9DaJo6F6hMKgBRQpn4T7YiXPelW%2B8Z%2BJCqkH1%2FSeeNJa%2BROW54XiWGBQmKTg%3D%3D"
+	        			+ "&numOfRows=999&addr="+URLEncoder.encode(area,"UTF-8")+"&_returnType=json";
+	        	URL url = new URL(urlstr);
+	        	HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+	        	urlconnection.setRequestMethod("GET");
+	        	br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
+	        	String result = "";
+	        	String line = "";
+	        	while((line = br.readLine()) != null) {
+	        		result = result + line + "\n";
+	        		JSONObject jsonObj = JSONObject.fromObject(result);
+	                JSONArray jsonArr = JSONArray.fromObject(jsonObj.get("list"));
+	                for(int i=0; i<jsonArr.size(); i++) {
+	                	JSONObject resultJson = (JSONObject)jsonArr.get(i);
+	                	jArray.add(resultJson.getString("stationName"));
+	                }
+	        	}
+	        	br.close();
+	        	urlconnection.disconnect();
+	        	
+	        	Map<String, Object> map = new HashMap<String, Object>();
+	    		map.put("result",jArray);
+	    		json = JSONObject.fromObject(map);
+			}catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
+			return json;
+		}
+		
 }

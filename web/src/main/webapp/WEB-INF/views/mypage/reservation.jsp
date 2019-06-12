@@ -15,6 +15,6 @@
 	<input type="text" id="member_id" value="${memberId }" />
 	<h1>${memberId }님의 모니터링입니다.</h1>
 	<div id="chartdiv"></div>
-	<script src="resources/js/mypage/reservation.js"></script>
+	<script src="/resources/js/mypage/reservation.js"></script>
 </body>
 </html>

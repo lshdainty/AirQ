@@ -1,0 +1,338 @@
+.load-gate {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    z-index: 3000;
+}
+
+html,
+body {
+    position: relative;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    background: #fff;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.connect_topNav {
+    display: block;
+    background: #fff;
+    height: 2.5rem;
+    text-align: center;
+    padding-top: .25rem;
+}
+
+.connect_topNav button {
+    height: 100%;
+    width: 45%;
+    background: none;
+    border: none;
+    font-size: 1rem;
+}
+
+.connect_active {
+    font-weight: bold;
+}
+
+.inside-container {
+    width: 100%;
+    text-align: center;
+}
+
+.myIot {
+    padding: 0 1rem;
+    font-weight: bold;
+}
+
+.chart-container {
+    width: 100%;
+    border: 1px solid #000;
+    margin-top: 1.5rem;
+    height: 10rem;
+}
+
+.met-container {
+    font-size: .8rem;
+    width: 100%;
+    margin: auto;
+}
+
+.met-line {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.met-box::before {
+    border-left: 2px solid #000;
+}
+
+.met-box {
+    min-width: 45%;
+    margin-top: .5rem;
+    background: #dfd8df;
+    padding: .25rem;
+    font-weight: bold;
+    border-radius: .5rem;
+    justify-content: space-around;
+    display: flex;
+}
+
+.division-line {
+    border-right: 2px solid #fff;
+}
+
+.map-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+}
+
+.map-container {
+    width: 100%;
+    height: 20rem;
+    border: 1px solid #000;
+}
+
+.pin_point {
+    position: absolute;
+    display: none;
+    top: 50%;
+    margin: 0 0 0 -50px;
+    transform: translate(0, -100%);
+    -webkit-transform: translate(0, -100%);
+}
+
+#area {
+    margin-top: 6px;
+}
+
+#value {
+    margin-bottom: 6px;
+    margin-left: 2px;
+    text-align: left !important;
+}
+
+.station_a {
+    position: relative;
+    display: block;
+    width: 125px;
+    margin-bottom: 25px;
+    min-height: 51px;
+    padding: 0 0 0px 0;
+    background: #fff;
+    border-radius: 2px;
+    -webkit-border-radius: 5px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    font-size: 11px;
+    line-height: 12px;
+    text-align: center;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.station_a:before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 45%;
+    width: 11px;
+    height: 11px;
+    background: #fff;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    z-index: 10;
+}
+
+.station_name {
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: #323232;
+    font-weight: 500;
+    white-space: normal;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.matter_name {
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: #323232;
+    font-weight: 500;
+    white-space: normal;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.matter_value {
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: #323232;
+    font-weight: 500;
+    white-space: normal;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.figure {
+    display: block;
+    position: relative;
+    word-wrap: break-word;
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: bold;
+    text-align: center;
+    z-index: 10;
+    color: #323232;
+}
+
+.pin_s {
+    cursor: pointer;
+    width: 22px;
+    height: 30px;
+}
+
+.pin_s_img {
+    margin: 0px;
+    padding: 0px;
+    border: 0px solid transparent;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    box-sizing: content-box !important;
+    max-width: none !important;
+    max-height: none !important;
+    min-width: 0px !important;
+    min-height: 0px !important;
+    position: absolute;
+    cursor: inherit;
+    width: 22px;
+    height: 33px;
+    left: 0px;
+    top: 0px;
+}
+
+#htmlMarker1 {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    line-height: 42px;
+    font-size: 10px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    background: url(../../../www/resources/images/cluster-marker-1.png);
+    background-size: contain;
+}
+
+#htmlMarker2 {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    line-height: 42px;
+    font-size: 10px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    background: url(../../../www/resources/images/cluster-marker-2.png);
+    background-size: contain;
+}
+
+#htmlMarker3 {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    line-height: 42px;
+    font-size: 10px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    background: url(../../../www/resources/images/cluster-marker-3.png);
+    background-size: contain;
+}
+
+#htmlMarker4 {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    line-height: 42px;
+    font-size: 10px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    background: url(../../../www/resources/images/cluster-marker-4.png);
+    background-size: contain;
+}
+
+#htmlMarker5 {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    line-height: 42px;
+    font-size: 10px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    background: url(../../../www/resources/images/cluster-marker-5.png);
+    background-size: contain;
+}
+
+.area-container{
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+.select_box{
+    width: 100%;
+}
+.area-container select{
+    width: 100%;
+}
