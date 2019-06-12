@@ -179,6 +179,7 @@ $(document).ready(function(){
 	$("#matter").change(function(){
 		var sigoon = $("#sigoon_code option:selected").val();
 		var matter = $("#matter option:selected").val();
+		$('.ajax-data').empty();
 		ajaxChart(sigoon,matter);
 	});//matter
 });//document
@@ -210,6 +211,8 @@ function ajaxChart(area,matter){
 		dataType : "json",
 		async : false,
 		success : function(data) {
+			console.log(data);
+			$('.ajax-data').empty();
 			am4core.ready(function() {
 
 				// Themes begin
@@ -269,6 +272,16 @@ function ajaxChart(area,matter){
 				chart.cursor.xAxis = dateAxis;
 				chart.cursor.snapToSeries = series;
 			}); // 차트 끝
+			var measureTable = $('.measure_table');
+			var matter = $("#matter option:selected").text();
+			var table="";
+				for(i=0; i<data.result.length;i++){
+					var resultNum = data.result.length-i-1;
+					table+='<div class="measure_box" style="background: #ddd">'+
+								'<div class="box-content measure_time">'+data.result[resultNum].dataTime+'</div>'+
+								'<div class="box-content measure_val">'+data.result[resultNum].data+'</div></div>';
+				}
+			$('.ajax-data').append(table);
 		}
 	});
 }
@@ -277,10 +290,11 @@ function ajaxChart(area,matter){
 function ajaxTable(area){
 	$.ajax({
 		type : "GET",
-		url : "/outsideTable?area="+area,
+		url : ip+"/m.outsideTable?area="+area,
 		dataType : "json",
 		async : false,
 		success : function(data) {
+			console.log(data);
 			var result="";
 			$("#tbody").empty();
 			for(var i=0; i<data.result.length; i++){
@@ -310,98 +324,5 @@ function ajaxTable(area){
 
 
 
-
-
-
-
-(function () {
-	var member_id = JSON.parse(sessionStorage.getItem("user")).member_id;
-	var query = {
-		member_id: member_id
-	};
-	$.ajax({
-		type
-	});
-	$.ajax({
-		async: true,
-		type: "POST",
-		url: "http://39.127.7.69/m.mReservation",
-		data: query,
-		dataType: "json",
-		success: function (data) {
-			console.log(data);
-
-			am4core.ready(function () {
-
-
-				// Themes begin
-				// Themes end
-
-
-
-				// Create chart instance
-				var chart = am4core.create("outChart", am4charts.XYChart);
-
-				// Add data
-				chart.data = data.reservation;
-
-				// Create axes
-				var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-				dateAxis.renderer.grid.template.location = 0;
-				dateAxis.renderer.minGridDistance = 50;
-
-				var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-				valueAxis.logarithmic = false;
-				valueAxis.renderer.minGridDistance = 20;
-
-				// Create series
-
-				var series = chart.series.push(new am4charts.ColumnSeries());
-				series.dataFields.valueY = "MEASURE_VALUE";
-				series.dataFields.dateX = "MEASURE_TIME";
-				series.name = "";
-				series.columns.template.tooltipText = "Series: {name}\nCategory: {categoryX}\nValue: {valueY}";
-				series.columns.template.fill = am4core.color("#104547");
-
-				
-				var series2 = chart.series.push(new am4charts.LineSeries());
-				series2.name = "Units";
-				series2.stroke = am4core.color("#CDA2AB");
-				series2.strokeWidth = 3;
-				series2.dataFields.valueY = "MEASURE_VALUE";
-				series2.dataFields.dateX = "MEASURE_TIME";
-
-				var bullet = series.bullets.push(new am4charts.CircleBullet());
-				bullet.circle.fill = am4core.color("#fff");
-				bullet.circle.strokeWidth = 3;
-
-				// Add cursor
-				chart.cursor = new am4charts.XYCursor();
-				chart.cursor.fullWidthLineX = true;
-				chart.cursor.xAxis = dateAxis;
-				chart.cursor.lineX.strokeWidth = 0;
-				chart.cursor.lineX.fill = am4core.color("#000");
-				chart.cursor.lineX.fillOpacity = 0.1;
-
-				// Add scrollbar
-				//chart.scrollbarX = new am4core.Scrollbar();
-				chart.cursor = new am4charts.XYCursor();
-				chart.cursor.behavior = "none";
-
-				// Add a guide
-				let range = valueAxis.axisRanges.create();
-				range.value = 90.4;
-				range.grid.stroke = am4core.color("#396478");
-				range.grid.strokeWidth = 1;
-				range.grid.strokeOpacity = 1;
-				range.grid.strokeDasharray = "3,3";
-				range.label.inside = true;
-				range.label.text = "Average";
-				range.label.fill = range.grid.stroke;
-				range.label.verticalCenter = "bottom";// end am4core.ready()
-			});
-		}
-	});
-}());
 
 

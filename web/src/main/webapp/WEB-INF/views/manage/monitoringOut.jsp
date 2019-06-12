@@ -56,43 +56,43 @@
 			</div>
 			<div class="grade-box">
 				<div class="grade-img">
-					<img class="point" src="/resources/images/point_1.png" alt="1">
+					<img class="point" src="/resources/images/point_2.png" alt="1">
 				</div>
 				<div class="grade-explain">좋음</div>
 			</div>
 			<div class="grade-box">
 				<div class="grade-img">
-					<img class="point" src="/resources/images/point_1.png" alt="1">
+					<img class="point" src="/resources/images/point_3.png" alt="1">
 				</div>
 				<div class="grade-explain">양호</div>
 			</div>
 			<div class="grade-box">
 				<div class="grade-img">
-					<img class="point" src="/resources/images/point_1.png" alt="1">
+					<img class="point" src="/resources/images/point_4.png" alt="1">
 				</div>
 				<div class="grade-explain">보통</div>
 			</div>
 			<div class="grade-box">
 				<div class="grade-img">
-					<img class="point" src="/resources/images/point_1.png" alt="1">
+					<img class="point" src="/resources/images/point_5.png" alt="1">
 				</div>
 				<div class="grade-explain">나쁨</div>
 			</div>
 			<div class="grade-box">
 				<div class="grade-img">
-					<img class="point" src="/resources/images/point_1.png" alt="1">
+					<img class="point" src="/resources/images/point_6.png" alt="1">
 				</div>
 				<div class="grade-explain">상당히 나쁨</div>
 			</div>
 			<div class="grade-box">
 				<div class="grade-img">
-					<img class="point" src="/resources/images/point_1.png" alt="1">
+					<img class="point" src="/resources/images/point_7.png" alt="1">
 				</div>
 				<div class="grade-explain">매우 나쁨</div>
 			</div>
 			<div class="grade-box">
 				<div class="grade-img">
-					<img class="point" src="/resources/images/point_1.png" alt="1">
+					<img class="point" src="/resources/images/point_8.png" alt="1">
 				</div>
 				<div class="grade-explain">최악</div>
 			</div>
