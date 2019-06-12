@@ -600,11 +600,4 @@ public class ManageController {
 		}
 		return "Yes";
 	}
-
-	// 공기질 모니터링 메인페이지로 가기
-	@RequestMapping(value = "control", method = RequestMethod.GET)
-	public String control(Model model) {
-		System.out.println("sensorControl 컨트롤러");
-		return "manage/control";
-	}
 }

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -480,7 +481,7 @@ public class MypageController {
 		
 		return "mypage/reservation";
 	}
-	
+	@CrossOrigin(origins = "*")
 	@RequestMapping(value="mReservation", method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject mReservation(String member_id) {

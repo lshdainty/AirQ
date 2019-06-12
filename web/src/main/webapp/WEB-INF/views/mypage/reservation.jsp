@@ -57,6 +57,6 @@
 			</div>
 		</div>
 	</div>
-	<script src="resources/js/mypage/reservation.js"></script>
+	<script src="/resources/js/mypage/reservation.js"></script>
 </body>
 </html>
