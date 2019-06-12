@@ -12,7 +12,6 @@
 		data:query,
 		dataType:"json",
 		success:function(data){
-			console.log(data);
 			am4core.ready(function() {
 			// Themes begin
 			am4core.useTheme(am4themes_animated);
@@ -71,6 +70,30 @@
 			range.label.fill = range.grid.stroke;
 			range.label.verticalCenter = "bottom";// end am4core.ready()
 			});
+			
+			$("#measure_value_avg").append(data.measure_value_avg);
+			$("#badNum").append(data.badNum);
+			$("#measure_value").append(data.measure_value);
 		}
 	});
+	var sum=0;
+	var member_id=$("#member_id").val();
+	setInterval(function(){
+		
+		$.ajax({
+			type:"post",
+			data:{member_id:member_id},
+			url:"/realTimeReservation",
+			dataType:"json",
+			success:function(data){
+				$(".font").text('');
+				$("#measure_value_avg").append(data.measure_value_avg);
+				$("#badNum").append(data.badNum);
+				$("#measure_value").append(data.measure_value);
+			}
+		});
+		
+		
+		
+	},6000);
 }())

@@ -1,6 +1,70 @@
 @charset "UTF-8";
 
+#reservationTitle {
+	text-align: center;
+	font-size: 25px;
+	color: #747474;
+	margin-bottom: 5px;
+}
+
+#p {
+	margin-left: 50px;
+	color: #747474;
+}
+
 #chartdiv {
-  width: 100%;
-  height: 500px;
+	width: 100%;
+	height: 500px;
+}
+
+.circle {
+	justify-content: space-around;
+	border-radius: 100%;
+	overflow: hidden;
+	display: flex;
+	width: 200px;
+	height: 200px;
+}
+
+.circle-container {
+	margin: 0 1rem;
+}
+
+.contain {
+	width: 100%;
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+}
+
+#average {
+	background: #B2EBF4;
+}
+
+#bad {
+	background: #B2CCFF;
+}
+
+#realTime {
+	background: #D1B2FF;
+}
+
+.inside-val {
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+
+.inside-val p {
+	display: inline-block;
+	vertical-align: middle;
+	margin: auto;
+}
+
+.circle-info {
+	text-align: center;
+}
+
+.font {
+	font-size: 60px;
 }

@@ -277,4 +277,23 @@ public class MypageServiceImplement implements MypageService{
 	public ArrayList<Map<String, Object>> reservation(String member_id) {
 		return matterMapper.reservation(member_id);
 	}
+	
+	//나쁨 횟수
+	@Override
+	public int badNum(String member_id) {
+		return matterMapper.badNum(member_id);
+	}
+	
+	//일주일 미세먼지 평균
+	@Override
+	public String measure_value_avg(String member_id) {
+		return matterMapper.measure_value_avg(member_id);
+	}
+	
+	//현재 미세먼지 농도
+	@Override
+	public int measure_value(String member_id) {
+		return matterMapper.measure_value(member_id);
+	}
+	
 }

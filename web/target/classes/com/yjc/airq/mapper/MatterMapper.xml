@@ -22,12 +22,64 @@
 
 	<!-- 예약자 모니터링 -->
 	<select id="reservation" resultType="map">
-		select to_char(m.measure_time,'yyyy-mm-dd') measure_time,
+		select
+		to_char(m.measure_time,'yyyy-mm-dd') measure_time,
 		to_number(to_char(avg(measure_value),'99.9')) measure_value
-		from measure_data m, iot_info i
-		where m.iot_id=i.iot_id and member_id=#{member_id}
+		from
+		measure_data m, iot_info i
+		where m.iot_id=i.iot_id and
+		member_id=#{member_id}
+		group by m.iot_id,i.member_id,
+		to_char(m.measure_time,'yyyy-mm-dd')
+		having
+		to_char(m.measure_time,'yyyy-mm-dd') > sysdate-7
+		order by measure_time
+		desc
+	</select>
+
+	<!-- 나쁨 횟수 -->
+	<select id="badNum" resultType="int">
+		select count(*)
+		from ( select
+		to_char(m.measure_time,'yyyy-mm-dd') measure_time,
+		to_number(to_char(avg(measure_value),'99.9')) measure_value
+		from
+		measure_data m, iot_info i
+		where m.iot_id=i.iot_id and
+		member_id=#{member_id}
+		group by m.iot_id,i.member_id,
+		to_char(m.measure_time,'yyyy-mm-dd')
+		having
+		to_char(m.measure_time,'yyyy-mm-dd') > sysdate-7
+		order by
+		measure_time
+		desc) o
+		where o.measure_value>50
+	</select>
+
+	<!-- 일주일 미세먼지 평균 -->
+	<select id="measure_value_avg" resultType="String">
+		select
+		to_char(avg(o.measure_value),'999.9') measure_value_avg
+		from ( select
+		to_char(m.measure_time,'yyyy-mm-dd') measure_time,
+		to_number(to_char(avg(measure_value),'99.9')) measure_value
+		from
+		measure_data m, iot_info i
+		where m.iot_id=i.iot_id and member_id='test'
 		group by m.iot_id,i.member_id, to_char(m.measure_time,'yyyy-mm-dd')
 		having to_char(m.measure_time,'yyyy-mm-dd') > to_char(sysdate-7,'yyyy-mm-dd')
-		order by measure_time desc
+		order by measure_time desc) o
+	</select>
+
+	<!-- 현재 미세먼지 농도 -->
+	<select id="measure_value" resultType="int">
+		select o.measure_value
+		from (select *
+		from measure_data m, iot_info i
+		where m.iot_id=i.iot_id and
+		i.member_id=#{member_id}
+		order by m.measure_time desc) o
+		where rownum=1
 	</select>
 </mapper>

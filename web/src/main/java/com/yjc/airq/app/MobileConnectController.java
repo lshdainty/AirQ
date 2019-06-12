@@ -145,13 +145,13 @@ public class MobileConnectController {
 	@RequestMapping(value="m.tCheck", method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject tCheck(HttpServletRequest request) {
-		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String member_id=request.getParameter("member_id");
 		String member_devision=connectService.member_devision(member_id);
 		
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("member_devision",member_devision);
 		JSONObject json = JSONObject.fromObject(map);
-		
+		System.out.println(json);
 		return json;
 	}
 
