@@ -705,7 +705,7 @@ public class ConnectController {
 		String tenderDeadline = Integer.toString(deadline);
 		String bid_open_date = Integer.toString(bid_open);
 		String member_devision = ((MemberVO) request.getSession().getAttribute("user")).getMember_devision();
-
+		
 		map.put("member_devision", member_devision);
 		map.put("tenderCheck", tenderCheck);
 		map.put("deadline", tenderDeadline);
