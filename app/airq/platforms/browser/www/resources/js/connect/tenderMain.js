@@ -1,3 +1,5 @@
+var ip = sessionStorage.getItem('IP_ADDRESS');
+
 $(document).ready(function(){
 	//리스트 클릭 시 세부 내용으로 이동
 	$(document).on('click','.tenderLiContent',function(){

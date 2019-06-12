@@ -17,4 +17,13 @@ public interface MatterMapper {
 	
 	//예약자 모니터링
 	public ArrayList<Map<String,Object>> reservation(String member_id);
+	
+	//나쁨 횟수
+	public int badNum(String member_id);
+	
+	//일주일 미세먼지 평균
+	public String measure_value_avg(String member_id);
+
+	//현재 미세먼지 농도
+	public int measure_value(String member_id);
 };

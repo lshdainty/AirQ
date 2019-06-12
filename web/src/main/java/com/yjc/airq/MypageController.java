@@ -469,7 +469,14 @@ public class MypageController {
 	@RequestMapping(value="reservation", method=RequestMethod.GET)
 	public String reservation(HttpServletRequest request, Model model) {
 		String memberId=request.getParameter("member_id");
+		int badNum=mypageService.badNum(memberId);
+		String measure_value_avg=mypageService.measure_value_avg(memberId);
+		int measure_value=mypageService.measure_value(memberId);
+		
 		model.addAttribute("memberId",memberId);
+		model.addAttribute("badNum",badNum);
+		model.addAttribute("measure_value_avg",measure_value_avg);
+		model.addAttribute("measure_value",measure_value);
 		
 		return "mypage/reservation";
 	}
@@ -477,18 +484,38 @@ public class MypageController {
 	@RequestMapping(value="mReservation", method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject mReservation(String member_id) {
+		int badNum=mypageService.badNum(member_id);
+		String measure_value_avg=mypageService.measure_value_avg(member_id);
+		int measure_value=mypageService.measure_value(member_id);
+		
 		ArrayList<Map<String,Object>> reservation=mypageService.reservation(member_id);
 		
 		JSONArray rArr=JSONArray.fromObject(reservation);
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("reservation", rArr);
+		map.put("badNum",badNum);
+		map.put("measure_value_avg",measure_value_avg);
+		map.put("measure_value",measure_value);
 		JSONObject json=JSONObject.fromObject(map);
-		System.out.println(json);
 		
 		return json;
 	}
 	
-	
+	@RequestMapping(value="realTimeReservation", method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject realTimeReservation(String member_id) {
+		int badNum=mypageService.badNum(member_id);
+		String measure_value_avg=mypageService.measure_value_avg(member_id);
+		int measure_value=mypageService.measure_value(member_id);
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("badNum",badNum);
+		map.put("measure_value_avg",measure_value_avg);
+		map.put("measure_value",measure_value);
+		JSONObject json=JSONObject.fromObject(map);
+		
+		return json;
+	}
 
 	// mypageSeller 글관리 가기
 	@RequestMapping(value = "mypageSellerPosts", method = RequestMethod.GET)
