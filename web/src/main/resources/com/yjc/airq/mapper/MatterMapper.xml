@@ -27,7 +27,7 @@
 		from measure_data m, iot_info i
 		where m.iot_id=i.iot_id and member_id=#{member_id}
 		group by m.iot_id,i.member_id, to_char(m.measure_time,'yyyy-mm-dd')
-		having to_char(m.measure_time,'yyyy-mm-dd') > sysdate-7
+		having to_char(m.measure_time,'yyyy-mm-dd') > to_char(sysdate-7,'yyyy-mm-dd')
 		order by measure_time desc
 	</select>
 </mapper>

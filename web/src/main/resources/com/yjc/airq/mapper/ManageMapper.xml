@@ -49,4 +49,25 @@
 		and to_char(MD.MEASURE_TIME, 'yyyy-mm-dd') = to_char(#{date})
 		order by MD.MEASURE_TIME
 	</select>
+	
+	<!-- 실시간 차트 기본 데이터 30개 가져오기 -->
+	<select id="getOldData" resultType="map">
+		select measure_value value, to_char(measure_time,'YYYY-MM-DD HH24:MI:SS') time
+		from(
+				select measure_value, measure_time
+				from measure_data
+				order by measure_time desc)
+		where <![CDATA[rownum <=30]]>
+		order by to_timestamp(measure_time,'YYYY-MM-DD HH24:MI:SS')
+	</select>
+	
+	<!-- 실시간 차트 최신 데이터 가져오기 -->
+	<select id="getNowData" resultType="map">
+		select measure_value value, to_char(measure_time,'YYYY-MM-DD HH24:MI:SS') time
+		from(
+				select measure_value, measure_time
+				from measure_data
+				order by measure_time desc)
+		where <![CDATA[rownum <=1]]>
+	</select>
 </mapper>

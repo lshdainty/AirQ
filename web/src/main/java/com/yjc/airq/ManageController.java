@@ -47,6 +47,12 @@ public class ManageController {
 	public String monitoringOut(Model model) {
 		return "manage/monitoringOut";
 	}
+	
+	// 라이브 차트 테스트페이지 가기
+	@RequestMapping(value = "chartData", method = RequestMethod.GET)
+	public String chartData(Model model) {
+		return "manage/chartData";
+	}
 	// 각 시/도 미세먼지 수치 가져오기 지도부분 코드 
 //	@RequestMapping(value = "dustData", method = RequestMethod.GET)
 //	@ResponseBody
@@ -459,6 +465,34 @@ public class ManageController {
 		return json;
 	}
 	
+	// 실시간 차트 기본 데이터 30개 가져오기
+	@RequestMapping(value = "inOldData", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONArray inOldData() {
+		ArrayList<Map<String,Object>> oldData = manageService.getOldData();
+		
+		System.out.println(oldData);
+		
+		JSONArray json = JSONArray.fromObject(oldData);
+		System.out.println(json);
+		
+		return json;
+	}
+	
+	// 실시간 차트 기본 데이터 30개 가져오기
+	@RequestMapping(value = "inNowData", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONArray inNowData() {
+		ArrayList<Map<String,Object>> nowData = manageService.getNowData();
+			
+		System.out.println(nowData);
+			
+		JSONArray json = JSONArray.fromObject(nowData);
+		System.out.println(json);
+			
+		return json;
+	}
+	
 	// 원격제어 메인페이지로 가기
 	@RequestMapping(value = "remoteMain", method = RequestMethod.GET)
 	public String remoteMain(Model model, IotInfoVO iif, HttpServletRequest request, HttpSession session) {
@@ -494,12 +528,6 @@ public class ManageController {
 			jArray.add(json);
 		}
 		return jArray;
-	}
-
-	// 실외 모니터링 페이지 이동
-	@RequestMapping(value = "outside", method = RequestMethod.GET)
-	public String outside(Model model) {
-		return "manage/monitoringMain";
 	}
 
 	// IoT 원격제어 제품 등록 페이지로 가기
@@ -599,12 +627,5 @@ public class ManageController {
 			return "No";
 		}
 		return "Yes";
-	}
-
-	// 공기질 모니터링 메인페이지로 가기
-	@RequestMapping(value = "control", method = RequestMethod.GET)
-	public String control(Model model) {
-		System.out.println("sensorControl 컨트롤러");
-		return "manage/control";
 	}
 }

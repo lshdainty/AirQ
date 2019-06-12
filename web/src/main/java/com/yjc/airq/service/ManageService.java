@@ -25,6 +25,12 @@ public interface ManageService {
 	// inside Chart
 	public ArrayList<MeasureDataVO> insideChart(@Param("member_id") String member_id, @Param("date") String date);
 
+	// 실시간 차트 기본 데이터 30개 가져오기
+	public ArrayList<Map<String,Object>> getOldData();
+	
+	// 실시간 차트 최신 데이터 가져오기
+	public ArrayList<Map<String,Object>> getNowData();
+	
 	// 차트 세부내용
 //	public ArrayList<MeasureDataVO> chartValue(String member_id);
 }

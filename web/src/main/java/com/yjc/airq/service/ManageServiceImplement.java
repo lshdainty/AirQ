@@ -40,6 +40,16 @@ public class ManageServiceImplement implements ManageService{
 		return mapper.insideChart(member_id, date);
 	}
 
+	// 실시간 차트 기본 데이터 30개 가져오기
+	public ArrayList<Map<String,Object>> getOldData(){
+		return mapper.getOldData();
+	}
+	
+	// 실시간 차트 최신 데이터 가져오기
+	public ArrayList<Map<String,Object>> getNowData(){
+		return mapper.getNowData();
+	}
+	
 	// 차트 세부내용
 //	public ArrayList<MeasureDataVO> chartValue(String member_id, String date) {
 //		// TODO Auto-generated method stub
