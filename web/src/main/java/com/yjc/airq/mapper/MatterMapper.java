@@ -15,8 +15,11 @@ public interface MatterMapper {
 	// 측정 가능 물질 삭제
 	public void productMatterDelete(@Param("product_code") String product_code);
 	
-	//예약자 모니터링
+	//일별 예약자 모니터링
 	public ArrayList<Map<String,Object>> reservation(String member_id);
+	
+	//시간별 예약자 모니터링
+	public ArrayList<Map<String,Object>> timeGraph(String member_id);
 	
 	//나쁨 횟수
 	public int badNum(String member_id);

@@ -14,9 +14,15 @@
 </head>
 <body>
 	<input type="hidden" id="member_id" value="${memberId }" />
-	<p id="reservationTitle">${memberId }님의실내 공기 미세먼지 측정 데이터입니다.</p>
-	<p id="p">*최근 7일간의 데이터입니다.</p>
-	<div id="chartdiv"></div>
+	<p id="reservationTitle">${memberId }님의실내공기미세먼지 측정 데이터입니다.</p>
+	<span id="p">*최근 7일간의 데이터입니다.</span>
+	<select id="graphSelect">
+		<option value="day">일별 그래프</option>
+		<option value="time">시간별 그래프</option>
+	</select>
+	<div id="graph">
+		<div id="chartdiv"></div>
+	</div>
 	<div class="contain">
 		<div class="circle-container">
 			<div id="average" class="circle">

@@ -272,10 +272,16 @@ public class MypageServiceImplement implements MypageService{
 		return productMapper.hotItemInfo(company_code);
 	}
 	
-	//예약자 모니터링
+	//일별 예약자 모니터링
 	@Override
 	public ArrayList<Map<String, Object>> reservation(String member_id) {
 		return matterMapper.reservation(member_id);
+	}
+	
+	//시간별 예약자 모니터링
+	@Override
+	public ArrayList<Map<String, Object>> timeGraph(String member_id) {
+		return matterMapper.timeGraph(member_id);
 	}
 	
 	//나쁨 횟수

@@ -17,6 +17,11 @@
 	height: 500px;
 }
 
+#timeGraph {
+	width: 100%;
+	height: 500px;
+}
+
 .circle {
 	justify-content: space-around;
 	border-radius: 100%;
@@ -67,4 +72,11 @@
 
 .font {
 	font-size: 60px;
+}
+
+#graphSelect {
+	display:inline-block;
+	float: right;
+	margin-right:15px;
+	height: 30px;
 }
