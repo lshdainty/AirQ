@@ -66,7 +66,9 @@
 
 
                 <!------------- 외부 공기질 차트 ------------->
-                <div id="outchartdiv" style="width: 100%;height: 250px;"></div>
+                <div class="chart-container">
+                    <div id="outchartdiv" style="width: 100%;height: 250px; max-height: 20vh"></div>
+                </div>
                 <!------------------------------------------->
 
 
@@ -80,7 +82,7 @@
                             <option value="인천">인천</option>
                             <option value="광주">광주</option>
                             <option value="대전">대전</option>
-                            <option value="울산">울산</option>
+                            r<option value="울산">울산</option>
                             <option value="경기">경기</option>
                             <option value="강원">강원</option>
                             <option value="충북">충북</option>
@@ -99,28 +101,21 @@
                     </div>
                     <div class="select_box">
                         <select name="matter" id="matter" class="order-option">
-                            <option value="pm10Value">미세먼지</option>
-                            <option value="pm25Value">초미세먼지</option>
-                            <option value="o3Value">오존</option>
-                            <option value="no2Value">이산화질소</option>
-                            <option value="coValue">일산화탄소</option>
-                            <option value="so2Value">아황산가스</option>
+                            <option value="pm10">미세먼지</option>
+                            <option value="pm25">초미세먼지</option>
+                            <option value="o3">오존</option>
+                            <option value="no2">이산화질소</option>
+                            <option value="co">일산화탄소</option>
+                            <option value="so2">아황산가스</option>
                         </select>
                     </div>
                 </div>
                 <!--------------------------------------------------------------------->
 
                 <!----------------------------측정값 테이블----------------------------->
+
                 <div class="measure_table">
-                    <div class="measure_box_header">
-                        <div class="header-content measure_time">날짜</div>
-                        <div class="header-content measure_val">측정값</div>
-                    </div>
                     <div class="ajax-data">
-                        <div class="measure_box" style="background: #ddd">
-                            <div class="box-content measure_time">06월11일</div>
-                            <div class="box-content measure_val">10</div>
-                        </div>
                     </div>
                 </div>
                 <!--------------------------------------------------------------------->
@@ -133,26 +128,22 @@
     </div>
     <div id="footer"></div>
 
-    <!-- Swiper JS -->
+    <!------------------------------------------------------- Map JS------------------------------------------------->
     <script type="text/javascript"
         src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tpllhjh4tl&submodules=geocoder"></script>
     <script type="text/javascript" src="https://navermaps.github.io/maps.js.ncp/docs/js/MarkerClustering.js"></script>
-    <!--------------------->
-
-
+    <!--------------------------------------------------------------------------------------------------------------->
 
     <!---------------------------------------------------------------------------------------------------------------->
-    <!-------------------------------------------- HighChart Scripts Start-------------------------------------------->
+    <!-----------------------------------------------Chart Scripts Start---------------------------------------------->
 
     <script src="https://www.amcharts.com/lib/4/core.js"></script>
     <script src="https://www.amcharts.com/lib/4/charts.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <!---------------------------------------------------------------------------------------------------------------->
 
-    <!-------------------------------------------- HighChart Scripts ------------------------------------------------->
     <!---------------------------------------------------------------------------------------------------------------->
     <script src="https://www.amcharts.com/lib/4/themes/spiritedaway.js"></script>
-
-
     <script src="../../../www/resources/js/connect/swiper.js"></script>
     <script src="../../../www/resources/js/connect/connect__app.js"></script>
     <!-- <script src="../../../www/resources/js/monitoring/inside.js"></script> -->

@@ -114,7 +114,7 @@
 <!--   Core JS Files   -->
 
 <script src="resources/js/mypage/asset/perfect-scrollbar.jquery.min.js"></script>
-<script src="resources/js/mypage/mypageSeller.js"></script>
+<script src="/resources/js/mypage/mypageSeller.js"></script>
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!--  Google Maps Plugin    -->

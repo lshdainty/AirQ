@@ -81,6 +81,7 @@ body {
     border: 1px solid #000;
     margin-top: 1.5rem;
     height: 10rem;
+    max-height: 20vh;
 }
 
 .met-container {
@@ -344,16 +345,22 @@ body {
 .select_box:first-child{
     border-left: 1px solid #000;
 }
-.measure_table{
+.measure_table
+{
     width:100%;
+    max-height: 40vh;
+    padding: 1rem;
+    overflow: scroll;
 }
 
 .measure_box{
     display: flex;
     width: 100%;
-    border-radius: .5rem;
-    margin: 0.25rem 0;
+    height: 100%;
+    padding: 0.25rem 0;
+    border-left: 1px solid #000; 
 }
+
 .measure_box_header{
     display: flex;
     width: 100%;
@@ -379,6 +386,7 @@ body {
     border-right: 1px solid #000;
     font-size: .85rem;
     font-weight: 600;
+    margin: auto;
 }
 .box-content:last-child{
     border: none;
@@ -388,4 +396,12 @@ body {
 }
 .ajax-data{
     width: 100%;
+}
+.measure_grade{
+    display: flex;
+}
+.measure_grade svg{
+    overflow: visible !important;
+    width: 100%;
+    height: 100%;
 }
