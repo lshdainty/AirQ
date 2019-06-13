@@ -517,7 +517,29 @@ public class MypageController {
 		
 		return json;
 	}
-
+	
+	@RequestMapping(value="selectGraph", method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject selectGraph(String member_id, String option) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		
+		if(option.equals("day")) {
+			//일별 그래프 json
+			ArrayList<Map<String,Object>> dayGraph=mypageService.reservation(member_id);
+			JSONArray dayArr=JSONArray.fromObject(dayGraph);
+			map.put("dayGraph",dayArr);
+		} else {
+			//시간별 그래프 json
+			ArrayList<Map<String,Object>> timeGraph=mypageService.timeGraph(member_id);
+			JSONArray timeArr=JSONArray.fromObject(timeGraph);
+			map.put("timeGraph",timeArr);
+		}
+		
+		JSONObject json=JSONObject.fromObject(map);
+		
+		return json;
+	}
+	
 	// mypageSeller 글관리 가기
 	@RequestMapping(value = "mypageSellerPosts", method = RequestMethod.GET)
 	public String mypageSellerPosts(Model model, HttpServletRequest request) {

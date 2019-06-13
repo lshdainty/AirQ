@@ -133,8 +133,11 @@ public interface MypageService {
 	//입찰된 투찰의 사업자번호
 	public String tBidCompayCode(String tender_code);
 	
-	//예약자 모니터링
+	//일별 예약자 모니터링
 	public ArrayList<Map<String,Object>> reservation(String member_id);
+	
+	//시간별 예약자 모니터링
+	public ArrayList<Map<String,Object>> timeGraph(String member_id);
 	
 	//나쁨 횟수
 	public int badNum(String member_id);
