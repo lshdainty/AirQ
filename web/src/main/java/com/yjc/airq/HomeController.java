@@ -208,7 +208,7 @@ public class HomeController {
 		
 		// 값이 음수일때 0으로 초기화
 		if(Integer.parseInt(dust) < 0) {
-			dust = "0";
+			dust = "20";
 			System.out.println("<%-----------dust = 0-----------%>");
 		}
 		
