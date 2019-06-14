@@ -217,9 +217,7 @@ public class MobileManageController {
 
 					int x = 0;
 					int grade = 0;
-					System.out.println("1");
 					float matterValue ;
-					System.out.println("2");
 					if (resultJson.getString(matter + "Value").equals("-")) {
 						System.out.println("null");
 						grade = 0;
@@ -236,7 +234,6 @@ public class MobileManageController {
 					jArray.add(dataJson);
 				}
 			}
-			System.out.println(jArray);
 			br.close();
 			urlconnection.disconnect();
 
