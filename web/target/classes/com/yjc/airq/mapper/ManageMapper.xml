@@ -30,10 +30,10 @@
 	
 	<!-- 미세먼지 측정 데이터 저장 -->
 	<insert id="measureData" parameterType="map">
-		insert into measure_data
+		insert into measure_data(measure_data_code, measure_value, measure_time, iot_id, matter_code)
 		values(to_number(to_char(systimestamp,'YYMMDD')||to_char(data_code.nextval,'fm0000')),
 		#{msd.measure_value},
-		to_timestamp(#{time},'YY-MM-DD HH24:MI:SS'),
+		systimestamp,
 		#{msd.iot_id},
 		'PM10')
 	</insert>

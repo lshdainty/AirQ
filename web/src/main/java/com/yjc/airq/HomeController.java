@@ -189,21 +189,20 @@ public class HomeController {
 		
 		System.out.println("dust_val: " + info.get("dust_val")); // 측정 값
 		System.out.println("iotId: " + info.get("iotId")); // IoT기기명
-		System.out.println("현재 시간(mtime): " + info.get("mtime")); // 측정 시간
 		
 		// 현재 날짜 생성
-		Date date = new Date();
-//		String str = date.toString();
-		SimpleDateFormat formatType = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println("yyyy-MM-dd 형식의 현재 날짜: " + formatType.format(date));
+//		Date date = new Date();
+////		String str = date.toString();
+//		SimpleDateFormat formatType = new SimpleDateFormat("yyyy-MM-dd");
+//		System.out.println("yyyy-MM-dd 형식의 현재 날짜: " + formatType.format(date));
 		
 		String dust = info.get("dust_val").toString(); // String으로 변환
 		String iotId = info.get("iotId").toString(); // String으로 변환
-		String mtime = info.get("mtime").toString(); // 먼지 측정 시간
+//		String mtime = info.get("mtime").toString(); // 먼지 측정 시간
 		// 날짜 + 시간
-		String measureTime = formatType.format(date);
-		measureTime += " ";
-		measureTime += mtime;
+//		String measureTime = formatType.format(date);
+//		measureTime += " ";
+//		measureTime += mtime;
 		//===================================================
 		
 		// 값이 음수일때 0으로 초기화
@@ -227,11 +226,11 @@ public class HomeController {
 
 				System.out.println("iotId: " + iotId);
 				System.out.println("resultDust: " + resultDust);
-				System.out.println("measureTime: " + measureTime);
+//				System.out.println("measureTime: " + measureTime);
 				
 				Map<String, Object> m = new HashMap<String, Object>();
 				m.put("msd", msd);
-				m.put("time", (Object) measureTime);
+//				m.put("time", (Object) measureTime);
 
 				manageService.measureData(m);
 				
