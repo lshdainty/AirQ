@@ -481,6 +481,7 @@ public class MypageController {
 		
 		return "mypage/reservation";
 	}
+	
 	@CrossOrigin(origins = "*")
 	@RequestMapping(value="mReservation", method=RequestMethod.POST)
 	@ResponseBody

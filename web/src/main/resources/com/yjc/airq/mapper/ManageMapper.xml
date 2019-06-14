@@ -58,7 +58,7 @@
 				from measure_data
 				order by measure_time desc)
 		where <![CDATA[rownum <=30]]>
-		order by to_timestamp(measure_time,'YYYY-MM-DD HH24:MI:SS')
+		order by to_char(measure_time,'YYYY-MM-DD HH24:MI:SS')
 	</select>
 	
 	<!-- 실시간 차트 최신 데이터 가져오기 -->
@@ -69,5 +69,9 @@
 				from measure_data
 				order by measure_time desc)
 		where <![CDATA[rownum <=1]]>
+	</select>
+	
+	<!-- 실시간 차트 최신 데이터 가져오기 -->
+	<select id="test" resultType="map">
 	</select>
 </mapper>

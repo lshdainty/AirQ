@@ -6,24 +6,49 @@
 	<%-- AmChart 시작 --%>
 	<div id="chartdiv"></div>
 	<%-- AmChart 끝 --%>
+	<div class="contain">
+		<div class="circle-container">
+			<div id="average" class="circle">
+				<div class="inside-val">
+					<p>
+						<span class="font" id="measure_value_avg">1</span><span>µg/m³</span>
+					</p>
+				</div>
+			</div>
+			<div class="circle-info">
+				<div class="info-title">평균 미세먼지 수치(7일)</div>
+			</div>
+		</div>
 
-	<%-- 달력 선택 시작 --%>
-	<input type="date" id="measureDate" onchange="measureDate(this)" />
-	<%-- 달력 선택 끝 --%>
+		<div class="circle-container">
+			<div id="bad" class="circle">
+				<div class="inside-val">
+					<p>
+						<span class="font" id="badNum">1</span><span>번</span>
+					</p>
+				</div>
+			</div>
+			<div class="circle-info">
+				<div class="info-title">나쁨 이상 횟수(7일)</div>
+			</div>
+		</div>
 
-	<div id="chartList">
-		<h3>측정 상세 정보</h3>
-		<table class="table">
-			<th class="table__heading">Today</th>
-			<th class="table__heading">측정 값<sub>(㎍/㎥)</sub></th>
-			<th class="table__heading">기기 ID</th>
-			<th class="table__heading">측정 코드</th>
-			<tbody class="chartList-list"></tbody>
-		</table>
+		<div class="circle-container">
+			<div id="realTime" class="circle">
+				<div class="inside-val">
+					<p>
+						<span class="font" id="measure_value">1</span><span>µg/m³</span>
+					</p>
+				</div>
+			</div>
+			<div class="circle-info">
+				<div class="info-title">미세먼지 수치(7일)</div>
+			</div>
+		</div>
 	</div>
 </div>
-<script src="resources/js/core.js"></script>
-<script src="resources/js/charts.js"></script>
+<script src="/resources/js/core.js"></script>
+<script src="/resources/js/charts.js"></script>
 <script src="https://www.amcharts.com/lib/4/themes/spiritedaway.js"></script>
-<script src="resources/js/manage/monitoringIn.js"></script>
+<script src="/resources/js/manage/monitoringIn.js"></script>
 <%@include file="../include/footer.jsp"%>

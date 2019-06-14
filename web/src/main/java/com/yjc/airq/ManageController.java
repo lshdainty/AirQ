@@ -470,25 +470,17 @@ public class ManageController {
 	@ResponseBody
 	public JSONArray inOldData() {
 		ArrayList<Map<String,Object>> oldData = manageService.getOldData();
-		
-		System.out.println(oldData);
-		
 		JSONArray json = JSONArray.fromObject(oldData);
-		System.out.println(json);
 		
 		return json;
 	}
 	
-	// 실시간 차트 기본 데이터 30개 가져오기
+	// 실시간 차트 최신 데이터 가져오기
 	@RequestMapping(value = "inNowData", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONArray inNowData() {
 		ArrayList<Map<String,Object>> nowData = manageService.getNowData();
-			
-		System.out.println(nowData);
-			
 		JSONArray json = JSONArray.fromObject(nowData);
-		System.out.println(json);
 			
 		return json;
 	}
