@@ -51,7 +51,7 @@ function chartDetail(date) {
 				var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
 				var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 				valueAxis.tooltip.disabled = true;
-				valueAxis.title.text = "미세먼지 측정 값(㎍/㎥)";
+				//valueAxis.title.text = "미세먼지 측정 값(㎍/㎥)";
 
 				dateAxis.baseInterval = {
 					"timeUnit" : "second",

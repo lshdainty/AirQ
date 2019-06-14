@@ -127,6 +127,7 @@ function ajaxTable(area){
 		dataType : "json",
 		async : false,
 		success : function(data) {
+			console.log(data);
 			var result="";
 			$("#tbody").empty();
 			for(var i=0; i<data.result.length; i++){
