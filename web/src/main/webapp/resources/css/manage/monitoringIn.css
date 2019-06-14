@@ -1,12 +1,13 @@
 @charset "UTF-8";
 
 #inside {
-	margin-top : 50px;
+	margin-top: 50px;
 }
 
 #chartdiv {
-	width: 100%;
+	width: 80%;
 	height: 500px;
+	border: 1px solid #000;
 }
 
 #p {
@@ -19,20 +20,31 @@
 	border-radius: 100%;
 	overflow: hidden;
 	display: flex;
-	width: 200px;
-	height: 200px;
+	width: 10rem;
+	height: 10rem;
 }
 
 .circle-container {
+	display: flex;
+	border: 1px solid #000;
+	width: 50%;
+}
+
+.circle-box {
 	margin: 0 1rem;
 }
 
-.contain {
+.info-container {
+	width: 50%;
+	border: 1px solid #000;
+}
+
+.container {
+	min-width: 1180px; width : 100%;
+	padding: 0;
+	margin: 0;
 	margin-top: 50px;
 	width: 100%;
-	display: flex;
-	flex-wrap: nowrap;
-	justify-content: space-around;
 }
 
 #average {
@@ -66,3 +78,127 @@
 .font {
 	font-size: 60px;
 }
+
+/* 2019/06/14  */
+
+/* cahrt css  */
+tspan {
+	font-size: .75rem;
+}
+/**************/
+.liveChart_container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.liveChart_info__container {
+	display: flex;
+	width: 20%;
+	padding: 1rem;
+	border: 1px solid #000;
+	margin-left: 1rem;
+}
+
+.info_grade__container {
+	display: flex;
+	border: 1px solid #000;
+}
+
+.info_grade__face img {
+	width: 5rem;
+}
+
+.info_grade__value {
+	margin: auto;
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+.info_table__box {
+	width: 100%;
+	border: 1px solid #000;
+	border-right: none;
+}
+
+.info_table__box:last-child {
+	border-right: 1px solid #000;
+}
+
+.info_table__container {
+	margin-top: 1rem; display : flex;
+	justify-content: space-around;
+	display: flex;
+}
+
+.info_table__value {
+	text-align: center;
+}
+
+.info_table__title {
+	font-size: .75rem;
+	text-align: center;
+	border-top: 1px solid #000;
+}
+
+.info_behavior__container {
+	height: 65%;
+	padding: 1rem;
+	border: 1px solid #000;
+	margin-top: 1rem;
+}
+
+.grade_good {
+	background: #b0e867;
+	color: #718b3a;
+}
+
+.grade_normal {
+	background: #ffdf58;
+	color: #a57f23;
+}
+.grade_bad{
+	background: #ffa968;
+	color: #b25826;
+}
+
+.timeChart_container{
+	display: flex;
+	margin-top: 1rem;
+	padding: 1rem;
+	height: 250px;
+	border: 1px solid #000;
+}
+.innerChart_container{
+	width: 100%;
+	height: 100%;
+	border: 1px solid #000;
+	margin: 0 1rem;
+}
+.hourChart_container{
+	width:100%;
+	height:100%;
+}
+#hourChart{
+	background: #ddf;
+	width:100%;
+	height:100%;
+}
+.dayChart_container{
+	width: 100%;
+	height: 100%;
+}
+#dayChart{
+	background: #FF4848;
+	width: 100%;
+	height: 100%;
+}
+.monthChart_container{
+	width: 100%;
+	height: 100%;
+}
+#monthChart{
+	background: #dff;
+	width: 100%;
+	height: 100%;
+}
+/************* */

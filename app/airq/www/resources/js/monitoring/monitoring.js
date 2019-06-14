@@ -242,7 +242,6 @@ function ajaxChart(area, matter) {
 				// Create series
 				var series = chart.series.push(new am4charts.LineSeries());
 				series.dataFields.valueY = "data";
-				series.dataFields.dateX = "dataTime";
 				series.tooltipText = "{data}"
 				series.strokeWidth = 2;
 				series.minBulletDistance = 15;
