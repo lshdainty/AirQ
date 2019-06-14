@@ -345,19 +345,15 @@
 		order by payment_date
 	</select>
 
-	<select id="reservationInfo" resultType="map"
-		parameterType="String">
-		select rownum, member_id,member_name,product_name,to_char(d_service_date,'yyyy-MM-dd')
-		from( select m.member_id,m.member_name,
-		p.product_name, d.d_service_date
-		from member m, product p, demand d
-		where m.member_id = d.member_id
-		and d.product_code = p.product_code
-		and
-		p.company_code = #{company_code}
-		and d.d_service_date > sysdate
-		order by
-		d.d_service_date
+	<select id="reservationInfo" resultType="map" parameterType="String">
+		select rownum, member_id,member_name,product_name,to_char(d_service_date,'yyyy-MM-dd') d_service_date
+		from( select m.member_id,m.member_name, p.product_name, d.d_service_date
+				from member m, product p, demand d
+				where m.member_id = d.member_id
+				and d.product_code = p.product_code
+				and p.company_code = #{company_code}
+				and d.d_service_date > sysdate
+				order by d.d_service_date
 		) r
 		where<![CDATA[ rownum <= 5]]>
 	</select>
@@ -371,7 +367,7 @@
 		from product p, demand d, payment py
 		where p.product_code = d.product_code
 		and d.demand_code = py.demand_code
-		and p.company_code = '6118128001'
+		and p.company_code = #{company_code}
 		group by p.product_code,p.product_name
 		order by count(d.demand_code) desc) r
 		where <![CDATA[ rownum <= 5]]>

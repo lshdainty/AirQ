@@ -56,7 +56,6 @@
 	        
         <button id="btn-reg">IoT 제품 제어 등록</button>
     </div>
-    
     <script type="text/javascript">
 		$(document).ready(function() {
 			$(".choice").click(function() {
@@ -64,12 +63,12 @@
 				alert($(this).attr('id'));
 			
 				// send HTTP GET request to the IP address with the parameter "pin" and value "p", then execute the function
-			$.get("http://192.168.0.9:90/", {pin : p}); // execute get request (아두이노 웹서버 IP 주소로 고쳐 준다)
+			$.get("http://192.168.4.1:7777/",{pin : p}); // execute get request (아두이노 웹서버 IP 주소로 고쳐 준다)
 				alert("pin: " + p);
 			});
 		});
 	</script>
-    
-<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<!--     
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script> -->
 <script src='resources/js/manage/remoteMain.js'></script>
 <%@include file="../include/footer.jsp" %>

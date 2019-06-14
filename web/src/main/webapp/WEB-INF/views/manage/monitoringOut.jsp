@@ -50,49 +50,49 @@
 		<div class="grade-table">
 			<div class="grade-box">
 				<div class="grade-img">
-					<img class="point" src="/resources/images/point_1.png" alt="1">
+					<img class="point" src="/resources/images/point_1.png" alt="최고">
 				</div>
 				<div class="grade-explain">최고</div>
 			</div>
 			<div class="grade-box">
 				<div class="grade-img">
-					<img class="point" src="/resources/images/point_2.png" alt="1">
+					<img class="point" src="/resources/images/point_2.png" alt="좋음">
 				</div>
 				<div class="grade-explain">좋음</div>
 			</div>
 			<div class="grade-box">
 				<div class="grade-img">
-					<img class="point" src="/resources/images/point_3.png" alt="1">
+					<img class="point" src="/resources/images/point_3.png" alt="양호">
 				</div>
 				<div class="grade-explain">양호</div>
 			</div>
 			<div class="grade-box">
 				<div class="grade-img">
-					<img class="point" src="/resources/images/point_4.png" alt="1">
+					<img class="point" src="/resources/images/point_4.png" alt="보통">
 				</div>
 				<div class="grade-explain">보통</div>
 			</div>
 			<div class="grade-box">
 				<div class="grade-img">
-					<img class="point" src="/resources/images/point_5.png" alt="1">
+					<img class="point" src="/resources/images/point_5.png" alt="나쁨">
 				</div>
 				<div class="grade-explain">나쁨</div>
 			</div>
 			<div class="grade-box">
 				<div class="grade-img">
-					<img class="point" src="/resources/images/point_6.png" alt="1">
+					<img class="point" src="/resources/images/point_6.png" alt="상당히 나쁨">
 				</div>
 				<div class="grade-explain">상당히 나쁨</div>
 			</div>
 			<div class="grade-box">
 				<div class="grade-img">
-					<img class="point" src="/resources/images/point_7.png" alt="1">
+					<img class="point" src="/resources/images/point_7.png" alt="매우 나쁨">
 				</div>
 				<div class="grade-explain">매우 나쁨</div>
 			</div>
 			<div class="grade-box">
 				<div class="grade-img">
-					<img class="point" src="/resources/images/point_8.png" alt="1">
+					<img class="point" src="/resources/images/point_8.png" alt="최악">
 				</div>
 				<div class="grade-explain">최악</div>
 			</div>
@@ -142,9 +142,7 @@
 <script src="/resources/js/core.js"></script>
 <script src="/resources/js/charts.js"></script>
 <script src="/resources/js/include/animated.js"></script>
-<script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tpllhjh4tl&submodules=geocoder"></script>
-<script type="text/javascript"
-	src="https://navermaps.github.io/maps.js.ncp/docs/js/MarkerClustering.js"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tpllhjh4tl&submodules=geocoder"></script>
+<script type="text/javascript" src="https://navermaps.github.io/maps.js.ncp/docs/js/MarkerClustering.js"></script>
 <script src="/resources/js/manage/monitoringOut.js"></script>
 <%@include file="../include/footer.jsp"%>

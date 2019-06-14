@@ -15,7 +15,7 @@
 								<div class="ct-chart" id="dailySalesChart"></div>
 							</div>
 							<div class="card-body">
-								<h4 class="card-title">저번주 판매량</h4>
+								<h4 class="card-title">지난주 판매량</h4>
 								<p class="card-category">
 									<span class="text-success"><i
 										class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.
@@ -86,9 +86,9 @@
                      <div class="card-body table-responsive">
                         <table class="table table-hover">
                            <thead class="text-warning">
-                              <th>구매자</th>
                               <th>상품명</th>
-                              <th>서비스일자</th>
+                              <th>판매량</th>
+                              <th>만족도평균</th>
                            </thead>
                            <tbody>
                               <c:forEach var="item" items="${hotItems}" begin="0" end="5">

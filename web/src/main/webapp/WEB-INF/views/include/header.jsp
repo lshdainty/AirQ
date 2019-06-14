@@ -42,12 +42,12 @@
                             업체연결 서비스</a>
                         <div aria-labelledby="connectDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
                             <h6 class="dropdown-header font-weight-normal">개인 사용자</h6>
-                            <a href="/compareMain" class="dropdown-item">업체 연결 서비스 </a>
+                            <a href="/compareMain" class="dropdown-item">분석/비교 서비스 </a>
                             <div class="dropdown-divider"></div>
 
 
                             <h6 class="dropdown-header font-weight-normal">단체 사용자</h6><a
-                                href="/tenderMain" class="dropdown-item">입/투찰 서비스 </a>
+                                href="/tenderMain" class="dropdown-item">입찰 지원 서비스 </a>
                         </div>
                     </li>
 
@@ -77,8 +77,8 @@
                         </a>
                         <div aria-labelledby="communityDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
                             <h6 class="dropdown-header font-weight-normal">모니터링</h6>
-                            <a href="/monitoringIn" class="dropdown-item">내부 모니터링 </a>
-                            <a href="/monitoringOut" class="dropdown-item">외부 모니터링 </a>
+                            <a href="/monitoringIn" class="dropdown-item">실내 모니터링 </a>
+                            <a href="/monitoringOut" class="dropdown-item">실외 모니터링 </a>
                             <div class="dropdown-divider"></div>
 
 

@@ -5,16 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <script src="/resources/js/include/jquery-3.3.1.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/mypage/reservation.css" />
-<script src="https://www.amcharts.com/lib/4/core.js"></script>
-<script src="https://www.amcharts.com/lib/4/charts.js"></script>
-<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-
+<link rel="stylesheet" type="text/css" href="/resources/css/mypage/reservation.css" />
+<script src="/resources/js/core.js"></script>
+<script src="/resources/js/charts.js"></script>
+<script src="/resources/js/include/animated.js"></script>
 </head>
 <body>
 	<input type="hidden" id="member_id" value="${memberId }" />
-	<p id="reservationTitle">${memberId }님의실내공기미세먼지 측정 데이터입니다.</p>
+	<p id="reservationTitle">${memberId }님의 실내 미세먼지 측정 데이터입니다.</p>
 	<span id="p">*최근 7일간의 데이터입니다.</span>
 	<select id="graphSelect">
 		<option value="day">일별 그래프</option>

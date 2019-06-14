@@ -51,7 +51,7 @@
 		group by m.iot_id,i.member_id,
 		to_char(m.measure_time,'yyyy-mm-dd')
 		having
-		to_char(m.measure_time,'yyyy-mm-dd') > sysdate-7
+		to_char(m.measure_time,'yyyy-mm-dd') > to_char(sysdate-7,'yyyy-mm-dd')
 		order by
 		measure_time
 		desc) o
