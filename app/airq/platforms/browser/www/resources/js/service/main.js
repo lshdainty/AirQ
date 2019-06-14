@@ -68,12 +68,12 @@ $(document).ready(function () {
                             var changeNum;
                             var condition;
                             if (data.result[i].grade == "-") {
-                                forecastColor = "#c8c8c8";
+                                forecastColor = "#c8c8c8"; // 데이터없음
                                 changeNum = "changed0";
                                 condition = "없음";
 				            }
 				            else if (data.result[i].grade >= 8) {
-                                forecastColor = "#BDBDBD";
+                                forecastColor = "#BDBDBD"; // 8
                                 changeNum = "changed1";
                                 condition = "최악";
 				            }else if(data.result[i].grade >= 7){
