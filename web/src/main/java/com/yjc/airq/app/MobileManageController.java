@@ -193,7 +193,6 @@ public class MobileManageController {
 				for (int i = jsonArr.size() - 1; i >= 0; i--) {
 					JSONObject resultJson = (JSONObject) jsonArr.get(i);
 					JSONObject dataJson = new JSONObject();
-					System.out.println("MatterValue : "+resultJson.getString(matter + "Value"));
 					switch (matter) {
 					case "pm10":
 						standardSheet = pm10Value;

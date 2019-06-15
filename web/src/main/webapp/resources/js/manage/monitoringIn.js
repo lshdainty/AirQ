@@ -102,6 +102,8 @@ function hourChart() {
 	}); // end am4core.ready()
 };
 
+
+
 function dayChart() {
 	am4core.ready(function() {
 

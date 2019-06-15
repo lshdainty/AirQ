@@ -405,3 +405,91 @@ body {
     width: 100%;
     height: 100%;
 }
+
+
+/* ***************************************** */
+/* ***** 2019.06.15 inside monitoring  ***** */
+/* ***************************************** */
+
+
+.grade_good {
+	background: #b0e867;
+	color: #718b3a;
+}
+
+.grade_good .info_grade__face{
+	background: #e2f5b6;
+}
+
+.grade_normal {
+	background: #ffdf58;
+	color: #a57f23;
+}
+.grade_bad{
+	background: #ffa968;
+	color: #b25826;
+}
+
+
+.liveChart_container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+#liveChart{
+    height: 15rem;
+    width: 100%;
+    border: 1px solid #000;
+}
+
+.info_box{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.info_grade__container{
+    margin-top: .25rem;
+    display: flex;
+    border: 1px solid #000;
+    width: 100%;
+}
+.info_grade__face{
+    width: 35%;
+}
+.info_grade__value{
+    font-size: 1rem;
+    font-weight: bold;
+    margin: auto;
+    width: 70%;
+}
+
+.info_explain{
+    margin-top: .25rem;
+    width: 100%;
+}
+.info_table__container{
+    display: flex;
+}
+
+.info_table__box{
+    border: 1px solid #000;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.info_table__title{
+    width: 100%;
+}
+.info_table__value{
+    border-top: 1px solid #000;
+    width: 100%;
+}
+
+.info_behavior__container{
+    margin-top: .25rem;
+    border: 1px solid #000;
+    width: 100%;
+    height: 6rem;
+    padding: .5rem;
+    text-align: left;
+}
