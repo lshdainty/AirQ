@@ -378,57 +378,27 @@ public class ManageController {
 		return json;
 	}
 	
-//	// 월 평균 값 가져오기
-//	@RequestMapping(value = "monthData", method = RequestMethod.GET)
-//	@ResponseBody
-//	public JSONArray monthData(HttpServletRequest request) {
-//		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();	// 나중에 IOT ID로 변경
-//		
-//		ArrayList<Map<String,Object>> monthData = manageService.getMonthData(member_id);	//월 평균 값 가져오기
-//		
-//		JSONArray json = JSONArray.fromObject(monthData);
-//		
-//		return json;
-//	}
-//	
-//	// 요일 평균 값 가져오기
-//	@RequestMapping(value = "dayData", method = RequestMethod.GET)
-//	@ResponseBody
-//	public JSONArray dayData(HttpServletRequest request) {
-//		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();	// 나중에 IOT ID로 변경
-//			
-//		ArrayList<Map<String,Object>> dayData = manageService.getDayData(member_id);	//요일 평균 값 가져오기
-//			
-//		JSONArray json = JSONArray.fromObject(dayData);
-//			
-//		return json;
-//	}
-//		
-//	// 시간 평균 값 가져오기
-//	@RequestMapping(value = "timeData", method = RequestMethod.GET)
-//	@ResponseBody
-//	public JSONArray timeData(HttpServletRequest request) {
-//		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();	// 나중에 IOT ID로 변경
-//			
-//		ArrayList<Map<String,Object>> timeData = manageService.getTimeData(member_id);	//시간 평균 값 가져오기
-//			
-//		JSONArray json = JSONArray.fromObject(timeData);
-//			
-//		return json;
-//	}
-	
 	// 실시간 차트 최신 데이터 가져오기
 	@RequestMapping(value = "inNowData", method = RequestMethod.GET)
 	@ResponseBody
-	public JSONArray inNowData(HttpServletRequest request) {
+	public JSONObject inNowData(HttpServletRequest request) {
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
 		
 		ArrayList<Map<String,Object>> nowData = manageService.getNowData();
-		System.out.println(nowData.get(0));
-		System.out.println(nowData);
+		String matterValue = (String) nowData.get(0).get("VALUE");	//마지막 값을 현재의 값으로 넣기
+		String todayAvg = manageService.getTodayAvgData(member_id);	//하루 평균값 가져오기
+		int overValue = manageService.getOverValue(member_id);	//임계값 초과 횟수 가져오기
 		
-		JSONArray json = JSONArray.fromObject(nowData);
-			
+		JSONArray jNowData = JSONArray.fromObject(nowData);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("nowData", jNowData);
+		map.put("matterValue", matterValue);
+		map.put("todayAvg", todayAvg);
+		map.put("overValue", overValue);
+		
+		JSONObject json = JSONObject.fromObject(map);
+		
 		return json;
 	}
 	

@@ -33,15 +33,15 @@
 				<div class="info_explain">
 					<div class="info_table__container">
 						<div class="info_table__box">
-							<div class="info_table__value">13</div>
+							<div class="info_table__value" id="matterValue"></div>
 							<div class="info_table__title">현재 수치</div>
 						</div>
 						<div class="info_table__box">
-							<div class="info_table__value">1</div>
+							<div class="info_table__value" id="todayAvg"></div>
 							<div class="info_table__title">평균 수치</div>
 						</div>
 						<div class="info_table__box">
-							<div class="info_table__value">12</div>
+							<div class="info_table__value" id="overValue"></div>
 							<div class="info_table__title">임계치초과</div>
 						</div>
 					</div>

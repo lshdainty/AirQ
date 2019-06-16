@@ -3,7 +3,10 @@ $.ajax({
 	url : "inOldData",
 	dataType : "json",
 	success : function(data){
-		monthChart(data.monthData,data.dataGubun);	//올해 달별 평균
+		$("#matterValue").text(data.matterValue);
+		$("#todayAvg").text(data.todayAvg);
+		$("#overValue").text(data.overValue);
+		monthChart(data.monthData,data.dataGubun);	//올해 월별 평균
 		dayChart(data.dayData,data.dataGubun);	//오늘로부터 7일 전까지 요일별 평균
 		hourChart(data.timeData,data.dataGubun);	//하루 - 시간별
 		inOldData(data.oldData);	//기본 30개값 가져오기
@@ -267,9 +270,12 @@ function inOldData(OldData) {
 					url : "inNowData",
 					dataType : "json",
 					success : function(data) {
+						$("#matterValue").text(data.matterValue);
+						$("#todayAvg").text(data.todayAvg);
+						$("#overValue").text(data.overValue);
 						chart.addData({
-							TIME : new Date(data[0].TIME),
-							VALUE : data[0].VALUE
+							TIME : new Date(data.nowData[0].TIME),
+							VALUE : data.nowData[0].VALUE
 						}, 1);
 					}
 				});
