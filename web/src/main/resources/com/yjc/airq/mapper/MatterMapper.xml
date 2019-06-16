@@ -67,7 +67,7 @@
 		to_number(to_char(avg(measure_value),'99.9')) measure_value
 		from
 		measure_data m, iot_info i
-		where m.iot_id=i.iot_id and member_id='test'
+		where m.iot_id=i.iot_id and member_id=#{member_id}
 		group by m.iot_id,i.member_id, to_char(m.measure_time,'yyyy-mm-dd')
 		having to_char(m.measure_time,'yyyy-mm-dd') > to_char(sysdate-7,'yyyy-mm-dd')
 		order by measure_time desc) o

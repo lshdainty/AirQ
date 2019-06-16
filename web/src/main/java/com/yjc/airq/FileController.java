@@ -28,17 +28,13 @@ import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
-public class FileController {
-	
-	public final static String IP = "http://39.127.7.69";
-	
+public class FileController {	
 	/**
      * 이미지 업로드
      * @param request
      * @param response
      * @param upload
      */
-	@CrossOrigin(origins = "*")
     @RequestMapping(value = "imageUpload", method = RequestMethod.POST)
     public void communityImageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) {
  
@@ -46,7 +42,6 @@ public class FileController {
     	JsonObject json = new JsonObject();
         OutputStream out = null;
         PrintWriter printWriter = null;
-        UploadVO uploadDB = new UploadVO();
         
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");

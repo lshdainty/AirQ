@@ -81,6 +81,7 @@ body {
     border: 1px solid #000;
     margin-top: 1.5rem;
     height: 10rem;
+    max-height: 20vh;
 }
 
 .met-container {
@@ -332,7 +333,75 @@ body {
 }
 .select_box{
     width: 100%;
+    margin: 1rem 0;
 }
+
 .area-container select{
+    border: 1px solid #000;
+    border-left: none;
     width: 100%;
+    text-align: center;
+}
+.select_box:first-child{
+    border-left: 1px solid #000;
+}
+.measure_table
+{
+    width:100%;
+    max-height: 40vh;
+    padding: 1rem;
+    overflow: scroll;
+}
+
+.measure_box{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 0.25rem 0;
+    border-left: 1px solid #000; 
+}
+
+.measure_box_header{
+    display: flex;
+    width: 100%;
+    margin-bottom: 1rem;
+    background: #dfd8df;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+.header-content{
+    width: 100%;
+    white-space: nowrap;
+    text-align: center;
+    border-right: 1px solid #000;
+    font-weight: bold;  
+}
+.header-content:last-child{
+    border:none;
+}
+.box-content{
+    width: 100%;
+    white-space: nowrap;
+    text-align: center;
+    border-right: 1px solid #000;
+    font-size: .85rem;
+    font-weight: 600;
+    margin: auto;
+}
+.box-content:last-child{
+    border: none;
+}
+.measure-unit{
+    font-size: .5rem;
+}
+.ajax-data{
+    width: 100%;
+}
+.measure_grade{
+    display: flex;
+}
+.measure_grade svg{
+    overflow: visible !important;
+    width: 100%;
+    height: 100%;
 }

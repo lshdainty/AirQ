@@ -154,13 +154,12 @@ var ip = "http://39.127.7.69"
 
 
 //페이지 들어왔을때 초기화 하기
-ajaxChart("신암동","pm10Value");
-ajaxTable("신암동");
+ajaxChart("신암동","pm10");
 ajaxArea("대구");
 $("#areaName").val("신암동");
 $("#sido_code").val("대구").prop("selected", true);
 $("#sigoon_code").val("신암동").prop("selected", true);
-$("#matter").val("pm10Value").prop("selected", true);
+$("#matter").val("pm10").prop("selected", true);
 //페이지 들어왔을때 초기화 하기
 
 $(document).ready(function(){
@@ -179,6 +178,7 @@ $(document).ready(function(){
 	$("#matter").change(function(){
 		var sigoon = $("#sigoon_code option:selected").val();
 		var matter = $("#matter option:selected").val();
+		$('.ajax-data').empty();
 		ajaxChart(sigoon,matter);
 	});//matter
 });//document
@@ -203,14 +203,16 @@ function ajaxArea(area){
 }
 
 //차트 변경 함수
-function ajaxChart(area,matter){
+function ajaxChart(area, matter) {
 	$.ajax({
-		type : "GET",
-		url : ip+"/m.outsideChart?area="+area+"&matter="+matter,
-		dataType : "json",
-		async : false,
-		success : function(data) {
-			am4core.ready(function() {
+		type: "GET",
+		url: ip + "/m.outsideChart?area=" + area + "&matter=" + matter,
+		dataType: "json",
+		async: false,
+		success: function (data) {
+			console.log(data);
+			$('.ajax-data').empty();
+			am4core.ready(function () {
 
 				// Themes begin
 				am4core.useTheme(am4themes_animated);
@@ -231,8 +233,8 @@ function ajaxChart(area,matter){
 				valueAxis.tooltip.disabled = true;
 
 				dateAxis.baseInterval = {
-					"timeUnit" : "second",
-					"count" : 1
+					"timeUnit": "second",
+					"count": 1
 				};
 				dateAxis.tooltipDateFormat = "yyyy-MM-dd HH:mm";
 				dateAxis.dateFormats.setKey("second", "HH:mm:ss");
@@ -269,140 +271,81 @@ function ajaxChart(area,matter){
 				chart.cursor.xAxis = dateAxis;
 				chart.cursor.snapToSeries = series;
 			}); // 차트 끝
+			var measureTable = $('.measure_table');
+			var matter = $("#matter option:selected").text();
+			var currentDate = new Date();
+			var year = currentDate.getFullYear().toString();
+			var table = "";
+			for (i = 0; i < data.result.length; i++) {
+				var resultNum = data.result.length - i - 1;
+				var forecastColor="";
+				var condition=0;
+				switch (data.result[i].grade) {
+					case 0: 
+					forecastColor = "#c8c8c8"; // 데이터없음
+					condition = "없음";
+					break;
+					
+					case 1: 
+					forecastColor = "#B5B2FF";
+					condition = "최고";
+					break;
+					
+					case 2: 
+					forecastColor = "#B2CCFF";
+					condition = "좋음";
+					break;
+
+					case 3: 
+					forecastColor = "#B2EBF4";
+					condition = "양호";
+					break;
+
+					case 4: 
+					forecastColor = "#CEF279";
+					condition = "보통";
+					break;
+
+					case 5: 
+					forecastColor = "#FAED7D";
+					condition = "나쁨";
+					break;
+
+					case 6: 
+					forecastColor = "#FFC19E";
+					condition = "상당히 나쁨";
+					break;
+
+					case 7: 
+					forecastColor = "#FFA7A7";
+					condition = "매우 나쁨";
+					break;
+
+					case 7: 
+					forecastColor = "#BDBDBD";
+					condition = "최악";
+					break;
+				}
+				table += '<div class="measure_box">'+
+					'<div class="measure_grade">'+
+						'<svg height="100" width="100">'+
+							'<circle cx="0" cy="15" r="10" stroke="#000" stroke-width="1" fill="'+forecastColor+'" />'+
+						'</svg>'+
+					'</div>'+
+					'<div class="box-content measure_time">'+(data.result[i].dataTime).replace(year+'-','')+'</div>'+
+					'<div class="box-content measure_val">'+data.result[i].data+'</div>'+
+					'<div class="box-content measure_condition">'+condition+'</div>'+
+				'</div>';
+				$('.ajax-data').prepend(table);
+				table="";
+			}
 		}
 	});
 }
 
-//테이블 변경 함수
-function ajaxTable(area){
-	$.ajax({
-		type : "GET",
-		url : ip+"/m.outsideTable?area="+area,
-		dataType : "json",
-		async : false,
-		success : function(data) {
-			console.log(data);
-			var result="";
-			$("#tbody").empty();
-			for(var i=0; i<data.result.length; i++){
-				result = "<tr>"+
-							"<th>"+data.result[i].dataTime+"</th>" +
-							"<td><img class='point' src='"+"/resources/images/point_"+data.result[i].pm10grade+".png"+"' alt='"+data.result[i].pm10grade+"'></td>" + 
-							"<td>"+data.result[i].pm10data+"</td>" + 
-							"<td><img class='point' src='"+"/resources/images/point_"+data.result[i].pm25grade+".png"+"' alt='"+data.result[i].pm25grade+"'></td>" + 
-							"<td>"+data.result[i].pm25data+"</td>" + 
-							"<td><img class='point' src='"+"/resources/images/point_"+data.result[i].o3grade+".png"+"' alt='"+data.result[i].o3grade+"'></td>" + 
-							"<td>"+data.result[i].o3data+"</td>" + 
-							"<td><img class='point' src='"+"/resources/images/point_"+data.result[i].no2grade+".png"+"' alt='"+data.result[i].no2grade+"'></td>" + 
-							"<td>"+data.result[i].no2data+"</td>" + 
-							"<td><img class='point' src='"+"/resources/images/point_"+data.result[i].cograde+".png"+"' alt='"+data.result[i].cograde+"'></td>" + 
-							"<td>"+data.result[i].codata+"</td>" + 
-							"<td><img class='point' src='"+"/resources/images/point_"+data.result[i].so2grade+".png"+"' alt='"+data.result[i].so2grade+"'></td>" + 
-							"<td>"+data.result[i].so2data+"</td>" + 
-						"</tr>"
-				$("#tbody").append(result);
-			}
-		}
-	});
-};
 
 
 
 
-
-
-
-
-
-
-(function () {
-	var member_id = JSON.parse(sessionStorage.getItem("user")).member_id;
-	var query = {
-		member_id: member_id
-	};
-	$.ajax({
-		type
-	});
-	$.ajax({
-		async: true,
-		type: "POST",
-		url: "http://39.127.7.69/m.mReservation",
-		data: query,
-		dataType: "json",
-		success: function (data) {
-			console.log(data);
-
-			am4core.ready(function () {
-
-
-				// Themes begin
-				// Themes end
-
-
-
-				// Create chart instance
-				var chart = am4core.create("outChart", am4charts.XYChart);
-
-				// Add data
-				chart.data = data.reservation;
-
-				// Create axes
-				var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-				dateAxis.renderer.grid.template.location = 0;
-				dateAxis.renderer.minGridDistance = 50;
-
-				var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-				valueAxis.logarithmic = false;
-				valueAxis.renderer.minGridDistance = 20;
-
-				// Create series
-
-				var series = chart.series.push(new am4charts.ColumnSeries());
-				series.dataFields.valueY = "MEASURE_VALUE";
-				series.dataFields.dateX = "MEASURE_TIME";
-				series.name = "";
-				series.columns.template.tooltipText = "Series: {name}\nCategory: {categoryX}\nValue: {valueY}";
-				series.columns.template.fill = am4core.color("#104547");
-
-				
-				var series2 = chart.series.push(new am4charts.LineSeries());
-				series2.name = "Units";
-				series2.stroke = am4core.color("#CDA2AB");
-				series2.strokeWidth = 3;
-				series2.dataFields.valueY = "MEASURE_VALUE";
-				series2.dataFields.dateX = "MEASURE_TIME";
-
-				var bullet = series.bullets.push(new am4charts.CircleBullet());
-				bullet.circle.fill = am4core.color("#fff");
-				bullet.circle.strokeWidth = 3;
-
-				// Add cursor
-				chart.cursor = new am4charts.XYCursor();
-				chart.cursor.fullWidthLineX = true;
-				chart.cursor.xAxis = dateAxis;
-				chart.cursor.lineX.strokeWidth = 0;
-				chart.cursor.lineX.fill = am4core.color("#000");
-				chart.cursor.lineX.fillOpacity = 0.1;
-
-				// Add scrollbar
-				//chart.scrollbarX = new am4core.Scrollbar();
-				chart.cursor = new am4charts.XYCursor();
-				chart.cursor.behavior = "none";
-
-				// Add a guide
-				let range = valueAxis.axisRanges.create();
-				range.value = 90.4;
-				range.grid.stroke = am4core.color("#396478");
-				range.grid.strokeWidth = 1;
-				range.grid.strokeOpacity = 1;
-				range.grid.strokeDasharray = "3,3";
-				range.label.inside = true;
-				range.label.text = "Average";
-				range.label.fill = range.grid.stroke;
-				range.label.verticalCenter = "bottom";// end am4core.ready()
-			});
-		}
-	});
-}());
 
 

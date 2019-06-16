@@ -1,14 +1,16 @@
 hourChart();
 dayChart();
 monthChart();
-// $.ajax({
-// type : "GET",
-// url : "inOldData",
-// dataType : "json",
-// success : function(data){
-// inOldData(data);
-// }
-// });
+
+$.ajax({
+	type : "GET",
+	url : "inOldData",
+	dataType : "json",
+	success : function(data){
+		inOldData(data);
+	}
+});
+
 function hourChart() {
 	am4core.ready(function() {
 
