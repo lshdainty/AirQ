@@ -60,11 +60,14 @@
 		$(document).ready(function() {
 			$(".choice").click(function() {
 				var p = $(this).attr('id'); // get id value (i.e. pin13, pin12, or pin11)
-				alert($(this).attr('id'));
-			
+				if($(this).attr('id') == 11){
+					alert("ON");
+				}else if($(this).attr('id') == 12){
+					alert("OFF");
+				}
+				
 				// send HTTP GET request to the IP address with the parameter "pin" and value "p", then execute the function
 				$.get("http://39.127.7.97:7777/", {pin : p}); // execute get request (아두이노 웹서버 IP 주소로 고쳐 준다)
-				alert("pin: " + p);
 			});
 		});
 	</script>

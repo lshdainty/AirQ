@@ -221,20 +221,20 @@ public class HomeController {
 			if(count == 3) {
 				String resultDust = String.valueOf(resDust / 3);
 				// DB저장
-				msd.setIot_id(iotId);
-				msd.setMeasure_value(resultDust);
-
-				System.out.println("iotId: " + iotId);
-				System.out.println("resultDust: " + resultDust);
-//				System.out.println("measureTime: " + measureTime);
-				
-				Map<String, Object> m = new HashMap<String, Object>();
-				m.put("msd", msd);
-//				m.put("time", (Object) measureTime);
-
-				manageService.measureData(m);
-				
-				System.out.println("msd: " + msd);
+//				msd.setIot_id(iotId);
+//				msd.setMeasure_value(resultDust);
+//
+//				System.out.println("iotId: " + iotId);
+//				System.out.println("resultDust: " + resultDust);
+////				System.out.println("measureTime: " + measureTime);
+//				
+//				Map<String, Object> m = new HashMap<String, Object>();
+//				m.put("msd", msd);
+////				m.put("time", (Object) measureTime);
+//
+//				manageService.measureData(m);
+//				
+//				System.out.println("msd: " + msd);
 				////////
 				
 				count = 0;

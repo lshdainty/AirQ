@@ -8,6 +8,7 @@
  <button id="11" class="led">LED PIN 11</button> <!-- button for pin 11 -->
  <button id="12" class="led">LED PIN 12</button> <!-- button for pin 12 -->
  <button id="13" class="led">LED PIN 13</button> <!-- button for pin 13 -->
+
   
  <script type="text/javascript">
   $(document).ready(function(){
@@ -15,7 +16,7 @@
     var p = $(this).attr('id'); // get id value (i.e. pin13, pin12, or pin11)
     alert($(this).attr('id'));
     // send HTTP GET request to the IP address with the parameter "pin" and value "p", then execute the function
-    $.get("http://39.127.7.97:3434/", {pin:p}); // execute get request
+    $.get("http://39.127.7.97:7777/", {pin:p}); // execute get request
     alert("pin: " + p);
    });
   });
