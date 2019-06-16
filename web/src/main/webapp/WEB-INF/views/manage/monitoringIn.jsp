@@ -24,11 +24,11 @@
 			<!-- 나쁨,상당히 :  background :  #ffa968  color : #b25826 -->
 			<!-- 매우,최악 :  background :  #af2c3b  color : #af2c3b -->
 			<div class="info_box">
-				<div class="info_grade__container grade_good">
+				<div class="info_grade__container">
 					<div class="info_grade__face">
-						<img src="https://www.airvisual.com/assets/aqi/ic-face-1-green.svg" />
+						<img id="face" src="/resources/images/face_1.svg" />
 					</div>
-					<div class="info_grade__value">최고</div>
+					<div class="info_grade__value"></div>
 				</div>
 				<div class="info_explain">
 					<div class="info_table__container">

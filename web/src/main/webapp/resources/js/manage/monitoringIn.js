@@ -6,6 +6,45 @@ $.ajax({
 		$("#matterValue").text(data.matterValue);
 		$("#todayAvg").text(data.todayAvg);
 		$("#overValue").text(data.overValue);
+		var gradeText = "";
+		var gradeImage = "";
+		switch (data.grade) {
+		  case 1 :
+			  gradeText = "최고";
+			  gradeImage = "1";
+			  break;
+		  case 2 :
+			  gradeText = "좋음";
+			  gradeImage = "1";
+			  break;
+		  case 3 :
+			  gradeText = "양호";
+			  gradeImage = "2";
+			  break;
+		  case 4 :
+			  gradeText = "보통";
+			  gradeImage = "2";
+			  break;
+		  case 5 :
+			  gradeText = "나쁨";
+			  gradeImage = "3";
+			  break;
+		  case 6 :
+			  gradeText = "상당히 나쁨";
+			  gradeImage = "4";
+			  break;
+		  case 7 :
+			  gradeText = "매우 나쁨";
+			  gradeImage = "5";
+			  break;
+		  case 8 :
+			  gradeText = "최악";
+			  gradeImage = "6";
+			  break;
+		}
+		$("#face").attr('src',"/resources/images/face_"+gradeImage+".svg");
+		$(".info_grade__value").text(gradeText);
+		$(".info_grade__container").addClass("grade_"+data.grade);
 		monthChart(data.monthData,data.dataGubun);	//올해 월별 평균
 		dayChart(data.dayData,data.dataGubun);	//오늘로부터 7일 전까지 요일별 평균
 		hourChart(data.timeData,data.dataGubun);	//하루 - 시간별
@@ -273,6 +312,45 @@ function inOldData(OldData) {
 						$("#matterValue").text(data.matterValue);
 						$("#todayAvg").text(data.todayAvg);
 						$("#overValue").text(data.overValue);
+						var gradeText = "";
+						var gradeImage = "";
+						switch (data.grade) {
+						  case 1 :
+							  gradeText = "최고";
+							  gradeImage = "1";
+							  break;
+						  case 2 :
+							  gradeText = "좋음";
+							  gradeImage = "1";
+							  break;
+						  case 3 :
+							  gradeText = "양호";
+							  gradeImage = "2";
+							  break;
+						  case 4 :
+							  gradeText = "보통";
+							  gradeImage = "2";
+							  break;
+						  case 5 :
+							  gradeText = "나쁨";
+							  gradeImage = "3";
+							  break;
+						  case 6 :
+							  gradeText = "상당히 나쁨";
+							  gradeImage = "4";
+							  break;
+						  case 7 :
+							  gradeText = "매우 나쁨";
+							  gradeImage = "5";
+							  break;
+						  case 8 :
+							  gradeText = "최악";
+							  gradeImage = "6";
+							  break;
+						}
+						$("#face").attr('src',"/resources/images/face_"+gradeImage+".svg");
+						$(".info_grade__value").text(gradeText);
+						$(".info_grade__container").addClass("grade_"+data.grade);
 						chart.addData({
 							TIME : new Date(data.nowData[0].TIME),
 							VALUE : data.nowData[0].VALUE

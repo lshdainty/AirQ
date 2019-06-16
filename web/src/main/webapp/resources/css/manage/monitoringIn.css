@@ -147,18 +147,44 @@ tspan {
 	margin-top: 1rem;
 }
 
-.grade_good {
-	background: #b0e867;
-	color: #718b3a;
+.grade_1 {
+	background: #B5B2FF;
+	color: rgba(50,50,50,0.7);
 }
 
-.grade_normal {
-	background: #ffdf58;
-	color: #a57f23;
+.grade_2 {
+	background: #B2CCFF;
+	color: rgba(50,50,50,0.7);
 }
-.grade_bad{
-	background: #ffa968;
-	color: #b25826;
+
+.grade_3 {
+	background: #B2EBF4;
+	color: rgba(50,50,50,0.7);
+}
+
+.grade_4 {
+	background: #CEF279;
+	color: rgba(50,50,50,0.7);
+}
+
+.grade_5 {
+	background: #FAED7D;
+	color: rgba(50,50,50,0.7);
+}
+
+.grade_6 {
+	background: #FFC19E;
+	color: rgba(50,50,50,0.7);
+}
+
+.grade_7 {
+	background: #FFA7A7;
+	color: rgba(50,50,50,0.7);
+}
+
+.grade_8 {
+	background: #BDBDBD;
+	color: rgba(50,50,50,0.7);
 }
 
 .timeChart_container{

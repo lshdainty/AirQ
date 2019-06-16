@@ -347,8 +347,7 @@ public class ManageController {
 	public JSONObject inOldData(HttpServletRequest request) {
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();	// 나중에 IOT ID로 변경
 		
-		float dataGubun[] = new float[7];
-		dataGubun[0] = 151;dataGubun[1] = 101;dataGubun[2] = 76;dataGubun[3] = 51;dataGubun[4] = 41;dataGubun[5] = 31;dataGubun[6] = 16;
+		float dataGubun[] = {151,101,76,51,41,31,16,0};
 		
 		ArrayList<Map<String,Object>> oldData = manageService.getOldData();	//초기 30개의 값 가져오기
 		String matterValue = (String) oldData.get(29).get("VALUE");	//마지막 값을 현재의 값으로 넣기
@@ -363,6 +362,13 @@ public class ManageController {
 		JSONArray jDayData = JSONArray.fromObject(dayData);
 		JSONArray jTimeData = JSONArray.fromObject(timeData);
 		
+		int x = 0;
+		int grade = 0;
+		while (Float.parseFloat(matterValue) < dataGubun[x]) {
+			x++;
+		}
+		grade = 8 - x;
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("oldData", jOldData);
 		map.put("matterValue", matterValue);
@@ -372,6 +378,7 @@ public class ManageController {
 		map.put("monthData", jMonthData);
 		map.put("dayData", jDayData);
 		map.put("timeData", jTimeData);
+		map.put("grade",grade);
 		
 		JSONObject json = JSONObject.fromObject(map);
 		
@@ -384,6 +391,8 @@ public class ManageController {
 	public JSONObject inNowData(HttpServletRequest request) {
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
 		
+		float dataGubun[] = {151,101,76,51,41,31,16,0};
+		
 		ArrayList<Map<String,Object>> nowData = manageService.getNowData();
 		String matterValue = (String) nowData.get(0).get("VALUE");	//마지막 값을 현재의 값으로 넣기
 		String todayAvg = manageService.getTodayAvgData(member_id);	//하루 평균값 가져오기
@@ -391,11 +400,19 @@ public class ManageController {
 		
 		JSONArray jNowData = JSONArray.fromObject(nowData);
 		
+		int x = 0;
+		int grade = 0;
+		while (Float.parseFloat(matterValue) < dataGubun[x]) {
+			x++;
+		}
+		grade = 8 - x;
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("nowData", jNowData);
 		map.put("matterValue", matterValue);
 		map.put("todayAvg", todayAvg);
 		map.put("overValue", overValue);
+		map.put("grade",grade);
 		
 		JSONObject json = JSONObject.fromObject(map);
 		
