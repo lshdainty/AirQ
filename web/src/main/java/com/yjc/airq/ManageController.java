@@ -344,18 +344,85 @@ public class ManageController {
 	// 실시간 차트 기본 데이터 30개 가져오기
 	@RequestMapping(value = "inOldData", method = RequestMethod.GET)
 	@ResponseBody
-	public JSONArray inOldData() {
-		ArrayList<Map<String,Object>> oldData = manageService.getOldData();
-		JSONArray json = JSONArray.fromObject(oldData);
+	public JSONObject inOldData(HttpServletRequest request) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();	// 나중에 IOT ID로 변경
+		
+		float dataGubun[] = new float[7];
+		dataGubun[0] = 151;dataGubun[1] = 101;dataGubun[2] = 76;dataGubun[3] = 51;dataGubun[4] = 41;dataGubun[5] = 31;dataGubun[6] = 16;
+		
+		ArrayList<Map<String,Object>> oldData = manageService.getOldData();	//초기 30개의 값 가져오기
+		String matterValue = (String) oldData.get(29).get("VALUE");	//마지막 값을 현재의 값으로 넣기
+		ArrayList<Map<String,Object>> monthData = manageService.getMonthData(member_id);	//월 평균 값 가져오기
+		ArrayList<Map<String,Object>> dayData = manageService.getDayData(member_id);	//요일 평균 값 가져오기
+		ArrayList<Map<String,Object>> timeData = manageService.getTimeData(member_id);	//시간 평균 값 가져오기
+		
+		JSONArray jOldData = JSONArray.fromObject(oldData);
+		JSONArray jMonthData = JSONArray.fromObject(monthData);
+		JSONArray jDayData = JSONArray.fromObject(dayData);
+		JSONArray jTimeData = JSONArray.fromObject(timeData);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("oldData", jOldData);
+		map.put("dataGubun", dataGubun);
+		map.put("matterValue", matterValue);
+		map.put("monthData", jMonthData);
+		map.put("dayData", jDayData);
+		map.put("timeData", jTimeData);
+		
+		JSONObject json = JSONObject.fromObject(map);
 		
 		return json;
 	}
 	
+//	// 월 평균 값 가져오기
+//	@RequestMapping(value = "monthData", method = RequestMethod.GET)
+//	@ResponseBody
+//	public JSONArray monthData(HttpServletRequest request) {
+//		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();	// 나중에 IOT ID로 변경
+//		
+//		ArrayList<Map<String,Object>> monthData = manageService.getMonthData(member_id);	//월 평균 값 가져오기
+//		
+//		JSONArray json = JSONArray.fromObject(monthData);
+//		
+//		return json;
+//	}
+//	
+//	// 요일 평균 값 가져오기
+//	@RequestMapping(value = "dayData", method = RequestMethod.GET)
+//	@ResponseBody
+//	public JSONArray dayData(HttpServletRequest request) {
+//		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();	// 나중에 IOT ID로 변경
+//			
+//		ArrayList<Map<String,Object>> dayData = manageService.getDayData(member_id);	//요일 평균 값 가져오기
+//			
+//		JSONArray json = JSONArray.fromObject(dayData);
+//			
+//		return json;
+//	}
+//		
+//	// 시간 평균 값 가져오기
+//	@RequestMapping(value = "timeData", method = RequestMethod.GET)
+//	@ResponseBody
+//	public JSONArray timeData(HttpServletRequest request) {
+//		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();	// 나중에 IOT ID로 변경
+//			
+//		ArrayList<Map<String,Object>> timeData = manageService.getTimeData(member_id);	//시간 평균 값 가져오기
+//			
+//		JSONArray json = JSONArray.fromObject(timeData);
+//			
+//		return json;
+//	}
+	
 	// 실시간 차트 최신 데이터 가져오기
 	@RequestMapping(value = "inNowData", method = RequestMethod.GET)
 	@ResponseBody
-	public JSONArray inNowData() {
+	public JSONArray inNowData(HttpServletRequest request) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		
 		ArrayList<Map<String,Object>> nowData = manageService.getNowData();
+		System.out.println(nowData.get(0));
+		System.out.println(nowData);
+		
 		JSONArray json = JSONArray.fromObject(nowData);
 			
 		return json;

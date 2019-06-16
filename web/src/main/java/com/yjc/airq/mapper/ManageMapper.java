@@ -28,6 +28,15 @@ public interface ManageMapper {
 	// 실시간 차트 기본 데이터 30개 가져오기
 	public ArrayList<Map<String,Object>> getOldData();
 	
+	// 월 평균 데이터 가져오기
+	public ArrayList<Map<String,Object>> getMonthData(@Param("member_id") String member_id);
+	
+	// 요일 평균 데이터 가져오기
+	public ArrayList<Map<String,Object>> getDayData(@Param("member_id") String member_id);
+	
+	// 시간 평균 데이터 가져오기
+	public ArrayList<Map<String,Object>> getTimeData(@Param("member_id") String member_id);
+	
 	// 실시간 차트 최신 데이터 가져오기
 	public ArrayList<Map<String,Object>> getNowData();
 	

@@ -1,17 +1,16 @@
-hourChart();
-dayChart();
-monthChart();
-
 $.ajax({
 	type : "GET",
 	url : "inOldData",
 	dataType : "json",
 	success : function(data){
-		inOldData(data);
+		monthChart(data.monthData,data.dataGubun);	//올해 달별 평균
+		dayChart(data.dayData,data.dataGubun);	//오늘로부터 7일 전까지 요일별 평균
+		hourChart(data.timeData,data.dataGubun);	//하루 - 시간별
+		inOldData(data.oldData);	//기본 30개값 가져오기
 	}
 });
 
-function hourChart() {
+function hourChart(timeData,dataGubun) {
 	am4core.ready(function() {
 
 		// Themes begin
@@ -22,91 +21,53 @@ function hourChart() {
 		var chart = am4core.create("hourChart", am4charts.XYChart);
 
 		// Add data
-		chart.data = [ {
-			"country" : "1",
-			"visits" : 3025
-		}, {
-			"country" : "2",
-			"visits" : 1882
-		}, {
-			"country" : "3",
-			"visits" : 1809
-		}, {
-			"country" : "4",
-			"visits" : 1322
-		}, {
-			"country" : "5",
-			"visits" : 1122
-		}, {
-			"country" : "6",
-			"visits" : 1114
-		}, {
-			"country" : "7",
-			"visits" : 984
-		}, {
-			"country" : "8",
-			"visits" : 711
-		}, {
-			"country" : "9",
-			"visits" : 665
-		}, {
-			"country" : "10",
-			"visits" : 580
-		}, {
-			"country" : "11",
-			"visits" : 443
-		}, {
-			"country" : "12",
-			"visits" : 441
-		} ];
+		chart.data =  timeData;
 
 		// Create axes
 		var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-		categoryAxis.dataFields.category = "country";
+		categoryAxis.dataFields.category = "TIME";
 		categoryAxis.renderer.grid.template.location = 0;
-		categoryAxis.renderer.minGridDistance = 1;
-		categoryAxis.renderer.labels.template.horizontalCenter = "middle";
-		categoryAxis.renderer.labels.template.verticalCenter = "middle";
-		categoryAxis.renderer.labels.template.rotation = 0;
-		categoryAxis.tooltip.disabled = true;
-		categoryAxis.renderer.minHeight = 0;
+		categoryAxis.renderer.minGridDistance = 30;
 
 		var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-		valueAxis.renderer.minWidth = 0;
 
 		// Create series
 		var series = chart.series.push(new am4charts.ColumnSeries());
-		series.sequencedInterpolation = true;
-		series.dataFields.valueY = "visits";
-		series.dataFields.categoryX = "country";
-		series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
-		series.columns.template.strokeWidth = 0;
-
-		series.tooltip.pointerOrientation = "vertical";
-
-		series.columns.template.column.cornerRadiusTopLeft = 10;
-		series.columns.template.column.cornerRadiusTopRight = 10;
-		series.columns.template.column.fillOpacity = 0.8;
-
-		// on hover, make corner radiuses bigger
-		var hoverState = series.columns.template.column.states.create("hover");
-		hoverState.properties.cornerRadiusTopLeft = 0;
-		hoverState.properties.cornerRadiusTopRight = 0;
-		hoverState.properties.fillOpacity = 1;
-
+		series.dataFields.valueY = "VALUE";
+		series.dataFields.categoryX = "TIME";
+		series.name = "VALUE";
+		series.columns.template.tooltipText = "[bold]{valueY}[/]"+"µg/m³";
+		series.columns.template.fillOpacity = 1;	//투명도
+		series.columns.template.fill = am4core.color("#B5B2FF");	//기본 색상
 		series.columns.template.adapter.add("fill", function(fill, target) {
-			return chart.colors.getIndex(target.dataItem.index);
+			if (target.dataItem.valueY >= dataGubun[0]) {
+				return am4core.color("#BDBDBD");
+			}else if(target.dataItem.valueY >= dataGubun[1]){
+				return am4core.color("#FFA7A7");
+			}else if(target.dataItem.valueY >= dataGubun[2]){
+				return am4core.color("#FFC19E");
+			}else if(target.dataItem.valueY >= dataGubun[3]){
+				return am4core.color("#FAED7D");
+			}else if(target.dataItem.valueY >= dataGubun[4]){
+				return am4core.color("#CEF279");
+			}else if(target.dataItem.valueY >= dataGubun[5]){
+				return am4core.color("#B2EBF4");
+			}else if(target.dataItem.valueY >= dataGubun[6]){
+				return am4core.color("#B2CCFF");
+			}else {
+				return fill;
+			}
 		});
 
-		// Cursor
-		chart.cursor = new am4charts.XYCursor();
+		var columnTemplate = series.columns.template;
+		columnTemplate.strokeWidth = 0;
+		columnTemplate.strokeOpacity = 1;
 
 	}); // end am4core.ready()
 };
 
 
-
-function dayChart() {
+function dayChart(dayData,dataGubun) {
 	am4core.ready(function() {
 
 		// Themes begin
@@ -117,74 +78,52 @@ function dayChart() {
 		var chart = am4core.create("dayChart", am4charts.XYChart);
 
 		// Add data
-		chart.data = [ {
-			"country" : "1",
-			"visits" : 3025
-		}, {
-			"country" : "2",
-			"visits" : 1882
-		}, {
-			"country" : "3",
-			"visits" : 1809
-		}, {
-			"country" : "4",
-			"visits" : 1322
-		}, {
-			"country" : "5",
-			"visits" : 1122
-		}, {
-			"country" : "6",
-			"visits" : 1114
-		}, {
-			"country" : "7",
-			"visits" : 984
-		} ];
+		chart.data = dayData;
 
 		// Create axes
 		var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-		categoryAxis.dataFields.category = "country";
+		categoryAxis.dataFields.category = "DAY";
 		categoryAxis.renderer.grid.template.location = 0;
-		categoryAxis.renderer.minGridDistance = 1;
-		categoryAxis.renderer.labels.template.horizontalCenter = "middle";
-		categoryAxis.renderer.labels.template.verticalCenter = "middle";
-		categoryAxis.renderer.labels.template.rotation = 0;
-		categoryAxis.tooltip.disabled = true;
-		categoryAxis.renderer.minHeight = 0;
+		categoryAxis.renderer.minGridDistance = 30;
 
 		var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-		valueAxis.renderer.minWidth = 0;
 
 		// Create series
 		var series = chart.series.push(new am4charts.ColumnSeries());
-		series.sequencedInterpolation = true;
-		series.dataFields.valueY = "visits";
-		series.dataFields.categoryX = "country";
-		series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
-		series.columns.template.strokeWidth = 0;
-
-		series.tooltip.pointerOrientation = "vertical";
-
-		series.columns.template.column.cornerRadiusTopLeft = 10;
-		series.columns.template.column.cornerRadiusTopRight = 10;
-		series.columns.template.column.fillOpacity = 0.8;
-
-		// on hover, make corner radiuses bigger
-		var hoverState = series.columns.template.column.states.create("hover");
-		hoverState.properties.cornerRadiusTopLeft = 0;
-		hoverState.properties.cornerRadiusTopRight = 0;
-		hoverState.properties.fillOpacity = 1;
-
+		series.dataFields.valueY = "VALUE";
+		series.dataFields.categoryX = "DAY";
+		series.name = "VALUE";
+		series.columns.template.tooltipText = "[bold]{valueY}[/]"+"µg/m³";
+		series.columns.template.fillOpacity = 1;	//투명도
+		series.columns.template.fill = am4core.color("#B5B2FF");	//기본 색상
 		series.columns.template.adapter.add("fill", function(fill, target) {
-			return '#fff';
+			if (target.dataItem.valueY >= dataGubun[0]) {
+				return am4core.color("#BDBDBD");
+			}else if(target.dataItem.valueY >= dataGubun[1]){
+				return am4core.color("#FFA7A7");
+			}else if(target.dataItem.valueY >= dataGubun[2]){
+				return am4core.color("#FFC19E");
+			}else if(target.dataItem.valueY >= dataGubun[3]){
+				return am4core.color("#FAED7D");
+			}else if(target.dataItem.valueY >= dataGubun[4]){
+				return am4core.color("#CEF279");
+			}else if(target.dataItem.valueY >= dataGubun[5]){
+				return am4core.color("#B2EBF4");
+			}else if(target.dataItem.valueY >= dataGubun[6]){
+				return am4core.color("#B2CCFF");
+			}else {
+				return fill;
+			}
 		});
 
-		// Cursor
-		chart.cursor = new am4charts.XYCursor();
+		var columnTemplate = series.columns.template;
+		columnTemplate.strokeWidth = 0;
+		columnTemplate.strokeOpacity = 1;
 
 	}); // end am4core.ready()
 };
 
-function monthChart() {
+function monthChart(monthData,dataGubun) {
 	am4core.ready(function() {
 
 		// Themes begin
@@ -195,124 +134,52 @@ function monthChart() {
 		var chart = am4core.create("monthChart", am4charts.XYChart);
 
 		// Add data
-		chart.data = [ {
-			"country" : "1",
-			"visits" : 3025
-		}, {
-			"country" : "2",
-			"visits" : 1882
-		}, {
-			"country" : "3",
-			"visits" : 1809
-		}, {
-			"country" : "4",
-			"visits" : 1322
-		}, {
-			"country" : "5",
-			"visits" : 1122
-		}, {
-			"country" : "6",
-			"visits" : 1114
-		}, {
-			"country" : "7",
-			"visits" : 984
-		}, {
-			"country" : "8",
-			"visits" : 984
-		}, {
-			"country" : "9",
-			"visits" : 984
-		}, {
-			"country" : "10",
-			"visits" : 984
-		}, {
-			"country" : "11",
-			"visits" : 984
-		}, {
-			"country" : "12",
-			"visits" : 984
-		}, {
-			"country" : "13",
-			"visits" : 984
-		}, {
-			"country" : "14",
-			"visits" : 984
-		}, {
-			"country" : "15",
-			"visits" : 984
-		}, {
-			"country" : "16",
-			"visits" : 984
-		}, {
-			"country" : "17",
-			"visits" : 984
-		}, {
-			"country" : "18",
-			"visits" : 984
-		}, {
-			"country" : "19",
-			"visits" : 984
-		}, {
-			"country" : "20",
-			"visits" : 984
-		}, {
-			"country" : "21",
-			"visits" : 984
-		}, {
-			"country" : "22",
-			"visits" : 984
-		}, {
-			"country" : "23",
-			"visits" : 984
-		}, {
-			"country" : "24",
-			"visits" : 984
-		}, ];
+		chart.data = monthData;
 
 		// Create axes
 		var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-		categoryAxis.dataFields.category = "country";
+		categoryAxis.dataFields.category = "MONTH";
 		categoryAxis.renderer.grid.template.location = 0;
-		categoryAxis.renderer.minGridDistance = 1;
-		categoryAxis.renderer.labels.template.horizontalCenter = "middle";
-		categoryAxis.renderer.labels.template.verticalCenter = "middle";
-		categoryAxis.renderer.labels.template.rotation = 0;
-		categoryAxis.tooltip.disabled = true;
-		categoryAxis.renderer.minHeight = 0;
+		categoryAxis.renderer.minGridDistance = 30;
 
 		var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-		valueAxis.renderer.minWidth = 0;
 
 		// Create series
 		var series = chart.series.push(new am4charts.ColumnSeries());
-		series.sequencedInterpolation = true;
-		series.dataFields.valueY = "visits";
-		series.dataFields.categoryX = "country";
-		series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
-		series.columns.template.strokeWidth = 0;
-
-		series.tooltip.pointerOrientation = "vertical";
-
-		series.columns.template.column.cornerRadiusTopLeft = 10;
-		series.columns.template.column.cornerRadiusTopRight = 10;
-		series.columns.template.column.fillOpacity = 0.8;
-
-		// on hover, make corner radiuses bigger
-		var hoverState = series.columns.template.column.states.create("hover");
-		hoverState.properties.cornerRadiusTopLeft = 0;
-		hoverState.properties.cornerRadiusTopRight = 0;
-		hoverState.properties.fillOpacity = 1;
-
+		series.dataFields.valueY = "VALUE";
+		series.dataFields.categoryX = "MONTH";
+		series.name = "VALUE";
+		series.columns.template.tooltipText = "[bold]{valueY}[/]"+"µg/m³";
+		series.columns.template.fillOpacity = 1;	//투명도
+		series.columns.template.fill = am4core.color("#B5B2FF");	//기본 색상
 		series.columns.template.adapter.add("fill", function(fill, target) {
-			return '#34862E';
+			if (target.dataItem.valueY >= dataGubun[0]) {
+				return am4core.color("#BDBDBD");
+			}else if(target.dataItem.valueY >= dataGubun[1]){
+				return am4core.color("#FFA7A7");
+			}else if(target.dataItem.valueY >= dataGubun[2]){
+				return am4core.color("#FFC19E");
+			}else if(target.dataItem.valueY >= dataGubun[3]){
+				return am4core.color("#FAED7D");
+			}else if(target.dataItem.valueY >= dataGubun[4]){
+				return am4core.color("#CEF279");
+			}else if(target.dataItem.valueY >= dataGubun[5]){
+				return am4core.color("#B2EBF4");
+			}else if(target.dataItem.valueY >= dataGubun[6]){
+				return am4core.color("#B2CCFF");
+			}else {
+				return fill;
+			}
 		});
 
-		// Cursor
-		chart.cursor = new am4charts.XYCursor();
+		var columnTemplate = series.columns.template;
+		columnTemplate.strokeWidth = 0;
+		columnTemplate.strokeOpacity = 1;
 
 	}); // end am4core.ready()
 };
 
+//live chart시작
 function inOldData(OldData) {
 	am4core.ready(function() {
 
@@ -378,6 +245,7 @@ function inOldData(OldData) {
 		dateAxis.interpolationDuration = 500;
 		dateAxis.rangeChangeDuration = 500;
 
+		// 창이 내려갔을때 어떤 행동을 할것인가
 		// document.addEventListener("visibilitychange", function() {
 		// startInterval();
 		// if (document.hidden) {
@@ -464,3 +332,4 @@ function inOldData(OldData) {
 		}); // end am4core.ready()
 	});
 }
+//live chart끝
