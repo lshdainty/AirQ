@@ -36,4 +36,10 @@ public class UploadServiceImplement implements UploadService {
 	public void deleteBidUpload(ArrayList<String> uploadArr) {
 		mapper.deleteBidUpload(uploadArr);
 	}
+	
+	//입찰 업로드 삭제
+	@Override
+	public void tenderUploadDelete(String upload_code) {
+		mapper.tenderUploadDelete(upload_code);
+	}
 }

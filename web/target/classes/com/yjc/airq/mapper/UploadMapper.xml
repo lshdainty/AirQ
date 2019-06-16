@@ -77,5 +77,10 @@
 		where upload_code=#{upload_code}
 	</select>
 	
-	
+	<!-- 입찰 업로드 삭제 -->
+	<delete id="tenderUploadDelete">
+		delete
+		from upload
+		where upload_code=#{upload_code}
+	</delete>
 </mapper>

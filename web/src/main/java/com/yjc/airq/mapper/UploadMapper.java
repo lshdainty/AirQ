@@ -34,4 +34,7 @@ public interface UploadMapper {
 	
 	// 업로드 정보
 	public UploadVO uploadInfo(String upload_code);
+	
+	//입찰 업로드 삭제
+	public void tenderUploadDelete(String upload_code);
 }

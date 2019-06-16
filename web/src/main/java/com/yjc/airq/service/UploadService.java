@@ -14,4 +14,7 @@ public interface UploadService {
 	
 	//투찰에 있던 파일 삭제
 	public void deleteBidUpload(ArrayList<String> uploadArr);
+	
+	//입찰 업로드 삭제
+	public void tenderUploadDelete(String upload_code);
 }
