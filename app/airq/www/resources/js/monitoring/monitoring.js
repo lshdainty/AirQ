@@ -1,7 +1,4 @@
 var ip = sessionStorage.getItem('IP_ADDRESS');
-
-
-
 /* *************************** page init function ******************** */
 ajaxChart("신암동","pm10");
 ajaxArea("대구");
@@ -11,10 +8,6 @@ $("#sido_code").val("대구").prop("selected", true);
 $("#sigoon_code").val("신암동").prop("selected", true);
 $("#matter").val("pm10").prop("selected", true);
 /* ******************************************************************** */
-
-
-
-
 // var ip = "http://192.168.2.8";
 
 // var htmlMarkers = [];

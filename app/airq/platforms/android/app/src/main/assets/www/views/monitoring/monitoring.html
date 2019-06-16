@@ -39,7 +39,7 @@
                 <div class="inside-container">
                     <div class="myIot">내기기 목록</div>
 
-                    <input type="date" id="measureDate" onchange="measureDate(this)" />
+                    <!-- <input type="date" id="measureDate" onchange="measureDate(this)" /> -->
 
                     <!-- Chart 시작 -->
                     <div id="chartdiv"></div>
@@ -66,11 +66,13 @@
 
 
                 <!------------- 외부 공기질 차트 ------------->
-                <div id="outchartdiv" style="width: 100%;height: 250px;"></div>
+                <div class="chart-container">
+                    <div id="outchartdiv" style="width: 100%;height: 250px; max-height: 20vh"></div>
+                </div>
                 <!------------------------------------------->
 
 
-                <!-------------지역 선택 ------------->
+                <!-----------------------------지역 선택 ------------------------------>
                 <div class="area-container">
                     <div class="select_box">
                         <select name="sido_code" id="sido_code" class="order-option ">
@@ -98,20 +100,25 @@
                         </select>
                     </div>
                     <div class="select_box">
-                            <select name="matter"
-                            id="matter" class="order-option">
-                                <option value="pm10Value">미세먼지</option>
-                                <option value="pm25Value">초미세먼지</option>
-                                <option value="o3Value">오존</option>
-                                <option value="no2Value">이산화질소</option>
-                                <option value="coValue">일산화탄소</option>
-                                <option value="so2Value">아황산가스</option>
+                        <select name="matter" id="matter" class="order-option">
+                            <option value="pm10">미세먼지</option>
+                            <option value="pm25">초미세먼지</option>
+                            <option value="o3">오존</option>
+                            <option value="no2">이산화질소</option>
+                            <option value="co">일산화탄소</option>
+                            <option value="so2">아황산가스</option>
                         </select>
                     </div>
                 </div>
-                <!------------------------------------>
+                <!--------------------------------------------------------------------->
 
-                
+                <!----------------------------측정값 테이블----------------------------->
+
+                <div class="measure_table">
+                    <div class="ajax-data">
+                    </div>
+                </div>
+                <!--------------------------------------------------------------------->
 
             </div>
             <!--------------------------------------------------------------------------------------->
@@ -121,29 +128,25 @@
     </div>
     <div id="footer"></div>
 
-    <!-- Swiper JS -->
+    <!------------------------------------------------------- Map JS------------------------------------------------->
     <script type="text/javascript"
         src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tpllhjh4tl&submodules=geocoder"></script>
     <script type="text/javascript" src="https://navermaps.github.io/maps.js.ncp/docs/js/MarkerClustering.js"></script>
-    <!--------------------->
-
-
+    <!--------------------------------------------------------------------------------------------------------------->
 
     <!---------------------------------------------------------------------------------------------------------------->
-    <!-------------------------------------------- HighChart Scripts Start-------------------------------------------->
+    <!-----------------------------------------------Chart Scripts Start---------------------------------------------->
 
     <script src="https://www.amcharts.com/lib/4/core.js"></script>
     <script src="https://www.amcharts.com/lib/4/charts.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <!---------------------------------------------------------------------------------------------------------------->
 
-    <!-------------------------------------------- HighChart Scripts ------------------------------------------------->
     <!---------------------------------------------------------------------------------------------------------------->
     <script src="https://www.amcharts.com/lib/4/themes/spiritedaway.js"></script>
-
-
     <script src="../../../www/resources/js/connect/swiper.js"></script>
     <script src="../../../www/resources/js/connect/connect__app.js"></script>
-    <script src="../../../www/resources/js/monitoring/inside.js"></script>
+    <!-- <script src="../../../www/resources/js/monitoring/inside.js"></script> -->
     <script src="../../../www/resources/js/monitoring/monitoring.js"></script>
 </body>
 

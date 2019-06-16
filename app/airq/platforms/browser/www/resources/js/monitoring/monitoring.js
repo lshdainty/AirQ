@@ -1,5 +1,4 @@
-// var ip = sessionStorage.getItem('IP_ADDRESS');
-var ip = "http://39.127.7.69"
+var ip = sessionStorage.getItem('IP_ADDRESS');
 
 // var htmlMarkers = [];
 
@@ -242,7 +241,6 @@ function ajaxChart(area, matter) {
 				// Create series
 				var series = chart.series.push(new am4charts.LineSeries());
 				series.dataFields.valueY = "data";
-				series.dataFields.dateX = "dataTime";
 				series.tooltipText = "{data}"
 				series.strokeWidth = 2;
 				series.minBulletDistance = 15;
@@ -329,7 +327,7 @@ function ajaxChart(area, matter) {
 				table += '<div class="measure_box">'+
 					'<div class="measure_grade">'+
 						'<svg height="100" width="100">'+
-							'<circle cx="0" cy="22" r="10" stroke="#000" stroke-width="1" fill="'+forecastColor+'" />'+
+							'<circle cx="0" cy="15" r="10" stroke="#000" stroke-width="1" fill="'+forecastColor+'" />'+
 						'</svg>'+
 					'</div>'+
 					'<div class="box-content measure_time">'+(data.result[i].dataTime).replace(year+'-','')+'</div>'+
