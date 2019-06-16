@@ -45,6 +45,16 @@ public class ManageServiceImplement implements ManageService{
 		return mapper.getOldData();
 	}
 	
+	// 하루 평균값 가져오기
+	public String getTodayAvgData(@Param("member_id") String member_id){
+		return mapper.getTodayAvgData(member_id);
+	}
+	
+	// 임계값 초과 횟수 가져오기
+	public int getOverValue(@Param("member_id") String member_id){
+		return mapper.getOverValue(member_id);
+	}
+	
 	// 월 평균 데이터 가져오기
 	public ArrayList<Map<String,Object>> getMonthData(@Param("member_id") String member_id){
 		return mapper.getMonthData(member_id);

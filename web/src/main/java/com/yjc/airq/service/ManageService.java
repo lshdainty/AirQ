@@ -28,6 +28,12 @@ public interface ManageService {
 	// 실시간 차트 기본 데이터 30개 가져오기
 	public ArrayList<Map<String,Object>> getOldData();
 	
+	// 하루 평균값 가져오기
+	public String getTodayAvgData(@Param("member_id") String member_id);
+	
+	// 임계값 초과 횟수 가져오기
+	public int getOverValue(@Param("member_id") String member_id);
+	
 	// 월 평균 데이터 가져오기
 	public ArrayList<Map<String,Object>> getMonthData(@Param("member_id") String member_id);
 	

@@ -352,6 +352,8 @@ public class ManageController {
 		
 		ArrayList<Map<String,Object>> oldData = manageService.getOldData();	//초기 30개의 값 가져오기
 		String matterValue = (String) oldData.get(29).get("VALUE");	//마지막 값을 현재의 값으로 넣기
+		String todayAvg = manageService.getTodayAvgData(member_id);	//하루 평균값 가져오기
+		int overValue = manageService.getOverValue(member_id);	//임계값 초과 횟수 가져오기
 		ArrayList<Map<String,Object>> monthData = manageService.getMonthData(member_id);	//월 평균 값 가져오기
 		ArrayList<Map<String,Object>> dayData = manageService.getDayData(member_id);	//요일 평균 값 가져오기
 		ArrayList<Map<String,Object>> timeData = manageService.getTimeData(member_id);	//시간 평균 값 가져오기
@@ -363,8 +365,10 @@ public class ManageController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("oldData", jOldData);
-		map.put("dataGubun", dataGubun);
 		map.put("matterValue", matterValue);
+		map.put("todayAvg", todayAvg);
+		map.put("overValue", overValue);
+		map.put("dataGubun", dataGubun);
 		map.put("monthData", jMonthData);
 		map.put("dayData", jDayData);
 		map.put("timeData", jTimeData);
