@@ -45,10 +45,9 @@ public class MobileManageController {
 		@RequestMapping(value = "/m.inOldData", method = RequestMethod.GET)
 		@ResponseBody
 		public JSONObject inOldData(HttpServletRequest request) {
-			String member_id = request.getParameter("member_id");	// 나중에 IOT ID로 변경
-			System.out.println(member_id);
-			float dataGubun[] = new float[7];
-			dataGubun[0] = 151;dataGubun[1] = 101;dataGubun[2] = 76;dataGubun[3] = 51;dataGubun[4] = 41;dataGubun[5] = 31;dataGubun[6] = 16;
+			String member_id = request.getParameter("member_id");
+			
+			float dataGubun[] = {151,101,76,51,41,31,16,0};
 			
 			ArrayList<Map<String,Object>> oldData = manageService.getOldData();	//초기 30개의 값 가져오기
 			String matterValue = (String) oldData.get(29).get("VALUE");	//마지막 값을 현재의 값으로 넣기
@@ -63,6 +62,13 @@ public class MobileManageController {
 			JSONArray jDayData = JSONArray.fromObject(dayData);
 			JSONArray jTimeData = JSONArray.fromObject(timeData);
 			
+			int x = 0;
+			int grade = 0;
+			while (Float.parseFloat(matterValue) < dataGubun[x]) {
+				x++;
+			}
+			grade = 8 - x;
+			
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("oldData", jOldData);
 			map.put("matterValue", matterValue);
@@ -72,6 +78,7 @@ public class MobileManageController {
 			map.put("monthData", jMonthData);
 			map.put("dayData", jDayData);
 			map.put("timeData", jTimeData);
+			map.put("grade",grade);
 			
 			JSONObject json = JSONObject.fromObject(map);
 			
