@@ -33,16 +33,17 @@
 				<div class="info_explain">
 					<div class="info_table__container">
 						<div class="info_table__box">
-							<div class="info_table__value" id="matterValue"></div>
 							<div class="info_table__title">현재 수치</div>
+							<div class="info_table__value" id="matterValue"></div>
 						</div>
 						<div class="info_table__box">
-							<div class="info_table__value" id="todayAvg"></div>
 							<div class="info_table__title">평균 수치</div>
+							<div class="info_table__value" id="todayAvg"></div>
+
 						</div>
 						<div class="info_table__box">
-							<div class="info_table__value" id="overValue"></div>
 							<div class="info_table__title">임계치초과</div>
+							<div class="info_table__value" id="overValue"></div>
 						</div>
 					</div>
 				</div>
@@ -60,16 +61,19 @@
 		<div class="innerChart_container">
 			<div class="monthChart_container">
 				<div id="monthChart"></div>
+				<div class="chart_explain">월별 그래프</div>
 			</div>
 		</div>
 		<div class="innerChart_container">
 			<div class="dayChart_container">
 				<div id="dayChart"></div>
+				<div class="chart_explain">일별 그래프</div>
 			</div>
 		</div>
 		<div class="innerChart_container">
 			<div class="hourChart_container">
 				<div id="hourChart"></div>
+				<div class="chart_explain">시간별 그래프</div>
 			</div>
 		</div>
 	</div>

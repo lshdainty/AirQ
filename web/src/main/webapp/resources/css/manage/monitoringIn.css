@@ -40,7 +40,8 @@
 }
 
 .container {
-	min-width: 1180px; width : 100%;
+	min-width: 1180px;
+	width: 100%;
 	padding: 0;
 	margin: 0;
 	margin-top: 50px;
@@ -118,6 +119,8 @@ tspan {
 	width: 100%;
 	border: 1px solid #000;
 	border-right: none;
+	display: flex;
+	flex-direction: column;
 }
 
 .info_table__box:last-child {
@@ -125,23 +128,31 @@ tspan {
 }
 
 .info_table__container {
-	margin-top: 1rem; display : flex;
-	justify-content: space-around;
+	margin-top: 1rem;
 	display: flex;
+	justify-content: space-around;
+	height: 7rem;
 }
 
 .info_table__value {
 	text-align: center;
+	margin: auto;
 }
 
 .info_table__title {
+	width: 100%;
+	word-wrap: break-word;
 	font-size: .75rem;
 	text-align: center;
-	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+	white-space: nowrap;
+	height: 2rem;
+	margin: auto;
+	font-weight: bold;
 }
 
 .info_behavior__container {
-	height: 65%;
+	height: 15rem;
 	padding: 1rem;
 	border: 1px solid #000;
 	margin-top: 1rem;
@@ -149,82 +160,95 @@ tspan {
 
 .grade_1 {
 	background: #B5B2FF;
-	color: rgba(50,50,50,0.7);
+	color: rgba(50, 50, 50, 0.7);
 }
 
 .grade_2 {
 	background: #B2CCFF;
-	color: rgba(50,50,50,0.7);
+	color: rgba(50, 50, 50, 0.7);
 }
 
 .grade_3 {
 	background: #B2EBF4;
-	color: rgba(50,50,50,0.7);
+	color: rgba(50, 50, 50, 0.7);
 }
 
 .grade_4 {
 	background: #CEF279;
-	color: rgba(50,50,50,0.7);
+	color: rgba(50, 50, 50, 0.7);
 }
 
 .grade_5 {
 	background: #FAED7D;
-	color: rgba(50,50,50,0.7);
+	color: rgba(50, 50, 50, 0.7);
 }
 
 .grade_6 {
 	background: #FFC19E;
-	color: rgba(50,50,50,0.7);
+	color: rgba(50, 50, 50, 0.7);
 }
 
 .grade_7 {
 	background: #FFA7A7;
-	color: rgba(50,50,50,0.7);
+	color: rgba(50, 50, 50, 0.7);
 }
 
 .grade_8 {
 	background: #BDBDBD;
-	color: rgba(50,50,50,0.7);
+	color: rgba(50, 50, 50, 0.7);
 }
 
-.timeChart_container{
+.timeChart_container {
 	display: flex;
 	margin-top: 1rem;
-	padding: 1rem;
 	height: 250px;
-	border: 1px solid #000;
 }
-.innerChart_container{
+
+.innerChart_container {
 	width: 100%;
 	height: 100%;
 	border: 1px solid #000;
-	margin: 0 1rem;
+	margin-right: 1rem;
 }
-.hourChart_container{
-	width:100%;
-	height:100%;
+
+.innerChart_container:last-child {
+	margin-right: 0 !important;
 }
-#hourChart{
-	background: #ddf;
-	width:100%;
-	height:100%;
-}
-.dayChart_container{
+
+.hourChart_container {
 	width: 100%;
 	height: 100%;
 }
-#dayChart{
-	background: #FF4848;
+
+#hourChart {
 	width: 100%;
 	height: 100%;
 }
-.monthChart_container{
+
+.dayChart_container {
 	width: 100%;
 	height: 100%;
 }
-#monthChart{
-	background: #dff;
+
+#dayChart {
 	width: 100%;
 	height: 100%;
+}
+
+.monthChart_container {
+	width: 100%;
+	height: 100%;
+}
+
+#monthChart {
+	width: 100%;
+	height: 100%;
+}
+
+.chart_explain {
+	border: 1px solid #000;
+	text-align: center;
+	width: 20rem;
+	margin: auto;
 }
 /************* */
