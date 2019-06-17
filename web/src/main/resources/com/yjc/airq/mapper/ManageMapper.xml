@@ -131,8 +131,4 @@
 				order by measure_time desc)
 		where <![CDATA[rownum <=1]]>
 	</select>
-	
-	<!-- 실시간 차트 최신 데이터 가져오기 -->
-	<select id="test" resultType="map">
-	</select>
 </mapper>
