@@ -47,7 +47,7 @@
 					</div>
 				</div>
 				<div class="info_behavior__container">
-					<div class="info_behavior">asdasdasdasdsaads</div>
+					<div class="info_behavior"></div>
 				</div>
 			</div>
 			<!--  live chart explain end   -->

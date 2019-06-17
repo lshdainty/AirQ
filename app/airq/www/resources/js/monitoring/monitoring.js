@@ -1,6 +1,4 @@
-// var ip = sessionStorage.getItem('IP_ADDRESS');
-
-var ip = "http://192.168.2.8";
+var ip = sessionStorage.getItem('IP_ADDRESS');
 var member_id = JSON.parse(sessionStorage.getItem("user")).member_id;
 /* *************************** page init function ******************** */
 $.ajax({
@@ -16,6 +14,7 @@ $.ajax({
 		inOldData(data.oldData);	//기본 30개값 가져오기
 	}
 });
+
 ajaxChart("신암동","pm10");
 ajaxArea("대구");
 $("#areaName").val("신암동");
@@ -177,7 +176,7 @@ $("#matter").val("pm10").prop("selected", true);
 // });
 
 
-/* ******************** */
+/* ********** 실내 ********** */
 /* inside monitoring js */
 // live chart 시작
 
@@ -382,8 +381,7 @@ function inOldData(OldData) {
 
 //live chart끝
 
-/* ******************** */
-
+/* ********** 실외 ********** */
 
 $(document).ready(function(){
 	$("#sido_code").change(function(){

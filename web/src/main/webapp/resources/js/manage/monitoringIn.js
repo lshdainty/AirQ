@@ -8,43 +8,53 @@ $.ajax({
 		$("#overValue").text(data.overValue);
 		var gradeText = "";
 		var gradeImage = "";
+		var gradeRecommend = "";
 		switch (data.grade) {
 		  case 1 :
 			  gradeText = "최고";
 			  gradeImage = "1";
+			  gradeRecommend = "최적의 공기 상태에요. 이 상태를 유지해주세요.";
 			  break;
 		  case 2 :
 			  gradeText = "좋음";
 			  gradeImage = "1";
+			  gradeRecommend = "최적의 공기 상태에요. 이 상태를 유지해주세요.";
 			  break;
 		  case 3 :
 			  gradeText = "양호";
 			  gradeImage = "2";
+			  gradeRecommend = "좋은 공기 상태에요. 30분간 환기를 시켜주면 더 좋아요.";
 			  break;
 		  case 4 :
 			  gradeText = "보통";
 			  gradeImage = "2";
+			  gradeRecommend = "좋은 공기 상태에요. 30분간 환기를 시켜주면 더 좋아요.";
 			  break;
 		  case 5 :
 			  gradeText = "나쁨";
 			  gradeImage = "3";
+			  gradeRecommend = "공기 상태가 좋지 않아요. 공기청정기를 가동하거나 환기를 시켜주세요.";
 			  break;
 		  case 6 :
 			  gradeText = "상당히 나쁨";
 			  gradeImage = "4";
+			  gradeRecommend = "공기 상태가 좋지 않아요. 공기청정기를 가동하거나 환기를 시켜주세요.";
 			  break;
 		  case 7 :
 			  gradeText = "매우 나쁨";
 			  gradeImage = "5";
+			  gradeRecommend = "공기 상태가 최악이에요. 이 상태가 지속될 시 공기 질 개선 서비스를 받으세요.";
 			  break;
 		  case 8 :
 			  gradeText = "최악";
 			  gradeImage = "6";
+			  gradeRecommend = "공기 상태가 최악이에요. 이 상태가 지속될 시 공기 질 개선 서비스를 받으세요.";
 			  break;
 		}
 		$("#face").attr('src',"/resources/images/face_"+gradeImage+".svg");
 		$(".info_grade__value").text(gradeText);
 		$(".info_grade__container").addClass("grade_"+data.grade);
+		$(".info_behavior").text(gradeRecommend);
 		monthChart(data.monthData,data.dataGubun);	//올해 월별 평균
 		dayChart(data.dayData,data.dataGubun);	//오늘로부터 7일 전까지 요일별 평균
 		hourChart(data.timeData,data.dataGubun);	//하루 - 시간별
@@ -314,43 +324,53 @@ function inOldData(OldData) {
 						$("#overValue").text(data.overValue);
 						var gradeText = "";
 						var gradeImage = "";
+						var gradeRecommend = "";
 						switch (data.grade) {
 						  case 1 :
 							  gradeText = "최고";
 							  gradeImage = "1";
+							  gradeRecommend = "최적의 공기 상태에요. 이 상태를 유지해주세요.";
 							  break;
 						  case 2 :
 							  gradeText = "좋음";
 							  gradeImage = "1";
+							  gradeRecommend = "최적의 공기 상태에요. 이 상태를 유지해주세요.";
 							  break;
 						  case 3 :
 							  gradeText = "양호";
 							  gradeImage = "2";
+							  gradeRecommend = "좋은 공기 상태에요. 30분간 환기를 시켜주면 더 좋아요.";
 							  break;
 						  case 4 :
 							  gradeText = "보통";
 							  gradeImage = "2";
+							  gradeRecommend = "좋은 공기 상태에요. 30분간 환기를 시켜주면 더 좋아요.";
 							  break;
 						  case 5 :
 							  gradeText = "나쁨";
 							  gradeImage = "3";
+							  gradeRecommend = "공기 상태가 좋지 않아요. 공기청정기를 가동하거나 환기를 시켜주세요.";
 							  break;
 						  case 6 :
 							  gradeText = "상당히 나쁨";
 							  gradeImage = "4";
+							  gradeRecommend = "공기 상태가 좋지 않아요. 공기청정기를 가동하거나 환기를 시켜주세요.";
 							  break;
 						  case 7 :
 							  gradeText = "매우 나쁨";
 							  gradeImage = "5";
+							  gradeRecommend = "공기 상태가 최악이에요. 이 상태가 지속될 시 공기 질 개선 서비스를 받으세요.";
 							  break;
 						  case 8 :
 							  gradeText = "최악";
 							  gradeImage = "6";
+							  gradeRecommend = "공기 상태가 최악이에요. 이 상태가 지속될 시 공기 질 개선 서비스를 받으세요.";
 							  break;
 						}
 						$("#face").attr('src',"/resources/images/face_"+gradeImage+".svg");
 						$(".info_grade__value").text(gradeText);
 						$(".info_grade__container").addClass("grade_"+data.grade);
+						$(".info_behavior").text(gradeRecommend);
 						chart.addData({
 							TIME : new Date(data.nowData[0].TIME),
 							VALUE : data.nowData[0].VALUE
