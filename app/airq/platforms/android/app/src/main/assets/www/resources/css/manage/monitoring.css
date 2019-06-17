@@ -493,3 +493,48 @@ body {
     padding: .5rem;
     text-align: left;
 }
+
+/* grade background */
+
+
+.grade_1 {
+	background: #B5B2FF;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+.grade_2 {
+	background: #B2CCFF;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+.grade_3 {
+	background: #B2EBF4;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+.grade_4 {
+	background: #CEF279;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+.grade_5 {
+	background: #FAED7D;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+.grade_6 {
+	background: #FFC19E;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+.grade_7 {
+	background: #FFA7A7;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+.grade_8 {
+	background: #BDBDBD;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+/* **************** */

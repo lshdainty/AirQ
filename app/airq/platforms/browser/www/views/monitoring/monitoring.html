@@ -37,25 +37,65 @@
             <!-- 실내 공기질 모니터링 시작-->
             <div class="swiper-slide">
                 <div class="inside-container">
-                    <div class="myIot">내기기 목록</div>
+                    <div class="myIot">
+                        <select name="" id="">
+                            <option value="">기기 종류</option>
+                        </select>
+                    </div>
 
                     <!-- <input type="date" id="measureDate" onchange="measureDate(this)" /> -->
 
-                    <!-- Chart 시작 -->
-                    <div id="chartdiv"></div>
-                    <!-- Chart 끝 -->
 
                     <!-- Chart Detail 시작-->
                     <div id="chartList">
-                        <h3>측정 상세 정보</h3>
 
+                    <!-- live chart start -->
+                    <div class="liveChart_container">
+                        <div id="liveChart"></div>
+
+
+                        <!-- 좋음 :  background :  #b0e867  color : #718b3a -->
+                        <!-- 보통 :  background :  #ffdf58  color : #a57f23 -->
+                        <!-- 나쁨 :  background :  #ffa968  color : #b25826 -->
+                        <!-- 심각 :  background :  #af2c3b  color : #af2c3b -->
+                        <div class="info_box">
+
+                            <div class="info_grade__container">
+                                <div class="info_grade__face">
+                                    <img id="face" src="https://www.airvisual.com/assets/aqi/ic-face-1-green.svg" />
+                                </div>
+                                <div class="info_grade__value">최고</div>
+                            </div>
+
+                            <div class="info_explain">
+                                <div class="info_table__container">
+                                    <div class="info_table__box">
+                                            <div class="info_table__title">현재 수치</div>
+                                        <div class="info_table__value" id="matterValue"></div>
+                                    </div>
+                                    <div class="info_table__box">
+                                            <div class="info_table__title">평균 수치</div>
+                                        <div class="info_table__value" id="todayAvg"></div>
+                                    </div>
+                                    <div class="info_table__box">
+                                            <div class="info_table__title">임계치초과</div>
+                                        <div class="info_table__value" id="overValue"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="info_behavior__container">
+                                <div class="info_behavior">asdasdasdasdsaads</div>
+                            </div>
+                        </div>
                     </div>
-                    <!-- Chart Detail 끝-->
+                    <!--  live chart end  -->
                 </div>
             </div>
 
             <!-- 실내 공기질 모니터링 끝-->
-
+            </div>
 
 
 

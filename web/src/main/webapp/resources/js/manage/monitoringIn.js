@@ -368,6 +368,9 @@ function inOldData(OldData) {
 							  break;
 						}
 						$("#face").attr('src',"/resources/images/face_"+gradeImage+".svg");
+						for(var i=1; i<9; i++){
+							$(".info_grade__container").removeClass("grade_"+i);
+						}
 						$(".info_grade__value").text(gradeText);
 						$(".info_grade__container").addClass("grade_"+data.grade);
 						$(".info_behavior").text(gradeRecommend);

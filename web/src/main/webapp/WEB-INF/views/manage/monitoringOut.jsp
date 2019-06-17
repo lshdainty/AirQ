@@ -96,6 +96,12 @@
 				</div>
 				<div class="grade-explain">최악</div>
 			</div>
+			<div class="grade-box">
+				<div class="grade-img">
+					<img class="point" src="/resources/images/point_-.png" alt="데이터 없음">
+				</div>
+				<div class="grade-explain">데이터 없음</div>
+			</div>
 		</div>
 		<input id="areaName" type="hidden" />
 		<table class="measure-table">
