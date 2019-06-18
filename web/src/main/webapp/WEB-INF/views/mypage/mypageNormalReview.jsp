@@ -10,7 +10,7 @@
 
 </head>
 <body>
-	<input type="text" id="code" name="code" value="${code }">
+	<input type="hidden" id="code" name="code" value="${code }">
 	<div id="reviewForm">
 		<h3 id="reviewTitle">Review</h3>
 		<textarea placeholder="Review Content" id="reviewContent"></textarea>
