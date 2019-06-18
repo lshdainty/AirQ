@@ -1,5 +1,4 @@
 var ip = sessionStorage.getItem('IP_ADDRESS');
-// var ip = "http://39.127.7.69";
 var member_id = JSON.parse(sessionStorage.getItem("user")).member_id;
 /* *************************** page init function ******************** */
 $.ajax({
@@ -551,6 +550,7 @@ function ajaxChart(area, matter) {
 				chart.cursor.xAxis = dateAxis;
 				chart.cursor.snapToSeries = series;
 			}); // 차트 끝
+
 			var measureTable = $('.measure_table');
 			var matter = $("#matter option:selected").text();
 			var currentDate = new Date();
@@ -607,25 +607,18 @@ function ajaxChart(area, matter) {
 						break;
 				}
 				table += '<div class="measure_box">' +
-					'<div class="measure_grade">' +
-					'<svg height="100" width="100">' +
-					'<circle cx="0" cy="15" r="10" stroke="#000" stroke-width="1" fill="' + forecastColor + '" />' +
-					'</svg>' +
-					'</div>' +
-					'<div class="box-content measure_time">' + (data.result[i].dataTime).replace(year + '-', '') + '</div>' +
-					'<div class="box-content measure_val">' + data.result[i].data + '</div>' +
-					'<div class="box-content measure_condition">' + condition + '</div>' +
-					'</div>';
+							'<div class="measure_grade">' +
+								'<svg height="100" width="100">' +
+									'<circle cx="0" cy="15" r="10" stroke="#000" stroke-width="1" fill="' + forecastColor + '" />' +
+								'</svg>' +
+							'</div>' +
+							'<div class="box-content measure_time">' + (data.result[i].dataTime).replace(year + '-', '') + '</div>' +
+							'<div class="box-content measure_val">' + data.result[i].data + '</div>' +
+							'<div class="box-content measure_condition">' + condition + '</div>' +
+						'</div>';
 				$('.ajax-data').prepend(table);
 				table = "";
 			}
 		}
 	});
 }
-
-
-
-
-
-
-
