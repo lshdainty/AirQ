@@ -368,6 +368,9 @@ function inOldData(OldData) {
 								break;
 						}
 						$("#face").attr('src', "../../../www/resources/images/face_" + gradeImage + ".svg");
+						for(var i=1; i<9; i++){
+							$(".info_grade__container").removeClass("grade_"+i);
+						}
 						$(".info_grade__value").text(gradeText);
 						$(".info_grade__container").addClass("grade_" + data.grade);
 						$(".info_behavior").text(gradeRecommend);
@@ -450,7 +453,6 @@ $(document).ready(function () {
 		var sigoon = $("#sigoon_code option:selected").val();
 		var matter = $("#matter option:selected").val();
 		ajaxChart(sigoon, matter);
-		ajaxTable(sigoon);
 		$("#areaName").val(sigoon);
 	});//sigoon_code
 
@@ -608,16 +610,14 @@ function ajaxChart(area, matter) {
 				}
 				table += '<div class="measure_box">' +
 							'<div class="measure_grade">' +
-								'<svg height="100" width="100">' +
-									'<circle cx="0" cy="15" r="10" stroke="#000" stroke-width="1" fill="' + forecastColor + '" />' +
-								'</svg>' +
+								'<img src=../../../www/resources/images/point_' + data.result[i].grade + '.png />' +
 							'</div>' +
-							'<div class="box-content measure_time">' + (data.result[i].dataTime).replace(year + '-', '') + '</div>' +
+							'<div class="box-content measure_time">' + (data.result[i].dataTime).replace('2019-','')+ '</div>' +
 							'<div class="box-content measure_val">' + data.result[i].data + '</div>' +
 							'<div class="box-content measure_condition">' + condition + '</div>' +
 						'</div>';
 				$('.ajax-data').prepend(table);
-				table = "";
+				table="";
 			}
 		}
 	});
