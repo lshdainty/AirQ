@@ -7,7 +7,7 @@
 <div class="container">
 
 	<div>
-		<select>
+		<select class="equip_type">
 			<option>기기종류</option>
 		</select>
 	</div>
