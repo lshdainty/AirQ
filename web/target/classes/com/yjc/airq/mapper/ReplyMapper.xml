@@ -13,15 +13,13 @@
 		REPLY_CONTENT,
 		R_CREATION_DATE,
 		MEMBER_ID,
-		POST_CODE,
-		PRODUCT_CODE
+		POST_CODE
 		) VALUES (
 		#{reply_code},
 		#{reply_content},
 		#{r_creation_date},
 		#{member_id},
-		#{post_code},
-		#{product_code}
+		#{post_code}
 		)
 	</insert>
 	

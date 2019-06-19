@@ -36,7 +36,7 @@
 	
 	<!-- 투찰 파일업로드 -->
 	<insert id="bidUpload" parameterType="com.yjc.airq.domain.UploadVO">
-		insert into upload(upload_code,original_name,file_name,upload_date) values(#{upload_code},#{original_name},#{file_name},sysdate)
+		insert into upload(upload_code,original_name,file_name,upload_date) values(#{upload_code},#{original_name},#{file_name},systimestamp)
 	</insert>
 	
 	<!-- 투찰 파일 삭제 -->
@@ -69,4 +69,18 @@
 		from upload
 		where upload_code=#{upload_code}
 	</select>
+	
+	<!-- 업로드 정보 -->
+	<select id="uploadInfo" resultType="com.yjc.airq.domain.UploadVO">
+		select *
+		from upload
+		where upload_code=#{upload_code}
+	</select>
+	
+	<!-- 입찰 업로드 삭제 -->
+	<delete id="tenderUploadDelete">
+		delete
+		from upload
+		where upload_code=#{upload_code}
+	</delete>
 </mapper>

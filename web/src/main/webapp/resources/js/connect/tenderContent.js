@@ -13,22 +13,24 @@
 							+'<span>|</span>'
 							+'<a id="tenderModifyA" href="#">수정</a>';
 					$("#tenderADiv").append(html);
-				
-					var html2='<button id="tendering">입찰신청</button>';
-					$("#bidBtnBiv").append(html2);
+					if(data.bid_open_date==0){
+						var html2='<button id="tendering" class="btn">낙찰</button>';
+						$("#bidBtnBiv").append(html2);
+					}
 				}else if(data.member_devision == 'se'){ //사업자
-					var html='<button id="bidWrite">투찰하기</button>'
-					+'<button id="bidComplete">작성완료</button>'
-					+'<button id="bidDelete">삭제하기</button>'
-					/*+'<button id="bidModify">수정하기</button>'*/;
+					if(data.deadline==1){
+						var html='<button id="bidWrite" class="btn">투찰하기</button>'
+						+'<button id="bidComplete" class="btn">작성완료</button>'
+						+'<button id="bidDelete" class="btn">삭제하기</button>'
+						/*+'<button id="bidModify">수정하기</button>'*/;
 					
-					var html2='<span>|</span>'
-						+'<a id="reportButton" href="#">신고</a>';
+						var html2='<span>|</span>'
+							+'<a id="reportButton" href="#">신고</a>';
 					
-					$("#bidBtnBiv").append(html);
-					$("#tenderADiv").append(html2);
-					$("#bidComplete").css("display","none");
-				
+						$("#bidBtnBiv").append(html);
+						$("#tenderADiv").append(html2);
+						$("#bidComplete").css("display","none");
+					}
 					$('input[id="bid_ppt_score"]').attr("disabled", true);
 					$(".bid_ppt_score_btn").attr("disabled", true);
 				}else{ //관리자
@@ -53,12 +55,14 @@
 		dataType:"json",
 		url:"/tenderContentGo/"+tender_code,
 		success:function(data){
-			console.log(data);
 			var bidArr=data.bidArr;
 			var tenderVo=data.tenderVo;
 			var member_devision=data.member_devision;
-			var check=data.check;
+			var check=data.check; //입찰 확인 여부
+			var memberVo=data.memberVo; //글쓴이의 정보
 			var member_id=data.member_id;
+			var uploadVo=data.uploadVo;
+			
 			bidArr.sort(function(a,b){
 				return a.totalScore > b.totalScore ? -1 : a.totalScore < b.totalScore ? 1 : 0;
 			});
@@ -73,7 +77,7 @@
 				$("#tenderParticipationList").append(periodHtml);
 			}
 			
-			var tenderHtml='<h2 id="tenderTitle">'+tenderVo.tender_title+'</h2>'
+			/*var tenderHtml='<h2 id="tenderTitle">'+tenderVo.tender_title+'</h2>'
 				+'<span id="tenderWriter">'+tenderVo.member_id+'</span>'
 				+' | <span id="tenderDate">'+tenderVo.tcreationdate+'</span>'
 				+' <span id="tenderDeadline">입찰 마감 일자 : '+tenderVo.tender_deadline+'</span>';
@@ -85,8 +89,63 @@
 			+'<tr><td>층수</td><td>'+tenderVo.floor_number+'</td></tr>'
 			+'<tr><td>서비스 일자</td><td>'+tenderVo.service_date+'</td></tr>'
 			+'<tr><td>요구사항</td><td>'+tenderVo.requirement+'</td></tr>';
-			$("#tenderTbl").append(tenderHtml2);
+			$("#tenderTbl").append(tenderHtml2);*/
+
+			var tenderHtml='<div id="tenderContent" class="tBoard">'
+							+'<table id="tenderTbl"><tbody>'
+								+'<tr>'
+									+'<th>공고명</th>'
+									+'<td colspan="3">'+tenderVo.tender_title+'</td>'
+								+'</tr>'
+								+'<tr>'
+									+'<th>담당자</th>'
+									+'<td class="w_200">'+tenderVo.tender_name+'</td>'
+									+'<th>전화번호</th>'
+									+'<td class="w_200">'+memberVo.member_tel+'</td>'
+								+'</tr>'
+								+'<tr>'
+									+'<th>이메일</th>'
+									+'<td class="w_200">'+memberVo.member_email+'</td>'
+									+'<th>예산</th>'
+									+'<td class="w_200">'+tenderVo.budget+'</td>'
+								+'</tr>'
+								+'<tr>'
+									+'<th>주소</th>'
+									+'<td class="w_200">'+tenderVo.t_road_addr+" "+tenderVo.t_addr_detail+'</td>'
+									+'<th>첨부파일</th>'
+									+'<td class="w_200"><a href="/download?fileName='+uploadVo.original_name+'&upload_code='+uploadVo.upload_code+'">'+uploadVo.original_name+'</a></td>'
+								+'</tr>'
+								+'<tr>'
+									+'<th>평수</th>'
+									+'<td class="w_200">'+tenderVo.t_space+'</td>'
+									+'<th>층수</th>'
+									+'<td class="w_200">'+tenderVo.floor_number+'</td>'
+								+'</tr>'
+								+'<tr>'
+									+'<th>낙찰 결정방법</th>'
+									+'<td colspan="3">'+tenderVo.winning_bid_way+'</td>'
+								+'</tr>'
+								+'<tr>'
+									+'<th>요구사항</th>'
+									+'<td colspan="3" id="requirement">'+tenderVo.requirement+'</td>'
+								+'</tr>'
+							+'</tbody></table>'
+						+'</div>'
+						+'<div id="tenderSituation" class="tBoard">'
+							+'<p id="tenderST">>> 입찰 진행 상황</p>'
+							+'<p class="tenderD">>> | 게시일 '+tenderVo.t_creation_date+'</p>'
+							+'<p class="p">↓</p>'
+							+'<p class="tenderD">>> | 투찰마감 '+tenderVo.tender_deadline+'</p>'
+							+'<p class="p">↓</p>'
+							+'<p class="tenderD">>> | 개찰 일시 '+tenderVo.bid_open_date+'</p>'
+							+'<p class="p">↓</p>'
+							+'<p class="tenderD">>> | 서비스 일자 '+tenderVo.service_date+'</p>'
+						+'</div>'
+						+'<p id="tenderNotify" class="tenderP">AirQ 입찰 양식에 따라 다음과 같이 공고합니다.</p>'
+						+'<p id="tCreationDate" class="tenderP">'+tenderVo.t_creation_date+'</p>'
+						+'<p id="group_name" class="tenderP">'+tenderVo.group_name+'</p>';
 			
+			$("#tenderBoard").append(tenderHtml);
 			if(member_devision != "se"){
 				for(var i=0; i<bidArr.length; i++){
 					var bidHtml='<tr class="bidTr">'
@@ -104,7 +163,8 @@
 						+'</tr>';
 					$("#tenderParticipationTbl tbody").append(bidHtml);
 				}
-			} else if(member_devision=="se" && check==1 ){
+			} else if(member_devision=="se"/* && check==1 */){
+				
 				for(var i=0; i<bidArr.length; i++){
 					if(bidArr[i].member_id==member_id){
 						var bidHtml='<tr class="bidTr">'
@@ -130,7 +190,35 @@
 $(document).ready(function(){
 	/*입찰 신청*/
 	$(document).on('click','#tendering',function(){
-		var c=confirm('결제하시겠습니까?');
+		var tender_code=$("#tcode").val();
+		// 투찰에 대한 사업자번호
+		var company_code=$('input:radio[name="bidContent"]:checked').val();
+		
+		if(company_code!=null){
+			var c=confirm('결제하시겠습니까?');
+			
+			if(c){
+				var query={
+					tender_code:tender_code,
+					company_code:company_code
+				};
+				
+				$.ajax({
+					type:"POST",
+					data:query,
+					url:"/tendering",
+					success:function(){
+						window.location.reload();
+					}
+				});
+			}else{
+				return false;
+			}
+		}else {
+			alert("업체를 선택하세요.");
+		}
+		
+		/*var c=confirm('결제하시겠습니까?');
 		if(c){
 			var tender_code=$("#tcode").val();
 			// 투찰에 대한 사업자번호
@@ -155,7 +243,7 @@ $(document).ready(function(){
 			});
 		}else{
 			return false;
-		}
+		}*/
 		
 	});
 	
@@ -300,7 +388,40 @@ $(document).ready(function(){
 	
 	/*투찰 삭제*/
 	$(document).on('click','#bidDelete',function(){
-		var c=confirm('삭제하시겠습니까?');
+		var tender_code=$("#tcode").val();
+		// 투찰에 대한 사업자번호
+		var company_code=$('input:radio[name="bidContent"]:checked').val();
+		
+		if(company_code!=null){
+			var c=confirm('삭제하시겠습니까?');
+			if(c){
+				var query={
+						company_code:company_code,
+						tender_code:tender_code
+				};
+				$.ajax({
+					type:"POST",
+					url:"/bidDelete",
+					data:query,
+					dataType:"text",
+					success:function(data){
+						if(data == "s"){
+							window.location.reload();
+						}else{
+							alert("삭제할 권한이 없습니다.");
+							$('input:radio[name="bidContent"]:checked').prop('checked',false);
+						return false;
+						}
+					}
+				});
+			}else{
+				return false;
+			}
+		}else{
+			alert("삭제할 업체를 선택하세요.");
+		}
+		
+		/*var c=confirm('삭제하시겠습니까?');
 		if(c){
 			var tender_code=$("#tcode").val();
 			// 투찰에 대한 사업자번호
@@ -327,7 +448,7 @@ $(document).ready(function(){
 			});
 		}else{
 			return false;
-		}
+		}*/
 	});
 	
 	/*투찰 수정*/

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -455,11 +456,91 @@ public class MypageController {
 
 	// mypageSeller 가기
 	@RequestMapping(value = "mypageSeller", method = RequestMethod.GET)
-	public String mypageSeller(Model model) {
+	public String mypageSeller(HttpServletRequest request,Model model) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		ArrayList<Map<String,Object>> reservation=mypageService.getReservation(connectService.company_code(member_id));
+		ArrayList<Map<String,Object>> hotItems=mypageService.getHotItems(connectService.company_code(member_id));
+		model.addAttribute("reservation",reservation);
+		model.addAttribute("hotItems",hotItems);
 
 		return "mypage/mypageSeller";
 	}
-
+	
+	//예약자 모니터링 페이지
+	@RequestMapping(value="reservation", method=RequestMethod.GET)
+	public String reservation(HttpServletRequest request, Model model) {
+		String memberId=request.getParameter("member_id");
+		int badNum=mypageService.badNum(memberId);
+		String measure_value_avg=mypageService.measure_value_avg(memberId);
+		int measure_value=mypageService.measure_value(memberId);
+		
+		model.addAttribute("memberId",memberId);
+		model.addAttribute("badNum",badNum);
+		model.addAttribute("measure_value_avg",measure_value_avg);
+		model.addAttribute("measure_value",measure_value);
+		
+		return "mypage/reservation";
+	}
+	
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value="mReservation", method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject mReservation(String member_id) {
+		int badNum=mypageService.badNum(member_id);
+		String measure_value_avg=mypageService.measure_value_avg(member_id);
+		int measure_value=mypageService.measure_value(member_id);
+		
+		ArrayList<Map<String,Object>> reservation=mypageService.reservation(member_id);
+		
+		JSONArray rArr=JSONArray.fromObject(reservation);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("reservation", rArr);
+		map.put("badNum",badNum);
+		map.put("measure_value_avg",measure_value_avg);
+		map.put("measure_value",measure_value);
+		JSONObject json=JSONObject.fromObject(map);
+		
+		return json;
+	}
+	
+	@RequestMapping(value="realTimeReservation", method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject realTimeReservation(String member_id) {
+		int badNum=mypageService.badNum(member_id);
+		String measure_value_avg=mypageService.measure_value_avg(member_id);
+		int measure_value=mypageService.measure_value(member_id);
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("badNum",badNum);
+		map.put("measure_value_avg",measure_value_avg);
+		map.put("measure_value",measure_value);
+		JSONObject json=JSONObject.fromObject(map);
+		
+		return json;
+	}
+	
+	@RequestMapping(value="selectGraph", method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject selectGraph(String member_id, String option) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		
+		if(option.equals("day")) {
+			//일별 그래프 json
+			ArrayList<Map<String,Object>> dayGraph=mypageService.reservation(member_id);
+			JSONArray dayArr=JSONArray.fromObject(dayGraph);
+			map.put("dayGraph",dayArr);
+		} else {
+			//시간별 그래프 json
+			ArrayList<Map<String,Object>> timeGraph=mypageService.timeGraph(member_id);
+			JSONArray timeArr=JSONArray.fromObject(timeGraph);
+			map.put("timeGraph",timeArr);
+		}
+		
+		JSONObject json=JSONObject.fromObject(map);
+		
+		return json;
+	}
+	
 	// mypageSeller 글관리 가기
 	@RequestMapping(value = "mypageSellerPosts", method = RequestMethod.GET)
 	public String mypageSellerPosts(Model model, HttpServletRequest request) {
@@ -757,5 +838,17 @@ public class MypageController {
 //			mypageService.tReviewInsert(replyVo);
 //		}
 //		System.out.println(replyVo);
+	}
+	@ResponseBody
+	@RequestMapping(value = "reservationInfo", method = RequestMethod.GET ,produces = "application/text; charset=utf8")
+	public String getReservation(HttpServletRequest request, Model model) {
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		ArrayList<Map<String,Object>> reservation=mypageService.getReservation(connectService.company_code(member_id));
+		System.out.println(reservation);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("reservation", reservation);
+		JSONObject json = JSONObject.fromObject(map);
+		String jsonString = json.toString();
+		return jsonString;
 	}
 }

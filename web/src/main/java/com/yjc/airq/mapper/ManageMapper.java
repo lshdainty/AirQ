@@ -23,8 +23,29 @@ public interface ManageMapper {
 	public int measureData(Map<String, Object> m);
 
 	// inside Chart
-	public ArrayList<MeasureDataVO> insideChart(String member_id);
+	public ArrayList<MeasureDataVO> insideChart(@Param("member_id") String member_id, @Param("date") String date);
 
+	// 실시간 차트 기본 데이터 30개 가져오기
+	public ArrayList<Map<String,Object>> getOldData();
+	
+	// 하루 평균값 가져오기
+	public String getTodayAvgData(@Param("member_id") String member_id);
+	
+	// 임계값 초과 횟수 가져오기
+	public int getOverValue(@Param("member_id") String member_id);
+	
+	// 월 평균 데이터 가져오기
+	public ArrayList<Map<String,Object>> getMonthData(@Param("member_id") String member_id);
+	
+	// 요일 평균 데이터 가져오기
+	public ArrayList<Map<String,Object>> getDayData(@Param("member_id") String member_id);
+	
+	// 시간 평균 데이터 가져오기
+	public ArrayList<Map<String,Object>> getTimeData(@Param("member_id") String member_id);
+	
+	// 실시간 차트 최신 데이터 가져오기
+	public ArrayList<Map<String,Object>> getNowData();
+	
 	// 차트 세부내용
-	public ArrayList<MeasureDataVO> chartValue(String member_id);
+//	public ArrayList<MeasureDataVO> chartValue(String member_id, String date);
 };

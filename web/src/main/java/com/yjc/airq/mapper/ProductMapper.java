@@ -1,6 +1,8 @@
 package com.yjc.airq.mapper;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -35,7 +37,10 @@ public interface ProductMapper {
 //	public void deletePostsProduct1(@Param("product_code") String product_code);
 	//마이페이지 판매자 글관리 -글삭제
 	public ArrayList<ProductVO> productSMP(@Param("member_id")String member_id);
-
+	//마이페이지 예약정보
+	public ArrayList<Map<String, Object>> reservationInfo(String company_code);
+	//마이페이지 인기상품
+	public ArrayList<Map<String,Object>> hotItemInfo(String company_code);
 	// 리뷰 안 한 목록 리스트
 	public ArrayList<ProductVO> reviewCompareList(String member_id);
 }

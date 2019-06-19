@@ -2,7 +2,7 @@
 	var windowObj;
     $("#paymentButton").click(function(){
     	var product_code = $("#product_code").text();
-    	windowObj = window.open("/cPayment?product_code="+product_code.trim(),"payment","width=570, height=350");
+    	windowObj = window.open("/cPayment?product_code="+product_code.trim(),"payment","width=830, height=800");
     });
     
     $("#reportButton").click(function(){

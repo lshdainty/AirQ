@@ -8,145 +8,18 @@
 
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="../../../www/resources/css/connect/swiper.css">
+    <!--
+    <link rel="stylesheet" href="../../../www/resources/css/manage/insideChart.css">
+    -->
     <link rel="stylesheet" href="../../../www/resources/css/connect/connect__app.css">
+    <link rel="stylesheet" href="../../../www/resources/css/manage/monitoring.css">
     <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
     <script src="../../../www/resources/js/TweenLite.js"></script>
     <script src="../../../www/resources/js/bootstrap.js"></script>
     <script src="../../../www/resources/js/home.js"></script>
     <script src="../../../www/resources/js/animation.js"></script>
     <!-- Demo styles -->
-    <style>
-        .load-gate {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: #fff;
-            font-family: sans-serif;
-            text-transform: uppercase;
-            font-size: 10px;
-            letter-spacing: 0.2em;
-            z-index: 3000;
-        }
 
-        html,
-        body {
-            position: relative;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        .swiper-container {
-            width: 100%;
-            height: 100%;
-        }
-
-        .swiper-slide {
-            background: #fff;
-            /* Center slide text vertically */
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            -webkit-justify-content: center;
-            justify-content: center;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            -webkit-align-items: center;
-            align-items: center;
-            padding: 1rem;
-        }
-
-        .connect_topNav {
-            display: block;
-            background: #fff;
-            height: 2.5rem;
-            text-align: center;
-            padding-top: .25rem;
-        }
-
-        .connect_topNav button {
-            height: 100%;
-            width: 45%;
-            background: none;
-            border: none;
-            font-size: 1rem;
-        }
-
-        .connect_active {
-            font-weight: bold;
-        }
-
-        .inside-container {
-            width: 100%;
-            text-align: center;
-        }
-
-        .myIot {
-            padding: 0 1rem;
-            font-weight: bold;
-        }
-
-        .chart-container {
-            width: 100%;
-            border: 1px solid #000;
-            margin-top: 1.5rem;
-            height: 10rem;
-        }
-
-        .met-container {
-            font-size: .8rem;
-            width: 100%;
-            margin: auto;
-        }
-
-        .met-line {
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-            justify-content: space-around;
-        }
-
-        .met-box::before{
-            border-left: 2px solid #000;
-        }
-
-        .met-box {
-            min-width: 45%;
-            margin-top: .5rem;
-            background: #dfd8df;
-            padding: .25rem;
-            font-weight: bold;
-            border-radius: .5rem;
-            justify-content: space-around;
-            display: flex;
-        }
-
-        .division-line{
-            border-right: 2px solid #fff;
-        }
-
-        .map-wrap {
-            width: 90%;
-            display: flex;
-            justify-content: space-around;
-            margin: auto;
-        }
-        
-        .map-container {
-            width: 100%;
-            height: 20rem;
-            border: 1px solid #000;
-        }
-    </style>
 </head>
 
 <body>
@@ -164,78 +37,173 @@
             <!-- 실내 공기질 모니터링 시작-->
             <div class="swiper-slide">
                 <div class="inside-container">
-                    <div class="myIot">내기기 목록</div>
-                    <div class="inside-cat">
+                    <div class="myIot">
                         <select name="" id="">
-                            <option value="">option1</option>
-                            <option value="">option1</option>
-                            <option value="">option1</option>
-                            <option value="">option1</option>
-
+                            <option value="">기기 종류</option>
                         </select>
                     </div>
-                    <div class="chart-container">
 
+                    <!-- <input type="date" id="measureDate" onchange="measureDate(this)" /> -->
+
+
+                    <!-- Chart Detail 시작-->
+                    <div id="chartList">
+
+                    <!-- live chart start -->
+                    <div class="liveChart_container">
+                        <div id="liveChart"></div>
+
+
+                        <!-- 좋음 :  background :  #b0e867  color : #718b3a -->
+                        <!-- 보통 :  background :  #ffdf58  color : #a57f23 -->
+                        <!-- 나쁨 :  background :  #ffa968  color : #b25826 -->
+                        <!-- 심각 :  background :  #af2c3b  color : #af2c3b -->
+                        <div class="info_box">
+
+                            <div class="info_grade__container">
+                                <div class="info_grade__face">
+                                    <img id="face" src="https://www.airvisual.com/assets/aqi/ic-face-1-green.svg" />
+                                </div>
+                                <div class="info_grade__value">최고</div>
+                            </div>
+
+                            <div class="info_explain">
+                                <div class="info_table__container">
+                                    <div class="info_table__box">
+                                            <div class="info_table__title">
+                                                <p>현재 수치</p></div>
+                                        <div class="info_table__value"><p id="matterValue"></p></div>
+                                    </div>
+                                    <div class="info_table__box">
+                                            <div class="info_table__title"><p>평균 수치</p></div>
+                                        <div class="info_table__value"><p id="todayAvg"></p></div>
+                                    </div>
+                                    <div class="info_table__box">
+                                            <div class="info_table__title"><p>임계치초과</p></div>
+                                        <div class="info_table__value"><p id="overValue"></p></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="info_behavior__container">
+                                <div class="info_behavior">asdasdasdasdsaads</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="met-container">
-                        <div class="met-line">
-                            <div class="met-box">
-                                <div class="met-title">미세먼지</div>
-                                <span class="division-line"></span>
-                                <div class="met-value">10µg/m³</div>
-                            </div>
-                            <div class="met-box">
-                                <div class="met-title">미세먼지</div>
-                                <span class="division-line"></span>
-                                <div class="met-value">10µg/m³</div>
-                            </div>
-                        </div>
-                        <div class="met-line">
-                            <div class="met-box">
-                                <div class="met-title">미세먼지</div>
-                                <span class="division-line"></span>
-                                <div class="met-value">10µg/m³</div>
-                            </div>
-                            <div class="met-box">
-                                <div class="met-title">미세먼지</div>
-                                <span class="division-line"></span>
-                                <div class="met-value">10µg/m³</div>
-                            </div>
-                        </div>
-                        <div class="met-line">
-                            <div class="met-box">
-                                <div class="met-title">미세먼지</div>
-                                <span class="division-line"></span>
-                                <div class="met-value">10µg/m³</div>
-                            </div>
-                            <div class="met-box">
-                                <div class="met-title">미세먼지</div>
-                                <span class="division-line"></span>
-                                <div class="met-value">10µg/m³</div>
-                            </div>
-                        </div>
-                    </div>
+                    <!--  live chart end  -->
                 </div>
             </div>
 
-            <!-- 실내 공기질 모니터링 시작-->
-            <!-- 실외 공기질 모니터링 시작-->
+            <!-- 실내 공기질 모니터링 끝-->
+            </div>
+
+
+
+
+            <!--------------------------------------------------------------------------------------->
+            <!---------------------------------- 실외 공기질 모니터링 시작----------------------------->
             <div class="swiper-slide">
-                <div class="map-wrap">
-                    <div id="map" class="map-container"></div>
+
+
+                <!------------- 외부 공기질 차트 ------------->
+                <div class="chart-container">
+                    <div id="outchartdiv" style="width: 100%; height: 100%;"></div>
                 </div>
-                <div class="matter_info">
+                <!------------------------------------------->
+
+
+                <!-----------------------------지역 선택 ------------------------------>
+                <div class="area-container">
+                    <div class="select_box">
+                        <select name="sido_code" id="sido_code" class="order-option ">
+                            <option value="서울">서울</option>
+                            <option value="부산">부산</option>
+                            <option value="대구">대구</option>
+                            <option value="인천">인천</option>
+                            <option value="광주">광주</option>
+                            <option value="대전">대전</option>
+                            <option value="울산">울산</option>
+                            <option value="경기">경기</option>
+                            <option value="강원">강원</option>
+                            <option value="충북">충북</option>
+                            <option value="충남">충남</option>
+                            <option value="전북">전북</option>
+                            <option value="전남">전남</option>
+                            <option value="경북">경북</option>
+                            <option value="경남">경남</option>
+                            <option value="제주">제주</option>
+                            <option value="세종">세종</option>
+                        </select>
+                    </div>
+                    <div class="select_box">
+                        <select name="sigoon_code" id="sigoon_code" class="order-option">
+                        </select>
+                    </div>
+                    <div class="select_box">
+                        <select name="matter" id="matter" class="order-option">
+                            <option value="pm10">미세먼지</option>
+                            <option value="pm25">초미세먼지</option>
+                            <option value="o3">오존</option>
+                            <option value="no2">이산화질소</option>
+                            <option value="co">일산화탄소</option>
+                            <option value="so2">아황산가스</option>
+                        </select>
+                    </div>
                 </div>
+                <!--------------------------------------------------------------------->
+
+                <!----------------------------측정값 테이블----------------------------->
+
+                <div class="measure_table">
+                    <div class="ajax-data">
+                    </div>
+                </div>
+                <!--------------------------------------------------------------------->
+
             </div>
-            <!-- 실외 공기질 모니터링 끝-->
+            <!--------------------------------------------------------------------------------------->
+
+
         </div>
     </div>
     <div id="footer"></div>
-    <!-- Swiper JS -->
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tpllhjh4tl&submodules=geocoder"></script>
+
+    <!------------------------------------------------------- Map JS------------------------------------------------->
+    <script type="text/javascript"
+        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tpllhjh4tl&submodules=geocoder"></script>
     <script type="text/javascript" src="https://navermaps.github.io/maps.js.ncp/docs/js/MarkerClustering.js"></script>
+    <!--------------------------------------------------------------------------------------------------------------->
+
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!-----------------------------------------------Chart Scripts Start---------------------------------------------->
+
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <!---------------------------------------------------------------------------------------------------------------->
+
+    <!---------------------------------------------------------------------------------------------------------------->
+    <script src="https://www.amcharts.com/lib/4/themes/spiritedaway.js"></script>
     <script src="../../../www/resources/js/connect/swiper.js"></script>
     <script src="../../../www/resources/js/connect/connect__app.js"></script>
+    <!-- <script src="../../../www/resources/js/monitoring/inside.js"></script> -->
     <script src="../../../www/resources/js/monitoring/monitoring.js"></script>
 </body>
+
 </html>
+
+
+
+<!--------------------------------------------------->
+<!-------------------실외 공기질 지도----------------->
+<!--------------------------------------------------->
+<!-- <div class="map-wrap">
+                        <div id="map" class="map-container"></div>
+                    </div> 
+                                    <div class="matter_info">
+                    </div>
+                -->
+<!--------------------------------------------------->
+<!-------------------실외 공기질 지도----------------->
+<!--------------------------------------------------->

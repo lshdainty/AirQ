@@ -28,7 +28,6 @@ function measure(matter){
 		dataType:"json",
 		async: false,
 		success: function(data) {
-			console.log(data);
 			var unit = "";
 			var result = "";
 			switch (data.itemCode) {
@@ -102,7 +101,6 @@ function measureDetail(area,matter){
 		dataType:"json",
 		async: false,
 		success: function(data) {
-			console.log(data);
 			am4core.ready(function() {
 				// Themes begin
 				am4core.useTheme(am4themes_animated);

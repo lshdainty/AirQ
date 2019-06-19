@@ -9,10 +9,12 @@
 <div id="tenderContentDiv">
 	<input type="hidden" id="tcode" name="tcode" value="${tender_code }">
 </div>
-<hr/>
+<h1 id="tenderTitle">전자 입찰 공고</h1>
+<div id="tenderBoard">
+</div>
 
 <table id="tenderTbl">
-	
+
 </table>
 
 <div id="tenderADiv">
@@ -35,18 +37,17 @@
 			<th scope="col">금액</th>
 			<th scope="col">건수</th>
 			<th scope="col">별점</th>
-			<th scope="col">첨부파일</th>
-			<th scope="col">첨부파일 점수</th>
+			<th scope="col">첨부서류</th>
+			<th scope="col">서류평가 점수</th>
 			<th scope="col">비고</th>
 			<th scope="col">TOTAL 점수</th>
 		</tr>
 	</thead>
 	<tbody>
-		
+
 	</tbody>
 </table>
-<div id="bidBtnBiv">
-</div>
+<div id="bidBtnBiv"></div>
 <%-- 참여 업체 리스트 테이블 끝 --%>
 
 <script src="/resources/js/connect/tenderContent.js"></script>

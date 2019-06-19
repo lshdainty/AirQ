@@ -113,7 +113,10 @@ public interface MypageService {
 	ArrayList<ReplyVO> mypageReplysNSPost(@Param("member_id") String member_id);	
 	//댓글 일반사용자,판매자 Product
 	ArrayList<ReplyVO> mypageReplysNSProduct(@Param("member_id") String member_id);
-	
+	//판매자 예약자 현황 select
+	public ArrayList<Map<String,Object>> getReservation(String company_code);
+	//판매자 인기상품 select
+	public ArrayList<Map<String,Object>> getHotItems(String company_code);
 	//마이페이지 회원탈퇴
 	public void deleteSelf(@Param("member_id")String member_id, @Param("member_pw")String member_pw);
 	
@@ -130,5 +133,18 @@ public interface MypageService {
 	//입찰된 투찰의 사업자번호
 	public String tBidCompayCode(String tender_code);
 	
+	//일별 예약자 모니터링
+	public ArrayList<Map<String,Object>> reservation(String member_id);
 	
+	//시간별 예약자 모니터링
+	public ArrayList<Map<String,Object>> timeGraph(String member_id);
+	
+	//나쁨 횟수
+	public int badNum(String member_id);
+	
+	//일주일 미세먼지 평균
+	public String measure_value_avg(String member_id);
+
+	//현재 미세먼지 농도
+	public int measure_value(String member_id);
 }

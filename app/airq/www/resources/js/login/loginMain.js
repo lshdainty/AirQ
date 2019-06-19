@@ -96,7 +96,6 @@ $(document).ready(function () {
 			dataType:'JSON',
 			url: sessionStorage.getItem("IP_ADDRESS")+"/m.login", // 로그인 페이지 경로
 			success: function (data) {
-				alert(data);
 				if(data.result=="success"){
 					if(isChecked){
 						localStorage.setItem("user",JSON.stringify(data.userInfo));

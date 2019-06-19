@@ -34,7 +34,8 @@ import net.sf.json.JSONObject;
 @Controller
 @AllArgsConstructor
 public class HomeController {
-
+	private static int count = 0;
+	private static int resDust = 0;
 	private ManageService manageService;
 
 	// 홈 메인페이지로 가기
@@ -43,6 +44,7 @@ public class HomeController {
 
 		return "home";
 	}
+	
 	// 홈화면 광역시/도 카드 데이터 만들기
 	@RequestMapping(value = "/homematterdata", method = RequestMethod.GET)
 	@ResponseBody
@@ -177,51 +179,82 @@ public class HomeController {
 		return json;
 	}
 	
-	// 미세먼지 측정값
+	// 아두이노에서 받은 미세먼지 측정값
 	@RequestMapping(value = "/dustData", method = RequestMethod.POST, produces = {"application/json"})
 	public @ResponseBody Map<String, Object> dustData(@RequestBody Map<String, Object> info, MeasureDataVO msd, HttpServletRequest request) {
-
-		Map<String, Object> retVal = new HashMap<String, Object>();
+		String[] resDustData = new String[5]; // 배열 선언
 		
-		System.out.println("iotId: " + info.get("iotId"));
-		System.out.println("dust_val: " + info.get("dust_val"));
-		System.out.println("현재 시간(mtime): " + info.get("mtime"));
-
+		//======================요청받은 데이터====================
+		System.out.print("count: " + count + " // ");
+		
+		System.out.println("dust_val: " + info.get("dust_val")); // 측정 값
+		System.out.println("iotId: " + info.get("iotId")); // IoT기기명
+		
 		// 현재 날짜 생성
-		Date date = new Date();
-//		String str = date.toString();
-		SimpleDateFormat formatType = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println("yyyy-MM-dd 형식의 현재 날짜: " + formatType.format(date));
-
-		String iotId = info.get("iotId").toString(); // iot_id(기기명)
-		String dust = info.get("dust_val").toString(); // 먼지 측정 값
-		String mtime = info.get("mtime").toString(); // 먼지 측정 시간
-		System.out.println("(String)mtime: " + mtime);
+//		Date date = new Date();
+////		String str = date.toString();
+//		SimpleDateFormat formatType = new SimpleDateFormat("yyyy-MM-dd");
+//		System.out.println("yyyy-MM-dd 형식의 현재 날짜: " + formatType.format(date));
+		
+		String dust = info.get("dust_val").toString(); // String으로 변환
+		String iotId = info.get("iotId").toString(); // String으로 변환
+//		String mtime = info.get("mtime").toString(); // 먼지 측정 시간
 		// 날짜 + 시간
-		String measureTime = formatType.format(date);
-		measureTime += " ";
-		measureTime += mtime;
+//		String measureTime = formatType.format(date);
+//		measureTime += " ";
+//		measureTime += mtime;
+		//===================================================
 		
-		Map<String, Object> m = new HashMap<String, Object>();
-		msd.setIot_id(iotId);
-		msd.setMeasure_value(dust);
-
-		System.out.println("iotId: " + iotId);
-		System.out.println("dust: " + dust);
-		System.out.println("measureTime: " + measureTime);
-
-		m.put("msd", msd);
-		m.put("time", (Object) measureTime);
-
-		manageService.measureData(m);
-		System.out.println("msd: " + msd);
+		// 값이 음수일때 0으로 초기화
+		if(Integer.parseInt(dust) < 0) {
+			dust = "20";
+			System.out.println("<%-----------dust = 0-----------%>");
+		}
 		
+		// 배열에 넣기~
+		resDustData[count] = dust;
+		
+		if(count < 3) {
+			resDust = resDust + Integer.parseInt(resDustData[count]);
+			System.out.println("resDust(더하는거): " + resDust);
+			count++;
+			if(count == 3) {
+				String resultDust = String.valueOf(resDust / 3);
+				// DB저장
+				msd.setIot_id(iotId);
+				msd.setMeasure_value(resultDust);
+
+				System.out.println("iotId: " + iotId);
+				System.out.println("resultDust: " + resultDust);
+//				System.out.println("measureTime: " + measureTime);
+				
+				Map<String, Object> m = new HashMap<String, Object>();
+				m.put("msd", msd);
+//				m.put("time", (Object) measureTime);
+
+				manageService.measureData(m);
+				
+				System.out.println("msd: " + msd);
+				////////
+				
+				count = 0;
+				resDust = 0;
+			}
+		}
+		
+		// 클라이언트로 다시 응답
+		Map<String, Object> retVal = new HashMap<String, Object>();
+//		retVal.put("result", "success!!");
+//		System.out.println("retVal: " + retVal);
 		System.out.println("========================================");
-		
-		retVal.put("result", "success!!");
-		System.out.println("retVal: " + retVal);
 		
 		return retVal;
 	}
+	
+	// test
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(Model model) {
 
+	return "manage/test";
+		}
 }

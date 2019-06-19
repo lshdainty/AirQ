@@ -145,13 +145,13 @@ public class MobileConnectController {
 	@RequestMapping(value="m.tCheck", method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject tCheck(HttpServletRequest request) {
-		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String member_id=request.getParameter("member_id");
 		String member_devision=connectService.member_devision(member_id);
 		
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("member_devision",member_devision);
 		JSONObject json = JSONObject.fromObject(map);
-		
+		System.out.println(json);
 		return json;
 	}
 
@@ -750,9 +750,13 @@ public class MobileConnectController {
 		String demand_code="dm"+day+random;
 		String payment_code="pm"+day+random1;
 		String member_id=((MemberVO) request.getSession().getAttribute("user")).getMember_id();
+		String dateValue = request.getParameter("date");
+		String timeValue = request.getParameter("time");
+		String d_service_date = dateValue+" "+timeValue+":00";
 		
 		demandVO.setDemand_code(demand_code);
 		demandVO.setMember_id(member_id);
+		demandVO.setService_date(d_service_date);
 		paymentVO.setPayment_code(payment_code);
 		paymentVO.setDemand_code(demand_code);
 		

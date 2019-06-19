@@ -4,7 +4,7 @@ function isLogin(){
     var sessionUserInfo;
     if(localStorage.getItem("user")!=null){
         sessionStorage.setItem("user",JSON.stringify(localUserInfo));
-        window.location.href="../../../www/views/service/introMain.html";
+        window.location.href="../../../www/views/service/main.html";
     }
     else{
         window.location.href="../../../www/views/login/loginMain.html";

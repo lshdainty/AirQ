@@ -11,6 +11,7 @@ import com.yjc.airq.domain.BidVO;
 import com.yjc.airq.domain.Company_InfoVO;
 import com.yjc.airq.domain.DemandVO;
 import com.yjc.airq.domain.MatterVO;
+import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.domain.PaymentVO;
 import com.yjc.airq.domain.ProductVO;
 import com.yjc.airq.domain.ReplyVO;
@@ -289,6 +290,18 @@ public class ConnectServiceImplement implements ConnectService {
 		return replyMapper.reviewNum(company_code);
 	}
 	
+	//입찰 마감
+	@Override
+	public int tender_deadline(String tender_code) {
+		return tenderMapper.tender_deadline(tender_code);
+	}
+	
+	//낙찰하기
+	@Override
+	public int bid_open_date(String tender_code) {
+		return tenderMapper.bid_open_date(tender_code);
+	}
+	
 	// 상품 전체 개수 조회
 	@Override
 	public int productCount() {
@@ -334,6 +347,12 @@ public class ConnectServiceImplement implements ConnectService {
 	@Override
 	public ProductVO productContent(String product_code) {
 		return productMapper.productContent(product_code);
+	}
+	
+	// 결제 페이지 - 주소 자동 입력
+	@Override
+	public MemberVO memberAddr(String member_id) {
+		return memberMapper.memberAddr(member_id);
 	}
 	
 	// 상품 댓글

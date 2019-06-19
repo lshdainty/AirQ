@@ -28,7 +28,7 @@
     <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
         <div class="container-fluid">
             <div class="d-flex align-items-center"><a href="/" class="navbar-brand py-1"><img
-                        src="https://d19m59y37dris4.cloudfront.net/directory/1-2/img/logo.svg" alt="Directory logo"></a>
+                        src="/resources/images/airqWebLogo.png" alt="AirQ" style="height:35px;"></a>
             </div>
             <button type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
                 aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button>
@@ -42,12 +42,12 @@
                             업체연결 서비스</a>
                         <div aria-labelledby="connectDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
                             <h6 class="dropdown-header font-weight-normal">개인 사용자</h6>
-                            <a href="/compareMain" class="dropdown-item">업체 연결 서비스 </a>
+                            <a href="/compareMain" class="dropdown-item">분석/비교 서비스 </a>
                             <div class="dropdown-divider"></div>
 
 
                             <h6 class="dropdown-header font-weight-normal">단체 사용자</h6><a
-                                href="/tenderMain" class="dropdown-item">입/투찰 서비스 </a>
+                                href="/tenderMain" class="dropdown-item">입찰 지원 서비스 </a>
                         </div>
                     </li>
 
@@ -77,7 +77,8 @@
                         </a>
                         <div aria-labelledby="communityDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
                             <h6 class="dropdown-header font-weight-normal">모니터링</h6>
-                            <a href="/monitoringMain" class="dropdown-item">공기질 모니터링 </a>
+                            <a href="/monitoringIn" class="dropdown-item">실내 모니터링 </a>
+                            <a href="/monitoringOut" class="dropdown-item">실외 모니터링 </a>
                             <div class="dropdown-divider"></div>
 
 

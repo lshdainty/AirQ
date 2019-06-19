@@ -2,17 +2,89 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjc.airq.mapper.MatterMapper">
 	<!-- 물질 리스트 가져오기 -->
-	<select id="matterList" resultType="com.yjc.airq.domain.MatterVO">
+	<select id="matterList"
+		resultType="com.yjc.airq.domain.MatterVO">
 		select * from matter
 	</select>
-	
+
 	<!-- 상품에 서비스 가능한 물질 리스트 등록 -->
 	<insert id="productMatterInsert" parameterType="String">
-		insert into p_measure_matter(matter_code,product_code) values(#{matter_code},#{product_code})
+		insert into
+		p_measure_matter(matter_code,product_code)
+		values(#{matter_code},#{product_code})
 	</insert>
-	
+
 	<!-- 상품에 서비스 가능한 물질 리스트 삭제 -->
 	<delete id="productMatterDelete" parameterType="String">
-		delete from p_measure_matter where product_code = #{product_code}
+		delete from
+		p_measure_matter where product_code = #{product_code}
 	</delete>
+
+	<!-- 일별 예약자 모니터링 -->
+	<select id="reservation" resultType="map">
+		select
+		to_char(m.measure_time,'yyyy-mm-dd') measure_time,
+		to_number(to_char(avg(measure_value),'99.9')) measure_value
+		from
+		measure_data m, iot_info i
+		where m.iot_id=i.iot_id and
+		member_id=#{member_id} and to_char(m.measure_time,'yyyy-mm-dd') >
+		to_char(sysdate-7,'yyyy-mm-dd')
+		group by m.iot_id,i.member_id,
+		to_char(m.measure_time,'yyyy-mm-dd')
+		order by measure_time desc
+	</select>
+
+	<!-- 시간별 예약자 모니터링 -->
+	<select id="timeGraph" resultType="map">
+		select to_char(m.measure_time,'hh24') || ':00' measure_time,
+		to_number(to_char(avg(measure_value),'999.9')) measure_value
+		from
+		measure_data m, iot_info i
+		where m.iot_id=i.iot_id and
+		member_id=#{member_id} and to_char(m.measure_time,'yyyy-mm-dd') >
+		to_char(sysdate-7,'yyyy-mm-dd')
+		group by m.iot_id,i.member_id,
+		to_char(m.measure_time,'hh24')
+		order by measure_time
+	</select>
+
+	<!-- 나쁨 횟수 -->
+	<select id="badNum" resultType="int">
+		select count(*)
+		from ( 
+			select to_char(m.measure_time,'yyyy-mm-dd') measure_time, to_number(to_char(avg(measure_value),'99.9')) measure_value
+			from measure_data m, iot_info i
+			where m.iot_id=i.iot_id 
+			and member_id=#{member_id}
+			group by m.iot_id,i.member_id,to_char(m.measure_time,'yyyy-mm-dd')
+			having to_char(m.measure_time,'yyyy-mm-dd') > to_char(sysdate-7,'yyyy-mm-dd')
+			order by measure_time desc) o
+		where o.measure_value>50
+	</select>
+
+	<!-- 일주일 미세먼지 평균 -->
+	<select id="measure_value_avg" resultType="String">
+		select nvl(to_char(avg(o.measure_value),'999.9'),0) measure_value_avg
+		from (
+			select to_char(m.measure_time,'yyyy-mm-dd') measure_time,
+			to_number(to_char(avg(measure_value),'99.9')) measure_value
+			from measure_data m, iot_info i
+			where m.iot_id=i.iot_id and member_id=#{member_id}
+			group by m.iot_id,i.member_id, to_char(m.measure_time,'yyyy-mm-dd')
+			having to_char(m.measure_time,'yyyy-mm-dd') > to_char(sysdate-7,'yyyy-mm-dd')
+			order by measure_time desc) o
+	</select>
+
+	<!-- 현재 미세먼지 농도 -->
+	<select id="measure_value" resultType="int">
+		select o.measure_value
+		from (
+			select *
+			from measure_data m, iot_info i
+			where m.iot_id=i.iot_id
+			and i.member_id=#{member_id}
+			order by m.measure_time desc) o
+		where rownum=1
+	</select>
 </mapper>
