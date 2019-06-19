@@ -72,8 +72,12 @@ body {
 }
 
 .myIot {
-    padding: 0 1rem;
     font-weight: bold;
+    float: left
+}
+.myIot select{
+    border: 1px solid #000;
+    border-bottom: none;
 }
 
 .chart-container {
@@ -354,10 +358,9 @@ body {
 
 .measure_box{
     display: flex;
-    width: 100%;
-    height: 100%;
     padding: 0.25rem 0;
-    border-left: 1px solid #000; 
+    height: 2.5rem;
+    border-left: 1px solid #000;
 }
 
 .measure_box_header{
@@ -397,12 +400,11 @@ body {
     width: 100%;
 }
 .measure_grade{
+    width: 30px;
+    height: 30px;
     display: flex;
-}
-.measure_grade svg{
-    overflow: visible !important;
-    width: 100%;
-    height: 100%;
+    margin: auto;
+    transform: translateX(-1rem) scale(0.85);
 }
 
 
@@ -483,7 +485,10 @@ body {
 }
 .info_table__box div{
     height: 2.25rem;
-    padding-top: .5rem;
+    display: flex;
+}
+.info_table__box p{
+    margin: auto;
 }
 .info_table__title{
     width: 100%;
