@@ -267,8 +267,10 @@ public class CommunityController {
 		postVO.setMember_id(((MemberVO) request.getSession().getAttribute("user")).getMember_id());
 		postVO.setBoard_code(board_code);
 		
-		postService.insertPost(postVO);
 		
+		System.out.println(postVO);
+		postService.insertPost(postVO);
+		System.out.println("INSERT");
 		Document doc = Jsoup.parse(request.getParameter("post_content"));
 		Elements imageElement = doc.select("img");
 		String image_name[] = new String[imageElement.size()];
