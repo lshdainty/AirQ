@@ -475,10 +475,9 @@ public class ConnectController {
 		ArrayList<String> uploadArr = new ArrayList<>();
 		
 		TenderVO tenderVo=connectService.tenderContent(tender_code);
-		connectService.bidUploadDelete(tenderVo.getUpload_code());
-		uploadService.tenderUploadDelete(tenderVo.getUpload_code());
+		
 		for (int i = 0; i < arr.size(); i++) {
-			uploadArr.add(arr.get(i).getUpload_code());
+			uploadArr.add(arr.get(i).getUpload_code()); //투찰 업로드 리스트
 		}
 		if (!uploadArr.isEmpty()) {
 			connectService.deleteBid(tender_code); // 투찰 업체 삭제
@@ -486,6 +485,8 @@ public class ConnectController {
 			uploadService.deleteBidUpload(uploadArr); // 투찰에 있던 파일 삭제
 		}
 		connectService.tenderDelete(tender_code); // 입찰 공고 삭제
+		uploadService.tenderUploadDelete(tenderVo.getUpload_code());
+		
 		mypageService.reportUpdate(tender_code); // 신고 테이블 update
 		return "redirect: /tenderMain";
 	}

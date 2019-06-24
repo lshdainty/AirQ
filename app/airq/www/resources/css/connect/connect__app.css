@@ -321,7 +321,7 @@ a:not([href]):not([tabindex]):focus {
   justify-content: center !important;
 }
 
-.pagination {
+.pagination,.tpagination {
   display: -ms-flexbox;
   display: flex;
   padding-left: 0;
