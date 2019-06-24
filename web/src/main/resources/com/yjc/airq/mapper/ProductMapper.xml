@@ -359,17 +359,15 @@
 	</select>
 
 	<select id="hotItemInfo" resultType="map" parameterType="String">
-		select
-		rownum, r.*
+		select rownum, r.*
 		from(
-		select p.product_code, p.product_name, count(d.demand_code) as count,
-		avg(py.star_score) as star
-		from product p, demand d, payment py
-		where p.product_code = d.product_code
-		and d.demand_code = py.demand_code
-		and p.company_code = #{company_code}
-		group by p.product_code,p.product_name
-		order by count(d.demand_code) desc) r
+			select p.product_code, p.product_name, count(d.demand_code) as count, nvl(to_char(avg(py.star_score),99.9),'0.0') as star
+			from product p, demand d, payment py
+			where p.product_code = d.product_code
+			and d.demand_code = py.demand_code
+			and p.company_code = #{company_code}
+			group by p.product_code,p.product_name
+			order by count(d.demand_code) desc) r
 		where <![CDATA[ rownum <= 5]]>
 	</select>
 </mapper>

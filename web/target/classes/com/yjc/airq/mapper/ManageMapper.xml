@@ -100,7 +100,7 @@
 	
 	<!-- 요일 평균 데이터 가져오기 -->
 	<select id="getDayData" resultType="map">	
-		select to_char(to_date(r.day,'yyyy-mm-dd'),'dy','NLS_DATE_LANGUAGE=korean') day, r.value
+		select decode(to_char(to_date(r.day,'yyyy-mm-dd'),'d'),1,'일',2,'월',3,'화',4,'수',5,'목',6,'금',7,'토') day, r.value
 		from(
        		select to_char(m.measure_time,'yyyy-mm-dd') day, to_number(to_char(avg(measure_value),'99.9')) value
         	from measure_data m, iot_info i
