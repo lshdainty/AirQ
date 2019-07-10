@@ -35,7 +35,7 @@
 		#{msd.measure_value},
 		systimestamp,
 		#{msd.iot_id},
-		'PM10')
+		#{msd.matter_code})
 	</insert>
 	
 	<!-- 오늘 날짜의 데이터 보여주는거 -->

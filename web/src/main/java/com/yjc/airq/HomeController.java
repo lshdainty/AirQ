@@ -36,6 +36,7 @@ import net.sf.json.JSONObject;
 public class HomeController {
 	private static int count = 0;
 	private static int resDust = 0;
+	private static int resCo2 = 0;
 	private ManageService manageService;
 
 	// 홈 메인페이지로 가기
@@ -183,11 +184,13 @@ public class HomeController {
 	@RequestMapping(value = "/dustData", method = RequestMethod.POST, produces = {"application/json"})
 	public @ResponseBody Map<String, Object> dustData(@RequestBody Map<String, Object> info, MeasureDataVO msd, HttpServletRequest request) {
 		String[] resDustData = new String[5]; // 배열 선언
+		String[] resCo2Data = new String[5]; // 배열 선언
 		
 		//======================요청받은 데이터====================
 		System.out.print("count: " + count + " // ");
 		
-		System.out.println("dust_val: " + info.get("dust_val")); // 측정 값
+		System.out.println("DUST: " + info.get("dust_val")); // 미세먼지 측정 값
+		System.out.println("CO2: " + info.get("ppm")); // CO2 측정 값
 		System.out.println("iotId: " + info.get("iotId")); // IoT기기명
 		
 		// 현재 날짜 생성
@@ -197,6 +200,7 @@ public class HomeController {
 //		System.out.println("yyyy-MM-dd 형식의 현재 날짜: " + formatType.format(date));
 		
 		String dust = info.get("dust_val").toString(); // String으로 변환
+		String co2 = info.get("ppm").toString(); // String으로 변환
 		String iotId = info.get("iotId").toString(); // String으로 변환
 //		String mtime = info.get("mtime").toString(); // 먼지 측정 시간
 		// 날짜 + 시간
@@ -206,39 +210,61 @@ public class HomeController {
 		//===================================================
 		
 		// 값이 음수일때 0으로 초기화
-		if(Integer.parseInt(dust) < 0) {
-			dust = "20";
-			System.out.println("<%-----------dust = 0-----------%>");
-		}
+//		if(Integer.parseInt(dust) < 0) {
+//			dust = "20";
+//			System.out.println("<%-----------dust = 0-----------%>");
+//		}
 		
-		// 배열에 넣기~
+		// 배열에 넣기
 		resDustData[count] = dust;
+		resCo2Data[count] = co2;
 		
 		if(count < 3) {
 			resDust = resDust + Integer.parseInt(resDustData[count]);
+			resCo2 = resCo2 + Integer.parseInt(resCo2Data[count]);
 			System.out.println("resDust(더하는거): " + resDust);
+			System.out.println("resCo2(더하는거): " + resCo2);
 			count++;
 			if(count == 3) {
 				String resultDust = String.valueOf(resDust / 3);
-				// DB저장
+				String resultCo2 = String.valueOf(resCo2 / 3);
+				
+				// 미세머지 DB저장
 				msd.setIot_id(iotId);
 				msd.setMeasure_value(resultDust);
+				msd.setMatter_code("PM10");
 
 				System.out.println("iotId: " + iotId);
 				System.out.println("resultDust: " + resultDust);
+				System.out.println("matter_code: " + "PM10");
 //				System.out.println("measureTime: " + measureTime);
 				
 				Map<String, Object> m = new HashMap<String, Object>();
 				m.put("msd", msd);
 //				m.put("time", (Object) measureTime);
-
+								
+				System.out.println("msd(dust): " + msd);
 				manageService.measureData(m);
+
+				//////////////////////////////co2 측정 DB저장
+				m.clear();
+				msd.setIot_id(iotId);
+				msd.setMeasure_value(resultCo2);
+				msd.setMatter_code("CO2");
 				
-				System.out.println("msd: " + msd);
-				////////
+				System.out.println("iotId: " + iotId);
+				System.out.println("resultCo2: " + resultCo2);
+				System.out.println("matter_code: " + "CO2");
+				
+				m.put("msd", msd);
+				System.out.println("msd(co2): " + msd);
+				manageService.measureData(m);
+				// DB저장 끝
+				
 				
 				count = 0;
 				resDust = 0;
+				resCo2 = 0;
 			}
 		}
 		
