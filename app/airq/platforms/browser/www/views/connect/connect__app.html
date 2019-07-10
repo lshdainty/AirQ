@@ -9,79 +9,9 @@
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="../../../www/resources/css/connect/swiper.css">
     <link rel="stylesheet" href="../../../www/resources/css/connect/connect__app.css">
-    <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="../../../www/resources/js/TweenLite.js"></script>
-    <script src="../../../www/resources/js/bootstrap.js"></script>
-    <script src="../../../www/resources/js/home.js"></script>
-    <script src="../../../www/resources/js/animation.js"></script>
     <!-- Demo styles -->
     <style>
-        .load-gate {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: #fff;
-            font-family: sans-serif;
-            text-transform: uppercase;
-            font-size: 10px;
-            letter-spacing: 0.2em;
-            z-index: 3000;
-        }
-
-        html,
-        body {
-            position: relative;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        .swiper-container {
-            width: 100%;
-            height: 100%;
-        }
-
-        .swiper-slide {
-            background: #fff;
-            /* Center slide text vertically */
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            -webkit-justify-content: center;
-            justify-content: center;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            -webkit-align-items: center;
-            align-items: center;
-        }
-
-        .connect_topNav {
-            display: block;
-            background: #fff;
-            height: 2.5rem;
-            text-align: center;
-            padding-top: .25rem;
-        }
-
-        .connect_topNav button {
-            height: 100%;
-            width: 45%;
-            background: none;
-            border: none;
-            font-size: 1rem;
-        }
-
-        .connect_active {
-            font-weight: bold;
-        }
+        
     </style>
 </head>
 
@@ -180,43 +110,29 @@
                             <!-- select와 button자리 -->
                         </div>
                     </div>
-                    <div class="connect-posts">
+                    <div class="connect-posts" id="tenderListDiv">
                         <!--입찰게시글 한세트 시작-->
-                        <div class="post-info">
-                            <div class="connect-post">
-                                <div class="post-explain">
-                                    <div class="post-subPost">
-                                        <div class="post-subTitle">요청일</div>
-                                        <div class="post-subContent">2019/05/28</div>
-                                    </div>
-                                    <div class="post-subPost">
-                                        <div class="post-subTitle">입찰명</div>
-                                        <div class="post-subContent">영진전문대 공기질 측정</div>
-                                    </div>
-                                </div>
-                                <button class="post-detailBtn"></button>
-                            </div>
-                            <div class="post-detail" style="display: none">
-                                <div class="detail-info">
-                                    <div class="detail-subPost">
-                                        <div class="detail-subTitle">입찰번호</div>
-                                        <div class="detail-subContent">1401285</div>
-                                    </div>
-                                    <div class="detail-subPost">
-                                        <div class="detail-subTitle">입찰자</div>
-                                        <div class="detail-subContent">TEST</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <!--입찰게시글 한세트 끝-->
+                        
                     </div>
+                    <nav aria-label="Page navigation example" style="margin-top: 57.5px">
+                        <div class="d-flex justify-content-center">
+                            <ul class="tpagination">
+                            </ul>
+                        </div>
+                    </nav>
                 </div>
             </div>
             <!-- 입찰 끝-->
         </div>
     </div>
     <div id="footer"></div>
+    <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="../../../www/resources/js/TweenLite.js"></script>
+    <script src="../../../www/resources/js/bootstrap.js"></script>
+    <script src="../../../www/resources/js/home.js"></script>
+    <script src="../../../www/resources/js/animation.js"></script>
     <!-- Swiper JS -->
     <script src="../../../www/resources/js/connect/swiper.js"></script>
     <script src="../../../www/resources/js/connect/connect__app.js"></script>

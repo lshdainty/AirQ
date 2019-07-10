@@ -1,7 +1,7 @@
 $(document).ready(function () {
   var postCode = window.location.search.substring(1).split('?').toString();
   var data = { post_code: postCode.toString() };
-  var login_id = JSON.parse(sessionStorage.getItem("user")).member_id;
+  var member_id = JSON.parse(sessionStorage.getItem("user")).member_id;
   $.ajax(
     {
       crossDomain: true,
@@ -21,7 +21,7 @@ $(document).ready(function () {
         var articleMeta = $('<div/>').addClass('article-meta').appendTo(articleHeader);
         var articleMetaList = $('<div/>').addClass('article-meta-list').appendTo(articleMeta);
         var articleMetaItem_member = $('<div/>').addClass('article-meta__item article-meta__item--name').appendTo(articleMetaList);
-        var member_id = $('<a/>').text(data.detailPost.member_id).appendTo(articleMetaItem_member);
+        var login_id = $('<a/>').text(member_id).appendTo(articleMetaItem_member);
         var articleMetaItem_date = $('<div/>').addClass('article-meta__item').appendTo(articleMetaList);
         var date = $('<span/>').text(test).appendTo(articleMetaItem_date);
         var articleMetaListRight = $('<div/>').addClass('article-meta-list article-meta-list--right').appendTo(articleMeta);
@@ -43,7 +43,7 @@ $(document).ready(function () {
         var articleVoteNum = $('<span/>').addClass('article-vote__count recommend_num').text(data.detailPost.recommend_num).appendTo(articleVoteBtn);
 
         $('.comment__title').append('<span class="comment__count"> 총 <em id="reply_count">' + data.detailPost.reply_count + '</em>개</span>');
-        $('.comment-write-inner').prepend('<div class="comment-write__name" id="member_id">' + login_id + '</div>');
+        $('.comment-write-inner').prepend('<div class="comment-write__name" id="member_id">' + member_id + '</div>');
         $.each(data.replys, function (index) {
           var r_creation_date = new Date(data.replys[index].r_creation_date.time).toISOString().slice(0, 16);
           var test = r_creation_date.replace('T', ' ');
@@ -75,7 +75,7 @@ $(document).ready(function () {
       $.ajax({
         type:'post',
         data:{'post_code':postCode},
-        url:sessionStorage.getItem("IP_ADDRESS")+'m.postVote',
+        url:sessionStorage.getItem("IP_ADDRESS")+'/m.postVote',
         success:function(result){
           var recommend_num = parseInt($('.recommend_num').last().text());
           recommend_num=recommend_num+1;
@@ -86,7 +86,6 @@ $(document).ready(function () {
     });
     $(document).on("click","#reply-insert",function(){
       var reply_content = $('#reply_content').val();
-      var member_id = $('#member_id').text();
       var post_code = $('#post_code').val();
       var replyVO = new Object();
       
@@ -131,8 +130,7 @@ $(document).ready(function () {
         url:sessionStorage.getItem("IP_ADDRESS")+"/m.postDelete",
         data:data,
         success:function(result){	
-          alert(result);
-          history.go(-1);
+          window.history.back();
         }
       }); 
     });

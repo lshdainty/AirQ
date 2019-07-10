@@ -140,11 +140,11 @@ public class HomeController {
 					case "PM10":
 						dataGubun[0] = 151;dataGubun[1] = 101;dataGubun[2] = 76;dataGubun[3] = 51;dataGubun[4] = 41;dataGubun[5] = 31;dataGubun[6] = 16;
 						json.put("dataGubun",dataGubun);
-						json.put("unit","µg/m");break;
+						json.put("unit","µg/m³");break;
 					case "PM25":
 						dataGubun[0] = 76;dataGubun[1] = 51;dataGubun[2] = 38;dataGubun[3] = 26;dataGubun[4] = 21;dataGubun[5] = 16;dataGubun[6] = 9;
 						json.put("dataGubun",dataGubun);
-						json.put("unit","µg/m");break;
+						json.put("unit","µg/m³");break;
 					case "NO2":
 						dataGubun[0] = (float)1.1;dataGubun[1] = (float)0.2;dataGubun[2] = (float)0.13;dataGubun[3] = (float)0.06;dataGubun[4] = (float)0.05;dataGubun[5] = (float)0.03;dataGubun[6] = (float)0.02;
 						json.put("dataGubun",dataGubun);

@@ -9,9 +9,6 @@
     <link rel="stylesheet" href="../../../www/resources/css/login/loginMain.css">
     <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
     <script src="../../../www/resources/js/login/loginMain.js"></script>
-    <script>
-        sessionStorage.setItem("IP_ADDRESS", "http://13.209.87.1");
-    </script>
 </head>
 
 <body>
@@ -21,7 +18,9 @@
                 <div class="member-card-layout">
                     <div class="member-card-layout__container">
                         <div class="member-card-layout__inner">
-                            <h1 class="member-card-layout__logo"><img class="member-card-layout__logo-image" src="../../../www/resources/images/airqWebLogo.png" alt="AirQ" style="height:50px; width:143px;"></h1>
+                            <h1 class="member-card-layout__logo"><img class="member-card-layout__logo-image"
+                                    src="../../../www/resources/images/airqWebLogo.png" alt="AirQ"
+                                    style="height:50px; width:143px;"></h1>
                             <div class="login">
                                 <form>
                                     <h2 class="login__email-title">Login</h2>
@@ -34,12 +33,12 @@
                                     </div>
                                     <div class="member-input">
                                         <div class="member-input__state">
-                                            <input id="PASS" class="member-input__box"
-                                                type="password" autocomplete="off" name="password" value="">
-                                                <label for="memberInput797" class="member-input__label">
-                                                    PASSWORD
-                                                </label>
-                                                <span class="member-input__valid-wrapper"></span></div>
+                                            <input id="PASS" class="member-input__box" type="password"
+                                                autocomplete="off" name="password" value="">
+                                            <label for="memberInput797" class="member-input__label">
+                                                PASSWORD
+                                            </label>
+                                            <span class="member-input__valid-wrapper"></span></div>
                                     </div>
                                     <div class="member-input-wrong-message" style="display: none"></div>
                                     <div class="login__l">
@@ -61,6 +60,8 @@
                                     <div class="login__l-sign-up">Don’t have an account?<span
                                             class="login__sign-up-link"><a class="member-link"
                                                 href="/register/agree?idType=OPGG">Sign Up</a></span>
+    <div class='alert alert-info'></div>
+
                                     </div>
                                 </form>
                             </div>
@@ -70,6 +71,21 @@
             </div>
         </div>
     </div>
+    <button id="fcm-code">Token_test</button>
+    <script type="text/javascript" src="../../../www/cordova.js"></script>
+    <script type="text/javascript">
+    /** jQuery 초기화 */
+    $(function() {
+        // 버튼 이벤트 정의
+        $("#fcm-code").click(function() {
+            alert("aa");
+            FCMPlugin.getToken(function(token){
+                $(".alert").html(token);
+                localStorage.setItem('token',token);
+            });
+        });
+    }); // end jquery
+    </script>
 </body>
 
 </html>

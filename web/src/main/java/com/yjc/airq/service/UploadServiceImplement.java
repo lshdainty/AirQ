@@ -22,6 +22,7 @@ public class UploadServiceImplement implements UploadService {
 		mapper.uploadUpdate(upload_code);
 	}
 	public void deletePostUpload(String post_code) {
+		System.out.println("UPLOAD MAPPER");
 		mapper.deletePostUpload(post_code);
 	}
 	

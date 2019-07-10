@@ -4,14 +4,18 @@
 <mapper namespace="com.yjc.airq.mapper.TenderMapper">
 	<!-- 입찰출력 리스트 -->
 	<select id="tenderList" resultType="com.yjc.airq.domain.TenderVO">
-		select rownum,t.* 
+		select rownum,t.tender_code,t.tender_title,t.tender_name,to_char(t.t_creation_date,'yyyy-mm-dd') t_creation_date, to_char(t.service_date,'yyyy-mm-dd') service_date,
+        to_char(t.tender_deadline,'yyyy-mm-dd') tender_deadline,t.calculate_period,t.t_space,t.floor_number,t.requirement,t.t_zipcode,t.t_road_addr,
+        t.t_addr,t.t_addr_detail,t.member_id,t.group_name,to_char(t.bid_open_date,'yyyy-mm-dd') bid_open_date,t.budget,t.winning_bid_way,t.upload_code
 		from (select * from tender order by t_creation_date asc) t 
 		order by rownum desc
 	</select>
 	<select id="tenderMain" resultType="com.yjc.airq.domain.TenderVO">
-  	      select x.* 
+          select x.* 
    		  from(select rownum as rnum,a.*
-  	 		   from(select rownum,t.* 
+  	 		   from(select rownum,t.tender_code,t.tender_title,t.tender_name,to_char(t.t_creation_date,'yyyy-mm-dd hh24:mi') t_creation_date, to_char(t.service_date,'yyyy-mm-dd') service_date,
+                    to_char(t.tender_deadline,'yyyy-mm-dd') tender_deadline,t.calculate_period,t.t_space,t.floor_number,t.requirement,t.t_zipcode,t.t_road_addr,
+                    t.t_addr,t.t_addr_detail,t.member_id,t.group_name,to_char(t.bid_open_date,'yyyy-mm-dd') bid_open_date,t.budget,t.winning_bid_way,t.upload_code
   	        		from (select * 
         	    		  from tender
              	  		  order by t_creation_date asc) t 
@@ -126,9 +130,9 @@
 	
 	<!-- 리뷰 안한 목록 리스트 -->
 	<select id="reviewTenderList" resultType="com.yjc.airq.domain.TenderVO">
-		select t.tender_code, t.member_id, t.tender_title, t.t_space, t.floor_number, to_char(t.service_date,'yyyy-MM-dd hh24:mi') service_date, p.payment_code, p.star_score, p.payment_date, p.payment_price
+        select t.tender_code, t.member_id, t.tender_title, t.t_space, t.floor_number, to_char(t.service_date,'yyyy-MM-dd') service_date, p.payment_code, p.star_score, p.payment_date, p.payment_price
 		from payment p,tender t
-		where sysdate>=t.service_date and t.tender_code=p.tender_code and p.refund_whether='n' and p.star_score is null and t.member_id=#{member_id}
+		where t.tender_code=p.tender_code and p.refund_whether='n' and p.star_score is null and t.member_id=#{member_id} and to_date(sysdate,'yyyy-mm-dd')>=to_date(t.service_date,'yyyy-mm-dd')
 		order by p.payment_date
 	</select>
 	

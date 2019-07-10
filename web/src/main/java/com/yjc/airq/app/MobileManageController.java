@@ -38,88 +38,85 @@ public class MobileManageController {
 
 	private ManageService manageService;
 	
-	
-	
 	// 실시간 차트 기본 데이터 30개 가져오기
-		@CrossOrigin(origins = "*")
-		@RequestMapping(value = "/m.inOldData", method = RequestMethod.GET)
-		@ResponseBody
-		public JSONObject inOldData(HttpServletRequest request) {
-			String member_id = request.getParameter("member_id");
-			
-			float dataGubun[] = {151,101,76,51,41,31,16,0};
-			
-			ArrayList<Map<String,Object>> oldData = manageService.getOldData();	//초기 30개의 값 가져오기
-			String matterValue = (String) oldData.get(29).get("VALUE");	//마지막 값을 현재의 값으로 넣기
-			String todayAvg = manageService.getTodayAvgData(member_id);	//하루 평균값 가져오기
-			int overValue = manageService.getOverValue(member_id);	//임계값 초과 횟수 가져오기
-			ArrayList<Map<String,Object>> monthData = manageService.getMonthData(member_id);	//월 평균 값 가져오기
-			ArrayList<Map<String,Object>> dayData = manageService.getDayData(member_id);	//요일 평균 값 가져오기
-			ArrayList<Map<String,Object>> timeData = manageService.getTimeData(member_id);	//시간 평균 값 가져오기
-			
-			JSONArray jOldData = JSONArray.fromObject(oldData);
-			JSONArray jMonthData = JSONArray.fromObject(monthData);
-			JSONArray jDayData = JSONArray.fromObject(dayData);
-			JSONArray jTimeData = JSONArray.fromObject(timeData);
-			
-			int x = 0;
-			int grade = 0;
-			while (Float.parseFloat(matterValue) < dataGubun[x]) {
-				x++;
-			}
-			grade = 8 - x;
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("oldData", jOldData);
-			map.put("matterValue", matterValue);
-			map.put("todayAvg", todayAvg);
-			map.put("overValue", overValue);
-			map.put("dataGubun", dataGubun);
-			map.put("monthData", jMonthData);
-			map.put("dayData", jDayData);
-			map.put("timeData", jTimeData);
-			map.put("grade",grade);
-			
-			JSONObject json = JSONObject.fromObject(map);
-			
-			return json;
-		}
+//	@CrossOrigin(origins = "*")
+//	@RequestMapping(value = "/m.inOldData", method = RequestMethod.GET)
+//	@ResponseBody
+//	public JSONObject inOldData(HttpServletRequest request) {
+//		String member_id = request.getParameter("member_id");
+//			
+//		float dataGubun[] = {151,101,76,51,41,31,16,0};
+//			
+//		ArrayList<Map<String,Object>> oldData = manageService.getOldData();	//초기 30개의 값 가져오기
+//		String matterValue = (String) oldData.get(29).get("VALUE");	//마지막 값을 현재의 값으로 넣기
+//		String todayAvg = manageService.getTodayAvgData(member_id);	//하루 평균값 가져오기
+//		int overValue = manageService.getOverValue(member_id);	//임계값 초과 횟수 가져오기
+//		ArrayList<Map<String,Object>> monthData = manageService.getMonthData(member_id);	//월 평균 값 가져오기
+//		ArrayList<Map<String,Object>> dayData = manageService.getDayData(member_id);	//요일 평균 값 가져오기
+//		ArrayList<Map<String,Object>> timeData = manageService.getTimeData(member_id);	//시간 평균 값 가져오기
+//			
+//		JSONArray jOldData = JSONArray.fromObject(oldData);
+//		JSONArray jMonthData = JSONArray.fromObject(monthData);
+//		JSONArray jDayData = JSONArray.fromObject(dayData);
+//		JSONArray jTimeData = JSONArray.fromObject(timeData);
+//			
+//		int x = 0;
+//		int grade = 0;
+//		while (Float.parseFloat(matterValue) < dataGubun[x]) {
+//			x++;
+//		}
+//		grade = 8 - x;
+//			
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("oldData", jOldData);
+//		map.put("matterValue", matterValue);
+//		map.put("todayAvg", todayAvg);
+//		map.put("overValue", overValue);
+//		map.put("dataGubun", dataGubun);
+//		map.put("monthData", jMonthData);
+//		map.put("dayData", jDayData);
+//		map.put("timeData", jTimeData);
+//		map.put("grade",grade);
+//			
+//		JSONObject json = JSONObject.fromObject(map);
+//			
+//		return json;
+//	}
 		
-		
-		// 실시간 차트 최신 데이터 가져오기
-		@CrossOrigin(origins = "*")
-		@RequestMapping(value = "/m.inNowData", method = RequestMethod.GET)
-		@ResponseBody
-		public JSONObject inNowData(HttpServletRequest request) {
-			String member_id = request.getParameter("member_id");
-			
-			float dataGubun[] = {151,101,76,51,41,31,16,0};
-			
-			ArrayList<Map<String,Object>> nowData = manageService.getNowData();
-			String matterValue = (String) nowData.get(0).get("VALUE");	//마지막 값을 현재의 값으로 넣기
-			String todayAvg = manageService.getTodayAvgData(member_id);	//하루 평균값 가져오기
-			int overValue = manageService.getOverValue(member_id);	//임계값 초과 횟수 가져오기
-			
-			JSONArray jNowData = JSONArray.fromObject(nowData);
-			
-			int x = 0;
-			int grade = 0;
-			while (Float.parseFloat(matterValue) < dataGubun[x]) {
-				x++;
-			}
-			grade = 8 - x;
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("nowData", jNowData);
-			map.put("matterValue", matterValue);
-			map.put("todayAvg", todayAvg);
-			map.put("overValue", overValue);
-			map.put("grade",grade);
-			
-			JSONObject json = JSONObject.fromObject(map);
-			
-			return json;
-		}
+	// 실시간 차트 최신 데이터 가져오기
+//	@CrossOrigin(origins = "*")
+//	@RequestMapping(value = "/m.inNowData", method = RequestMethod.GET)
+//	@ResponseBody
+//	public JSONObject inNowData(HttpServletRequest request) {
+//		String member_id = request.getParameter("member_id");
+//			
+//		float dataGubun[] = {151,101,76,51,41,31,16,0};
+//			
+//		ArrayList<Map<String,Object>> nowData = manageService.getNowData();
+//		String matterValue = (String) nowData.get(0).get("VALUE");	//마지막 값을 현재의 값으로 넣기
+//		String todayAvg = manageService.getTodayAvgData(member_id);	//하루 평균값 가져오기
+//		int overValue = manageService.getOverValue(member_id);	//임계값 초과 횟수 가져오기
+//			
+//		JSONArray jNowData = JSONArray.fromObject(nowData);
+//			
+//		int x = 0;
+//		int grade = 0;
+//		while (Float.parseFloat(matterValue) < dataGubun[x]) {
+//			x++;
+//		}
+//		grade = 8 - x;
+//			
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("nowData", jNowData);
+//		map.put("matterValue", matterValue);
+//		map.put("todayAvg", todayAvg);
+//		map.put("overValue", overValue);
+//		map.put("grade",grade);
+//			
+//		JSONObject json = JSONObject.fromObject(map);
+//			
+//		return json;
+//	}
 
 	// 사용자의 현재 위치에서 가장 가까운 측정소 측정정보 가져오기
 	@CrossOrigin(origins = "*")
