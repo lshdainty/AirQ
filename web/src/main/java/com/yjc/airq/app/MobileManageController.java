@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yjc.airq.domain.IotInfoVO;
 import com.yjc.airq.domain.MeasureDataVO;
 import com.yjc.airq.domain.MemberVO;
+import com.yjc.airq.domain.Recommend;
 import com.yjc.airq.service.ManageService;
 
 import lombok.AllArgsConstructor;
@@ -38,85 +39,185 @@ public class MobileManageController {
 
 	private ManageService manageService;
 	
+	// 사용자가 가지고있는 공기질 측정 iot기기 개수 확인
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "/m.checkIot", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject checkIot(HttpServletRequest request) {
+		String member_id = request.getParameter("member_id");
+		int iotNum = manageService.checkIot(member_id);
+			
+		Map<String, Object> map = new HashMap<String, Object>();
+			
+		if(iotNum == 0) {
+			map.put("result", "no");
+		}else {
+			map.put("result", "yes");
+			ArrayList<Map<String,Object>> iotList = manageService.iotList(member_id);
+			JSONArray jIotList = JSONArray.fromObject(iotList);
+			for(int i=0; i<jIotList.size(); i++) {
+				JSONObject jObj = JSONObject.fromObject(jIotList.get(i));
+				ArrayList<Map<String,Object>> iotMatterList = manageService.iotMatterList(jObj.getString("MODEL"));
+				JSONArray jIotMatterList = JSONArray.fromObject(iotMatterList);
+				jObj.put("matterList",jIotMatterList);
+				jIotList.set(i,jObj); 
+			}
+			map.put("iotInfo", jIotList);
+		}
+			
+		JSONObject json = JSONObject.fromObject(map);
+			
+		return json;
+	}
+		
+	// 사용자가 선택한 IOT가 측정할 수 있는 물질목록 가져오기
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "/m.changeMatter", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject changeMatter(HttpServletRequest request) {
+		String iot_id = request.getParameter("id");
+			
+		String model = manageService.selectModel(iot_id);
+			
+		ArrayList<Map<String,Object>> iotMatterList = manageService.iotMatterList(model);
+			
+		JSONArray jIotMatterList = JSONArray.fromObject(iotMatterList);
+			
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("iotMatterList",jIotMatterList);
+			
+		JSONObject json = JSONObject.fromObject(map);
+			
+		return json;
+	}
+	
 	// 실시간 차트 기본 데이터 30개 가져오기
-//	@CrossOrigin(origins = "*")
-//	@RequestMapping(value = "/m.inOldData", method = RequestMethod.GET)
-//	@ResponseBody
-//	public JSONObject inOldData(HttpServletRequest request) {
-//		String member_id = request.getParameter("member_id");
-//			
-//		float dataGubun[] = {151,101,76,51,41,31,16,0};
-//			
-//		ArrayList<Map<String,Object>> oldData = manageService.getOldData();	//초기 30개의 값 가져오기
-//		String matterValue = (String) oldData.get(29).get("VALUE");	//마지막 값을 현재의 값으로 넣기
-//		String todayAvg = manageService.getTodayAvgData(member_id);	//하루 평균값 가져오기
-//		int overValue = manageService.getOverValue(member_id);	//임계값 초과 횟수 가져오기
-//		ArrayList<Map<String,Object>> monthData = manageService.getMonthData(member_id);	//월 평균 값 가져오기
-//		ArrayList<Map<String,Object>> dayData = manageService.getDayData(member_id);	//요일 평균 값 가져오기
-//		ArrayList<Map<String,Object>> timeData = manageService.getTimeData(member_id);	//시간 평균 값 가져오기
-//			
-//		JSONArray jOldData = JSONArray.fromObject(oldData);
-//		JSONArray jMonthData = JSONArray.fromObject(monthData);
-//		JSONArray jDayData = JSONArray.fromObject(dayData);
-//		JSONArray jTimeData = JSONArray.fromObject(timeData);
-//			
-//		int x = 0;
-//		int grade = 0;
-//		while (Float.parseFloat(matterValue) < dataGubun[x]) {
-//			x++;
-//		}
-//		grade = 8 - x;
-//			
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("oldData", jOldData);
-//		map.put("matterValue", matterValue);
-//		map.put("todayAvg", todayAvg);
-//		map.put("overValue", overValue);
-//		map.put("dataGubun", dataGubun);
-//		map.put("monthData", jMonthData);
-//		map.put("dayData", jDayData);
-//		map.put("timeData", jTimeData);
-//		map.put("grade",grade);
-//			
-//		JSONObject json = JSONObject.fromObject(map);
-//			
-//		return json;
-//	}
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "/m.inOldData", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject inOldData(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		String matter = request.getParameter("matter");
+		
+		float dataGubun[] = null;
+		float PM10[] = {151,101,76,51,41,31,16,0};
+		float CO2[] = {5000,3000,2000,1500,1000,700,450,0};
+		
+		String unit = "";
+		
+		switch (matter) {
+		case "PM10":
+			dataGubun = PM10;
+			unit = "µg/m³";
+			break;
+		case "CO2":
+			dataGubun = CO2;
+			unit = "ppm";
+			break;
+		}
+		
+		ArrayList<Map<String,Object>> oldData = manageService.getOldData(id,matter);	//초기 30개의 값 가져오기
+		String matterValue = "";
+		if(oldData.size()>0) {
+			matterValue = (String) oldData.get(oldData.size()-1).get("VALUE");	//마지막 값을 현재의 값으로 넣기
+		}else {
+			matterValue="0";
+		}
+		String todayAvg = manageService.getTodayAvgData(id,matter);	//하루 평균값 가져오기
+		int overValue = manageService.getOverValue(id,matter);	//임계값 초과 횟수 가져오기
+		ArrayList<Map<String,Object>> monthData = manageService.getMonthData(id,matter);	//월 평균 값 가져오기
+		ArrayList<Map<String,Object>> dayData = manageService.getDayData(id,matter);	//요일 평균 값 가져오기
+		ArrayList<Map<String,Object>> timeData = manageService.getTimeData(id,matter);	//시간 평균 값 가져오기
+		
+		JSONArray jOldData = JSONArray.fromObject(oldData);
+		JSONArray jMonthData = JSONArray.fromObject(monthData);
+		JSONArray jDayData = JSONArray.fromObject(dayData);
+		JSONArray jTimeData = JSONArray.fromObject(timeData);
+		
+		int x = 0;
+		int grade = 0;
+		while (Float.parseFloat(matterValue) < dataGubun[x]) {
+			x++;
+		}
+		grade = 8 - x;
+		
+		Recommend recommendObject = new Recommend();
+		recommendObject.setMatter(matter);
+		recommendObject.setGrade(grade);
+		recommendObject.setRecommend();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("oldData", jOldData);
+		map.put("matterValue", matterValue);
+		map.put("todayAvg", todayAvg);
+		map.put("overValue", overValue);
+		map.put("dataGubun", dataGubun);
+		map.put("grade",grade);
+		map.put("unit",unit);
+		map.put("recommend",recommendObject.getRecommend());
+		
+		JSONObject json = JSONObject.fromObject(map);
+		
+		return json;
+	}
 		
 	// 실시간 차트 최신 데이터 가져오기
-//	@CrossOrigin(origins = "*")
-//	@RequestMapping(value = "/m.inNowData", method = RequestMethod.GET)
-//	@ResponseBody
-//	public JSONObject inNowData(HttpServletRequest request) {
-//		String member_id = request.getParameter("member_id");
-//			
-//		float dataGubun[] = {151,101,76,51,41,31,16,0};
-//			
-//		ArrayList<Map<String,Object>> nowData = manageService.getNowData();
-//		String matterValue = (String) nowData.get(0).get("VALUE");	//마지막 값을 현재의 값으로 넣기
-//		String todayAvg = manageService.getTodayAvgData(member_id);	//하루 평균값 가져오기
-//		int overValue = manageService.getOverValue(member_id);	//임계값 초과 횟수 가져오기
-//			
-//		JSONArray jNowData = JSONArray.fromObject(nowData);
-//			
-//		int x = 0;
-//		int grade = 0;
-//		while (Float.parseFloat(matterValue) < dataGubun[x]) {
-//			x++;
-//		}
-//		grade = 8 - x;
-//			
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("nowData", jNowData);
-//		map.put("matterValue", matterValue);
-//		map.put("todayAvg", todayAvg);
-//		map.put("overValue", overValue);
-//		map.put("grade",grade);
-//			
-//		JSONObject json = JSONObject.fromObject(map);
-//			
-//		return json;
-//	}
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "/m.inNowData", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject inNowData(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		String matter = request.getParameter("matter");
+		
+		float dataGubun[] = null;
+		float PM10[] = {151,101,76,51,41,31,16,0};
+		float CO2[] = {5000,3000,2000,1500,1000,700,450,0};
+		
+		switch (matter) {
+		case "PM10":
+			dataGubun = PM10;
+			break;
+		case "CO2":
+			dataGubun = CO2;
+			break;
+		}
+		
+		ArrayList<Map<String,Object>> nowData = manageService.getNowData(id,matter);
+		String matterValue = "";
+		if(nowData.size()>0) {
+			matterValue = (String) nowData.get(nowData.size()-1).get("VALUE");	//마지막 값을 현재의 값으로 넣기
+		}else {
+			matterValue="0";
+		}
+		String todayAvg = manageService.getTodayAvgData(id,matter);	//하루 평균값 가져오기
+		int overValue = manageService.getOverValue(id,matter);	//임계값 초과 횟수 가져오기
+		
+		JSONArray jNowData = JSONArray.fromObject(nowData);
+		
+		int x = 0;
+		int grade = 0;
+		while (Float.parseFloat(matterValue) < dataGubun[x]) {
+			x++;
+		}
+		grade = 8 - x;
+		
+		Recommend recommendObject = new Recommend();
+		recommendObject.setMatter(matter);
+		recommendObject.setGrade(grade);
+		recommendObject.setRecommend();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("nowData", jNowData);
+		map.put("matterValue", matterValue);
+		map.put("todayAvg", todayAvg);
+		map.put("overValue", overValue);
+		map.put("grade",grade);
+		map.put("recommend",recommendObject.getRecommend());
+		
+		JSONObject json = JSONObject.fromObject(map);
+		
+		return json;
+	}
 
 	// 사용자의 현재 위치에서 가장 가까운 측정소 측정정보 가져오기
 	@CrossOrigin(origins = "*")
