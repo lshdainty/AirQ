@@ -8,7 +8,8 @@
 }
 
 #p {
-	margin-left: 50px;
+	text-align: center;
+	/* margin-left: 50px; */
 	color: #747474;
 }
 
@@ -76,8 +77,17 @@
 }
 
 #graphSelect {
+	
+	/* float: right;
+	margin-right:15px; */
+	
+}
+
+.select {
 	display:inline-block;
-	float: right;
-	margin-right:15px;
 	height: 30px;
+}
+
+#dayMatterDataDiv {
+	display:inline-block !important;
 }

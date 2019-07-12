@@ -29,6 +29,7 @@ import com.yjc.airq.domain.ReportVO;
 import com.yjc.airq.domain.TenderVO;
 import com.yjc.airq.service.ConnectService;
 import com.yjc.airq.service.LoginService;
+import com.yjc.airq.service.ManageService;
 import com.yjc.airq.service.MypageService;
 
 import lombok.AllArgsConstructor;
@@ -44,6 +45,7 @@ public class MypageController {
 	private ConnectService connectService;
 	private LoginService memberService;
 	private MypageService mypageService;
+	private ManageService manageService;
 
 	// mypageMain 가기
 	@RequestMapping(value = "mypageMain", method = RequestMethod.GET)
@@ -470,9 +472,9 @@ public class MypageController {
 	@RequestMapping(value="reservation", method=RequestMethod.GET)
 	public String reservation(HttpServletRequest request, Model model) {
 		String memberId=request.getParameter("member_id");
-		int badNum=mypageService.badNum(memberId);
-		String measure_value_avg=mypageService.measure_value_avg(memberId);
-		int measure_value=mypageService.measure_value(memberId);
+		int badNum=mypageService.badNum(memberId,"나의 공기측정1","PM10",50);
+		String measure_value_avg=mypageService.measure_value_avg(memberId,"나의 공기측정1","PM10");
+		int measure_value=mypageService.measure_value(memberId,"나의 공기측정1","PM10");
 		
 		model.addAttribute("memberId",memberId);
 		model.addAttribute("badNum",badNum);
@@ -482,18 +484,37 @@ public class MypageController {
 		return "mypage/reservation";
 	}
 	
-	@CrossOrigin(origins = "*")
+	
 	@RequestMapping(value="mReservation", method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject mReservation(String member_id) {
-		int badNum=mypageService.badNum(member_id);
-		String measure_value_avg=mypageService.measure_value_avg(member_id);
-		int measure_value=mypageService.measure_value(member_id);
+		int iotNum = manageService.checkIot(member_id);
 		
-		ArrayList<Map<String,Object>> reservation=mypageService.reservation(member_id);
+		int badNum=mypageService.badNum(member_id,"나의 공기측정1","PM10",50);
+		String measure_value_avg=mypageService.measure_value_avg(member_id,"나의 공기측정1","PM10");
+		int measure_value=mypageService.measure_value(member_id,"나의 공기측정1","PM10");
 		
-		JSONArray rArr=JSONArray.fromObject(reservation);
+		ArrayList<Map<String,Object>> reservation=mypageService.reservation(member_id,"나의 공기측정1","PM10");
+		
 		Map<String, Object> map=new HashMap<String, Object>();
+		if(iotNum == 0) {
+			map.put("result", "no");
+		}else {
+			map.put("result", "yes");
+			ArrayList<Map<String,Object>> iotList = manageService.iotList(member_id);
+			JSONArray jIotList = JSONArray.fromObject(iotList);
+			for(int i=0; i<jIotList.size(); i++) {
+				JSONObject jObj = JSONObject.fromObject(jIotList.get(i));
+				ArrayList<Map<String,Object>> iotMatterList = manageService.iotMatterList(jObj.getString("MODEL"));
+				JSONArray jIotMatterList = JSONArray.fromObject(iotMatterList);
+				jObj.put("matterList",jIotMatterList);
+				jIotList.set(i,jObj); 
+			}
+			map.put("iotInfo", jIotList);
+		}		
+
+		JSONArray rArr=JSONArray.fromObject(reservation);
+		
 		map.put("reservation", rArr);
 		map.put("badNum",badNum);
 		map.put("measure_value_avg",measure_value_avg);
@@ -505,10 +526,18 @@ public class MypageController {
 	
 	@RequestMapping(value="realTimeReservation", method=RequestMethod.POST)
 	@ResponseBody
-	public JSONObject realTimeReservation(String member_id) {
-		int badNum=mypageService.badNum(member_id);
-		String measure_value_avg=mypageService.measure_value_avg(member_id);
-		int measure_value=mypageService.measure_value(member_id);
+	public JSONObject realTimeReservation(String member_id, String mOption, String iOption, String option) {
+		int badValue=0;
+		
+		if(mOption.equals("PM10")) {
+			badValue=50;
+		}else {
+			badValue=1000;
+		}
+		
+		int badNum=mypageService.badNum(member_id,iOption,mOption,badValue);
+		String measure_value_avg=mypageService.measure_value_avg(member_id,iOption,mOption);
+		int measure_value=mypageService.measure_value(member_id,iOption,mOption);
 		
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("badNum",badNum);
@@ -519,22 +548,37 @@ public class MypageController {
 		return json;
 	}
 	
+	
 	@RequestMapping(value="selectGraph", method=RequestMethod.POST)
 	@ResponseBody
-	public JSONObject selectGraph(String member_id, String option) {
+	public JSONObject selectGraph(String member_id, String mOption, String iOption, String option, String day) {
 		Map<String, Object> map=new HashMap<String, Object>();
 		
-		if(option.equals("day")) {
-			//일별 그래프 json
-			ArrayList<Map<String,Object>> dayGraph=mypageService.reservation(member_id);
-			JSONArray dayArr=JSONArray.fromObject(dayGraph);
-			map.put("dayGraph",dayArr);
+		if(option.equals("day")) { 
+			//일별 그래프 json 
+			ArrayList<Map<String,Object>> dayGraph=mypageService.reservation(member_id,iOption,mOption); 
+			JSONArray dayArr=JSONArray.fromObject(dayGraph); 
+			map.put("dayGraph",dayArr); 
 		} else {
-			//시간별 그래프 json
-			ArrayList<Map<String,Object>> timeGraph=mypageService.timeGraph(member_id);
+			//시간별 그래프 json 
+			ArrayList<Map<String,Object>> timeGraph=mypageService.timeGraph(member_id,iOption,mOption,day);
 			JSONArray timeArr=JSONArray.fromObject(timeGraph);
 			map.put("timeGraph",timeArr);
 		}
+		
+		
+		int badValue=0;
+		if(mOption.equals("PM10")) {
+			badValue=50;
+		} else if(mOption.equals("CO2")) {
+			badValue=1000;
+		}
+		int badNum=mypageService.badNum(member_id,iOption,mOption,badValue);
+		String measure_value_avg=mypageService.measure_value_avg(member_id,iOption,mOption);
+		int measure_value=mypageService.measure_value(member_id,iOption,mOption);
+		map.put("badNum",badNum);
+		map.put("measure_value_avg",measure_value_avg);
+		map.put("measure_value",measure_value);
 		
 		JSONObject json=JSONObject.fromObject(map);
 		
@@ -844,11 +888,12 @@ public class MypageController {
 	public String getReservation(HttpServletRequest request, Model model) {
 		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
 		ArrayList<Map<String,Object>> reservation=mypageService.getReservation(connectService.company_code(member_id));
-		System.out.println(reservation);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("reservation", reservation);
 		JSONObject json = JSONObject.fromObject(map);
 		String jsonString = json.toString();
 		return jsonString;
 	}
+
 }

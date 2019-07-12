@@ -78,8 +78,8 @@ function tsortdata(){
 	return sort;
 }
 
-$("#tenderSelectDiv").change(function(){
-	ajax(1,tsortdata());
+$(".tenderSelect").change(function(){
+	tajax(1,tsortdata());
 });
 
 function tpage(idx){
