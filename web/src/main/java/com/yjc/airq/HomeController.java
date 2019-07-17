@@ -1,5 +1,7 @@
 package com.yjc.airq;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import java.io.BufferedReader;
@@ -7,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.MeasureDataVO;
+import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.service.ManageService;
+import com.yjc.airq.service.NotificationService;
 
 import lombok.AllArgsConstructor;
 import net.sf.json.JSONArray;
@@ -34,6 +39,9 @@ import net.sf.json.JSONObject;
 @Controller
 @AllArgsConstructor
 public class HomeController {
+	
+	NotificationService fcm;
+	
 	private static int count = 0;
 	private static int resDust = 0;
 	private static int resCo2 = 0;
@@ -45,7 +53,12 @@ public class HomeController {
 
 		return "home";
 	}
-	
+	@RequestMapping(value = "layout", method = RequestMethod.GET)
+	public String layout(HttpServletRequest request) {
+			String layNum = request.getParameter("layoutNum");
+			System.out.println(layNum);
+		return "layout"+layNum;
+	}
 	// 홈화면 광역시/도 카드 데이터 만들기
 	@RequestMapping(value = "/homematterdata", method = RequestMethod.GET)
 	@ResponseBody
@@ -183,6 +196,8 @@ public class HomeController {
 	// 아두이노에서 받은 미세먼지 측정값
 	@RequestMapping(value = "/dustData", method = RequestMethod.POST, produces = {"application/json"})
 	public @ResponseBody Map<String, Object> dustData(@RequestBody Map<String, Object> info, MeasureDataVO msd, HttpServletRequest request) {
+		
+		
 		String[] resDustData = new String[5]; // 배열 선언
 		String[] resCo2Data = new String[5]; // 배열 선언
 		
@@ -218,16 +233,56 @@ public class HomeController {
 		// 배열에 넣기
 		resDustData[count] = dust;
 		resCo2Data[count] = co2;
+		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
 		
 		if(count < 3) {
 			resDust = resDust + Integer.parseInt(resDustData[count]);
 			resCo2 = resCo2 + Integer.parseInt(resCo2Data[count]);
+			
+			
+			ArrayList<Integer> measureAVG = new ArrayList<Integer> ();
+			measureAVG.add(resDust);
+			measureAVG.add(resCo2);
+
+
+			long time = System.currentTimeMillis(); 
+
+			SimpleDateFormat dayTime = new SimpleDateFormat("yymmddhh");
+
+			String str = dayTime.format(new Date(time));
+
+			
+			
+			String alarmTime = fcm.getAlarmTime(iotId,"PM10");
+			System.out.println(alarmTime);
+			for(int i=0; i< measureAVG.size(); i++) {
+				
+				switch (i) {
+					case 0: 
+	
+						if(measureAVG.get(i)>51) {
+							
+						}
+						break;
+					case 1:
+						break;
+				}
+					
+				
+				
+			}
+			
+			
 			System.out.println("resDust(더하는거): " + resDust);
 			System.out.println("resCo2(더하는거): " + resCo2);
 			count++;
 			if(count == 3) {
 				String resultDust = String.valueOf(resDust / 3);
 				String resultCo2 = String.valueOf(resCo2 / 3);
+				
+				
+				
+				
 				
 				// 미세머지 DB저장
 				msd.setIot_id(iotId);

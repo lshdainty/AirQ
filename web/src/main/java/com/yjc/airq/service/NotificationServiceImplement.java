@@ -1,5 +1,6 @@
 package com.yjc.airq.service;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.yjc.airq.interceptor.HeaderRequestInterceptor;
+import com.yjc.airq.mapper.MatterMapper;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -19,6 +21,9 @@ import net.sf.json.JSONObject;
 
 @Service
 public class NotificationServiceImplement implements NotificationService {
+	
+	private MatterMapper matterMapper; 
+	
 
 	private static final String firebase_server_key = "AAAAr1R79uM:APA91bGMeRAH4gvbtW9gKnlrm4-XPGpX9EeAP_UprCGQj25L1J2hyOGe2nJu48oV8TtJHNdwX7cVbuB4e0UPN7xY1efGIR43yxuA699jFiVhADTf_X15YfBa0cCXTB4h49aaIkhrZOCf";
 	private static final String firebase_api_url="https://fcm.googleapis.com/fcm/send";
@@ -71,4 +76,13 @@ public class NotificationServiceImplement implements NotificationService {
         return body.toString();
 	}
 
+
+	@Override
+	public String getAlarmTime(String iot_id, String matter_code) {
+		// TODO Auto-generated method stub
+		
+		
+		
+		return matterMapper.getAlarmTime(iot_id, matter_code);
+	}
 }

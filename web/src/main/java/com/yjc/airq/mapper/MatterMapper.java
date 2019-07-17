@@ -1,5 +1,6 @@
 package com.yjc.airq.mapper;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -29,4 +30,7 @@ public interface MatterMapper {
 
 	//현재 미세먼지 농도
 	public int measure_value(String member_id);
+	
+	//IOT 앱푸쉬 시간정보 가져오기
+	public String getAlarmTime(String iot_id, String matter_code);
 };

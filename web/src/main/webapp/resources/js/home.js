@@ -108,7 +108,7 @@ function measureDetail(area,matter){
 
 				// Create chart instance
 				var chart = am4core.create("chartdiv", am4charts.XYChart);
-
+				chart.fontSize=15;
 				// Add data
 				chart.data = data.result;
 
@@ -126,7 +126,6 @@ function measureDetail(area,matter){
 				});
 
 				var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-
 				// Create series
 				var series = chart.series.push(new am4charts.ColumnSeries());
 				series.dataFields.valueY = "data";

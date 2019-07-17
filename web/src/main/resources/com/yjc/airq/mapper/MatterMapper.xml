@@ -87,4 +87,8 @@
 			order by m.measure_time desc) o
 		where rownum=1
 	</select>
+	
+	<select id="getAlarmTime" resultType="String">
+			SELECT to_char(ALARM_TIME,'YY/MM/DD/HH/MI') FROM COMPONENT WHERE IOT_ID = #{iot_id} AND MATTER_CODE = #{matter_code};
+	</select>
 </mapper>
