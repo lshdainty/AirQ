@@ -1,5 +1,5 @@
 // var ip = sessionStorage.getItem('IP_ADDRESS');
-var ip = "http://39.127.7.70";	
+var ip = sessionStorage.getItem('IP_ADDRESS');
 var user = JSON.parse(sessionStorage.getItem("user"));
 var member_id = user.member_id;
 

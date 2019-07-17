@@ -1,3 +1,4 @@
+// var ip = sessionStorage.getItem('IP_ADDRESS');
 var ip = sessionStorage.getItem('IP_ADDRESS');
 var user = JSON.parse(sessionStorage.getItem("user"));
 var member_id = user.member_id;
@@ -78,8 +79,8 @@ function tsortdata(){
 	return sort;
 }
 
-$("#tenderSelectDiv").change(function(){
-	ajax(1,tsortdata());
+$(".tenderSelect").change(function(){
+	tajax(1,tsortdata());
 });
 
 function tpage(idx){

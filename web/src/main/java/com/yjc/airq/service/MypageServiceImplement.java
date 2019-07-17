@@ -274,32 +274,34 @@ public class MypageServiceImplement implements MypageService{
 	
 	//일별 예약자 모니터링
 	@Override
-	public ArrayList<Map<String, Object>> reservation(String member_id) {
-		return matterMapper.reservation(member_id);
+	public ArrayList<Map<String, Object>> reservation(String member_id, String iot_id, String matter_code) {
+		System.out.println(matterMapper.reservation(member_id, iot_id, matter_code));
+		return matterMapper.reservation(member_id, iot_id, matter_code);
 	}
 	
 	//시간별 예약자 모니터링
 	@Override
-	public ArrayList<Map<String, Object>> timeGraph(String member_id) {
-		return matterMapper.timeGraph(member_id);
+	public ArrayList<Map<String, Object>> timeGraph(String member_id, String iot_id, String matter_code,
+			String dayMatterData) {
+		return matterMapper.timeGraph(member_id, iot_id, matter_code, dayMatterData);
 	}
 	
 	//나쁨 횟수
 	@Override
-	public int badNum(String member_id) {
-		return matterMapper.badNum(member_id);
+	public int badNum(String member_id, String iot_id, String matter_code, int badValue) {
+		return matterMapper.badNum(member_id, iot_id, matter_code, badValue);
 	}
 	
 	//일주일 미세먼지 평균
 	@Override
-	public String measure_value_avg(String member_id) {
-		return matterMapper.measure_value_avg(member_id);
+	public String measure_value_avg(String member_id, String iot_id, String matter_code) {
+		return matterMapper.measure_value_avg(member_id, iot_id, matter_code);
 	}
 	
 	//현재 미세먼지 농도
 	@Override
-	public int measure_value(String member_id) {
-		return matterMapper.measure_value(member_id);
+	public int measure_value(String member_id, String iot_id, String matter_code) {
+		return matterMapper.measure_value(member_id, iot_id, matter_code);
 	}
 	
 }
