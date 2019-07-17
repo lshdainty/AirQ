@@ -44,7 +44,7 @@ public interface ManageService {
 	public String getTodayAvgData(@Param("iot_id") String iot_id,@Param("matter_code") String matter_code);
 	
 	// 임계값 초과 횟수 가져오기
-	public int getOverValue(@Param("iot_id") String iot_id,@Param("matter_code") String matter_code);
+	public int getOverValue(@Param("iot_id") String iot_id,@Param("matter_code") String matter_code,@Param("limit") int limit);
 	
 	// 월 평균 데이터 가져오기
 	public ArrayList<Map<String,Object>> getMonthData(@Param("iot_id") String iot_id,@Param("matter_code") String matter_code);

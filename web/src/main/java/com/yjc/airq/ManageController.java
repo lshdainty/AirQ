@@ -393,6 +393,7 @@ public class ManageController {
 	public JSONObject inOldData(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		String matter = request.getParameter("matter");
+		int limit = 0;
 		
 		float dataGubun[] = null;
 		float PM10[] = {151,101,76,51,41,31,16,0};
@@ -403,10 +404,12 @@ public class ManageController {
 		switch (matter) {
 		case "PM10":
 			dataGubun = PM10;
+			limit = 50;
 			unit = "µg/m³";
 			break;
 		case "CO2":
 			dataGubun = CO2;
+			limit = 1499;
 			unit = "ppm";
 			break;
 		}
@@ -419,7 +422,7 @@ public class ManageController {
 			matterValue="0";
 		}
 		String todayAvg = manageService.getTodayAvgData(id,matter);	//하루 평균값 가져오기
-		int overValue = manageService.getOverValue(id,matter);	//임계값 초과 횟수 가져오기
+		int overValue = manageService.getOverValue(id,matter,limit);	//임계값 초과 횟수 가져오기
 		ArrayList<Map<String,Object>> monthData = manageService.getMonthData(id,matter);	//월 평균 값 가져오기
 		ArrayList<Map<String,Object>> dayData = manageService.getDayData(id,matter);	//요일 평균 값 가져오기
 		ArrayList<Map<String,Object>> timeData = manageService.getTimeData(id,matter);	//시간 평균 값 가져오기
@@ -465,6 +468,7 @@ public class ManageController {
 	public JSONObject inNowData(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		String matter = request.getParameter("matter");
+		int limit = 0;
 		
 		float dataGubun[] = null;
 		float PM10[] = {151,101,76,51,41,31,16,0};
@@ -473,9 +477,11 @@ public class ManageController {
 		switch (matter) {
 		case "PM10":
 			dataGubun = PM10;
+			limit = 50;
 			break;
 		case "CO2":
 			dataGubun = CO2;
+			limit = 1499;
 			break;
 		}
 		
@@ -487,7 +493,7 @@ public class ManageController {
 			matterValue="0";
 		}
 		String todayAvg = manageService.getTodayAvgData(id,matter);	//하루 평균값 가져오기
-		int overValue = manageService.getOverValue(id,matter);	//임계값 초과 횟수 가져오기
+		int overValue = manageService.getOverValue(id,matter,limit);	//임계값 초과 횟수 가져오기
 		
 		JSONArray jNowData = JSONArray.fromObject(nowData);
 		

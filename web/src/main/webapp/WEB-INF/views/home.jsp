@@ -82,6 +82,7 @@
 </section>
 <div style="width: 100%; margin: auto; max-width: 1000px">
 	<div class="measure-container"></div>
+	<div class="areaBox"><span class="areaname"></span> <span class="mattername"></span> 수치</div>
 	<div style="display: flex;">
 		<div id="chartdiv"></div>
 		<div class="matter-box">
