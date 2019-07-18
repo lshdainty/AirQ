@@ -32,5 +32,8 @@ public interface MatterMapper {
 	public int measure_value(@Param("member_id") String member_id, @Param("iot_id") String iot_id, @Param("matter_code") String matter_code);
 	
 	//IOT 앱푸쉬 시간정보 가져오기
-	public String getAlarmTime(String iot_id, String matter_code);
+	public String alarm_time(@Param("iot_id")String iot_id, @Param("matter_code")String matter_code);
+
+	//IOT 앱푸쉬 시간정보 업데이트 
+	public void alarm_time_update(@Param("iot_id")String iot_id,@Param("matter_code")String matter_code);
 };

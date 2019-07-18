@@ -1,9 +1,5 @@
 package com.yjc.airq;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -11,11 +7,15 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.MeasureDataVO;
-import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.service.ManageService;
 import com.yjc.airq.service.NotificationService;
 
@@ -39,13 +38,13 @@ import net.sf.json.JSONObject;
 @Controller
 @AllArgsConstructor
 public class HomeController {
+	private ManageService manageService;
+	private NotificationService notificationService;
 	
-	NotificationService fcm;
 	
 	private static int count = 0;
 	private static int resDust = 0;
 	private static int resCo2 = 0;
-	private ManageService manageService;
 
 	// 홈 메인페이지로 가기
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -217,6 +216,8 @@ public class HomeController {
 		String dust = info.get("dust_val").toString(); // String으로 변환
 		String co2 = info.get("ppm").toString(); // String으로 변환
 		String iotId = info.get("iotId").toString(); // String으로 변환
+		String matter_code;
+
 //		String mtime = info.get("mtime").toString(); // 먼지 측정 시간
 		// 날짜 + 시간
 //		String measureTime = formatType.format(date);
@@ -233,72 +234,40 @@ public class HomeController {
 		// 배열에 넣기
 		resDustData[count] = dust;
 		resCo2Data[count] = co2;
-		String member_id = ((MemberVO) request.getSession().getAttribute("user")).getMember_id();
-		
+		String member_id = "kimminsu"; // Token 호출 파라미터로 필요
+		ArrayList<Integer> measureAVG = new ArrayList<Integer> ();
 		if(count < 3) {
 			resDust = resDust + Integer.parseInt(resDustData[count]);
 			resCo2 = resCo2 + Integer.parseInt(resCo2Data[count]);
 			
-			
-			ArrayList<Integer> measureAVG = new ArrayList<Integer> ();
 			measureAVG.add(resDust);
 			measureAVG.add(resCo2);
 
 
-			long time = System.currentTimeMillis(); 
-
-			SimpleDateFormat dayTime = new SimpleDateFormat("yymmddhh");
-
-			String str = dayTime.format(new Date(time));
-
 			
-			
-			String alarmTime = fcm.getAlarmTime(iotId,"PM10");
-			System.out.println(alarmTime);
-			for(int i=0; i< measureAVG.size(); i++) {
-				
-				switch (i) {
-					case 0: 
-	
-						if(measureAVG.get(i)>51) {
-							
-						}
-						break;
-					case 1:
-						break;
-				}
-					
-				
-				
-			}
-			
-			
-			System.out.println("resDust(더하는거): " + resDust);
-			System.out.println("resCo2(더하는거): " + resCo2);
+//			System.out.println("resDust(더하는거): " + resDust);
+//			System.out.println("resCo2(더하는거): " + resCo2);
 			count++;
+			}
 			if(count == 3) {
 				String resultDust = String.valueOf(resDust / 3);
 				String resultCo2 = String.valueOf(resCo2 / 3);
-				
-				
-				
-				
 				
 				// 미세머지 DB저장
 				msd.setIot_id(iotId);
 				msd.setMeasure_value(resultDust);
 				msd.setMatter_code("PM10");
 
-				System.out.println("iotId: " + iotId);
-				System.out.println("resultDust: " + resultDust);
-				System.out.println("matter_code: " + "PM10");
+//				System.out.println("iotId: " + iotId);
+//				System.out.println("resultDust: " + resultDust);
+//				System.out.println("matter_code: " + "PM10");
 //				System.out.println("measureTime: " + measureTime);
 				
 				Map<String, Object> m = new HashMap<String, Object>();
 				m.put("msd", msd);
 //				m.put("time", (Object) measureTime);
 								
-				System.out.println("msd(dust): " + msd);
+//				System.out.println("msd(dust): " + msd);
 				manageService.measureData(m);
 
 				//////////////////////////////co2 측정 DB저장
@@ -307,20 +276,54 @@ public class HomeController {
 				msd.setMeasure_value(resultCo2);
 				msd.setMatter_code("CO2");
 				
-				System.out.println("iotId: " + iotId);
-				System.out.println("resultCo2: " + resultCo2);
-				System.out.println("matter_code: " + "CO2");
+//				System.out.println("iotId: " + iotId);
+//				System.out.println("resultCo2: " + resultCo2);
+//				System.out.println("matter_code: " + "CO2");
 				
 				m.put("msd", msd);
 				System.out.println("msd(co2): " + msd);
 				manageService.measureData(m);
 				// DB저장 끝
+								
+				ArrayList<String> token = new ArrayList<String> ();
 				
+				token.add("dnNOouKXBbw:APA91bELFgOk4tYwGtWo3WqW7kT1E9mk9FToNh0kcRhY-VeaT_diavGD-rJimR1OQOGFKYfm9OKAQ7-_M2_X6l4VVrQER9CZz5Sf91_waVPlhnfv7g5CAK475NkEGduEHUHzy23SKpbw");
+				for(int i=0; i< measureAVG.size(); i++) {
+					System.out.println("index:"+i);
+					switch (i) {
+						case 0: 
+							matter_code="PM10";
+							System.out.println("measureAVG:" + measureAVG.get(i));
+							if(measureAVG.get(i)>51) {
+								System.out.println("임계치 초과");
+								String db_date = notificationService.getAlarmTime(iotId,matter_code);
+								System.out.println("DB_DATE:"+db_date);
+								if(timeCompare(db_date)) {
+									System.out.println("알람 주기 초과");
+									String notifications = notificationService.periodicNotificationJson(token,"title","content");
+
+							        HttpEntity<String> entity = new HttpEntity<>(notifications);
+
+							        CompletableFuture<String> pushNotification = notificationService.send(entity);
+							        CompletableFuture.allOf(pushNotification).join();
+									
+							        notificationService.setAlarmTime(iotId, matter_code);
+								}
+							}
+							break;
+						case 1:
+							break;
+					}
+				}
+				
+				
+				measureAVG.clear();
 				
 				count = 0;
 				resDust = 0;
 				resCo2 = 0;
-			}
+			
+			
 		}
 		
 		// 클라이언트로 다시 응답
@@ -338,4 +341,23 @@ public class HomeController {
 
 	return "manage/test";
 		}
+	
+	public boolean timeCompare(String db_date) {
+		
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyMMddHHmm");
+		Date time = new Date();
+		
+		
+		int currentTime = Integer.parseInt(format1.format(time));
+		int dbTime = Integer.parseInt(db_date);
+		
+		dbTime=dbTime+5;
+		System.out.println("DB_Date+100:"+dbTime);
+		System.out.println("CurrentTime:"+currentTime);
+				
+		if(dbTime <= currentTime)
+			return true;
+		else
+			return false;
+	}
 }

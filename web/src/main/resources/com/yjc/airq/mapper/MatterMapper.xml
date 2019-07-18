@@ -96,7 +96,16 @@
             where rownum=1
 	</select>
 	
-	<select id="getAlarmTime" resultType="String">
-			SELECT to_char(ALARM_TIME,'YY/MM/DD/HH/MI') FROM COMPONENT WHERE IOT_ID = #{iot_id} AND MATTER_CODE = #{matter_code};
+	<select id="alarm_time" resultType="String">
+			SELECT TO_CHAR(ALARM_TIME,'YYMMDDHH24MI')
+			FROM COMPONENT 
+			WHERE IOT_ID = #{iot_id} AND MATTER_CODE = #{matter_code}
+	</select>
+	
+	<select id="alarm_time_update">
+			UPDATE COMPONENT
+			SET ALARM_TIME= SYSTIMESTAMP
+			WHERE IOT_ID=#{iot_id} AND
+			MATTER_CODE=#{matter_code}
 	</select>
 </mapper>
