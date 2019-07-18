@@ -110,7 +110,7 @@
 		where iot_id = #{iot_id}
 		and matter_code = #{matter_code}
 		and to_char(measure_time,'yyyy/mm/dd') = to_char(sysdate,'yyyy/mm/dd')
-		and <![CDATA[measure_value > 50]]>
+		and <![CDATA[measure_value > ]]> #{limit}
 	</select>
 	
 	<!-- 월 평균 데이터 가져오기 -->
