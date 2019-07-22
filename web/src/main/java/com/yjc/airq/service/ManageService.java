@@ -60,4 +60,7 @@ public interface ManageService {
 	
 	// 차트 세부내용
 //	public ArrayList<MeasureDataVO> chartValue(String member_id);
+
+	// 24시간 측정 데이터 가져오기
+	public ArrayList<Map<String,Object>> getDailyHourData(@Param("iot_id")String iot_id,@Param("matter_code")String matter_code);
 }

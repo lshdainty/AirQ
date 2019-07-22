@@ -462,6 +462,8 @@ public class ManageController {
 		return json;
 	}
 	
+	
+	
 	// 실시간 차트 최신 데이터 가져오기
 	@RequestMapping(value = "inNowData", method = RequestMethod.GET)
 	@ResponseBody
@@ -657,4 +659,82 @@ public class ManageController {
 		}
 		return "Yes";
 	}
+	
+	
+	// 실시간 차트 기본 데이터 30개 가져오기
+		@RequestMapping(value = "dailyHourData", method = RequestMethod.GET)
+		@ResponseBody
+		public JSONObject dailyHourData(HttpServletRequest request) {
+			String id = request.getParameter("id");
+			String matter = request.getParameter("matter");
+			int limit = 0;
+			
+			float dataGubun[] = null;
+			float PM10[] = {151,101,76,51,41,31,16,0};
+			float CO2[] = {5000,3000,2000,1500,1000,700,450,0};
+			
+			String unit = "";
+			
+			switch (matter) {
+			case "PM10":
+				dataGubun = PM10;
+				limit = 50;
+				unit = "µg/m³";
+				break;
+			case "CO2":
+				dataGubun = CO2;
+				limit = 1499;
+				unit = "ppm";
+				break;
+			}
+			
+			ArrayList<Map<String,Object>> oldData = manageService.getDailyHourData(id,matter);	//24개의 값 가져오기
+			System.out.println(oldData);
+			String matterValue = "";
+			if(oldData.size()>0) {
+				System.out.println(oldData.get(oldData.size()-1).get("VALUE"));
+				matterValue = String.valueOf(oldData.get(oldData.size()-1).get("VALUE"));	//마지막 값을 현재의 값으로 넣기
+			}else {
+				matterValue="0";
+			}
+//			String todayAvg = manageService.getTodayAvgData(id,matter);	//하루 평균값 가져오기
+//			int overValue = manageService.getOverValue(id,matter,limit);	//임계값 초과 횟수 가져오기
+//			ArrayList<Map<String,Object>> monthData = manageService.getMonthData(id,matter);	//월 평균 값 가져오기
+//			ArrayList<Map<String,Object>> dayData = manageService.getDayData(id,matter);	//요일 평균 값 가져오기
+//			ArrayList<Map<String,Object>> timeData = manageService.getTimeData(id,matter);	//시간 평균 값 가져오기
+//			
+			JSONArray jOldData = JSONArray.fromObject(oldData);
+//			JSONArray jMonthData = JSONArray.fromObject(monthData);
+//			JSONArray jDayData = JSONArray.fromObject(dayData);
+//			JSONArray jTimeData = JSONArray.fromObject(timeData);
+			
+			int x = 0;
+			int grade = 0;
+			while (Float.parseFloat(matterValue) < dataGubun[x]) {
+				x++;
+			}
+			grade = 8 - x;
+			
+//			Recommend recommendObject = new Recommend();
+//			recommendObject.setMatter(matter);
+//			recommendObject.setGrade(grade);
+//			recommendObject.setRecommend();
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("oldData", jOldData);
+			map.put("matterValue", matterValue);
+//			map.put("todayAvg", todayAvg);
+//			map.put("overValue", overValue);
+			map.put("dataGubun", dataGubun);
+//			map.put("monthData", jMonthData);
+//			map.put("dayData", jDayData);
+//			map.put("timeData", jTimeData);
+			map.put("grade",grade);
+			map.put("unit",unit);
+//			map.put("recommend",recommendObject.getRecommend());
+			
+			JSONObject json = JSONObject.fromObject(map);
+			
+			return json;
+		}
 }
