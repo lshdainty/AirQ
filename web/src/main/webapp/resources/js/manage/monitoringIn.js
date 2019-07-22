@@ -66,6 +66,7 @@ function startChart(id,matter) {
 		data : {id:id,matter:matter},
 		dataType : "json",
 		success : function(data){
+			console.log(data);
 			$("#matterValue").text(data.matterValue);
 			$("#todayAvg").text(data.todayAvg);
 			$("#overValue").text(data.overValue);

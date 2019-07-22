@@ -78,9 +78,7 @@
     $(function() {
         // 버튼 이벤트 정의
         $("#fcm-code").click(function() {
-            alert("aa");
             FCMPlugin.getToken(function(token){
-                $(".alert").html(token);
                 localStorage.setItem('token',token);
             });
         });

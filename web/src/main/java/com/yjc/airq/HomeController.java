@@ -127,6 +127,7 @@ public class HomeController {
 	@RequestMapping(value = "/homematterdatadetail", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject homeMatterDataDetail(HttpServletRequest request) {
+		System.out.println("detail controller");
 		BufferedReader br = null;
 		JSONObject json = new JSONObject();	//최종 json
 		JSONArray jArray = new JSONArray();	//최종 jsonArray
