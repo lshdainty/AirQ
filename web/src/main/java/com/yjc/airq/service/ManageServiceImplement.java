@@ -94,6 +94,18 @@ public class ManageServiceImplement implements ManageService{
 	public ArrayList<Map<String,Object>> getNowData(@Param("iot_id") String iot_id,@Param("matter_code") String matter_code){
 		return mapper.getNowData(iot_id,matter_code);
 	}
+
+	@Override
+	public ArrayList<Map<String, Object>> getDailyHourData(String iot_id, String matter_code) {
+		// TODO Auto-generated method stub
+		return mapper.getDailyHourData(iot_id, matter_code);
+	}
+
+	@Override
+	public String getMeasureData(String iot_id, String matter_code,String matter_code1) {
+		// TODO Auto-generated method stub
+		return mapper.measure_value(iot_id, matter_code,matter_code1);
+	}
 	
 	// 차트 세부내용
 //	public ArrayList<MeasureDataVO> chartValue(String member_id, String date) {

@@ -37,4 +37,7 @@ public interface MemberMapper {
 	
 	// 결제 페이지 - 주소 자동 입력
 	public MemberVO memberAddr(@Param("member_id")String member_id);
+	
+	// 토큰 업데이트
+	public void tokenUpdate(@Param("token")String token,@Param("member_id")String member_id);
 }

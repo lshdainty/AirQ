@@ -4,158 +4,229 @@
 
 <mapper namespace="com.yjc.airq.mapper.ManageMapper">
 
-<!-- 	<select id="remoteReg" resultType="com.yjc.airq.domain.IotVO">
-		select * from IOT
-	</select> -->
+	<!-- <select id="remoteReg" resultType="com.yjc.airq.domain.IotVO"> select 
+		* from IOT </select> -->
 
 	<!-- 원격 메인화면에 뿌려주기 -->
 	<select id="iotMain" resultType="com.yjc.airq.domain.IotInfoVO">
-		select i.iot_id, m.member_id, mo.model_name, i.place_name
+		select i.iot_id, m.member_id,
+		mo.model_name, i.place_name
 		from iot_info i, model mo, member m
-		where m.member_id = #{member_id}
+		where
+		m.member_id = #{member_id}
 		and m.member_id = i.member_id
-		and i.model_id = mo.model_id
+		and i.model_id
+		= mo.model_id
 	</select>
 
 	<!-- 원격 제어 등록 -->
-	<insert id="iotInfoInsert" parameterType="com.yjc.airq.domain.IotInfoVO">
-		insert into iot_info(iot_id, out_whether, place_name, measure_cycle, location_x, location_y, ip, port, member_id, model_id)
-		values(#{iot_id}, 'y', #{place_name}, 1, '100', '100', '39.127.7.68', 80, #{member_id}, #{model_id})
+	<insert id="iotInfoInsert"
+		parameterType="com.yjc.airq.domain.IotInfoVO">
+		insert into iot_info(iot_id, out_whether, place_name,
+		measure_cycle, location_x, location_y, ip, port, member_id, model_id)
+		values(#{iot_id}, 'y', #{place_name}, 1, '100', '100', '39.127.7.68',
+		80, #{member_id}, #{model_id})
 	</insert>
-	
+
 	<!-- 자신 원격제품 고유 닉네임 중복 체크 -->
 	<select id="nCheck" resultType="com.yjc.airq.domain.IotInfoVO">
- 		select iot_id from iot_info where iot_id = #{alias}
+		select iot_id from iot_info where
+		iot_id = #{alias}
 	</select>
-	
+
 	<!-- 미세먼지 측정 데이터 저장 -->
 	<insert id="measureData" parameterType="map">
-		insert into measure_data(measure_data_code, measure_value, measure_time, iot_id, matter_code)
+		insert into
+		measure_data(measure_data_code, measure_value, measure_time, iot_id,
+		matter_code)
 		values(to_number(to_char(systimestamp,'YYMMDD')||to_char(data_code.nextval,'fm0000')),
 		#{msd.measure_value},
 		systimestamp,
 		#{msd.iot_id},
 		#{msd.matter_code})
 	</insert>
-	
+
 	<!-- 오늘 날짜의 데이터 보여주는거 -->
-	<select id="insideChart" resultType="com.yjc.airq.domain.MeasureDataVO">
-		select MD.MEASURE_VALUE as measure, to_char(MD.MEASURE_TIME, 'yyyy-mm-dd') as TODAY,
-		to_char(MD.MEASURE_TIME, 'yyyy-mm-dd HH24:MI') as measuretime, MD.IOT_ID as iotID, MD.MATTER_CODE as CODE
-		from MEASURE_DATA MD, IOT_INFO I, MEMBER M
+	<select id="insideChart"
+		resultType="com.yjc.airq.domain.MeasureDataVO">
+		select MD.MEASURE_VALUE as measure,
+		to_char(MD.MEASURE_TIME, 'yyyy-mm-dd') as TODAY,
+		to_char(MD.MEASURE_TIME, 'yyyy-mm-dd HH24:MI') as measuretime,
+		MD.IOT_ID as iotID, MD.MATTER_CODE as CODE
+		from MEASURE_DATA MD,
+		IOT_INFO I, MEMBER M
 		where M.member_id = #{member_id}
-		and M.member_id = I.member_id
+		and M.member_id =
+		I.member_id
 		and I.iot_id = MD.iot_id
-		and to_char(MD.MEASURE_TIME, 'yyyy-mm-dd') = to_char(#{date})
+		and to_char(MD.MEASURE_TIME,
+		'yyyy-mm-dd') = to_char(#{date})
 		order by MD.MEASURE_TIME
 	</select>
-	
+
 	<!-- 사용자가 가지고있는 공기질 측정 iot기기 개수 확인 -->
 	<select id="checkIot" resultType="int">
-		select count(*) from iot_info i, model m 
+		select count(*) from iot_info
+		i, model m
 		where i.model_id = m.model_id
 		and i.member_id = #{member_id}
-		and m.model_classification = 'eud'
+		and
+		m.model_classification = 'eud'
 	</select>
-	
+
 	<!-- 사용자가 가지고있는 공기질 측정 iot목록 가져오기 -->
 	<select id="iotList" resultType="map">
-		select i.iot_id as id, i.place_name as place, i.model_id as model
+		select i.iot_id as id,
+		i.place_name as place, i.model_id as model
 		from iot_info i, model m
 		where i.model_id = m.model_id
 		and i.member_id = #{member_id}
-		and m.model_classification = 'eud'
+		and
+		m.model_classification = 'eud'
 	</select>
-	
+
 	<!-- iot기기가 측정할 수 있는 물질 목록 가져오기 -->
 	<select id="iotMatterList" resultType="map">
-		select m.matter_code , m.matter_name
+		select m.matter_code ,
+		m.matter_name
 		from model mo, measure_matter_list mm, matter m
-		where mo.model_id = mm.model_id
+		where
+		mo.model_id = mm.model_id
 		and mm.matter_code = m.matter_code
-		and mo.model_id = #{model}
+		and
+		mo.model_id = #{model}
 	</select>
-	
+
 	<!-- 사용자가 선택한 IOT의 모델명 가져오기 -->
 	<select id="selectModel" resultType="String">
-		select model_id from iot_info where iot_id = #{iot_id}
+		select model_id from
+		iot_info where iot_id = #{iot_id}
 	</select>
-	
+
 	<!-- 실시간 차트 기본 데이터 30개 가져오기 -->
 	<select id="getOldData" resultType="map">
-		select measure_value value, to_char(measure_time,'YYYY-MM-DD HH24:MI:SS') time
+		select measure_value value, to_char(measure_time,'YYYY-MM-DD
+		HH24:MI:SS') time
 		from(
-				select measure_value, measure_time
-				from measure_data
-				where iot_id = #{iot_id}
-				and matter_code = #{matter_code}
-				order by measure_time desc)
+		select measure_value, measure_time
+		from
+		measure_data
+		where iot_id = #{iot_id}
+		and matter_code = #{matter_code}
+		order by measure_time desc)
 		where <![CDATA[rownum <=30]]>
 		order by to_char(measure_time,'YYYY-MM-DD HH24:MI:SS')
 	</select>
-	
+
 	<!-- 하루 평균값 가져오기 -->
 	<select id="getTodayAvgData" resultType="String">
-		select nvl(to_char(avg(measure_value),'9999999999.9'),0) today_avg
-		from measure_data
+		select
+		nvl(to_char(avg(measure_value),'9999999999.9'),0) today_avg
+		from
+		measure_data
 		where iot_id = #{iot_id}
 		and matter_code = #{matter_code}
 		and to_char(measure_time,'yyyy/mm/dd') = to_char(sysdate,'yyyy/mm/dd')
 	</select>
-	
+
 	<!-- 임계값 초과 횟수 가져오기 -->
 	<select id="getOverValue" resultType="int">
 		select count(*)
 		from measure_data
 		where iot_id = #{iot_id}
-		and matter_code = #{matter_code}
-		and to_char(measure_time,'yyyy/mm/dd') = to_char(sysdate,'yyyy/mm/dd')
-		and <![CDATA[measure_value > ]]> #{limit}
+		and
+		matter_code = #{matter_code}
+		and to_char(measure_time,'yyyy/mm/dd') =
+		to_char(sysdate,'yyyy/mm/dd')
+		and <![CDATA[measure_value > ]]>
+		#{limit}
 	</select>
-	
+
 	<!-- 월 평균 데이터 가져오기 -->
-	<select id="getMonthData" resultType="map">	
-		select to_char(measure_time,'mm') month, to_number(to_char(avg(measure_value),'9999999999.9')) value
-		from measure_data
+	<select id="getMonthData" resultType="map">
+		select
+		to_char(measure_time,'mm') month,
+		to_number(to_char(avg(measure_value),'9999999999.9')) value
+		from
+		measure_data
 		where iot_id = #{iot_id}
 		and matter_code = #{matter_code}
 		group by to_char(measure_time,'mm')
 		order by to_char(measure_time,'mm')
 	</select>
-	
+
 	<!-- 요일 평균 데이터 가져오기 -->
-	<select id="getDayData" resultType="map">	
-		select decode(to_char(to_date(r.day,'yyyy-mm-dd'),'d'),1,'일',2,'월',3,'화',4,'수',5,'목',6,'금',7,'토') day, r.value
-		from(      
-        		select to_char(measure_time,'yyyy-mm-dd') day, to_number(to_char(avg(measure_value),'9999999999.9')) value
-        		from measure_data
-        		where iot_id = #{iot_id}
-        		and matter_code = #{matter_code}
-        		and to_char(measure_time,'yyyy-mm-dd') > to_char(sysdate-7,'yyyy-mm-dd')
-        		group by to_char(measure_time,'yyyy-mm-dd')
-        		order by to_char(measure_time,'yyyy-mm-dd')) r
+	<select id="getDayData" resultType="map">
+		select
+		decode(to_char(to_date(r.day,'yyyy-mm-dd'),'d'),1,'일',2,'월',3,'화',4,'수',5,'목',6,'금',7,'토')
+		day, r.value
+		from(
+		select to_char(measure_time,'yyyy-mm-dd') day,
+		to_number(to_char(avg(measure_value),'9999999999.9')) value
+		from
+		measure_data
+		where iot_id = #{iot_id}
+		and matter_code = #{matter_code}
+		and to_char(measure_time,'yyyy-mm-dd') >
+		to_char(sysdate-7,'yyyy-mm-dd')
+		group by
+		to_char(measure_time,'yyyy-mm-dd')
+		order by
+		to_char(measure_time,'yyyy-mm-dd')) r
 	</select>
-	
+
 	<!-- 시간 평균 데이터 가져오기 -->
-	<select id="getTimeData" resultType="map">	
-		select to_char(measure_time,'hh24') time, to_number(to_char(avg(measure_value),'9999999999.9')) value
-		from measure_data
+	<select id="getTimeData" resultType="map">
+		select
+		to_char(measure_time,'hh24') time,
+		to_number(to_char(avg(measure_value),'9999999999.9')) value
+		from
+		measure_data
 		where iot_id = #{iot_id}
 		and matter_code = #{matter_code}
 		and to_char(measure_time,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd')
 		group by to_char(measure_time,'hh24')
-		order by to_char(measure_time,'hh24')
+		order by
+		to_char(measure_time,'hh24')
 	</select>
-	
+
 	<!-- 실시간 차트 최신 데이터 가져오기 -->
 	<select id="getNowData" resultType="map">
-		select measure_value value, to_char(measure_time,'YYYY-MM-DD HH24:MI:SS') time
+		select measure_value value, to_char(measure_time,'YYYY-MM-DD
+		HH24:MI:SS') time
 		from(
-				select measure_value, measure_time
-				from measure_data
-				where iot_id = #{iot_id}
-				and matter_code = #{matter_code}
-				order by measure_time desc)
+		select measure_value, measure_time
+		from
+		measure_data
+		where iot_id = #{iot_id}
+		and matter_code = #{matter_code}
+		order by measure_time desc)
 		where <![CDATA[rownum <=1]]>
+	</select>
+
+
+	<!-- 24시간 데이터 가져오기 -->
+	<select id="getDailyHourData" resultType="map">
+		SELECT TO_CHAR(TO_TIMESTAMP(A.TIME),'YY/MM/DD HH24:MI') TIME, A.VALUE
+		FROM(
+		SELECT TO_CHAR(MEASURE_TIME,'YY/MM/DD HH24') TIME,
+		TO_NUMBER(TO_CHAR(AVG(MEASURE_VALUE),'9999999999.9')) VALUE
+		FROM
+		MEASURE_DATA
+		WHERE IOT_ID = #{iot_id}
+		AND MATTER_CODE = #{matter_code}
+		GROUP BY TO_CHAR(MEASURE_TIME,'YY/MM/DD HH24')
+		ORDER BY
+		TO_CHAR(MEASURE_TIME,'YY/MM/DD HH24') DESC) A
+		WHERE<![CDATA[ROWNUM <=24]]>
+		ORDER BY A.TIME ASC
+	</select>
+
+
+	<select id="measure_value" resultType="String">
+		SELECT MEASURE_VALUE FROM MEASURE_DATA
+		WHERE MEASURE_TIME= (SELECT MAX(MEASURE_TIME) FROM MEASURE_DATA WHERE
+		IOT_ID=#{iot_id} AND MATTER_CODE=#{matter_code}) AND
+		MATTER_CODE=#{matter_code1}
 	</select>
 </mapper>

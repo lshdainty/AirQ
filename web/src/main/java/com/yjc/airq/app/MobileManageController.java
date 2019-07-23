@@ -405,7 +405,6 @@ public class MobileManageController {
 					int grade = 0;
 					float matterValue ;
 					if (resultJson.getString(matter + "Value").equals("-")) {
-						System.out.println("null");
 						grade = 0;
 					} else {
 						matterValue = Float.parseFloat(resultJson.getString(matter + "Value"));
@@ -475,6 +474,83 @@ public class MobileManageController {
 		}
 
 		return json;
+	}
+	
+	
+	// 외부 모니터링 지역 선택하기
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.getMeasureValue", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject getMeasureValue(Model model, HttpServletRequest request) {
+		
+		String iot_id = request.getParameter("iot_id");
+		String matter_code = request.getParameter("matter_code");
+		
+		
+		
+		
+		JSONObject resultJson = new JSONObject();
+		// 각 물질마다의 분류기준값
+		float standardSheet[] = null;
+		float pm10Value[] = { 151, 101, 76, 51, 41, 31, 16, 0 };
+		float pm25Value[] = { 76, 51, 38, 26, 21, 16, 9, 0 };
+		float no2Value[] = { (float) 1.1, (float) 0.2, (float) 0.13, (float) 0.06, (float) 0.05, (float) 0.03,(float) 0.02, 0 };
+		float o3Value[] = { (float) 0.38, (float) 0.15, (float) 0.12, (float) 0.09, (float) 0.06, (float) 0.03,(float) 0.02, 0 };
+		float coValue[] = { 32, 15, 12, 9, (float) 5.5, 2, 1, 0 };
+		float so2Value[] = { (float) 0.6, (float) 0.15, (float) 0.1, (float) 0.05, (float) 0.04, (float) 0.02,(float) 0.01, 0 };
+		float co2Value[] = {5000,3000,2000,1500,1000,700,450,0};
+		
+		String unit = null;
+		
+		switch (matter_code) {
+		case "PM10":
+			unit = "µg/m³";
+			standardSheet = pm10Value;
+			break;
+		case "PM25":
+			standardSheet = pm25Value;
+			break;
+		case "NO2":
+			standardSheet = no2Value;
+			break;
+		case "O3":
+			standardSheet = o3Value;
+			break;
+		case "CO":
+			standardSheet = coValue;
+			break;
+		case "SO2":
+			standardSheet = so2Value;
+			break;
+		case "CO2" :
+			unit = "ppm";
+			standardSheet = co2Value;
+			break;
+		}
+		
+		
+
+		int x = 0;
+		int grade = 0;
+		String matterValue =  manageService.getMeasureData(iot_id,matter_code,matter_code);
+		
+		if(matterValue!= null) {
+			while (Float.parseFloat(matterValue)< standardSheet[x]) {
+				x++;
+			}
+		}		
+		grade = 8 - x;
+		
+		resultJson.put("unit",unit);
+		resultJson.put("grade",grade);
+		resultJson.put("value",matterValue);
+		
+		
+		
+
+		
+		return resultJson;
+		
 	}
 
 }

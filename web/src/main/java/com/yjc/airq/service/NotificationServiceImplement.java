@@ -1,32 +1,17 @@
 package com.yjc.airq.service;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.yjc.airq.domain.MemberVO;
 import com.yjc.airq.interceptor.HeaderRequestInterceptor;
-import com.yjc.airq.mapper.AreaMapper;
-import com.yjc.airq.mapper.BidMapper;
-import com.yjc.airq.mapper.CompanyMapper;
-import com.yjc.airq.mapper.DemandMapper;
 import com.yjc.airq.mapper.MatterMapper;
 import com.yjc.airq.mapper.MemberMapper;
-import com.yjc.airq.mapper.PaymentMapper;
-import com.yjc.airq.mapper.ProductMapper;
-import com.yjc.airq.mapper.ReplyMapper;
-import com.yjc.airq.mapper.TenderMapper;
-import com.yjc.airq.mapper.UploadMapper;
 
 import lombok.AllArgsConstructor;
 import net.sf.json.JSONArray;
@@ -38,7 +23,7 @@ import net.sf.json.JSONObject;
 public class NotificationServiceImplement implements NotificationService {
 	
 	private MatterMapper matterMapper;
-	
+	private MemberMapper memberMapper;
 
 	private static final String firebase_server_key = "AAAAr1R79uM:APA91bGMeRAH4gvbtW9gKnlrm4-XPGpX9EeAP_UprCGQj25L1J2hyOGe2nJu48oV8TtJHNdwX7cVbuB4e0UPN7xY1efGIR43yxuA699jFiVhADTf_X15YfBa0cCXTB4h49aaIkhrZOCf";
 	private static final String firebase_api_url="https://fcm.googleapis.com/fcm/send";
@@ -95,6 +80,19 @@ public class NotificationServiceImplement implements NotificationService {
 	public void setAlarmTime(String iot_id, String matter_code) {
 		// TODO Auto-generated method stub
 		matterMapper.alarm_time_update(iot_id, matter_code);
+	}
+
+	@Override
+	public String getToken(String id) {
+		// TODO Auto-generated method stub
+		MemberVO member = memberMapper.memberInfo(id);
+		return member.getToken();
+	}
+
+	@Override
+	public void setToken(String token, String id) {
+		
+		 memberMapper.tokenUpdate(token, id);
 	}
 
 	
