@@ -152,3 +152,9 @@ body{
     height: 100%;
     border-right: 3px solid #fff;
 }
+
+
+.mat_info_row{
+    display: flex;
+    width: 100%;
+}

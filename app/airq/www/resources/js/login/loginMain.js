@@ -183,20 +183,20 @@ $(document).ready(function () {
 				var token = localStorage.getItem('token');
 				if (data.result == "success") {
 
-					// // 1. Device에 Token 존재 확인
-					// if(isTokenExist(id)=="exist"){
-					// 	// 2. Device Token 과 Databse Token 비교
-					// 	if(tokenCompare(id,token)){
-					// 	}
-					// 	else{
-					// 		if(confirm("대표 디바이스로 지정하시겠습니까?")){
-					// 			tokenUpdate(token,id);
-					// 		}
-					// 	}
-					// }
-					// else{
-					// 	createToken(id);
-					// }
+					// 1. Device에 Token 존재 확인
+					if(isTokenExist(id)=="exist"){
+						// 2. Device Token 과 Databse Token 비교
+						if(tokenCompare(id,token)){
+						}
+						else{
+							if(confirm("대표 디바이스로 지정하시겠습니까?")){
+								tokenUpdate(token,id);
+							}
+						}
+					}
+					else{
+						createToken(id);
+					}
 					if (isChecked) {
 						localStorage.setItem("user", JSON.stringify(data.userInfo));
 						sessionStorage.setItem("user", JSON.stringify(data.userInfo));

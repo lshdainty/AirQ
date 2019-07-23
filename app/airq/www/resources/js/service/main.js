@@ -8,6 +8,7 @@ $(document).ready(function () {
         $('.loat_gate').remove();
     }
     getIotList();
+
     $(document).on('deviceready', function () {
         //gps값 가져오기
         if (navigator.geolocation) {
@@ -145,6 +146,8 @@ $(document).ready(function () {
 
     )
 
+
+
     $(document).on("click", "#outside .matter_container", function () {
 
         var value = $(this).find('.measure_value').text();
@@ -155,7 +158,9 @@ $(document).ready(function () {
         mainInfoChange(condition,value,changeNum,faceGrade,"outside");
     });
 
-
+    $(document).on("change", "#iotSelector", function () {
+        getMatValue();
+    });
     $(document).on("click", "#inside .matter_container", function () {
 
         var value = $(this).find('.measure_value').text();
@@ -188,7 +193,7 @@ $(document).ready(function () {
     }
 
     //  Get Iot List
-    function getIotList(member_id) {
+    function getIotList() {
         var user = JSON.parse(sessionStorage.getItem("user"));
         var member_id = user.member_id;
         $.ajax({
@@ -197,6 +202,8 @@ $(document).ready(function () {
             data:{member_id:member_id},
             dataType: "json",
             success: function (data) {
+                $("#iotSelector").empty();
+                
                 console.log(data);
                 if (data.result == "yes") {
                     var iotList = "";
@@ -208,94 +215,94 @@ $(document).ready(function () {
 
 
                     $("#iotSelector").append(iotList);
-                    $("#iotSelector").val("나의 공기측정1").prop("selected", true);
-
-                    var iot_id,matter_code,matter_name,matter_value,selected;
-
-
-                    selected = $("#iotSelector option:selected").val();
+    $("#iotSelector").val("나의 공기측정1").prop("selected", true);
+                          
+        var iot_id,matter_code,matter_name,matter_value,selected;
 
 
-
-                    for (var j = 0; j < data.iotInfo.length; j++) {
-                        console.log("SELECTED : " + selected);
-                        iot_id = data.iotInfo[j].ID;
-                        console.log("IOT_ID : " + iot_id);
-
-                        $($('#inside').find('.mat_info_row')).empty();
-
-
-                    if(iot_id == selected){
-
-
-                            for(var x= 0; x < data.iotInfo[j].matterList.length;x++){
-                                matter_name = data.iotInfo[j].matterList[x].MATTER_NAME;
-                                matter_code = data.iotInfo[j].matterList[x].MATTER_CODE;
-                                matter_value = insideMatInfo(iot_id,matter_code);
-
-
-                                var item="";
-                                var faceGrade="";
-                                var condition="";
-                                switch (matter_value.grade) {
-                                    case 1:
-                                        faceGrade = "1";
-                                        condition = "최고";
-                                        break;
-                                    case 2:
-                                        faceGrade = "1";
-                                        condition = "좋음";
-                                        break;
-                                    case 3:
-                                        faceGrade = "2";
-                                        condition = "양호";
-                                        break;
-                                    case 4:
-                                        faceGrade = "2";
-                                        condition = "보통";
-                                        break;
-                                    case 5:
-                                        faceGrade = "3";
-                                        condition = "나쁨";
-                                        break;
-                                    case 6:
-                                        faceGrade = "4";
-                                        condition = "상당히 나쁨";
-                                        break;
-                                    case 7:
-                                        faceGrade = "5";
-                                        condition = "매우 나쁨";
-                                        break;
-                                    case 8:
-                                        faceGrade = "6";
-                                        condition = "최악";
-                                        break;
-                                    default:
-                                        faceGrade = "2";
-                                        condition = "데이터없음";
-                                        break;
-                                }
+        selected = $("#iotSelector option:selected").val();
 
 
 
+        for (var j = 0; j < data.iotInfo.length; j++) {
+            console.log("SELECTED : " + selected);
+            iot_id = data.iotInfo[j].ID;
+            console.log("IOT_ID : " + iot_id);
+
+            $($('#inside').find('.mat_info_row')).empty();
 
 
-                                item =
-                                '<div class="matter_container grade_'+matter_value.grade+'">'+
-                                '<div class="matter_title">'+matter_name+'</div>'+
-                                '<div class="matter_value">'+
-                                '<span class="measure_value">'+matter_value.value+'</span>'+
-                                '<span class="measure_numerical">'+matter_value.unit+'</span>'+
-                                '<span class="changeNum" style="display:none;">'+matter_value.grade+'</span>'+
-                                '<span class="condition" style="display:none;">'+condition+'</span>'+
-                                '<span class="faceGrade" style="display:none;">'+faceGrade+'</span> </div></div>';
+        if(iot_id == selected){
 
 
-                               $($('#inside').find('.mat_info_row')).append(item);
-                            }
-                        }
+                for(var x= 0; x < data.iotInfo[j].matterList.length;x++){
+                    matter_name = data.iotInfo[j].matterList[x].MATTER_NAME;
+                    matter_code = data.iotInfo[j].matterList[x].MATTER_CODE;
+                    matter_value = insideMatInfo(iot_id,matter_code);
 
+
+                    var item="";
+                    var faceGrade="";
+                    var condition="";
+                    switch (matter_value.grade) {
+                        case 1:
+                            faceGrade = "1";
+                            condition = "최고";
+                            break;
+                        case 2:
+                            faceGrade = "1";
+                            condition = "좋음";
+                            break;
+                        case 3:
+                            faceGrade = "2";
+                            condition = "양호";
+                            break;
+                        case 4:
+                            faceGrade = "2";
+                            condition = "보통";
+                            break;
+                        case 5:
+                            faceGrade = "3";
+                            condition = "나쁨";
+                            break;
+                        case 6:
+                            faceGrade = "4";
+                            condition = "상당히 나쁨";
+                            break;
+                        case 7:
+                            faceGrade = "5";
+                            condition = "매우 나쁨";
+                            break;
+                        case 8:
+                            faceGrade = "6";
+                            condition = "최악";
+                            break;
+                        default:
+                            faceGrade = "2";
+                            condition = "데이터없음";
+                            break;
                     }
+
+
+
+
+
+                    item =
+                    '<div class="matter_container grade_'+matter_value.grade+'">'+
+                    '<div class="matter_title">'+matter_name+'</div>'+
+                    '<div class="matter_value">'+
+                    '<span class="measure_value">'+matter_value.value+'</span>'+
+                    '<span class="measure_numerical">'+matter_value.unit+'</span>'+
+                    '<span class="changeNum" style="display:none;">'+matter_value.grade+'</span>'+
+                    '<span class="condition" style="display:none;">'+condition+'</span>'+
+                    '<span class="faceGrade" style="display:none;">'+faceGrade+'</span> </div></div>';
+
+
+                   $($('#inside').find('.mat_info_row')).append(item);
+                }
+            }
+
+        }
                 } else {
                     var html = "<h1>등록된 기기가 없습니다.</h1>";
                     $(".matSBox").empty();
@@ -333,4 +340,107 @@ $(document).ready(function () {
     }
 
 
+    function getMatValue(){
+        var user = JSON.parse(sessionStorage.getItem("user"));
+        var member_id = user.member_id;
+        $.ajax({
+            type: "GET",
+            url: sessionStorage.getItem("IP_ADDRESS")+"/m.checkIot",
+            data:{member_id:member_id},
+            dataType: "json",
+            success: function (data) {
+
+
+                      
+        var iot_id,matter_code,matter_name,matter_value,selected;
+
+
+        selected = $("#iotSelector option:selected").val();
+
+
+
+        for (var j = 0; j < data.iotInfo.length; j++) {
+            console.log("SELECTED : " + selected);
+            iot_id = data.iotInfo[j].ID;
+            console.log("IOT_ID : " + iot_id);
+
+            $($('#inside').find('.mat_info_row')).empty();
+
+
+        if(iot_id == selected){
+
+
+                for(var x= 0; x < data.iotInfo[j].matterList.length;x++){
+                    matter_name = data.iotInfo[j].matterList[x].MATTER_NAME;
+                    matter_code = data.iotInfo[j].matterList[x].MATTER_CODE;
+                    matter_value = insideMatInfo(iot_id,matter_code);
+
+
+                    var item="";
+                    var faceGrade="";
+                    var condition="";
+                    switch (matter_value.grade) {
+                        case 1:
+                            faceGrade = "1";
+                            condition = "최고";
+                            break;
+                        case 2:
+                            faceGrade = "1";
+                            condition = "좋음";
+                            break;
+                        case 3:
+                            faceGrade = "2";
+                            condition = "양호";
+                            break;
+                        case 4:
+                            faceGrade = "2";
+                            condition = "보통";
+                            break;
+                        case 5:
+                            faceGrade = "3";
+                            condition = "나쁨";
+                            break;
+                        case 6:
+                            faceGrade = "4";
+                            condition = "상당히 나쁨";
+                            break;
+                        case 7:
+                            faceGrade = "5";
+                            condition = "매우 나쁨";
+                            break;
+                        case 8:
+                            faceGrade = "6";
+                            condition = "최악";
+                            break;
+                        default:
+                            faceGrade = "2";
+                            condition = "데이터없음";
+                            break;
+                    }
+
+
+
+
+
+                    item =
+                    '<div class="matter_container grade_'+matter_value.grade+'">'+
+                    '<div class="matter_title">'+matter_name+'</div>'+
+                    '<div class="matter_value">'+
+                    '<span class="measure_value">'+matter_value.value+'</span>'+
+                    '<span class="measure_numerical">'+matter_value.unit+'</span>'+
+                    '<span class="changeNum" style="display:none;">'+matter_value.grade+'</span>'+
+                    '<span class="condition" style="display:none;">'+condition+'</span>'+
+                    '<span class="faceGrade" style="display:none;">'+faceGrade+'</span> </div></div>';
+
+
+                   $($('#inside').find('.mat_info_row')).append(item);
+                }
+            }
+
+        }
+
+
+            }
+        });
+    }
 });

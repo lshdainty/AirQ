@@ -306,42 +306,34 @@
 
 .grade_1 {
 	background: #B5B2FF;
-	color: rgba(50, 50, 50, 0.7);
 }
 
 .grade_2 {
 	background: #B2CCFF;
-	color: rgba(50, 50, 50, 0.7);
 }
 
 .grade_3 {
 	background: #B2EBF4;
-	color: rgba(50, 50, 50, 0.7);
 }
 
 .grade_4 {
 	background: #CEF279;
-	color: rgba(50, 50, 50, 0.7);
 }
 
 .grade_5 {
 	background: #FAED7D;
-	color: rgba(50, 50, 50, 0.7);
 }
 
 .grade_6 {
 	background: #FFC19E;
-	color: rgba(50, 50, 50, 0.7);
 }
 
 .grade_7 {
 	background: #FFA7A7;
-	color: rgba(50, 50, 50, 0.7);
 }
 
 .grade_8 {
 	background: #BDBDBD;
-	color: rgba(50, 50, 50, 0.7);
 }
 
 /* **************** */
@@ -350,8 +342,14 @@ body{
     margin: 0;
     padding: 0;
     vertical-align: middle;
-    display: grid;
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: 59.5px 0 62px 0;
+}
+#iotSelector{
+    width: 100%;
+    border: none;
+    background: #e7f5ff;
 }
 
 #outside{
@@ -359,12 +357,11 @@ body{
 }
 
 #outside .line_division{
-    border-right: 3px solid #7345e4;
+    border-right: 1px solid #7345e4;
 }
 
 #outside .mat_face_container{
-    border-top: 3px solid #7345e4;
-    border-bottom: 3px solid #7345e4;
+    border-bottom: 1px solid #7345e4;
 }
 #outside .mat_area_info{
     background: #7345e4;
@@ -377,10 +374,10 @@ body{
     border: 3px solid #2b7cf7;
 }
 #inside .line_division{
-    border-right: 3px solid #2b7cf7;
+    border-right: 1px solid #2b7cf7;
 }
 #inside .mat_face_container{
-    border-bottom: 3px solid #2b7cf7;
+    border-bottom: 1px solid #2b7cf7;
 }
 
 #inside .mat_area_info{
@@ -399,6 +396,7 @@ body{
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 
@@ -432,19 +430,27 @@ body{
     text-align: left;
     font-size: 0.8rem;
     font-weight: bold;
+    width: 100%;
 }
 
 .mat_info_table{
     margin: auto;
+    display: flex;
+    width: 100%;
+    overflow: scroll;
+}
+
+.mat_info_row {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
 }
 
 .matter_container {
-    background: #ddd;
     border-radius: 1.5rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 40%;
     padding: 0.3rem .5rem;
     vertical-align: middle;
     margin: .75rem 0;
@@ -454,4 +460,10 @@ body{
     clear: both;
     height: 100%;
     border-right: 3px solid #fff;
+}
+
+
+
+.matter_title{
+    white-space: nowrap;
 }
