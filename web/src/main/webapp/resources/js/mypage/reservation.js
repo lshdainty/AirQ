@@ -311,7 +311,7 @@ function timeGraph(data,mOption){
 			valueAxis.renderer.gridContainer.zIndex = 1;
 
 			var axisRange2 = valueAxis.axisRanges.create();
-			axisRange2.value = 2000;
+			axisRange2.value = 1500;
 			axisRange2.grid.strokeOpacity = 0.1;
 			axisRange2.label.text = "경미한 두통 유발";
 			axisRange2.label.align = "right";

@@ -532,7 +532,7 @@ public class MypageController {
 		if(mOption.equals("PM10")) {
 			badValue=50;
 		}else {
-			badValue=1000;
+			badValue=1499;
 		}
 		
 		int badNum=mypageService.badNum(member_id,iOption,mOption,badValue);
@@ -571,7 +571,7 @@ public class MypageController {
 		if(mOption.equals("PM10")) {
 			badValue=50;
 		} else if(mOption.equals("CO2")) {
-			badValue=1000;
+			badValue=1499;
 		}
 		int badNum=mypageService.badNum(member_id,iOption,mOption,badValue);
 		String measure_value_avg=mypageService.measure_value_avg(member_id,iOption,mOption);
