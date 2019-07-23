@@ -320,14 +320,15 @@ public class HomeController {
 									System.out.println("알람 주기 초과");
 									
 									// 2019/07/24 새로만든 코드 확인안됨
-									//notificationService.appPush(token,"title","content");
+									// 2019/0724 01:15 실행확인 한번더 확인 요망
+									notificationService.appPush(token,"title","content");
 									
-									String notifications = notificationService.periodicNotificationJson(token,"title","content");
-
-							        HttpEntity<String> entity = new HttpEntity<>(notifications);
-
-							        CompletableFuture<String> pushNotification = notificationService.send(entity);
-							        CompletableFuture.allOf(pushNotification).join();
+//									String notifications = notificationService.periodicNotificationJson(token,"title","content");
+//
+//							        HttpEntity<String> entity = new HttpEntity<>(notifications);
+//
+//							        CompletableFuture<String> pushNotification = notificationService.send(entity);
+//							        CompletableFuture.allOf(pushNotification).join();
 									
 							        
 							        

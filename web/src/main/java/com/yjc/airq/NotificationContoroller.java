@@ -37,24 +37,26 @@ public class NotificationContoroller {
 //		String content = request.getParameter("content");
 		String title = "title";
 		String content = "content";
+		String memberToken = notificationService.getToken("kimminsu");
+		System.out.println("MEMBER TOKEN : "+memberToken);
+		token.add(notificationService.getToken("kimminsu"));
 		
-		token.add("dnNOouKXBbw:APA91bELFgOk4tYwGtWo3WqW7kT1E9mk9FToNh0kcRhY-VeaT_diavGD-rJimR1OQOGFKYfm9OKAQ7-_M2_X6l4VVrQER9CZz5Sf91_waVPlhnfv7g5CAK475NkEGduEHUHzy23SKpbw");
-		
-		String notifications = notificationService.periodicNotificationJson(token,title,content);
-
-        HttpEntity<String> entity = new HttpEntity<>(notifications);
-
-        CompletableFuture<String> pushNotification = notificationService.send(entity);
-        CompletableFuture.allOf(pushNotification).join();
-
-        try{
-            String firebaseResponse = pushNotification.get();
-            return new ResponseEntity<>(firebaseResponse, HttpStatus.OK);
-        }
-        catch (InterruptedException e){
-        }
-        catch (ExecutionException e){
-        }
+		notificationService.appPush(token,title,content);
+//		String notifications = notificationService.periodicNotificationJson(token,title,content);
+//
+//        HttpEntity<String> entity = new HttpEntity<>(notifications);
+//
+//        CompletableFuture<String> pushNotification = notificationService.send(entity);
+//        CompletableFuture.allOf(pushNotification).join();
+//
+//        try{
+//            String firebaseResponse = pushNotification.get();
+//            return new ResponseEntity<>(firebaseResponse, HttpStatus.OK);
+//        }
+//        catch (InterruptedException e){
+//        }
+//        catch (ExecutionException e){
+//        }
 
         return new ResponseEntity<>("Push Notification ERROR!", HttpStatus.BAD_REQUEST);
 	}

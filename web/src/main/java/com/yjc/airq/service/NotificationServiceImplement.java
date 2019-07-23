@@ -83,6 +83,7 @@ public class NotificationServiceImplement implements NotificationService {
 	public String getToken(String id) {
 		// TODO Auto-generated method stub
 		MemberVO member = memberMapper.memberInfo(id);
+		System.out.println("MEMBER : " + member);
 		return member.getToken();
 	}
 
