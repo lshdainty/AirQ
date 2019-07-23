@@ -16,5 +16,4 @@ public interface NotificationService {
 	public void setAlarmTime(String iot_id,String matter_code);
 	public String getToken(String id);
 	public void setToken(String id,String token);
-	public void appPush(ArrayList<String> token,String title,String content);
 }

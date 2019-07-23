@@ -318,10 +318,6 @@ public class HomeController {
 								System.out.println("DB_DATE:"+db_date);
 								if(timeCompare(db_date)) {
 									System.out.println("알람 주기 초과");
-									
-									// 2019/07/24 새로만든 코드 확인안됨
-									//notificationService.appPush(token,"title","content");
-									
 									String notifications = notificationService.periodicNotificationJson(token,"title","content");
 
 							        HttpEntity<String> entity = new HttpEntity<>(notifications);
@@ -329,8 +325,6 @@ public class HomeController {
 							        CompletableFuture<String> pushNotification = notificationService.send(entity);
 							        CompletableFuture.allOf(pushNotification).join();
 									
-							        
-							        
 							        notificationService.setAlarmTime(iotId, matter_code);
 								}
 							}
