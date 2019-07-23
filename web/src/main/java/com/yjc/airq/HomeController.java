@@ -201,6 +201,25 @@ public class HomeController {
 		String[] resDustData = new String[5]; // 배열 선언
 		String[] resCo2Data = new String[5]; // 배열 선언
 		
+		
+		// ============================================================================================  //
+		// 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 //
+		
+		
+		String member_id = "kimminsu"; // <---- 아두이노에서 보내는 데이터로 써야함
+		
+		
+		//↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+		
+		//String member_di = info.get("member_id");
+		
+		
+		// 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 //
+		// ============================================================================================  //
+		
+		
+		
+		
 		//======================요청받은 데이터====================
 		System.out.print("count: " + count + " // ");
 		
@@ -235,7 +254,6 @@ public class HomeController {
 		// 배열에 넣기
 		resDustData[count] = dust;
 		resCo2Data[count] = co2;
-		String member_id = "kimminsu"; // Token 호출 파라미터로 필요
 		ArrayList<Integer> measureAVG = new ArrayList<Integer> ();
 		if(count < 3) {
 			resDust = resDust + Integer.parseInt(resDustData[count]);
@@ -287,8 +305,7 @@ public class HomeController {
 				// DB저장 끝
 								
 				ArrayList<String> token = new ArrayList<String> ();
-				
-				token.add("dnNOouKXBbw:APA91bELFgOk4tYwGtWo3WqW7kT1E9mk9FToNh0kcRhY-VeaT_diavGD-rJimR1OQOGFKYfm9OKAQ7-_M2_X6l4VVrQER9CZz5Sf91_waVPlhnfv7g5CAK475NkEGduEHUHzy23SKpbw");
+				token.add(notificationService.getToken(member_id));
 				for(int i=0; i< measureAVG.size(); i++) {
 					System.out.println("index:"+i);
 					switch (i) {
