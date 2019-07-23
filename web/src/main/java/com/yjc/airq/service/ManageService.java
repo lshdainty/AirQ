@@ -63,4 +63,7 @@ public interface ManageService {
 
 	// 24시간 측정 데이터 가져오기
 	public ArrayList<Map<String,Object>> getDailyHourData(@Param("iot_id")String iot_id,@Param("matter_code")String matter_code);
+	
+	//가장 최근 측정값 가져오기
+	public String getMeasureData(@Param("iot_id")String iot_id,@Param("matter_code")String matter_code,@Param("matter_code1")String matter_code1);
 }

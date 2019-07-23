@@ -27,19 +27,44 @@ public class MobileNotificationController {
 	@ResponseBody
 	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "m.isTokenExist", method = RequestMethod.GET)
-	public Boolean isTokenExist(Model model, HttpServletRequest request) {
+	public String isTokenExist(Model model, HttpServletRequest request) {
 		System.out.println("isTokenExistController");
 		String id = request.getParameter("id");
 		System.out.println("ID : "+ id);
 		String token = notification.getToken(id);
 		
+		System.out.println("TOKEN:"+token);
+		
 		if(token==null) {
-			return false;
+			return "null";
 		}
 		else {
-			return true;
+			return "exist";
 		}
 	}
+	
+	
+	// Database에 Token과 접속한 device의 토큰이 일치하는지 확인
+	@ResponseBody
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "m.tokenCompare", method = RequestMethod.GET)
+	public String compareToekn(Model model, HttpServletRequest request) {
+		
+		String token = request.getParameter("token");
+		String member_id = request.getParameter("id");
+		String dbToken = notification.getToken(member_id);
+		
+		System.out.println("DB TOKEN: " + dbToken);
+		System.out.println("DEVICE TOKEN: "+token);
+		if(token.equals(dbToken)) {
+			return "equal";
+		}
+		else {
+			return "different";
+		}
+						
+	}
+	
 	
 	
 	// Database에 Token이 Update

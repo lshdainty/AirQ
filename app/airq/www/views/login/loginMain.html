@@ -71,19 +71,7 @@
             </div>
         </div>
     </div>
-    <button id="fcm-code">Token_test</button>
     <script type="text/javascript" src="../../../www/cordova.js"></script>
-    <script type="text/javascript">
-    /** jQuery 초기화 */
-    $(function() {
-        // 버튼 이벤트 정의
-        $("#fcm-code").click(function() {
-            FCMPlugin.getToken(function(token){
-                localStorage.setItem('token',token);
-            });
-        });
-    }); // end jquery
-    </script>
 </body>
 
 </html>

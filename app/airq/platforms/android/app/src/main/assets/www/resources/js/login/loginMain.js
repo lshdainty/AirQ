@@ -95,80 +95,50 @@ $(document).ready(function () {
 	});
 
 
-	var getToken = function(token){
 
-		window.alert(token);
-	
-	}
-
-	function createToken() {
-		var token;
+	// Token 생성
+	function createToken(id) {
 		FCMPlugin.getToken(function (token) {
-			alert("createToken");
-			token = token;
-			alert(token);
 			localStorage.setItem('token', token);
+			tokenUpdate(token,id);
 		});
-	
-		return getToken(token);
 	}
 
-
-	//로그인 버튼 클릭
-	$(".login__btn").click(function () {
-		var id =  $("#ID").val();
-		var query = {
-			id: id,
-			password: $("#PASS").val()
-		};
-		// 로그인 버튼 클릭 ajax 
-		$.support.cors = true;
-		$.ajax({
-			type: "GET",
-			data: query,
-			dataType: 'JSON',
-			url: sessionStorage.getItem("IP_ADDRESS") + "/m.login", // 로그인 페이지 경로
-			success: function (data) {
-				var token = localStorage.getItem('token');
-				if (data.result == "success") {
-
-					
-					if(isTokenExist(id)){
-						if(confirm("대표 디바이스로 지정하시겠습니까?")){
-							tokenUpdate(token,id);
-						}
-					}
-					else{
-						tokenUpdate(token,id);
-					}
-					if (isChecked) {
-						localStorage.setItem("user", JSON.stringify(data.userInfo));
-						sessionStorage.setItem("user", JSON.stringify(data.userInfo));
-					}
-					else {
-						sessionStorage.setItem("user", JSON.stringify(data.userInfo));
-					}
-
-					window.location.href = "../../../www/views/service/main.html";
-				}
-				else {
-					$('.member-input__state').addClass('member-input__state--wrong');
-					$('.member-input-wrong-message').css("display", "inherit");
-					$('.member-input-wrong-message').text('Account ID and Password do not match. Please try again.');
-				}
-			}
-		}) // ajax 로그인 버튼 끝
-	});
 
 	// Checking for Token Exist in Database
 	function isTokenExist(id){
+		var result;
 		$.ajax({
+			async: false,
 			type: "GET",
 			data: {id:id},
 			url: sessionStorage.getItem("IP_ADDRESS") + "/m.isTokenExist",
 			success: function (data) {
+				result=data;
 			}
-		})
+		});
+		return result;
+	}
+
+	// compare with database
+	function tokenCompare(id,token){
+		var result;
+		$.ajax({
+			async: false,
+			type: "GET",
+			data: {id:id,
+				token:token
+			},
+			url: sessionStorage.getItem("IP_ADDRESS") + "/m.tokenCompare",
+			success: function (data) {
+				if(data=="equal")
+					result = true;
+				else
+					result = false;
+
+			}
+		});
+		return result;
 	}
 
 	// token Update
@@ -190,9 +160,60 @@ $(document).ready(function () {
 		})
 	}
 
-	
+	// Home 으로 이동
+	function journeyHome(){
+		window.location.href = "../../../www/views/service/main.html";
+	}
 
-	
+	//로그인 버튼 클릭
+	$(".login__btn").click(function () {
+		var id =  $("#ID").val();
+		var query = {
+			id: id,
+			password: $("#PASS").val()
+		};
+		// 로그인 버튼 클릭 ajax 
+		$.support.cors = true;
+		$.ajax({
+			type: "GET",
+			data: query,
+			dataType: 'JSON',
+			url: sessionStorage.getItem("IP_ADDRESS") + "/m.login", // 로그인 페이지 경로
+			success: function (data) {
+				var token = localStorage.getItem('token');
+				if (data.result == "success") {
+
+					// 1. Device에 Token 존재 확인
+					if(isTokenExist(id)=="exist"){
+						// 2. Device Token 과 Databse Token 비교
+						if(tokenCompare(id,token)){
+						}
+						else{
+							if(confirm("대표 디바이스로 지정하시겠습니까?")){
+								tokenUpdate(token,id);
+							}
+						}
+					}
+					else{
+						createToken(id);
+					}
+					if (isChecked) {
+						localStorage.setItem("user", JSON.stringify(data.userInfo));
+						sessionStorage.setItem("user", JSON.stringify(data.userInfo));
+					}
+					else {
+						sessionStorage.setItem("user", JSON.stringify(data.userInfo));
+					}
+					journeyHome();
+				}
+				else {
+					$('.member-input__state').addClass('member-input__state--wrong');
+					$('.member-input-wrong-message').css("display", "inherit");
+					$('.member-input-wrong-message').text('Account ID and Password do not match. Please try again.');
+				}
+			}
+		}) // ajax 로그인 버튼 끝
+	});
 });
 
 

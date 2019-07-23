@@ -215,9 +215,11 @@ function qualityGradeCheck(area, matter) {
 		dataType : "json",
 		async : false,
 		success : function(data) {
+			console.log(data);
 			for (var i = 0; i < data.result.length; i++) {
 				if (data.result[i].ename == area) {
-					var forecastColor, forecastStauts, grade,faceGrade;
+					var forecastColor, forecastStauts, grade,faceGrade,result;
+					result=data.result[i].data;
 					if (data.result[i].data >= data.dataGubun[0]) {
 						forecastStatus = "최악";
 						forecastColor = "#BDBDBD";
@@ -273,6 +275,7 @@ function qualityGradeCheck(area, matter) {
 				
 				$("#outsideBox").find(".matViewBox").addClass("grade_"+grade);
 				$("#outsideBox").find(".matGrade").text(forecastStatus);
+				$("#outsideBox").find(".matValue").text(result);
 			}
 		}
 	});
@@ -653,7 +656,7 @@ function startChart(id, matter) {
 					"/resources/images/face_" + gradeImage + ".svg");
 			$("#insideBox").find(".matViewBox").addClass("grade_" + (data.grade));
 			$("#insideBox").find('.matGrade').text(gradeText);
-			$("#insideBox").find('.matValue').text(data.matterValue + data.unit);
+			$("#insideBox").find('.matValue').text(data.matterValue);
 			hourChart(data.oldData, data.dataGubun, data.unit); // 하루 - 시간별
 		}
 	})

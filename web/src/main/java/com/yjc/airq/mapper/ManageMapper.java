@@ -40,6 +40,7 @@ public interface ManageMapper {
 	// 실시간 차트 기본 데이터 30개 가져오기
 	public ArrayList<Map<String,Object>> getOldData(@Param("iot_id") String iot_id,@Param("matter_code") String matter_code);
 	
+	
 	// 하루 평균값 가져오기
 	public String getTodayAvgData(@Param("iot_id") String iot_id,@Param("matter_code") String matter_code);
 	
@@ -60,6 +61,10 @@ public interface ManageMapper {
 	
 	// 24시간 측정 데이터 가져오기
 	public ArrayList<Map<String,Object>> getDailyHourData(@Param("iot_id")String iot_id,@Param("matter_code")String matter_code);
+	
+	//물질의 최근 측정 데이터 가져오기
+	public String measure_value(@Param("iot_id")String iot_id,@Param("matter_code")String matter_code,@Param("matter_code1")String matter_code1);
+	
 	// 차트 세부내용
 //	public ArrayList<MeasureDataVO> chartValue(String member_id, String date);
 };
