@@ -72,7 +72,7 @@ public class MobileNotificationController {
 	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "m.tokenUpdate", method = RequestMethod.GET)
 	public void tokenUpdate(Model model, HttpServletRequest request) {
-		
+		System.out.println("TOKEN UPDATE");
 		String token = request.getParameter("token");
 		String member_id = request.getParameter("id");
 		System.out.println("TOKEN UPDATE");

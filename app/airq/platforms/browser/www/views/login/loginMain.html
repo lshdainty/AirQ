@@ -9,9 +9,6 @@
     <link rel="stylesheet" href="../../../www/resources/css/login/loginMain.css">
     <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
     <script src="../../../www/resources/js/login/loginMain.js"></script>
-    <script>
-        sessionStorage.setItem("IP_ADDRESS", "http://39.127.7.70");
-    </script>
 </head>
 
 <body>
@@ -74,21 +71,7 @@
             </div>
         </div>
     </div>
-    <button id="fcm-code">Token_test</button>
     <script type="text/javascript" src="../../../www/cordova.js"></script>
-    <script type="text/javascript">
-    /** jQuery 초기화 */
-    $(function() {
-        // 버튼 이벤트 정의
-        $("#fcm-code").click(function() {
-            alert("aa");
-            FCMPlugin.getToken(function(token){
-                $(".alert").html(token);
-                localStorage.setItem('token',token);
-            });
-        });
-    }); // end jquery
-    </script>
 </body>
 
 </html>

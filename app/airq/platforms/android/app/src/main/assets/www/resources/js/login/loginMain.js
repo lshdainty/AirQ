@@ -101,6 +101,7 @@ $(document).ready(function () {
 		FCMPlugin.getToken(function (token) {
 			localStorage.setItem('token', token);
 			alert(token);
+			alert(id);
 			tokenUpdate(token,id);
 		});
 	}
@@ -151,6 +152,7 @@ $(document).ready(function () {
 		};
 
 		$.ajax({
+			async:false,
 			type: "GET",
 			data: query,
 			dataType:'JSON',
