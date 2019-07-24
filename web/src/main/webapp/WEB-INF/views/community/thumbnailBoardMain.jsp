@@ -90,7 +90,7 @@
 	<%-- 페이지네이션 끝 --%>
 </div>
 
-
+<button id="fcmTest">TEST</button>
 
 <%-- 커뮤니티 - 상품추천 리스트 끝 --%>
 
@@ -103,7 +103,7 @@ function page(idx){
 	window.location.href=pageURL;
 }
 </script>
-<script src="resources/js/community/community.js"></script>
+<script src="/resources/js/community/community.js"></script>
 <%-- 스크립트 링크 끝 --%>
 
 

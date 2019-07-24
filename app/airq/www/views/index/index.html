@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,20 +9,27 @@
     <link rel="stylesheet" href="../../../www/resources/css/bootstrap.css">
     <link rel="stylesheet" href="../../../www/resources/css/index/index.css">
     <script src="../../../www/resources/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script src="../../../www/resources/js/bootstrap.js"></script>
     <script src="../../../www/resources/js/TweenLite.js"></script>
     <script src="../../../www/resources/js/TweenMax.js"></script>
-
+    <script src="../../../www/resources/js/index/excuteAnimation.js"></script>
+    <script src="../../../www/resources/js/cordova.js"></script>
 </head>
+
 <body>
     <div class="load-gate"></div>
     <div class="index-container">
-        <div class="bg-image"></div>
         <div class="logo">
-                <img src="../../../www/resources/images/airqWebLogo.png">
-            </div>
+            <img src="../../../www/resources/images/airqWebLogo.png">
+        </div>
     </div>
-<script src="../../../www/resources/js/index/excuteAnimation.js"></script>
 </body>
+
+
+
+<script type="text/javascript">
+    sessionStorage.setItem("IP_ADDRESS", "http://39.127.7.94");
+    // sessionStorage.setItem("IP_ADDRESS", "http://192.168.2.9");
+</script>
+
 </html>

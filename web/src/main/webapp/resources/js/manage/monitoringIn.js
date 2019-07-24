@@ -1,68 +1,124 @@
+var interval;
+
+//페이지 들어왔을때 바로 실행
 $.ajax({
 	type : "GET",
-	url : "inOldData",
+	url : "checkIot",
 	dataType : "json",
 	success : function(data){
-		$("#matterValue").text(data.matterValue);
-		$("#todayAvg").text(data.todayAvg);
-		$("#overValue").text(data.overValue);
-		var gradeText = "";
-		var gradeImage = "";
-		var gradeRecommend = "";
-		switch (data.grade) {
-		  case 1 :
-			  gradeText = "최고";
-			  gradeImage = "1";
-			  gradeRecommend = "최적의 공기 상태에요. 이 상태를 유지해주세요.";
-			  break;
-		  case 2 :
-			  gradeText = "좋음";
-			  gradeImage = "1";
-			  gradeRecommend = "최적의 공기 상태에요. 이 상태를 유지해주세요.";
-			  break;
-		  case 3 :
-			  gradeText = "양호";
-			  gradeImage = "2";
-			  gradeRecommend = "좋은 공기 상태에요. 30분간 환기를 시켜주면 더 좋아요.";
-			  break;
-		  case 4 :
-			  gradeText = "보통";
-			  gradeImage = "2";
-			  gradeRecommend = "좋은 공기 상태에요. 30분간 환기를 시켜주면 더 좋아요.";
-			  break;
-		  case 5 :
-			  gradeText = "나쁨";
-			  gradeImage = "3";
-			  gradeRecommend = "공기 상태가 좋지 않아요. 공기청정기를 가동하거나 환기를 시켜주세요.";
-			  break;
-		  case 6 :
-			  gradeText = "상당히 나쁨";
-			  gradeImage = "4";
-			  gradeRecommend = "공기 상태가 좋지 않아요. 공기청정기를 가동하거나 환기를 시켜주세요.";
-			  break;
-		  case 7 :
-			  gradeText = "매우 나쁨";
-			  gradeImage = "5";
-			  gradeRecommend = "공기 상태가 최악이에요. 이 상태가 지속될 시 공기 질 개선 서비스를 받으세요.";
-			  break;
-		  case 8 :
-			  gradeText = "최악";
-			  gradeImage = "6";
-			  gradeRecommend = "공기 상태가 최악이에요. 이 상태가 지속될 시 공기 질 개선 서비스를 받으세요.";
-			  break;
+		if(data.result == "yes"){
+			var iotList="";
+			var matterList="";
+			for(var i=0; i<data.iotInfo.length; i++){
+				iotList += "<option value='"+data.iotInfo[i].ID+"'>"+data.iotInfo[i].ID+"</option>";
+			}
+			$("#iot_id").append(iotList);
+			for(var j=0; j<data.iotInfo[0].matterList.length; j++){
+				matterList += "<option value='"+data.iotInfo[0].matterList[j].MATTER_CODE+"'>"+data.iotInfo[0].matterList[j].MATTER_NAME+"</option>";
+			}
+			$("#matter_list").append(matterList);
+			$("#iot_id").val("나의 공기측정1").prop("selected", true);
+			$("#matter_list").val("PM10").prop("selected", true);
+			startChart("나의 공기측정1","PM10");
+		}else{
+			var html="<h1>등록된 기기가 없습니다.</h1>";
+			$(".container").empty();
+			$(".container").append(html);
 		}
-		$("#face").attr('src',"/resources/images/face_"+gradeImage+".svg");
-		$(".info_grade__value").text(gradeText);
-		$(".info_grade__container").addClass("grade_"+data.grade);
-		$(".info_behavior").text(gradeRecommend);
-		monthChart(data.monthData,data.dataGubun);	//올해 월별 평균
-		dayChart(data.dayData,data.dataGubun);	//오늘로부터 7일 전까지 요일별 평균
-		hourChart(data.timeData,data.dataGubun);	//하루 - 시간별
-		inOldData(data.oldData);	//기본 30개값 가져오기
 	}
 });
 
-function hourChart(timeData,dataGubun) {
+//iot 기기를 선택했을때 실행
+$(document).on("change","#iot_id",function(){
+	var id = $("#iot_id option:selected").val();
+	$.ajax({
+		type : "GET",
+		url : "changeMatter",
+		data : {id:id},
+		dataType : "json",
+		success : function(data){
+			$("#matter_list").empty();
+			var matterList="";
+			for(var i=0; i<data.iotMatterList.length; i++){
+				matterList += "<option value='"+data.iotMatterList[i].MATTER_CODE+"'>"+data.iotMatterList[i].MATTER_NAME+"</option>";
+			}
+			$("#matter_list").append(matterList);
+			$("#matter_list").val("PM10").prop("selected", true);
+			clearInterval(interval);	//기존에 있던 함수 중지
+			startChart($("#iot_id option:selected").val(),"PM10");
+		}
+	});
+});
+
+//물질 선택을 했을 때 실행
+$(document).on("change","#matter_list",function(){
+	var id = $("#iot_id option:selected").val();
+	var matter = $("#matter_list option:selected").val();
+	
+	clearInterval(interval);	//기존에 있던 함수 중지
+	startChart(id,matter);
+});
+
+function startChart(id,matter) {
+	$.ajax({
+		type : "GET",
+		url : "inOldData",
+		data : {id:id,matter:matter},
+		dataType : "json",
+		success : function(data){
+			console.log(data);
+			$("#matterValue").text(data.matterValue);
+			$("#todayAvg").text(data.todayAvg);
+			$("#overValue").text(data.overValue);
+			var gradeText = "";
+			var gradeImage = "";
+			switch (data.grade) {
+				case 1 :
+					gradeText = "최고";
+					gradeImage = "1";
+					break;
+				case 2 :
+					gradeText = "좋음";
+					gradeImage = "1";
+					break;
+				case 3 :
+					gradeText = "양호";
+					gradeImage = "2";
+					break;
+				case 4 :
+					gradeText = "보통";
+					gradeImage = "2";
+					break;
+				case 5 :
+					gradeText = "나쁨";
+					gradeImage = "3";
+					break;
+				case 6 :
+					gradeText = "상당히 나쁨";
+					gradeImage = "4";
+					break;
+				case 7 :
+					gradeText = "매우 나쁨";
+					gradeImage = "5";
+					break;
+				case 8 :
+					gradeText = "최악";
+					gradeImage = "6";
+					break;
+			}
+			$("#face").attr('src',"/resources/images/face_"+gradeImage+".svg");
+			$(".info_grade__value").text(gradeText);
+			$(".info_grade__container").addClass("grade_"+data.grade);
+			$(".info_behavior").text(data.recommend);
+			monthChart(data.monthData,data.dataGubun,data.unit);	//올해 월별 평균
+			dayChart(data.dayData,data.dataGubun,data.unit);	//오늘로부터 7일 전까지 요일별 평균
+			hourChart(data.timeData,data.dataGubun,data.unit);	//하루 - 시간별
+			inOldData(data.oldData);	//기본 30개값 가져오기
+		}
+	})
+};
+	
+function hourChart(timeData,dataGubun,unit) {
 	am4core.ready(function() {
 
 		// Themes begin
@@ -88,7 +144,7 @@ function hourChart(timeData,dataGubun) {
 		series.dataFields.valueY = "VALUE";
 		series.dataFields.categoryX = "TIME";
 		series.name = "VALUE";
-		series.columns.template.tooltipText = "[bold]{valueY}[/]"+"µg/m³";
+		series.columns.template.tooltipText = "[bold]{valueY}[/]"+unit;
 		series.columns.template.fillOpacity = 1;	//투명도
 		series.columns.template.fill = am4core.color("#B5B2FF");	//기본 색상
 		series.columns.template.adapter.add("fill", function(fill, target) {
@@ -119,7 +175,7 @@ function hourChart(timeData,dataGubun) {
 };
 
 
-function dayChart(dayData,dataGubun) {
+function dayChart(dayData,dataGubun,unit) {
 	am4core.ready(function() {
 
 		// Themes begin
@@ -145,7 +201,7 @@ function dayChart(dayData,dataGubun) {
 		series.dataFields.valueY = "VALUE";
 		series.dataFields.categoryX = "DAY";
 		series.name = "VALUE";
-		series.columns.template.tooltipText = "[bold]{valueY}[/]"+"µg/m³";
+		series.columns.template.tooltipText = "[bold]{valueY}[/]"+unit;
 		series.columns.template.fillOpacity = 1;	//투명도
 		series.columns.template.fill = am4core.color("#B5B2FF");	//기본 색상
 		series.columns.template.adapter.add("fill", function(fill, target) {
@@ -175,7 +231,7 @@ function dayChart(dayData,dataGubun) {
 	}); // end am4core.ready()
 };
 
-function monthChart(monthData,dataGubun) {
+function monthChart(monthData,dataGubun,unit) {
 	am4core.ready(function() {
 
 		// Themes begin
@@ -201,7 +257,7 @@ function monthChart(monthData,dataGubun) {
 		series.dataFields.valueY = "VALUE";
 		series.dataFields.categoryX = "MONTH";
 		series.name = "VALUE";
-		series.columns.template.tooltipText = "[bold]{valueY}[/]"+"µg/m³";
+		series.columns.template.tooltipText = "[bold]{valueY}[/]"+unit;
 		series.columns.template.fillOpacity = 1;	//투명도
 		series.columns.template.fill = am4core.color("#B5B2FF");	//기본 색상
 		series.columns.template.adapter.add("fill", function(fill, target) {
@@ -311,12 +367,13 @@ function inOldData(OldData) {
 		// }, false);
 
 		// add data
-		var interval;
+//		var interval;
 		function startInterval() {
 			interval = setInterval(function() {
 				$.ajax({
 					type : "GET",
 					url : "inNowData",
+					data : {id:$("#iot_id option:selected").val(),matter:$("#matter_list option:selected").val()},
 					dataType : "json",
 					success : function(data) {
 						$("#matterValue").text(data.matterValue);
@@ -324,47 +381,38 @@ function inOldData(OldData) {
 						$("#overValue").text(data.overValue);
 						var gradeText = "";
 						var gradeImage = "";
-						var gradeRecommend = "";
 						switch (data.grade) {
 						  case 1 :
 							  gradeText = "최고";
 							  gradeImage = "1";
-							  gradeRecommend = "최적의 공기 상태에요. 이 상태를 유지해주세요.";
 							  break;
 						  case 2 :
 							  gradeText = "좋음";
 							  gradeImage = "1";
-							  gradeRecommend = "최적의 공기 상태에요. 이 상태를 유지해주세요.";
 							  break;
 						  case 3 :
 							  gradeText = "양호";
 							  gradeImage = "2";
-							  gradeRecommend = "좋은 공기 상태에요. 30분간 환기를 시켜주면 더 좋아요.";
 							  break;
 						  case 4 :
 							  gradeText = "보통";
 							  gradeImage = "2";
-							  gradeRecommend = "좋은 공기 상태에요. 30분간 환기를 시켜주면 더 좋아요.";
 							  break;
 						  case 5 :
 							  gradeText = "나쁨";
 							  gradeImage = "3";
-							  gradeRecommend = "공기 상태가 좋지 않아요. 공기청정기를 가동하거나 환기를 시켜주세요.";
 							  break;
 						  case 6 :
 							  gradeText = "상당히 나쁨";
 							  gradeImage = "4";
-							  gradeRecommend = "공기 상태가 좋지 않아요. 공기청정기를 가동하거나 환기를 시켜주세요.";
 							  break;
 						  case 7 :
 							  gradeText = "매우 나쁨";
 							  gradeImage = "5";
-							  gradeRecommend = "공기 상태가 최악이에요. 이 상태가 지속될 시 공기 질 개선 서비스를 받으세요.";
 							  break;
 						  case 8 :
 							  gradeText = "최악";
 							  gradeImage = "6";
-							  gradeRecommend = "공기 상태가 최악이에요. 이 상태가 지속될 시 공기 질 개선 서비스를 받으세요.";
 							  break;
 						}
 						$("#face").attr('src',"/resources/images/face_"+gradeImage+".svg");
@@ -373,7 +421,7 @@ function inOldData(OldData) {
 						}
 						$(".info_grade__value").text(gradeText);
 						$(".info_grade__container").addClass("grade_"+data.grade);
-						$(".info_behavior").text(gradeRecommend);
+						$(".info_behavior").text(data.recommend);
 						chart.addData({
 							TIME : new Date(data.nowData[0].TIME),
 							VALUE : data.nowData[0].VALUE

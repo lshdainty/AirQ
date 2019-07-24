@@ -31,14 +31,12 @@
 	<select id="recommendList" resultMap="ProductVO">
 		select p.*
 		from (
-		select p.product_code,count(p.product_code) as count
-		from product p, demand d
-		where p.product_code = d.product_code
-		and
-		d.d_zipcode = #{zipcode}
-		group by p.product_code
-		order by count desc) a,
-		product p
+			select p.product_code,count(p.product_code) as count
+			from product p, demand d
+			where p.product_code = d.product_code
+			and d.d_zipcode = #{zipcode}
+			group by p.product_code
+			order by count desc) a, product p
 		where p.product_code = a.product_code
 		and <![CDATA[rownum <= 3]]>
 	</select>

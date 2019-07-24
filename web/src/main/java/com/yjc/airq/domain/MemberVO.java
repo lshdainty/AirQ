@@ -14,4 +14,5 @@ public class MemberVO {
 	private String m_addr;
 	private String m_addr_detail;
 	private String member_devision;
+	private String token;
 }

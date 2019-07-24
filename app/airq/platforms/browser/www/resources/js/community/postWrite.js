@@ -2,7 +2,7 @@ $(document).ready(function(){
     $(document).on("click","#postWriteBtn",function(){
         var post_content = CKEDITOR.instances.postContent.getData().replace("","");
         var post_title = $('#post_title').val();
-        var member_id = sessionStorage.getItem("member_id");
+        var member_id = JSON.parse(sessionStorage.getItem("user")).member_id;
         var data = {
           post_title : post_title,
           post_content : post_content,

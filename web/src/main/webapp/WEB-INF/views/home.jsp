@@ -5,38 +5,10 @@
 <link rel="stylesheet" href="/resources/css/include/swiper.css">
 <link rel="stylesheet" href="/resources/css/service/main.css">
 
-<style>
-#content {
-	max-width: 100% !important;
-}
-.matter-box{
-	display:flex;
-	flex-wrap:wrap;
-}
-.matter-box ul{
-	display:flex;
-	flex-direction:column;
-	justify-content:space-around;
-	text-align:center;
-}
-.matter-box ul li{
-	cursor:pointer;
-	padding:1rem;
-	background:#ddd;
-	font-weight:bold;
-}
-#chartdiv {
-  width: 88%;
-  height: 500px;
-}
-.areaBox{
-	text-align:center !important;
-	font-size:1.5rem;
-	padding-top:1.5rem !important;
-}
-</style>
 <!--  body content start  -->
 
+
+<!-- ----------------------------------  Slide section ---------------------------------   -->
 <section class="hero-home">
 	<div
 		class="swiper-container hero-slider swiper-container-fade swiper-container-horizontal">
@@ -59,37 +31,138 @@
 		<div class="row">
 			<div class="col-xl-10">
 				<div class="text-center text-lg-left">
-					<p class="subtitle letter-spacing-4 mb-2 text-secondary text-shadow">DEVELOPE-YOUR-AIR-QUALITY</p>
-					<h1 class="display-3 font-weight-bold text-shadow">전문가의 맞춤 공기질 개선</h1>
+					<p
+						class="subtitle letter-spacing-4 mb-2 text-secondary text-shadow">DEVELOPE-YOUR-AIR-QUALITY</p>
+					<h1 class="display-3 font-weight-bold text-shadow">전문가의 맞춤 공기질
+						개선</h1>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
-<div style="width:100%; margin:auto; max-width:1000px">
-	<div class="measure-container"></div>
-	<div class="areaBox"><span class="areaname"></span> <span class="mattername"></span> 수치</div>
-	<div style="display:flex;">
-	<div id="chartdiv"></div>
-	<div class="matter-box">
-	<ul>
-		<li class="matter" value="PM10">미세먼지</li>
-		<li class="matter" value="PM25">초미세먼지</li>
-		<li class="matter" value="NO2">이산화질소</li>
-		<li class="matter" value="O3">오존</li>
-		<li class="matter" value="CO">일산화탄소</li>
-		<li class="matter" value="SO2">아황산가스</li>
-	</ul>
+<!-- ----------------------------------  Slide section ---------------------------------   -->
+
+
+
+
+<!-- ----------------------------------  2nd section ---------------------------------   -->
+<div style="width: 100%; margin: auto; max-width: 1000px">
+
+
+	<c:if test="${sessionScope.user==null}">
+
+		<div class="measure-container"></div>
+		<div class="areaBox">
+			<span class="areaname"></span> <span class="mattername"></span> 수치
+		</div>
+		<div style="display: flex;">
+			<div id="outsideMatChart" style="width: 88%; height: 500px;"></div>
+			<div class="matter-box">
+				<ul>
+					<li class="matter" value="PM10">미세먼지</li>
+					<li class="matter" value="PM25">초미세먼지</li>
+					<li class="matter" value="NO2">이산화질소</li>
+					<li class="matter" value="O3">오존</li>
+					<li class="matter" value="CO">일산화탄소</li>
+					<li class="matter" value="SO2">아황산가스</li>
+				</ul>
+			</div>
+		</div>
+
+	</c:if>
+
+	<c:if test="${sessionScope.user!=null}">
+
+		<!-- Material measure Content \ Outside \  -->
+		<div class="sideQBox" id="outsideBox">
+			<div class="outsideTitle">실외 공기질 측정 현황</div>
+			<div class="sideContent">
+				<div class="sideSWrap">
+					<!-- Material Select Box Start \ Outside \ -->
+					<div class="matSBox">
+
+						<select name="" id="areaSelectBox">
+							<option value="seoul" class="areaname">서울</option>
+							<option value="busan" class="areaname">부산</option>
+							<option value="daegu" class="areaname">대구</option>
+						</select> <select name="" id="matterSelectBox">
+							<option value="PM10">미세먼지</option>
+							<option value="PM25">초미세먼지</option>
+							<option value="NO2">이산화질소</option>
+							<option value="O3">오존</option>
+							<option value="CO">일산화탄소</option>
+							<option value="SO2">아황산가스</option>
+						</select>
+
+					</div>
+					<!-- Material Select Box End \ Outside \ -->
+					<div class="matViewBox">
+
+						<div class="matGrade">최고</div>
+						<div class="matFBox">
+							<img id="outsideFace" src="/resources/images/face_1.svg">
+						</div>
+						<div class="matValue">44</div>
+
+					</div>
+
+				</div>
+
+				<!-- Chart Start - Material \ Outside \ -->
+				<div id="outsideMatChart" style="width: 100%;"></div>
+				<!-- Chart End - Material \ Inside \ -->
+			</div>
+		</div>
+		<!-- ------------------------------------ -->
+
+
+
+		<!-- Material measure Content \ Inside \  -->
+		<div class="sideQBox" id="insideBox">
+			<div class="insideTitle">실내 공기질 측정 현황</div>
+			<div class="sideContent">
+				<div class="sideSWrap">
+					<!-- Material Select Box Start \ Outside \ -->
+					<div class="matSBox">
+
+						<select name="" id="iot_id">
+						</select> <select name="" id="matter_list">
+						</select>
+
+					</div>
+					<!-- Material Select Box End \ Outside \ -->
+					<div class="matViewBox">
+
+						<div class="matGrade">최고</div>
+						<div class="matFBox">
+							<img id="insideFace" src="/resources/images/face_1.svg">
+						</div>
+						<div class="matValue">44</div>
+
+					</div>
+
+				</div>
+
+				<!-- Chart Start - Material \ Outside \ -->
+				<div id="insideMatChart" style="width: 100%;"></div>
+				<!-- Chart End - Material \ Inside \ -->
+			</div>
+		</div>
+		<!-- ------------------------------------ -->
+	</c:if>
 </div>
-	</div>
-</div>
-<span id="currentArea" style="display:none"></span>
+
+<!-- ----------------------------------  2nd section ---------------------------------   -->
+
+
+<span id="currentArea" style="display: none"></span>
 <!--  body content end  -->
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script src="https://www.amcharts.com/lib/4/core.js"></script>
 <script src="https://www.amcharts.com/lib/4/charts.js"></script>
 <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-140827148-1"></script>
+<script async
+	src="https://www.googletagmanager.com/gtag/js?id=UA-140827148-1"></script>
 <script src="/resources/js/home.js"></script>
 <script>
 	window.dataLayer = window.dataLayer || [];

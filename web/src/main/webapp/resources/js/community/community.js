@@ -21,6 +21,16 @@
 }())
 
 $(document).ready(function() {
+	$('#fcmTest').click(function(){
+		alert("aa");
+		$.ajax({
+			type:'POST',
+			url:'appPush',
+			success:function(result){	
+				alert(result);
+			}
+		}); 
+	});
 	$('#post-write').click(function(){
 		window.location.href="postWrite";
 	});

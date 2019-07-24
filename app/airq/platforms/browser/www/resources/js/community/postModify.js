@@ -22,7 +22,7 @@ $(document).ready(function(){
             var postTitle = data.modifyPost.post_title;
             $('#postTitle').val(postTitle);
             var modifyContent = $('#postContent').html(postContent).appendTo($('#postContent'));
-            $('#postContent').html(postContent);
+            $('.cke_contents_ltr').find($('p')).html(postContent);
         },
         error: function (jqXHR, status) {
           alert('error');

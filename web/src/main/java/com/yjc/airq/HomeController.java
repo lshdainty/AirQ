@@ -1,18 +1,21 @@
 package com.yjc.airq;
 
-import java.util.Date;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yjc.airq.domain.MeasureDataVO;
 import com.yjc.airq.service.ManageService;
+import com.yjc.airq.service.NotificationService;
 
 import lombok.AllArgsConstructor;
 import net.sf.json.JSONArray;
@@ -34,9 +38,13 @@ import net.sf.json.JSONObject;
 @Controller
 @AllArgsConstructor
 public class HomeController {
+	private ManageService manageService;
+	private NotificationService notificationService;
+	
+	
 	private static int count = 0;
 	private static int resDust = 0;
-	private ManageService manageService;
+	private static int resCo2 = 0;
 
 	// 홈 메인페이지로 가기
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -44,7 +52,12 @@ public class HomeController {
 
 		return "home";
 	}
-	
+	@RequestMapping(value = "layout", method = RequestMethod.GET)
+	public String layout(HttpServletRequest request) {
+			String layNum = request.getParameter("layoutNum");
+			System.out.println(layNum);
+		return "layout"+layNum;
+	}
 	// 홈화면 광역시/도 카드 데이터 만들기
 	@RequestMapping(value = "/homematterdata", method = RequestMethod.GET)
 	@ResponseBody
@@ -114,6 +127,7 @@ public class HomeController {
 	@RequestMapping(value = "/homematterdatadetail", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONObject homeMatterDataDetail(HttpServletRequest request) {
+		System.out.println("detail controller");
 		BufferedReader br = null;
 		JSONObject json = new JSONObject();	//최종 json
 		JSONArray jArray = new JSONArray();	//최종 jsonArray
@@ -139,11 +153,11 @@ public class HomeController {
 					case "PM10":
 						dataGubun[0] = 151;dataGubun[1] = 101;dataGubun[2] = 76;dataGubun[3] = 51;dataGubun[4] = 41;dataGubun[5] = 31;dataGubun[6] = 16;
 						json.put("dataGubun",dataGubun);
-						json.put("unit","µg/m");break;
+						json.put("unit","µg/m³");break;
 					case "PM25":
 						dataGubun[0] = 76;dataGubun[1] = 51;dataGubun[2] = 38;dataGubun[3] = 26;dataGubun[4] = 21;dataGubun[5] = 16;dataGubun[6] = 9;
 						json.put("dataGubun",dataGubun);
-						json.put("unit","µg/m");break;
+						json.put("unit","µg/m³");break;
 					case "NO2":
 						dataGubun[0] = (float)1.1;dataGubun[1] = (float)0.2;dataGubun[2] = (float)0.13;dataGubun[3] = (float)0.06;dataGubun[4] = (float)0.05;dataGubun[5] = (float)0.03;dataGubun[6] = (float)0.02;
 						json.put("dataGubun",dataGubun);
@@ -182,12 +196,20 @@ public class HomeController {
 	// 아두이노에서 받은 미세먼지 측정값
 	@RequestMapping(value = "/dustData", method = RequestMethod.POST, produces = {"application/json"})
 	public @ResponseBody Map<String, Object> dustData(@RequestBody Map<String, Object> info, MeasureDataVO msd, HttpServletRequest request) {
+		
+		
 		String[] resDustData = new String[5]; // 배열 선언
+		String[] resCo2Data = new String[5]; // 배열 선언
+		
+		
+
+		
 		
 		//======================요청받은 데이터====================
 		System.out.print("count: " + count + " // ");
 		
-		System.out.println("dust_val: " + info.get("dust_val")); // 측정 값
+		System.out.println("DUST: " + info.get("dust_val")); // 미세먼지 측정 값
+		System.out.println("CO2: " + info.get("ppm")); // CO2 측정 값
 		System.out.println("iotId: " + info.get("iotId")); // IoT기기명
 		
 		// 현재 날짜 생성
@@ -197,7 +219,26 @@ public class HomeController {
 //		System.out.println("yyyy-MM-dd 형식의 현재 날짜: " + formatType.format(date));
 		
 		String dust = info.get("dust_val").toString(); // String으로 변환
+		String co2 = info.get("ppm").toString(); // String으로 변환
 		String iotId = info.get("iotId").toString(); // String으로 변환
+		String matter_code;
+
+		// ============================================================================================  //
+		// 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 //
+		
+		
+		String member_id = manageService.getIotMember(iotId); // <---- 아두이노에서 보내는 데이터로 써야함
+		
+		
+		//↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+		
+		//String member_di = info.get("member_id");
+		
+		
+		// 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 //
+		// ============================================================================================  //
+		
+		
 //		String mtime = info.get("mtime").toString(); // 먼지 측정 시간
 		// 날짜 + 시간
 //		String measureTime = formatType.format(date);
@@ -206,40 +247,109 @@ public class HomeController {
 		//===================================================
 		
 		// 값이 음수일때 0으로 초기화
-		if(Integer.parseInt(dust) < 0) {
-			dust = "20";
-			System.out.println("<%-----------dust = 0-----------%>");
-		}
+//		if(Integer.parseInt(dust) < 0) {
+//			dust = "20";
+//			System.out.println("<%-----------dust = 0-----------%>");
+//		}
 		
-		// 배열에 넣기~
+		// 배열에 넣기
 		resDustData[count] = dust;
-		
+		resCo2Data[count] = co2;
+		ArrayList<Integer> measureAVG = new ArrayList<Integer> ();
 		if(count < 3) {
 			resDust = resDust + Integer.parseInt(resDustData[count]);
-			System.out.println("resDust(더하는거): " + resDust);
+			resCo2 = resCo2 + Integer.parseInt(resCo2Data[count]);
+			
+			measureAVG.add(resDust);
+			measureAVG.add(resCo2);
+
+
+			
+//			System.out.println("resDust(더하는거): " + resDust);
+//			System.out.println("resCo2(더하는거): " + resCo2);
 			count++;
+			}
 			if(count == 3) {
 				String resultDust = String.valueOf(resDust / 3);
-				// DB저장
+				String resultCo2 = String.valueOf(resCo2 / 3);
+				
+				// 미세머지 DB저장
 				msd.setIot_id(iotId);
 				msd.setMeasure_value(resultDust);
+				msd.setMatter_code("PM10");
 
-				System.out.println("iotId: " + iotId);
-				System.out.println("resultDust: " + resultDust);
+//				System.out.println("iotId: " + iotId);
+//				System.out.println("resultDust: " + resultDust);
+//				System.out.println("matter_code: " + "PM10");
 //				System.out.println("measureTime: " + measureTime);
 				
 				Map<String, Object> m = new HashMap<String, Object>();
 				m.put("msd", msd);
 //				m.put("time", (Object) measureTime);
-
+								
+//				System.out.println("msd(dust): " + msd);
 				manageService.measureData(m);
+
+				//////////////////////////////co2 측정 DB저장
+				m.clear();
+				msd.setIot_id(iotId);
+				msd.setMeasure_value(resultCo2);
+				msd.setMatter_code("CO2");
 				
-				System.out.println("msd: " + msd);
-				////////
+//				System.out.println("iotId: " + iotId);
+//				System.out.println("resultCo2: " + resultCo2);
+//				System.out.println("matter_code: " + "CO2");
+				
+				m.put("msd", msd);
+				System.out.println("msd(co2): " + msd);
+				manageService.measureData(m);
+				// DB저장 끝
+								
+				ArrayList<String> token = new ArrayList<String> ();
+				token.add(notificationService.getToken(member_id));
+				for(int i=0; i< measureAVG.size(); i++) {
+					System.out.println("index:"+i);
+					switch (i) {
+						case 0: 
+							matter_code="PM10";
+							System.out.println("measureAVG:" + measureAVG.get(i));
+							if(measureAVG.get(i)>51) {
+								System.out.println("임계치 초과");
+								String db_date = notificationService.getAlarmTime(iotId,matter_code);
+								System.out.println("DB_DATE:"+db_date);
+								if(timeCompare(db_date)) {
+									System.out.println("알람 주기 초과");
+									
+									// 2019/07/24 새로만든 코드 확인안됨
+									// 2019/0724 01:15 실행확인 한번더 확인 요망
+									notificationService.appPush(token,"title","content");
+									
+//									String notifications = notificationService.periodicNotificationJson(token,"title","content");
+//
+//							        HttpEntity<String> entity = new HttpEntity<>(notifications);
+//
+//							        CompletableFuture<String> pushNotification = notificationService.send(entity);
+//							        CompletableFuture.allOf(pushNotification).join();
+									
+							        
+							        
+							        notificationService.setAlarmTime(iotId, matter_code);
+								}
+							}
+							break;
+						case 1:
+							break;
+					}
+				}
+				
+				
+				measureAVG.clear();
 				
 				count = 0;
 				resDust = 0;
-			}
+				resCo2 = 0;
+			
+			
 		}
 		
 		// 클라이언트로 다시 응답
@@ -257,4 +367,23 @@ public class HomeController {
 
 	return "manage/test";
 		}
+	
+	public boolean timeCompare(String db_date) {
+		
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyMMddHHmm");
+		Date time = new Date();
+		
+		
+		int currentTime = Integer.parseInt(format1.format(time));
+		int dbTime = Integer.parseInt(db_date);
+		
+		dbTime=dbTime+5;
+		System.out.println("DB_Date+100:"+dbTime);
+		System.out.println("CurrentTime:"+currentTime);
+				
+		if(dbTime <= currentTime)
+			return true;
+		else
+			return false;
+	}
 }

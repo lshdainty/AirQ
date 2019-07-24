@@ -53,7 +53,7 @@ $(function () {
   });
   $(function () {
     $('.connect-post').click(function () {
-      var selectPost = $($(this).parent().parent().find('.post-detail'));
+      var selectPost = $($(this).parent().find('.post-detail'));
       selectPost.animate({
         opacity: "toggle",
         height: "toggle"

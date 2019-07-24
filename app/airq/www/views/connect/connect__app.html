@@ -82,6 +82,21 @@
         .connect_active {
             font-weight: bold;
         }
+
+        #tenderWrite {
+	        border-radius: 2px;
+	        float: right;
+	        height: 30px;
+	        width: 90px;
+	        background-color: transparent;
+	        color: #428bca;
+	        border: 1px solid #428bca;
+        }
+
+        .tenderSelect {
+            height: 30px;
+            border: 1px solid #428bca;
+        }
     </style>
 </head>
 
@@ -180,37 +195,18 @@
                             <!-- select와 button자리 -->
                         </div>
                     </div>
-                    <div class="connect-posts">
+                    <div class="connect-posts" id="tenderListDiv">
                         <!--입찰게시글 한세트 시작-->
-                        <div class="post-info">
-                            <div class="connect-post">
-                                <div class="post-explain">
-                                    <div class="post-subPost">
-                                        <div class="post-subTitle">요청일</div>
-                                        <div class="post-subContent">2019/05/28</div>
-                                    </div>
-                                    <div class="post-subPost">
-                                        <div class="post-subTitle">입찰명</div>
-                                        <div class="post-subContent">영진전문대 공기질 측정</div>
-                                    </div>
-                                </div>
-                                <button class="post-detailBtn"></button>
-                            </div>
-                            <div class="post-detail" style="display: none">
-                                <div class="detail-info">
-                                    <div class="detail-subPost">
-                                        <div class="detail-subTitle">입찰번호</div>
-                                        <div class="detail-subContent">1401285</div>
-                                    </div>
-                                    <div class="detail-subPost">
-                                        <div class="detail-subTitle">입찰자</div>
-                                        <div class="detail-subContent">TEST</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <!--입찰게시글 한세트 끝-->
+                        
                     </div>
+                    <nav aria-label="Page navigation example" style="margin-top: 57.5px">
+                        <div class="d-flex justify-content-center">
+                            <ul class="tpagination">
+                            </ul>
+                        </div>
+                    </nav>
                 </div>
             </div>
             <!-- 입찰 끝-->

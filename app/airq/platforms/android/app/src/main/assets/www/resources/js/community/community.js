@@ -19,7 +19,7 @@ function getThumbnailPosts(board_code, pagenum) {
 					var postContainer = $('<div/>').addClass('col-md-4 post-item');
 					var postCard = $('<div/>').addClass('card mb-4').appendTo(postContainer);
 					if ((data.pList[index].post_thumbnail).substring(0, 1) == 'h')
-						var postImg = $('<img>').attr('src', data.pList[index].post_thumbnail).addClass('card-img-top').attr('style', 'height: 200px; overflow: hidden').appendTo(postCard);
+						var postImg = $('<img>').attr('src', '/'+data.pList[index].post_thumbnail).addClass('card-img-top').attr('style', 'height: 200px; overflow: hidden').appendTo(postCard);
 					else
 						var postImg = $('<img>').attr('src', sessionStorage.getItem("IP_ADDRESS") + data.pList[index].post_thumbnail).addClass('card-img-top').attr('style', 'height: 200px; overflow: hidden').appendTo(postCard);
 					var postBody = $('<div/>').addClass('card-body').appendTo(postCard);

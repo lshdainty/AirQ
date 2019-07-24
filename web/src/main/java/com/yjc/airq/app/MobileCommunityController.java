@@ -41,7 +41,7 @@ public class MobileCommunityController {
 	
 	private CommunityService postService;
 	private UploadService uploadService;
-	private final static String IP_ADDRESS = "http://13.209.87.1/";
+	private final static String IP_ADDRESS = "http://13.209.87.1";
 	//테이블 형식 레이아웃 메인페이지
 	@ResponseBody
 	@CrossOrigin(origins = "*")
@@ -87,7 +87,7 @@ public class MobileCommunityController {
 				thumbnail="resources/images/test2.jpg";
 			}
 			
-			postVO.setPost_thumbnail(thumbnail);
+			postVO.setPost_thumbnail("/"+thumbnail);
 		}
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -113,7 +113,7 @@ public class MobileCommunityController {
 		if(doc.select("img")!=null) {
 			imageElements = doc.select("img");
 			for(int i=0; i <imageElements.size(); i++) {
-				imageElements.get(i).attr("src",IP_ADDRESS+imageElements.get(i).attr("src"));
+				imageElements.get(i).attr("src",IP_ADDRESS+"/"+imageElements.get(i).attr("src"));
 			}
 		}
 		postVO.setPost_content(doc.select("body").toString());
@@ -158,14 +158,12 @@ public class MobileCommunityController {
 		postVO.setRecommend_num(0);
 		postVO.setMember_id(member_id);
 		postVO.setBoard_code(board_code);
-		System.out.println(postVO.getPost_content());
 		postService.insertPost(postVO);
 		
 		for(int i=0; i<imageElement.size(); i++) {
 			random=String.format("%04d",(int)(Math.random()*10000));
 			String upload_code = "ul"+day+random;
 			image_name[i] = imageElement.get(i).attr("src");
-			System.out.println(image_name[i]);
 			uploadVO.setUpload_code(upload_code);
 			uploadVO.setOriginal_name(image_name[i].substring(image_name[i].lastIndexOf("/")+33));
 			uploadVO.setFile_name(image_name[i].substring(image_name[i].lastIndexOf("/")+1));
@@ -196,6 +194,7 @@ public class MobileCommunityController {
 			String day = date.format(today);
 			String random=String.format("%04d",(int)(Math.random()*10000));
 			String reply_code="rp"+day+random;
+			String member_id =request.getParameter("member_id");
 			// 댓글 코드 생성 완료
 			String reply_content = request.getParameter("reply_content");
 			Timestamp r_creation_date = new Timestamp(System.currentTimeMillis());
@@ -211,7 +210,7 @@ public class MobileCommunityController {
 			replyVO.setReply_code(reply_code);
 			replyVO.setReply_content(reply_content);
 			replyVO.setR_creation_date(r_creation_date);
-			replyVO.setMember_id("test");// 로그인 완료 후 다시 작성
+			replyVO.setMember_id(member_id);// 로그인 완료 후 다시 작성
 			replyVO.setPost_code(post_code);
 //			replyVO.setProduct_code(product_code);
 			postService.insertReply(replyVO);
@@ -232,7 +231,7 @@ public class MobileCommunityController {
 			if(doc.select("img")!=null) {
 				imageElements = doc.select("img");
 				for(int i=0; i <imageElements.size(); i++) {
-					imageElements.get(i).attr("src",IP_ADDRESS+imageElements.get(i).attr("src"));
+					imageElements.get(i).attr("src",IP_ADDRESS+"/"+imageElements.get(i).attr("src"));
 				}
 			}
 			postVO.setPost_content(doc.select("body").toString());
@@ -274,7 +273,6 @@ public class MobileCommunityController {
 			}
 			postVO.setPost_content(doc.select("body").toString().replace("<body>","").replace("</body>",""));
 			postVO.setPost_code(post_code);
-			System.out.println(postVO);
 			postService.modifyPost(postVO);
 		}
 		
@@ -284,11 +282,9 @@ public class MobileCommunityController {
 		@RequestMapping(value = "m.postDelete", method = RequestMethod.GET)
 		public String recommandDelete(Model model,HttpServletRequest request) {
 			String post_code = request.getParameter("post_code");
-			System.out.println(post_code);
 			postService.deletePostReply(post_code);
 			uploadService.deletePostUpload(post_code);
 			postService.deletePost(post_code);
-			
 			return "success";
 		}
 }

@@ -1,14 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 <link rel="stylesheet" href="/resources/css/manage/monitoringIn.css">
 <!-----------------------------------------------container Start--------------------------------------->
 <div class="container">
-
-	<div>
-		<select class="equip_type">
-			<option>기기종류</option>
+	<div id="selectDiv">
+		<select class="equip_type" id="iot_id">
+		</select>
+		<select class="equip_type" id="matter_list">
 		</select>
 	</div>
 	<!-- live chart container start  -->
