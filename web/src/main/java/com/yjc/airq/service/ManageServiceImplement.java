@@ -106,6 +106,12 @@ public class ManageServiceImplement implements ManageService{
 		// TODO Auto-generated method stub
 		return mapper.measure_value(iot_id, matter_code,matter_code1);
 	}
+
+	@Override
+	public String getIotMember(String iot_id) {
+		// TODO Auto-generated method stub
+		return mapper.iot_member_id(iot_id);
+	}
 	
 	// 차트 세부내용
 //	public ArrayList<MeasureDataVO> chartValue(String member_id, String date) {

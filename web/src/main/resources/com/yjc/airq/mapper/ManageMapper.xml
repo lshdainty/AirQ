@@ -229,4 +229,8 @@
 		IOT_ID=#{iot_id} AND MATTER_CODE=#{matter_code}) AND
 		MATTER_CODE=#{matter_code1}
 	</select>
+	
+		<select id="iot_member_id" resultType="String">
+		SELECT MEMBER_ID FROM IOT_INFO WHERE IOT_ID = #{iot_id}
+	</select>
 </mapper>

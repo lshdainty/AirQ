@@ -65,6 +65,9 @@ public interface ManageMapper {
 	//물질의 최근 측정 데이터 가져오기
 	public String measure_value(@Param("iot_id")String iot_id,@Param("matter_code")String matter_code,@Param("matter_code1")String matter_code1);
 	
+	
+	//IOT meber_id 가져오기
+	public String iot_member_id(String iot_id);
 	// 차트 세부내용
 //	public ArrayList<MeasureDataVO> chartValue(String member_id, String date);
 };
