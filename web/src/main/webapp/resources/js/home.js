@@ -3,6 +3,7 @@ measureDetail("seoul", "PM10");
 qualityGradeCheck("seoul", "PM10");
 
 $("#currentArea").text("seoul");
+$(".areaname").text("서울");
 $(".mattername").text("미세먼지");
 
 $(document).on("change", "#matterSelectBox", function() {
@@ -96,33 +97,27 @@ function measure(matter) {
 							forecastStatus = "최고";
 							forecastColor = "#B5B2FF";
 						}
-						result += '<div class="city-forecast" id="'
-								+ data.result[i].ename
-								+ '">'
-								+ '<div class="ng-star-inserted">'
-								+ '<a class="city-forecast-link">'
-								+ '<div class="city-forecast-header">'
-								+ '<div style="flex: 1 1 0%; box-sizing: border-box;">'
-								+ '<span class="kname">'
-								+ data.result[i].kname
-								+ '</span>'
-								+ '</div>'
-								+ '</div>'
-								+ '<div class="city-forecast-body" style="background:'
-								+ forecastColor
-								+ '; place-content: stretch space-between; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex; flex: 1 1 auto;">'
-								+ '<div style="place-content: stretch space-between; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex; flex: 1 1 0%;">'
-								+ '<div class="aqi-container">'
-								+ '<span class="aqi">'
-								+ data.result[i].data
-								+ '</span><span class="pollutant" fxlayoutalign="center center">'
-								+ unit
-								+ '</span>'
-								+ '</div>'
-								+ '<div style="flex-direction: column; box-sizing: border-box; display: flex; place-content: stretch space-between; align-items: stretch; flex: 1 1 124px; max-width: 124px; min-width: 124px; margin: auto">'
-								+ '<span class="status">' + forecastStatus
-								+ '</span>' + '</div>' + '</div>' + '</div>'
-								+ '</a>' + '</div>' + '</div>';
+						result += '<div class="city-forecast" id="'+data.result[i].ename+'">'
+									+ '<div class="ng-star-inserted">'
+										+ '<a class="city-forecast-link">'
+										+ '<div class="city-forecast-header">'
+											+ '<div style="flex: 1 1 0%; box-sizing: border-box;">'
+												+ '<span class="kname">'+ data.result[i].kname + '</span>'
+											+ '</div>'
+										+ '</div>'
+										+ '<div class="city-forecast-body" style="background:'+ forecastColor + '; place-content: stretch space-between; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex; flex: 1 1 auto;">'
+											+ '<div style="place-content: stretch space-between; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex; flex: 1 1 0%;">'
+												+ '<div class="aqi-container">'
+													+ '<span class="aqi">'+ data.result[i].data + '</span><span class="pollutant" fxlayoutalign="center center">'+ unit + '</span>'
+												+ '</div>'
+												+ '<div style="flex-direction: column; box-sizing: border-box; display: flex; place-content: stretch space-between; align-items: stretch; flex: 1 1 124px; max-width: 124px; min-width: 124px; margin: auto">'
+													+ '<span class="status">' + forecastStatus+ '</span>' 
+												+ '</div>' 
+											+ '</div>' 
+										+ '</div>'
+										+ '</a>' 
+									+ '</div>' 
+								+ '</div>';
 						$(".measure-container").append(result);
 						result = "";
 					}
@@ -337,8 +332,7 @@ $(document).on("click", ".city-forecast", function() {
 });
 
 function measure(matter) {
-	$
-			.ajax({
+	$.ajax({
 				type : "get",
 				url : "/homematterdata?matter=" + matter,
 				dataType : "json",
@@ -401,9 +395,7 @@ function measure(matter) {
 								+ '<a class="city-forecast-link">'
 								+ '<div class="city-forecast-header">'
 								+ '<div style="flex: 1 1 0%; box-sizing: border-box;">'
-								+ '<span class="kname">'
-								+ data.result[i].kname
-								+ '</span>'
+								+ '<span class="kname">'+ data.result[i].kname + '</span>'
 								+ '</div>'
 								+ '</div>'
 								+ '<div class="city-forecast-body" style="background:'
