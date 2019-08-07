@@ -117,7 +117,6 @@ function startChart(id,matter) {
 	});
 };
 /* ******************************************************************** */
-// var ip = "http://192.168.2.8";
 
 // var htmlMarkers = [];
 
@@ -579,7 +578,7 @@ function ajaxChart(area, matter) {
 				series.tooltip.label.textAlign = "middle";
 				series.tooltip.label.textValign = "middle";
 
-				// Make bullets grow on hover
+				// Make bu llets grow on hover
 				var bullet = series.bullets.push(new am4charts.CircleBullet());
 				bullet.circle.strokeWidth = 2;
 				bullet.circle.radius = 4;
