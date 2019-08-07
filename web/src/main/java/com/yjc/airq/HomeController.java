@@ -5,17 +5,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -314,6 +312,7 @@ public class HomeController {
 							matter_code="PM10";
 							System.out.println("measureAVG:" + measureAVG.get(i));
 							if(measureAVG.get(i)>51) {
+//								notificationService.appPush(token,"title","content");
 								System.out.println("임계치 초과");
 								String db_date = notificationService.getAlarmTime(iotId,matter_code);
 								System.out.println("DB_DATE:"+db_date);
@@ -370,9 +369,14 @@ public class HomeController {
 	
 	public boolean timeCompare(String db_date) {
 		
+		
+		
+		TimeZone timezone;
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyMMddHHmm");
 		Date time = new Date();
 		
+		timezone = TimeZone.getTimeZone("Asia/Seoul");
+		format1.setTimeZone(timezone);
 		
 		int currentTime = Integer.parseInt(format1.format(time));
 		int dbTime = Integer.parseInt(db_date);

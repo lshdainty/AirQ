@@ -79,11 +79,11 @@
                             <h6 class="dropdown-header font-weight-normal">모니터링</h6>
                             <a href="/monitoringIn" class="dropdown-item">실내 모니터링 </a>
                             <a href="/monitoringOut" class="dropdown-item">실외 모니터링 </a>
-                            <div class="dropdown-divider"></div>
+                            <!-- <div class="dropdown-divider"></div>
 
 
                             <h6 class="dropdown-header font-weight-normal">IoT</h6>
-                            <a href="/remoteMain" class="dropdown-item">IOT 원격제어</a>
+                            <a href="/remoteMain" class="dropdown-item">IOT 원격제어</a> -->
                         </div>
                     </li>
                     
