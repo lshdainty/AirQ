@@ -100,8 +100,6 @@ $(document).ready(function () {
 	function createToken(id) {
 		FCMPlugin.getToken(function (token) {
 			localStorage.setItem('token', token);
-			alert(token);
-			alert(id);
 			tokenUpdate(token,id);
 		});
 	}

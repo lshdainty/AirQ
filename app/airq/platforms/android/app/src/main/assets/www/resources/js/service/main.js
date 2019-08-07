@@ -132,7 +132,6 @@ $(document).ready(function () {
                         value =$(container).find('.measure_value').text();
                         changeNum = $(container).find('.changeNum').text();
                         faceGrade = $(container).find('.faceGrade').text();
-
                         mainInfoChange(condition,value,changeNum,faceGrade,"outside");
 
 
@@ -172,6 +171,7 @@ $(document).ready(function () {
     });
 
     function mainInfoChange(condition,value,changeNum,faceGrade,place){
+
 
         $('#'+place).find('.mat_face_container').removeClass("grade_0");
         $('#'+place).find('.mat_face_container').removeClass("grade_1");
@@ -282,7 +282,6 @@ $(document).ready(function () {
                             condition = "데이터없음";
                             break;
                     }
-
 
 
 
