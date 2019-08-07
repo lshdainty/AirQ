@@ -53,7 +53,7 @@
 
 		<div class="measure-container"></div>
 		<div class="areaBox">
-			<span class="areaname"></span> <span class="mattername"></span> 수치
+			<span class="areaname"></span>의 <span class="mattername"></span> 수치
 		</div>
 		<div style="display: flex;">
 			<div id="outsideMatChart" style="width: 88%; height: 500px;"></div>
