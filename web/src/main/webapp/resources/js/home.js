@@ -3,7 +3,7 @@ measureDetail("seoul", "PM10");
 qualityGradeCheck("seoul", "PM10");
 
 $("#currentArea").text("seoul");
-$(".areaname").text("서울");
+$(".areaBox").find(".areaname").text("서울");
 $(".mattername").text("미세먼지");
 
 $(document).on("change", "#matterSelectBox", function() {
