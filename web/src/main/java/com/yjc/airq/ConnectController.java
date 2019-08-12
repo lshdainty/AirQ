@@ -435,7 +435,7 @@ public class ConnectController {
 	@ResponseBody
 	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName,
 			String upload_code, HttpServletRequest request) {
-
+		System.out.println("DOWNLOAD");
 		fileName=connectService.filename(upload_code);
 		Resource resource = new FileSystemResource(request.getServletContext().getRealPath("/resources/uploadFile/ppt/")+fileName);
 		

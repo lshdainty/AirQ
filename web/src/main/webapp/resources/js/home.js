@@ -1,3 +1,30 @@
+function isLogin(){
+	if(localStorage.user!=null){
+		sessionStorage.setItem('isDone','done');
+		var member_id = JSON.parse(localStorage.getItem("user")).id;
+		var member_password = JSON.parse(localStorage.getItem("user")).password;
+		var query = {
+				id: member_id,
+				password: member_password
+			};
+		console.log(query);
+		$.ajax({
+			type: "POST",
+			data: query,
+			url:"login", // 로그인 페이지 경로
+			success : function(data) {
+			if (data == "success") { //로그인 성공
+				location.href = "/";
+			}
+		}
+		}) // ajax 로그인 버튼 끝
+	}
+}
+
+
+	if(sessionStorage.getItem('isDone')==null){
+		isLogin();
+	}
 measure("PM10");
 measureDetail("seoul", "PM10");
 qualityGradeCheck("seoul", "PM10");

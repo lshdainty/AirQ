@@ -171,5 +171,5 @@
 </footer>
 
 
-<script src='resources/js/mypage/mypageMain.js'></script>
+<script src='/resources/js/mypage/mypageMain.js'></script>
 <%@include file="../include/footer.jsp"%>

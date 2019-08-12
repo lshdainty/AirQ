@@ -307,11 +307,12 @@ public class HomeController {
 				token.add(notificationService.getToken(member_id));
 				for(int i=0; i< measureAVG.size(); i++) {
 					System.out.println("index:"+i);
+					System.out.println(measureAVG);
 					switch (i) {
 						case 0: 
 							matter_code="PM10";
-							System.out.println("measureAVG:" + measureAVG.get(i));
-							if(measureAVG.get(i)>51) {
+							System.out.println("measureAVG:" + measureAVG.get(i)/3);
+							if((measureAVG.get(i)/3)>51) {
 //								notificationService.appPush(token,"title","content");
 								System.out.println("임계치 초과");
 								String db_date = notificationService.getAlarmTime(iotId,matter_code);
