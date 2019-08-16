@@ -608,9 +608,9 @@ function getIotList() {
 				$("#matter_list").val("PM10").prop("selected", true);
 				startChart("나의 공기측정1", "PM10");
 			} else {
-				var html = "<h1>등록된 기기가 없습니다.</h1>";
-				$(".matSBox").empty();
-				$(".matSBox").append(html);
+				var html = "등록된 기기가 없습니다.";
+				$("#insideBox").find(".matSBox").empty();
+				$("#insideBox").find(".matSBox").append(html);
 			}
 		}
 	});
