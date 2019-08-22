@@ -13,7 +13,7 @@
 <body>
 	<input type="hidden" id="member_id" value="${memberId }" />
 	<p id="reservationTitle">${memberId }님의 실내 공기질 측정 데이터입니다.</p>
-	<p id="p">*최근 7일간의 데이터입니다.</p>
+	<p id="p">*최근 30일간의 데이터입니다.</p>
 	<select id="iotSelect" class="select">
 	</select>
 	<select id="matterSelect" class="select">
@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<div class="circle-info">
-				<div class="info-title">평균 <span class="matter">미세먼지</span> 수치(7일)</div>
+				<div class="info-title">평균 <span class="matter">미세먼지</span> 수치(30일)</div>
 			</div>
 		</div>
 
@@ -49,7 +49,7 @@
 				</div>
 			</div>
 			<div class="circle-info">
-				<div class="info-title">나쁨 이상 횟수(7일)</div>
+				<div class="info-title">임계치 초과 횟수(30일)</div>
 			</div>
 		</div>
 
