@@ -57,6 +57,7 @@ public class FileController {
             
             uploadPath=uploadPath+"/"+file_name;
             // 파일업로드
+            System.out.println(uploadPath);
             out = new FileOutputStream(new File(uploadPath));
             out.write(bytes);
             

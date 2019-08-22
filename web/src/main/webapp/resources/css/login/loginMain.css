@@ -93,7 +93,7 @@
     display: block;
     width: 13px;
     height: 10px;
-    background: url('../../../../www/resources/images/icon_check_bl.10732f6d.svg') no-repeat 0 0
+    background: url('/resources/images/icon_check_bl.10732f6d.svg') no-repeat 0 0
 }
 .member-checkbox__input {
     position: absolute;

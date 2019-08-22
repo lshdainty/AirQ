@@ -1,5 +1,6 @@
 $(document).ready(function () {
-
+	
+	
 	$('#ID').focus();
 	$('#ID').focus(function () {
 			$('#ID').parent().addClass("member-input__state--focus");
@@ -78,6 +79,7 @@ $(document).ready(function () {
 			$(".member-checkbox__state").removeClass("member-checkbox__state--checked");
 			isChecked=false;
 		}
+		console.log(isChecked);
 	});
 
 
@@ -95,6 +97,10 @@ $(document).ready(function () {
 			url:"login", // 로그인 페이지 경로
 			success : function(data) {
 			if (data == "success") { //로그인 성공
+				if(isChecked){
+					localStorage.setItem('user', JSON.stringify(query));
+					alert(localStorage.getItem('user'));
+				}
 				location.href = "/";
 			} else { 
 				$('.member-input__state').addClass('member-input__state--wrong');

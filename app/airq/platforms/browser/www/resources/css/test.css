@@ -1,0 +1,160 @@
+
+/* grade background */
+
+
+.grade_1 {
+	background: #B5B2FF;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+.grade_2 {
+	background: #B2CCFF;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+.grade_3 {
+	background: #B2EBF4;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+.grade_4 {
+	background: #CEF279;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+.grade_5 {
+	background: #FAED7D;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+.grade_6 {
+	background: #FFC19E;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+.grade_7 {
+	background: #FFA7A7;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+.grade_8 {
+	background: #BDBDBD;
+	color: rgba(50, 50, 50, 0.7);
+}
+
+/* **************** */
+body{
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    display: grid;
+}
+
+#outside{
+    border: 3px solid #7345e4;
+}
+
+#outside .line_division{
+    border-right: 3px solid #7345e4;
+}
+
+#outside .mat_face_container{
+    border-top: 3px solid #7345e4;
+    border-bottom: 3px solid #7345e4;
+}
+#outside .mat_area_info{
+    background: #7345e4;
+    padding: 1rem;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+}
+#inside{
+    border: 3px solid #2b7cf7;
+}
+#inside .line_division{
+    border-right: 3px solid #2b7cf7;
+}
+#inside .mat_face_container{
+    border-bottom: 3px solid #2b7cf7;
+}
+
+#inside .mat_area_info{
+    background: #2b7cf7;
+    padding: 1rem;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+}
+.mat_container{
+    /* border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem; */
+    border-radius: 1rem;
+    margin: .5rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.mat_face_container{
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    font-weight: bold;
+}
+.mat_face_container div{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.line_division{
+    border-right: 1px solid #000;
+}
+
+
+
+
+
+
+
+.matter_info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    text-align: left;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.mat_info_table{
+    margin: auto;
+}
+
+.matter_container {
+    background: #ddd;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 40%;
+    padding: 0.3rem .5rem;
+    vertical-align: middle;
+    margin: .75rem 0;
+}
+
+.matter_division {
+    clear: both;
+    height: 100%;
+    border-right: 3px solid #fff;
+}
+
+
+.mat_info_row{
+    display: flex;
+    width: 100%;
+}

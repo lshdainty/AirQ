@@ -14,6 +14,8 @@ $(document).ready(function () {
         if (navigator.geolocation) {
             //위치 정보를 얻기
             navigator.geolocation.getCurrentPosition(function (position) {
+            alert("aa");
+                
                 var x = position.coords.latitude;
                 var y = position.coords.longitude;
                 var mapOptions = {
@@ -65,7 +67,7 @@ $(document).ready(function () {
                 }
                 $.ajax({
                     type: "get",
-                    url: ip + "/m.dustData",
+                    url: sessionStorage.getItem("IP_ADDRESS") + "/m.dustData",
                     data: query,
                     dataType: "json",
                     async: false,
@@ -130,7 +132,6 @@ $(document).ready(function () {
                         value =$(container).find('.measure_value').text();
                         changeNum = $(container).find('.changeNum').text();
                         faceGrade = $(container).find('.faceGrade').text();
-
                         mainInfoChange(condition,value,changeNum,faceGrade,"outside");
 
 
@@ -142,9 +143,7 @@ $(document).ready(function () {
         } else {
             alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.");
         }
-    }
-
-    )
+    });
 
 
 
@@ -172,6 +171,7 @@ $(document).ready(function () {
     });
 
     function mainInfoChange(condition,value,changeNum,faceGrade,place){
+
 
         $('#'+place).find('.mat_face_container').removeClass("grade_0");
         $('#'+place).find('.mat_face_container').removeClass("grade_1");
@@ -282,7 +282,6 @@ $(document).ready(function () {
                             condition = "데이터없음";
                             break;
                     }
-
 
 
 

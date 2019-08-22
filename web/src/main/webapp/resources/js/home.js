@@ -1,8 +1,36 @@
+function isLogin(){
+	if(localStorage.user!=null){
+		sessionStorage.setItem('isDone','done');
+		var member_id = JSON.parse(localStorage.getItem("user")).id;
+		var member_password = JSON.parse(localStorage.getItem("user")).password;
+		var query = {
+				id: member_id,
+				password: member_password
+			};
+		console.log(query);
+		$.ajax({
+			type: "POST",
+			data: query,
+			url:"login", // 로그인 페이지 경로
+			success : function(data) {
+			if (data == "success") { //로그인 성공
+				location.href = "/";
+			}
+		}
+		}) // ajax 로그인 버튼 끝
+	}
+}
+
+
+	if(sessionStorage.getItem('isDone')==null){
+		isLogin();
+	}
 measure("PM10");
 measureDetail("seoul", "PM10");
 qualityGradeCheck("seoul", "PM10");
 
 $("#currentArea").text("seoul");
+$(".areaBox").find(".areaname").text("서울");
 $(".mattername").text("미세먼지");
 
 $(document).on("change", "#matterSelectBox", function() {
@@ -96,33 +124,27 @@ function measure(matter) {
 							forecastStatus = "최고";
 							forecastColor = "#B5B2FF";
 						}
-						result += '<div class="city-forecast" id="'
-								+ data.result[i].ename
-								+ '">'
-								+ '<div class="ng-star-inserted">'
-								+ '<a class="city-forecast-link">'
-								+ '<div class="city-forecast-header">'
-								+ '<div style="flex: 1 1 0%; box-sizing: border-box;">'
-								+ '<span class="kname">'
-								+ data.result[i].kname
-								+ '</span>'
-								+ '</div>'
-								+ '</div>'
-								+ '<div class="city-forecast-body" style="background:'
-								+ forecastColor
-								+ '; place-content: stretch space-between; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex; flex: 1 1 auto;">'
-								+ '<div style="place-content: stretch space-between; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex; flex: 1 1 0%;">'
-								+ '<div class="aqi-container">'
-								+ '<span class="aqi">'
-								+ data.result[i].data
-								+ '</span><span class="pollutant" fxlayoutalign="center center">'
-								+ unit
-								+ '</span>'
-								+ '</div>'
-								+ '<div style="flex-direction: column; box-sizing: border-box; display: flex; place-content: stretch space-between; align-items: stretch; flex: 1 1 124px; max-width: 124px; min-width: 124px; margin: auto">'
-								+ '<span class="status">' + forecastStatus
-								+ '</span>' + '</div>' + '</div>' + '</div>'
-								+ '</a>' + '</div>' + '</div>';
+						result += '<div class="city-forecast" id="'+data.result[i].ename+'">'
+									+ '<div class="ng-star-inserted">'
+										+ '<a class="city-forecast-link">'
+										+ '<div class="city-forecast-header">'
+											+ '<div style="flex: 1 1 0%; box-sizing: border-box;">'
+												+ '<span class="kname">'+ data.result[i].kname + '</span>'
+											+ '</div>'
+										+ '</div>'
+										+ '<div class="city-forecast-body" style="background:'+ forecastColor + '; place-content: stretch space-between; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex; flex: 1 1 auto;">'
+											+ '<div style="place-content: stretch space-between; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex; flex: 1 1 0%;">'
+												+ '<div class="aqi-container">'
+													+ '<span class="aqi">'+ data.result[i].data + '</span><span class="pollutant" fxlayoutalign="center center">'+ unit + '</span>'
+												+ '</div>'
+												+ '<div style="flex-direction: column; box-sizing: border-box; display: flex; place-content: stretch space-between; align-items: stretch; flex: 1 1 124px; max-width: 124px; min-width: 124px; margin: auto">'
+													+ '<span class="status">' + forecastStatus+ '</span>' 
+												+ '</div>' 
+											+ '</div>' 
+										+ '</div>'
+										+ '</a>' 
+									+ '</div>' 
+								+ '</div>';
 						$(".measure-container").append(result);
 						result = "";
 					}
@@ -337,8 +359,7 @@ $(document).on("click", ".city-forecast", function() {
 });
 
 function measure(matter) {
-	$
-			.ajax({
+	$.ajax({
 				type : "get",
 				url : "/homematterdata?matter=" + matter,
 				dataType : "json",
@@ -401,9 +422,7 @@ function measure(matter) {
 								+ '<a class="city-forecast-link">'
 								+ '<div class="city-forecast-header">'
 								+ '<div style="flex: 1 1 0%; box-sizing: border-box;">'
-								+ '<span class="kname">'
-								+ data.result[i].kname
-								+ '</span>'
+								+ '<span class="kname">'+ data.result[i].kname + '</span>'
 								+ '</div>'
 								+ '</div>'
 								+ '<div class="city-forecast-body" style="background:'
@@ -589,9 +608,9 @@ function getIotList() {
 				$("#matter_list").val("PM10").prop("selected", true);
 				startChart("나의 공기측정1", "PM10");
 			} else {
-				var html = "<h1>등록된 기기가 없습니다.</h1>";
-				$(".matSBox").empty();
-				$(".matSBox").append(html);
+				var html = "등록된 기기가 없습니다.";
+				$("#insideBox").find(".matSBox").empty();
+				$("#insideBox").find(".matSBox").append(html);
 			}
 		}
 	});

@@ -66,4 +66,7 @@ public interface ManageService {
 	
 	//가장 최근 측정값 가져오기
 	public String getMeasureData(@Param("iot_id")String iot_id,@Param("matter_code")String matter_code,@Param("matter_code1")String matter_code1);
+
+	// IOT기기의 Member_Id 호출
+	public String getIotMember(String iot_id);
 }

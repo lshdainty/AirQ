@@ -32,7 +32,7 @@
 				<div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
 					<h6 class="text-uppercase text-dark mb-3">Connect</h6>
 					<ul class="list-unstyled">
-						<li><a href="contact.html" class="text-muted">Compare<span
+						<li><a href="#" class="text-muted">Compare<span
 								class="badge badge-info ml-1">HOT</span>
 						</a></li>
 					</ul>
@@ -40,11 +40,11 @@
 				<div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
 					<h6 class="text-uppercase text-dark mb-3">Community</h6>
 					<ul class="list-unstyled">
-						<li><a href="contact.html" class="text-muted">Recommend</a></li>
-						<li><a href="contact.html" class="text-muted">Liberty</a></li>
-						<li><a href="contact.html" class="text-muted">Meterial</a></li>
-						<li><a href="contact.html" class="text-muted">Improve</a></li>
-						<li><a href="contact.html" class="text-muted">Keepper</a></li>
+						<li><a href="#" class="text-muted">Recommend</a></li>
+						<li><a href="#" class="text-muted">Liberty</a></li>
+						<li><a href="#" class="text-muted">Meterial</a></li>
+						<li><a href="#" class="text-muted">Improve</a></li>
+						<li><a href="#" class="text-muted">Keepper</a></li>
 					</ul>
 				</div>
 				<div class="col-lg-4">

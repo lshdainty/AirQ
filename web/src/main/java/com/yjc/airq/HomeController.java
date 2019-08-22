@@ -5,17 +5,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -202,22 +200,7 @@ public class HomeController {
 		String[] resCo2Data = new String[5]; // 배열 선언
 		
 		
-		// ============================================================================================  //
-		// 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 //
-		
-		
-		String member_id = "kimminsu"; // <---- 아두이노에서 보내는 데이터로 써야함
-		
-		
-		//↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-		
-		//String member_di = info.get("member_id");
-		
-		
-		// 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 //
-		// ============================================================================================  //
-		
-		
+
 		
 		
 		//======================요청받은 데이터====================
@@ -238,6 +221,22 @@ public class HomeController {
 		String iotId = info.get("iotId").toString(); // String으로 변환
 		String matter_code;
 
+		// ============================================================================================  //
+		// 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 //
+		
+		
+		String member_id = manageService.getIotMember(iotId); // <---- 아두이노에서 보내는 데이터로 써야함
+		
+		
+		//↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+		
+		//String member_di = info.get("member_id");
+		
+		
+		// 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 //
+		// ============================================================================================  //
+		
+		
 //		String mtime = info.get("mtime").toString(); // 먼지 측정 시간
 		// 날짜 + 시간
 //		String measureTime = formatType.format(date);
@@ -308,11 +307,13 @@ public class HomeController {
 				token.add(notificationService.getToken(member_id));
 				for(int i=0; i< measureAVG.size(); i++) {
 					System.out.println("index:"+i);
+					System.out.println(measureAVG);
 					switch (i) {
 						case 0: 
 							matter_code="PM10";
-							System.out.println("measureAVG:" + measureAVG.get(i));
-							if(measureAVG.get(i)>51) {
+							System.out.println("measureAVG:" + measureAVG.get(i)/3);
+							if((measureAVG.get(i)/3)>51) {
+//								notificationService.appPush(token,"title","content");
 								System.out.println("임계치 초과");
 								String db_date = notificationService.getAlarmTime(iotId,matter_code);
 								System.out.println("DB_DATE:"+db_date);
@@ -369,9 +370,14 @@ public class HomeController {
 	
 	public boolean timeCompare(String db_date) {
 		
+		
+		
+		TimeZone timezone;
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyMMddHHmm");
 		Date time = new Date();
 		
+		timezone = TimeZone.getTimeZone("Asia/Seoul");
+		format1.setTimeZone(timezone);
 		
 		int currentTime = Integer.parseInt(format1.format(time));
 		int dbTime = Integer.parseInt(db_date);

@@ -207,7 +207,7 @@
 
 	<!-- 24시간 데이터 가져오기 -->
 	<select id="getDailyHourData" resultType="map">
-		SELECT TO_CHAR(TO_TIMESTAMP(A.TIME),'YY/MM/DD HH24:MI') TIME, A.VALUE
+		SELECT TO_CHAR(TO_TIMESTAMP(A.TIME,'YY/MM/DD HH24:MI'),'YY/MM/DD HH24:MI') TIME, A.VALUE
 		FROM(
 		SELECT TO_CHAR(MEASURE_TIME,'YY/MM/DD HH24') TIME,
 		TO_NUMBER(TO_CHAR(AVG(MEASURE_VALUE),'9999999999.9')) VALUE
@@ -228,5 +228,9 @@
 		WHERE MEASURE_TIME= (SELECT MAX(MEASURE_TIME) FROM MEASURE_DATA WHERE
 		IOT_ID=#{iot_id} AND MATTER_CODE=#{matter_code}) AND
 		MATTER_CODE=#{matter_code1}
+	</select>
+	
+		<select id="iot_member_id" resultType="String">
+		SELECT MEMBER_ID FROM IOT_INFO WHERE IOT_ID = #{iot_id}
 	</select>
 </mapper>
