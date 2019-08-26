@@ -45,4 +45,6 @@ public interface PaymentMapper {
 	
 	//판매자 월별 매출 차트 - 상품서비스
 	
+	
+	public void paymentDelete(String tender_code);
 }

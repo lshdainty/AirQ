@@ -475,7 +475,7 @@ public class ConnectController {
 		ArrayList<String> uploadArr = new ArrayList<>();
 		
 		TenderVO tenderVo=connectService.tenderContent(tender_code);
-		
+		connectService.paymentDelete(tender_code);
 		for (int i = 0; i < arr.size(); i++) {
 			uploadArr.add(arr.get(i).getUpload_code()); //투찰 업로드 리스트
 		}

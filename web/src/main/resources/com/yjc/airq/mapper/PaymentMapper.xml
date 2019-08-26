@@ -139,4 +139,10 @@
     		and t.company_code = (select company_code from company_info where company_code=#{company_code})
 		group by to_char(p.payment_date,'yy-mm')
 	</select>
+	
+	<delete id="paymentDelete">
+		delete
+		from payment
+		where tender_code=#{tender_code}
+	</delete>
 </mapper>

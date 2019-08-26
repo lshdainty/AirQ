@@ -90,7 +90,6 @@
 	<%-- 페이지네이션 끝 --%>
 </div>
 
-<button id="fcmTest">TEST</button>
 
 <%-- 커뮤니티 - 상품추천 리스트 끝 --%>
 
