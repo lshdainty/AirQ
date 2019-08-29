@@ -2,8 +2,10 @@ package com.yjc.airq;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -192,7 +194,7 @@ public class HomeController {
 	}
 	
 	// 아두이노에서 받은 미세먼지 측정값
-	@RequestMapping(value = "/dustData", method = RequestMethod.POST, produces = {"application/json"})
+	@RequestMapping(value = "/dustData", method = RequestMethod.POST, produces = {"text/json;charset=UTF-8"})
 	public @ResponseBody Map<String, Object> dustData(@RequestBody Map<String, Object> info, MeasureDataVO msd, HttpServletRequest request) {
 		
 		
@@ -221,20 +223,8 @@ public class HomeController {
 		String iotId = info.get("iotId").toString(); // String으로 변환
 		String matter_code;
 
-		// ============================================================================================  //
-		// 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 //
-		
-		
-		String member_id = manageService.getIotMember(iotId); // <---- 아두이노에서 보내는 데이터로 써야함
-		
-		
-		//↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-		
-		//String member_di = info.get("member_id");
-		
-		
-		// 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요 중요중요 중요 중요 중요중요 중요 중요 중요 //
-		// ============================================================================================  //
+	
+		String member_id = manageService.getIotMember(iotId);
 		
 		
 //		String mtime = info.get("mtime").toString(); // 먼지 측정 시간
@@ -320,9 +310,15 @@ public class HomeController {
 								if(timeCompare(db_date)) {
 									System.out.println("알람 주기 초과");
 									
+									String content="notCoding";
+									String title="notCoding";
+										content = matter_code+"의 측정수치가"+(measureAVG.get(i)/3)+"입니다. 개선이 필요합니다";
+										title ="임계치 초과";
+
+									
 									// 2019/07/24 새로만든 코드 확인안됨
 									// 2019/0724 01:15 실행확인 한번더 확인 요망
-									notificationService.appPush(token,"title","content");
+									notificationService.appPush(token,title,content);
 									
 //									String notifications = notificationService.periodicNotificationJson(token,"title","content");
 //
@@ -382,7 +378,7 @@ public class HomeController {
 		int currentTime = Integer.parseInt(format1.format(time));
 		int dbTime = Integer.parseInt(db_date);
 		
-		dbTime=dbTime+5;
+		dbTime=dbTime+1;
 		System.out.println("DB_Date+100:"+dbTime);
 		System.out.println("CurrentTime:"+currentTime);
 				
