@@ -643,7 +643,7 @@ function startChart(id, matter) {
 				break;
 			case 3:
 				gradeText = "양호";
-				gradeImage = "2";
+				gradeImage = "1";
 				break;
 			case 4:
 				gradeText = "보통";

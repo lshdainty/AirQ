@@ -335,7 +335,7 @@ function inOldData(OldData) {
 		valueAxis.renderer.maxLabelPosition = 0.95;
 		valueAxis.renderer.axisFills.template.disabled = true;
 		valueAxis.renderer.ticks.template.disabled = true;
-		valueAxis.max=60;
+		valueAxis.max=160;
 		
 		var series = chart.series.push(new am4charts.LineSeries());
 		series.dataFields.dateX = "TIME";

@@ -172,6 +172,7 @@ $(document).on('change','.select',function(){
 				html='<div id="chartdiv"></div>';
 				$("#graph div").remove();
 				$("#graph").append(html);
+				console.log(data.dayGraph);
 				dayGraph(data,mOption);
 			}
 			
