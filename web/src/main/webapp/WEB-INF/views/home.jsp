@@ -48,7 +48,7 @@
 <!-- ----------------------------------  2nd section ---------------------------------   -->
 	<c:if test="${sessionScope.user==null}">
 	
-	<div style="width: 100%; margin: auto; max-width: 1000px;display:flex" id="before">
+	<div style="width: 100%; margin: auto; max-width: 1100px;display:flex" id="before">
 
 	<div class="grade_wrap">
 		<div class="grade-table">

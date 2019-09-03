@@ -33,7 +33,7 @@
         to_char(m.measure_time,'yyyy-mm-dd') > to_char(sysdate-7,'yyyy-mm-dd')
 		group by m.iot_id,i.member_id,
 		to_char(m.measure_time,'yyyy-mm-dd')
-		order by measure_time desc
+		order by measure_time
 	</select>
 
 	<!-- 시간별 예약자 모니터링 -->

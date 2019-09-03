@@ -262,7 +262,7 @@ tspan {
 
 
 .grade-table {
-    margin-top: 10vh;
+    margin-top: 6vh;
     display: flex;
     flex-direction: row;
 }
@@ -272,11 +272,6 @@ tspan {
 .grade-box {
     display: flex;
     width: 100%;
-    border:1px solid #000;
-    border-right:none;
-}
-.grade-box:last-child{
-	border-right:1px solid #000;
 }
 
 .grade-explain {
