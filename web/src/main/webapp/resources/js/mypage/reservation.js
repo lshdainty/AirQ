@@ -23,6 +23,7 @@
 		data:query,
 		dataType:"json",
 		success:function(data){
+			console.log(data);
 			if(data.result == "yes"){
 				var iotList="";
 				var matterList="";
@@ -40,61 +41,51 @@
 			
 			
 			am4core.ready(function() {
-			// Themes begin
-			am4core.useTheme(am4themes_animated);
-			// Themes end
 
-			// Create chart instance
-			var chart = am4core.create("chartdiv", am4charts.XYChart);
+				// Themes begin
+				am4core.useTheme(am4themes_animated);
+				// Themes end
 
-			// Add data
-			chart.data = data.reservation;
+				// Create chart instance
+				var chart = am4core.create("chartdiv", am4charts.XYChart);
+				// Add data
+				chart.data = data.reservation;
+				
+				  
+				// Create axes
+				var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+				categoryAxis.dataFields.category = "MEASURE_TIME";
 
-			// Create axes
-			var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-			dateAxis.renderer.grid.template.location = 0;
-			dateAxis.renderer.minGridDistance = 50;
+				// Create value axis
+				var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+				valueAxis.baseValue = 55;
 
-			var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-			valueAxis.logarithmic = false;
-			valueAxis.renderer.minGridDistance = 20;
+				// Create series
+				var series = chart.series.push(new am4charts.LineSeries());
+				series.dataFields.valueY = "MEASURE_VALUE";
+				series.dataFields.categoryX = "MEASURE_TIME";
+				series.strokeWidth = 2;
+				series.tensionX = 0.8;
+				series.tooltipText = "{MEASURE_VALUE}"
 
-			// Create series
-			var series = chart.series.push(new am4charts.LineSeries());
-			series.dataFields.valueY = "MEASURE_VALUE";
-			series.dataFields.dateX = "MEASURE_TIME";
-			series.tensionX = 0.8;
-			series.strokeWidth = 3;
+				var range = valueAxis.createSeriesRange(series);
+				range.value = 55;
+				range.endValue = 1000;
+				range.contents.stroke = am4core.color("#FF0000");
+				range.contents.fill = range.contents.stroke;
 
-			var bullet = series.bullets.push(new am4charts.CircleBullet());
-			bullet.circle.fill = am4core.color("#fff");
-			bullet.circle.strokeWidth = 3;
 
-			// Add cursor
-			chart.cursor = new am4charts.XYCursor();
-			chart.cursor.fullWidthLineX = true;
-			chart.cursor.xAxis = dateAxis;
-			chart.cursor.lineX.strokeWidth = 0;
-			chart.cursor.lineX.fill = am4core.color("#000");
-			chart.cursor.lineX.fillOpacity = 0.1;
-
-			// Add scrollbar
-			//chart.scrollbarX = new am4core.Scrollbar();
-			chart.cursor = new am4charts.XYCursor();
-			chart.cursor.behavior = "none";
-
-			// Add a guide
-			let range = valueAxis.axisRanges.create();
-			range.value = 90.4;
-			range.grid.stroke = am4core.color("#396478");
-			range.grid.strokeWidth = 1;
-			range.grid.strokeOpacity = 1;
-			range.grid.strokeDasharray = "3,3";
-			range.label.inside = true;
-			range.label.text = "Average";
-			range.label.fill = range.grid.stroke;
-			range.label.verticalCenter = "bottom";// end am4core.ready()
-			});
+				var bullet = series.bullets.push(new am4charts.CircleBullet());
+				bullet.circle.strokeWidth = 2;
+				bullet.circle.radius = 4;
+				bullet.circle.fill = am4core.color("#fff");
+				  
+				chart.cursor = new am4charts.XYCursor();
+				chart.cursor.behavior = "none";
+				chart.cursor.xAxis = dateAxis;
+				chart.cursor.snapToSeries = series;
+				  
+				});
 			
 			$("#measure_value_avg").append(data.measure_value_avg);
 			$("#badNum").append(data.badNum);
@@ -172,6 +163,7 @@ $(document).on('change','.select',function(){
 				html='<div id="chartdiv"></div>';
 				$("#graph div").remove();
 				$("#graph").append(html);
+				console.log(data.dayGraph);
 				dayGraph(data,mOption);
 			}
 			
@@ -186,61 +178,50 @@ $(document).on('change','.select',function(){
 
 function dayGraph(data,mOption){
 	am4core.ready(function() {
+
 		// Themes begin
 		am4core.useTheme(am4themes_animated);
 		// Themes end
 
 		// Create chart instance
 		var chart = am4core.create("chartdiv", am4charts.XYChart);
-
 		// Add data
 		chart.data = data.dayGraph;
-
+		  
 		// Create axes
-		var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-		dateAxis.renderer.grid.template.location = 0;
-		dateAxis.renderer.minGridDistance = 50;
+		var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+		categoryAxis.dataFields.category = "MEASURE_TIME";
 
+		// Create value axis
 		var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-		valueAxis.logarithmic = false;
-		valueAxis.renderer.minGridDistance = 20;
+		valueAxis.baseValue = 55;
 
 		// Create series
 		var series = chart.series.push(new am4charts.LineSeries());
 		series.dataFields.valueY = "MEASURE_VALUE";
-		series.dataFields.dateX = "MEASURE_TIME";
+		series.dataFields.categoryX = "MEASURE_TIME";
+		series.strokeWidth = 2;
 		series.tensionX = 0.8;
-		series.strokeWidth = 3;
+		series.tooltipText = "{MEASURE_VALUE}"
+
+		var range = valueAxis.createSeriesRange(series);
+		range.value = 55;
+		range.endValue = 1000;
+		range.contents.stroke = am4core.color("#FF0000");
+		range.contents.fill = range.contents.stroke;
+
 
 		var bullet = series.bullets.push(new am4charts.CircleBullet());
+		bullet.circle.strokeWidth = 2;
+		bullet.circle.radius = 4;
 		bullet.circle.fill = am4core.color("#fff");
-		bullet.circle.strokeWidth = 3;
-
-		// Add cursor
-		chart.cursor = new am4charts.XYCursor();
-		chart.cursor.fullWidthLineX = true;
-		chart.cursor.xAxis = dateAxis;
-		chart.cursor.lineX.strokeWidth = 0;
-		chart.cursor.lineX.fill = am4core.color("#000");
-		chart.cursor.lineX.fillOpacity = 0.1;
-
-		// Add scrollbar
-		//chart.scrollbarX = new am4core.Scrollbar();
+		  
 		chart.cursor = new am4charts.XYCursor();
 		chart.cursor.behavior = "none";
-
-		// Add a guide
-		let range = valueAxis.axisRanges.create();
-		range.value = 90.4;
-		range.grid.stroke = am4core.color("#396478");
-		range.grid.strokeWidth = 1;
-		range.grid.strokeOpacity = 1;
-		range.grid.strokeDasharray = "3,3";
-		range.label.inside = true;
-		range.label.text = "Average";
-		range.label.fill = range.grid.stroke;
-		range.label.verticalCenter = "bottom";// end am4core.ready()
-		});
+		chart.cursor.xAxis = dateAxis;
+		chart.cursor.snapToSeries = series;
+		  
+		}); // end am4core.ready()
 }
 
 function timeGraph(data,mOption){

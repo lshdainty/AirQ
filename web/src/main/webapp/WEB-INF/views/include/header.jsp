@@ -95,7 +95,7 @@
 					<c:if test="${sessionScope.user!=null }">
 						<c:choose>
 							<c:when test="${sessionScope.user.member_devision eq 'no' }">
-								<li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li>
+								<li class="nav-item"><a class="nav-link" href="/logout" id="logout">LOGOUT</a></li>
 								
 								<li class="nav-item dropdown">
 		                        <a id="communityDropdownMenuLink" href="#" data-toggle="dropdown" aria-haspopup="true"

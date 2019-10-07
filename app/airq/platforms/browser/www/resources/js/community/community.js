@@ -163,7 +163,7 @@ $(document).ready(function () {
 				getTablePosts(board_code.toString(), "1");
 				if ((board_code.toString()) == 'bd_lib') {
 					var header = $('<div/>').addClass('page-header');
-					var headerTitle = $('<h3/>').text('커뮤니티 - 자유게시판').appendTo(header);
+					var headerTitle = $('<h5/>').text('커뮤니티 - 자유게시판').css.appendTo(header);
 					var headerSubTitle = $('<p/>').text('Liberty Board').appendTo(header);
 					header.prependTo($('#content'));
 				}
@@ -173,25 +173,25 @@ $(document).ready(function () {
 				switch (board_code.toString()) {
 					case 'bd_rec':
 						var header = $('<div/>').addClass('page-header');
-						var headerTitle = $('<h3/>').text('커뮤니티 - 상품추천').appendTo(header);
+						var headerTitle = $('<h5/>').text('커뮤니티 - 상품추천').appendTo(header);
 						var headerSubTitle = $('<p/>').text('Product Recommand').appendTo(header);
 						header.prependTo($('#content'));
 						break;
 					case 'bd_met':
 						var header = $('<div/>').addClass('page-header');
-						var headerTitle = $('<h3/>').text('커뮤니티 - 대기오염물질').appendTo(header);
+						var headerTitle = $('<h5/>').text('커뮤니티 - 대기오염물질').appendTo(header);
 						var headerSubTitle = $('<p/>').text('ATMOSPHERE POLLUTION MATTER').appendTo(header);
 						header.prependTo($('#content'));
 						break;
 					case 'bd_imp':
 						var header = $('<div/>').addClass('page-header');
-						var headerTitle = $('<h3/>').text('커뮤니티 - 공기질향상방법').appendTo(header);
+						var headerTitle = $('<h5/>').text('커뮤니티 - 공기질향상방법').appendTo(header);
 						var headerSubTitle = $('<p/>').text('AIR QUALITY ENHANCEMENT METHODR').appendTo(header);
 						header.prependTo($('#content'));
 						break;
 					case 'bd_hea':
 						var header = $('<div/>').addClass('page-header');
-						var headerTitle = $('<h3/>').text('커뮤니티 - 건강지킴이').appendTo(header);
+						var headerTitle = $('<h5/>').text('커뮤니티 - 건강지킴이').appendTo(header);
 						var headerSubTitle = $('<p/>').text('HEALTH GUARD').appendTo(header);
 						header.prependTo($('#content'));
 						break;

@@ -1,5 +1,10 @@
 package com.yjc.airq.service;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
@@ -35,7 +40,7 @@ public class NotificationServiceImplement implements NotificationService {
 		ArrayList<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
 
 		interceptors.add(new HeaderRequestInterceptor("Authorization", "key=" + firebase_server_key));
-		interceptors.add(new HeaderRequestInterceptor("Content-Type", "application/json; UTF-8 "));
+		interceptors.add(new HeaderRequestInterceptor("Content-Type", "application/json;charset=UTF-8"));
 		restTemplate.setInterceptors(interceptors);
 
 		String firebaseResponse = restTemplate.postForObject(firebase_api_url, entity, String.class);
@@ -93,46 +98,87 @@ public class NotificationServiceImplement implements NotificationService {
 		memberMapper.tokenUpdate(token, id);
 	}
 
+//	@Override
+//	public void appPush(ArrayList<String> token, String title, String content) {
+//		// TODO Auto-generated method stub
+//
+//		JSONObject body = new JSONObject();
+//
+//		JSONArray array = new JSONArray();
+//
+//		for (int i = 0; i < token.size(); i++) {
+//			array.add(token.get(i));
+//		}
+//
+//		body.put("registration_ids", array);
+//
+//		JSONObject notification = new JSONObject();
+//		notification.put("title",title);
+//		notification.put("body", content);
+//		System.out.println("서비스인코딩:"+title);
+//		body.put("notification", notification);
+//
+//		System.out.println(body.toString());
+//
+//		String result = body.toString();
+//
+//		HttpEntity<String> entity = new HttpEntity<>(result);
+//
+//		RestTemplate restTemplate = new RestTemplate();
+//
+//		ArrayList<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
+//
+//		interceptors.add(new HeaderRequestInterceptor("Authorization", "key=" + firebase_server_key));
+//		interceptors.add(new HeaderRequestInterceptor("Content-Type", "application/json;"));
+//		restTemplate.setInterceptors(interceptors);
+//
+//		String firebaseResponse = restTemplate.postForObject(firebase_api_url, entity, String.class);
+//
+//		CompletableFuture<String> pushNotification = CompletableFuture.completedFuture(firebaseResponse);
+//
+//		CompletableFuture.allOf(pushNotification).join();
+//
+//	}
+
 	@Override
 	public void appPush(ArrayList<String> token, String title, String content) {
-		// TODO Auto-generated method stub
 
-		JSONObject body = new JSONObject();
+		try {
+			URL url = new URL(firebase_api_url);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setDoOutput(true);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/json");
+			conn.setRequestProperty("Authorization", "key=" + firebase_server_key);
 
-		JSONArray array = new JSONArray();
+			conn.setDoOutput(true);
 
-		for (int i = 0; i < token.size(); i++) {
-			array.add(token.get(i));
+			JSONObject notification = new JSONObject();
+			JSONObject body = new JSONObject();
+
+			notification.put("title", title);
+			notification.put("body", content);
+
+			body.put("notification", notification);
+			body.put("registration_ids", token);
+			OutputStream os = conn.getOutputStream();
+
+			// 서버에서 날려서 한글 깨지는 사람은 아래처럼 UTF-8로 인코딩해서 날려주자
+			os.write(body.toString().getBytes("UTF-8"));
+			os.flush();
+			os.close();
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		body.put("registration_ids", array);
-
-		JSONObject notification = new JSONObject();
-		notification.put("title", title);
-		notification.put("body", content);
-
-		body.put("notification", notification);
-
-		System.out.println(body.toString());
-
-		String result = body.toString();
-
-		HttpEntity<String> entity = new HttpEntity<>(result);
-
-		RestTemplate restTemplate = new RestTemplate();
-
-		ArrayList<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
-
-		interceptors.add(new HeaderRequestInterceptor("Authorization", "key=" + firebase_server_key));
-		interceptors.add(new HeaderRequestInterceptor("Content-Type", "application/json; UTF-8 "));
-		restTemplate.setInterceptors(interceptors);
-
-		String firebaseResponse = restTemplate.postForObject(firebase_api_url, entity, String.class);
-
-		CompletableFuture<String> pushNotification = CompletableFuture.completedFuture(firebaseResponse);
-
-		CompletableFuture.allOf(pushNotification).join();
-
 	}
 
 }

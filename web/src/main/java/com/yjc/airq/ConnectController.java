@@ -435,7 +435,7 @@ public class ConnectController {
 	@ResponseBody
 	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName,
 			String upload_code, HttpServletRequest request) {
-
+		System.out.println("DOWNLOAD");
 		fileName=connectService.filename(upload_code);
 		Resource resource = new FileSystemResource(request.getServletContext().getRealPath("/resources/uploadFile/ppt/")+fileName);
 		
@@ -475,7 +475,7 @@ public class ConnectController {
 		ArrayList<String> uploadArr = new ArrayList<>();
 		
 		TenderVO tenderVo=connectService.tenderContent(tender_code);
-		
+		connectService.paymentDelete(tender_code);
 		for (int i = 0; i < arr.size(); i++) {
 			uploadArr.add(arr.get(i).getUpload_code()); //투찰 업로드 리스트
 		}

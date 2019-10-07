@@ -398,3 +398,52 @@ a {
 
 
 /****************************/
+
+
+
+/************범례 CSS***********/
+
+#before .measure_wrap {
+    display: flex;
+    flex-direction: column;
+    width:100%;
+}
+
+#before .grade-table {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+#before .grade-box {
+    /* border: 1px solid #000; */
+    border-bottom: none;
+    padding-bottom: 1.5vh;
+}
+#before .grade_wrap {
+    width: 15%;
+    text-align: center;
+}
+
+#after .grade-table {
+    display: flex;
+    margin-top: 3vh;
+}
+
+
+#after .grade-box {
+    display: flex;
+    width: 100%;
+}
+
+#after .grade-explain {
+    /* width: 100%; */
+    margin: auto;
+    display: flex;
+}
+
+
+
+
+/*****************************/
