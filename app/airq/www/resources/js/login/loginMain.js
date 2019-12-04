@@ -191,7 +191,6 @@ $(document).ready(function () {
 						}
 						else{
 							if(confirm("대표 디바이스로 지정하시겠습니까?")){
-								alert(token);
 								tokenUpdate(token,id);
 							}
 						}

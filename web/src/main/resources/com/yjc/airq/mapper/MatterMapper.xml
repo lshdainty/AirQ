@@ -23,8 +23,8 @@
 	<!-- 일별 예약자 모니터링 -->
 	<select id="reservation" resultType="map">
         select
-		nvl(to_char(m.measure_time,'yyyy-mm-dd'),0) measure_time,
-		to_number(to_char(avg(measure_value),'99999')) measure_value
+		to_char(m.measure_time,'yyyy-mm-dd') measure_time,
+		to_number(to_char(avg(measure_value),'99999.9')) measure_value
 		from measure_data m, iot_info i
 		where m.iot_id=i.iot_id and
         m.iot_id=#{iot_id} and
@@ -33,7 +33,7 @@
         to_char(m.measure_time,'yyyy-mm-dd') > to_char(sysdate-7,'yyyy-mm-dd')
 		group by m.iot_id,i.member_id,
 		to_char(m.measure_time,'yyyy-mm-dd')
-		order by measure_time
+		order by measure_time desc
 	</select>
 
 	<!-- 시간별 예약자 모니터링 -->
@@ -53,15 +53,17 @@
 	<!-- 나쁨 횟수 -->
 	<select id="badNum" resultType="int">
         select count(*)
-		from (
-        select *
-        from measure_data m, iot_info i
-		where m.iot_id=i.iot_id and
-            m.iot_id=#{iot_id} and
+		from ( 
+			select to_char(m.measure_time,'yyyy-mm-dd') measure_time, to_number(to_char(avg(measure_value),'9999.9')) measure_value
+			from measure_data m, iot_info i
+			where m.iot_id=i.iot_id and
+			m.iot_id=#{iot_id} and
 			member_id=#{member_id} and 
         	m.matter_code=#{matter_code} and
-            to_char(m.measure_time,'yyyy-mm-dd') > to_char(sysdate-30,'yyyy-mm-dd')
-            and measure_value>${badValue})
+            to_char(m.measure_time,'yyyy-mm-dd') > to_char(sysdate-7,'yyyy-mm-dd')
+			group by m.iot_id,i.member_id,to_char(m.measure_time,'yyyy-mm-dd')
+			order by measure_time desc) o
+		where o.measure_value>${badValue}
 	</select>
 
 	<!-- 일주일 미세먼지 평균 -->
@@ -75,7 +77,7 @@
             m.iot_id=#{iot_id} and
 			member_id=#{member_id} and 
         	m.matter_code=#{matter_code} and
-            to_char(m.measure_time,'yyyy-mm-dd') > to_char(sysdate-30,'yyyy-mm-dd')
+            to_char(m.measure_time,'yyyy-mm-dd') > to_char(sysdate-7,'yyyy-mm-dd')
 			group by m.iot_id,i.member_id, to_char(m.measure_time,'yyyy-mm-dd')
 			order by measure_time desc) o
 	</select>

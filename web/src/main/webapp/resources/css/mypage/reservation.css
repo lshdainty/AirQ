@@ -91,23 +91,3 @@
 #dayMatterDataDiv {
 	display:inline-block !important;
 }
-
-
-
-
-.grade-table {
-    display: inline-flex;
-    flex-direction: row;
-}
-
-
-
-.grade-box {
-    display: flex;
-    width: 100%;
-}
-
-.grade-explain {
-    display: flex;
-    margin: auto;
-}

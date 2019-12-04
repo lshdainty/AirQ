@@ -9,7 +9,7 @@
 <div class="container">
 
 <div style="display: inline-block;">
-<iframe width="590" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS44FlsjbBvxN-mSC5x2n5f_T2dyY4RYF4P4wpwU2w6CNG0qEzBqhZ8H556JJX7fN5s-P9yJuJy9GzZ/pubchart?oid=1550684130&format=interactive"></iframe>
+<iframe width="590" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS44FlsjbBvxN-mSC5x2n5f_T2dyY4RYF4P4wpwU2w6CNG0qEzBqhZ8H556JJX7fN5s-P9yJuJy9GzZ/pubchart?oid=1550684130&amp;format=interactive"></iframe>
 	
 <iframe width="500" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS44FlsjbBvxN-mSC5x2n5f_T2dyY4RYF4P4wpwU2w6CNG0qEzBqhZ8H556JJX7fN5s-P9yJuJy9GzZ/pubchart?oid=1054647217&amp;format=interactive"></iframe>	
 </div>
@@ -171,5 +171,5 @@
 </footer>
 
 
-<script src='/resources/js/mypage/mypageMain.js'></script>
+<script src='resources/js/mypage/mypageMain.js'></script>
 <%@include file="../include/footer.jsp"%>

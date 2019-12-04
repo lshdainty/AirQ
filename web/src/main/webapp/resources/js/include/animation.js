@@ -9,10 +9,4 @@ $(document).ready(function(){
 	} else {
 	    $(window).on('load',init);
 	};
-	
-	$(document).on('click','#logout',function(){
-		localStorage.clear();
-		sessionStroage.clear();
-	});
 });
-

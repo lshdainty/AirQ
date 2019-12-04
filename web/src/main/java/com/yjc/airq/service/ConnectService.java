@@ -113,8 +113,6 @@ public interface ConnectService {
 	
 	public int tenderBid(@Param("tender_code") String tender_code, @Param("member_id") String member_id);	
 	
-	public void paymentDelete(String tender_code);
-	
 	//회사별 리뷰
 	public ArrayList<Map<String,Object>> companyReview(String company_code);
 	

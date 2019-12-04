@@ -272,12 +272,6 @@ public class ConnectServiceImplement implements ConnectService {
 		return bidMapper.tenderBid(tender_code, member_id);
 	}
 	
-	@Override
-	public void paymentDelete(String tender_code) {
-		paymentMapper.paymentDelete(tender_code);
-	}
-	
-	
 	//회사별 리뷰
 	@Override
 	public ArrayList<Map<String, Object>> companyReview(String company_code) {

@@ -136,6 +136,7 @@ function hourChart(timeData,dataGubun,unit) {
 		categoryAxis.dataFields.category = "TIME";
 		categoryAxis.renderer.grid.template.location = 0;
 		categoryAxis.renderer.minGridDistance = 30;
+
 		var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
 		// Create series
@@ -324,8 +325,7 @@ function inOldData(OldData) {
 		dateAxis.renderer.inside = true;
 		dateAxis.renderer.axisFills.template.disabled = true;
 		dateAxis.renderer.ticks.template.disabled = true;
-		
-		
+
 		var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 		valueAxis.tooltip.disabled = true;
 		valueAxis.interpolationDuration = 500;
@@ -335,8 +335,7 @@ function inOldData(OldData) {
 		valueAxis.renderer.maxLabelPosition = 0.95;
 		valueAxis.renderer.axisFills.template.disabled = true;
 		valueAxis.renderer.ticks.template.disabled = true;
-		valueAxis.max=160;
-		
+
 		var series = chart.series.push(new am4charts.LineSeries());
 		series.dataFields.dateX = "TIME";
 		series.dataFields.valueY = "VALUE";

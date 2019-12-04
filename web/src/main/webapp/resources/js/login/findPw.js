@@ -26,8 +26,6 @@ $(document).ready(function(){
 	$("#root").click(function(){
 		if($("#root").prop("checked")){
 		$("#tel").css("display","inline-block");
-		$("#email").css("display","none");
-		$("#root2").prop("checked",false);		
 		}else{
 			$("#tel").css("display","none");
 		}
@@ -36,8 +34,6 @@ $(document).ready(function(){
 	$("#root2").click(function(){
 		if($("#root2").prop("checked")){
 		$("#email").css("display","inline-block");
-		$("#tel").css("display","none");
-		$("#root").prop("checked",false);
 		}else{
 			$("#email").css("display","none");
 		}

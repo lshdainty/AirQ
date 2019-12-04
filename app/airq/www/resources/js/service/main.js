@@ -14,6 +14,8 @@ $(document).ready(function () {
         if (navigator.geolocation) {
             //위치 정보를 얻기
             navigator.geolocation.getCurrentPosition(function (position) {
+            alert("aa");
+                
                 var x = position.coords.latitude;
                 var y = position.coords.longitude;
                 var mapOptions = {
@@ -120,11 +122,17 @@ $(document).ready(function () {
                             }
                             $(thisSelector).siblings(".condition").text(condition);
                             $(thisSelector).siblings(".faceGrade").text(faceGrade);
-                            $('.matter_container').get(0).click();
-
 
                         }
                         
+
+                        var container = $('#'+place).find('.matter_container').get(0);
+
+                        condition = $(container).find('.condition').text();
+                        value =$(container).find('.measure_value').text();
+                        changeNum = $(container).find('.changeNum').text();
+                        faceGrade = $(container).find('.faceGrade').text();
+                        mainInfoChange(condition,value,changeNum,faceGrade,"outside");
 
 
                     }
@@ -288,6 +296,7 @@ $(document).ready(function () {
                     '<span class="condition" style="display:none;">'+condition+'</span>'+
                     '<span class="faceGrade" style="display:none;">'+faceGrade+'</span> </div></div>';
 
+
                    $($('#inside').find('.mat_info_row')).append(item);
                 }
             }
@@ -298,7 +307,6 @@ $(document).ready(function () {
                     $(".matSBox").empty();
                     $(".matSBox").append(html);
                 }
-                $('#inside').find('.matter_container').get(0).click();
             }
         });
     }

@@ -7,5 +7,67 @@
         <div class="d-flex align-items-center"><a href="#" class="navbar-brand py-1"><img
                     src="../../../www/resources/images/airqWebLogo.png" alt="AirQ" style="height:35px;"></a>
         </div>
+        <button type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+            aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+            </button>
+        <!-- Navbar Collapse -->
+        <div id="navbarCollapse" class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="/" class="nav-link">HOME</a></li>
+                <li class="nav-item dropdown"><a id="communityDropdownMenuLink" href="#" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle ">
+
+                        업체연결 서비스</a>
+                    <div aria-labelledby="connectDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+                        <h6 class="dropdown-header font-weight-normal">개인 사용자</h6>
+                        <a href="/compareMain" class="dropdown-item">업체 연결 서비스 </a>
+                        <div class="dropdown-divider"></div>
+
+
+                        <h6 class="dropdown-header font-weight-normal">단체 사용자</h6><a href="/tenderMain"
+                            class="dropdown-item">입/투찰 서비스 </a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a id="communityDropdownMenuLink" href="#" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false" class="nav-link dropdown-toggle ">
+                        커뮤니티
+                    </a>
+                    <div aria-labelledby="communityDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+                        <h6 class="dropdown-header font-weight-normal">상품 게시판</h6>
+                        <a href="/thumbnailBoardMain?board_code=bd_rec&pagenum=1" class="dropdown-item">상품추천
+                        </a>
+                        <a href="/tableBoardMain?board_code=bd_lib&pagenum=1" class="dropdown-item">자유게시판</a>
+                        <div class="dropdown-divider"></div>
+
+
+                        <h6 class="dropdown-header font-weight-normal">공기 게시판</h6>
+                        <a href="/thumbnailBoardMain?board_code=bd_met&pagenum=1" class="dropdown-item">대기오염
+                            물질정보</a>
+                        <a href="/thumbnailBoardMain?board_code=bd_imp&pagenum=1" class="dropdown-item">공기질
+                            향상방법</a>
+                        <a href="/thumbnailBoardMain?board_code=bd_hea&pagenum=1" class="dropdown-item">건강지킴이</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a id="communityDropdownMenuLink" href="#" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false" class="nav-link dropdown-toggle ">
+                        공기질 관리
+                    </a>
+                    <div aria-labelledby="communityDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+                        <h6 class="dropdown-header font-weight-normal">모니터링</h6>
+                        <a href="/monitoringMain" class="dropdown-item">공기질 모니터링 </a>
+                        <div class="dropdown-divider"></div>
+
+
+                        <h6 class="dropdown-header font-weight-normal">IoT</h6>
+                        <a href="/remoteMain" class="dropdown-item">IOT 원격제어</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>

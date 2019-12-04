@@ -34,7 +34,6 @@
 							</div>
 							<div class="member-input-wrong-message" style="display:none;"></div>
 							<div class="login__l">
-							<div class="login__l">
 								<div class="login__checkbox">
 									<div class="member-checkbox">
 										<span class="member-checkbox__state"> <input
@@ -45,16 +44,13 @@
 									</div>
 								</div>
 								<span class="login__find-password-btn"><a
-									class="member-link" href="/findId">Forgot ID?</a></span>
-							</div>
-									<span class="login__find-password-btn"><a
-								class="member-link" href="/findPw">Forgot Password?</a></span>
+									class="member-link" href="/find/reset-password/send-email">Forgot Password?</a></span>
 							</div>
 							<button type="button" class="member-button login__btn"
 								disabled="">LOGIN</button>
 							<div class="login__l-sign-up">
 								Don’t have an account?<span class="login__sign-up-link"><a
-									class="member-link" href="/joinMain">Sign
+									class="member-link" href="/register/agree?idType=OPGG">Sign
 										Up</a></span>
 							</div>
 						</form>

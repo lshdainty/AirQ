@@ -46,68 +46,14 @@
 
 
 <!-- ----------------------------------  2nd section ---------------------------------   -->
-	<c:if test="${sessionScope.user==null}">
-	
-	<div style="width: 100%; margin: auto; max-width: 1100px;display:flex" id="before">
+<div style="width: 100%; margin: auto; max-width: 1000px">
 
-	<div class="grade_wrap">
-		<div class="grade-table">
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_1.png" alt="최고">
-				</div>
-				<div class="grade-explain">최고</div>
-			</div>
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_2.png" alt="좋음">
-				</div>
-				<div class="grade-explain">좋음</div>
-			</div>
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_3.png" alt="양호">
-				</div>
-				<div class="grade-explain">양호</div>
-			</div>
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_4.png" alt="보통">
-				</div>
-				<div class="grade-explain">보통</div>
-			</div>
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_5.png" alt="나쁨">
-				</div>
-				<div class="grade-explain">나쁨</div>
-			</div>
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_6.png" alt="상당히 나쁨">
-				</div>
-				<div class="grade-explain">상당히 나쁨</div>
-			</div>
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_7.png" alt="매우 나쁨">
-				</div>
-				<div class="grade-explain">매우 나쁨</div>
-			</div>
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_8.png" alt="최악">
-				</div>
-				<div class="grade-explain">최악</div>
-			</div>
-		</div>
-	</div>
-	
-	
-		<div class="measure_wrap">
+
+	<c:if test="${sessionScope.user==null}">
+
 		<div class="measure-container"></div>
 		<div class="areaBox">
-			<span class="areaname"></span> <span class="mattername"></span> 수치
+			<span class="areaname"></span>의 <span class="mattername"></span> 수치
 		</div>
 		<div style="display: flex;">
 			<div id="outsideMatChart" style="width: 88%; height: 500px;"></div>
@@ -122,70 +68,11 @@
 				</ul>
 			</div>
 		</div>
-	</div>
-	</div>
+
 	</c:if>
 
 	<c:if test="${sessionScope.user!=null}">
-	
-	<div style="width: 100%; margin: auto; max-width: 1000px;" id="after">
 
-	<div class="grade_wrap">
-		<div class="grade-table">
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_1.png" alt="최고">
-				</div>
-				<div class="grade-explain">최고</div>
-			</div>
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_2.png" alt="좋음">
-				</div>
-				<div class="grade-explain">좋음</div>
-			</div>
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_3.png" alt="양호">
-				</div>
-				<div class="grade-explain">양호</div>
-			</div>
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_4.png" alt="보통">
-				</div>
-				<div class="grade-explain">보통</div>
-			</div>
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_5.png" alt="나쁨">
-				</div>
-				<div class="grade-explain">나쁨</div>
-			</div>
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_6.png" alt="상당히 나쁨">
-				</div>
-				<div class="grade-explain">상당히 나쁨</div>
-			</div>
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_7.png" alt="매우 나쁨">
-				</div>
-				<div class="grade-explain">매우 나쁨</div>
-			</div>
-			<div class="grade-box">
-				<div class="grade-img">
-					<img class="point" src="/resources/images/point_8.png" alt="최악">
-				</div>
-				<div class="grade-explain">최악</div>
-			</div>
-		</div>
-	</div>
-	
-	
-	
-		<div class="logined_wrap">
 		<!-- Material measure Content \ Outside \  -->
 		<div class="sideQBox" id="outsideBox">
 			<div class="outsideTitle">실외 공기질 측정 현황</div>
@@ -262,9 +149,8 @@
 			</div>
 		</div>
 		<!-- ------------------------------------ -->
-		</div>
-		</div>
 	</c:if>
+</div>
 
 <!-- ----------------------------------  2nd section ---------------------------------   -->
 
